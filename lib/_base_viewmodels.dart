@@ -39,7 +39,7 @@ class ReactiveViewModel extends BaseViewModel {
   @override
   void dispose() {
     for (var reactiveService in _reactiveServices) {
-      reactiveService.removeListeners(_indicateChange);
+      reactiveService.removeListener(_indicateChange);
     }
     super.dispose();
   }

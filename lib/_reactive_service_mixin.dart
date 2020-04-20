@@ -18,7 +18,7 @@ mixin ReactiveServiceMixin {
     _listeners.add(listener);
   }
 
-  void removeListeners(void Function() listener) {
+  void removeListener(void Function() listener) {
     _listeners.remove(listener);
   }
 }

@@ -22,7 +22,11 @@ Lets go over some of those principles to follow during development.
 - ViewModels may be re-used if the UI required the exact same functionality.
 - ViewModels should not know about other ViewModels
 
-That's quite a bit of "rules" but they help during production. Trust me. Lets get on to some of the implementation.
+That's quite a bit of "rules" but they help during production. Trust me.
+
+## Stacked's place in your architecture
+
+Stacked provides you with classes and functionalities to make it easy to implement that base architecture that this package is built for. There are additional things that you can add to your application that will make the user of this architecture much more pleasant. This will be discussed in full on the architecture series that will come out soon. Everything from navigation, dependency injection, service location, error handling, etc.
 
 ## ViewModelBuilder
 
@@ -276,3 +280,128 @@ class UpdateTitleButton extends ViewModelWidget<HomeViewModel> {
   }
 }
 ```
+
+## BaseViewModel functionality
+
+This is a `ChangeNotifier` with busy state indication functionality. This allows you to set a busy state based on an object passed it. This will most likely be the properties on the extended ViewModel. It came from the need to have busy states for multiple values in the same ViewModels without relying on implicit state values. It also contains a helper function to indicate busy while a future is executing. This way we avoid having to call setBusy before and after every Future call.
+
+To use the `BaseViewModel` you can extend it and make use of the busy functionality as follows.
+
+```dart
+class WidgetOneViewModel extends BaseViewModel {
+
+  Human _currentHuman;
+  Human get currentHuman => _currentHuman;
+
+  void setBusyOnProperty() {
+    setBusyForObject(_currentHuman, true);
+    // Fetch updated human data
+    setBusyForObject(_currentHuman, false);
+  }
+
+  Future longUpdateStuff() async {
+    // Sets busy to true before starting future and sets it to false after executing
+    // You can also pass in an object as the busy object. Otherwise it'll use the model
+    var result = await runBusyFuture(updateStuff());
+  }
+
+  Future updateStuff() {
+    return Future.delayed(const Duration(seconds: 3));
+  }
+}
+```
+
+This makes it convenient to use in the UI in a more readable manner.
+
+```dart
+class WidgetOne extends StatelessWidget {
+  const WidgetOne({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<WidgetOneViewModel>.reactive(
+      viewModelBuilder: () => WidgetOneViewModel(),
+      builder: (context, model, child) => GestureDetector(
+        onTap: () => model.longUpdateStuff(),
+        child: Container(
+          width: 100,
+          height: 100,
+          color: Colors.green,
+          alignment: Alignment.center,
+          // A bit silly to pass the same property back into the viewmodel
+          // but here it makes sense
+          child: model.busy(model.currentHuman)
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Container(/* Human Details styling */)
+        ),
+      ),
+    );
+  }
+}
+
+```
+
+All the major functionality for the BaseViewModel is shown above
+
+## Reactivity
+
+One thing that was common scenario, which the first implementation of this architecture didn't make provision for is reacting to values changed by different ViewModels. I don't have the exact implementation that I would hope for but without reflection some things will have to be a bit more verbose. The stacked architecture makes provision for ViewModels to react to changes to values in a service by making use of RxValue from the (Observable-Ish)[https://pub.dev/packages/observable_ish] package.
+
+### Reactive Service Mixin
+
+In the stacked library we have a `ReactiveServiceMixin` which can be used to register values to "react" to. When any of these values change the listeners registered with this service will be notified to update their UI. This is definitely not the most effecient way but I have tested this with 1000 widgets with it's own viewmodel all updating on the screen and it works fine. If you follow general good code implementations and layout structuring you will have no problem keeping your app at 60fps no matter the size.
+
+There are three things you need to make a service reactive.
+
+1. Use the `ReactiveServiceMixin` with the service you want to make reactive
+2. Wrap your values in an RxValue. The value provided by Observable-ish
+3. Register your reactive values by calling `listenToReactiveValues`. A function provided by the mixin.
+
+Below is some source code for the non theory coders out there like myself.
+
+```dart
+class InformationService with ReactiveServiceMixin { //1
+  InformationService() {
+    //3
+    listenToReactiveValues([_postCount]);
+  }
+
+  //2
+  RxValue<int> _postCount = RxValue<int>(initial: 0);
+  int get postCount => _postCount.value;
+
+  void updatePostCount() {
+    _postCount.value++;
+  }
+
+  void resetCount() {
+    _postCount.value = 0;
+  }
+}
+```
+
+Easy peasy. This service can now be listened too when any of the properties passed into the `listenToReactiveValues` is changed. So how do listen to these values? I'm glad you asked. Lets move onto the `ReactiveViewModel`.
+
+### Reactive View Model
+
+This ViewModel extends the `BaseViewModel` and adds an additional function that allows you to listen to services that are being used in the model. There are two thing you have to do to make a ViewModel react to changes in a service.
+
+1. Extend from `ReactiveViewModel`.
+2. Call `reactToService` and pass in a list of services it should react to.
+
+```dart
+class WidgetOneViewModel extends ReactiveViewModel {
+  // You can use get_it service locator or pass it in through the constructor
+  final InformationService _informationService = locator<InformationService>();
+
+  WidgetOneViewModel() {
+    reactToServices([
+      _informationService,
+    ]);
+  }
+}
+```
+
+That's it. To see a full example take a look at the example in the git repo.
