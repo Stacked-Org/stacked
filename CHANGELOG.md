@@ -1,3 +1,3 @@
-## [0.0.1] - TODO: Add release date.
+## [1.0.0] - 2020 - 04 - 20
 
-* TODO: Describe initial release.
+First release of the architecture containing all the initial required parts to build a full application.
