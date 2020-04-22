@@ -7,11 +7,12 @@ class WidgetTwoViewModel extends ReactiveViewModel {
   int get postCount => _informationService.postCount;
 
   final int id;
-  WidgetTwoViewModel(this.id) {
-    reactToServices([_informationService]);
-  }
+  WidgetTwoViewModel(this.id);
 
   void reset() {
     _informationService.resetCount();
   }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_informationService];
 }

@@ -87,7 +87,7 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
   @override
   Widget build(BuildContext context) {
     if (widget.providerType == _ViewModelBuilderType.NonReactive) {
-      if (widget.disposeViewModel) {
+      if (!widget.disposeViewModel) {
         return ChangeNotifierProvider.value(
           value: _model,
           child: widget.builder(context, _model, widget.staticChild),
@@ -100,7 +100,7 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
       );
     }
 
-    if (widget.disposeViewModel) {
+    if (!widget.disposeViewModel) {
       return ChangeNotifierProvider.value(
         value: _model,
         child: Consumer(

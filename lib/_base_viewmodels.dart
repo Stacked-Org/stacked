@@ -9,6 +9,11 @@ class BaseViewModel extends ChangeNotifier {
   /// Returns the busy status for an object if it exists. Returns false if not present
   bool busy(Object object) => _busyStates[object.hashCode] ?? false;
 
+  /// Marks the viewmodel as busy and calls notify listeners
+  void setBusy(bool value) {
+    setBusyForObject(this, value);
+  }
+
   /// Sets the busy state for the object equal to the value passed in and notifies Listeners
   void setBusyForObject(Object object, bool value) {
     _busyStates[object.hashCode] = value;
@@ -27,9 +32,16 @@ class BaseViewModel extends ChangeNotifier {
 }
 
 /// A [BaseViewModel] that provides functionality to subscribe to a reactive service.
-class ReactiveViewModel extends BaseViewModel {
+abstract class ReactiveViewModel extends BaseViewModel {
   List<ReactiveServiceMixin> _reactiveServices;
-  void reactToServices(List<ReactiveServiceMixin> reactiveServices) {
+
+  List<ReactiveServiceMixin> get reactiveServices;
+
+  ReactiveViewModel() {
+    _reactToServices(reactiveServices);
+  }
+
+  void _reactToServices(List<ReactiveServiceMixin> reactiveServices) {
     _reactiveServices = reactiveServices;
     for (var reactiveService in _reactiveServices) {
       reactiveService.addListener(_indicateChange);

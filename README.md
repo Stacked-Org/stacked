@@ -11,7 +11,9 @@ The architecture is very simple. It consists of 3 major pieces, everything else 
 - **View**: Shows the UI to the user. Single widgets also qualifies as views (for consistency in terminology) a view in this case is not a "Page" it's just a UI representation.
 - **ViewModel**: Manages the state of the View, business logic and any other logic as required from user interaction. It does this by making use of the services
 - **Services**: A wrapper of a single functionality / feature set. This is commonly used to wrap things like showing a dialog, wrapping database functionality, integrating an api, etc.
-----
+
+---
+
 - **Managers(Suggestion)**: A service that requires other services. This piece serves no particular part in the architecture except for indicating that it has depdendencies on other service. It has no functional part in the architecture, It's main purpose is to distinguish between services that depend on other services and ones that don't. It's not a hard rule to follow but will allow for more code separation.
 
 Lets go over some of those principles to follow during development.
@@ -390,18 +392,15 @@ Easy peasy. This service can now be listened too when any of the properties pass
 This ViewModel extends the `BaseViewModel` and adds an additional function that allows you to listen to services that are being used in the model. There are two thing you have to do to make a ViewModel react to changes in a service.
 
 1. Extend from `ReactiveViewModel`.
-2. Call `reactToService` and pass in a list of services it should react to.
+2. Implement reactiveServices getter that return a list of reactive services.
 
 ```dart
 class WidgetOneViewModel extends ReactiveViewModel {
   // You can use get_it service locator or pass it in through the constructor
   final InformationService _informationService = locator<InformationService>();
 
-  WidgetOneViewModel() {
-    reactToServices([
-      _informationService,
-    ]);
-  }
+   @override
+  List<ReactiveServiceMixin> get reactiveServices => [_informationService];
 }
 ```
 
