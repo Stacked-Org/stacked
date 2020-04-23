@@ -9,6 +9,9 @@ class BaseViewModel extends ChangeNotifier {
   /// Returns the busy status for an object if it exists. Returns false if not present
   bool busy(Object object) => _busyStates[object.hashCode] ?? false;
 
+  /// Returns the busy status of the viewmodel
+  bool get isBusy => busy(this);
+
   /// Marks the viewmodel as busy and calls notify listeners
   void setBusy(bool value) {
     setBusyForObject(this, value);

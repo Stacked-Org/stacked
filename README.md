@@ -335,7 +335,8 @@ class WidgetOne extends StatelessWidget {
         child: Container(
           width: 100,
           height: 100,
-          color: Colors.green,
+          // Use isBusy to check if the model is set to busy
+          color: model.isBusy ? Colors.green : Colors.red,
           alignment: Alignment.center,
           // A bit silly to pass the same property back into the viewmodel
           // but here it makes sense
