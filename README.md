@@ -413,13 +413,71 @@ class WidgetOneViewModel extends ReactiveViewModel {
 
 That's it. To see a full example take a look at the example in the git repo.
 
+### StreamViewModel
+
+This `ViewModel` extends the `BaseViewModel` and provides functionality to easily listen and react to stream data. It allows you to supply a `Stream` of type `T` which it will subscribe to, manage subscription (dispose when done) and give you callbacks where you can modify / manipulate the data. It will automatically rebuild the `ViewModel` as new stream values come in. It has 1 required override which is the stream getter and 4 optional overrides.
+
+- **stream**: Returns the `Stream` you would like to listen to
+- **onData**: Called after the view has rebuilt and provides you with the data to use
+- **onCancel**: Called after the stream has been disposed
+- **onSubscribed**: Called when the stream has been subscribed to
+- **onError**: Called when an error is sent over the stream
+
+```dart
+// ViewModel
+class StreamCounterViewModel extends StreamViewModel<int> {
+
+  String get title => 'This is the time since epoch in seconds \n $data';
+
+  @override
+  Stream<int> get stream => locator<EpochService>().epochUpdatesNumbers();
+}
+
+// View
+class StreamCounterView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<StreamCounterViewModel>.reactive(
+      builder: (context, model, child) => Scaffold(
+            body: Center(
+              child: Text(model.title),
+            ),
+          ),
+      viewModelBuilder: () => StreamCounterViewModel(),
+    );
+  }
+}
+
+// Service (registered using injectable, NOT REQUIRED)
+@lazySingleton
+class EpochService {
+  Stream<int> epochUpdatesNumbers() async* {
+    while (true) {
+      await Future.delayed(const Duration(seconds: 2));
+      yield DateTime.now().millisecondsSinceEpoch;
+    }
+  }
+}
+```
+
+The code above will listen to a stream and provide you the data to rebuild with. You can create a `ViewModel` that listens to a stream with two lines of code.
+
+```dart
+class StreamCounterViewModel extends StreamViewModel<int> {
+  @override
+  Stream<int> get stream => locator<EpochService>().epochUpdatesNumbers();
+}
+```
+
+Firebase implementations just got way more cleaner 😎
+
 ## Migrating from provider_architecture to Stacked
 
 Lets start with a statement to ease your migration panic 😅 stacked is the exact same code from provider_architecture with naming changes and removal of some old deprecated properties. If you don't believe me, open the repo's side by side and look at the lib folders. Well, up till yesterday (22 April 2020) I guess, when I updated the BaseViewModel. I wanted to do this to show that stacked is production ready from the go. It's a new package but it's been used by all of you and the FilledStacks development team for months in the form of provider_architecture. With that out of the way lets start the migrate.
 
 ### ViewModelProvider Migration
 
-This class has now been more appropriately named `ViewModelBuilder`. This is to match it's functionality more closely. Building UI FROM the ViewModel. The ViewModel is used to drive the state of the reactive UI. 
+This class has now been more appropriately named `ViewModelBuilder`. This is to match it's functionality more closely. Building UI FROM the ViewModel. The ViewModel is used to drive the state of the reactive UI.
 
 Migrations to take note of:
 

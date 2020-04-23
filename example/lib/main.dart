@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:new_architecture/app/locator.dart';
-import 'package:new_architecture/ui/home/home_view.dart';
+import 'package:new_architecture/ui/stream_view/stream_counter_view.dart';
 
 void main() {
   configure();
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeView(),
+      home: StreamCounterView(),
     );
   }
 }

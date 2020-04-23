@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 
 import '_reactive_service_mixin.dart';
@@ -61,5 +63,65 @@ abstract class ReactiveViewModel extends BaseViewModel {
 
   void _indicateChange() {
     notifyListeners();
+  }
+}
+
+abstract class StreamViewModel<T> extends BaseViewModel {
+  T _data;
+  T get data => _data;
+
+  Stream<T> get stream;
+
+  StreamSubscription _streamSubscription;
+
+  StreamViewModel() {
+    _streamSubscription = stream.listen(
+      (incomingData) {
+        var interceptedData = transformData(incomingData);
+
+        if (interceptedData != null) {
+          _data = interceptedData;
+        } else {
+          _data = incomingData;
+        }
+
+        notifyListeners();
+        onData(_data);
+      },
+      onError: (error) => onError(error),
+    );
+
+    onSubscribed();
+  }
+
+  /// Called when the new data arrives
+  ///
+  /// notifyListeners is called before this so no need to call in here unless you're
+  /// running additional logic and setting a separate value.
+  void onData(T data) {}
+
+  /// Called after the stream has been listened too
+  void onSubscribed() {}
+
+  /// Called when an error is placed on the stream
+  void onError(error) {}
+
+  /// Called when the stream is cancelled
+  void onCancel() {}
+
+  /// Allows you to modify the data before it's set as the new data for the model
+  ///
+  /// This can be used to modify the data if required. If nothhing is returned the data
+  /// won't be set.
+  T transformData(T data) {
+    return data;
+  }
+
+  @override
+  void dispose() {
+    _streamSubscription.cancel();
+    onCancel();
+
+    super.dispose();
   }
 }
