@@ -45,7 +45,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   })  : providerType = _ViewModelBuilderType.NonReactive,
         staticChild = null;
 
-  /// Constructs a viewmodel provider that fires the uiBuilder function when notifyListeners is called in the viewmodel.
+  /// Constructs a viewmodel provider that fires the [builder] function when notifyListeners is called in the viewmodel.
   ViewModelBuilder.reactive({
     @required this.builder,
     @required this.viewModelBuilder,

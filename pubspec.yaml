@@ -1,6 +1,6 @@
 name: stacked
 description: An architecture for maintainable Software
-version: 1.0.3+1
+version: 1.0.3+2
 homepage: https://github.com/FilledStacks/stacked
 
 environment:
