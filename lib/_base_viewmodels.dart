@@ -66,10 +66,17 @@ abstract class ReactiveViewModel extends BaseViewModel {
   }
 }
 
-abstract class StreamViewModel<T> extends BaseViewModel {
+class SingleDataSourceViewModel<T> extends BaseViewModel {
   T _data;
   T get data => _data;
 
+  bool _hasError;
+  bool get hasError => _hasError;
+
+  bool get dataReady => _data != null;
+}
+
+abstract class StreamViewModel<T> extends SingleDataSourceViewModel<T> {
   Stream<T> get stream;
 
   StreamSubscription _streamSubscription;
@@ -77,6 +84,9 @@ abstract class StreamViewModel<T> extends BaseViewModel {
   StreamViewModel() {
     _streamSubscription = stream.listen(
       (incomingData) {
+        _hasError = false;
+        notifyListeners();
+
         var interceptedData = transformData(incomingData);
 
         if (interceptedData != null) {
@@ -88,7 +98,11 @@ abstract class StreamViewModel<T> extends BaseViewModel {
         notifyListeners();
         onData(_data);
       },
-      onError: (error) => onError(error),
+      onError: (error) {
+        _hasError = true;
+        onError(error);
+        notifyListeners();
+      },
     );
 
     onSubscribed();
@@ -124,4 +138,23 @@ abstract class StreamViewModel<T> extends BaseViewModel {
 
     super.dispose();
   }
+}
+
+/// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
+abstract class FutureViewModel<T> extends SingleDataSourceViewModel {
+  /// The future that fetches the data and sets the view to busy
+  Future<T> get future;
+
+  Future runFuture() async {
+    _hasError = false;
+    notifyListeners();
+
+    _data = await runBusyFuture(future).catchError((error) {
+      _hasError = true;
+      onError(error);
+      notifyListeners();
+    });
+  }
+
+  void onError(error) {}
 }

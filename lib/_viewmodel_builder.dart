@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import '_base_viewmodels.dart';
 
 enum _ViewModelBuilderType { NonReactive, Reactive }
 
@@ -75,6 +76,11 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
       }
     } else if (widget.createNewModelOnInsert) {
       _createViewModel();
+    }
+
+    // Add any additional actions here for spcialised ViewModels
+    if (_model is FutureViewModel) {
+      (_model as FutureViewModel).runFuture();
     }
   }
 

@@ -469,7 +469,93 @@ class StreamCounterViewModel extends StreamViewModel<int> {
 }
 ```
 
-Firebase implementations just got way more cleaner 😎
+Besides having the onError function you can override the `ViewModel` will also set the hasError property to true for easier checking on the view side. The `onError` callback can be used for running additional actions on failure and the `hasError` property should be used when you want to show error specific UI.
+
+### FutureViewModel
+
+This `ViewModel` extends the `BaseViewModel` to provide functionality to easily listen to a Future that fetches data. This requirement came off a Details view that has to fetch additional data to show to the user after selecting an item. When you extend the `FutureViewModel` you can provide a type which will then require you to override the future getter where you can set the future you want to run.
+
+The future will run after the model has been created automatically.
+
+```dart
+class FutureExampleViewModel extends FutureViewModel<String> {
+  @override
+  Future<String> get future => getDataFromServer();
+
+  Future<String> getDataFromServer() async {
+    await Future.delayed(const Duration(seconds: 3));
+    return 'This is fetched from everywhere';
+  }
+}
+```
+
+This will automatically set the view's isBusy property and will indicate false when it's complete. It also exposes have a `dataReady` property that can be used. This will indicate true when the data is available. The `ViewModel` can be used in a view as follows.
+
+```dart
+class FutureExampleView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<FutureExampleViewModel>.reactive(
+      builder: (context, model, child) => Scaffold(
+        body: Center(
+          // model will indicate busy until the future is fetched
+          child: model.isBusy ? CircularProgressIndicator() : Text(model.data),
+        ),
+      ),
+      viewModelBuilder: () => FutureExampleViewModel(),
+    );
+  }
+}
+```
+
+The `FutureViewModel` will also catch an error and indicate that it has received an error through the `hasError` property. You can also override the onError function if you want to receive that error and perform a specific action at that point.
+
+```dart
+class FutureExampleViewModel extends FutureViewModel<String> {
+  @override
+  Future<String> get future => getDataFromServer();
+
+  Future<String> getDataFromServer() async {
+    await Future.delayed(const Duration(seconds: 3));
+    throw Exception('This is an error');
+  }
+
+  @override
+  void onError(error) {
+  }
+}
+```
+
+The hasError property can be used in the view the same way as the isBusy property.
+
+```dart
+class FutureExampleView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<FutureExampleViewModel>.reactive(
+      builder: (context, model, child) => Scaffold(
+        body: model.hasError
+            ? Container(
+                color: Colors.red,
+                alignment: Alignment.center,
+                child: Text(
+                  'An error has occered while running the future',
+                  style: TextStyle(color: Colors.white),
+                ),
+              )
+            : Center(
+                child: model.isBusy
+                    ? CircularProgressIndicator()
+                    : Text(model.data),
+              ),
+      ),
+      viewModelBuilder: () => FutureExampleViewModel(),
+    );
+  }
+}
+```
+
+Additional functionality I'd like to add is retries and timeouts which should be coming soon.
 
 ## Migrating from provider_architecture to Stacked
 
