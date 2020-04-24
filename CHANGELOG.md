@@ -17,3 +17,7 @@ Instead of depending on the user to call set reactive services we require an ove
 ## [1.1.0] - 2020-04-23 - Added StreamViewModel
 
 The `StreamViewModel` removes boiler plate code for listening to a Stream and notifying listeners as the data comes in. 
+
+## [1.2.0] - 2020-04-24 - Added FutureViewmodel
+
+The `FutureViewModel` removes boiler plate code for a ViewModel that depends on data returned from a Future.
