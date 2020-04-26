@@ -6,7 +6,6 @@ enum _ViewModelBuilderType { NonReactive, Reactive }
 
 /// A widget that provides base functionality for the Mvvm style provider architecture by FilledStacks.
 class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
-
   final Widget staticChild;
 
   /// Fires once when the viewmodel is created or set for the first time
@@ -78,16 +77,22 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
     } else if (widget.createNewModelOnInsert) {
       _createViewModel();
     }
-
-    // Add any additional actions here for spcialised ViewModels
-    if (_model is FutureViewModel) {
-      (_model as FutureViewModel).runFuture();
-    }
   }
 
   void _createViewModel() {
     if (widget.viewModelBuilder != null) {
       _model = widget.viewModelBuilder();
+    }
+
+    // Add any additional actions here for spcialised ViewModels
+    // TODO: Provide a closed implemenation of this functionality. Refer to the Open Closed
+    // principle in the SOLID principles
+    if (_model is FutureViewModel) {
+      (_model as FutureViewModel).runFuture();
+    }
+
+    if (_model is StreamViewModel) {
+      (_model as StreamViewModel).initialise();
     }
   }
 

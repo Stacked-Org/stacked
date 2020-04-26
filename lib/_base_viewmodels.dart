@@ -81,7 +81,7 @@ abstract class StreamViewModel<T> extends SingleDataSourceViewModel<T> {
 
   StreamSubscription _streamSubscription;
 
-  StreamViewModel() {
+  void initialise() {
     _streamSubscription = stream.listen(
       (incomingData) {
         _hasError = false;

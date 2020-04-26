@@ -30,3 +30,5 @@ The `ViewModelBuilderWidget` removes boiler plate code for using a `ViewModelBui
 
 ## [1.2.1+1] - 2020-04-26 - Description Update
 ## [1.2.1+2] - 2020-04-26 - Description Update 2
+
+## [1.2.2] - 2020-04-26 - Moved stream subscription to after ViewModel construction
