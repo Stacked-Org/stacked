@@ -27,3 +27,5 @@ The `FutureViewModel` removes boiler plate code for a ViewModel that depends on 
 ## [1.2.1] - 2020-04-26 - Added ViewModelBuilderWidget
 
 The `ViewModelBuilderWidget` removes boiler plate code for using a `ViewModelBuilder` to provide the View->ViewModel rebuild functionality.
+
+## [1.2.1+1] - 2020-04-26 - Description Update
