@@ -3,8 +3,6 @@ import 'package:new_architecture/ui/stream_view/stream_counter_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class StreamCounterView extends StatelessWidget {
-  const StreamCounterView({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<StreamCounterViewModel>.reactive(

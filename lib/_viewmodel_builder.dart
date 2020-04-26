@@ -6,6 +6,7 @@ enum _ViewModelBuilderType { NonReactive, Reactive }
 
 /// A widget that provides base functionality for the Mvvm style provider architecture by FilledStacks.
 class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
+
   final Widget staticChild;
 
   /// Fires once when the viewmodel is created or set for the first time

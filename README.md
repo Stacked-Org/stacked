@@ -153,6 +153,46 @@ class DescriptionSection extends ViewModelWidget<HomeViewModel> {
 
 So what we're doing here is providing the ViewModel to the children of the builder function. The builder function itself won't retrigger when `notifyListeners` is called. Instead we will extend from `ViewModelWidget` in the widgets that we want to rebuild from the ViewModel. This allows us to easily access the ViewModel in multiple widgets without a lot of repeat boilerplate code. We already extend from a `StatelessWidget` so we can change that to `ViewModelWidget`. Then we simply add the ViewModel as a parameter to the build function. This is the same as calling `Provider<ViewModel>.of` in every widget we want to rebuild.
 
+### ViewModelBuilderWidget
+
+If you want to make use of the `ViewModelBuilder` directly as a widget is can be extended as well using the `ViewModelBuilderWidget<T>`. This will give you the same properties to override as the ones you can pass into the named constructors. There are 2 required overrides, the same as the 2 required parameters for the constructors. The difference with this is that your code will look like a normal widget so it fits into the code base. You can also override and implement `onModelReady` and `staticChildBuilder`.
+
+```dart
+
+class BuilderWidgetExampleView extends ViewModelBuilderWidget<HomeViewModel> {
+
+  @override
+  bool get reactive => false;
+
+  @override
+  bool get createNewModelOnInsert => false;
+
+  @override
+  bool get disposeViewModel => true;
+
+  @override
+  Widget builder(
+    BuildContext context,
+    HomeViewModel model,
+    Widget child,
+  ) {
+    return Scaffold(
+      body: Center(
+        child: Text(model.title),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => model.updateTitle(),
+      ),
+    );
+  }
+
+  @override
+  HomeViewModel viewModelBuilder() => HomeViewModel();
+}
+```
+
+This is to help with removing some boilerplate code. 
+
 ### Disable ViewModel Dispose
 
 An example of how to use one viewmodel instance across the application with the help of [get_it](https://github.com/fluttercommunity/get_it).
