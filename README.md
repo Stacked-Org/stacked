@@ -191,7 +191,7 @@ class BuilderWidgetExampleView extends ViewModelBuilderWidget<HomeViewModel> {
 }
 ```
 
-This is to help with removing some boilerplate code. 
+This is to help with removing some boilerplate code.
 
 ### Disable ViewModel Dispose
 
@@ -595,7 +595,86 @@ class FutureExampleView extends StatelessWidget {
 }
 ```
 
-Additional functionality I'd like to add is retries and timeouts which should be coming soon.
+### MultipleFutureViewModel
+
+In addition to being able to run a Future you also make a view react to data returned from multiple futures. It requires you to provide a map of type string along with a Function that returns a Future that will be executed after the `ViewModel` has been constructed. See below for an example of using a `MultipleFutureViewModel`.
+
+```dart
+import 'package:stacked/stacked.dart';
+
+const String _NumberDelayFuture = 'delayedNumber';
+const String _StringDelayFuture = 'delayedString';
+
+class MultipleFuturesExampleViewModel extends MultipleFutureViewModel {
+  int get fetchedNumber => dataMap[_NumberDelayFuture];
+  String get fetchedString => dataMap[_StringDelayFuture];
+
+  bool get fetchingNumber => busy(_NumberDelayFuture);
+  bool get fetchingString => busy(_StringDelayFuture);
+
+  @override
+  Map<String, Future Function()> get futuresMap => {
+        _NumberDelayFuture: getNumberAfterDelay,
+        _StringDelayFuture: getStringAfterDelay,
+      };
+
+  Future<int> getNumberAfterDelay() async {
+    await Future.delayed(Duration(seconds: 2));
+    return 3;
+  }
+
+  Future<String> getStringAfterDelay() async {
+    await Future.delayed(Duration(seconds: 3));
+    return 'String data';
+  }
+}
+```
+
+The data for the future will be in the `dataMap` when the future is complete. Each future will individually be set to busy using the key for the future passed in. With these functionalities you'll be able to show busy indicator for the UI that depends on the future's data while it's being fetched. There's also a `hasError` function which will indicate if the Future for a specific key has thrown an error.
+
+```dart
+class MultipleFuturesExampleView extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<MultipleFuturesExampleViewModel>.reactive(
+      builder: (context, model, child) => Scaffold(
+            body: Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Container(
+                    width: 50,
+                    height: 50,
+                    alignment: Alignment.center,
+                    color: Colors.yellow,
+                    // Show busy for number future until the data is back or has failed
+                    child: model.fetchingNumber
+                        ? CircularProgressIndicator()
+                        : Text(model.fetchedNumber.toString()),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    alignment: Alignment.center,
+                    color: Colors.red,
+                    // Show busy for string future until the data is back or has failed
+                    child: model.fetchingString
+                        ? CircularProgressIndicator()
+                        : Text(model.fetchedString),
+                  ),
+                ],
+              ),
+            ),
+          ),
+      viewModelBuilder: () => MultipleFuturesExampleViewModel());
+  }
+}
+
+```
 
 ## Migrating from provider_architecture to Stacked
 

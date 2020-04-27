@@ -28,11 +28,19 @@ class BaseViewModel extends ChangeNotifier {
   /// Sets the ViewModel to busy, runs the future and then sets it to not busy when complete.
   ///
   /// If a busyKey is su
-  Future runBusyFuture(Future busyFuture, {Object busyHascode}) async {
-    setBusyForObject(this, true);
+  Future runBusyFuture(Future busyFuture, {Object busyObject}) async {
+    _setBusyForModelOrObject(true, busyObject: busyObject);
     var value = await busyFuture;
-    setBusyForObject(this, false);
+    _setBusyForModelOrObject(false, busyObject: busyObject);
     return value;
+  }
+
+  void _setBusyForModelOrObject(bool value, {Object busyObject}) {
+    if (busyObject != null) {
+      setBusyForObject(busyObject, value);
+    } else {
+      setBusyForObject(this, value);
+    }
   }
 }
 
@@ -169,6 +177,7 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel {
 
     _data = await runBusyFuture(futureToRun()).catchError((error) {
       _hasError = true;
+      setBusy(false);
       onError(error);
       notifyListeners();
     });
@@ -196,13 +205,14 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
     notifyListeners();
 
     for (var key in futuresMap.keys) {
-      runBusyFuture(futuresMap[key]()).then((futureData) {
+      runBusyFuture(futuresMap[key](), busyObject: key).then((futureData) {
         _dataMap[key] = futureData;
         notifyListeners();
         onData(key);
         _incrementAndCheckFuturesCompleted();
       }).catchError((error) {
         _errorMap[key] = true;
+        setBusyForObject(key, false);
         onError(key: key, error: error);
         notifyListeners();
         _incrementAndCheckFuturesCompleted();
