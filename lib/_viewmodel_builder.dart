@@ -91,6 +91,10 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
       (_model as FutureViewModel).runFuture();
     }
 
+    if (_model is MultipleFutureViewModel) {
+      (_model as MultipleFutureViewModel).runFutures();
+    }
+
     if (_model is StreamViewModel) {
       (_model as StreamViewModel).initialise();
     }

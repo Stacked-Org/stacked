@@ -66,17 +66,27 @@ abstract class ReactiveViewModel extends BaseViewModel {
   }
 }
 
-class SingleDataSourceViewModel<T> extends BaseViewModel {
+class _SingleDataSourceViewModel<T> extends BaseViewModel {
   T _data;
   T get data => _data;
 
   bool _hasError;
   bool get hasError => _hasError;
 
-  bool get dataReady => _data != null;
+  bool get dataReady => _data != null && !_hasError;
 }
 
-abstract class StreamViewModel<T> extends SingleDataSourceViewModel<T> {
+class _MultiDataSourceViewModel extends BaseViewModel {
+  Map<String, dynamic> _dataMap;
+  Map<String, dynamic> get dataMap => _dataMap;
+
+  Map<String, bool> _errorMap;
+
+  bool hasError(String key) => _errorMap[key] ?? false;
+  bool dataReady(String key) => _dataMap[key] != null && _errorMap[key] == null;
+}
+
+abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T> {
   Stream<T> get stream;
 
   StreamSubscription _streamSubscription;
@@ -100,6 +110,7 @@ abstract class StreamViewModel<T> extends SingleDataSourceViewModel<T> {
       },
       onError: (error) {
         _hasError = true;
+        _data = null;
         onError(error);
         notifyListeners();
       },
@@ -141,15 +152,22 @@ abstract class StreamViewModel<T> extends SingleDataSourceViewModel<T> {
 }
 
 /// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
-abstract class FutureViewModel<T> extends SingleDataSourceViewModel {
+abstract class FutureViewModel<T> extends _SingleDataSourceViewModel {
   /// The future that fetches the data and sets the view to busy
-  Future<T> get future;
+  @Deprecated('Use the futureToRun function')
+  Future<T> get future => null;
+
+  // TODO: Add timeout functionality
+  // TODO: Add retry functionality - default 1
+  // TODO: Add retry lifecycle hooks to override in the viewmodel
+
+  Future<T> futureToRun();
 
   Future runFuture() async {
     _hasError = false;
     notifyListeners();
 
-    _data = await runBusyFuture(future).catchError((error) {
+    _data = await runBusyFuture(futureToRun()).catchError((error) {
       _hasError = true;
       onError(error);
       notifyListeners();
@@ -157,4 +175,52 @@ abstract class FutureViewModel<T> extends SingleDataSourceViewModel {
   }
 
   void onError(error) {}
+}
+
+/// Provides functionality for a ViewModel to run and fetch data using multiple future
+abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
+  Map<String, Future Function()> get futuresMap;
+
+  Completer _futuresCompleter;
+  int _futuresCompleted;
+
+  void _initialiseData() {
+    _errorMap = Map<String, bool>();
+    _dataMap = Map<String, dynamic>();
+    _futuresCompleted = 0;
+  }
+
+  Future runFutures() {
+    _futuresCompleter = Completer();
+    _initialiseData();
+    notifyListeners();
+
+    for (var key in futuresMap.keys) {
+      runBusyFuture(futuresMap[key]()).then((futureData) {
+        _dataMap[key] = futureData;
+        notifyListeners();
+        onData(key);
+        _incrementAndCheckFuturesCompleted();
+      }).catchError((error) {
+        _errorMap[key] = true;
+        onError(key: key, error: error);
+        notifyListeners();
+        _incrementAndCheckFuturesCompleted();
+      });
+    }
+
+    return _futuresCompleter.future;
+  }
+
+  void _incrementAndCheckFuturesCompleted() {
+    _futuresCompleted++;
+    if (_futuresCompleted == futuresMap.length &&
+        !_futuresCompleter.isCompleted) {
+      _futuresCompleter.complete();
+    }
+  }
+
+  void onError({String key, error}) {}
+
+  void onData(String key) {}
 }
