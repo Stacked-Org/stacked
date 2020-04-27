@@ -80,86 +80,33 @@ class StreamData<T> extends SingleDataSourceViewModel<T> {
   Stream<T> stream;
   StreamSubscription _streamSubscription;
 
-  StreamData({this.stream});
-  void listen() {
-    _streamSubscription = stream.listen(
+  StreamData(this.stream) : assert(stream != null);
+
+  factory StreamData.listen(stream,
+      {onData, onSubscribed, onError, onCancel, transformData}) {
+    StreamData streamData = StreamData(stream);
+    streamData._streamSubscription = stream.listen(
       (incomingData) {
-        notifyListeners();
-        var interceptedData = transformData(incomingData);
+        streamData._hasError = false;
+        streamData.notifyListeners();
+        var interceptedData = streamData.transformData(incomingData);
         if (interceptedData != null) {
-          _data = interceptedData;
+          streamData._data = interceptedData;
         } else {
-          _data = incomingData;
-        }
-        notifyListeners();
-        onData(_data);
-      },
-    );
-  }
-
-  void onData(T data) {}
-  void onSubscribed() {}
-  void onError(error) {}
-  void onCancel() {}
-  T transformData(T data) {
-    return data;
-  }
-
-  @override
-  void dispose() {
-    _streamSubscription.cancel();
-    onCancel();
-    super.dispose();
-  }
-}
-
-abstract class MultiStreamViewModel extends BaseViewModel {
-  Map<String, Stream> get streams;
-  Map<String, StreamData> streamsOut = {};
-
-  void buildStreams() async {
-    streams.forEach((name, stream) {
-      streamsOut[name] = StreamData(stream: stream);
-      streamsOut[name].listen();
-    });
-    // TODO: Maybe fix this hack?
-    await Future.delayed(Duration(microseconds: 1));
-    // For some reason the ChangeNotifier wasn't updating in my emulator
-    // So had notify listeners after a delay.
-    notifyListeners();
-  }
-}
-
-abstract class StreamViewModel<T> extends SingleDataSourceViewModel<T> {
-  Stream<T> get stream;
-
-  StreamSubscription _streamSubscription;
-
-  void initialise() {
-    _streamSubscription = stream.listen(
-      (incomingData) {
-        _hasError = false;
-        notifyListeners();
-
-        var interceptedData = transformData(incomingData);
-
-        if (interceptedData != null) {
-          _data = interceptedData;
-        } else {
-          _data = incomingData;
+          streamData._data = incomingData;
         }
 
-        notifyListeners();
-        onData(_data);
+        streamData.notifyListeners();
+        streamData.onData(streamData._data);
       },
       onError: (error) {
-        _hasError = true;
-        onError(error);
-        notifyListeners();
+        streamData._hasError = true;
+        streamData.onError(error);
+        streamData.notifyListeners();
       },
     );
-
-    onSubscribed();
+    streamData.onSubscribed();
+    return streamData;
   }
 
   /// Called when the new data arrives
@@ -190,6 +137,45 @@ abstract class StreamViewModel<T> extends SingleDataSourceViewModel<T> {
     _streamSubscription.cancel();
     onCancel();
 
+    super.dispose();
+  }
+}
+
+abstract class MultiStreamViewModel extends BaseViewModel {
+  Map<String, Stream> get streams;
+  Map<String, StreamData> streamData = {};
+
+  void buildStreams() async {
+    streams.forEach((name, stream) {
+      streamData[name] = StreamData.listen(stream);
+    });
+  }
+}
+
+abstract class StreamViewModel<T> extends SingleDataSourceViewModel<T> {
+  Stream<T> get stream;
+  void initialise() {
+    StreamData.listen(
+      stream,
+      onData: onData,
+      onSubscribed: onSubscribed,
+      onError: onError,
+      onCancel: onCancel,
+      transformData: transformData,
+    );
+  }
+
+  void onData(T data) {}
+  void onSubscribed() {}
+  void onError(error) {}
+  void onCancel() {}
+  T transformData(T data) {
+    return data;
+  }
+
+  @override
+  void dispose() {
+    onCancel();
     super.dispose();
   }
 }
