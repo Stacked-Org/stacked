@@ -76,36 +76,25 @@ class SingleDataSourceViewModel<T> extends BaseViewModel {
   bool get dataReady => _data != null;
 }
 
-class StackedStream<T> extends SingleDataSourceViewModel<T> {
+class StreamData<T> extends SingleDataSourceViewModel<T> {
   Stream<T> stream;
-  String name;
-  StreamSubscription streamSubscription;
+  StreamSubscription _streamSubscription;
 
-  static final _cache = <String, StackedStream>{};
-
-  StackedStream._({this.name, this.stream});
-
-  factory StackedStream({String name, Stream<T> stream}) {
-    T _data;
-    StackedStream myStream =
-        _cache[name] ??= StackedStream._(name: name, stream: stream);
-
-    myStream.streamSubscription = stream.listen(
+  StreamData({this.stream});
+  void listen() {
+    _streamSubscription = stream.listen(
       (incomingData) {
-        myStream.notifyListeners();
-
-        var interceptedData = myStream.transformData(incomingData);
+        notifyListeners();
+        var interceptedData = transformData(incomingData);
         if (interceptedData != null) {
           _data = interceptedData;
         } else {
           _data = incomingData;
-          myStream.notifyListeners();
         }
-        myStream.onData(_data);
+        notifyListeners();
+        onData(_data);
       },
-//TODO: Implement error handling
     );
-    return myStream;
   }
 
   void onData(T data) {}
@@ -115,24 +104,29 @@ class StackedStream<T> extends SingleDataSourceViewModel<T> {
   T transformData(T data) {
     return data;
   }
-}
-
-abstract class StreamsViewModel extends BaseViewModel {
-  Map<String, Stream> get streams;
-  Map<String, StackedStream> streamsOut;
-
-  void initialise() {
-    streams.forEach((name, stream) {
-      streamsOut[name] = StackedStream(name: name, stream: stream);
-    });
-  }
 
   @override
   void dispose() {
-    streamsOut.forEach((_, stream) {
-      stream.streamSubscription.cancel();
-    });
+    _streamSubscription.cancel();
+    onCancel();
     super.dispose();
+  }
+}
+
+abstract class MultiStreamViewModel extends BaseViewModel {
+  Map<String, Stream> get streams;
+  Map<String, StreamData> streamsOut = {};
+
+  void buildStreams() async {
+    streams.forEach((name, stream) {
+      streamsOut[name] = StreamData(stream: stream);
+      streamsOut[name].listen();
+    });
+    // TODO: Maybe fix this hack?
+    await Future.delayed(Duration(microseconds: 1));
+    // For some reason the ChangeNotifier wasn't updating in my emulator
+    // So had notify listeners after a delay.
+    notifyListeners();
   }
 }
 

@@ -2,7 +2,7 @@ import 'package:new_architecture/app/locator.dart';
 import 'package:new_architecture/services/epoch_service.dart';
 import 'package:stacked/stacked.dart';
 
-class MultiStreamViewModel extends StreamsViewModel {
+class MultiStreamExampleViewModel extends MultiStreamViewModel {
   Map<String, Stream> get streams => {
         "slow_numbers": locator<EpochService>().epochUpdatesNumbers(),
         "fast_numbers": locator<EpochService>().epochUpdateNumbersQuickly()
