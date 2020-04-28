@@ -43,6 +43,7 @@ class BaseViewModel extends ChangeNotifier {
     }
   }
 
+  // Sets up streamData property to hold data, busy, and lifecycle events
   StreamData setupStream(Stream stream) {
     StreamData streamData = StreamData(stream);
     streamData.initialise();
@@ -182,6 +183,7 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
 abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
   Map<String, Stream> get streamsMap;
   Map<String, StreamData> _streamDataMap;
+  Map<String, StreamData> get streamDataMap => _streamDataMap;
 
   void _initialiseData() {
     _streamDataMap = Map<String, StreamData>();
@@ -192,6 +194,7 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
     notifyListeners();
     for (var key in streamsMap.keys) {
       _streamDataMap[key] = setupStream(streamsMap[key]);
+      notifyListeners();
     }
   }
 }
@@ -221,7 +224,6 @@ class StreamData<T> extends _SingleDataSourceViewModel<T> {
   StreamSubscription _streamSubscription;
 
   void initialise() {
-    setBusy(true);
     _streamSubscription = stream.listen(
       (incomingData) {
         _hasError = false;
@@ -258,7 +260,9 @@ class StreamData<T> extends _SingleDataSourceViewModel<T> {
   }
 
   /// Called after the stream has been listened too
-  void onSubscribed() {}
+  void onSubscribed() {
+    setBusy(true);
+  }
 
   /// Called when an error is placed on the stream
   void onError(error) {

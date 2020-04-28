@@ -1,10 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:stacked/_base_viewmodels.dart';
 
-Stream<int> numbersStream(int numberBack, {bool fail, int delay}) async* {
-  if (fail) throw Exception('Stream failed');
+Stream<int> numberStream(int dataBack, {bool fail, int delay}) async* {
+  if (fail) throw Exception('numberStream failed');
   if (delay != null) await Future.delayed(Duration(milliseconds: delay));
-  yield numberBack;
+  yield dataBack;
+}
+
+Stream<String> textStream(String dataBack, {bool fail, int delay}) async* {
+  if (fail) throw Exception('textStream failed');
+  if (delay != null) await Future.delayed(Duration(milliseconds: delay));
+  yield dataBack;
 }
 
 class TestStreamViewModel extends StreamViewModel<int> {
@@ -13,20 +19,21 @@ class TestStreamViewModel extends StreamViewModel<int> {
   TestStreamViewModel({this.fail = false, this.delay = 0});
 
   @override
-  get stream => numbersStream(1, fail: fail, delay: delay);
+  get stream => numberStream(1, fail: fail, delay: delay);
 }
 
-const String _SlowNumbers = 'slowNumbers';
-const String _FastNumbers = 'fastNumbers';
+const String _NumberStream = 'numberStream';
+const String _StringStream = 'stringStream';
 
 class TestMultipleStreamViewModel extends MultipleStreamViewModel {
   final bool failOne;
-  TestMultipleStreamViewModel({this.failOne = false});
+  final int delay;
+  TestMultipleStreamViewModel({this.failOne = false, this.delay = 0});
 
   @override
   Map<String, Stream> get streamsMap => {
-        _SlowNumbers: numbersStream(1000, fail: failOne),
-        _FastNumbers: numbersStream(10),
+        _NumberStream: numberStream(5, fail: failOne, delay: delay),
+        _StringStream: textStream("five", fail: false, delay: delay),
       };
 }
 
@@ -67,18 +74,45 @@ void main() async {
   group('MultipleStreamViewModel', () {
     test(
         'When running multiple streams the associated key should hold the value when data is fetched',
-        () async {});
+        () async {
+      //TODO: implement this on 'dataMap' property (getter)
+
+      var streamViewModel = TestMultipleStreamViewModel();
+      streamViewModel.runStreams();
+      await Future.delayed(Duration(milliseconds: 1));
+      expect(streamViewModel.streamDataMap[_NumberStream].data, 5);
+      expect(streamViewModel.streamDataMap[_StringStream].data, 'five');
+    });
 
     test(
         'When one of multiple streams fail only the failing one should have an error',
-        () async {});
+        () async {
+      var streamViewModel = TestMultipleStreamViewModel(failOne: true);
+      streamViewModel.runStreams();
+      await Future.delayed(Duration(milliseconds: 1));
+      expect(streamViewModel.streamDataMap[_NumberStream].hasError, true);
+      expect(streamViewModel.streamDataMap[_StringStream].hasError, false);
+    });
 
     test(
         'When one of multiple streams fail the passed one should have data and failing one not',
-        () async {});
+        () async {
+      var streamViewModel = TestMultipleStreamViewModel(failOne: true);
+      streamViewModel.runStreams();
+      await Future.delayed(Duration(milliseconds: 1));
+      expect(streamViewModel.streamDataMap[_NumberStream].dataReady, false);
+      expect(streamViewModel.streamDataMap[_StringStream].dataReady, true);
+    });
 
     test('When multiple streams run the key should be set to indicate busy',
-        () async {});
+        () async {
+      //TODO: implement this
+      // var streamViewModel = TestMultipleStreamViewModel(delay: 1000);
+      // streamViewModel.runStreams();
+      // await Future.delayed(Duration(milliseconds: 1));
+      // expect(streamViewModel.busy(_NumberStream), true);
+      // expect(streamViewModel.streamDataMap[_StringStream].dataReady, true);
+    });
 
     test(
         'When multiple streams are complete the key should be set to indicate NOT busy',
