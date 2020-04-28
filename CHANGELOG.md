@@ -1,3 +1,8 @@
+## [1.2.4] - 2020-04-28 - onModelReady updates
+
+- `onModelReady` is not called every time the model is constructed
+- `onModelReady` is called after the current frame is rendered by using `postFrameCallback` internally.
+
 ## [1.2.3] - 2020-04-28 - Added BuildContext to ViewModelBuilder for WidgetBuilder
 
 ## [1.2.2+1] - 2020-04-27 - Updated ChangeLog order
