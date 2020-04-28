@@ -41,7 +41,7 @@ void main() async {
   group('StreamViewModel', () {
     test('When stream data is fetched data should be set and ready', () async {
       var streamViewModel = TestStreamViewModel();
-      await streamViewModel.initialise();
+      streamViewModel.initialise();
       await Future.delayed(Duration(milliseconds: 1));
       expect(streamViewModel.data, 1);
       expect(streamViewModel.dataReady, true);
@@ -49,7 +49,7 @@ void main() async {
     test('When a stream fails it should indicate there\'s an error and no data',
         () async {
       var streamViewModel = TestStreamViewModel(fail: true);
-      await streamViewModel.initialise();
+      streamViewModel.initialise();
       await Future.delayed(Duration(milliseconds: 1));
       expect(streamViewModel.hasError, true);
       expect(streamViewModel.data, null,
@@ -57,17 +57,11 @@ void main() async {
       expect(streamViewModel.dataReady, false);
     });
 
-    test('Before a stream returns it should indicate busy', () async {
+    test('Before a stream returns it should indicate not ready', () async {
       var streamViewModel = TestStreamViewModel(delay: 1000);
-      await streamViewModel.initialise();
+      streamViewModel.initialise();
       await Future.delayed(Duration(milliseconds: 1));
-      expect(streamViewModel.isBusy, true);
-    });
-    test('When a stream fails it should indicate NOT busy', () async {
-      var streamViewModel = TestStreamViewModel(delay: 1000, fail: true);
-      await streamViewModel.initialise();
-      await Future.delayed(Duration(milliseconds: 1));
-      expect(streamViewModel.isBusy, false);
+      expect(streamViewModel.dataReady, false);
     });
   });
 
@@ -103,24 +97,5 @@ void main() async {
       expect(streamViewModel.streamDataMap[_NumberStream].dataReady, false);
       expect(streamViewModel.streamDataMap[_StringStream].dataReady, true);
     });
-
-    test('When multiple streams run the key should be set to indicate busy',
-        () async {
-      var streamViewModel = TestMultipleStreamViewModel(delay: 1000);
-      streamViewModel.runStreams();
-      // await Future.delayed(Duration(milliseconds: 1));
-      expect(streamViewModel.streamDataMap[_NumberStream].isBusy, true);
-      // Waiting to get the green light on using streams as futures to integrate the rest
-
-      //TODO: implement this
-      // expect(streamViewModel.busy(_NumberStream), true);
-      // expect(streamViewModel.streamDataMap[_StringStream].dataReady, true);
-    });
-
-    test(
-        'When multiple streams are complete the key should be set to indicate NOT busy',
-        () async {});
-
-    test('When a stream fails busy should be set to false', () async {});
   });
 }

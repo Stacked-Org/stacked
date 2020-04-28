@@ -44,8 +44,8 @@ class BaseViewModel extends ChangeNotifier {
   }
 
   // Sets up streamData property to hold data, busy, and lifecycle events
-  StreamData setupStream(Stream stream) {
-    StreamData streamData = StreamData(stream);
+  _StreamData setupStream(Stream stream) {
+    _StreamData streamData = _StreamData(stream);
     streamData.initialise();
     notifyListeners();
     return streamData;
@@ -182,8 +182,8 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
 
 abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
   Map<String, Stream> get streamsMap;
-  Map<String, StreamData> _streamDataMap;
-  Map<String, StreamData> get streamDataMap => _streamDataMap;
+  Map<String, _StreamData> _streamDataMap;
+  Map<String, _StreamData> get streamDataMap => _streamDataMap;
   Map<String, dynamic> get dataMap {
     Map<String, dynamic> _result = Map<String, dynamic>();
     _streamDataMap.forEach((key, streamData) => _result[key] = streamData.data);
@@ -198,7 +198,7 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
   }
 
   void _initialiseData() {
-    _streamDataMap = Map<String, StreamData>();
+    _streamDataMap = Map<String, _StreamData>();
   }
 
   void runStreams() {
@@ -214,7 +214,7 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
 abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T> {
   Stream<T> get stream;
   // Holds the data, dataReady, hasError, isBusy properties
-  StreamData streamData;
+  _StreamData streamData;
   get data => streamData.data;
   get dataReady => streamData.dataReady;
   get hasError => streamData.hasError;
@@ -225,14 +225,14 @@ abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T> {
   //TODO: Get this to work with generic stream types again
   //TODO: Possibly have a default setbusy for overwrittenn lifecycle events
 
-  Future initialise() async {
+  void initialise() {
     streamData = setupStream(stream);
   }
 }
 
-class StreamData<T> extends _SingleDataSourceViewModel<T> {
+class _StreamData<T> extends _SingleDataSourceViewModel<T> {
   Stream<T> stream;
-  StreamData(this.stream);
+  _StreamData(this.stream);
   StreamSubscription _streamSubscription;
 
   void initialise() {
@@ -267,24 +267,16 @@ class StreamData<T> extends _SingleDataSourceViewModel<T> {
   ///
   /// notifyListeners is called before this so no need to call in here unless you're
   /// running additional logic and setting a separate value.
-  void onData(T data) {
-    setBusy(false);
-  }
+  void onData(T data) {}
 
   /// Called after the stream has been listened too
-  void onSubscribed() {
-    setBusy(true);
-  }
+  void onSubscribed() {}
 
   /// Called when an error is placed on the stream
-  void onError(error) {
-    setBusy(false);
-  }
+  void onError(error) {}
 
   /// Called when the stream is cancelled
-  void onCancel() {
-    setBusy(false);
-  }
+  void onCancel() {}
 
   /// Allows you to modify the data before it's set as the new data for the model
   ///
