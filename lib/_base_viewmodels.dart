@@ -184,6 +184,18 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
   Map<String, Stream> get streamsMap;
   Map<String, StreamData> _streamDataMap;
   Map<String, StreamData> get streamDataMap => _streamDataMap;
+  Map<String, dynamic> get dataMap {
+    Map<String, dynamic> _result = Map<String, dynamic>();
+    _streamDataMap.forEach((key, streamData) => _result[key] = streamData.data);
+    return _result;
+  }
+
+  Map<String, dynamic> get errorMap {
+    Map<String, dynamic> _result = Map<String, dynamic>();
+    _streamDataMap
+        .forEach((key, streamData) => _result[key] = streamData.hasError);
+    return _result;
+  }
 
   void _initialiseData() {
     _streamDataMap = Map<String, StreamData>();

@@ -80,8 +80,8 @@ void main() async {
       var streamViewModel = TestMultipleStreamViewModel();
       streamViewModel.runStreams();
       await Future.delayed(Duration(milliseconds: 1));
-      expect(streamViewModel.streamDataMap[_NumberStream].data, 5);
-      expect(streamViewModel.streamDataMap[_StringStream].data, 'five');
+      expect(streamViewModel.dataMap[_NumberStream], 5);
+      expect(streamViewModel.dataMap[_StringStream], 'five');
     });
 
     test(
@@ -90,8 +90,8 @@ void main() async {
       var streamViewModel = TestMultipleStreamViewModel(failOne: true);
       streamViewModel.runStreams();
       await Future.delayed(Duration(milliseconds: 1));
-      expect(streamViewModel.streamDataMap[_NumberStream].hasError, true);
-      expect(streamViewModel.streamDataMap[_StringStream].hasError, false);
+      expect(streamViewModel.errorMap[_NumberStream], true);
+      expect(streamViewModel.errorMap[_StringStream], false);
     });
 
     test(
@@ -106,10 +106,13 @@ void main() async {
 
     test('When multiple streams run the key should be set to indicate busy',
         () async {
-      //TODO: implement this
-      // var streamViewModel = TestMultipleStreamViewModel(delay: 1000);
-      // streamViewModel.runStreams();
+      var streamViewModel = TestMultipleStreamViewModel(delay: 1000);
+      streamViewModel.runStreams();
       // await Future.delayed(Duration(milliseconds: 1));
+      expect(streamViewModel.streamDataMap[_NumberStream].isBusy, true);
+      // Waiting to get the green light on using streams as futures to integrate the rest
+
+      //TODO: implement this
       // expect(streamViewModel.busy(_NumberStream), true);
       // expect(streamViewModel.streamDataMap[_StringStream].dataReady, true);
     });
