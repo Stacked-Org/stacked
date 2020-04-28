@@ -44,8 +44,16 @@ class BaseViewModel extends ChangeNotifier {
   }
 
   // Sets up streamData property to hold data, busy, and lifecycle events
-  _StreamData setupStream(Stream stream) {
-    _StreamData streamData = _StreamData(stream);
+  _StreamData setupStream(Stream stream,
+      {onData, onSubscribed, onError, onCancel, transformData}) {
+    _StreamData streamData = _StreamData(
+      stream,
+      onData: onData,
+      onSubscribed: onSubscribed,
+      onError: onError,
+      onCancel: onCancel,
+      transformData: transformData,
+    );
     streamData.initialise();
     notifyListeners();
     return streamData;
@@ -220,19 +228,55 @@ abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T> {
   get hasError => streamData.hasError;
   get isBusy => streamData.isBusy;
 
-  //TODO: Integrate read/write for onData, onCancel, onSubscribed, onError and transformData properties
-  //TODO: Figure out a more elegant way of integrating StreamData
   //TODO: Get this to work with generic stream types again
-  //TODO: Possibly have a default setbusy for overwrittenn lifecycle events
 
   void initialise() {
-    streamData = setupStream(stream);
+    streamData = setupStream(stream,
+        onData: onData,
+        onSubscribed: onSubscribed,
+        onError: onError,
+        onCancel: onCancel,
+        transformData: transformData);
+  }
+
+  void onData(T data) {}
+  void onSubscribed() {}
+  void onError(error) {}
+  void onCancel() {}
+  T transformData(T data) {
+    return data;
   }
 }
 
 class _StreamData<T> extends _SingleDataSourceViewModel<T> {
   Stream<T> stream;
-  _StreamData(this.stream);
+
+  /// Called when the new data arrives
+  ///
+  /// notifyListeners is called before this so no need to call in here unless you're
+  /// running additional logic and setting a separate value.
+  Function onData;
+
+  /// Called after the stream has been listened too
+  Function onSubscribed;
+
+  /// Called when an error is placed on the stream
+  Function onError;
+
+  /// Called when the stream is cancelled
+  Function onCancel;
+
+  /// Allows you to modify the data before it's set as the new data for the model
+  ///
+  /// This can be used to modify the data if required. If nothhing is returned the data
+  /// won't be set.
+  Function transformData;
+  _StreamData(this.stream,
+      {this.onData,
+      this.onSubscribed,
+      this.onError,
+      this.onCancel,
+      this.transformData});
   StreamSubscription _streamSubscription;
 
   void initialise() {
@@ -240,8 +284,9 @@ class _StreamData<T> extends _SingleDataSourceViewModel<T> {
       (incomingData) {
         _hasError = false;
         notifyListeners();
-
-        var interceptedData = transformData(incomingData);
+        // Extra security in case transformData isnt sent
+        var interceptedData =
+            transformData == null ? incomingData : transformData(incomingData);
 
         if (interceptedData != null) {
           _data = interceptedData;
@@ -261,29 +306,6 @@ class _StreamData<T> extends _SingleDataSourceViewModel<T> {
     );
 
     onSubscribed();
-  }
-
-  /// Called when the new data arrives
-  ///
-  /// notifyListeners is called before this so no need to call in here unless you're
-  /// running additional logic and setting a separate value.
-  void onData(T data) {}
-
-  /// Called after the stream has been listened too
-  void onSubscribed() {}
-
-  /// Called when an error is placed on the stream
-  void onError(error) {}
-
-  /// Called when the stream is cancelled
-  void onCancel() {}
-
-  /// Allows you to modify the data before it's set as the new data for the model
-  ///
-  /// This can be used to modify the data if required. If nothhing is returned the data
-  /// won't be set.
-  T transformData(T data) {
-    return data;
   }
 
   @override

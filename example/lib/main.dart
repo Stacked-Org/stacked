@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:new_architecture/app/locator.dart';
-import 'package:new_architecture/ui/builder_widget_example/builder_widget_example_view.dart';
 import 'package:new_architecture/ui/multiple_futures_example/multiple_futures_example_view.dart';
-import 'package:new_architecture/ui/stream_view/stream_counter_view.dart';
 
 void main() {
   configure();

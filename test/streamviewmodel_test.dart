@@ -17,9 +17,15 @@ class TestStreamViewModel extends StreamViewModel<int> {
   final bool fail;
   final int delay;
   TestStreamViewModel({this.fail = false, this.delay = 0});
+  int loadedData;
 
   @override
   get stream => numberStream(1, fail: fail, delay: delay);
+
+  @override
+  void onData(int data) {
+    loadedData = data;
+  }
 }
 
 const String _NumberStream = 'numberStream';
@@ -46,6 +52,14 @@ void main() async {
       expect(streamViewModel.data, 1);
       expect(streamViewModel.dataReady, true);
     });
+    test('When stream lifecycle events are overriden they recieve correct data',
+        () async {
+      var streamViewModel = TestStreamViewModel();
+      streamViewModel.initialise();
+      await Future.delayed(Duration(milliseconds: 1));
+      expect(streamViewModel.loadedData, 1);
+    });
+
     test('When a stream fails it should indicate there\'s an error and no data',
         () async {
       var streamViewModel = TestStreamViewModel(fail: true);
@@ -92,6 +106,15 @@ void main() async {
         'When one of multiple streams fail the passed one should have data and failing one not',
         () async {
       var streamViewModel = TestMultipleStreamViewModel(failOne: true);
+      streamViewModel.runStreams();
+      await Future.delayed(Duration(milliseconds: 1));
+      expect(streamViewModel.streamDataMap[_NumberStream].dataReady, false);
+      expect(streamViewModel.streamDataMap[_StringStream].dataReady, true);
+    });
+    test('When overwriting the onData call, data is passed', () async {
+      String result;
+      var streamViewModel = TestMultipleStreamViewModel();
+
       streamViewModel.runStreams();
       await Future.delayed(Duration(milliseconds: 1));
       expect(streamViewModel.streamDataMap[_NumberStream].dataReady, false);
