@@ -42,6 +42,13 @@ class BaseViewModel extends ChangeNotifier {
       setBusyForObject(this, value);
     }
   }
+
+  StreamData setupStream(Stream stream) {
+    StreamData streamData = StreamData(stream);
+    streamData.initialise();
+    notifyListeners();
+    return streamData;
+  }
 }
 
 /// A [BaseViewModel] that provides functionality to subscribe to a reactive service.
@@ -174,29 +181,46 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
 
 abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
   Map<String, Stream> get streamsMap;
+  Map<String, StreamData> _streamDataMap;
 
   void _initialiseData() {
-    _errorMap = Map<String, bool>();
-    _dataMap = Map<String, dynamic>();
+    _streamDataMap = Map<String, StreamData>();
   }
 
-  void _runStreams() {
+  void runStreams() {
+    _initialiseData();
+    notifyListeners();
     for (var key in streamsMap.keys) {
-      //TODO: Implement this
+      _streamDataMap[key] = setupStream(streamsMap[key]);
     }
   }
-
-  void onError({String key, error}) {}
-  void onData(String key) {}
 }
 
 abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T> {
   Stream<T> get stream;
+  // Holds the data, dataReady, hasError, isBusy properties
+  StreamData streamData;
+  get data => streamData.data;
+  get dataReady => streamData.dataReady;
+  get hasError => streamData.hasError;
+  get isBusy => streamData.isBusy;
 
-  StreamSubscription _streamSubscription;
+  //TODO: Integrate read/write for onData, onCancel, onSubscribed, onError and transformData properties
+  //TODO: Figure out a more elegant way of integrating StreamData
+  //TODO: Get this to work with generic stream types again
+  //TODO: Possibly have a default setbusy for overwrittenn lifecycle events
 
   Future initialise() async {
-    // Sets buys until the stream returns
+    streamData = setupStream(stream);
+  }
+}
+
+class StreamData<T> extends _SingleDataSourceViewModel<T> {
+  Stream<T> stream;
+  StreamData(this.stream);
+  StreamSubscription _streamSubscription;
+
+  void initialise() {
     setBusy(true);
     _streamSubscription = stream.listen(
       (incomingData) {
@@ -245,71 +269,6 @@ abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T> {
   void onCancel() {
     setBusy(false);
   }
-
-  /// Allows you to modify the data before it's set as the new data for the model
-  ///
-  /// This can be used to modify the data if required. If nothhing is returned the data
-  /// won't be set.
-  T transformData(T data) {
-    return data;
-  }
-
-  @override
-  void dispose() {
-    _streamSubscription.cancel();
-    onCancel();
-
-    super.dispose();
-  }
-}
-
-class StreamData<T> extends _SingleDataSourceViewModel<T> {
-  Stream<T> stream;
-  StreamData(this.stream);
-  StreamSubscription _streamSubscription;
-
-  void initialise() {
-    _streamSubscription = stream.listen(
-      (incomingData) {
-        _hasError = false;
-        notifyListeners();
-
-        var interceptedData = transformData(incomingData);
-
-        if (interceptedData != null) {
-          _data = interceptedData;
-        } else {
-          _data = incomingData;
-        }
-
-        notifyListeners();
-        onData(_data);
-      },
-      onError: (error) {
-        _hasError = true;
-        _data = null;
-        onError(error);
-        notifyListeners();
-      },
-    );
-
-    onSubscribed();
-  }
-
-  /// Called when the new data arrives
-  ///
-  /// notifyListeners is called before this so no need to call in here unless you're
-  /// running additional logic and setting a separate value.
-  void onData(T data) {}
-
-  /// Called after the stream has been listened too
-  void onSubscribed() {}
-
-  /// Called when an error is placed on the stream
-  void onError(error) {}
-
-  /// Called when the stream is cancelled
-  void onCancel() {}
 
   /// Allows you to modify the data before it's set as the new data for the model
   ///

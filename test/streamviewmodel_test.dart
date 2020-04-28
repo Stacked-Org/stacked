@@ -32,7 +32,7 @@ class TestMultipleStreamViewModel extends MultipleStreamViewModel {
 
 void main() async {
   group('StreamViewModel', () {
-    test('When stream is complete data should be set and ready', () async {
+    test('When stream data is fetched data should be set and ready', () async {
       var streamViewModel = TestStreamViewModel();
       await streamViewModel.initialise();
       await Future.delayed(Duration(milliseconds: 1));
@@ -66,7 +66,7 @@ void main() async {
 
   group('MultipleStreamViewModel', () {
     test(
-        'When running multiple streams the associated key should hold the value when complete',
+        'When running multiple streams the associated key should hold the value when data is fetched',
         () async {});
 
     test(
