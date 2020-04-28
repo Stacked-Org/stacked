@@ -1,3 +1,5 @@
+## [1.2.3] - 2020-04-28 - Added BuildContext to ViewModelBuilder for WidgetBuilder
+
 ## [1.2.2+1] - 2020-04-27 - Updated ChangeLog order
 
 ## [1.2.2] - 2020-04-26 - Moved stream subscription to after ViewModel construction

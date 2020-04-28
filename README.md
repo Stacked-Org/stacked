@@ -187,7 +187,7 @@ class BuilderWidgetExampleView extends ViewModelBuilderWidget<HomeViewModel> {
   }
 
   @override
-  HomeViewModel viewModelBuilder() => HomeViewModel();
+  HomeViewModel viewModelBuilder(BuildContext context) => HomeViewModel();
 }
 ```
 
