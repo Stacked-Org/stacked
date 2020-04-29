@@ -1,3 +1,4 @@
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import '_base_viewmodels.dart';
@@ -70,11 +71,9 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
     // We want to ensure that we only build the model if it hasn't been built yet.
     if (_model == null) {
       _createViewModel();
-
-      if (widget.onModelReady != null) {
-        widget.onModelReady(_model);
-      }
-    } else if (widget.createNewModelOnInsert) {
+    }
+    // Or if the user wants to create a new model whenever initState is fired
+    else if (widget.createNewModelOnInsert) {
       _createViewModel();
     }
   }
@@ -97,6 +96,14 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
 
     if (_model is StreamViewModel) {
       (_model as StreamViewModel).initialise();
+    }
+
+    // Fire onModelReady after the model has been constructed
+    if (widget.onModelReady != null) {
+      // Fire the onModelReady after the first frame has completed painting which makes it
+      // safe for us to perform navigation, call notifyListeners or normal setState calls.
+      SchedulerBinding.instance
+          .addPostFrameCallback((duration) => widget.onModelReady(_model));
     }
   }
 

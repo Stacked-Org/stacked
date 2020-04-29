@@ -15,14 +15,20 @@ class HomeView extends StatelessWidget {
       onModelReady: (model) => model.initialise(),
       builder: (context, model, child) => Scaffold(
         body: Center(
-          child: Row(
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              WidgetOne(),
-              SizedBox(
-                width: 50,
+              Text(model.title),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  WidgetOne(),
+                  SizedBox(
+                    width: 50,
+                  ),
+                  WidgetTwo(id: 2),
+                ],
               ),
-              WidgetTwo(id: 2),
             ],
           ),
         ),

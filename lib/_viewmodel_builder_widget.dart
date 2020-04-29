@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 
 import '_viewmodel_builder.dart';
 
@@ -19,7 +19,7 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
   );
 
   /// A builder that builds the ViewModel for this UI - Required
-  T viewModelBuilder();
+  T viewModelBuilder(BuildContext context);
 
   /// Indicates if the [builder] should be rebuilt when notifyListeners is called
   ///
@@ -56,7 +56,7 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
     if (reactive) {
       return ViewModelBuilder<T>.reactive(
         builder: builder,
-        viewModelBuilder: viewModelBuilder,
+        viewModelBuilder: () => viewModelBuilder(context),
         staticChild:
             staticChildBuilder != null ? staticChildBuilder(context) : null,
         onModelReady: onViewModelReady,
@@ -66,7 +66,7 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
     } else {
       return ViewModelBuilder<T>.nonReactive(
         builder: builder,
-        viewModelBuilder: viewModelBuilder,
+        viewModelBuilder: () => viewModelBuilder(context),
         onModelReady: onViewModelReady,
         disposeViewModel: disposeViewModel,
         createNewModelOnInsert: createNewModelOnInsert,

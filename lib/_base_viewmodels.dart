@@ -43,6 +43,7 @@ class BaseViewModel extends ChangeNotifier {
     }
   }
 
+
   // Sets up streamData property to hold data, busy, and lifecycle events
   StreamData setupStream<T>(
     Stream<T> stream, {
@@ -115,6 +116,7 @@ class _MultiDataSourceViewModel extends BaseViewModel {
   bool hasError(String key) => _errorMap[key] ?? false;
   bool dataReady(String key) => _dataMap[key] != null && _errorMap[key] == null;
 }
+
 
 /// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
 abstract class FutureViewModel<T> extends _SingleDataSourceViewModel {
@@ -356,4 +358,80 @@ class StreamData<T> extends _SingleDataSourceViewModel<T> {
 
     super.dispose();
   }
+}
+
+/// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
+abstract class FutureViewModel<T> extends _SingleDataSourceViewModel {
+  /// The future that fetches the data and sets the view to busy
+  @Deprecated('Use the futureToRun function')
+  Future<T> get future => null;
+
+  // TODO: Add timeout functionality
+  // TODO: Add retry functionality - default 1
+  // TODO: Add retry lifecycle hooks to override in the viewmodel
+
+  Future<T> futureToRun();
+
+  Future runFuture() async {
+    _hasError = false;
+    notifyListeners();
+
+    _data = await runBusyFuture(futureToRun()).catchError((error) {
+      _hasError = true;
+      setBusy(false);
+      onError(error);
+      notifyListeners();
+    });
+  }
+
+  void onError(error) {}
+}
+
+/// Provides functionality for a ViewModel to run and fetch data using multiple future
+abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
+  Map<String, Future Function()> get futuresMap;
+
+  Completer _futuresCompleter;
+  int _futuresCompleted;
+
+  void _initialiseData() {
+    _errorMap = Map<String, bool>();
+    _dataMap = Map<String, dynamic>();
+    _futuresCompleted = 0;
+  }
+
+  Future runFutures() {
+    _futuresCompleter = Completer();
+    _initialiseData();
+    notifyListeners();
+
+    for (var key in futuresMap.keys) {
+      runBusyFuture(futuresMap[key](), busyObject: key).then((futureData) {
+        _dataMap[key] = futureData;
+        notifyListeners();
+        onData(key);
+        _incrementAndCheckFuturesCompleted();
+      }).catchError((error) {
+        _errorMap[key] = true;
+        setBusyForObject(key, false);
+        onError(key: key, error: error);
+        notifyListeners();
+        _incrementAndCheckFuturesCompleted();
+      });
+    }
+
+    return _futuresCompleter.future;
+  }
+
+  void _incrementAndCheckFuturesCompleted() {
+    _futuresCompleted++;
+    if (_futuresCompleted == futuresMap.length &&
+        !_futuresCompleter.isCompleted) {
+      _futuresCompleter.complete();
+    }
+  }
+
+  void onError({String key, error}) {}
+
+  void onData(String key) {}
 }
