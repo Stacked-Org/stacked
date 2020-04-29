@@ -43,7 +43,6 @@ class BaseViewModel extends ChangeNotifier {
     }
   }
 
-
   // Sets up streamData property to hold data, busy, and lifecycle events
   StreamData setupStream<T>(
     Stream<T> stream, {
@@ -62,7 +61,7 @@ class BaseViewModel extends ChangeNotifier {
       transformData: transformData,
     );
     streamData.initialise();
-    notifyListeners();
+
     return streamData;
   }
 }
@@ -114,9 +113,9 @@ class _MultiDataSourceViewModel extends BaseViewModel {
   Map<String, bool> _errorMap;
 
   bool hasError(String key) => _errorMap[key] ?? false;
-  bool dataReady(String key) => _dataMap[key] != null && _errorMap[key] == null;
+  bool dataReady(String key) =>
+      _dataMap[key] != null && (_errorMap[key] == null);
 }
-
 
 /// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
 abstract class FutureViewModel<T> extends _SingleDataSourceViewModel {
@@ -216,47 +215,73 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
   // Every MultipleStreamViewModel must override streamDataMap
   // StreamData requires a stream, but lifecycle events are optional
   // if a lifecyle event isn't defined we use the default ones here
-  Map<String, StreamData> get streamDataMap;
+  Map<String, StreamData> get streamsMap;
 
-  Map<String, StreamData> _streamDataMap;
-  Map<String, StreamData> get streamOutputDataMap => _streamDataMap;
-  Map<String, dynamic> get dataMap {
-    Map<String, dynamic> _result = Map<String, dynamic>();
-    _streamDataMap.forEach((key, streamData) => _result[key] = streamData.data);
-    return _result;
-  }
+  Map<String, StreamSubscription> _streamsSubscriptions;
 
-  Map<String, bool> get errorMap {
-    Map<String, bool> _result = Map<String, bool>();
-    _streamDataMap
-        .forEach((key, streamData) => _result[key] = streamData.hasError);
-    return _result;
-  }
-
-  // TODO: Get this working with generics
   void initialise() {
-    _streamDataMap = Map<String, StreamData>();
+    _dataMap = Map<String, dynamic>();
+    _errorMap = Map<String, bool>();
+    _streamsSubscriptions = Map<String, StreamSubscription>();
+
     notifyListeners();
-    for (var key in streamDataMap.keys) {
+    for (var key in streamsMap.keys) {
       // If a lifecycle function isn't supplied, we fallback to default
-      _streamDataMap[key] = setupStream(
-        streamDataMap[key].stream,
-        onData: streamDataMap[key]?.onData ?? onData,
-        onSubscribed: streamDataMap[key]?.onSubscribed ?? onSubscribed,
-        onError: streamDataMap[key]?.onError ?? onError,
-        transformData: streamDataMap[key]?.transformData ?? transformData,
-        onCancel: streamDataMap[key]?.onCancel ?? onCancel,
+      _streamsSubscriptions[key] = streamsMap[key].stream.listen(
+        (incomingData) {
+          _errorMap.remove(key);
+          notifyListeners();
+          // Extra security in case transformData isnt sent
+          var interceptedData = streamsMap[key].transformData == null
+              ? transformData(key, incomingData)
+              : streamsMap[key].transformData(incomingData);
+
+          if (interceptedData != null) {
+            _dataMap[key] = interceptedData;
+          } else {
+            _dataMap[key] = incomingData;
+          }
+
+          notifyListeners();
+          streamsMap[key].onData != null
+              ? streamsMap[key].onData(_dataMap[key])
+              : onData(key, _dataMap[key]);
+        },
+        onError: (error) {
+          _errorMap[key] = true;
+          _dataMap[key] = null;
+
+          streamsMap[key].onError != null
+              ? streamsMap[key].onError(error)
+              : onError(key, error);
+          notifyListeners();
+        },
       );
+      streamsMap[key].onSubscribed != null
+          ? streamsMap[key].onSubscribed()
+          : onSubscribed(key);
       notifyListeners();
     }
   }
 
-  void onData(data) {}
-  void onSubscribed() {}
-  void onError(error) {}
-  void onCancel() {}
-  transformData(data) {
+  void onData(String key, dynamic data) {}
+  void onSubscribed(String key) {}
+  void onError(String key, error) {}
+  void onCancel(String key) {}
+  dynamic transformData(String key, data) {
     return data;
+  }
+
+  @override
+  @mustCallSuper
+  void dispose() {
+    if (_streamsSubscriptions != null) {
+      for (var key in _streamsSubscriptions.keys) {
+        _streamsSubscriptions[key].cancel();
+      }
+    }
+
+    super.dispose();
   }
 }
 
@@ -358,80 +383,4 @@ class StreamData<T> extends _SingleDataSourceViewModel<T> {
 
     super.dispose();
   }
-}
-
-/// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
-abstract class FutureViewModel<T> extends _SingleDataSourceViewModel {
-  /// The future that fetches the data and sets the view to busy
-  @Deprecated('Use the futureToRun function')
-  Future<T> get future => null;
-
-  // TODO: Add timeout functionality
-  // TODO: Add retry functionality - default 1
-  // TODO: Add retry lifecycle hooks to override in the viewmodel
-
-  Future<T> futureToRun();
-
-  Future runFuture() async {
-    _hasError = false;
-    notifyListeners();
-
-    _data = await runBusyFuture(futureToRun()).catchError((error) {
-      _hasError = true;
-      setBusy(false);
-      onError(error);
-      notifyListeners();
-    });
-  }
-
-  void onError(error) {}
-}
-
-/// Provides functionality for a ViewModel to run and fetch data using multiple future
-abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
-  Map<String, Future Function()> get futuresMap;
-
-  Completer _futuresCompleter;
-  int _futuresCompleted;
-
-  void _initialiseData() {
-    _errorMap = Map<String, bool>();
-    _dataMap = Map<String, dynamic>();
-    _futuresCompleted = 0;
-  }
-
-  Future runFutures() {
-    _futuresCompleter = Completer();
-    _initialiseData();
-    notifyListeners();
-
-    for (var key in futuresMap.keys) {
-      runBusyFuture(futuresMap[key](), busyObject: key).then((futureData) {
-        _dataMap[key] = futureData;
-        notifyListeners();
-        onData(key);
-        _incrementAndCheckFuturesCompleted();
-      }).catchError((error) {
-        _errorMap[key] = true;
-        setBusyForObject(key, false);
-        onError(key: key, error: error);
-        notifyListeners();
-        _incrementAndCheckFuturesCompleted();
-      });
-    }
-
-    return _futuresCompleter.future;
-  }
-
-  void _incrementAndCheckFuturesCompleted() {
-    _futuresCompleted++;
-    if (_futuresCompleted == futuresMap.length &&
-        !_futuresCompleter.isCompleted) {
-      _futuresCompleter.complete();
-    }
-  }
-
-  void onError({String key, error}) {}
-
-  void onData(String key) {}
 }

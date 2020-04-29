@@ -98,6 +98,10 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
       (_model as StreamViewModel).initialise();
     }
 
+    if (_model is MultipleStreamViewModel) {
+      (_model as MultipleStreamViewModel).initialise();
+    }
+
     // Fire onModelReady after the model has been constructed
     if (widget.onModelReady != null) {
       // Fire the onModelReady after the first frame has completed painting which makes it
