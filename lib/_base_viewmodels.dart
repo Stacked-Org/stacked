@@ -44,15 +44,15 @@ class BaseViewModel extends ChangeNotifier {
   }
 
   // Sets up streamData property to hold data, busy, and lifecycle events
-  _StreamData setupStream(
-    Stream stream, {
+  StreamData setupStream<T>(
+    Stream<T> stream, {
     onData,
     onSubscribed,
     onError,
     onCancel,
     transformData,
   }) {
-    _StreamData streamData = _StreamData(
+    StreamData<T> streamData = StreamData<T>(
       stream,
       onData: onData,
       onSubscribed: onSubscribed,
@@ -192,12 +192,32 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
   void onData(String key) {}
 }
 
+class LifecycleEvents {
+  Function onData;
+  Function onSubscribed;
+  Function onError;
+  Function onCancel;
+  Function transformData;
+
+  LifecycleEvents({
+    this.onData,
+    this.onSubscribed,
+    this.onError,
+    this.onCancel,
+    this.transformData,
+  });
+}
+
 /// Provides functionality for a ViewModel to run and fetch data using multiple streams
 
 abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
-  Map<String, Stream> get streamsMap;
-  Map<String, _StreamData> _streamDataMap;
-  Map<String, _StreamData> get streamDataMap => _streamDataMap;
+  // Every MultipleStreamViewModel must override streamDataMap
+  // StreamData requires a stream, but lifecycle events are optional
+  // if a lifecyle event isn't defined we use the default ones here
+  Map<String, StreamData> get streamDataMap;
+
+  Map<String, StreamData> _streamDataMap;
+  Map<String, StreamData> get streamOutputDataMap => _streamDataMap;
   Map<String, dynamic> get dataMap {
     Map<String, dynamic> _result = Map<String, dynamic>();
     _streamDataMap.forEach((key, streamData) => _result[key] = streamData.data);
@@ -211,23 +231,19 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
     return _result;
   }
 
-  void _initialiseData() {
-    _streamDataMap = Map<String, _StreamData>();
-  }
-
-  // TODO: Add individual lifecycle event overrides
-  // TODO: Add generics back in here
-  void runStreams() {
-    _initialiseData();
+  // TODO: Get this working with generics
+  void initialise() {
+    _streamDataMap = Map<String, StreamData>();
     notifyListeners();
-    for (var key in streamsMap.keys) {
+    for (var key in streamDataMap.keys) {
+      // If a lifecycle function isn't supplied, we fallback to default
       _streamDataMap[key] = setupStream(
-        streamsMap[key],
-        onData: onData,
-        onSubscribed: onSubscribed,
-        onError: onError,
-        transformData: transformData,
-        onCancel: onCancel,
+        streamDataMap[key].stream,
+        onData: streamDataMap[key]?.onData ?? onData,
+        onSubscribed: streamDataMap[key]?.onSubscribed ?? onSubscribed,
+        onError: streamDataMap[key]?.onError ?? onError,
+        transformData: streamDataMap[key]?.transformData ?? transformData,
+        onCancel: streamDataMap[key]?.onCancel ?? onCancel,
       );
       notifyListeners();
     }
@@ -245,13 +261,11 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
 abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T> {
   Stream<T> get stream;
   // Holds the data, dataReady, hasError, isBusy properties
-  _StreamData streamData;
-  get data => streamData.data;
+  StreamData streamData;
+  T get data => streamData.data;
   get dataReady => streamData.dataReady;
   get hasError => streamData.hasError;
   get isBusy => streamData.isBusy;
-
-  //TODO: Get this to work with generic stream types again
 
   void initialise() {
     streamData = setupStream(
@@ -273,7 +287,7 @@ abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T> {
   }
 }
 
-class _StreamData<T> extends _SingleDataSourceViewModel<T> {
+class StreamData<T> extends _SingleDataSourceViewModel<T> {
   Stream<T> stream;
 
   /// Called when the new data arrives
@@ -296,12 +310,14 @@ class _StreamData<T> extends _SingleDataSourceViewModel<T> {
   /// This can be used to modify the data if required. If nothhing is returned the data
   /// won't be set.
   Function transformData;
-  _StreamData(this.stream,
-      {this.onData,
-      this.onSubscribed,
-      this.onError,
-      this.onCancel,
-      this.transformData});
+  StreamData(
+    this.stream, {
+    this.onData,
+    this.onSubscribed,
+    this.onError,
+    this.onCancel,
+    this.transformData,
+  });
   StreamSubscription _streamSubscription;
 
   void initialise() {

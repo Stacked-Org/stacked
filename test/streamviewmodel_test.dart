@@ -35,12 +35,40 @@ class TestMultipleStreamViewModel extends MultipleStreamViewModel {
   final bool failOne;
   final int delay;
   TestMultipleStreamViewModel({this.failOne = false, this.delay = 0});
-
+  int loadedData;
   @override
-  Map<String, Stream> get streamsMap => {
-        _NumberStream: numberStream(5, fail: failOne, delay: delay),
-        _StringStream: textStream("five", fail: false, delay: delay),
+  Map<String, StreamData> get streamDataMap => {
+        _NumberStream: StreamData(numberStream(
+          5,
+          fail: failOne,
+          delay: delay,
+        )),
+        _StringStream: StreamData(textStream(
+          "five",
+          fail: false,
+          delay: delay,
+        )),
       };
+}
+
+class TestMultipleStreamViewModelWithOverrides extends MultipleStreamViewModel {
+  TestMultipleStreamViewModelWithOverrides();
+  int loadedData;
+  @override
+  Map<String, StreamData> get streamDataMap => {
+        _NumberStream: StreamData(
+          numberStream(5, fail: false, delay: 0),
+          onData: _loadData,
+          onSubscribed: this.onSubscribed,
+          onError: this.onError,
+          onCancel: this.onCancel,
+          transformData: this.transformData,
+        )
+      };
+
+  void _loadData(data) {
+    loadedData = data;
+  }
 }
 
 void main() async {
@@ -84,7 +112,7 @@ void main() async {
         'When running multiple streams the associated key should hold the value when data is fetched',
         () async {
       var streamViewModel = TestMultipleStreamViewModel();
-      streamViewModel.runStreams();
+      streamViewModel.initialise();
       await Future.delayed(Duration(milliseconds: 1));
       expect(streamViewModel.dataMap[_NumberStream], 5);
       expect(streamViewModel.dataMap[_StringStream], 'five');
@@ -94,24 +122,32 @@ void main() async {
         'When one of multiple streams fail only the failing one should have an error',
         () async {
       var streamViewModel = TestMultipleStreamViewModel(failOne: true);
-      streamViewModel.runStreams();
+      streamViewModel.initialise();
       await Future.delayed(Duration(milliseconds: 1));
       expect(streamViewModel.errorMap[_NumberStream], true);
       // Make sure we only have 1 error
       expect(streamViewModel.errorMap.values.where((v) => v == true).length, 1);
     });
 
-    //TODO: Get this working again
     test(
         'When one of multiple streams fail the passed one should have data and failing one not',
         () async {
       var streamViewModel = TestMultipleStreamViewModel(failOne: true);
-      streamViewModel.runStreams();
+      streamViewModel.initialise();
       await Future.delayed(Duration(milliseconds: 1));
-      expect(streamViewModel.streamDataMap[_NumberStream].dataReady, false);
+      expect(
+          streamViewModel.streamOutputDataMap[_NumberStream].dataReady, false);
       // Delay the first lifecycle can complete
       await Future.delayed(Duration(milliseconds: 1));
-      expect(streamViewModel.streamDataMap[_StringStream].dataReady, true);
+      expect(
+          streamViewModel.streamOutputDataMap[_StringStream].dataReady, true);
+    });
+
+    test('When one onData is augmented the data will change', () async {
+      var streamViewModel = TestMultipleStreamViewModelWithOverrides();
+      streamViewModel.initialise();
+      await Future.delayed(Duration(milliseconds: 1));
+      expect(streamViewModel.loadedData, 5);
     });
   });
 }
