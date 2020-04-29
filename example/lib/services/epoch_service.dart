@@ -8,4 +8,11 @@ class EpochService {
       yield DateTime.now().millisecondsSinceEpoch;
     }
   }
+
+  Stream<int> epochUpdateNumbersQuickly() async* {
+    while (true) {
+      await Future.delayed(const Duration(milliseconds: 200));
+      yield DateTime.now().millisecondsSinceEpoch;
+    }
+  }
 }
