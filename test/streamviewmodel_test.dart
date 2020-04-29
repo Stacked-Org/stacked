@@ -83,8 +83,6 @@ void main() async {
     test(
         'When running multiple streams the associated key should hold the value when data is fetched',
         () async {
-      //TODO: implement this on 'dataMap' property (getter)
-
       var streamViewModel = TestMultipleStreamViewModel();
       streamViewModel.runStreams();
       await Future.delayed(Duration(milliseconds: 1));
@@ -99,9 +97,11 @@ void main() async {
       streamViewModel.runStreams();
       await Future.delayed(Duration(milliseconds: 1));
       expect(streamViewModel.errorMap[_NumberStream], true);
-      expect(streamViewModel.errorMap[_StringStream], false);
+      // Make sure we only have 1 error
+      expect(streamViewModel.errorMap.values.where((v) => v == true).length, 1);
     });
 
+    //TODO: Get this working again
     test(
         'When one of multiple streams fail the passed one should have data and failing one not',
         () async {
@@ -109,15 +109,8 @@ void main() async {
       streamViewModel.runStreams();
       await Future.delayed(Duration(milliseconds: 1));
       expect(streamViewModel.streamDataMap[_NumberStream].dataReady, false);
-      expect(streamViewModel.streamDataMap[_StringStream].dataReady, true);
-    });
-    test('When overwriting the onData call, data is passed', () async {
-      String result;
-      var streamViewModel = TestMultipleStreamViewModel();
-
-      streamViewModel.runStreams();
+      // Delay the first lifecycle can complete
       await Future.delayed(Duration(milliseconds: 1));
-      expect(streamViewModel.streamDataMap[_NumberStream].dataReady, false);
       expect(streamViewModel.streamDataMap[_StringStream].dataReady, true);
     });
   });

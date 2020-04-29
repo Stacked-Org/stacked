@@ -44,8 +44,14 @@ class BaseViewModel extends ChangeNotifier {
   }
 
   // Sets up streamData property to hold data, busy, and lifecycle events
-  _StreamData setupStream(Stream stream,
-      {onData, onSubscribed, onError, onCancel, transformData}) {
+  _StreamData setupStream(
+    Stream stream, {
+    onData,
+    onSubscribed,
+    onError,
+    onCancel,
+    transformData,
+  }) {
     _StreamData streamData = _StreamData(
       stream,
       onData: onData,
@@ -198,8 +204,8 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
     return _result;
   }
 
-  Map<String, dynamic> get errorMap {
-    Map<String, dynamic> _result = Map<String, dynamic>();
+  Map<String, bool> get errorMap {
+    Map<String, bool> _result = Map<String, bool>();
     _streamDataMap
         .forEach((key, streamData) => _result[key] = streamData.hasError);
     return _result;
@@ -209,13 +215,30 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
     _streamDataMap = Map<String, _StreamData>();
   }
 
+  // TODO: Add individual lifecycle event overrides
+  // TODO: Add generics back in here
   void runStreams() {
     _initialiseData();
     notifyListeners();
     for (var key in streamsMap.keys) {
-      _streamDataMap[key] = setupStream(streamsMap[key]);
+      _streamDataMap[key] = setupStream(
+        streamsMap[key],
+        onData: onData,
+        onSubscribed: onSubscribed,
+        onError: onError,
+        transformData: transformData,
+        onCancel: onCancel,
+      );
       notifyListeners();
     }
+  }
+
+  void onData(data) {}
+  void onSubscribed() {}
+  void onError(error) {}
+  void onCancel() {}
+  transformData(data) {
+    return data;
   }
 }
 
@@ -231,12 +254,14 @@ abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T> {
   //TODO: Get this to work with generic stream types again
 
   void initialise() {
-    streamData = setupStream(stream,
-        onData: onData,
-        onSubscribed: onSubscribed,
-        onError: onError,
-        onCancel: onCancel,
-        transformData: transformData);
+    streamData = setupStream(
+      stream,
+      onData: onData,
+      onSubscribed: onSubscribed,
+      onError: onError,
+      onCancel: onCancel,
+      transformData: transformData,
+    );
   }
 
   void onData(T data) {}
