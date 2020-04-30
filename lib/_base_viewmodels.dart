@@ -118,7 +118,7 @@ class _MultiDataSourceViewModel extends BaseViewModel {
 }
 
 /// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
-abstract class FutureViewModel<T> extends _SingleDataSourceViewModel {
+abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T> {
   /// The future that fetches the data and sets the view to busy
   @Deprecated('Use the futureToRun function')
   Future<T> get future => null;

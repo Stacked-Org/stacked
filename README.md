@@ -195,7 +195,7 @@ This is to help with removing some boilerplate code.
 
 ### Disable ViewModel Dispose
 
-An example of how to use one viewmodel instance across the application with the help of [get_it](https://github.com/fluttercommunity/get_it).
+An example of how to disable the dispose for a viewmodel.
 
 ```dart
 // View
@@ -228,7 +228,7 @@ Note that the `ViewModelBuilder` constructor is called with parameter `disposeVi
 
 ## ViewModel Widget
 
-The `ViewModelWidget` is an implementation of a widget class that provides us with the provided value as a parameter in the build function of the widget. Above is an example of using the widget but here's another one that doesn't make use of a ViewModel. Lets say for instance you have a data model you want to use in multiple widgets. We can use the `Provider.value` call to supply that value and inside the multiple widgets we inherit from the `ViewModelWidget` and make use of the data.
+The `ViewModelWidget` is an implementation of a widget class that returns a value provided by Provider as a parameter in the build function of the widget. Lets say for instance you have a data model you want to use in multiple widgets. We can use the `Provider.value` call to supply that value, then inside the multiple widgets we inherit from the `ViewModelWidget` and make use of the data directly from the build method.
 
 ```dart
 
@@ -305,7 +305,7 @@ class DuplicateNameWidget extends ViewModelWidget<Human> {
 
 ### Non reactive ViewModelWidget
 
-Sometimes you want a widget to have access to the viewmodel but you don't want it to rebuild. In the case of a button that has to call a function on the viewmodel but uses none of the viewmodel state for the UI. In this case you can set the reactive value to false for the super constructor of the `ViewModelWidget`
+Sometimes you want a widget to have access to the ViewModel but you don't want it to rebuild when notifyListeners is called. In this case you can set the reactive value to false for the super constructor of the `ViewModelWidget`. This is commonly used in widgets that don't make use of the models state and only it's functionality.
 
 ```dart
 class UpdateTitleButton extends ViewModelWidget<HomeViewModel> {

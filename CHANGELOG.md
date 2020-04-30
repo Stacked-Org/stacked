@@ -1,3 +1,7 @@
+## [1.3.0+3] - 2020-04-30 - Pass type to the base models of ViewModel
+
+## [1.3.0+2] - 2020-04-30 - ReadMe updates
+
 ## [1.3.0+1] - 2020-04-28 - onModelReady taken out of post frame callback
 
 ## [1.3.0] - 2020-04-28 - Adds Mulitple streams ViewModel Builder
