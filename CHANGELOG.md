@@ -1,3 +1,7 @@
+## [1.3.0+1] - 2020-04-28 - onModelReady taken out of post frame callback
+
+## [1.3.0] - 2020-04-28 - Adds Mulitple streams ViewModel Builder
+
 ## [1.2.4] - 2020-04-28 - onModelReady updates
 
 - `onModelReady` is not called every time the model is constructed

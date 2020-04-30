@@ -104,10 +104,7 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
 
     // Fire onModelReady after the model has been constructed
     if (widget.onModelReady != null) {
-      // Fire the onModelReady after the first frame has completed painting which makes it
-      // safe for us to perform navigation, call notifyListeners or normal setState calls.
-      SchedulerBinding.instance
-          .addPostFrameCallback((duration) => widget.onModelReady(_model));
+      widget.onModelReady(_model);
     }
   }
 
