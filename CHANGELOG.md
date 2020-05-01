@@ -1,3 +1,5 @@
+## [1.3.1] - 2020-05-01 - Added the HookViewModelWidget to use the ViewModelWidget with flutter_hooks
+
 ## [1.3.0+3] - 2020-04-30 - Pass type to the base models of ViewModel
 
 ## [1.3.0+2] - 2020-04-30 - ReadMe updates

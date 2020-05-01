@@ -30,6 +30,9 @@ dependencies:
   get_it: ^4.0.1
   injectable: ^0.3.0
 
+  flutter_hooks:
+  
+
   # navigation
   get:
 

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
 
 /// A widget that provides a value passed through a provider as a parameter of the build function.
@@ -31,4 +32,16 @@ class _DataProviderElement<T> extends ComponentElement {
     assert(widget == newWidget);
     rebuild();
   }
+}
+
+/// An implementation of the ViewModelWidget that allows you to use Hooks in the build method
+abstract class HookViewModelWidget<T> extends HookWidget {
+  final bool reactive;
+  HookViewModelWidget({this.reactive = true});
+
+  @override
+  Widget build(BuildContext context) =>
+      buildViewModelWidget(context, Provider.of<T>(context, listen: reactive));
+
+  Widget buildViewModelWidget(BuildContext context, T viewModel);
 }

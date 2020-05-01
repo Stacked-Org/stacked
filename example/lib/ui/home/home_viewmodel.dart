@@ -23,4 +23,9 @@ class HomeViewModel extends BaseViewModel {
   void updateData() {
     notifyListeners();
   }
+
+  void updateTile(String value) {
+    title = value;
+    notifyListeners();
+  }
 }
