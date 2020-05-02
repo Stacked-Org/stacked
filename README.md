@@ -202,7 +202,7 @@ An example of how to disable the dispose for a viewmodel.
 class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<HomeViewModel>.withConsumer(
+    return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
       onModelReady: (model) => model.initialise(),
       // When the disposeViewModel is set to false the viewmodel will
