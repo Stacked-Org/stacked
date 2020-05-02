@@ -286,31 +286,62 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
 }
 
 abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T> {
+  /// Stream to listen to
   Stream<T> get stream;
-  // Holds the data, dataReady, hasError, isBusy properties
-  StreamData streamData;
-  T get data => streamData.data;
-  get dataReady => streamData.dataReady;
-  get hasError => streamData.hasError;
-  get isBusy => streamData.isBusy;
+
+  StreamSubscription _streamSubscription;
 
   void initialise() {
-    streamData = setupStream(
-      stream,
-      onData: onData,
-      onSubscribed: onSubscribed,
-      onError: onError,
-      onCancel: onCancel,
-      transformData: transformData,
+    _streamSubscription = stream.listen(
+      (incomingData) {
+        _hasError = false;
+        notifyListeners();
+        // Extra security in case transformData isnt sent
+        var interceptedData =
+            transformData == null ? incomingData : transformData(incomingData);
+
+        if (interceptedData != null) {
+          _data = interceptedData;
+        } else {
+          _data = incomingData;
+        }
+
+        onData(_data);
+        notifyListeners();
+      },
+      onError: (error) {
+        _hasError = true;
+        _data = null;
+        onError(error);
+        notifyListeners();
+      },
     );
+
+    onSubscribed();
   }
 
+  /// Called before the notifyListeners is called when data has been set
   void onData(T data) {}
+
+  /// Called when the stream is listened too
   void onSubscribed() {}
+
+  /// Called when an error is fired in the stream
   void onError(error) {}
+
   void onCancel() {}
+
+  /// Called before the data is set for the viewmodel
   T transformData(T data) {
     return data;
+  }
+
+  @override
+  void dispose() {
+    _streamSubscription.cancel();
+    onCancel();
+
+    super.dispose();
   }
 }
 

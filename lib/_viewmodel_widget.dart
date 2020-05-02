@@ -34,7 +34,7 @@ class _DataProviderElement<T> extends ComponentElement {
   }
 }
 
-/// An implementation of the ViewModelWidget that allows you to use Hooks in the build method
+/// An implementation of the ViewModelWidget that allows you to use Hooks in the build
 abstract class HookViewModelWidget<T> extends HookWidget {
   final bool reactive;
   HookViewModelWidget({this.reactive = true});

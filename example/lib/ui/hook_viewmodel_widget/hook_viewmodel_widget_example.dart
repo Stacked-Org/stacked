@@ -19,15 +19,15 @@ class HookViewModelWidgetExample extends StatelessWidget {
 
 class _HookForm extends HookViewModelWidget<HomeViewModel> {
   @override
-  Widget buildViewModelWidget(BuildContext context, HomeViewModel viewModel) {
+  Widget buildViewModelWidget(BuildContext context, HomeViewModel model) {
     var title = useTextEditingController();
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text(viewModel.title),
+        Text(model.title),
         TextField(
           controller: title,
-          onChanged: viewModel.updateTile,
+          onChanged: model.updateTile,
         )
       ],
     );
