@@ -31,16 +31,6 @@ That's quite a bit of "rules" but they help during production. Trust me.
 
 Stacked provides you with classes and functionalities to make it easy to implement that base architecture that this package is built for. There are additional things that you can add to your application that will make the user of this architecture much more pleasant. This will be discussed in full on the architecture series that will come out soon. Everything from navigation, dependency injection, service location, error handling, etc.
 
-## Additional Packages
-
-In the efforts of providing as much value with the stacked package as possible the repo contains all of the other packages that extends the stacked functionality further and implements some of the base functionalities for you. It also contains third party extensions that can be used with stacked.
-
-| Package                                                                                           | Pub                                                                                                            |
-| ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| [stacked](https://github.com/FilledStacks/stacked/tree/master/packages/stacked)                   | [![pub package](https://img.shields.io/pub/v/stacked.svg)](https://pub.dev/packages/stacked)                   |
-| [stacked_services](https://github.com/FilledStacks/stacked/tree/master/packages/stacked_services) | [![pub package](https://img.shields.io/pub/v/stacked_services.svg)](https://pub.dev/packages/stacked_services) |
-| [stacked_hooks](https://github.com/FilledStacks/stacked/tree/master/packages/stacked_hooks)       | [![pub package](https://img.shields.io/pub/v/stacked_hooks.svg)](https://pub.dev/packages/stacked_hooks)       |
-
 ## ViewModelBuilder
 
 The `ViewModelBuilder` was first built in the [Provider Architecture Tutorial](https://youtu.be/kDEflMYTFlk) where it was titled BaseView. The `ViewModelBuilder` is used to create the "binding" between a ViewModel and the View. There is no two-way binding in this architecture, which is why I don't want to say it's an Mvvm implementation and why we have instead given it our own name. The `ViewModelBuilder` wraps up all the `ChangeNotifierProvider` code which allows us to trigger a rebuild of a widget when calling `notifyListeners` within the ViewModel.
