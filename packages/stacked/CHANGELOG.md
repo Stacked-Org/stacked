@@ -1,4 +1,6 @@
-## [1.3.2] - 2020-05-03 - Removed the hooks dependency and moved code to stacked_hooks package
+## [1.3.4] - 2020-05-03 - Added DynamicDataSource funtionality to swap streams at runtime
+
+## [1.3.3] - 2020-05-03 - Removed the hooks dependency and moved code to stacked_hooks package
 
 ## [1.3.2] - 2020-05-02 - Fixed StreamViewModel functionality
 
