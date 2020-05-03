@@ -101,6 +101,17 @@ void main() async {
       await Future.delayed(Duration(milliseconds: 1));
       expect(streamViewModel.dataReady, false);
     });
+
+    test('When a stream returns it should notifyListeners', () async {
+      var streamViewModel = TestStreamViewModel(delay: 50);
+      var listenersCalled = false;
+      streamViewModel.addListener(() {
+        listenersCalled = true;
+      });
+      streamViewModel.initialise();
+      await Future.delayed(Duration(milliseconds: 100));
+      expect(listenersCalled, true);
+    });
   });
 
   group('MultipleStreamViewModel', () {
@@ -142,6 +153,17 @@ void main() async {
       streamViewModel.initialise();
       await Future.delayed(Duration(milliseconds: 1));
       expect(streamViewModel.loadedData, 5);
+    });
+
+    test('When a stream returns it should notifyListeners', () async {
+      var streamViewModel = TestMultipleStreamViewModel(delay: 50);
+      var listenersCalled = false;
+      streamViewModel.addListener(() {
+        listenersCalled = true;
+      });
+      streamViewModel.initialise();
+      await Future.delayed(Duration(milliseconds: 100));
+      expect(listenersCalled, true);
     });
   });
 }
