@@ -20,6 +20,7 @@ class BaseViewModel extends ChangeNotifier {
   }
 
   /// Sets the busy state for the object equal to the value passed in and notifies Listeners
+  /// If you're using a primitive type the value SHOULD NOT BE CHANGED, since Hashcode uses == value
   void setBusyForObject(Object object, bool value) {
     _busyStates[object.hashCode] = value;
     notifyListeners();
