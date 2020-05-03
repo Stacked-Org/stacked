@@ -1,7 +1,7 @@
 name: stacked_hooks
 description: A new Flutter package project.
-version: 0.1.1
-homepage: https://github.com/FilledStacks/stacked_hooks
+version: 0.1.1+1
+homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_hooks
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
