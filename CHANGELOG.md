@@ -1,3 +1,5 @@
+## [1.3.2] - 2020-05-03 - Removed the hooks dependency and moved code to stacked_hooks package
+
 ## [1.3.2] - 2020-05-02 - Fixed StreamViewModel functionality
 
 ## [1.3.1] - 2020-05-01 - Added the HookViewModelWidget to use the ViewModelWidget with flutter_hooks
