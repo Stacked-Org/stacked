@@ -45,6 +45,7 @@ class BaseViewModel extends ChangeNotifier {
   }
 
   // Sets up streamData property to hold data, busy, and lifecycle events
+  @protected
   StreamData setupStream<T>(
     Stream<T> stream, {
     onData,
@@ -97,7 +98,15 @@ abstract class ReactiveViewModel extends BaseViewModel {
   }
 }
 
-class _SingleDataSourceViewModel<T> extends BaseViewModel {
+@protected
+class DynamicSourceViewModel<T> extends BaseViewModel {
+  bool changeSource = false;
+  void notifySourceChanged({bool clearOldData = false}) {
+    changeSource = true;
+  }
+}
+
+class _SingleDataSourceViewModel<T> extends DynamicSourceViewModel {
   T _data;
   T get data => _data;
 
@@ -107,7 +116,7 @@ class _SingleDataSourceViewModel<T> extends BaseViewModel {
   bool get dataReady => _data != null && !_hasError;
 }
 
-class _MultiDataSourceViewModel extends BaseViewModel {
+class _MultiDataSourceViewModel extends DynamicSourceViewModel {
   Map<String, dynamic> _dataMap;
   Map<String, dynamic> get dataMap => _dataMap;
 
@@ -140,6 +149,8 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T> {
       onError(error);
       notifyListeners();
     });
+
+    changeSource = false;
   }
 
   void onError(error) {}
@@ -153,8 +164,13 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
   int _futuresCompleted;
 
   void _initialiseData() {
-    _errorMap = Map<String, bool>();
-    _dataMap = Map<String, dynamic>();
+    if (_errorMap == null) {
+      _errorMap = Map<String, bool>();
+    }
+    if (_dataMap == null) {
+      _dataMap = Map<String, dynamic>();
+    }
+
     _futuresCompleted = 0;
   }
 
@@ -178,6 +194,8 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
       });
     }
 
+    changeSource = false;
+
     return _futuresCompleter.future;
   }
 
@@ -194,24 +212,7 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
   void onData(String key) {}
 }
 
-class LifecycleEvents {
-  Function onData;
-  Function onSubscribed;
-  Function onError;
-  Function onCancel;
-  Function transformData;
-
-  LifecycleEvents({
-    this.onData,
-    this.onSubscribed,
-    this.onError,
-    this.onCancel,
-    this.transformData,
-  });
-}
-
 /// Provides functionality for a ViewModel to run and fetch data using multiple streams
-
 abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
   // Every MultipleStreamViewModel must override streamDataMap
   // StreamData requires a stream, but lifecycle events are optional
@@ -220,12 +221,19 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
 
   Map<String, StreamSubscription> _streamsSubscriptions;
 
+  @visibleForTesting
+  Map<String, StreamSubscription> get streamsSubscriptions =>
+      _streamsSubscriptions;
+
   void initialise() {
     _dataMap = Map<String, dynamic>();
     _errorMap = Map<String, bool>();
     _streamsSubscriptions = Map<String, StreamSubscription>();
 
-    notifyListeners();
+    if (!changeSource) {
+      notifyListeners();
+    }
+
     for (var key in streamsMap.keys) {
       // If a lifecycle function isn't supplied, we fallback to default
       _streamsSubscriptions[key] = streamsMap[key].stream.listen(
@@ -261,8 +269,21 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
       streamsMap[key].onSubscribed != null
           ? streamsMap[key].onSubscribed()
           : onSubscribed(key);
-      notifyListeners();
+      changeSource = false;
     }
+  }
+
+  @override
+  void notifySourceChanged({bool clearOldData = false}) {
+    changeSource = true;
+    _disposeAllSubscriptions();
+
+    if (clearOldData) {
+      dataMap.clear();
+      _errorMap.clear();
+    }
+
+    notifyListeners();
   }
 
   void onData(String key, dynamic data) {}
@@ -276,21 +297,43 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
   @override
   @mustCallSuper
   void dispose() {
+    _disposeAllSubscriptions();
+    super.dispose();
+  }
+
+  void _disposeAllSubscriptions() {
     if (_streamsSubscriptions != null) {
       for (var key in _streamsSubscriptions.keys) {
         _streamsSubscriptions[key].cancel();
       }
-    }
 
-    super.dispose();
+      _streamsSubscriptions.clear();
+    }
   }
 }
 
-abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T> {
+abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T>
+    implements DynamicSourceViewModel {
   /// Stream to listen to
   Stream<T> get stream;
 
+  @visibleForTesting
+  StreamSubscription get streamSubscription => _streamSubscription;
+
   StreamSubscription _streamSubscription;
+
+  @override
+  void notifySourceChanged({bool clearOldData = false}) {
+    changeSource = true;
+    _streamSubscription?.cancel();
+    _streamSubscription = null;
+
+    if (clearOldData) {
+      _data = null;
+    }
+
+    notifyListeners();
+  }
 
   void initialise() {
     _streamSubscription = stream.listen(
@@ -319,6 +362,7 @@ abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T> {
     );
 
     onSubscribed();
+    changeSource = false;
   }
 
   /// Called before the notifyListeners is called when data has been set

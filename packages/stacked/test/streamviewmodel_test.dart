@@ -112,6 +112,42 @@ void main() async {
       await Future.delayed(Duration(milliseconds: 100));
       expect(listenersCalled, true);
     });
+
+    group('Data Source Change', () {
+      test(
+          'notifySourceChanged - When called should unsubscribe from original source',
+          () {
+        var streamViewModel = TestStreamViewModel(delay: 1000);
+        streamViewModel.initialise();
+        streamViewModel.notifySourceChanged();
+
+        expect(streamViewModel.streamSubscription, null);
+      });
+
+      test(
+          'notifySourceChanged - When called and clearOldData is false should leave old data',
+          () async {
+        var streamViewModel = TestStreamViewModel(delay: 10);
+        streamViewModel.initialise();
+
+        await Future.delayed(const Duration(milliseconds: 20));
+        streamViewModel.notifySourceChanged();
+
+        expect(streamViewModel.data, 1);
+      });
+
+      test(
+          'notifySourceChanged - When called and clearOldData is true should remove old data',
+          () async {
+        var streamViewModel = TestStreamViewModel(delay: 10);
+        streamViewModel.initialise();
+
+        await Future.delayed(const Duration(milliseconds: 20));
+        streamViewModel.notifySourceChanged(clearOldData: true);
+
+        expect(streamViewModel.data, null);
+      });
+    });
   });
 
   group('MultipleStreamViewModel', () {
@@ -164,6 +200,42 @@ void main() async {
       streamViewModel.initialise();
       await Future.delayed(Duration(milliseconds: 100));
       expect(listenersCalled, true);
+    });
+
+    group('Data Source Change', () {
+      test(
+          'notifySourceChanged - When called should unsubscribe from original sources',
+          () {
+        var streamViewModel = TestMultipleStreamViewModel(delay: 50);
+        streamViewModel.initialise();
+        streamViewModel.notifySourceChanged();
+
+        expect(streamViewModel.streamsSubscriptions.length, 0);
+      });
+
+      test(
+          'notifySourceChanged - When called and clearOldData is false should leave old data',
+          () async {
+        var streamViewModel = TestMultipleStreamViewModel(delay: 10);
+        streamViewModel.initialise();
+
+        await Future.delayed(const Duration(milliseconds: 20));
+        streamViewModel.notifySourceChanged();
+
+        expect(streamViewModel.dataMap[_NumberStream], 5);
+      });
+
+      test(
+          'notifySourceChanged - When called and clearOldData is true should remove old data',
+          () async {
+        var streamViewModel = TestMultipleStreamViewModel(delay: 10);
+        streamViewModel.initialise();
+
+        await Future.delayed(const Duration(milliseconds: 20));
+        streamViewModel.notifySourceChanged(clearOldData: true);
+
+        expect(streamViewModel.dataMap[_NumberStream], null);
+      });
     });
   });
 }

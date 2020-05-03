@@ -5,11 +5,13 @@ class TestFutureViewModel extends FutureViewModel<int> {
   final bool fail;
   TestFutureViewModel({this.fail = false});
 
+  int numberToReturn = 5;
+
   @override
   Future<int> futureToRun() async {
     if (fail) throw Exception('Future to Run failed');
-    await Future.delayed(Duration(seconds: 3));
-    return 5;
+    await Future.delayed(Duration(milliseconds: 20));
+    return numberToReturn;
   }
 }
 
@@ -19,6 +21,8 @@ const String StringDelayFuture = 'delayedString';
 class TestMultipleFutureViewModel extends MultipleFutureViewModel {
   final bool failOne;
   TestMultipleFutureViewModel({this.failOne = false});
+
+  int numberToReturn = 5;
 
   @override
   Map<String, Future Function()> get futuresMap => {
@@ -31,7 +35,7 @@ class TestMultipleFutureViewModel extends MultipleFutureViewModel {
       throw Exception('getNumberAfterDelay failed');
     }
     await Future.delayed(Duration(milliseconds: 300));
-    return 5;
+    return numberToReturn;
   }
 
   Future<String> getStringAfterDelay() async {
@@ -69,6 +73,18 @@ void main() {
       var futureViewModel = TestFutureViewModel(fail: true);
       await futureViewModel.runFuture();
       expect(futureViewModel.isBusy, false);
+    });
+
+    group('Dynamic Source Tests', () {
+      test('notifySourceChanged - When called should re-run Future', () async {
+        var futureViewModel = TestFutureViewModel();
+        await futureViewModel.runFuture();
+        expect(futureViewModel.data, 5);
+        futureViewModel.numberToReturn = 10;
+        futureViewModel.notifySourceChanged();
+        await futureViewModel.runFuture();
+        expect(futureViewModel.data, 10);
+      });
     });
   });
 
@@ -128,6 +144,18 @@ void main() {
 
       expect(futureViewModel.busy(NumberDelayFuture), false);
       expect(futureViewModel.busy(StringDelayFuture), false);
+    });
+
+    group('Dynamic Source Tests', () {
+      test('notifySourceChanged - When called should re-run Future', () async {
+        var futureViewModel = TestMultipleFutureViewModel();
+        await futureViewModel.runFutures();
+        expect(futureViewModel.dataMap[NumberDelayFuture], 5);
+        futureViewModel.numberToReturn = 10;
+        futureViewModel.notifySourceChanged();
+        await futureViewModel.runFutures();
+        expect(futureViewModel.dataMap[NumberDelayFuture], 10);
+      });
     });
   });
 }

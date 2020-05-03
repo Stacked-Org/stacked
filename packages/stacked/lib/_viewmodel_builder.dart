@@ -83,6 +83,15 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
       _model = widget.viewModelBuilder();
     }
 
+    _initialiseSpecialViewModels();
+
+    // Fire onModelReady after the model has been constructed
+    if (widget.onModelReady != null) {
+      widget.onModelReady(_model);
+    }
+  }
+
+  void _initialiseSpecialViewModels() {
     // Add any additional actions here for spcialised ViewModels
     // TODO: Provide a closed implemenation of this functionality. Refer to the Open Closed
     // principle in the SOLID principles
@@ -100,11 +109,6 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
 
     if (_model is MultipleStreamViewModel) {
       (_model as MultipleStreamViewModel).initialise();
-    }
-
-    // Fire onModelReady after the model has been constructed
-    if (widget.onModelReady != null) {
-      widget.onModelReady(_model);
     }
   }
 
@@ -128,7 +132,7 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
       return ChangeNotifierProvider.value(
         value: _model,
         child: Consumer(
-          builder: widget.builder,
+          builder: builderWithDynamicSourceInitialise,
           child: widget.staticChild,
         ),
       );
@@ -137,9 +141,19 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
     return ChangeNotifierProvider(
       create: (context) => _model,
       child: Consumer(
-        builder: widget.builder,
+        builder: builderWithDynamicSourceInitialise,
         child: widget.staticChild,
       ),
     );
+  }
+
+  Widget builderWithDynamicSourceInitialise(
+      BuildContext context, T model, Widget child) {
+    if (model is DynamicSourceViewModel) {
+      if (model.changeSource ?? false) {
+        _initialiseSpecialViewModels();
+      }
+    }
+    return widget.builder(context, model, child);
   }
 }

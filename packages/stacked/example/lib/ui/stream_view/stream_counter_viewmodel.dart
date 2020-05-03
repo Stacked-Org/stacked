@@ -5,8 +5,21 @@ import 'package:stacked/stacked.dart';
 class StreamCounterViewModel extends StreamViewModel<int> {
   String get title => 'This is the time since epoch in seconds \n $data';
 
+  Stream _currentSource;
+  bool isSlowEpochNumbers = true;
+
+  StreamCounterViewModel() {
+    _setSource();
+  }
+
+  void _setSource() {
+    _currentSource = isSlowEpochNumbers
+        ? locator<EpochService>().epochUpdatesNumbers()
+        : locator<EpochService>().epochUpdateNumbersQuickly();
+  }
+
   @override
-  Stream<int> get stream => locator<EpochService>().epochUpdatesNumbers();
+  Stream<int> get stream => _currentSource;
 
   @override
   void onData(int data) {}
@@ -19,4 +32,10 @@ class StreamCounterViewModel extends StreamViewModel<int> {
 
   @override
   void onError(error) {}
+
+  void changeStreamSources() {
+    isSlowEpochNumbers = !isSlowEpochNumbers;
+    _setSource();
+    notifySourceChanged();
+  }
 }

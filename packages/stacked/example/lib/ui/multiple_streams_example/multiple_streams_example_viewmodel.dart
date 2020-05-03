@@ -11,18 +11,18 @@ class MultipleStreamsExampleViewModel extends MultipleStreamViewModel {
   String get randomString => dataMap[_StringStreamKey];
   bool get hasRandomString => dataReady(_StringStreamKey);
 
-  Stream<int> numbersStream() async* {
+  Stream<int> numbersStream([int delay = 500]) async* {
     var random = Random();
     while (true) {
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future.delayed(Duration(milliseconds: delay));
       yield random.nextInt(999);
     }
   }
 
-  Stream<String> stringStream() async* {
+  Stream<String> stringStream([int delay = 2000]) async* {
     var random = Random();
     while (true) {
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(Duration(milliseconds: delay));
       var randomLength = random.nextInt(50);
       var randomString = '';
       for (var i = 0; i < randomLength; i++) {
@@ -32,10 +32,18 @@ class MultipleStreamsExampleViewModel extends MultipleStreamViewModel {
     }
   }
 
+  int numbersStreamDelay = 500;
+  int stringStreamDelay = 2000;
+
   @override
-  // TODO: implement streamsMap
   Map<String, StreamData> get streamsMap => {
-        _NumbersStreamKey: StreamData<int>(numbersStream()),
-        _StringStreamKey: StreamData<String>(stringStream()),
+        _NumbersStreamKey: StreamData<int>(numbersStream(numbersStreamDelay)),
+        _StringStreamKey: StreamData<String>(stringStream(stringStreamDelay)),
       };
+
+  void swapStreams() {
+    numbersStreamDelay -= 100;
+    stringStreamDelay -= 500;
+    notifySourceChanged();
+  }
 }

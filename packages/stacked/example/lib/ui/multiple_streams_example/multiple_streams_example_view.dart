@@ -21,22 +21,37 @@ class MultipleStreamsExampleView extends StatelessWidget {
                       color: Colors.yellow,
                       child: !model.hasNumberData
                           ? CircularProgressIndicator()
-                          : Text(model.number.toString()),
+                          : Column(
+                              children: <Widget>[
+                                Text(model.stringStreamDelay.toString() + 'ms'),
+                                Text(model.number.toString()),
+                              ],
+                            ),
                     ),
                     SizedBox(
                       width: 20,
                     ),
                     Container(
                       width: 50,
-                      height: 50,
+                      height: 90,
                       alignment: Alignment.center,
                       color: Colors.red,
                       child: !model.hasRandomString
                           ? CircularProgressIndicator()
-                          : Text(model.randomString),
+                          : Column(
+                              children: <Widget>[
+                                Text(
+                                    model.numbersStreamDelay.toString() + 'ms'),
+                                Text(model.randomString),
+                              ],
+                            ),
                     ),
                   ],
                 ),
+              ),
+              floatingActionButton: MaterialButton(
+                child: Text('Change Stream Source Faster'),
+                onPressed: model.swapStreams,
               ),
             ),
         viewModelBuilder: () => MultipleStreamsExampleViewModel());

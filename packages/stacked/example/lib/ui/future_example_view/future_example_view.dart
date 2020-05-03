@@ -24,6 +24,7 @@ class FutureExampleView extends StatelessWidget {
                     ? CircularProgressIndicator()
                     : Text(model.data),
               ),
+              
       ),
       viewModelBuilder: () => FutureExampleViewModel(),
     );

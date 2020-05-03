@@ -6,11 +6,16 @@ class StreamCounterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<StreamCounterViewModel>.reactive(
-        builder: (context, model, child) => Scaffold(
-              body: Center(
-                child: Text(model.title),
-              ),
-            ),
-        viewModelBuilder: () => StreamCounterViewModel());
+      builder: (context, model, child) => Scaffold(
+        body: Center(
+          child: Text(model.title),
+        ),
+        floatingActionButton: MaterialButton(
+          child: Text('Change Stream Srouces'),
+          onPressed: model.changeStreamSources,
+        ),
+      ),
+      viewModelBuilder: () => StreamCounterViewModel(),
+    );
   }
 }
