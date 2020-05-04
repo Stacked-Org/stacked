@@ -16,7 +16,7 @@ class NavigationService {
   }
 
   /// Pops the back stack until the predicate is satisfied
-  void popUnitl(RoutePredicate predicate) {
+  void popUntil(RoutePredicate predicate) {
     Get.key.currentState.popUntil(predicate);
   }
 
