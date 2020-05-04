@@ -1,3 +1,5 @@
+## [0.2.0+2] - 03-05-2020 - Fixed a function name type in Navigation Service
+
 ## [0.2.0+1] - 03-05-2020 - Updates webpage for package
 
 ## [0.2.0] - 03-05-2020 - Expanded the Navigation Service functionality to expose more functionalities
