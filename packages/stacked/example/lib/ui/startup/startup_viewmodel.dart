@@ -1,3 +1,3 @@
-import 'file:///G:/os/FilledStacks/stacked/packages/stacked/lib/src/base_view_models.dart';
+import 'package:stacked/stacked.dart';
 
 class StartupVieWModel extends BaseViewModel {}
