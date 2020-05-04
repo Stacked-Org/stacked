@@ -1,4 +1,4 @@
-import 'package:stacked/_base_viewmodels.dart';
+import 'file:///G:/os/FilledStacks/stacked/packages/stacked/lib/src/base_view_models.dart';
 
 class HomeViewModel extends BaseViewModel {
   HomeViewModel() {

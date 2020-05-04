@@ -1,7 +1,7 @@
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import '_base_viewmodels.dart';
+import 'base_view_models.dart';
 
 enum _ViewModelBuilderType { NonReactive, Reactive }
 
