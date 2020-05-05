@@ -1,6 +1,15 @@
+## 1.4.1+1
+
+- Change log styling updates
+
+## 1.4.1
+
+- Added the `const` keyword to the following widget constructors:
+  - `ViewModelBuilder.nonReactive`, `ViewModelBuilder.reactive`, and `ViewModelWidget`
+
 ## 1.4.0+1
 
-- Change log readability update
+- [Breaking] Moved private files into src folder
 
 ## 1.4.0
 
