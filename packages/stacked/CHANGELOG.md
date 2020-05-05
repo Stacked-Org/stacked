@@ -1,3 +1,8 @@
+## 1.4.1 - 2020-05-05 - Added const constructors
+
+- Added the `const` keyword to the following widget constructors:
+  `ViewModelBuilder.nonReactive`, `ViewModelBuilder.reactive`, and `ViewModelWidget`
+
 ## 1.4.0 - 2020-05-04 - [Breaking] Moved private files into src folder
 
 - Fix imports, import visibility and changed file names.
