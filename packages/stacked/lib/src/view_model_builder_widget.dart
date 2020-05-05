@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
-
-import '_viewmodel_builder.dart';
+import 'package:stacked/src/view_model_builder.dart';
 
 /// A widget that wraps the [ViewModelBuilder] class in a less boiler plate use of the widget
 ///

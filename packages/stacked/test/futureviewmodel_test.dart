@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:stacked/_base_viewmodels.dart';
+import 'package:stacked/stacked.dart';
 
 class TestFutureViewModel extends FutureViewModel<int> {
   final bool fail;
