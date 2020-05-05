@@ -1,3 +1,5 @@
+## [0.2.1] - 05-05-2020 - Moved private files into src folder as per package conventions
+
 ## [0.2.0+2] - 03-05-2020 - Fixed a function name type in Navigation Service
 
 ## [0.2.0+1] - 03-05-2020 - Updates webpage for package
