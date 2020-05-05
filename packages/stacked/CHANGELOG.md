@@ -1,6 +1,6 @@
-## 1.4.0
+## 1.4.0 - 2020-05-04 - [Breaking] Moved private files into src folder
 
-- **Breaking**: fix imports & import visibility and change file names.
+- Fix imports, import visibility and changed file names.
 
 ## [1.3.4] - 2020-05-03 - Added DynamicDataSource funtionality to swap streams at runtime
 
