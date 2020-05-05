@@ -1,4 +1,8 @@
-## 0.2.1+1 
+## 0.2.2
+
+- Adds parameter for pop result to NavigationService
+
+## 0.2.1+1
 
 - Changelog style updates
 
