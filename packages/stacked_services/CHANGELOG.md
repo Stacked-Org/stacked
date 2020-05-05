@@ -1,8 +1,8 @@
-## 0.2.1+1 - 05-05-2020
+## 0.2.1+1 
 
-- Moved private files into src folder as per package conventions
+- Changelog style updates
 
-## 0.2.1 - 05-05-2020
+## 0.2.1
 
 - Moved private files into src folder as per package conventions
 
