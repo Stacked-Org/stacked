@@ -1,3 +1,7 @@
+## 1.4.0
+
+- **Breaking**: fix imports & import visibility and change file names.
+
 ## [1.3.4] - 2020-05-03 - Added DynamicDataSource funtionality to swap streams at runtime
 
 ## [1.3.3] - 2020-05-03 - Removed the hooks dependency and moved code to stacked_hooks package
@@ -31,15 +35,15 @@
 
 ## [1.2.1] - 2020-04-26 - Added ViewModelBuilderWidget
 
-The `ViewModelBuilderWidget` removes boiler plate code for using a `ViewModelBuilder` to provide the View->ViewModel rebuild functionality.
+- The `ViewModelBuilderWidget` removes boiler plate code for using a `ViewModelBuilder` to provide the View->ViewModel rebuild functionality.
 
 ## [1.2.0] - 2020-04-24 - Added FutureViewmodel
 
-The `FutureViewModel` removes boiler plate code for a ViewModel that depends on data returned from a Future.
+- The `FutureViewModel` removes boiler plate code for a ViewModel that depends on data returned from a Future.
 
 ## [1.1.0] - 2020-04-23 - Added StreamViewModel
 
-The `StreamViewModel` removes boiler plate code for listening to a Stream and notifying listeners as the data comes in.
+- The `StreamViewModel` removes boiler plate code for listening to a Stream and notifying listeners as the data comes in.
 
 ## [1.0.3+3] - 2020-04-23 - Added isBusy to BaseViewModel
 
@@ -51,10 +55,10 @@ The `StreamViewModel` removes boiler plate code for listening to a Stream and no
 
 ## [1.0.2] - 2020-04-22 - Reactive Viewmodel updates
 
-Instead of depending on the user to call set reactive services we require an override to provide a list of services
+- Instead of depending on the user to call set reactive services we require an override to provide a list of services
 
 ## [1.0.1] - 2020-04-21 - Readme instruction updates
 
 ## [1.0.0] - 2020-04-20
 
-First release of the architecture containing all the initial required parts to build a full application.
+- First release of the architecture containing all the initial required parts to build a full application.

@@ -21,7 +21,7 @@ void main() {
         expect(viewModel.busy(property), true);
       });
 
-       test(
+      test(
           'When setBusyForObject is called with true then false, should be false',
           () {
         var property;
