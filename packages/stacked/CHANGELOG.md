@@ -1,3 +1,7 @@
+## 1.4.1+2
+
+- Busy for Object bug fix in base viewmodel
+
 ## 1.4.1+1
 
 - Change log styling updates

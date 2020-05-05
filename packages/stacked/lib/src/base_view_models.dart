@@ -37,7 +37,7 @@ class BaseViewModel extends ChangeNotifier {
 
   void _setBusyForModelOrObject(bool value, {Object busyObject}) {
     if (busyObject != null) {
-      setBusyForObject(busyObject, value);
+      setBusyForObject(busyObject.hashCode, value);
     } else {
       setBusyForObject(this, value);
     }
