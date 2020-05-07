@@ -1,3 +1,7 @@
+## 0.2.2+1
+
+- Updated get package version
+
 ## 0.2.2
 
 - Adds parameter for pop result to NavigationService
