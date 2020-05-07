@@ -1,7 +1,28 @@
-## [0.2.0+1] - 03-05-2020 - Updates webpage for package
+## 0.2.2
 
-## [0.2.0] - 03-05-2020 - Expanded the Navigation Service functionality to expose more functionalities
+- Adds parameter for pop result to NavigationService
 
-## [0.1.0] - 26-04-2020 - Initial commit with basic services
+## 0.2.1+1
 
+- Changelog style updates
+
+## 0.2.1
+
+- Moved private files into src folder as per package conventions
+
+## 0.2.0+2
+
+- Fixed a function name type in Navigation Service
+
+## 0.2.0+1
+
+- Updates webpage for package
+
+## 0.2.0
+
+- Expanded the Navigation Service functionality to expose more functionalities
+
+## 0.1.0
+
+- Initial commit with basic services
 - Adds the `DialogService`, `NavigationService` and `SnackBarService`

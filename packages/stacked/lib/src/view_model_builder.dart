@@ -1,7 +1,7 @@
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import '_base_viewmodels.dart';
+import 'base_view_models.dart';
 
 enum _ViewModelBuilderType { NonReactive, Reactive }
 
@@ -38,7 +38,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   /// Constructs a viewmodel provider that will not rebuild the provided widget when notifyListeners is called.
   ///
   /// Widget from [builder] will be used as a staic child and won't rebuild when notifyListeners is called
-  ViewModelBuilder.nonReactive({
+  const ViewModelBuilder.nonReactive({
     @required this.builder,
     @required this.viewModelBuilder,
     this.onModelReady,
@@ -48,7 +48,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
         staticChild = null;
 
   /// Constructs a viewmodel provider that fires the [builder] function when notifyListeners is called in the viewmodel.
-  ViewModelBuilder.reactive({
+  const ViewModelBuilder.reactive({
     @required this.builder,
     @required this.viewModelBuilder,
     this.staticChild,

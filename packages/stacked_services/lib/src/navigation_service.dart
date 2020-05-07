@@ -10,13 +10,13 @@ class NavigationService {
   get navigatorKey => Get.key;
 
   /// Pops the current scope and indicates if you can pop again
-  bool back() {
-    Get.back();
+  bool back({dynamic result}) {
+    Get.back(result: result);
     return Get.key.currentState.canPop();
   }
 
   /// Pops the back stack until the predicate is satisfied
-  void popUnitl(RoutePredicate predicate) {
+  void popUntil(RoutePredicate predicate) {
     Get.key.currentState.popUntil(predicate);
   }
 

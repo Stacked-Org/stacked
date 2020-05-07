@@ -1,7 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:stacked/stacked.dart';
 
-class TestViewModel extends BaseViewModel {}
+class TestViewModel extends BaseViewModel {
+  Future runFuture([String busyKey]) {
+    return runBusyFuture(
+      Future.delayed(Duration(milliseconds: 50)),
+      busyObject: busyKey,
+    );
+  }
+}
 
 void main() {
   group('BaseViewModel Tests', () {
@@ -21,7 +28,7 @@ void main() {
         expect(viewModel.busy(property), true);
       });
 
-       test(
+      test(
           'When setBusyForObject is called with true then false, should be false',
           () {
         var property;
@@ -29,6 +36,21 @@ void main() {
         viewModel.setBusyForObject(property, true);
         viewModel.setBusyForObject(property, false);
         expect(viewModel.busy(property), false);
+      });
+
+      test('When busyFuture is run should report busy for the model', () {
+        var viewModel = TestViewModel();
+        viewModel.runFuture();
+        expect(viewModel.isBusy, true);
+      });
+
+      test(
+          'When busyFuture is run with busyObject should report busy for the Object',
+          () {
+        var busyObjectKey = 'busyObjectKey';
+        var viewModel = TestViewModel();
+        viewModel.runFuture(busyObjectKey);
+        expect(viewModel.busy(busyObjectKey), true);
       });
     });
   });

@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:observable_ish/value/value.dart';
-import 'package:stacked/_reactive_service_mixin.dart';
+import 'package:stacked/stacked.dart';
 
 @lazySingleton
 class InformationService with ReactiveServiceMixin {

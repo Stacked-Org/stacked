@@ -1,7 +1,7 @@
 library stacked;
 
-export '_base_viewmodels.dart';
-export '_viewmodel_widget.dart';
-export '_reactive_service_mixin.dart';
-export '_viewmodel_builder.dart';
-export '_viewmodel_builder_widget.dart';
+export 'src/base_view_models.dart';
+export 'src/reactive_service_mixin.dart';
+export 'src/view_model_builder.dart';
+export 'src/view_model_builder_widget.dart';
+export 'src/view_model_widget.dart';

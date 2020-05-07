@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-
-import '_reactive_service_mixin.dart';
+import 'package:stacked/src/reactive_service_mixin.dart';
 
 /// Contains ViewModel functionality for busy state management
 class BaseViewModel extends ChangeNotifier {
@@ -38,7 +37,7 @@ class BaseViewModel extends ChangeNotifier {
 
   void _setBusyForModelOrObject(bool value, {Object busyObject}) {
     if (busyObject != null) {
-      setBusyForObject(busyObject, value);
+      setBusyForObject(busyObject.hashCode, value);
     } else {
       setBusyForObject(this, value);
     }

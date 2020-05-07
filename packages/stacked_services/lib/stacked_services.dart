@@ -1,5 +1,5 @@
 library stacked_services;
 
-export '_navigation_service.dart';
-export '_dialog_service.dart';
-export '_snackbar_service.dart';
+export 'src/navigation_service.dart';
+export 'src/dialog_service.dart';
+export 'src/snackbar_service.dart';

@@ -4,11 +4,11 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-import 'package:stacked_services/_dialog_service.dart';
+import 'package:stacked_services/src/dialog_service.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'asset:stacked_services/example/lib/services/thridparty_services_module.dart';
-import 'package:stacked_services/_navigation_service.dart';
-import 'package:stacked_services/_snackbar_service.dart';
+import 'package:stacked_services/src/navigation_service.dart';
+import 'package:stacked_services/src/snackbar_service.dart';
 import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {

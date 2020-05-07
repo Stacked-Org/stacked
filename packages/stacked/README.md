@@ -1,4 +1,4 @@
-# Stacked
+# Stacked [![Pub Version](https://img.shields.io/pub/v/stacked)](https://pub.dev/packages/stacked)
 
 An architecture developed and revised by the [FilledStacks](https://www.youtube.com/filledstacks) community. This architecture was initially a version of Mvvm as [described in this video](https://youtu.be/kDEflMYTFlk). Since then Filledstacks app development team has built 6 production applications with various requirements. This experience along with countless requests for improvements and common functionality is what sparked the creation of this architecture package. It aims to provide **common functionalities to make app development easier** as well as code principles to use during development to ensure your code stays maintainable.
 
@@ -309,7 +309,7 @@ Sometimes you want a widget to have access to the ViewModel but you don't want i
 
 ```dart
 class UpdateTitleButton extends ViewModelWidget<HomeViewModel> {
-  UpdateTitleButton({
+  const UpdateTitleButton({
     Key key,
   }) : super(key: key, reactive: false);
 

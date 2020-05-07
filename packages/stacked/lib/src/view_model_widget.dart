@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 abstract class ViewModelWidget<T> extends Widget {
   final bool reactive;
 
-  ViewModelWidget({Key key, this.reactive = true}) : super(key: key);
+  const ViewModelWidget({Key key, this.reactive = true}) : super(key: key);
 
   @protected
   Widget build(BuildContext context, T viewModel);

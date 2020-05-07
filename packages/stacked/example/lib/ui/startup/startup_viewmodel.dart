@@ -1,3 +1,3 @@
-import 'package:stacked/_base_viewmodels.dart';
+import 'package:stacked/stacked.dart';
 
 class StartupVieWModel extends BaseViewModel {}
