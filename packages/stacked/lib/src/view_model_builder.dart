@@ -157,3 +157,6 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
     return widget.builder(context, model, child);
   }
 }
+
+/// EXPERIMENTAL: Returns the ViewModel provided above this widget in the tree 
+T getParentViewModel<T>(BuildContext context) => Provider.of<T>(context);
