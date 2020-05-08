@@ -9,6 +9,46 @@ import 'package:injectable/injectable.dart';
 class NavigationService {
   get navigatorKey => Get.key;
 
+  /// Pushes [page] onto the navigation stack. This uses the [page] itself (Widget) instead
+  /// of routeName (String).
+  ///
+  /// Defined [transition] values:
+  /// - fade
+  /// - rightToLeft
+  /// - leftToRight
+  /// - upToDown
+  /// - downToUp
+  /// - scale
+  /// - rotate
+  /// - size
+  /// - rightToLeftWithFade
+  /// - leftToRightWithFade
+  /// - cupertino
+  Future<dynamic> toPageWithTransition(Widget page,
+      {bool opaque, String transition, Duration duration, bool popGesture}) {
+    String _transition = transition.toLowerCase();
+    Map<String, Transition> _transitions = {
+      "fade": Transition.fade,
+      "righttoleft": Transition.rightToLeft,
+      "lefttoright": Transition.leftToRight,
+      "uptodown": Transition.upToDown,
+      "downtoup": Transition.downToUp,
+      "scale": Transition.scale,
+      "rotate": Transition.rotate,
+      "size": Transition.size,
+      "righttoleftwithfade": Transition.rightToLeftWithFade,
+      "lefttorightwithfade": Transition.leftToRightWithFade,
+      "cupertino": Transition.cupertino,
+    };
+    return Get.to(
+      page,
+      transition: _transitions[_transition] ?? Get.defaultTransition,
+      duration: duration ?? Get.defaultDurationTransition,
+      popGesture: popGesture ?? Get.isPopGestureEnable,
+      opaque: opaque ?? Get.isOpaqueRouteDefault,
+    );
+  }
+
   /// Pops the current scope and indicates if you can pop again
   bool back({dynamic result}) {
     Get.back(result: result);
