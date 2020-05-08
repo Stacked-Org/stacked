@@ -9,6 +9,9 @@ class FirstScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // IMPLEMENTATION NOTE: Services should never be used directly in a view refer to
+    // https://www.filledstacks.com/post/flutter-and-provider-architecture-using-stacked/#how-does-stacked-work
+    // for more details.
     NavigationService _navigationService = locator<NavigationService>();
 
     return Scaffold(
@@ -30,7 +33,7 @@ class FirstScreen extends StatelessWidget {
             OutlineButton(
               child: Text("Use Fade Transition"),
               onPressed: () async {
-                await _navigationService.toPageWithTransition(
+                await _navigationService.navigateWithTransition(
                   SecondScreen(),
                   transition: "fade",
                 );
@@ -39,7 +42,7 @@ class FirstScreen extends StatelessWidget {
             OutlineButton(
               child: Text("Use Right to Left Transition"),
               onPressed: () async {
-                await _navigationService.toPageWithTransition(
+                await _navigationService.navigateWithTransition(
                   SecondScreen(),
                   transition: "rightToLeft",
                 );
@@ -48,7 +51,7 @@ class FirstScreen extends StatelessWidget {
             OutlineButton(
               child: Text("Use Left to Right Transition"),
               onPressed: () async {
-                await _navigationService.toPageWithTransition(
+                await _navigationService.navigateWithTransition(
                   SecondScreen(),
                   transition: "leftToRight",
                 );
@@ -57,7 +60,7 @@ class FirstScreen extends StatelessWidget {
             OutlineButton(
               child: Text("Use Cupertino Transition"),
               onPressed: () async {
-                await _navigationService.toPageWithTransition(
+                await _navigationService.navigateWithTransition(
                   SecondScreen(),
                   transition: "cupertino",
                 );

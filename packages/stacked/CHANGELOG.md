@@ -1,3 +1,7 @@
+## 1.4.2
+
+- Added `getParentViewModel` functionality for accessing a provided ViewModel above in the widget tree
+
 ## 1.4.1+2
 
 - Busy for Object bug fix in base viewmodel

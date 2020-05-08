@@ -1,3 +1,9 @@
+## 0.2.3
+
+- Exposed the navigate with transition and replace with transition functionalities
+- Added `NavigationTransition` class to give transitions type safety and avoid using Get's enum value
+- Added a config function to set the default navigation behaviour
+
 ## 0.2.2+1
 
 - Updated get package version

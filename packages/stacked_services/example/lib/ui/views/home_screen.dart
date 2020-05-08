@@ -10,6 +10,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // IMPLEMENTATION NOTE: Services should never be used directly in a view refer to
+  // https://www.filledstacks.com/post/flutter-and-provider-architecture-using-stacked/#how-does-stacked-work
+  // for more details.
   NavigationService _navigationService = locator<NavigationService>();
 
   @override

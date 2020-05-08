@@ -2,17 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 
+class NavigationTransition {
+  static const String Fade = 'fade';
+  static const String RightToLeft = 'righttoleft';
+  static const String LeftToRight = 'lefttoright';
+  static const String UpToDown = 'uptodown';
+  static const String DownToUp = 'downtoup';
+  static const String Scale = 'scale';
+  static const String Rotate = 'rotate';
+  static const String Size = 'size';
+  static const String RightToLeftWithFade = 'righttoleftwithfade';
+  static const String Cupertino = 'cupertino';
+}
+
 /// Provides a service that can be injected into the ViewModels for navigation.
 ///
 /// Uses the Get library for all navigation requirements
 @lazySingleton
 class NavigationService {
+  Map<String, Transition> _transitions = {
+    NavigationTransition.Fade: Transition.fade,
+    NavigationTransition.RightToLeft: Transition.rightToLeft,
+    NavigationTransition.LeftToRight: Transition.leftToRight,
+    NavigationTransition.UpToDown: Transition.upToDown,
+    NavigationTransition.DownToUp: Transition.downToUp,
+    NavigationTransition.Scale: Transition.scale,
+    NavigationTransition.Rotate: Transition.rotate,
+    NavigationTransition.Size: Transition.size,
+    NavigationTransition.RightToLeftWithFade: Transition.rightToLeftWithFade,
+    NavigationTransition.RightToLeftWithFade: Transition.leftToRightWithFade,
+    NavigationTransition.Cupertino: Transition.cupertino,
+  };
+
   get navigatorKey => Get.key;
 
-  /// Pushes [page] onto the navigation stack. This uses the [page] itself (Widget) instead
-  /// of routeName (String).
+  /// Allows you to configure the default behaviour for navigation.
   ///
-  /// Defined [transition] values:
+  /// [defaultTransition] can be set using the static members of [NavigationTransition]
+  /// 
+  /// If you want to use the string directly. Defined [transition] values are
   /// - fade
   /// - rightToLeft
   /// - leftToRight
@@ -24,25 +52,59 @@ class NavigationService {
   /// - rightToLeftWithFade
   /// - leftToRightWithFade
   /// - cupertino
-  Future<dynamic> toPageWithTransition(Widget page,
+  void config(
+      {bool enableLog,
+      bool defaultPopGesture,
+      bool defaultOpaqueRoute,
+      Duration defaultDurationTransition,
+      bool defaultGlobalState,
+      String defaultTransition}) {
+    Get.config(
+        enableLog: enableLog,
+        defaultPopGesture: defaultPopGesture,
+        defaultOpaqueRoute: defaultOpaqueRoute,
+        defaultDurationTransition: defaultDurationTransition,
+        defaultGlobalState: defaultGlobalState,
+        defaultTransition: _getTransitionOrDefault(defaultTransition));
+  }
+
+  /// Pushes [page] onto the navigation stack. This uses the [page] itself (Widget) instead
+  /// of routeName (String).
+  ///
+  /// Defined [transition] values can be accessed as static memebers of [NavigationTransition]
+  /// 
+  /// If you want to use the string directly. Defined [transition] values are
+  /// - fade
+  /// - rightToLeft
+  /// - leftToRight
+  /// - upToDown
+  /// - downToUp
+  /// - scale
+  /// - rotate
+  /// - size
+  /// - rightToLeftWithFade
+  /// - leftToRightWithFade
+  /// - cupertino
+  Future<dynamic> navigateWithTransition(Widget page,
       {bool opaque, String transition, Duration duration, bool popGesture}) {
-    String _transition = transition.toLowerCase();
-    Map<String, Transition> _transitions = {
-      "fade": Transition.fade,
-      "righttoleft": Transition.rightToLeft,
-      "lefttoright": Transition.leftToRight,
-      "uptodown": Transition.upToDown,
-      "downtoup": Transition.downToUp,
-      "scale": Transition.scale,
-      "rotate": Transition.rotate,
-      "size": Transition.size,
-      "righttoleftwithfade": Transition.rightToLeftWithFade,
-      "lefttorightwithfade": Transition.leftToRightWithFade,
-      "cupertino": Transition.cupertino,
-    };
     return Get.to(
       page,
-      transition: _transitions[_transition] ?? Get.defaultTransition,
+      transition: _getTransitionOrDefault(transition),
+      duration: duration ?? Get.defaultDurationTransition,
+      popGesture: popGesture ?? Get.isPopGestureEnable,
+      opaque: opaque ?? Get.isOpaqueRouteDefault,
+    );
+  }
+
+  /// Replaces current view in the navigation stack. This uses the [page] itself (Widget) instead
+  /// of routeName (String).
+  ///
+  /// Defined [transition] values can be accessed as static memebers of [NavigationTransition]
+  Future<dynamic> replaceWithTransition(Widget page,
+      {bool opaque, String transition, Duration duration, bool popGesture}) {
+    return Get.off(
+      page,
+      transition: _getTransitionOrDefault(transition),
       duration: duration ?? Get.defaultDurationTransition,
       popGesture: popGesture ?? Get.isPopGestureEnable,
       opaque: opaque ?? Get.isOpaqueRouteDefault,
@@ -102,5 +164,10 @@ class NavigationService {
 
   void _clearBackstackTillFirst() {
     navigatorKey.currentState.popUntil((route) => route.isFirst);
+  }
+
+  Transition _getTransitionOrDefault(String transition) {
+    String _transition = transition.toLowerCase();
+    return _transitions[_transition] ?? Get.defaultTransition;
   }
 }
