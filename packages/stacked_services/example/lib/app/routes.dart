@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/auto_route_annotations.dart';
+import 'package:example/ui/views/tts_screen.dart';
 
 import '../ui/views/home_screen.dart';
 import '../ui/views/first_screen.dart';
@@ -15,4 +16,6 @@ class $Router {
   FirstScreen firstScreenRoute;
 
   SecondScreen secondScreenRoute;
+
+  TtsScreen ttsScreenRoute;
 }

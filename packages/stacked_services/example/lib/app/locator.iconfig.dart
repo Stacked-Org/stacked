@@ -16,6 +16,8 @@ void $initGetIt(GetIt g, {String environment}) {
       () => thirdPartyServicesModule.navigationService);
   g.registerLazySingleton<SnackbarService>(
       () => thirdPartyServicesModule.snackbarService);
+  g.registerLazySingleton<TtsService>(
+      () => thirdPartyServicesModule.ttsService);
 }
 
 class _$ThirdPartyServicesModule extends ThirdPartyServicesModule {
@@ -25,4 +27,6 @@ class _$ThirdPartyServicesModule extends ThirdPartyServicesModule {
   NavigationService get navigationService => NavigationService();
   @override
   SnackbarService get snackbarService => SnackbarService();
+  @override
+  TtsService get ttsService => TtsService();
 }

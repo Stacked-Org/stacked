@@ -23,10 +23,22 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
       ),
       body: Center(
-        child: Text(
-          "Using Route name to Navigate to next page",
-          softWrap: true,
-          style: TextStyle(fontSize: 14),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "Using Route name to Navigate to next page",
+              softWrap: true,
+              style: TextStyle(fontSize: 14),
+            ),
+            SizedBox(height: 30),
+            OutlineButton(
+              child: Text("Try The Text-To-Speech Service Functionality"),
+              onPressed: () async {
+                await _navigationService.navigateTo(Routes.ttsScreenRoute);
+              },
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
