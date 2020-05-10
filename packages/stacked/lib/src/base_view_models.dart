@@ -112,6 +112,9 @@ class _SingleDataSourceViewModel<T> extends DynamicSourceViewModel {
   bool _hasError;
   bool get hasError => _hasError;
 
+  dynamic _error;
+  dynamic get error => _error;
+
   bool get dataReady => _data != null && !_hasError;
 }
 
@@ -120,6 +123,9 @@ class _MultiDataSourceViewModel extends DynamicSourceViewModel {
   Map<String, dynamic> get dataMap => _dataMap;
 
   Map<String, bool> _errorMap;
+
+  Map<String, dynamic> _errors;
+  dynamic getError(String key) => _errors[key];
 
   bool hasError(String key) => _errorMap[key] ?? false;
   bool dataReady(String key) =>
@@ -140,10 +146,12 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T> {
 
   Future runFuture() async {
     _hasError = false;
+    _error = null;
     notifyListeners();
 
     _data = await runBusyFuture(futureToRun()).catchError((error) {
       _hasError = true;
+      _error = error;
       setBusy(false);
       onError(error);
       notifyListeners();
@@ -169,6 +177,9 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
     if (_dataMap == null) {
       _dataMap = Map<String, dynamic>();
     }
+    if (_errors == null) {
+      _errors = Map<String, dynamic>();
+    }
 
     _futuresCompleted = 0;
   }
@@ -186,6 +197,7 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
         _incrementAndCheckFuturesCompleted();
       }).catchError((error) {
         _errorMap[key] = true;
+        _errors[key] = error;
         setBusyForObject(key, false);
         onError(key: key, error: error);
         notifyListeners();
@@ -227,6 +239,7 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
   void initialise() {
     _dataMap = Map<String, dynamic>();
     _errorMap = Map<String, bool>();
+    _errors = Map<String, dynamic>();
     _streamsSubscriptions = Map<String, StreamSubscription>();
 
     if (!changeSource) {
@@ -238,6 +251,7 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
       _streamsSubscriptions[key] = streamsMap[key].stream.listen(
         (incomingData) {
           _errorMap.remove(key);
+          _errors.remove(key);
           notifyListeners();
           // Extra security in case transformData isnt sent
           var interceptedData = streamsMap[key].transformData == null
@@ -257,6 +271,7 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
         },
         onError: (error) {
           _errorMap[key] = true;
+          _errors[key] = error;
           _dataMap[key] = null;
 
           streamsMap[key].onError != null
@@ -280,6 +295,7 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
     if (clearOldData) {
       dataMap.clear();
       _errorMap.clear();
+      _errors.clear();
     }
 
     notifyListeners();
@@ -338,6 +354,7 @@ abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T>
     _streamSubscription = stream.listen(
       (incomingData) {
         _hasError = false;
+        _error = null;
         notifyListeners();
         // Extra security in case transformData isnt sent
         var interceptedData =
@@ -354,6 +371,7 @@ abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T>
       },
       onError: (error) {
         _hasError = true;
+        _error = error;
         _data = null;
         onError(error);
         notifyListeners();
@@ -426,6 +444,7 @@ class StreamData<T> extends _SingleDataSourceViewModel<T> {
     _streamSubscription = stream.listen(
       (incomingData) {
         _hasError = false;
+        _error = null;
         notifyListeners();
         // Extra security in case transformData isnt sent
         var interceptedData =

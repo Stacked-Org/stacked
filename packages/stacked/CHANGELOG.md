@@ -1,3 +1,7 @@
+## 1.4.3
+
+- Added functionality to save the error thrown by the calling future
+
 ## 1.4.2
 
 - Added `getParentViewModel` functionality for accessing a provided ViewModel above in the widget tree
