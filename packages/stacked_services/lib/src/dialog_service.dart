@@ -1,8 +1,16 @@
+import 'dart:io' show Platform;
 import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
+
+enum PlatformDesignType {
+  Cupertino,
+  Material,
+  GiffyDialog,
+}
 
 /// A DialogService that uses the Get package to show dialogs
 @lazySingleton
@@ -11,64 +19,186 @@ class DialogService {
 
   // TODO: Create a dialog UI registration factory that will allow users to register
   // dialogs to be built along with keys. the user should then be able to show the dialog
-  // using that key and.
-
-  // TODO: Allow the user to show cupertino or material dialogs.
-  // - Add an enum for Material / Cupertino
-  // - Add a flag for showDialogForPlatform that when true ignores the above enums
+  // using that key.
 
   /// Calls the dialog listener and returns a Future that will wait for dialogComplete.
   Future<DialogResponse> showDialog({
     String title,
+    TextStyle titleStyle,
     String description,
-    String cancelTitle,
-    String buttonTitle = 'Ok',
+    TextStyle descriptionStyle,
+    String cancelText,
+    TextStyle cancelTextStyle,
+    String confirmText = 'Ok',
+    TextStyle confirmTextStyle,
+
+    /// ignored when `showDialogForPlatform` is `true`
+    /// you must change `showDialogForPlatform` to `false` to use this property
+    /// providing nothing in here and setting the `showDialogForPlatform` to `false`
+    /// will result in using material desing all the time
+    PlatformDesignType platformDesignType,
+
+    /// setting to `false` will not ignore `platform` :)
+    /// default is `true` which ignores `platform` :)
+    bool showDialogForPlatform = true,
   }) {
     _dialogCompleter = Completer<DialogResponse>();
-    var isConfirmationDialog = cancelTitle != null;
+    var isConfirmationDialog = cancelText != null;
 
-    // TODO: The dialog here should come from a dialog builder that will aid with the
-    // configurable nature of the dialog service we intend to build.
-    Get.dialog(
+    /// Dialog Design For Android (Material)
+    _materialDesignDialog() {
+      return Get.dialog(
         AlertDialog(
-            titleTextStyle: const TextStyle(color: Colors.black),
-            contentTextStyle: const TextStyle(color: Colors.black),
-            title: Text(title),
-            content: Text(description),
-            actions: <Widget>[
-              if (isConfirmationDialog)
-                FlatButton(
-                  child: Text(cancelTitle),
-                  onPressed: () {
-                    if (!_dialogCompleter.isCompleted)
-                      completeDialog(DialogResponse(confirmed: false));
-                  },
-                ),
+          titleTextStyle: titleStyle ??
+              TextStyle(
+                color: Colors.black,
+              ),
+          contentTextStyle: descriptionStyle ??
+              TextStyle(
+                color: Colors.black,
+              ),
+          title: Text(
+            title,
+          ),
+          content: Text(
+            description,
+          ),
+          actions: <Widget>[
+            if (isConfirmationDialog)
               FlatButton(
-                child: Text(buttonTitle),
+                child: Text(
+                  cancelText,
+                  style: cancelTextStyle ??
+                      TextStyle(
+                        color: Colors.red,
+                      ),
+                ),
                 onPressed: () {
                   if (!_dialogCompleter.isCompleted)
-                    completeDialog(DialogResponse(confirmed: true));
+                    completeDialog(
+                      DialogResponse(
+                        confirmed: false,
+                      ),
+                    );
                 },
               ),
-            ]),
-        barrierDismissible: false);
-    return _dialogCompleter.future;
+            FlatButton(
+              child: Text(
+                confirmText,
+                style: confirmTextStyle ?? TextStyle(),
+              ),
+              onPressed: () {
+                if (!_dialogCompleter.isCompleted)
+                  completeDialog(
+                    DialogResponse(
+                      confirmed: true,
+                    ),
+                  );
+              },
+            ),
+          ],
+        ),
+        barrierDismissible: false,
+      );
+    }
+
+    /// Dialog Design For iOS (Cupertino)
+    _cupertinoDesignDialog() {
+      return Get.dialog(
+        CupertinoAlertDialog(
+          title: Text(
+            title,
+            style: titleStyle ??
+                TextStyle(
+                  color: Colors.black,
+                ),
+          ),
+          content: Text(
+            description,
+            style: descriptionStyle ??
+                TextStyle(
+                  color: Colors.black,
+                ),
+          ),
+          actions: <Widget>[
+            if (isConfirmationDialog)
+              CupertinoButton(
+                child: Text(
+                  cancelText,
+                  style: cancelTextStyle ??
+                      TextStyle(
+                        color: Colors.red,
+                      ),
+                ),
+                onPressed: () {
+                  if (!_dialogCompleter.isCompleted)
+                    completeDialog(
+                      DialogResponse(
+                        confirmed: false,
+                      ),
+                    );
+                },
+              ),
+            CupertinoButton(
+              child: Text(
+                confirmText,
+                style: confirmTextStyle ?? TextStyle(),
+              ),
+              onPressed: () {
+                if (!_dialogCompleter.isCompleted)
+                  completeDialog(
+                    DialogResponse(
+                      confirmed: true,
+                    ),
+                  );
+              },
+            ),
+          ],
+        ),
+        barrierDismissible: false,
+      );
+    }
+
+    /// Logic for deciding which design to use :)
+    if (showDialogForPlatform) {
+      if (Platform.isAndroid) {
+        _materialDesignDialog();
+        return _dialogCompleter.future;
+      } else if (Platform.isIOS) {
+        _cupertinoDesignDialog();
+        return _dialogCompleter.future;
+      }
+    }
+    switch (platformDesignType) {
+      case PlatformDesignType.Material:
+        _materialDesignDialog();
+        return _dialogCompleter.future;
+        break;
+      case PlatformDesignType.Cupertino:
+        _cupertinoDesignDialog();
+        return _dialogCompleter.future;
+        break;
+      default:
+        _materialDesignDialog();
+        return _dialogCompleter.future;
+        break;
+    }
   }
 
   /// Shows a confirmation dialog with title and description
-  Future<DialogResponse> showConfirmationDialog(
-      {String title,
-      String description,
-      String confirmationTitle = 'Ok',
-      String cancelTitle = 'Cancel'}) {
+  Future<DialogResponse> showConfirmationDialog({
+    String title,
+    String description,
+    String confirmationTitle = 'Ok',
+    String cancelTitle = 'Cancel',
+  }) {
     _dialogCompleter = Completer<DialogResponse>();
 
     showDialog(
       title: title,
       description: description,
-      buttonTitle: confirmationTitle,
-      cancelTitle: cancelTitle,
+      confirmText: confirmationTitle,
+      cancelText: cancelTitle,
     );
 
     return _dialogCompleter.future;
@@ -84,7 +214,7 @@ class DialogService {
 
 /// The response returned from awaiting a call on the [DialogService]
 class DialogResponse {
-  /// Indicates if a showConfirmationDialog has been confirmed or rejected.
+  /// Indicates if a [showConfirmationDialog] has been confirmed or rejected.
   /// null will be returned when it's not a confirmation dialog.
   final bool confirmed;
 
