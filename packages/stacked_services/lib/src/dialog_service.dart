@@ -188,17 +188,37 @@ class DialogService {
   /// Shows a confirmation dialog with title and description
   Future<DialogResponse> showConfirmationDialog({
     String title,
+    TextStyle titleStyle,
     String description,
-    String confirmationTitle = 'Ok',
-    String cancelTitle = 'Cancel',
+    TextStyle descriptionStyle,
+    String cancelText,
+    TextStyle cancelTextStyle,
+    String confirmText = 'Ok',
+    TextStyle confirmTextStyle,
+
+    /// ignored when `showDialogForPlatform` is `true`
+    /// you must change `showDialogForPlatform` to `false` to use this property
+    /// providing nothing in here and setting the `showDialogForPlatform` to `false`
+    /// will result in using material desing all the time
+    PlatformDesignType platformDesignType,
+
+    /// setting to `false` will not ignore `platform` :)
+    /// default is `true` which ignores `platform` :)
+    bool showDialogForPlatform = true,
   }) {
     _dialogCompleter = Completer<DialogResponse>();
 
     showDialog(
       title: title,
+      titleStyle: titleStyle,
       description: description,
-      confirmText: confirmationTitle,
-      cancelText: cancelTitle,
+      descriptionStyle: descriptionStyle,
+      confirmText: confirmText,
+      confirmTextStyle: confirmTextStyle,
+      cancelText: cancelText,
+      cancelTextStyle: cancelTextStyle,
+      platformDesignType: platformDesignType,
+      showDialogForPlatform: showDialogForPlatform,
     );
 
     return _dialogCompleter.future;
