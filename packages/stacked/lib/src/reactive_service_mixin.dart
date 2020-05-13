@@ -4,13 +4,13 @@ import 'package:observable_ish/observable_ish.dart';
 mixin ReactiveServiceMixin {
   List<Function> _listeners = List<Function>();
 
-  void listenToReactiveValues(List<RxValue> reactiveValues) {
+  void listenToReactiveValues(List<dynamic> reactiveValues) {
     for (var reactiveValue in reactiveValues) {
-      reactiveValue.values.listen((value) {
-        for (var listener in _listeners) {
-          listener();
-        }
-      });
+      if (reactiveValue is RxValue) {
+        reactiveValue.values.listen((value) => _notifyListeners());
+      } else if (reactiveValue is RxList) {
+        reactiveValue.onChange.listen((event) => _notifyListeners());
+      }
     }
   }
 
@@ -20,5 +20,11 @@ mixin ReactiveServiceMixin {
 
   void removeListener(void Function() listener) {
     _listeners.remove(listener);
+  }
+
+  void _notifyListeners() {
+    for (var listener in _listeners) {
+      listener();
+    }
   }
 }

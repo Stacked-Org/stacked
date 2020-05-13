@@ -1,3 +1,7 @@
+## 1.5.0
+
+- Adds functionality to support `RxList`
+
 ## 1.4.3
 
 - Added functionality to save the error thrown by the calling future
