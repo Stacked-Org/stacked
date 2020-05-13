@@ -9,7 +9,6 @@ import 'package:injectable/injectable.dart';
 enum PlatformDesignType {
   Cupertino,
   Material,
-  GiffyDialog,
 }
 
 /// A DialogService that uses the Get package to show dialogs
@@ -22,15 +21,20 @@ class DialogService {
   // using that key.
 
   /// Calls the dialog listener and returns a Future that will wait for dialogComplete.
+  /// if you want it to be a confirmation dialog then you can set `isConfirmationDialog` to `true`
   Future<DialogResponse> showDialog({
     String title,
     TextStyle titleStyle,
     String description,
     TextStyle descriptionStyle,
-    String cancelText,
+    String cancelText = 'Cancel',
     TextStyle cancelTextStyle,
     String confirmText = 'Ok',
     TextStyle confirmTextStyle,
+
+    /// this will make it a confirmation dialog when set to `true`
+    /// deafult value is `false`, which makes it a regular dialog
+    bool isConfirmationDialog = false,
 
     /// ignored when `showDialogForPlatform` is `true`
     /// you must change `showDialogForPlatform` to `false` to use this property
@@ -43,7 +47,6 @@ class DialogService {
     bool showDialogForPlatform = true,
   }) {
     _dialogCompleter = Completer<DialogResponse>();
-    var isConfirmationDialog = cancelText != null;
 
     /// Dialog Design For Android (Material)
     _materialDesignDialog() {
@@ -185,44 +188,44 @@ class DialogService {
     }
   }
 
-  /// Shows a confirmation dialog with title and description
-  Future<DialogResponse> showConfirmationDialog({
-    String title,
-    TextStyle titleStyle,
-    String description,
-    TextStyle descriptionStyle,
-    String cancelText,
-    TextStyle cancelTextStyle,
-    String confirmText = 'Ok',
-    TextStyle confirmTextStyle,
+  // /// Shows a confirmation dialog with title and description
+  // Future<DialogResponse> showConfirmationDialog({
+  //   String title,
+  //   TextStyle titleStyle,
+  //   String description,
+  //   TextStyle descriptionStyle,
+  //   String cancelText,
+  //   TextStyle cancelTextStyle,
+  //   String confirmText = 'Ok',
+  //   TextStyle confirmTextStyle,
 
-    /// ignored when `showDialogForPlatform` is `true`
-    /// you must change `showDialogForPlatform` to `false` to use this property
-    /// providing nothing in here and setting the `showDialogForPlatform` to `false`
-    /// will result in using material desing all the time
-    PlatformDesignType platformDesignType,
+  //   /// ignored when `showDialogForPlatform` is `true`
+  //   /// you must change `showDialogForPlatform` to `false` to use this property
+  //   /// providing nothing in here and setting the `showDialogForPlatform` to `false`
+  //   /// will result in using material desing all the time
+  //   PlatformDesignType platformDesignType,
 
-    /// setting to `false` will not ignore `platform` :)
-    /// default is `true` which ignores `platform` :)
-    bool showDialogForPlatform = true,
-  }) {
-    _dialogCompleter = Completer<DialogResponse>();
+  //   /// setting to `false` will not ignore `platform` :)
+  //   /// default is `true` which ignores `platform` :)
+  //   bool showDialogForPlatform = true,
+  // }) {
+  //   _dialogCompleter = Completer<DialogResponse>();
 
-    showDialog(
-      title: title,
-      titleStyle: titleStyle,
-      description: description,
-      descriptionStyle: descriptionStyle,
-      confirmText: confirmText,
-      confirmTextStyle: confirmTextStyle,
-      cancelText: cancelText,
-      cancelTextStyle: cancelTextStyle,
-      platformDesignType: platformDesignType,
-      showDialogForPlatform: showDialogForPlatform,
-    );
+  //   showDialog(
+  //     title: title,
+  //     titleStyle: titleStyle,
+  //     description: description,
+  //     descriptionStyle: descriptionStyle,
+  //     confirmText: confirmText,
+  //     confirmTextStyle: confirmTextStyle,
+  //     cancelText: cancelText,
+  //     cancelTextStyle: cancelTextStyle,
+  //     platformDesignType: platformDesignType,
+  //     showDialogForPlatform: showDialogForPlatform,
+  //   );
 
-    return _dialogCompleter.future;
-  }
+  //   return _dialogCompleter.future;
+  // }
 
   /// Completes the dialog and passes the [response] to the caller
   void completeDialog(DialogResponse response) {

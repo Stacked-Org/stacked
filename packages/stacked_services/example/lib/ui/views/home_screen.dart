@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Press the button below to show a dialog',
+              'Press the button below to show a regular dialog',
               softWrap: true,
               style: TextStyle(
                 fontSize: 14,
@@ -45,6 +45,25 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: Text(
                 'Show Dialog',
+              ),
+            ),
+            Text(
+              'Press the button below to show a confirmation dialog',
+              softWrap: true,
+              style: TextStyle(
+                fontSize: 14,
+              ),
+            ),
+            OutlineButton(
+              onPressed: () async {
+                await _dialogService.showDialog(
+                  title: 'Test Confirmation Dialog Title',
+                  description: 'Test Confirmation Dialog Description',
+                  isConfirmationDialog: true,
+                );
+              },
+              child: Text(
+                'Show Confirmation Dialog',
               ),
             ),
             Text(
