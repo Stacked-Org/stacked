@@ -56,10 +56,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             OutlineButton(
               onPressed: () async {
-                await _dialogService.showDialog(
+                await _dialogService.showConfirmationDialog(
                   title: 'Test Confirmation Dialog Title',
                   description: 'Test Confirmation Dialog Description',
-                  isConfirmationDialog: true,
                 );
               },
               child: Text(
