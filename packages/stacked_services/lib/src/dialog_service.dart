@@ -24,13 +24,9 @@ class DialogService {
   /// if you want it to be a confirmation dialog then you can set `isConfirmationDialog` to `true`
   Future<DialogResponse> showDialog({
     String title,
-    TextStyle titleStyle,
     String description,
-    TextStyle descriptionStyle,
     String cancelText,
-    TextStyle cancelTextStyle,
     String confirmText = 'Ok',
-    TextStyle confirmTextStyle,
 
     /// ignored when `showDialogForPlatform` is `true`
     /// you must change `showDialogForPlatform` to `false` to use this property
@@ -49,14 +45,12 @@ class DialogService {
     _materialDesignDialog() {
       return Get.dialog(
         AlertDialog(
-          titleTextStyle: titleStyle ??
-              TextStyle(
-                color: Colors.black,
-              ),
-          contentTextStyle: descriptionStyle ??
-              TextStyle(
-                color: Colors.black,
-              ),
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+          ),
+          contentTextStyle: TextStyle(
+            color: Colors.black,
+          ),
           title: Text(
             title,
           ),
@@ -68,10 +62,9 @@ class DialogService {
               FlatButton(
                 child: Text(
                   cancelText,
-                  style: cancelTextStyle ??
-                      TextStyle(
-                        color: Colors.red,
-                      ),
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
                 ),
                 onPressed: () {
                   if (!_dialogCompleter.isCompleted)
@@ -85,7 +78,7 @@ class DialogService {
             FlatButton(
               child: Text(
                 confirmText,
-                style: confirmTextStyle ?? TextStyle(),
+                style: TextStyle(),
               ),
               onPressed: () {
                 if (!_dialogCompleter.isCompleted)
@@ -108,27 +101,24 @@ class DialogService {
         CupertinoAlertDialog(
           title: Text(
             title,
-            style: titleStyle ??
-                TextStyle(
-                  color: Colors.black,
-                ),
+            style: TextStyle(
+              color: Colors.black,
+            ),
           ),
           content: Text(
             description,
-            style: descriptionStyle ??
-                TextStyle(
-                  color: Colors.black,
-                ),
+            style: TextStyle(
+              color: Colors.black,
+            ),
           ),
           actions: <Widget>[
             if (isConfirmationDialog)
               CupertinoButton(
                 child: Text(
                   cancelText,
-                  style: cancelTextStyle ??
-                      TextStyle(
-                        color: Colors.red,
-                      ),
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
                 ),
                 onPressed: () {
                   if (!_dialogCompleter.isCompleted)
@@ -142,7 +132,7 @@ class DialogService {
             CupertinoButton(
               child: Text(
                 confirmText,
-                style: confirmTextStyle ?? TextStyle(),
+                style: TextStyle(),
               ),
               onPressed: () {
                 if (!_dialogCompleter.isCompleted)
@@ -188,13 +178,9 @@ class DialogService {
   /// Shows a confirmation dialog with title and description
   Future<DialogResponse> showConfirmationDialog({
     String title,
-    TextStyle titleStyle,
     String description,
-    TextStyle descriptionStyle,
     String cancelText = 'Cancel',
-    TextStyle cancelTextStyle,
     String confirmText = 'Ok',
-    TextStyle confirmTextStyle,
 
     /// ignored when `showDialogForPlatform` is `true`
     /// you must change `showDialogForPlatform` to `false` to use this property
@@ -210,13 +196,9 @@ class DialogService {
 
     showDialog(
       title: title,
-      titleStyle: titleStyle,
       description: description,
-      descriptionStyle: descriptionStyle,
       confirmText: confirmText,
-      confirmTextStyle: confirmTextStyle,
       cancelText: cancelText,
-      cancelTextStyle: cancelTextStyle,
       platformDesignType: platformDesignType,
       showDialogForPlatform: showDialogForPlatform,
     );
