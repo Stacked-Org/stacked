@@ -147,6 +147,9 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T> {
   Future runFuture() async {
     _hasError = false;
     _error = null;
+    // We set busy manually as well because when notify listeners is called to clear error messages the
+    // ui is rebuilt and if you expect busy to be true it's not.
+    setBusy(true);
     notifyListeners();
 
     _data = await runBusyFuture(futureToRun()).catchError((error) {
@@ -187,6 +190,9 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
   Future runFutures() {
     _futuresCompleter = Completer();
     _initialiseData();
+    // We set busy manually as well because when notify listeners is called to clear error messages the
+    // ui is rebuilt and if you expect busy to be true it's not.
+    setBusy(true);
     notifyListeners();
 
     for (var key in futuresMap.keys) {
