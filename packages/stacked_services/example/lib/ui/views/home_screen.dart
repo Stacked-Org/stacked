@@ -14,19 +14,65 @@ class _HomeScreenState extends State<HomeScreen> {
   // https://www.filledstacks.com/post/flutter-and-provider-architecture-using-stacked/#how-does-stacked-work
   // for more details.
   NavigationService _navigationService = locator<NavigationService>();
+  DialogService _dialogService = locator<DialogService>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home Screen"),
+        title: Text(
+          "Home Screen",
+        ),
         centerTitle: true,
       ),
       body: Center(
-        child: Text(
-          "Using Route name to Navigate to next page",
-          softWrap: true,
-          style: TextStyle(fontSize: 14),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Press the button below to show a regular dialog',
+              softWrap: true,
+              style: TextStyle(
+                fontSize: 14,
+              ),
+            ),
+            OutlineButton(
+              onPressed: () async {
+                await _dialogService.showDialog(
+                  title: 'Test Dialog Title',
+                  description: 'Test Dialog Description',
+                );
+              },
+              child: Text(
+                'Show Dialog',
+              ),
+            ),
+            Text(
+              'Press the button below to show a confirmation dialog',
+              softWrap: true,
+              style: TextStyle(
+                fontSize: 14,
+              ),
+            ),
+            OutlineButton(
+              onPressed: () async {
+                await _dialogService.showConfirmationDialog(
+                  title: 'Test Confirmation Dialog Title',
+                  description: 'Test Confirmation Dialog Description',
+                );
+              },
+              child: Text(
+                'Show Confirmation Dialog',
+              ),
+            ),
+            Text(
+              "Using Route name to Navigate to next page",
+              softWrap: true,
+              style: TextStyle(
+                fontSize: 14,
+              ),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(

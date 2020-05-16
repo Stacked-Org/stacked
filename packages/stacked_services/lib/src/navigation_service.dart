@@ -34,12 +34,16 @@ class NavigationService {
     NavigationTransition.Cupertino: Transition.cupertino,
   };
 
-  get navigatorKey => Get.key;
+  get navigatorKey {
+    // We construct this instance to make sure the _get value inside the Get package is not null
+    var tempConstruction = Get();
+    return Get.key;
+  }
 
   /// Allows you to configure the default behaviour for navigation.
   ///
   /// [defaultTransition] can be set using the static members of [NavigationTransition]
-  /// 
+  ///
   /// If you want to use the string directly. Defined [transition] values are
   /// - fade
   /// - rightToLeft
@@ -72,7 +76,7 @@ class NavigationService {
   /// of routeName (String).
   ///
   /// Defined [transition] values can be accessed as static memebers of [NavigationTransition]
-  /// 
+  ///
   /// If you want to use the string directly. Defined [transition] values are
   /// - fade
   /// - rightToLeft

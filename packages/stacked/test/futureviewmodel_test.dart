@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:stacked/stacked.dart';
 
+const _SingleFutureExceptionFailMessage = 'Future to Run failed';
+
 class TestFutureViewModel extends FutureViewModel<int> {
   final bool fail;
   TestFutureViewModel({this.fail = false});
@@ -9,7 +11,7 @@ class TestFutureViewModel extends FutureViewModel<int> {
 
   @override
   Future<int> futureToRun() async {
-    if (fail) throw Exception('Future to Run failed');
+    if (fail) throw Exception(_SingleFutureExceptionFailMessage);
     await Future.delayed(Duration(milliseconds: 20));
     return numberToReturn;
   }
@@ -17,6 +19,7 @@ class TestFutureViewModel extends FutureViewModel<int> {
 
 const String NumberDelayFuture = 'delayedNumber';
 const String StringDelayFuture = 'delayedString';
+const String _NumberDelayExceptionMessage = 'getNumberAfterDelay failed';
 
 class TestMultipleFutureViewModel extends MultipleFutureViewModel {
   final bool failOne;
@@ -32,7 +35,7 @@ class TestMultipleFutureViewModel extends MultipleFutureViewModel {
 
   Future<int> getNumberAfterDelay() async {
     if (failOne) {
-      throw Exception('getNumberAfterDelay failed');
+      throw Exception(_NumberDelayExceptionMessage);
     }
     await Future.delayed(Duration(milliseconds: 300));
     return numberToReturn;
@@ -73,6 +76,12 @@ void main() {
       var futureViewModel = TestFutureViewModel(fail: true);
       await futureViewModel.runFuture();
       expect(futureViewModel.isBusy, false);
+    });
+
+    test('When a future fails it should set error to exception', () async {
+      var futureViewModel = TestFutureViewModel(fail: true);
+      await futureViewModel.runFuture();
+      expect(futureViewModel.error.message, _SingleFutureExceptionFailMessage);
     });
 
     group('Dynamic Source Tests', () {
@@ -144,6 +153,16 @@ void main() {
 
       expect(futureViewModel.busy(NumberDelayFuture), false);
       expect(futureViewModel.busy(StringDelayFuture), false);
+    });
+
+    test('When a future fails should set error for future key', () async {
+      var futureViewModel = TestMultipleFutureViewModel(failOne: true);
+      await futureViewModel.runFutures();
+
+      expect(futureViewModel.getError(NumberDelayFuture).message,
+          _NumberDelayExceptionMessage);
+
+      expect(futureViewModel.getError(StringDelayFuture), null);
     });
 
     group('Dynamic Source Tests', () {

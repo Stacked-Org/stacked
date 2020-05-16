@@ -1,3 +1,15 @@
+## 1.5.1
+
+- Ensure model is busy as soon as runFuture notifyListeners for the first time
+
+## 1.5.0
+
+- Adds functionality to support `RxList`
+
+## 1.4.3
+
+- Added functionality to save the error thrown by the calling future
+
 ## 1.4.2
 
 - Added `getParentViewModel` functionality for accessing a provided ViewModel above in the widget tree

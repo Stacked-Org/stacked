@@ -1,3 +1,7 @@
+## 0.2.4
+
+- Fixed a null exception caused by 2.5.0 of get
+
 ## 0.2.3
 
 - Exposed the navigate with transition and replace with transition functionalities
