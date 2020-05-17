@@ -35,8 +35,6 @@ class NavigationService {
   };
 
   get navigatorKey {
-    // We construct this instance to make sure the _get value inside the Get package is not null
-    var tempConstruction = Get();
     return Get.key;
   }
 
