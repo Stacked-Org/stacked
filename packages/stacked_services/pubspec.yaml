@@ -13,7 +13,7 @@ dependencies:
   # navigation
   get: ^2.5.2
   # service_location
-  injectable: ^0.3.0
+  injectable: ^0.4.0
 
 dev_dependencies:
   flutter_test:
