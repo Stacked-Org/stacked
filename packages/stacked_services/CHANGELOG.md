@@ -1,3 +1,9 @@
+## 0.3.0
+
+- Dialog Service now shows platform specific dialogs
+- Get version bumped
+- Services is now Flutter web compatible
+
 ## 0.2.4
 
 - Fixed a null exception caused by 2.5.0 of get
