@@ -1,3 +1,7 @@
+## 0.3.0+1
+
+- Injectable version update
+
 ## 0.3.0
 
 - Dialog Service now shows platform specific dialogs
