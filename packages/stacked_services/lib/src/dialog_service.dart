@@ -1,4 +1,3 @@
-import 'dart:io' show Platform;
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
@@ -151,11 +150,14 @@ class DialogService {
 
     /// Logic for deciding which design to use :)
     if (showDialogForPlatform) {
-      if (Platform.isAndroid) {
+      if (GetPlatform.isAndroid) {
         _materialDesignDialog();
         return _dialogCompleter.future;
-      } else if (Platform.isIOS) {
+      } else if (GetPlatform.isIOS) {
         _cupertinoDesignDialog();
+        return _dialogCompleter.future;
+      } else {
+        _materialDesignDialog();
         return _dialogCompleter.future;
       }
     }
