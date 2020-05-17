@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Press the button below to show a regular dialog',
+              'Press the button below to show a regular Material dialog',
               softWrap: true,
               style: TextStyle(
                 fontSize: 14,
@@ -44,11 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
               child: Text(
-                'Show Dialog',
+                'Show Material Dialog',
               ),
             ),
             Text(
-              'Press the button below to show a confirmation dialog',
+              'Press the button below to show a Material confirmation dialog',
               softWrap: true,
               style: TextStyle(
                 fontSize: 14,
@@ -62,7 +62,45 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
               child: Text(
-                'Show Confirmation Dialog',
+                'Show Material Confirmation Dialog',
+              ),
+            ),
+            Text(
+              'Press the button below to show a Cupertino dialog',
+              softWrap: true,
+              style: TextStyle(
+                fontSize: 14,
+              ),
+            ),
+            OutlineButton(
+              onPressed: () async {
+                await _dialogService.showDialog(
+                  dialogPlatform: DialogPlatform.Cupertino,
+                  title: 'Test Confirmation Dialog Title',
+                  description: 'Test Dialog Description',
+                );
+              },
+              child: Text(
+                'Show Cupertino Dialog',
+              ),
+            ),
+            Text(
+              'Press the button below to show a Cupertino confirmation dialog',
+              softWrap: true,
+              style: TextStyle(
+                fontSize: 14,
+              ),
+            ),
+            OutlineButton(
+              onPressed: () async {
+                await _dialogService.showConfirmationDialog(
+                  dialogPlatform: DialogPlatform.Cupertino,
+                  title: 'Test Confirmation Dialog Title',
+                  description: 'Test Confirmation Dialog Description',
+                );
+              },
+              child: Text(
+                'Show Cupertino Confirmation Dialog',
               ),
             ),
             Text(

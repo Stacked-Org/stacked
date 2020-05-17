@@ -1,14 +1,15 @@
-import 'dart:io' show Platform;
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
+import 'package:stacked_services/src/platform_dialog.dart';
 
-enum PlatformDesignType {
+enum DialogPlatform {
   Cupertino,
   Material,
+  Custom,
 }
 
 /// A DialogService that uses the Get package to show dialogs
@@ -20,159 +21,88 @@ class DialogService {
   // dialogs to be built along with keys. the user should then be able to show the dialog
   // using that key.
 
-  /// Calls the dialog listener and returns a Future that will wait for dialogComplete.
-  /// if you want it to be a confirmation dialog then you can set `isConfirmationDialog` to `true`
+  /// Shows a dialog to the user
+  ///
+  /// It will show a platform specific dialog by default. This can be changed by setting [dialogPlatform]
   Future<DialogResponse> showDialog({
     String title,
     String description,
     String cancelText,
     String confirmText = 'Ok',
 
-    /// ignored when `showDialogForPlatform` is `true`
-    /// you must change `showDialogForPlatform` to `false` to use this property
-    /// providing nothing in here and setting the `showDialogForPlatform` to `false`
-    /// will result in using material desing all the time
-    PlatformDesignType platformDesignType,
-
-    /// setting to `false` will not ignore `platform` :)
-    /// default is `true` which ignores `platform` :)
-    bool showDialogForPlatform = true,
+    /// Indicates which [DialogPlatform] to show.
+    ///
+    /// When not set a Platform specific dialog will be shown
+    DialogPlatform dialogPlatform,
   }) {
     _dialogCompleter = Completer<DialogResponse>();
+
+    if (dialogPlatform != null) {
+      _showDialog(
+          title: title,
+          description: description,
+          cancelText: cancelText,
+          confirmText: confirmText,
+          dialogPlatform: dialogPlatform);
+    } else {
+      var _dialogType = GetPlatform.isAndroid
+          ? DialogPlatform.Material
+          : DialogPlatform.Cupertino;
+      _showDialog(
+          title: title,
+          description: description,
+          cancelText: cancelText,
+          confirmText: confirmText,
+          dialogPlatform: _dialogType);
+    }
+
+    return _dialogCompleter.future;
+  }
+
+  Future _showDialog({
+    String title,
+    String description,
+    String cancelText,
+    String confirmText,
+    DialogPlatform dialogPlatform,
+  }) {
     var isConfirmationDialog = cancelText != null;
-
-    /// Dialog Design For Android (Material)
-    _materialDesignDialog() {
-      return Get.dialog(
-        AlertDialog(
-          titleTextStyle: TextStyle(
-            color: Colors.black,
-          ),
-          contentTextStyle: TextStyle(
-            color: Colors.black,
-          ),
-          title: Text(
-            title,
-          ),
-          content: Text(
-            description,
-          ),
-          actions: <Widget>[
-            if (isConfirmationDialog)
-              FlatButton(
-                child: Text(
-                  cancelText,
-                  style: TextStyle(
-                    color: Colors.red,
-                  ),
-                ),
-                onPressed: () {
-                  if (!_dialogCompleter.isCompleted)
-                    completeDialog(
-                      DialogResponse(
-                        confirmed: false,
-                      ),
-                    );
-                },
-              ),
-            FlatButton(
-              child: Text(
-                confirmText,
-                style: TextStyle(),
-              ),
+    return Get.dialog(
+      PlatformDialog(
+        dialogPlatform: dialogPlatform,
+        title: title,
+        content: description,
+        actions: <Widget>[
+          if (isConfirmationDialog)
+            PlatformButton(
+              dialogPlatform: dialogPlatform,
+              text: cancelText,
+              isCancelButton: true,
               onPressed: () {
                 if (!_dialogCompleter.isCompleted)
                   completeDialog(
                     DialogResponse(
-                      confirmed: true,
+                      confirmed: false,
                     ),
                   );
               },
             ),
-          ],
-        ),
-        barrierDismissible: false,
-      );
-    }
-
-    /// Dialog Design For iOS (Cupertino)
-    _cupertinoDesignDialog() {
-      return Get.dialog(
-        CupertinoAlertDialog(
-          title: Text(
-            title,
-            style: TextStyle(
-              color: Colors.black,
-            ),
-          ),
-          content: Text(
-            description,
-            style: TextStyle(
-              color: Colors.black,
-            ),
-          ),
-          actions: <Widget>[
-            if (isConfirmationDialog)
-              CupertinoButton(
-                child: Text(
-                  cancelText,
-                  style: TextStyle(
-                    color: Colors.red,
+          PlatformButton(
+            dialogPlatform: dialogPlatform,
+            text: confirmText,
+            onPressed: () {
+              if (!_dialogCompleter.isCompleted)
+                completeDialog(
+                  DialogResponse(
+                    confirmed: true,
                   ),
-                ),
-                onPressed: () {
-                  if (!_dialogCompleter.isCompleted)
-                    completeDialog(
-                      DialogResponse(
-                        confirmed: false,
-                      ),
-                    );
-                },
-              ),
-            CupertinoButton(
-              child: Text(
-                confirmText,
-                style: TextStyle(),
-              ),
-              onPressed: () {
-                if (!_dialogCompleter.isCompleted)
-                  completeDialog(
-                    DialogResponse(
-                      confirmed: true,
-                    ),
-                  );
-              },
-            ),
-          ],
-        ),
-        barrierDismissible: false,
-      );
-    }
-
-    /// Logic for deciding which design to use :)
-    if (showDialogForPlatform) {
-      if (Platform.isAndroid) {
-        _materialDesignDialog();
-        return _dialogCompleter.future;
-      } else if (Platform.isIOS) {
-        _cupertinoDesignDialog();
-        return _dialogCompleter.future;
-      }
-    }
-    switch (platformDesignType) {
-      case PlatformDesignType.Material:
-        _materialDesignDialog();
-        return _dialogCompleter.future;
-        break;
-      case PlatformDesignType.Cupertino:
-        _cupertinoDesignDialog();
-        return _dialogCompleter.future;
-        break;
-      default:
-        _materialDesignDialog();
-        return _dialogCompleter.future;
-        break;
-    }
+                );
+            },
+          ),
+        ],
+      ),
+      barrierDismissible: false,
+    );
   }
 
   /// Shows a confirmation dialog with title and description
@@ -182,15 +112,10 @@ class DialogService {
     String cancelText = 'Cancel',
     String confirmText = 'Ok',
 
-    /// ignored when `showDialogForPlatform` is `true`
-    /// you must change `showDialogForPlatform` to `false` to use this property
-    /// providing nothing in here and setting the `showDialogForPlatform` to `false`
-    /// will result in using material desing all the time
-    PlatformDesignType platformDesignType,
-
-    /// setting to `false` will not ignore `platform` :)
-    /// default is `true` which ignores `platform` :)
-    bool showDialogForPlatform = true,
+    /// Indicates which [DialogPlatform] to show.
+    ///
+    /// When not set a Platform specific dialog will be shown
+    DialogPlatform dialogPlatform,
   }) {
     _dialogCompleter = Completer<DialogResponse>();
 
@@ -199,8 +124,7 @@ class DialogService {
       description: description,
       confirmText: confirmText,
       cancelText: cancelText,
-      platformDesignType: platformDesignType,
-      showDialogForPlatform: showDialogForPlatform,
+      dialogPlatform: dialogPlatform,
     );
 
     return _dialogCompleter.future;
