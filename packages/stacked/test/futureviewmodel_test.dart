@@ -8,12 +8,18 @@ class TestFutureViewModel extends FutureViewModel<int> {
   TestFutureViewModel({this.fail = false});
 
   int numberToReturn = 5;
+  bool dataCalled = false;
 
   @override
   Future<int> futureToRun() async {
     if (fail) throw Exception(_SingleFutureExceptionFailMessage);
     await Future.delayed(Duration(milliseconds: 20));
     return numberToReturn;
+  }
+
+  @override
+  void onData(int data) {
+    dataCalled = true;
   }
 }
 
@@ -82,6 +88,18 @@ void main() {
       var futureViewModel = TestFutureViewModel(fail: true);
       await futureViewModel.runFuture();
       expect(futureViewModel.error.message, _SingleFutureExceptionFailMessage);
+    });
+
+    test('When a future fails onData should not be called', () async {
+      var futureViewModel = TestFutureViewModel(fail: true);
+      await futureViewModel.runFuture();
+      expect(futureViewModel.dataCalled, false);
+    });
+
+    test('When a future passes onData should not called', () async {
+      var futureViewModel = TestFutureViewModel();
+      await futureViewModel.runFuture();
+      expect(futureViewModel.dataCalled, true);
     });
 
     group('Dynamic Source Tests', () {

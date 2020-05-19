@@ -1,3 +1,7 @@
+## 1.5.2
+
+- Added `onData` function into `FutureViewModel` that can be overridden 
+
 ## 1.5.1
 
 - Ensure model is busy as soon as runFuture notifyListeners for the first time

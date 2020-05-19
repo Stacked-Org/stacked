@@ -160,10 +160,18 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T> {
       notifyListeners();
     });
 
+    if (_data != null) {
+      onData(_data);
+    }
+
     changeSource = false;
   }
 
+  /// Called when an error occurs within the future being run
   void onError(error) {}
+
+  /// Called after the data has been set
+  void onData(T data) {}
 }
 
 /// Provides functionality for a ViewModel to run and fetch data using multiple future
