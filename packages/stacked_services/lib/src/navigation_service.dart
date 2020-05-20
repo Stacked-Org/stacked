@@ -12,6 +12,7 @@ class NavigationTransition {
   static const String Rotate = 'rotate';
   static const String Size = 'size';
   static const String RightToLeftWithFade = 'righttoleftwithfade';
+  static const String LeftToRighttWithFade = 'lefttorightwithfade';
   static const String Cupertino = 'cupertino';
 }
 
@@ -30,7 +31,7 @@ class NavigationService {
     NavigationTransition.Rotate: Transition.rotate,
     NavigationTransition.Size: Transition.size,
     NavigationTransition.RightToLeftWithFade: Transition.rightToLeftWithFade,
-    NavigationTransition.RightToLeftWithFade: Transition.leftToRightWithFade,
+    NavigationTransition.LeftToRighttWithFade: Transition.leftToRightWithFade,
     NavigationTransition.Cupertino: Transition.cupertino,
   };
 

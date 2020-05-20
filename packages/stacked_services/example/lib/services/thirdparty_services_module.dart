@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-@registerModule
+@module
 abstract class ThirdPartyServicesModule {
   @lazySingleton
   NavigationService get navigationService;
