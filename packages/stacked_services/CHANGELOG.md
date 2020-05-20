@@ -1,3 +1,7 @@
+## 0.3.1
+
+- Expose get key through all services in case they are used on their own without navigation service
+
 ## 0.3.0+1
 
 - Injectable version update

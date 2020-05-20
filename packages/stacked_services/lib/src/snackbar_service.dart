@@ -6,6 +6,10 @@ import 'package:injectable/injectable.dart';
 /// A service that allows the user to show the snackbar from a ViewModel
 @lazySingleton
 class SnackbarService {
+  get navigatorKey {
+    return Get.key;
+  }
+
   /// Shows a snack bar with the details passed in
   void showSnackbar({
     String title,

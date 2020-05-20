@@ -17,6 +17,10 @@ enum DialogPlatform {
 class DialogService {
   Completer<DialogResponse> _dialogCompleter;
 
+  get navigatorKey {
+    return Get.key;
+  }
+
   // TODO: Create a dialog UI registration factory that will allow users to register
   // dialogs to be built along with keys. the user should then be able to show the dialog
   // using that key.
