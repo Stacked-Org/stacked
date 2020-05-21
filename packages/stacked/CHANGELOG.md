@@ -1,10 +1,14 @@
+## 1.5.4
+
+- Made specialty viewmodels reactive as well so you can supply reactive services as an override
+
 ## 1.5.3
 
 - Expose subscription for single stream viewmodel and getSubscriptionForKey for multiple stream viewmodel.
 
 ## 1.5.2
 
-- Added `onData` function into `FutureViewModel` that can be overridden 
+- Added `onData` function into `FutureViewModel` that can be overridden
 
 ## 1.5.1
 

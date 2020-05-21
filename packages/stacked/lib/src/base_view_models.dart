@@ -98,11 +98,14 @@ abstract class ReactiveViewModel extends BaseViewModel {
 }
 
 @protected
-class DynamicSourceViewModel<T> extends BaseViewModel {
+class DynamicSourceViewModel<T> extends ReactiveViewModel {
   bool changeSource = false;
   void notifySourceChanged({bool clearOldData = false}) {
     changeSource = true;
   }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [];
 }
 
 class _SingleDataSourceViewModel<T> extends DynamicSourceViewModel {
