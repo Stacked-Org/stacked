@@ -1,3 +1,7 @@
+## 1.5.3
+
+- Expose subscription for single stream viewmodel and getSubscriptionForKey for multiple stream viewmodel.
+
 ## 1.5.2
 
 - Added `onData` function into `FutureViewModel` that can be overridden 

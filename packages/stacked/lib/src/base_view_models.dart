@@ -250,6 +250,10 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
   Map<String, StreamSubscription> get streamsSubscriptions =>
       _streamsSubscriptions;
 
+  /// Returns the stream subscription associated with the key
+  StreamSubscription getSubscriptionForKey(String key) =>
+      _streamsSubscriptions[key];
+
   void initialise() {
     _dataMap = Map<String, dynamic>();
     _errorMap = Map<String, bool>();
@@ -346,7 +350,6 @@ abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T>
   /// Stream to listen to
   Stream<T> get stream;
 
-  @visibleForTesting
   StreamSubscription get streamSubscription => _streamSubscription;
 
   StreamSubscription _streamSubscription;
