@@ -1,3 +1,7 @@
+## 0.3.2
+
+- Fixed naming changes to be consistent with the function name
+
 ## 0.3.1+2
 
 - When clearing stacking and showing we push instead of replace

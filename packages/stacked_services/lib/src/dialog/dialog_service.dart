@@ -31,8 +31,8 @@ class DialogService {
   Future<DialogResponse> showDialog({
     String title,
     String description,
-    String cancelText,
-    String confirmText = 'Ok',
+    String cancelTitle,
+    String buttonTitle = 'Ok',
 
     /// Indicates which [DialogPlatform] to show.
     ///
@@ -45,8 +45,8 @@ class DialogService {
       _showDialog(
           title: title,
           description: description,
-          cancelText: cancelText,
-          confirmText: confirmText,
+          cancelTitle: cancelTitle,
+          buttonTitle: buttonTitle,
           dialogPlatform: dialogPlatform);
     } else {
       var _dialogType = GetPlatform.isAndroid
@@ -55,8 +55,8 @@ class DialogService {
       _showDialog(
           title: title,
           description: description,
-          cancelText: cancelText,
-          confirmText: confirmText,
+          cancelTitle: cancelTitle,
+          buttonTitle: buttonTitle,
           dialogPlatform: _dialogType);
     }
 
@@ -66,11 +66,11 @@ class DialogService {
   Future _showDialog({
     String title,
     String description,
-    String cancelText,
-    String confirmText,
+    String cancelTitle,
+    String buttonTitle,
     DialogPlatform dialogPlatform,
   }) {
-    var isConfirmationDialog = cancelText != null;
+    var isConfirmationDialog = cancelTitle != null;
     return Get.dialog(
       PlatformDialog(
         dialogPlatform: dialogPlatform,
@@ -80,7 +80,7 @@ class DialogService {
           if (isConfirmationDialog)
             PlatformButton(
               dialogPlatform: dialogPlatform,
-              text: cancelText,
+              text: cancelTitle,
               isCancelButton: true,
               onPressed: () {
                 if (!_dialogCompleter.isCompleted)
@@ -93,7 +93,7 @@ class DialogService {
             ),
           PlatformButton(
             dialogPlatform: dialogPlatform,
-            text: confirmText,
+            text: buttonTitle,
             onPressed: () {
               if (!_dialogCompleter.isCompleted)
                 completeDialog(
@@ -113,8 +113,8 @@ class DialogService {
   Future<DialogResponse> showConfirmationDialog({
     String title,
     String description,
-    String cancelText = 'Cancel',
-    String confirmText = 'Ok',
+    String cancelTitle = 'Cancel',
+    String confirmationTitle = 'Ok',
 
     /// Indicates which [DialogPlatform] to show.
     ///
@@ -126,8 +126,8 @@ class DialogService {
     showDialog(
       title: title,
       description: description,
-      confirmText: confirmText,
-      cancelText: cancelText,
+      buttonTitle: confirmationTitle,
+      cancelTitle: cancelTitle,
       dialogPlatform: dialogPlatform,
     );
 
