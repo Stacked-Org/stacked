@@ -1,3 +1,11 @@
+## 0.3.1+2
+
+- When clearing stacking and showing we push instead of replace
+
+## 0.3.1+1
+
+- Provided route as the predicate for the "till" functions
+
 ## 0.3.1
 
 - Expose get key through all services in case they are used on their own without navigation service

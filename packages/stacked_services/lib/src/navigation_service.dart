@@ -135,6 +135,11 @@ class NavigationService {
     return Get.toNamed(routeName, arguments: arguments);
   }
 
+  /// Pushes [view] onto the navigation stack
+  Future<dynamic> navigateToView(Widget view, {dynamic arguments}) {
+    return Get.to(view, arguments: arguments);
+  }
+
   /// Replaces the current route with the [routeName]
   Future<dynamic> replaceWith(String routeName, {dynamic arguments}) {
     return Get.offNamed(routeName, arguments: arguments);
@@ -144,7 +149,7 @@ class NavigationService {
   Future<dynamic> clearStackAndShow(String routeName, {dynamic arguments}) {
     _clearBackstackCompletely();
 
-    return replaceWith(routeName, arguments: arguments);
+    return navigateTo(routeName, arguments: arguments);
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [routeName] onto the stack
@@ -152,6 +157,13 @@ class NavigationService {
     _clearBackstackTillFirst();
 
     return navigateTo(routeName, arguments: arguments);
+  }
+
+  /// Pops the navigation stack until there's 1 view left then pushes [view] onto the stack
+  Future<dynamic> clearTillFirstAndShowView(Widget view, {dynamic arguments}) {
+    _clearBackstackTillFirst();
+
+    return navigateToView(view);
   }
 
   /// Push route and clear stack until predicate is satisfied
@@ -162,11 +174,11 @@ class NavigationService {
   }
 
   void _clearBackstackCompletely() {
-    navigatorKey.currentState.popUntil((route) => false);
+    navigatorKey.currentState.popUntil((Route route) => false);
   }
 
   void _clearBackstackTillFirst() {
-    navigatorKey.currentState.popUntil((route) => route.isFirst);
+    navigatorKey.currentState.popUntil((Route route) => route.isFirst);
   }
 
   Transition _getTransitionOrDefault(String transition) {
