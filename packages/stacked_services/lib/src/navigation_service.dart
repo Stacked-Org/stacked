@@ -147,9 +147,7 @@ class NavigationService {
 
   /// Clears the entire back stack and shows [routeName]
   Future<dynamic> clearStackAndShow(String routeName, {dynamic arguments}) {
-    _clearBackstackCompletely();
-
-    return navigateTo(routeName, arguments: arguments);
+    return Get.offAllNamed(routeName);
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [routeName] onto the stack
@@ -171,10 +169,6 @@ class NavigationService {
       {RoutePredicate predicate, arguments, int id}) {
     return Get.offAllNamed(routeName,
         predicate: predicate, arguments: arguments, id: id);
-  }
-
-  void _clearBackstackCompletely() {
-    navigatorKey.currentState.popUntil((Route route) => false);
   }
 
   void _clearBackstackTillFirst() {

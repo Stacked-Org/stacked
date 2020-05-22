@@ -1,3 +1,7 @@
+## 0.3.2+!
+
+- Makes use of offAllNamed from get for clear backstack functionality
+
 ## 0.3.2
 
 - Fixed naming changes to be consistent with the function name
