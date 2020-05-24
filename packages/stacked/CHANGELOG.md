@@ -1,3 +1,7 @@
+## 1.5.4+1
+
+- Added `MultipleStreamViewModel` example into the readme
+
 ## 1.5.4
 
 - Made specialty viewmodels reactive as well so you can supply reactive services as an override
