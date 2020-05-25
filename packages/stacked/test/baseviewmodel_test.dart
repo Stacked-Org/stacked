@@ -2,11 +2,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:stacked/stacked.dart';
 
 class TestViewModel extends BaseViewModel {
-  Future runFuture([String busyKey]) {
+  Future runFuture({String busyKey, bool fail = false}) {
     return runBusyFuture(
-      Future.delayed(Duration(milliseconds: 50)),
+      _futureToRun(fail),
       busyObject: busyKey,
     );
+  }
+
+  Future _futureToRun(bool fail) async {
+    await Future.delayed(Duration(milliseconds: 50));
+    if (fail) {
+      throw Exception('Broken Future');
+    }
   }
 }
 
@@ -49,8 +56,17 @@ void main() {
           () {
         var busyObjectKey = 'busyObjectKey';
         var viewModel = TestViewModel();
-        viewModel.runFuture(busyObjectKey);
+        viewModel.runFuture(busyKey: busyObjectKey);
         expect(viewModel.busy(busyObjectKey), true);
+      });
+
+      test(
+          'When busyFuture is run with busyObject should report NOT busy when error is thrown',
+          () async {
+        var busyObjectKey = 'busyObjectKey';
+        var viewModel = TestViewModel();
+        await viewModel.runFuture(busyKey: busyObjectKey, fail: true);
+        expect(viewModel.busy(busyObjectKey), false);
       });
     });
   });

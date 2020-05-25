@@ -1,3 +1,7 @@
+## 1.5.5
+
+- Added fix to set busy back to false when the future throws an exception
+
 ## 1.5.4+1
 
 - Added `MultipleStreamViewModel` example into the readme
