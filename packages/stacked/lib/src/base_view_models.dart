@@ -139,7 +139,8 @@ class _MultiDataSourceViewModel extends DynamicSourceViewModel {
 }
 
 /// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
-abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T> {
+abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
+    implements IAdditionalSetup {
   /// The future that fetches the data and sets the view to busy
   @Deprecated('Use the futureToRun function')
   Future<T> get future => null;
@@ -178,10 +179,15 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T> {
 
   /// Called after the data has been set
   void onData(T data) {}
+
+  doSetup() {
+    runFuture();
+  }
 }
 
 /// Provides functionality for a ViewModel to run and fetch data using multiple future
-abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
+abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel
+    implements IAdditionalSetup {
   Map<String, Future Function()> get futuresMap;
 
   Completer _futuresCompleter;
@@ -241,10 +247,15 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
   void onError({String key, error}) {}
 
   void onData(String key) {}
+
+  doSetup() {
+    runFutures();
+  }
 }
 
 /// Provides functionality for a ViewModel to run and fetch data using multiple streams
-abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
+abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel
+    implements IAdditionalSetup {
   // Every MultipleStreamViewModel must override streamDataMap
   // StreamData requires a stream, but lifecycle events are optional
   // if a lifecyle event isn't defined we use the default ones here
@@ -349,10 +360,14 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
       _streamsSubscriptions.clear();
     }
   }
+
+  doSetup() {
+    initialise();
+  }
 }
 
 abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T>
-    implements DynamicSourceViewModel {
+    implements DynamicSourceViewModel, IAdditionalSetup {
   /// Stream to listen to
   Stream<T> get stream;
 
@@ -428,6 +443,10 @@ abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T>
 
     super.dispose();
   }
+
+  doSetup() {
+    initialise();
+  }
 }
 
 class StreamData<T> extends _SingleDataSourceViewModel<T> {
@@ -500,4 +519,9 @@ class StreamData<T> extends _SingleDataSourceViewModel<T> {
 
     super.dispose();
   }
+}
+
+/// Interface: Additional actions that should be implemented by spcialised ViewModels
+abstract class IAdditionalSetup {
+  void doSetup();
 }
