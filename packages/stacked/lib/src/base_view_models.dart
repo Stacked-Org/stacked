@@ -30,10 +30,7 @@ class BaseViewModel extends ChangeNotifier {
   /// If a busyKey is su
   Future runBusyFuture(Future busyFuture, {Object busyObject}) async {
     _setBusyForModelOrObject(true, busyObject: busyObject);
-    var value = await busyFuture.catchError((error) {
-      // TODO: Should probably store the error here and indicate we have an error
-      return null;
-    });
+    var value = await busyFuture;
     _setBusyForModelOrObject(false, busyObject: busyObject);
     return value;
   }
