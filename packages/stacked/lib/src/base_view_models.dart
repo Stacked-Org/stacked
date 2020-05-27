@@ -32,7 +32,7 @@ class BaseViewModel extends ChangeNotifier {
     _setBusyForModelOrObject(true, busyObject: busyObject);
     var value = await busyFuture.catchError((error) {
       // TODO: Should probably store the error here and indicate we have an error
-      return null;
+      throw error;
     });
     _setBusyForModelOrObject(false, busyObject: busyObject);
     return value;

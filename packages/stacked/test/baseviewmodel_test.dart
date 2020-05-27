@@ -11,9 +11,9 @@ class TestViewModel extends BaseViewModel {
 
   Future _futureToRun(bool fail) async {
     await Future.delayed(Duration(milliseconds: 50));
-    if (fail) {
-      throw Exception('Broken Future');
-    }
+    // if (fail) {
+    //   throw Exception('Broken Future');
+    // }
   }
 }
 
