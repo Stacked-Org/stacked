@@ -1,3 +1,7 @@
+## 1.5.5+1
+
+- Reverted commit below
+
 ## 1.5.5
 
 - Added fix to set busy back to false when the future throws an exception
