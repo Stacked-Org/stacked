@@ -177,7 +177,7 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
   /// Called after the data has been set
   void onData(T data) {}
 
-  doSetup() {
+  initialise() {
     runFuture();
   }
 }
@@ -245,7 +245,7 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel
 
   void onData(String key) {}
 
-  doSetup() {
+  initialise() {
     runFutures();
   }
 }
@@ -357,10 +357,6 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel
       _streamsSubscriptions.clear();
     }
   }
-
-  doSetup() {
-    initialise();
-  }
 }
 
 abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T>
@@ -440,10 +436,6 @@ abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T>
 
     super.dispose();
   }
-
-  doSetup() {
-    initialise();
-  }
 }
 
 class StreamData<T> extends _SingleDataSourceViewModel<T> {
@@ -520,5 +512,5 @@ class StreamData<T> extends _SingleDataSourceViewModel<T> {
 
 /// Interface: Additional actions that should be implemented by spcialised ViewModels
 abstract class IAdditionalSetup {
-  void doSetup();
+  void initialise() ;
 }

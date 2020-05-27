@@ -95,7 +95,7 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
     // Add any additional actions here for spcialised ViewModels
      // Add any additional actions here for spcialised ViewModels
     if (_model is IAdditionalSetup) {
-      (_model as IAdditionalSetup).doSetup();
+      (_model as IAdditionalSetup).initialise();
     }
   }
 
