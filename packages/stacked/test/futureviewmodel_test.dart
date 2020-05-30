@@ -57,7 +57,7 @@ void main() {
   group('FutureViewModel', () {
     test('When future is complete data should be set and ready', () async {
       var futureViewModel = TestFutureViewModel();
-      await futureViewModel.runFuture();
+      await futureViewModel.initialise();
       expect(futureViewModel.data, 5);
       expect(futureViewModel.dataReady, true);
     });
@@ -65,7 +65,7 @@ void main() {
     test('When a future fails it should indicate there\'s an error and no data',
         () async {
       var futureViewModel = TestFutureViewModel(fail: true);
-      await futureViewModel.runFuture();
+      await futureViewModel.initialise();
       expect(futureViewModel.hasError, true);
       expect(futureViewModel.data, null,
           reason: 'No data should be set when there\'s a failure.');
@@ -74,42 +74,42 @@ void main() {
 
     test('When a future runs it should indicate busy', () async {
       var futureViewModel = TestFutureViewModel();
-      futureViewModel.runFuture();
+      futureViewModel.initialise();
       expect(futureViewModel.isBusy, true);
     });
 
     test('When a future fails it should indicate NOT busy', () async {
       var futureViewModel = TestFutureViewModel(fail: true);
-      await futureViewModel.runFuture();
+      await futureViewModel.initialise();
       expect(futureViewModel.isBusy, false);
     });
 
     test('When a future fails it should set error to exception', () async {
       var futureViewModel = TestFutureViewModel(fail: true);
-      await futureViewModel.runFuture();
+      await futureViewModel.initialise();
       expect(futureViewModel.error.message, _SingleFutureExceptionFailMessage);
     });
 
     test('When a future fails onData should not be called', () async {
       var futureViewModel = TestFutureViewModel(fail: true);
-      await futureViewModel.runFuture();
+      await futureViewModel.initialise();
       expect(futureViewModel.dataCalled, false);
     });
 
     test('When a future passes onData should not called', () async {
       var futureViewModel = TestFutureViewModel();
-      await futureViewModel.runFuture();
+      await futureViewModel.initialise();
       expect(futureViewModel.dataCalled, true);
     });
 
     group('Dynamic Source Tests', () {
       test('notifySourceChanged - When called should re-run Future', () async {
         var futureViewModel = TestFutureViewModel();
-        await futureViewModel.runFuture();
+        await futureViewModel.initialise();
         expect(futureViewModel.data, 5);
         futureViewModel.numberToReturn = 10;
         futureViewModel.notifySourceChanged();
-        await futureViewModel.runFuture();
+        await futureViewModel.initialise();
         expect(futureViewModel.data, 10);
       });
     });
@@ -120,7 +120,7 @@ void main() {
         'When running multiple futures the associated key should hold the value when complete',
         () async {
       var futureViewModel = TestMultipleFutureViewModel();
-      await futureViewModel.runFutures();
+      await futureViewModel.initialise();
 
       expect(futureViewModel.dataMap[NumberDelayFuture], 5);
       expect(futureViewModel.dataMap[StringDelayFuture], 'String data');
@@ -130,7 +130,7 @@ void main() {
         'When one of multiple futures fail only the failing one should have an error',
         () async {
       var futureViewModel = TestMultipleFutureViewModel(failOne: true);
-      await futureViewModel.runFutures();
+      await futureViewModel.initialise();
 
       expect(futureViewModel.hasError(NumberDelayFuture), true);
       expect(futureViewModel.hasError(StringDelayFuture), false);
@@ -140,7 +140,7 @@ void main() {
         'When one of multiple futures fail the passed one should have data and failing one not',
         () async {
       var futureViewModel = TestMultipleFutureViewModel(failOne: true);
-      await futureViewModel.runFutures();
+      await futureViewModel.initialise();
 
       expect(futureViewModel.dataMap[NumberDelayFuture], null);
       expect(futureViewModel.dataMap[StringDelayFuture], 'String data');
@@ -149,7 +149,7 @@ void main() {
     test('When multiple futures run the key should be set to indicate busy',
         () async {
       var futureViewModel = TestMultipleFutureViewModel();
-      futureViewModel.runFutures();
+      futureViewModel.initialise();
 
       expect(futureViewModel.busy(NumberDelayFuture), true);
       expect(futureViewModel.busy(StringDelayFuture), true);
@@ -159,7 +159,7 @@ void main() {
         'When multiple futures are complete the key should be set to indicate NOT busy',
         () async {
       var futureViewModel = TestMultipleFutureViewModel();
-      await futureViewModel.runFutures();
+      await futureViewModel.initialise();
 
       expect(futureViewModel.busy(NumberDelayFuture), false);
       expect(futureViewModel.busy(StringDelayFuture), false);
@@ -167,7 +167,7 @@ void main() {
 
     test('When a future fails busy should be set to false', () async {
       var futureViewModel = TestMultipleFutureViewModel(failOne: true);
-      await futureViewModel.runFutures();
+      await futureViewModel.initialise();
 
       expect(futureViewModel.busy(NumberDelayFuture), false);
       expect(futureViewModel.busy(StringDelayFuture), false);
@@ -175,7 +175,7 @@ void main() {
 
     test('When a future fails should set error for future key', () async {
       var futureViewModel = TestMultipleFutureViewModel(failOne: true);
-      await futureViewModel.runFutures();
+      await futureViewModel.initialise();
 
       expect(futureViewModel.getError(NumberDelayFuture).message,
           _NumberDelayExceptionMessage);
@@ -186,11 +186,11 @@ void main() {
     group('Dynamic Source Tests', () {
       test('notifySourceChanged - When called should re-run Future', () async {
         var futureViewModel = TestMultipleFutureViewModel();
-        await futureViewModel.runFutures();
+        await futureViewModel.initialise();
         expect(futureViewModel.dataMap[NumberDelayFuture], 5);
         futureViewModel.numberToReturn = 10;
         futureViewModel.notifySourceChanged();
-        await futureViewModel.runFutures();
+        await futureViewModel.initialise();
         expect(futureViewModel.dataMap[NumberDelayFuture], 10);
       });
     });

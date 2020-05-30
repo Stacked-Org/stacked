@@ -1,4 +1,3 @@
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'base_view_models.dart';
@@ -94,8 +93,8 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
   void _initialiseSpecialViewModels() {
     // Add any additional actions here for spcialised ViewModels
      // Add any additional actions here for spcialised ViewModels
-    if (_model is IAdditionalSetup) {
-      (_model as IAdditionalSetup).initialise();
+    if (_model is Initialisable) {
+      (_model as Initialisable).initialise();
     }
   }
 
