@@ -33,6 +33,7 @@ class BaseViewModel extends ChangeNotifier {
     _setBusyForModelOrObject(true, busyObject: busyObject);
     try {
       var value = await busyFuture;
+      _setBusyForModelOrObject(false, busyObject: busyObject);
       return value;
     } catch (e) {
       _setBusyForModelOrObject(false, busyObject: busyObject);

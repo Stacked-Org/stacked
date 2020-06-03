@@ -1,3 +1,7 @@
+## 1.5.6+1
+
+- added back busy to false state when busy future is complete without an error
+
 ## 1.5.6
 
 - runBusyFuture now sets itself to not busy when exception is thrown
