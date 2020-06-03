@@ -79,6 +79,18 @@ void main() {
                 busyKey: busyObjectKey, fail: true, throwException: true),
             throwsException);
       });
+
+      test(
+          'When busy future is complete should have called notifyListeners twice, 1 for busy 1 for not busy',
+          () async {
+        var called = 0;
+        var viewModel = TestViewModel();
+        viewModel.addListener(() {
+          ++called;
+        });
+        await viewModel.runFuture(fail: true);
+        expect(called, 2);
+      });
     });
   });
 }
