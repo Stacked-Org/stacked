@@ -1,3 +1,11 @@
+## 1.5.7+1
+
+- fixed busy state hash code problem
+
+## 1.5.7
+
+- Exposes notifyListeners to the service for rebuilding ViewModels that are listening
+
 ## 1.5.6+1
 
 - added back busy to false state when busy future is complete without an error

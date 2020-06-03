@@ -77,5 +77,22 @@ void main() {
 
       expect(called, true);
     });
+    test('When notifyListeners is called on a service whould fire the listener',
+        () async {
+      var called = false;
+      var reactiveService = MultipleCounterService();
+
+      reactiveService.addListener(() {
+        called = true;
+      });
+
+      reactiveService.notifyListeners();
+
+      // Have to wait for the listener to be called above. In real life the results is not
+      // expected to happen in the same CPU cycle so this is perfect for a unit test.
+      await Future.delayed(Duration(milliseconds: 10));
+
+      expect(called, true);
+    });
   });
 }
