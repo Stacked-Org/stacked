@@ -1,3 +1,8 @@
+## 1.5.6
+
+- runBusyFuture now sets itself to not busy when exception is thrown
+- runBusyFuture has parameter throwException which will rethrow the caught exception to the caller
+
 ## 1.5.5+1
 
 - Reverted commit below
