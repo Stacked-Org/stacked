@@ -142,7 +142,8 @@ class _MultiDataSourceViewModel extends DynamicSourceViewModel {
 }
 
 /// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
-abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T> {
+abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
+    implements Initialisable {
   /// The future that fetches the data and sets the view to busy
   @Deprecated('Use the futureToRun function')
   Future<T> get future => null;
@@ -153,7 +154,7 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T> {
 
   Future<T> futureToRun();
 
-  Future runFuture() async {
+  Future initialise() async {
     _hasError = false;
     _error = null;
     // We set busy manually as well because when notify listeners is called to clear error messages the
@@ -185,7 +186,8 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T> {
 }
 
 /// Provides functionality for a ViewModel to run and fetch data using multiple future
-abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
+abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel
+    implements Initialisable {
   Map<String, Future Function()> get futuresMap;
 
   Completer _futuresCompleter;
@@ -205,7 +207,7 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
     _futuresCompleted = 0;
   }
 
-  Future runFutures() {
+  Future initialise() {
     _futuresCompleter = Completer();
     _initialiseData();
     // We set busy manually as well because when notify listeners is called to clear error messages the
@@ -250,7 +252,8 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
 }
 
 /// Provides functionality for a ViewModel to run and fetch data using multiple streams
-abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
+abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel
+    implements Initialisable {
   // Every MultipleStreamViewModel must override streamDataMap
   // StreamData requires a stream, but lifecycle events are optional
   // if a lifecyle event isn't defined we use the default ones here
@@ -358,7 +361,7 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
 }
 
 abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T>
-    implements DynamicSourceViewModel {
+    implements DynamicSourceViewModel, Initialisable {
   /// Stream to listen to
   Stream<T> get stream;
 
@@ -506,4 +509,9 @@ class StreamData<T> extends _SingleDataSourceViewModel<T> {
 
     super.dispose();
   }
+}
+
+/// Interface: Additional actions that should be implemented by spcialised ViewModels
+abstract class Initialisable {
+  void initialise() ;
 }

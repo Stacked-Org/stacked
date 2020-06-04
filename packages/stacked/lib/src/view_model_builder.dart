@@ -92,22 +92,9 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
 
   void _initialiseSpecialViewModels() {
     // Add any additional actions here for spcialised ViewModels
-    // TODO: Provide a closed implemenation of this functionality. Refer to the Open Closed
-    // principle in the SOLID principles
-    if (_model is FutureViewModel) {
-      (_model as FutureViewModel).runFuture();
-    }
-
-    if (_model is MultipleFutureViewModel) {
-      (_model as MultipleFutureViewModel).runFutures();
-    }
-
-    if (_model is StreamViewModel) {
-      (_model as StreamViewModel).initialise();
-    }
-
-    if (_model is MultipleStreamViewModel) {
-      (_model as MultipleStreamViewModel).initialise();
+     // Add any additional actions here for spcialised ViewModels
+    if (_model is Initialisable) {
+      (_model as Initialisable).initialise();
     }
   }
 
