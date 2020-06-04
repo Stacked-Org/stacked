@@ -1,3 +1,12 @@
+## 1.5.6+1
+
+- added back busy to false state when busy future is complete without an error
+
+## 1.5.6
+
+- runBusyFuture now sets itself to not busy when exception is thrown
+- runBusyFuture has parameter throwException which will rethrow the caught exception to the caller
+
 ## 1.5.5+1
 
 - Reverted commit below

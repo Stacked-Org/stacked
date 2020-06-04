@@ -1,4 +1,3 @@
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'base_view_models.dart';
@@ -158,5 +157,5 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
   }
 }
 
-/// EXPERIMENTAL: Returns the ViewModel provided above this widget in the tree 
+/// EXPERIMENTAL: Returns the ViewModel provided above this widget in the tree
 T getParentViewModel<T>(BuildContext context) => Provider.of<T>(context);

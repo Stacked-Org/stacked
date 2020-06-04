@@ -2,11 +2,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:stacked/stacked.dart';
 
 class TestViewModel extends BaseViewModel {
-  Future runFuture({String busyKey, bool fail = false}) {
-    return runBusyFuture(
-      _futureToRun(fail),
-      busyObject: busyKey,
-    );
+  Future runFuture(
+      {String busyKey, bool fail = false, bool throwException = false}) {
+    return runBusyFuture(_futureToRun(fail),
+        busyObject: busyKey, throwException: throwException);
   }
 
   Future _futureToRun(bool fail) async {
@@ -67,9 +66,31 @@ void main() {
         var viewModel = TestViewModel();
         await viewModel.runFuture(busyKey: busyObjectKey, fail: true);
         expect(viewModel.busy(busyObjectKey), false);
-      },
-          skip:
-              'Error handling has to be moved into the base classes for this to work');
+      });
+
+      test(
+          'When busyFuture is run with busyObject should throw exception if throwException is set to true',
+          () async {
+        var busyObjectKey = 'busyObjectKey';
+        var viewModel = TestViewModel();
+
+        expect(
+            () async => await viewModel.runFuture(
+                busyKey: busyObjectKey, fail: true, throwException: true),
+            throwsException);
+      });
+
+      test(
+          'When busy future is complete should have called notifyListeners twice, 1 for busy 1 for not busy',
+          () async {
+        var called = 0;
+        var viewModel = TestViewModel();
+        viewModel.addListener(() {
+          ++called;
+        });
+        await viewModel.runFuture(fail: true);
+        expect(called, 2);
+      });
     });
   });
 }
