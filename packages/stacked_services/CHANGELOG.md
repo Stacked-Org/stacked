@@ -1,4 +1,8 @@
-## 0.3.2+!
+## 0.3.3
+
+- DialogService now uses DialogTheme of the context instead of TextTheme
+
+## 0.3.2+1
 
 - Makes use of offAllNamed from get for clear backstack functionality
 
