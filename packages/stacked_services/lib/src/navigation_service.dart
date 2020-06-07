@@ -12,6 +12,7 @@ class NavigationTransition {
   static const String Rotate = 'rotate';
   static const String Size = 'size';
   static const String RightToLeftWithFade = 'righttoleftwithfade';
+  static const String LeftToRighttWithFade = 'lefttorightwithfade';
   static const String Cupertino = 'cupertino';
 }
 
@@ -30,13 +31,11 @@ class NavigationService {
     NavigationTransition.Rotate: Transition.rotate,
     NavigationTransition.Size: Transition.size,
     NavigationTransition.RightToLeftWithFade: Transition.rightToLeftWithFade,
-    NavigationTransition.RightToLeftWithFade: Transition.leftToRightWithFade,
+    NavigationTransition.LeftToRighttWithFade: Transition.leftToRightWithFade,
     NavigationTransition.Cupertino: Transition.cupertino,
   };
 
   get navigatorKey {
-    // We construct this instance to make sure the _get value inside the Get package is not null
-    var tempConstruction = Get();
     return Get.key;
   }
 
@@ -136,6 +135,11 @@ class NavigationService {
     return Get.toNamed(routeName, arguments: arguments);
   }
 
+  /// Pushes [view] onto the navigation stack
+  Future<dynamic> navigateToView(Widget view, {dynamic arguments}) {
+    return Get.to(view, arguments: arguments);
+  }
+
   /// Replaces the current route with the [routeName]
   Future<dynamic> replaceWith(String routeName, {dynamic arguments}) {
     return Get.offNamed(routeName, arguments: arguments);
@@ -143,9 +147,7 @@ class NavigationService {
 
   /// Clears the entire back stack and shows [routeName]
   Future<dynamic> clearStackAndShow(String routeName, {dynamic arguments}) {
-    _clearBackstackCompletely();
-
-    return replaceWith(routeName, arguments: arguments);
+    return Get.offAllNamed(routeName);
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [routeName] onto the stack
@@ -155,6 +157,13 @@ class NavigationService {
     return navigateTo(routeName, arguments: arguments);
   }
 
+  /// Pops the navigation stack until there's 1 view left then pushes [view] onto the stack
+  Future<dynamic> clearTillFirstAndShowView(Widget view, {dynamic arguments}) {
+    _clearBackstackTillFirst();
+
+    return navigateToView(view);
+  }
+
   /// Push route and clear stack until predicate is satisfied
   Future<dynamic> pushNamedAndRemoveUntil(String routeName,
       {RoutePredicate predicate, arguments, int id}) {
@@ -162,12 +171,8 @@ class NavigationService {
         predicate: predicate, arguments: arguments, id: id);
   }
 
-  void _clearBackstackCompletely() {
-    navigatorKey.currentState.popUntil((route) => false);
-  }
-
   void _clearBackstackTillFirst() {
-    navigatorKey.currentState.popUntil((route) => route.isFirst);
+    navigatorKey.currentState.popUntil((Route route) => route.isFirst);
   }
 
   Transition _getTransitionOrDefault(String transition) {

@@ -27,17 +27,23 @@ class BaseViewModel extends ChangeNotifier {
 
   /// Sets the ViewModel to busy, runs the future and then sets it to not busy when complete.
   ///
-  /// If a busyKey is su
-  Future runBusyFuture(Future busyFuture, {Object busyObject}) async {
+  /// rethrows [Exception] after setting busy to false for object or class
+  Future runBusyFuture(Future busyFuture,
+      {Object busyObject, bool throwException = false}) async {
     _setBusyForModelOrObject(true, busyObject: busyObject);
-    var value = await busyFuture;
-    _setBusyForModelOrObject(false, busyObject: busyObject);
-    return value;
+    try {
+      var value = await busyFuture;
+      _setBusyForModelOrObject(false, busyObject: busyObject);
+      return value;
+    } catch (e) {
+      _setBusyForModelOrObject(false, busyObject: busyObject);
+      if (throwException) rethrow;
+    }
   }
 
   void _setBusyForModelOrObject(bool value, {Object busyObject}) {
     if (busyObject != null) {
-      setBusyForObject(busyObject.hashCode, value);
+      setBusyForObject(busyObject, value);
     } else {
       setBusyForObject(this, value);
     }
@@ -98,11 +104,14 @@ abstract class ReactiveViewModel extends BaseViewModel {
 }
 
 @protected
-class DynamicSourceViewModel<T> extends BaseViewModel {
+class DynamicSourceViewModel<T> extends ReactiveViewModel {
   bool changeSource = false;
   void notifySourceChanged({bool clearOldData = false}) {
     changeSource = true;
   }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [];
 }
 
 class _SingleDataSourceViewModel<T> extends DynamicSourceViewModel {
@@ -133,7 +142,8 @@ class _MultiDataSourceViewModel extends DynamicSourceViewModel {
 }
 
 /// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
-abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T> {
+abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
+    implements Initialisable {
   /// The future that fetches the data and sets the view to busy
   @Deprecated('Use the futureToRun function')
   Future<T> get future => null;
@@ -144,7 +154,7 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T> {
 
   Future<T> futureToRun();
 
-  Future runFuture() async {
+  Future initialise() async {
     _hasError = false;
     _error = null;
     // We set busy manually as well because when notify listeners is called to clear error messages the
@@ -152,7 +162,8 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T> {
     setBusy(true);
     notifyListeners();
 
-    _data = await runBusyFuture(futureToRun()).catchError((error) {
+    _data = await runBusyFuture(futureToRun(), throwException: true)
+        .catchError((error) {
       _hasError = true;
       _error = error;
       setBusy(false);
@@ -160,14 +171,23 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T> {
       notifyListeners();
     });
 
+    if (_data != null) {
+      onData(_data);
+    }
+
     changeSource = false;
   }
 
+  /// Called when an error occurs within the future being run
   void onError(error) {}
+
+  /// Called after the data has been set
+  void onData(T data) {}
 }
 
 /// Provides functionality for a ViewModel to run and fetch data using multiple future
-abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
+abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel
+    implements Initialisable {
   Map<String, Future Function()> get futuresMap;
 
   Completer _futuresCompleter;
@@ -187,7 +207,7 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
     _futuresCompleted = 0;
   }
 
-  Future runFutures() {
+  Future initialise() {
     _futuresCompleter = Completer();
     _initialiseData();
     // We set busy manually as well because when notify listeners is called to clear error messages the
@@ -196,8 +216,10 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
     notifyListeners();
 
     for (var key in futuresMap.keys) {
-      runBusyFuture(futuresMap[key](), busyObject: key).then((futureData) {
+      runBusyFuture(futuresMap[key](), busyObject: key, throwException: true)
+          .then((futureData) {
         _dataMap[key] = futureData;
+        setBusyForObject(key, false);
         notifyListeners();
         onData(key);
         _incrementAndCheckFuturesCompleted();
@@ -230,7 +252,8 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel {
 }
 
 /// Provides functionality for a ViewModel to run and fetch data using multiple streams
-abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
+abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel
+    implements Initialisable {
   // Every MultipleStreamViewModel must override streamDataMap
   // StreamData requires a stream, but lifecycle events are optional
   // if a lifecyle event isn't defined we use the default ones here
@@ -241,6 +264,10 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
   @visibleForTesting
   Map<String, StreamSubscription> get streamsSubscriptions =>
       _streamsSubscriptions;
+
+  /// Returns the stream subscription associated with the key
+  StreamSubscription getSubscriptionForKey(String key) =>
+      _streamsSubscriptions[key];
 
   void initialise() {
     _dataMap = Map<String, dynamic>();
@@ -334,11 +361,10 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel {
 }
 
 abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T>
-    implements DynamicSourceViewModel {
+    implements DynamicSourceViewModel, Initialisable {
   /// Stream to listen to
   Stream<T> get stream;
 
-  @visibleForTesting
   StreamSubscription get streamSubscription => _streamSubscription;
 
   StreamSubscription _streamSubscription;
@@ -483,4 +509,9 @@ class StreamData<T> extends _SingleDataSourceViewModel<T> {
 
     super.dispose();
   }
+}
+
+/// Interface: Additional actions that should be implemented by spcialised ViewModels
+abstract class Initialisable {
+  void initialise() ;
 }

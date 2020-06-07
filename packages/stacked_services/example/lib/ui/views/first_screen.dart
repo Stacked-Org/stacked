@@ -66,6 +66,14 @@ class FirstScreen extends StatelessWidget {
                 );
               },
             ),
+            OutlineButton(
+              child: Text("Clear Till First and Show"),
+              onPressed: () async {
+                await _navigationService.clearTillFirstAndShowView(
+                  SecondScreen(),
+                );
+              },
+            ),
           ],
         ),
       ),

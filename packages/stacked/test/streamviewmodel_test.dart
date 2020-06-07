@@ -156,7 +156,7 @@ void main() async {
         () async {
       var streamViewModel = TestMultipleStreamViewModel();
       streamViewModel.initialise();
-      await Future.delayed(Duration(milliseconds: 1));
+      await Future.delayed(Duration(milliseconds: 4));
       expect(streamViewModel.dataMap[_NumberStream], 5);
       expect(streamViewModel.dataMap[_StringStream], 'five');
     });
@@ -200,6 +200,16 @@ void main() async {
       streamViewModel.initialise();
       await Future.delayed(Duration(milliseconds: 100));
       expect(listenersCalled, true);
+    });
+
+    test(
+        'When a stream is initialised should have a subscription for the given key',
+        () async {
+      var streamViewModel = TestMultipleStreamViewModel();
+
+      streamViewModel.initialise();
+      expect(
+          streamViewModel.getSubscriptionForKey(_NumberStream) != null, true);
     });
 
     group('Data Source Change', () {
