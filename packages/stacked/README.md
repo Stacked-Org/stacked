@@ -12,10 +12,6 @@ The architecture is very simple. It consists of 3 major pieces, everything else 
 - **ViewModel**: Manages the state of the View, business logic and any other logic as required from user interaction. It does this by making use of the services
 - **Services**: A wrapper of a single functionality / feature set. This is commonly used to wrap things like showing a dialog, wrapping database functionality, integrating an api, etc.
 
----
-
-- **Managers(Suggestion)**: A service that requires other services. This piece serves no particular part in the architecture except for indicating that it has depdendencies on other service. It has no functional part in the architecture, It's main purpose is to distinguish between services that depend on other services and ones that don't. It's not a hard rule to follow but will allow for more code separation.
-
 Lets go over some of those principles to follow during development.
 
 - Views should never MAKE USE of a service directly.
@@ -675,6 +671,49 @@ class MultipleFuturesExampleView extends StatelessWidget {
 }
 
 ```
+
+### MultipleStreamViewModel
+
+Similarly to the `StreamViewModel` we also have a `MultipleStreamViewModel` which allows you to provide multiple streams through a String key -> Stream paring. Any of the values from these streams will be stored in the data[key] and the same goes for the errors. Each stream value emitted will call notifyListeners to update the UI. `MultipleStreamViewModel` requires the `streamsMap` to be overridden.
+
+```dart
+const String _NumbersStreamKey = 'numbers-stream';
+const String _StringStreamKey = 'string-stream';
+
+class MultipleStreamsExampleViewModel extends MultipleStreamViewModel {
+  int numbersStreamDelay = 500;
+  int stringStreamDelay = 2000;
+
+  @override
+  Map<String, StreamData> get streamsMap => {
+        _NumbersStreamKey: StreamData<int>(numbersStream(numbersStreamDelay)),
+        _StringStreamKey: StreamData<String>(stringStream(stringStreamDelay)),
+      };
+
+  Stream<int> numbersStream([int delay = 500]) async* {
+    var random = Random();
+    while (true) {
+      await Future.delayed(Duration(milliseconds: delay));
+      yield random.nextInt(999);
+    }
+  }
+
+  Stream<String> stringStream([int delay = 2000]) async* {
+    var random = Random();
+    while (true) {
+      await Future.delayed(Duration(milliseconds: delay));
+      var randomLength = random.nextInt(50);
+      var randomString = '';
+      for (var i = 0; i < randomLength; i++) {
+        randomString += String.fromCharCode(random.nextInt(50));
+      }
+      yield randomString;
+    }
+  }
+}
+```
+
+Similarly to the single stream model. When your stream has changed you should call `notifySourceChanged` to let the ViewModel know that it should stop listening to the old stream and subscribe to the new one. If you want to check if the stream had an error you can use the `hasError` function with the key for the stream, you can also get the error using `getError` with the key for the Stream.
 
 ## Migrating from provider_architecture to Stacked
 

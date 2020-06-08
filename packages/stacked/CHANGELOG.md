@@ -1,3 +1,52 @@
+## 1.5.7+1
+
+- fixed busy state hash code problem
+
+## 1.5.7
+
+- Exposes notifyListeners to the service for rebuilding ViewModels that are listening
+
+## 1.5.6+1
+
+- added back busy to false state when busy future is complete without an error
+
+## 1.5.6
+
+- runBusyFuture now sets itself to not busy when exception is thrown
+- runBusyFuture has parameter throwException which will rethrow the caught exception to the caller
+
+## 1.5.5+1
+
+- Reverted commit below
+
+## 1.5.5
+
+- Added fix to set busy back to false when the future throws an exception
+
+## 1.5.4+1
+
+- Added `MultipleStreamViewModel` example into the readme
+
+## 1.5.4
+
+- Made specialty viewmodels reactive as well so you can supply reactive services as an override
+
+## 1.5.3
+
+- Expose subscription for single stream viewmodel and getSubscriptionForKey for multiple stream viewmodel.
+
+## 1.5.2
+
+- Added `onData` function into `FutureViewModel` that can be overridden
+
+## 1.5.1
+
+- Ensure model is busy as soon as runFuture notifyListeners for the first time
+
+## 1.5.0
+
+- Adds functionality to support `RxList`
+
 ## 1.4.3
 
 - Added functionality to save the error thrown by the calling future

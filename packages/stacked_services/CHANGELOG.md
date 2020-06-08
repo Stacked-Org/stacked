@@ -1,3 +1,41 @@
+## 0.3.3
+
+- DialogService now uses DialogTheme of the context instead of TextTheme
+
+## 0.3.2+1
+
+- Makes use of offAllNamed from get for clear backstack functionality
+
+## 0.3.2
+
+- Fixed naming changes to be consistent with the function name
+
+## 0.3.1+2
+
+- When clearing stacking and showing we push instead of replace
+
+## 0.3.1+1
+
+- Provided route as the predicate for the "till" functions
+
+## 0.3.1
+
+- Expose get key through all services in case they are used on their own without navigation service
+
+## 0.3.0+1
+
+- Injectable version update
+
+## 0.3.0
+
+- Dialog Service now shows platform specific dialogs
+- Get version bumped
+- Services is now Flutter web compatible
+
+## 0.2.4
+
+- Fixed a null exception caused by 2.5.0 of get
+
 ## 0.2.3
 
 - Exposed the navigate with transition and replace with transition functionalities

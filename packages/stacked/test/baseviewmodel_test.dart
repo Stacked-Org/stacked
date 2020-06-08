@@ -2,11 +2,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:stacked/stacked.dart';
 
 class TestViewModel extends BaseViewModel {
-  Future runFuture([String busyKey]) {
-    return runBusyFuture(
-      Future.delayed(Duration(milliseconds: 50)),
-      busyObject: busyKey,
-    );
+  Future runFuture(
+      {String busyKey, bool fail = false, bool throwException = false}) {
+    return runBusyFuture(_futureToRun(fail),
+        busyObject: busyKey, throwException: throwException);
+  }
+
+  Future _futureToRun(bool fail) async {
+    await Future.delayed(Duration(milliseconds: 50));
+    if (fail) {
+      throw Exception('Broken Future');
+    }
   }
 }
 
@@ -49,8 +55,41 @@ void main() {
           () {
         var busyObjectKey = 'busyObjectKey';
         var viewModel = TestViewModel();
-        viewModel.runFuture(busyObjectKey);
+        viewModel.runFuture(busyKey: busyObjectKey);
         expect(viewModel.busy(busyObjectKey), true);
+      });
+
+      test(
+          'When busyFuture is run with busyObject should report NOT busy when error is thrown',
+          () async {
+        var busyObjectKey = 'busyObjectKey';
+        var viewModel = TestViewModel();
+        await viewModel.runFuture(busyKey: busyObjectKey, fail: true);
+        expect(viewModel.busy(busyObjectKey), false);
+      });
+
+      test(
+          'When busyFuture is run with busyObject should throw exception if throwException is set to true',
+          () async {
+        var busyObjectKey = 'busyObjectKey';
+        var viewModel = TestViewModel();
+
+        expect(
+            () async => await viewModel.runFuture(
+                busyKey: busyObjectKey, fail: true, throwException: true),
+            throwsException);
+      });
+
+      test(
+          'When busy future is complete should have called notifyListeners twice, 1 for busy 1 for not busy',
+          () async {
+        var called = 0;
+        var viewModel = TestViewModel();
+        viewModel.addListener(() {
+          ++called;
+        });
+        await viewModel.runFuture(fail: true);
+        expect(called, 2);
       });
     });
   });
