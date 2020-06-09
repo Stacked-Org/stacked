@@ -1,3 +1,7 @@
+## 0.3.4
+
+- Added arguments into the navigation service for clearStackAndshow and others
+
 ## 0.3.3
 
 - DialogService now uses DialogTheme of the context instead of TextTheme
