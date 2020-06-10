@@ -13,6 +13,9 @@ class BaseViewModel extends ChangeNotifier {
   /// Returns the busy status of the viewmodel
   bool get isBusy => busy(this);
 
+  // Returns true if any objects still have a busy status that is true.
+  bool get anyObjectsBusy => _busyStates.values.any((busy) => busy);
+
   /// Marks the viewmodel as busy and calls notify listeners
   void setBusy(bool value) {
     setBusyForObject(this, value);
