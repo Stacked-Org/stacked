@@ -80,13 +80,15 @@ class BaseViewModel extends ChangeNotifier {
 
   @override
   void notifyListeners() {
-    if (!disposed) super.notifyListeners();
+    if (!disposed) {
+      super.notifyListeners();
+    }
   }
 
   @override
   void dispose() {
-    super.dispose();
     _disposed = true;
+    super.dispose();
   }
 }
 
@@ -530,5 +532,5 @@ class StreamData<T> extends _SingleDataSourceViewModel<T> {
 
 /// Interface: Additional actions that should be implemented by spcialised ViewModels
 abstract class Initialisable {
-  void initialise() ;
+  void initialise();
 }

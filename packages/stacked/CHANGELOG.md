@@ -1,3 +1,7 @@
+## 1.6.0
+
+- Adds dispose protection when calling notifyListeners. 
+
 ## 1.5.8
 
 - Adds `anyObjectsBusy` to `FutureViewModels` to report if there are any futures's that are still running
