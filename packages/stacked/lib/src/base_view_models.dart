@@ -7,6 +7,9 @@ import 'package:stacked/src/reactive_service_mixin.dart';
 class BaseViewModel extends ChangeNotifier {
   Map<int, bool> _busyStates = Map<int, bool>();
 
+  bool _disposed = false;
+  bool get disposed => _disposed;
+
   /// Returns the busy status for an object if it exists. Returns false if not present
   bool busy(Object object) => _busyStates[object.hashCode] ?? false;
 
@@ -73,6 +76,17 @@ class BaseViewModel extends ChangeNotifier {
     streamData.initialise();
 
     return streamData;
+  }
+
+  @override
+  void notifyListeners() {
+    if (!disposed) super.notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _disposed = true;
   }
 }
 
