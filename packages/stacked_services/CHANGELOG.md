@@ -1,3 +1,7 @@
+## 0.4.0
+
+- Adds custom UI option to the dialog builder
+
 ## 0.3.4
 
 - Added arguments into the navigation service for clearStackAndshow and others

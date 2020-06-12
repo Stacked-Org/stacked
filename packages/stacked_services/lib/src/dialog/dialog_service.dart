@@ -17,8 +17,15 @@ enum DialogPlatform {
 class DialogService {
   Completer<DialogResponse> _dialogCompleter;
 
+  Widget Function(BuildContext, DialogRequest) _customDialogUI;
+
   get navigatorKey {
     return Get.key;
+  }
+
+  void registerCustomDialogUi(
+      Widget Function(BuildContext, DialogRequest) dialogBuilder) {
+    _customDialogUI = dialogBuilder;
   }
 
   // TODO: Create a dialog UI registration factory that will allow users to register
@@ -109,6 +116,62 @@ class DialogService {
     );
   }
 
+  // Creates a popup with the given widget, a scale animation, and faded background.
+  Future<DialogResponse> showCustomDialog({
+    String title,
+    String description,
+    bool hasImage,
+    String imageUrl,
+    bool showIconInMainButton,
+    String mainButtonTitle,
+    bool showIconInSecondaryButton,
+    String secondaryButtonTitle,
+    bool showIconInAdditionalButton,
+    String additionalButtonTitle,
+    bool takesInput,
+  }) {
+    assert(_customDialogUI != null,
+        'You have to call registerCustomDialogUi to use this function. Look at the custom dialog UI section in the stacked_services readme.');
+
+    _dialogCompleter = Completer<DialogResponse>();
+
+    Get.generalDialog(
+      barrierColor: Colors.black54,
+      transitionDuration: const Duration(milliseconds: 200),
+      barrierDismissible: false,
+      useRootNavigator: true,
+      pageBuilder: (BuildContext buildContext, _, __) => SafeArea(
+          child: Builder(
+              builder: (BuildContext context) => _customDialogUI(
+                  context,
+                  DialogRequest(
+                    title: title,
+                    description: description,
+                    hasImage: hasImage,
+                    imageUrl: imageUrl,
+                    showIconInMainButton: showIconInMainButton,
+                    mainButtonTitle: mainButtonTitle,
+                    showIconInSecondaryButton: showIconInSecondaryButton,
+                    secondaryButtonTitle: secondaryButtonTitle,
+                    showIconInAdditionalButton: showIconInAdditionalButton,
+                    additionalButtonTitle: additionalButtonTitle,
+                    takesInput: takesInput,
+                  )))),
+      // TODO: Add configurable transition builders to set  from the outside as well
+      // transitionBuilder: (context, animation, _, child) {
+      //   return ScaleTransition(
+      //     scale: CurvedAnimation(
+      //       parent: animation,
+      //       curve: Curves.decelerate,
+      //     ),
+      //     child: child,
+      //   );
+      // },
+    );
+
+    return _dialogCompleter.future;
+  }
+
   /// Shows a confirmation dialog with title and description
   Future<DialogResponse> showConfirmationDialog({
     String title,
@@ -150,10 +213,64 @@ class DialogResponse {
 
   /// A place to put any response data from dialogs that may contain text fields
   /// or multi selection options
-  final List<String> responseData;
+  final List<dynamic> responseData;
 
   DialogResponse({
     this.confirmed,
     this.responseData,
+  });
+}
+
+class DialogRequest {
+  /// The title for the dialog
+  final String title;
+
+  /// Text so show in the dialog body
+  final String description;
+
+  /// Indicates if an image should be used or not
+  final bool hasImage;
+
+  /// The url / path to the image to show
+  final String imageUrl;
+
+  /// The text shown in the main button
+  final String mainButtonTitle;
+
+  /// A bool to indicate if you should show an icon in the main button
+  final bool showIconInMainButton;
+
+  /// The text to show on the secondary button on the dialog (cancel usually)
+  final String secondaryButtonTitle;
+
+  /// Indicates if you should show an icon in the main button
+  final bool showIconInSecondaryButton;
+
+  /// The text show on the third button on the dialog
+  final String additionalButtonTitle;
+
+  /// Indicates if you should show an icon in the additional button
+  final bool showIconInAdditionalButton;
+
+  /// Indicates if the dialog takes input
+  final bool takesInput;
+
+  /// Intended to be used with enums. If you want to create multiple different
+  /// dialogs. Pass your enum in here and check the value in the builder
+  final dynamic customData;
+
+  DialogRequest({
+    this.showIconInMainButton,
+    this.showIconInSecondaryButton,
+    this.showIconInAdditionalButton,
+    this.title,
+    this.description,
+    this.hasImage,
+    this.imageUrl,
+    this.mainButtonTitle,
+    this.secondaryButtonTitle,
+    this.additionalButtonTitle,
+    this.takesInput,
+    this.customData,
   });
 }
