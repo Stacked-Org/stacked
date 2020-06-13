@@ -129,6 +129,7 @@ class DialogService {
     bool showIconInAdditionalButton,
     String additionalButtonTitle,
     bool takesInput,
+    dynamic customData,
   }) {
     assert(_customDialogUI != null,
         'You have to call registerCustomDialogUi to use this function. Look at the custom dialog UI section in the stacked_services readme.');
@@ -156,6 +157,7 @@ class DialogService {
                     showIconInAdditionalButton: showIconInAdditionalButton,
                     additionalButtonTitle: additionalButtonTitle,
                     takesInput: takesInput,
+                    customData: customData,
                   )))),
       // TODO: Add configurable transition builders to set  from the outside as well
       // transitionBuilder: (context, animation, _, child) {
