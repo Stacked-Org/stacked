@@ -1,3 +1,8 @@
+## 0.4.1
+
+- Adds custom data parameter to dialog service
+- Adds default values for show custom dialog 
+
 ## 0.4.0
 
 - Adds custom UI option to the dialog builder
