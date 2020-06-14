@@ -120,15 +120,15 @@ class DialogService {
   Future<DialogResponse> showCustomDialog({
     String title,
     String description,
-    bool hasImage,
+    bool hasImage = false,
     String imageUrl,
-    bool showIconInMainButton,
+    bool showIconInMainButton = false,
     String mainButtonTitle,
-    bool showIconInSecondaryButton,
+    bool showIconInSecondaryButton = false,
     String secondaryButtonTitle,
-    bool showIconInAdditionalButton,
+    bool showIconInAdditionalButton = false,
     String additionalButtonTitle,
-    bool takesInput,
+    bool takesInput = false,
   }) {
     assert(_customDialogUI != null,
         'You have to call registerCustomDialogUi to use this function. Look at the custom dialog UI section in the stacked_services readme.');
