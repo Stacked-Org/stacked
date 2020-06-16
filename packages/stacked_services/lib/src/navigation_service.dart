@@ -147,7 +147,7 @@ class NavigationService {
 
   /// Clears the entire back stack and shows [routeName]
   Future<dynamic> clearStackAndShow(String routeName, {dynamic arguments}) {
-    return Get.offAllNamed(routeName);
+    return Get.offAllNamed(routeName, arguments: arguments);
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [routeName] onto the stack
@@ -161,14 +161,18 @@ class NavigationService {
   Future<dynamic> clearTillFirstAndShowView(Widget view, {dynamic arguments}) {
     _clearBackstackTillFirst();
 
-    return navigateToView(view);
+    return navigateToView(view, arguments: arguments);
   }
 
   /// Push route and clear stack until predicate is satisfied
   Future<dynamic> pushNamedAndRemoveUntil(String routeName,
       {RoutePredicate predicate, arguments, int id}) {
-    return Get.offAllNamed(routeName,
-        predicate: predicate, arguments: arguments, id: id);
+    return Get.offAllNamed(
+      routeName,
+      predicate: predicate,
+      arguments: arguments,
+      id: id,
+    );
   }
 
   void _clearBackstackTillFirst() {
