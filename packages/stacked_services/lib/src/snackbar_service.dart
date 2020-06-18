@@ -43,6 +43,8 @@ class SnackbarService {
       Widget titleText,
       Widget messageText,
       Widget icon,
+      /// with instantInit = false you can put Get.snackbar on initState
+      bool instantInit = false,
       bool shouldIconPulse = true,
       double maxWidth,
       EdgeInsets margin = const EdgeInsets.all(0.0),
@@ -73,7 +75,7 @@ class SnackbarService {
       double overlayBlur = 0.0,
       Color overlayColor = Colors.transparent,
       Form userInputForm}) {
-    return GetBar(
+    final getBar = GetBar(
             key: key,
             title: title,
             message: message,
@@ -109,7 +111,17 @@ class SnackbarService {
             barBlur: barBlur,
             overlayBlur: overlayBlur,
             overlayColor: overlayColor,
-            userInputForm: userInputForm)
-        .show();
+            userInputForm: userInputForm);
+
+    if (instantInit) {
+      return getBar.show();
+    } else {
+      Completer completer = new Completer();
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        final result = await getBar.show();
+        completer.complete(result);
+      });
+      return completer.future;
+    }
   }
 }
