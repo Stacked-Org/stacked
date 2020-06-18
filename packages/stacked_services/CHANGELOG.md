@@ -1,4 +1,8 @@
-## 0.4.1
+## 0.4.3
+
+- Exposes barrierColor on the dialog service
+
+## 0.4.2
 
 - Adds barrierDismissable optional boolean
 - Adds instantInit option to allow to show snackbar in initState function call
