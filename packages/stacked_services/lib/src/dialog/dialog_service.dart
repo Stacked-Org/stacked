@@ -133,6 +133,7 @@ class DialogService {
     bool showIconInAdditionalButton = false,
     String additionalButtonTitle,
     bool takesInput = false,
+    Color barrierColor = Colors.black54,
     bool barrierDismissible = false,
     dynamic customData,
   }) {
@@ -142,7 +143,7 @@ class DialogService {
     _dialogCompleter = Completer<DialogResponse>();
 
     Get.generalDialog(
-      barrierColor: Colors.black54,
+      barrierColor: barrierColor,
       transitionDuration: const Duration(milliseconds: 200),
       barrierDismissible: barrierDismissible,
       useRootNavigator: true,
