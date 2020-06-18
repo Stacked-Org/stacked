@@ -61,7 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     description:
                         'Sheck out the builder in the dialog_ui_register.dart file',
                     mainButtonTitle: 'Ok',
-                    showIconInMainButton: false);
+                    showIconInMainButton: false,
+                    barrierDismissible: true);
               },
               child: Text(
                 'Show Custom Text Dialog',

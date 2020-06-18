@@ -40,6 +40,7 @@ class DialogService {
     String description,
     String cancelTitle,
     String buttonTitle = 'Ok',
+    bool barrierDismissible = false,
 
     /// Indicates which [DialogPlatform] to show.
     ///
@@ -54,7 +55,8 @@ class DialogService {
           description: description,
           cancelTitle: cancelTitle,
           buttonTitle: buttonTitle,
-          dialogPlatform: dialogPlatform);
+          dialogPlatform: dialogPlatform,
+          barrierDismissible: barrierDismissible);
     } else {
       var _dialogType = GetPlatform.isAndroid
           ? DialogPlatform.Material
@@ -64,7 +66,8 @@ class DialogService {
           description: description,
           cancelTitle: cancelTitle,
           buttonTitle: buttonTitle,
-          dialogPlatform: _dialogType);
+          dialogPlatform: _dialogType,
+          barrierDismissible: barrierDismissible);
     }
 
     return _dialogCompleter.future;
@@ -76,6 +79,7 @@ class DialogService {
     String cancelTitle,
     String buttonTitle,
     DialogPlatform dialogPlatform,
+    bool barrierDismissible = false,
   }) {
     var isConfirmationDialog = cancelTitle != null;
     return Get.dialog(
@@ -112,7 +116,7 @@ class DialogService {
           ),
         ],
       ),
-      barrierDismissible: false,
+      barrierDismissible: barrierDismissible,
     );
   }
 
@@ -129,6 +133,7 @@ class DialogService {
     bool showIconInAdditionalButton = false,
     String additionalButtonTitle,
     bool takesInput = false,
+    bool barrierDismissible = false,
     dynamic customData,
   }) {
     assert(_customDialogUI != null,
@@ -139,7 +144,7 @@ class DialogService {
     Get.generalDialog(
       barrierColor: Colors.black54,
       transitionDuration: const Duration(milliseconds: 200),
-      barrierDismissible: false,
+      barrierDismissible: barrierDismissible,
       useRootNavigator: true,
       pageBuilder: (BuildContext buildContext, _, __) => SafeArea(
           child: Builder(
