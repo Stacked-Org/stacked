@@ -88,7 +88,7 @@ class NavigationService {
   /// - rightToLeftWithFade
   /// - leftToRightWithFade
   /// - cupertino
-  Future<dynamic> navigateWithTransition(Widget page,
+  Future<dynamic> navigateWithTransition(@required Widget page,
       {bool opaque, String transition, Duration duration, bool popGesture}) {
     return Get.to(
       page,
@@ -103,7 +103,7 @@ class NavigationService {
   /// of routeName (String).
   ///
   /// Defined [transition] values can be accessed as static memebers of [NavigationTransition]
-  Future<dynamic> replaceWithTransition(Widget page,
+  Future<dynamic> replaceWithTransition(@required Widget page,
       {bool opaque, String transition, Duration duration, bool popGesture}) {
     return Get.off(
       page,
@@ -121,51 +121,51 @@ class NavigationService {
   }
 
   /// Pops the back stack until the predicate is satisfied
-  void popUntil(RoutePredicate predicate) {
+  void popUntil(@required RoutePredicate predicate) {
     Get.key.currentState.popUntil(predicate);
   }
 
   /// Pops the back stack the number of times you indicate with [popTimes]
-  void popRepeated(int popTimes) {
+  void popRepeated(@required int popTimes) {
     Get.close(popTimes);
   }
 
   /// Pushes [routeName] onto the navigation stack
-  Future<dynamic> navigateTo(String routeName, {dynamic arguments}) {
+  Future<dynamic> navigateTo(@required String routeName, {dynamic arguments}) {
     return Get.toNamed(routeName, arguments: arguments);
   }
 
   /// Pushes [view] onto the navigation stack
-  Future<dynamic> navigateToView(Widget view, {dynamic arguments}) {
+  Future<dynamic> navigateToView(@required Widget view, {dynamic arguments}) {
     return Get.to(view, arguments: arguments);
   }
 
   /// Replaces the current route with the [routeName]
-  Future<dynamic> replaceWith(String routeName, {dynamic arguments}) {
+  Future<dynamic> replaceWith(@required String routeName, {dynamic arguments}) {
     return Get.offNamed(routeName, arguments: arguments);
   }
 
   /// Clears the entire back stack and shows [routeName]
-  Future<dynamic> clearStackAndShow(String routeName, {dynamic arguments}) {
+  Future<dynamic> clearStackAndShow(@required String routeName, {dynamic arguments}) {
     return Get.offAllNamed(routeName, arguments: arguments);
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [routeName] onto the stack
-  Future<dynamic> clearTillFirstAndShow(String routeName, {dynamic arguments}) {
+  Future<dynamic> clearTillFirstAndShow(@required String routeName, {dynamic arguments}) {
     _clearBackstackTillFirst();
 
     return navigateTo(routeName, arguments: arguments);
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [view] onto the stack
-  Future<dynamic> clearTillFirstAndShowView(Widget view, {dynamic arguments}) {
+  Future<dynamic> clearTillFirstAndShowView(@required Widget view, {dynamic arguments}) {
     _clearBackstackTillFirst();
 
     return navigateToView(view, arguments: arguments);
   }
 
   /// Push route and clear stack until predicate is satisfied
-  Future<dynamic> pushNamedAndRemoveUntil(String routeName,
+  Future<dynamic> pushNamedAndRemoveUntil(@required String routeName,
       {RoutePredicate predicate, arguments, int id}) {
     return Get.offAllNamed(
       routeName,
