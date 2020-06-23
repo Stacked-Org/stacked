@@ -1,3 +1,7 @@
+## 0.4.4+1
+
+- Adds id's to all navigation functions to reference correct nav key
+
 ## 0.4.4
 
 - Exposes functionality for nested navigator keys

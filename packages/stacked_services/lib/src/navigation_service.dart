@@ -92,14 +92,17 @@ class NavigationService {
   /// - leftToRightWithFade
   /// - cupertino
   Future<dynamic> navigateWithTransition(Widget page,
-      {bool opaque, String transition, Duration duration, bool popGesture}) {
-    return Get.to(
-      page,
-      transition: _getTransitionOrDefault(transition),
-      duration: duration ?? Get.defaultDurationTransition,
-      popGesture: popGesture ?? Get.isPopGestureEnable,
-      opaque: opaque ?? Get.isOpaqueRouteDefault,
-    );
+      {bool opaque,
+      String transition,
+      Duration duration,
+      bool popGesture,
+      int id}) {
+    return Get.to(page,
+        transition: _getTransitionOrDefault(transition),
+        duration: duration ?? Get.defaultDurationTransition,
+        popGesture: popGesture ?? Get.isPopGestureEnable,
+        opaque: opaque ?? Get.isOpaqueRouteDefault,
+        id: id);
   }
 
   /// Replaces current view in the navigation stack. This uses the [page] itself (Widget) instead
@@ -107,13 +110,18 @@ class NavigationService {
   ///
   /// Defined [transition] values can be accessed as static memebers of [NavigationTransition]
   Future<dynamic> replaceWithTransition(Widget page,
-      {bool opaque, String transition, Duration duration, bool popGesture}) {
+      {bool opaque,
+      String transition,
+      Duration duration,
+      bool popGesture,
+      int id}) {
     return Get.off(
       page,
       transition: _getTransitionOrDefault(transition),
       duration: duration ?? Get.defaultDurationTransition,
       popGesture: popGesture ?? Get.isPopGestureEnable,
       opaque: opaque ?? Get.isOpaqueRouteDefault,
+      id: id,
     );
   }
 
@@ -134,37 +142,40 @@ class NavigationService {
   }
 
   /// Pushes [routeName] onto the navigation stack
-  Future<dynamic> navigateTo(String routeName, {dynamic arguments}) {
-    return Get.toNamed(routeName, arguments: arguments);
+  Future<dynamic> navigateTo(String routeName, {dynamic arguments, int id}) {
+    return Get.toNamed(routeName, arguments: arguments, id: id);
   }
 
   /// Pushes [view] onto the navigation stack
-  Future<dynamic> navigateToView(Widget view, {dynamic arguments}) {
-    return Get.to(view, arguments: arguments);
+  Future<dynamic> navigateToView(Widget view, {dynamic arguments, int id}) {
+    return Get.to(view, arguments: arguments, id: id);
   }
 
   /// Replaces the current route with the [routeName]
-  Future<dynamic> replaceWith(String routeName, {dynamic arguments}) {
-    return Get.offNamed(routeName, arguments: arguments);
+  Future<dynamic> replaceWith(String routeName, {dynamic arguments, int id}) {
+    return Get.offNamed(routeName, arguments: arguments, id: id);
   }
 
   /// Clears the entire back stack and shows [routeName]
-  Future<dynamic> clearStackAndShow(String routeName, {dynamic arguments}) {
-    return Get.offAllNamed(routeName, arguments: arguments);
+  Future<dynamic> clearStackAndShow(String routeName,
+      {dynamic arguments, int id}) {
+    return Get.offAllNamed(routeName, arguments: arguments, id: id);
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [routeName] onto the stack
-  Future<dynamic> clearTillFirstAndShow(String routeName, {dynamic arguments}) {
+  Future<dynamic> clearTillFirstAndShow(String routeName,
+      {dynamic arguments, int id}) {
     _clearBackstackTillFirst();
 
-    return navigateTo(routeName, arguments: arguments);
+    return navigateTo(routeName, arguments: arguments, id: id);
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [view] onto the stack
-  Future<dynamic> clearTillFirstAndShowView(Widget view, {dynamic arguments}) {
+  Future<dynamic> clearTillFirstAndShowView(Widget view,
+      {dynamic arguments, int id}) {
     _clearBackstackTillFirst();
 
-    return navigateToView(view, arguments: arguments);
+    return navigateToView(view, arguments: arguments, id: id);
   }
 
   /// Push route and clear stack until predicate is satisfied
