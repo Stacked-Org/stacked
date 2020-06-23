@@ -1,3 +1,7 @@
+## 0.4.4
+
+- Exposes functionality for nested navigator keys
+
 ## 0.4.3
 
 - Exposes barrierColor on the dialog service

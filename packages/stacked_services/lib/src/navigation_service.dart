@@ -39,6 +39,9 @@ class NavigationService {
     return Get.key;
   }
 
+  /// Creates and/or returns a new navigator key based on the index passed in
+  nestedNavigationKey(int index) => Get.nestedKey(index);
+
   /// Allows you to configure the default behaviour for navigation.
   ///
   /// [defaultTransition] can be set using the static members of [NavigationTransition]
