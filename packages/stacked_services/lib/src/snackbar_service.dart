@@ -15,7 +15,7 @@ class SnackbarService {
   /// Shows a snack bar with the details passed in
   void showSnackbar({
     String title,
-    String message,
+    @required String message,
     IconData iconData,
     Function onTap,
     bool shouldIconPulse = false,
@@ -41,7 +41,7 @@ class SnackbarService {
   Future showCustomSnackBar(
       {Key key,
       String title,
-      String message,
+      @required String message,
       Widget titleText,
       Widget messageText,
       Widget icon,
