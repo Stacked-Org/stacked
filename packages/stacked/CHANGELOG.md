@@ -1,3 +1,7 @@
+## 1.6.0+1
+
+- Adds onCancel call for the MultiStreamViewModel
+
 ## 1.6.0
 
 - Adds dispose protection when calling notifyListeners. 

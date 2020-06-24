@@ -372,6 +372,7 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel
     if (_streamsSubscriptions != null) {
       for (var key in _streamsSubscriptions.keys) {
         _streamsSubscriptions[key].cancel();
+        onCancel(key);
       }
 
       _streamsSubscriptions.clear();
