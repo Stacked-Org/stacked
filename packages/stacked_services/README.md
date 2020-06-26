@@ -54,7 +54,7 @@ await _dialogService.showDialog(
 
 ### Custom Dialog UI
 
-In addition to platform specific UI you can also build your own custom dialog. To do that we'll do the following. In your UI folder or shared folder under UI, if you have one, create a new file called setup*dialog_ui.dart. Inside you will create a new function called `setupDialogUi`. In there you will call the function `registerCustomDialogUi` on the `DialogService`. \_Look at the setup_dialog_ui file for a full example*
+In addition to platform specific UI you can also build your own custom dialog. To do that we'll do the following. In your UI folder or shared folder under UI, if you have one, create a new file called `setup_dialog_ui.dart`. Inside you will create a new function called `setupDialogUi`. In there you will call the function `registerCustomDialogUi` on the `DialogService`. _Look at the `setup_dialog_ui` file for a full example_
 
 ```dart
 void registerCustomDialogUi() {
