@@ -220,3 +220,38 @@ The `NavigationService` will allow you to navigate your app easily from the `vie
 | **`_navigationService.clearTillFirstAndShow()`**     | **`Future<dynamic>`** | Pops the navigation stack until there's 1 view left then pushes `routeName` onto the stack                        |
 | **`_navigationService.clearTillFirstAndShowView()`** | **`Future<dynamic>`** | Pops the navigation stack until there's 1 view left then pushes `view` onto the stack                             |
 | **`_navigationService.pushNamedAndRemoveUntil()`**   | **`Future<dynamic>`** | Push route and clear stack until predicate is satisfied                                                           |
+
+## Snackbar Service
+
+The `SnackbarService` will show a snackbar from the `viewmodel`. No need for `BuildContext`.
+
+There are two methods for showing a `Snackbar`:
+
+- Regular Snackbar:
+
+```dart
+await _snackbarService.showSnackbar(
+  /// REQUIRED
+  message: 'Wow, My Regular Snackbar',
+
+  ////////////////////////////
+  /// Optional Parameters ///
+  //////////////////////////
+  title: 'My Regular Snackbar Title',
+  iconData: Icons.hello,
+  /// logic for when the snackbar is tapped!
+  onTap: () {},
+  /// defaults to `false`; accepts `bool`
+  shouldIconPulse: false,
+  /// defaults to `0`; accepts `double`
+  barBlur: 0,
+  /// defaults to `true`; accepts `bool`
+  isDissmissible: true,
+  /// defaults to a `Duration` of `3 seconds`; accepts `Duration()`
+  duration: const Duration(seconds: 3),
+);
+```
+
+- Custom Snackbar:
+
+**NOT FINISHED YET**
