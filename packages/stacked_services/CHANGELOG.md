@@ -1,3 +1,33 @@
+## 0.4.4+1
+
+- Adds id's to all navigation functions to reference correct nav key
+
+## 0.4.4
+
+- Exposes functionality for nested navigator keys
+
+## 0.4.3
+
+- Exposes barrierColor on the dialog service
+
+## 0.4.2
+
+- Adds barrierDismissable optional boolean
+- Adds instantInit option to allow to show snackbar in initState function call
+
+## 0.4.1
+
+- Adds custom data parameter to dialog service
+- Adds default values for show custom dialog 
+
+## 0.4.0
+
+- Adds custom UI option to the dialog builder
+
+## 0.3.4
+
+- Added arguments into the navigation service for clearStackAndshow and others
+
 ## 0.3.3
 
 - DialogService now uses DialogTheme of the context instead of TextTheme

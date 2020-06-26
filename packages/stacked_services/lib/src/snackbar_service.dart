@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +15,7 @@ class SnackbarService {
   /// Shows a snack bar with the details passed in
   void showSnackbar({
     String title,
-    String message,
+    @required String message,
     IconData iconData,
     Function onTap,
     bool shouldIconPulse = false,
@@ -39,10 +41,13 @@ class SnackbarService {
   Future showCustomSnackBar(
       {Key key,
       String title,
-      String message,
+      @required String message,
       Widget titleText,
       Widget messageText,
       Widget icon,
+
+      /// with instantInit = false you can put Get.snackbar on initState
+      bool instantInit = false,
       bool shouldIconPulse = true,
       double maxWidth,
       EdgeInsets margin = const EdgeInsets.all(0.0),
@@ -73,43 +78,53 @@ class SnackbarService {
       double overlayBlur = 0.0,
       Color overlayColor = Colors.transparent,
       Form userInputForm}) {
-    return GetBar(
-            key: key,
-            title: title,
-            message: message,
-            titleText: titleText,
-            messageText: messageText,
-            icon: icon,
-            shouldIconPulse: shouldIconPulse,
-            maxWidth: maxWidth,
-            margin: margin,
-            padding: padding,
-            borderRadius: borderRadius,
-            borderColor: borderColor,
-            borderWidth: borderWidth,
-            backgroundColor: backgroundColor,
-            leftBarIndicatorColor: leftBarIndicatorColor,
-            boxShadows: boxShadows,
-            backgroundGradient: backgroundGradient,
-            mainButton: mainButton,
-            onTap: onTap,
-            duration: duration,
-            isDismissible: isDismissible,
-            dismissDirection: dismissDirection,
-            showProgressIndicator: showProgressIndicator,
-            progressIndicatorController: progressIndicatorController,
-            progressIndicatorBackgroundColor: progressIndicatorBackgroundColor,
-            progressIndicatorValueColor: progressIndicatorValueColor,
-            snackPosition: snackPosition,
-            snackStyle: snackStyle,
-            forwardAnimationCurve: forwardAnimationCurve,
-            reverseAnimationCurve: reverseAnimationCurve,
-            animationDuration: animationDuration,
-            onStatusChanged: onStatusChanged,
-            barBlur: barBlur,
-            overlayBlur: overlayBlur,
-            overlayColor: overlayColor,
-            userInputForm: userInputForm)
-        .show();
+    final getBar = GetBar(
+        key: key,
+        title: title,
+        message: message,
+        titleText: titleText,
+        messageText: messageText,
+        icon: icon,
+        shouldIconPulse: shouldIconPulse,
+        maxWidth: maxWidth,
+        margin: margin,
+        padding: padding,
+        borderRadius: borderRadius,
+        borderColor: borderColor,
+        borderWidth: borderWidth,
+        backgroundColor: backgroundColor,
+        leftBarIndicatorColor: leftBarIndicatorColor,
+        boxShadows: boxShadows,
+        backgroundGradient: backgroundGradient,
+        mainButton: mainButton,
+        onTap: onTap,
+        duration: duration,
+        isDismissible: isDismissible,
+        dismissDirection: dismissDirection,
+        showProgressIndicator: showProgressIndicator,
+        progressIndicatorController: progressIndicatorController,
+        progressIndicatorBackgroundColor: progressIndicatorBackgroundColor,
+        progressIndicatorValueColor: progressIndicatorValueColor,
+        snackPosition: snackPosition,
+        snackStyle: snackStyle,
+        forwardAnimationCurve: forwardAnimationCurve,
+        reverseAnimationCurve: reverseAnimationCurve,
+        animationDuration: animationDuration,
+        onStatusChanged: onStatusChanged,
+        barBlur: barBlur,
+        overlayBlur: overlayBlur,
+        overlayColor: overlayColor,
+        userInputForm: userInputForm);
+
+    if (instantInit) {
+      return getBar.show();
+    } else {
+      Completer completer = new Completer();
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        final result = await getBar.show();
+        completer.complete(result);
+      });
+      return completer.future;
+    }
   }
 }

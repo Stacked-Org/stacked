@@ -91,6 +91,26 @@ void main() {
         await viewModel.runFuture(fail: true);
         expect(called, 2);
       });
+
+      test(
+          'When notifyListeners is called before dispose, should not throw exception',
+          () async {
+        var viewModel = TestViewModel();
+        await viewModel.runFuture();
+        viewModel.notifyListeners();
+        viewModel.dispose();
+        expect(() => viewModel.notifyListeners(), returnsNormally);
+      });
+
+      test(
+          'When notifyListeners is called after dispose, should not throw exception',
+          () async {
+        var viewModel = TestViewModel();
+        await viewModel.runFuture();
+        viewModel.dispose();
+        viewModel.notifyListeners();
+        expect(() => viewModel.notifyListeners(), returnsNormally);
+      });
     });
   });
 }

@@ -29,7 +29,12 @@ const String _NumberDelayExceptionMessage = 'getNumberAfterDelay failed';
 
 class TestMultipleFutureViewModel extends MultipleFutureViewModel {
   final bool failOne;
-  TestMultipleFutureViewModel({this.failOne = false});
+  final int futureOneDuration;
+  final int futureTwoDuration;
+  TestMultipleFutureViewModel(
+      {this.failOne = false,
+      this.futureOneDuration = 300,
+      this.futureTwoDuration = 400});
 
   int numberToReturn = 5;
 
@@ -43,12 +48,12 @@ class TestMultipleFutureViewModel extends MultipleFutureViewModel {
     if (failOne) {
       throw Exception(_NumberDelayExceptionMessage);
     }
-    await Future.delayed(Duration(milliseconds: 300));
+    await Future.delayed(Duration(milliseconds: futureOneDuration));
     return numberToReturn;
   }
 
   Future<String> getStringAfterDelay() async {
-    await Future.delayed(Duration(milliseconds: 400));
+    await Future.delayed(Duration(milliseconds: futureTwoDuration));
     return 'String data';
   }
 }
@@ -181,6 +186,20 @@ void main() {
           _NumberDelayExceptionMessage);
 
       expect(futureViewModel.getError(StringDelayFuture), null);
+    });
+
+    test(
+        'When 1 future is still running out of two anyObjectsBusy should return true',
+        () async {
+      var futureViewModel = TestMultipleFutureViewModel(
+          futureOneDuration: 10, futureTwoDuration: 60);
+      futureViewModel.initialise();
+      await Future.delayed(Duration(milliseconds: 30));
+
+      expect(futureViewModel.busy(NumberDelayFuture), false,
+          reason: 'String future should be done at this point');
+      expect(futureViewModel.anyObjectsBusy, true,
+          reason: 'Should be true because second future is still running');
     });
 
     group('Dynamic Source Tests', () {

@@ -7,11 +7,17 @@ import 'package:stacked/src/reactive_service_mixin.dart';
 class BaseViewModel extends ChangeNotifier {
   Map<int, bool> _busyStates = Map<int, bool>();
 
+  bool _disposed = false;
+  bool get disposed => _disposed;
+
   /// Returns the busy status for an object if it exists. Returns false if not present
   bool busy(Object object) => _busyStates[object.hashCode] ?? false;
 
   /// Returns the busy status of the viewmodel
   bool get isBusy => busy(this);
+
+  // Returns true if any objects still have a busy status that is true.
+  bool get anyObjectsBusy => _busyStates.values.any((busy) => busy);
 
   /// Marks the viewmodel as busy and calls notify listeners
   void setBusy(bool value) {
@@ -70,6 +76,19 @@ class BaseViewModel extends ChangeNotifier {
     streamData.initialise();
 
     return streamData;
+  }
+
+  @override
+  void notifyListeners() {
+    if (!disposed) {
+      super.notifyListeners();
+    }
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
   }
 }
 
@@ -353,6 +372,7 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel
     if (_streamsSubscriptions != null) {
       for (var key in _streamsSubscriptions.keys) {
         _streamsSubscriptions[key].cancel();
+        onCancel(key);
       }
 
       _streamsSubscriptions.clear();
@@ -513,5 +533,5 @@ class StreamData<T> extends _SingleDataSourceViewModel<T> {
 
 /// Interface: Additional actions that should be implemented by spcialised ViewModels
 abstract class Initialisable {
-  void initialise() ;
+  void initialise();
 }

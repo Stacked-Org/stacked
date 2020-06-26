@@ -48,6 +48,39 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Text(
+              'Press the button below to show a custom dialog',
+              softWrap: true,
+              style: TextStyle(
+                fontSize: 14,
+              ),
+            ),
+            OutlineButton(
+              onPressed: () async {
+                await _dialogService.showCustomDialog(
+                    title: 'This is a custom UI with Text as main button',
+                    description:
+                        'Sheck out the builder in the dialog_ui_register.dart file',
+                    mainButtonTitle: 'Ok',
+                    showIconInMainButton: false,
+                    barrierDismissible: true);
+              },
+              child: Text(
+                'Show Custom Text Dialog',
+              ),
+            ),
+            OutlineButton(
+              onPressed: () async {
+                await _dialogService.showCustomDialog(
+                    title: 'This is a custom UI with icon',
+                    description:
+                        'Sheck out the builder in the dialog_ui_register.dart file',
+                    showIconInMainButton: true);
+              },
+              child: Text(
+                'Show Custom Icon Dialog',
+              ),
+            ),
+            Text(
               'Press the button below to show a Material confirmation dialog',
               softWrap: true,
               style: TextStyle(

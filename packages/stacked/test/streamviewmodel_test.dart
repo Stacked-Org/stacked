@@ -36,6 +36,7 @@ class TestMultipleStreamViewModel extends MultipleStreamViewModel {
   final int delay;
   TestMultipleStreamViewModel({this.failOne = false, this.delay = 0});
   int loadedData;
+  int cancelledCalls = 0;
   @override
   Map<String, StreamData> get streamsMap => {
         _NumberStream: StreamData(numberStream(
@@ -49,6 +50,11 @@ class TestMultipleStreamViewModel extends MultipleStreamViewModel {
           delay: delay,
         )),
       };
+
+  @override
+  void onCancel(String key) {
+    cancelledCalls++;
+  }
 }
 
 class TestMultipleStreamViewModelWithOverrides extends MultipleStreamViewModel {
@@ -212,40 +218,48 @@ void main() async {
           streamViewModel.getSubscriptionForKey(_NumberStream) != null, true);
     });
 
-    group('Data Source Change', () {
-      test(
-          'notifySourceChanged - When called should unsubscribe from original sources',
-          () {
-        var streamViewModel = TestMultipleStreamViewModel(delay: 50);
-        streamViewModel.initialise();
-        streamViewModel.notifySourceChanged();
+    test('When disposed, should call onCancel for both streams', () async {
+      var streamViewModel = TestMultipleStreamViewModel();
 
-        expect(streamViewModel.streamsSubscriptions.length, 0);
-      });
+      streamViewModel.initialise();
+      streamViewModel.dispose();
+      expect(streamViewModel.cancelledCalls, 2);
+    });
+  });
 
-      test(
-          'notifySourceChanged - When called and clearOldData is false should leave old data',
-          () async {
-        var streamViewModel = TestMultipleStreamViewModel(delay: 10);
-        streamViewModel.initialise();
+  group('Data Source Change', () {
+    test(
+        'notifySourceChanged - When called should unsubscribe from original sources',
+        () {
+      var streamViewModel = TestMultipleStreamViewModel(delay: 50);
+      streamViewModel.initialise();
+      streamViewModel.notifySourceChanged();
 
-        await Future.delayed(const Duration(milliseconds: 20));
-        streamViewModel.notifySourceChanged();
+      expect(streamViewModel.streamsSubscriptions.length, 0);
+    });
 
-        expect(streamViewModel.dataMap[_NumberStream], 5);
-      });
+    test(
+        'notifySourceChanged - When called and clearOldData is false should leave old data',
+        () async {
+      var streamViewModel = TestMultipleStreamViewModel(delay: 10);
+      streamViewModel.initialise();
 
-      test(
-          'notifySourceChanged - When called and clearOldData is true should remove old data',
-          () async {
-        var streamViewModel = TestMultipleStreamViewModel(delay: 10);
-        streamViewModel.initialise();
+      await Future.delayed(const Duration(milliseconds: 20));
+      streamViewModel.notifySourceChanged();
 
-        await Future.delayed(const Duration(milliseconds: 20));
-        streamViewModel.notifySourceChanged(clearOldData: true);
+      expect(streamViewModel.dataMap[_NumberStream], 5);
+    });
 
-        expect(streamViewModel.dataMap[_NumberStream], null);
-      });
+    test(
+        'notifySourceChanged - When called and clearOldData is true should remove old data',
+        () async {
+      var streamViewModel = TestMultipleStreamViewModel(delay: 10);
+      streamViewModel.initialise();
+
+      await Future.delayed(const Duration(milliseconds: 20));
+      streamViewModel.notifySourceChanged(clearOldData: true);
+
+      expect(streamViewModel.dataMap[_NumberStream], null);
     });
   });
 }
