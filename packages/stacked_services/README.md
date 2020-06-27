@@ -21,7 +21,7 @@ locator.registerLazySingleton(() => NavigationService());
 If you're using Injectable as recommended you can register the services using a third party services module. Create a new file in your services folder called thirdparty_services_module.dart.
 
 ```dart
-@registerModule
+@module
 abstract class ThirdPartyServicesModule {
   @lazySingleton
   NavigationService get navigationService;
