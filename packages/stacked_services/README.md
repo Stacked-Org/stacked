@@ -40,6 +40,23 @@ flutter pub run build_runner build
 
 Your services will be available as usual on your locator instance.
 
+## Usage
+
+To use the services you have to assign the navigation key to your Flutter application.
+
+```dart
+MaterialApp(
+      title: 'Stacked Services',
+      navigatorKey: locator<NavigationService>().navigatorKey,
+      // home: AddCardView(), // Used when testing a view
+      initialRoute: Routes.startupViewRoute,
+      onGenerateRoute: Router().onGenerateRoute,
+      ),
+    );
+```
+
+If you're only using the `DialogService` it also exposes the navigation key. **You only have to set the key for one of the services and it'll work for all the other services.** If you set the nav key using the navigation service you don't have to set it for the DialogService and vice versa.
+
 ## Dialog Service
 
 The `DialogService` will show a platform specific dialog by default. You can change this by passing in `dialogPlatform` to your show dialog call.
@@ -54,7 +71,7 @@ await _dialogService.showDialog(
 
 ### Custom Dialog UI
 
-In addition to platform specific UI you can also build your own custom dialog. To do that we'll do the following. In your UI folder or shared folder under UI, if you have one, create a new file called setup_dialog_ui.dart. Inside you will create a new function called `setupDialogUi`. In there you will call the function `registerCustomDialogUi` on the `DialogService`. _Look at the setup_dialog_ui file for a full example_
+In addition to platform specific UI you can also build your own custom dialog. To do that we'll do the following. In your UI folder or shared folder under UI, if you have one, create a new file called setup*dialog_ui.dart. Inside you will create a new function called `setupDialogUi`. In there you will call the function `registerCustomDialogUi` on the `DialogService`. \_Look at the setup_dialog_ui file for a full example*
 
 ```dart
 void registerCustomDialogUi() {
