@@ -224,27 +224,23 @@ The `NavigationService` will allow you to navigate your app easily from the `vie
 
 | Function                                             | Return Type           | Description                                                                                                       |
 | ---------------------------------------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| **`_navigationService.config()`**                    | **`void`**            | Allows you to configure the default behaviour for navigation.                                                     |
-| **`_navigationService.navigateWithTransition()`**    | **`Future<dynamic>`** | Pushes `page` onto the navigation stack. This uses the `page` itself `Widget` instead of routeName `String`       |
-| **`_navigationService.replaceWithTransition()`**     | **`Future<dynamic>`** | Replaces current view in the navigation stack. This uses the `page` itself `Widget` instead of routeName `String` |
-| **`_navigationService.back()`**                      | `bool`                | Pops the current scope and indicates if you can pop again                                                         |
-| **`_navigationService.popUntil()`**                  | **`void`**            | Pops the back stack until the predicate is satisfied                                                              |
-| **`_navigationService.popRepeated()`**               | **`void`**            | Pops the back stack the number of times you indicate with `popTimes`                                              |
-| **`_navigationService.navigateTo()`**                | **`Future<dynamic>`** | Pushes `routeName` onto the navigation stack                                                                      |
-| **`_navigationService.navigateToView()`**            | **`Future<dynamic>`** | Pushes `view` onto the navigation stack                                                                           |
-| **`_navigationService.replaceWith()`**               | **`Future<dynamic>`** | Replaces the current route with the `routeName`                                                                   |
-| **`_navigationService.clearStackAndShow()`**         | **`Future<dynamic>`** | Clears the entire back stack and shows `routeName`                                                                |
-| **`_navigationService.clearTillFirstAndShow()`**     | **`Future<dynamic>`** | Pops the navigation stack until there's 1 view left then pushes `routeName` onto the stack                        |
-| **`_navigationService.clearTillFirstAndShowView()`** | **`Future<dynamic>`** | Pops the navigation stack until there's 1 view left then pushes `view` onto the stack                             |
-| **`_navigationService.pushNamedAndRemoveUntil()`**   | **`Future<dynamic>`** | Push route and clear stack until predicate is satisfied                                                           |
+| `config`                    | `void`            | Allows you to configure the default behaviour for navigation.                                                     |
+| `navigateWithTransition`    | `Future<dynamic>` | Pushes `page` onto the navigation stack. This uses the `page` itself `Widget` instead of routeName `String`       |
+| `replaceWithTransition`     | `Future<dynamic>` | Replaces current view in the navigation stack. This uses the `page` itself `Widget` instead of routeName `String` |
+| `back`                      | `bool`            | Pops the current scope and indicates if you can pop again                                                         |
+| `popUntil`                  | `void`            | Pops the back stack until the predicate is satisfied                                                              |
+| `popRepeated`               | `void`            | Pops the back stack the number of times you indicate with `popTimes`                                              |
+| `navigateTo`                | `Future<dynamic>` | Pushes `routeName` onto the navigation stack                                                                      |
+| `navigateToView`            | `Future<dynamic>` | Pushes `view` onto the navigation stack                                                                           |
+| `replaceWith`               | `Future<dynamic>` | Replaces the current route with the `routeName`                                                                   |
+| `clearStackAndShow`         | `Future<dynamic>` | Clears the entire back stack and shows `routeName`                                                                |
+| `clearTillFirstAndShow`     | `Future<dynamic>` | Pops the navigation stack until there's 1 view left then pushes `routeName` onto the stack                        |
+| `clearTillFirstAndShowView` | `Future<dynamic>` | Pops the navigation stack until there's 1 view left then pushes `view` onto the stack                             |
+| `pushNamedAndRemoveUntil`   | `Future<dynamic>` | Push route and clear stack until predicate is satisfied                                                           |
 
 ## Snackbar Service
 
-The `SnackbarService` will show a snackbar from the `viewmodel`. No need for `BuildContext`.
-
-There are two methods for showing a `Snackbar`:
-
-- Regular Snackbar:
+The `SnackbarService` will show a snackbar from the `viewmodel`. A snackbar can be shown using the showSnackbar function on the `SnackbarService`.
 
 ```dart
 await _snackbarService.showSnackbar(
@@ -268,7 +264,3 @@ await _snackbarService.showSnackbar(
   duration: const Duration(seconds: 3),
 );
 ```
-
-- Custom Snackbar:
-
-**NOT FINISHED YET**
