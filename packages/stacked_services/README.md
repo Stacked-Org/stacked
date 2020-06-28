@@ -54,7 +54,7 @@ await _dialogService.showDialog(
 
 ### Custom Dialog UI
 
-In addition to platform specific UI you can also build your own custom dialog. To do that we'll do the following. In your UI folder or shared folder under UI, if you have one, create a new file called setup_dialog_ui.dart. Inside you will create a new function called `setupDialogUi`. In there you will call the function `registerCustomDialogUi` on the `DialogService`. _Look at the setup_dialog_ui file for a full example_
+In addition to platform specific UI you can also build your own custom dialog. To do that we'll do the following. In your UI folder or shared folder under UI, if you have one, create a new file called `setup_dialog_ui.dart`. Inside you will create a new function called `setupDialogUi`. In there you will call the function `registerCustomDialogUi` on the `DialogService`. _Look at the `setup_dialog_ui` file for a full example_
 
 ```dart
 void registerCustomDialogUi() {
@@ -197,3 +197,61 @@ if(response.confirmed) {
   // do some confirmation action here.
 }
 ```
+
+## Navigation Service
+
+The `NavigationService` will allow you to navigate your app easily from the `viewmodel`. No need for `BuildContext`.
+
+- **NOTE: The table below expects you to have followed above steps, and intialized `NavigationService` like this: `final NavigationService _navigationService = locator<NavigationService>();`**
+- The table below shows each function you can use with its return type and description:
+
+| Function                                             | Return Type           | Description                                                                                                       |
+| ---------------------------------------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| **`_navigationService.config()`**                    | **`void`**            | Allows you to configure the default behaviour for navigation.                                                     |
+| **`_navigationService.navigateWithTransition()`**    | **`Future<dynamic>`** | Pushes `page` onto the navigation stack. This uses the `page` itself `Widget` instead of routeName `String`       |
+| **`_navigationService.replaceWithTransition()`**     | **`Future<dynamic>`** | Replaces current view in the navigation stack. This uses the `page` itself `Widget` instead of routeName `String` |
+| **`_navigationService.back()`**                      | `bool`                | Pops the current scope and indicates if you can pop again                                                         |
+| **`_navigationService.popUntil()`**                  | **`void`**            | Pops the back stack until the predicate is satisfied                                                              |
+| **`_navigationService.popRepeated()`**               | **`void`**            | Pops the back stack the number of times you indicate with `popTimes`                                              |
+| **`_navigationService.navigateTo()`**                | **`Future<dynamic>`** | Pushes `routeName` onto the navigation stack                                                                      |
+| **`_navigationService.navigateToView()`**            | **`Future<dynamic>`** | Pushes `view` onto the navigation stack                                                                           |
+| **`_navigationService.replaceWith()`**               | **`Future<dynamic>`** | Replaces the current route with the `routeName`                                                                   |
+| **`_navigationService.clearStackAndShow()`**         | **`Future<dynamic>`** | Clears the entire back stack and shows `routeName`                                                                |
+| **`_navigationService.clearTillFirstAndShow()`**     | **`Future<dynamic>`** | Pops the navigation stack until there's 1 view left then pushes `routeName` onto the stack                        |
+| **`_navigationService.clearTillFirstAndShowView()`** | **`Future<dynamic>`** | Pops the navigation stack until there's 1 view left then pushes `view` onto the stack                             |
+| **`_navigationService.pushNamedAndRemoveUntil()`**   | **`Future<dynamic>`** | Push route and clear stack until predicate is satisfied                                                           |
+
+## Snackbar Service
+
+The `SnackbarService` will show a snackbar from the `viewmodel`. No need for `BuildContext`.
+
+There are two methods for showing a `Snackbar`:
+
+- Regular Snackbar:
+
+```dart
+await _snackbarService.showSnackbar(
+  /// REQUIRED
+  message: 'Wow, My Regular Snackbar',
+
+  ////////////////////////////
+  /// Optional Parameters ///
+  //////////////////////////
+  title: 'My Regular Snackbar Title',
+  iconData: Icons.hello,
+  /// logic for when the snackbar is tapped!
+  onTap: () {},
+  /// defaults to `false`; accepts `bool`
+  shouldIconPulse: false,
+  /// defaults to `0`; accepts `double`
+  barBlur: 0,
+  /// defaults to `true`; accepts `bool`
+  isDissmissible: true,
+  /// defaults to a `Duration` of `3 seconds`; accepts `Duration()`
+  duration: const Duration(seconds: 3),
+);
+```
+
+- Custom Snackbar:
+
+**NOT FINISHED YET**
