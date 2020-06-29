@@ -50,5 +50,4 @@ class HomeViewModel extends BaseViewModel {
     notifyListeners();
   }
 }
-``
 ```

@@ -43,9 +43,9 @@ In the efforts of providing as much value with the stacked package as possible, 
 
 Each package folder contains instructions on how to use the package so please look at the README per package for detailed examples.
 
-## Migrating from provider_architecture to Stacked
+## Migrating from `provider_architecture` to Stacked
 
-Let's start with a statement to ease your migration panic 😅 stacked is the same code from provider_architecture with name changes and removal of some old deprecated properties. If you don't believe me, open the repo's side by side and look at the lib folders. Well, up till yesterday (22 April 2020) I guess when I updated the BaseViewModel. I wanted to do this to show that stacked is production-ready from the go. It's a new package but it's been used by all of you and the FilledStacks development team for months in the form of provider_architecture. With that out of the way, let's start the migrate.
+Let's start with a statement to ease your migration panic 😅 stacked is the same code from `provider_architecture` with name changes and removal of some old deprecated properties. If you don't believe me, open the repo's side by side and look at the lib folders. Well, up till yesterday (22 April 2020) I guess when I updated the BaseViewModel. I wanted to do this to show that stacked is production-ready from the go. It's a new package but it's been used by all of you and the FilledStacks development team for months in the form of `provider_architecture`. With that out of the way, let's start the migrate.
 
 ### ViewModelProvider Migration
 
