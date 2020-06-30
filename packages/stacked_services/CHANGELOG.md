@@ -1,3 +1,7 @@
+## 0.4.4+3
+
+- Bumps get version
+
 ## 0.4.4+2
 
 - Readme updates to include services in
