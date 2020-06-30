@@ -7,6 +7,9 @@ import 'package:stacked/src/reactive_service_mixin.dart';
 class BaseViewModel extends ChangeNotifier {
   Map<int, bool> _busyStates = Map<int, bool>();
 
+  bool _initialised = false;
+  bool get initialised => _initialised;
+
   bool _disposed = false;
   bool get disposed => _disposed;
 
@@ -45,6 +48,12 @@ class BaseViewModel extends ChangeNotifier {
       _setBusyForModelOrObject(false, busyObject: busyObject);
       if (throwException) rethrow;
     }
+  }
+
+  /// Sets the initialised value for the model to true. This is called after
+  /// the first onModelReady call
+  void setInitialised(bool value) {
+    _initialised = value;
   }
 
   void _setBusyForModelOrObject(bool value, {Object busyObject}) {
