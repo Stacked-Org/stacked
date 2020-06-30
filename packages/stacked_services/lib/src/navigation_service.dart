@@ -8,12 +8,9 @@ class NavigationTransition {
   static const String LeftToRight = 'lefttoright';
   static const String UpToDown = 'uptodown';
   static const String DownToUp = 'downtoup';
-  static const String Scale = 'scale';
-  static const String Rotate = 'rotate';
-  static const String Size = 'size';
+  static const String Rotate = 'zoom';
   static const String RightToLeftWithFade = 'righttoleftwithfade';
   static const String LeftToRighttWithFade = 'lefttorightwithfade';
-  static const String Cupertino = 'cupertino';
 }
 
 /// Provides a service that can be injected into the ViewModels for navigation.
@@ -27,12 +24,9 @@ class NavigationService {
     NavigationTransition.LeftToRight: Transition.leftToRight,
     NavigationTransition.UpToDown: Transition.upToDown,
     NavigationTransition.DownToUp: Transition.downToUp,
-    NavigationTransition.Scale: Transition.scale,
-    NavigationTransition.Rotate: Transition.rotate,
-    NavigationTransition.Size: Transition.size,
+    NavigationTransition.Rotate: Transition.zoom,
     NavigationTransition.RightToLeftWithFade: Transition.rightToLeftWithFade,
     NavigationTransition.LeftToRighttWithFade: Transition.leftToRightWithFade,
-    NavigationTransition.Cupertino: Transition.cupertino,
   };
 
   get navigatorKey {

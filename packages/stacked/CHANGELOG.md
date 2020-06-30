@@ -1,10 +1,18 @@
+## 1.6.1+1
+
+- Adds `fireOnModelReadyOnce` to readme
+
+## 1.6.1
+
+- Adds `fireOnModelReadyOnce` to be used together with `disposeViewModel` to ensure a viewmodel that's already been constructed doesn't call onModelReady every time it's shown on screen.
+
 ## 1.6.0+1
 
 - Adds onCancel call for the MultiStreamViewModel
 
 ## 1.6.0
 
-- Adds dispose protection when calling notifyListeners. 
+- Adds dispose protection when calling notifyListeners.
 
 ## 1.5.8
 
