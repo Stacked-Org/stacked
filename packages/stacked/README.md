@@ -222,6 +222,36 @@ class HomeView extends StatelessWidget {
 
 Note that the `ViewModelBuilder` constructor is called with parameter `disposeViewModel: false`. This enables us to pass an existing instance of a viewmodel.
 
+### Call onModelReady only once
+
+In some cases, specifically using a `BottomNavigationBar` you don't want the `onModelReady` function to fire every time the widget that the model is associated with comes into view. to toggle this you can set `fireOnModelReadyOnce` to true. This will fire the onModelReady call only once during the lifecycle of the `ViewModel`. When it's recreated it will fire again. Checkout the [BottomNavigation example](https://github.com/FilledStacks/stacked/blob/master/packages/stacked/example/lib/ui/bottom_nav/bottom_nav_example.dart) in the examples folder.
+
+```dart
+class FavoritesView extends StatelessWidget {
+  const FavoritesView({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<FavoritesViewModel>.reactive(
+      builder: (context, model, child) => Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => model.incrementCounter(),
+          ),
+          body: Center(
+              child: Text(
+            model.counter.toString(),
+            style: TextStyle(fontSize: 30),
+          ))),
+      viewModelBuilder: () => locator<FavoritesViewModel>(),
+      onModelReady: (model) => model.setCounterTo999(),
+      disposeViewModel: false,
+      // Tell the ViewModelBuilder to only fire this once
+      fireOnModelReadyOnce: true,
+    );
+  }
+}
+```
+
 ## ViewModel Widget
 
 The `ViewModelWidget` is an implementation of a widget class that returns a value provided by Provider as a parameter in the build function of the widget. Lets say for instance you have a data model you want to use in multiple widgets. We can use the `Provider.value` call to supply that value, then inside the multiple widgets we inherit from the `ViewModelWidget` and make use of the data directly from the build method.
