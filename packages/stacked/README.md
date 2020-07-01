@@ -423,7 +423,7 @@ All the major functionality for the BaseViewModel is shown above
 
 ## Reactivity
 
-One thing that was common in a scenario with the first implementation of this architecture that was lacking is reacting to values changed by different ViewModels. I don't have the exact implementation that I would hope for but without reflection, some things will have to be a bit more verbose. The stacked architecture makes provision for ViewModels to react to changes to values in service by making use of RxValue from the [Observable-Ish](https://pub.dev/packages/observable_ish) package.
+One thing that was common in a scenario with the first implementation of this architecture is reacting to values changed by different ViewModels. I don't have the exact implementation that I would hope for but without reflection, some things will have to be a bit more verbose. The stacked architecture makes provision for ViewModels to react to changes to values in service by making use of RxValue from the [Observable-Ish](https://pub.dev/packages/observable_ish) package.
 
 ### Reactive Service Mixin
 
