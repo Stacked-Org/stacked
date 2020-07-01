@@ -458,7 +458,7 @@ class InformationService with ReactiveServiceMixin { //1
 }
 ```
 
-Easy peasy. This service can now listen too when any of the properties passed into the `listenToReactiveValues` is changed. So how do you listen to these values? I'm glad you asked. Let's move onto the `ReactiveViewModel`.
+Easy peasy. This service can now be listened to when any of the properties passed into the `listenToReactiveValues` is changed. So how do you listen to these values? I'm glad you asked. Let's move onto the `ReactiveViewModel`.
 
 ### Reactive View Model
 
