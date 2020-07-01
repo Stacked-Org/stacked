@@ -331,7 +331,7 @@ class DuplicateNameWidget extends ViewModelWidget<Human> {
 
 ### Non reactive ViewModelWidget
 
-Sometimes you want a widget to have access to the ViewModel but you don't want it to rebuild when `notifylisteners()` is called. In this case, you can set the reactive value to false for the super constructor of the `ViewModelWidget`. This is commonly used in widgets that don't make use of the model's state and only it's functionality.
+Sometimes you want a widget to have access to the ViewModel but you don't want it to rebuild when `notifyListeners()` is called. In this case, you can set the reactive value to false for the super constructor of the `ViewModelWidget`. This is commonly used in widgets that don't make use of the model's state and only it's functionality.
 
 ```dart
 class UpdateTitleButton extends ViewModelWidget<HomeViewModel> {
