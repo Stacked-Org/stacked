@@ -17,7 +17,7 @@ Let's go over some of those principles to follow during development.
 - Views should never MAKE USE of services directly.
 - Views should contain zero to (preferred) no logic. If the logic is from UI only items then we do the least amount of required logic and pass the rest to the ViewModel.
 - Views should ONLY render the state in its ViewModel.
-- ViewModels for widgets that represent page views are bound to a single view only.
+- ViewModels for widgets that represent page views are bound to a single View only.
 - ViewModels may be re-used if the UI required the same functionality.
 - ViewModels should not know about other ViewModels
 
