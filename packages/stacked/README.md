@@ -465,7 +465,7 @@ Easy peasy. This service can now be listened to when any of the properties passe
 This ViewModel extends the `BaseViewModel` and adds a function that allows you to listen to services that are being used in the model. There are two things you have to do to make a ViewModel react to changes in a service.
 
 1. Extend from `ReactiveViewModel`.
-2. Implement reactive services getter that returns a list of reactive services.
+2. Implement `reactiveServices` getter that returns a list of reactive services.
 
 ```dart
 class WidgetOneViewModel extends ReactiveViewModel {
