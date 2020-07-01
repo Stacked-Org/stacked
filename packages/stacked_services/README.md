@@ -148,7 +148,7 @@ Now in your ViewModels, you can make use of the dialog as follows.
 
 ### Returning Data from Custom Dialog
 
-The custom dialog follows the same rules as the normal dialog. Calling `completeDialog` and passing in a `DialogResponse` object will return it to the caller that's waiting on the dialog response UI. So when you have a tap handler in your dialog and you want to close the dialog, use the `completeDialog` function.
+The custom dialog follows the same rules as the normal dialog. Calling `completeDialog` and passing in a `DialogResponse` object will return it to the caller that's awaiting on the dialog response UI. So when you have a tap handler in your dialog and you want to close the dialog, use the `completeDialog` function.
 
 ```dart
 dialogService.registerCustomDialogUi((context, dialogRequest) => Dialog(
