@@ -539,7 +539,7 @@ Besides having the onError function you can override the `ViewModel` will also s
 
 ### FutureViewModel
 
-This `ViewModel` extends the `BaseViewModel` to provide the functionality to easily listen to a Future that fetches data. This requirement came off a Details view that has to fetch additional data to show to the user after selecting an item. When you extend the `FutureViewModel` you can provide a type which will then require you to override the future getter where you can set the future you want to run.
+This `ViewModel` extends the `BaseViewModel` to provide functionality to easily listen to a Future that fetches data. This requirement came off a Details view that has to fetch additional data to show to the user after selecting an item. When you extend the `FutureViewModel` you can provide a type which will then require you to override the future getter where you can set the future you want to run.
 
 The future will run after the model has been created automatically.
 
