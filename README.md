@@ -14,7 +14,7 @@ The architecture is very simple. It consists of 3 major pieces, everything else 
 
 Let's go over some of those principles to follow during development.
 
-- Views should never MAKE USE a of service directly.
+- Views should never MAKE USE of a service directly.
 - Views should contain zero to (preferred) no logic. If the logic is from UI only items then we do the least amount of required logic and pass the rest to the ViewModel.
 - Views should ONLY render the state in its ViewModel.
 - ViewModels for widgets that represent page views are bound to a single View only.
