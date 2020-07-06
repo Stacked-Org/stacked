@@ -4,7 +4,7 @@ This package contains widgets that allow you to use the Flutter Hooks package wi
 
 ## HookViewModelWidget
 
-The `ViewModelWidget` is an implementation of a widget class that returns a value provided by Provider as a parameter in the build function of the widget. This allows for easier consumption and use of viewmodels without boilerplate. The `HookViewModelWidget` allows you to use this widget and make use of Flutter Hooks inside the build function. This is very useful when you want to use `TextEditting` controllers and you're implementing this architecture.
+The `ViewModelWidget` is an implementation of a widget class that returns a value provided by `Povider` as a parameter in the build function of the widget. This allows for easier consumption and use of ViewModel without boilerplate. The `HookViewModelWidget` allows you to use this widget and make use of Flutter Hooks inside the build function. This is very useful when you want to use `TextEditting` controllers and you're implementing this architecture.
 
 ```dart
 // View that creates and provides the viewmodel
@@ -51,4 +51,3 @@ class HomeViewModel extends BaseViewModel {
   }
 }
 ```
-

@@ -1,6 +1,6 @@
 # Stacked Services
 
-Provides some essential services to aid in implementing the Stacked architecture. These services are only here to reduce boiler plate code for the users of the Stacked Architecture that uses the architecture as instructed by FilledStacks on the architecture series.
+Provides some essential services to aid in implementing the Stacked architecture. These services are only here to reduce boilerplate code for the users of the Stacked Architecture that uses the architecture as instructed by FilledStacks on the architecture series.
 
 ## Services
 
@@ -21,7 +21,7 @@ locator.registerLazySingleton(() => NavigationService());
 If you're using Injectable as recommended you can register the services using a third party services module. Create a new file in your services folder called thirdparty_services_module.dart.
 
 ```dart
-@registerModule
+@module
 abstract class ThirdPartyServicesModule {
   @lazySingleton
   NavigationService get navigationService;
@@ -40,9 +40,26 @@ flutter pub run build_runner build
 
 Your services will be available as usual on your locator instance.
 
+## Usage
+
+To use the services you have to assign the navigation key to your Flutter application.
+
+```dart
+MaterialApp(
+      title: 'Stacked Services',
+      navigatorKey: locator<NavigationService>().navigatorKey,
+      // home: AddCardView(), // Used when testing a view
+      initialRoute: Routes.startupViewRoute,
+      onGenerateRoute: Router().onGenerateRoute,
+      ),
+    );
+```
+
+If you're only using the `DialogService` it also exposes the navigation key. **You only have to set the key for one of the services and it'll work for all the other services.** If you set the nav key using the navigation service you don't have to set it for the DialogService and vice versa.
+
 ## Dialog Service
 
-The `DialogService` will show a platform specific dialog by default. You can change this by passing in `dialogPlatform` to your show dialog call.
+The `DialogService` will show a platform-specific dialog by default. You can change this by passing in `dialogPlatform` to your show dialog call.
 
 ```dart
 await _dialogService.showDialog(
@@ -54,7 +71,7 @@ await _dialogService.showDialog(
 
 ### Custom Dialog UI
 
-In addition to platform specific UI you can also build your own custom dialog. To do that we'll do the following. In your UI folder or shared folder under UI, if you have one, create a new file called setup_dialog_ui.dart. Inside you will create a new function called `setupDialogUi`. In there you will call the function `registerCustomDialogUi` on the `DialogService`. _Look at the setup_dialog_ui file for a full example_
+In addition to platform-specific UI, you can also build a custom dialog. To do that we'll do the following. In your UI folder or shared folder under UI, if you have one, create a new file called `setup_dialog_ui.dart`. Inside you will create a new function called `setupDialogUi`. In there you will call the function `registerCustomDialogUi` on the `DialogService`. _Look at the `setup_dialog_ui` file for a full example_
 
 ```dart
 void registerCustomDialogUi() {
@@ -66,7 +83,7 @@ void registerCustomDialogUi() {
 }
 ```
 
-The dialog request is how you will control which dialog to build, if you have many custom dialogs. It is also possible to turn some parts on or based on what you'd like to show. The `DialogRequest` has a few properties which can make you easily decide which widgets to place in the dialog to show. All these properties can be passed in directly to the `showCustomDialog` function. Here are all the properties available for you to use.
+The dialog request is how you will control which dialog to build if you have many custom dialogs. It is also possible to turn some parts on or based on what you'd like to show. The `DialogRequest` has a few properties that can make you easily decide which widgets to place in the dialog to show. All these properties can be passed directly to the `showCustomDialog` function. Here are all the properties available for you to use.
 
 ```dart
  /// The title for the dialog
@@ -78,7 +95,7 @@ The dialog request is how you will control which dialog to build, if you have ma
   /// Indicates if an image should be used or not
   final bool hasImage;
 
-  /// The url / path to the image to show
+  /// The URL / path to the image to show
   final String imageUrl;
 
   /// The text shown in the main button
@@ -93,7 +110,7 @@ The dialog request is how you will control which dialog to build, if you have ma
   /// Indicates if you should show an icon in the main button
   final bool showIconInSecondaryButton;
 
-  /// The text show on the third button on the dialog
+  /// The text shown on the third button on the dialog
   final String additionalButtonTitle;
 
   /// Indicates if you should show an icon in the additional button
@@ -119,7 +136,7 @@ void main() {
 }
 ```
 
-Now in your ViewModels you can make use of the dialog as follows.
+Now in your ViewModels, you can make use of the dialog as follows.
 
 ```dart
  await _dialogService.showCustomDialog(
@@ -196,4 +213,54 @@ var response = await _dialogService.showCustomDialog(
 if(response.confirmed) {
   // do some confirmation action here.
 }
+```
+
+## Navigation Service
+
+The `NavigationService` will allow you to navigate your app easily from the `ViewModel`. No need for `BuildContext`.
+
+- **NOTE: The table below expects you to have followed above steps, and intialized `NavigationService` like this: `final NavigationService _navigationService = locator<NavigationService>();`**
+- The table below shows each function you can use with its return type and description:
+
+| Function                    | Return Type       | Description                                                                                                       |
+| --------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `config`                    | `void`            | Allows you to configure the default behaviour for navigation.                                                     |
+| `navigateWithTransition`    | `Future<dynamic>` | Pushes `page` onto the navigation stack. This uses the `page` itself `Widget` instead of routeName `String`       |
+| `replaceWithTransition`     | `Future<dynamic>` | Replaces current view in the navigation stack. This uses the `page` itself `Widget` instead of routeName `String` |
+| `back`                      | `bool`            | Pops the current scope and indicates if you can pop again                                                         |
+| `popUntil`                  | `void`            | Pops the back stack until the predicate is satisfied                                                              |
+| `popRepeated`               | `void`            | Pops the back stack the number of times you indicate with `popTimes`                                              |
+| `navigateTo`                | `Future<dynamic>` | Pushes `routeName` onto the navigation stack                                                                      |
+| `navigateToView`            | `Future<dynamic>` | Pushes `view` onto the navigation stack                                                                           |
+| `replaceWith`               | `Future<dynamic>` | Replaces the current route with the `routeName`                                                                   |
+| `clearStackAndShow`         | `Future<dynamic>` | Clears the entire back stack and shows `routeName`                                                                |
+| `clearTillFirstAndShow`     | `Future<dynamic>` | Pops the navigation stack until there's 1 view left then pushes `routeName` onto the stack                        |
+| `clearTillFirstAndShowView` | `Future<dynamic>` | Pops the navigation stack until there's 1 view left then pushes `view` onto the stack                             |
+| `pushNamedAndRemoveUntil`   | `Future<dynamic>` | Push route and clear stack until predicate is satisfied                                                           |
+
+## Snackbar Service
+
+The `SnackbarService` will show a snackbar from the `ViewModel`. A snackbar can be shown using the showSnackbar function on the `SnackbarService`.
+
+```dart
+await _snackbarService.showSnackbar(
+  /// REQUIRED
+  message: 'Wow, My Regular Snackbar',
+
+  ////////////////////////////
+  /// Optional Parameters ///
+  //////////////////////////
+  title: 'My Regular Snackbar Title',
+  iconData: Icons.hello,
+  /// logic for when the snackbar is tapped!
+  onTap: () {},
+  /// defaults to `false`; accepts `bool`
+  shouldIconPulse: false,
+  /// defaults to `0`; accepts `double`
+  barBlur: 0,
+  /// defaults to `true`; accepts `bool`
+  isDissmissible: true,
+  /// defaults to a `Duration` of `3 seconds`; accepts `Duration()`
+  duration: const Duration(seconds: 3),
+);
 ```

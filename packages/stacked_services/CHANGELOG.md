@@ -1,4 +1,24 @@
-## 0.4.1
+## 0.4.4+3
+
+- Bumps get version
+
+## 0.4.4+2
+
+- Readme updates to include services in
+
+## 0.4.4+1
+
+- Adds id's to all navigation functions to reference correct nav key
+
+## 0.4.4
+
+- Exposes functionality for nested navigator keys
+
+## 0.4.3
+
+- Exposes barrierColor on the dialog service
+
+## 0.4.2
 
 - Adds barrierDismissable optional boolean
 - Adds instantInit option to allow to show snackbar in initState function call

@@ -1,3 +1,7 @@
+## 0.1.2
+
+- Hook widget has a const constructor
+
 ## 0.1.1+3
 
 - Changelog style updates
