@@ -1,6 +1,6 @@
 # Stacked [![Pub Version](https://img.shields.io/pub/v/stacked)](https://pub.dev/packages/stacked)
 
-An architecture developed and revised by the [FilledStacks](https://www.youtube.com/filledstacks) community. This architecture was initially a version of Mvvm as [described in this video](https://youtu.be/kDEflMYTFlk). Since then Filledstacks app development team has built 6 production applications with various requirements. This experience along with countless requests for improvements and common functionality is what sparked the creation of this architecture package. It aims to provide **common functionalities to make app development easier** as well as code principles to use during development to ensure your code stays maintainable.
+An architecture developed and revised by the [FilledStacks](https://www.youtube.com/filledstacks) community. This architecture was initially a version of MVVM as [described in this video](https://youtu.be/kDEflMYTFlk). Since then Filledstacks app development team has built 6 production applications with various requirements. This experience along with countless requests for improvements and common functionality is what sparked the creation of this architecture package. It aims to provide **common functionalities to make app development easier** as well as code principles to use during development to ensure your code stays maintainable.
 
 [Here you can watch the full video series](https://www.youtube.com/playlist?list=PLdTodMosi-BwM4XkagNwe4KADOMWQS5X-) for an in depth dive of this architecture.
 
@@ -13,17 +13,17 @@ An architecture developed and revised by the [FilledStacks](https://www.youtube.
 
 The architecture is very simple. It consists of 3 major pieces, everything else is up to your implementation style. These pieces are:
 
-- **View**: Shows the UI to the user. Single widgets also qualifies as views (for consistency in terminology) a view in this case is not a "Page" it's just a UI representation.
-- **ViewModel**: Manages the state of the View, business logic and any other logic as required from user interaction. It does this by making use of the services
-- **Services**: A wrapper of a single functionality / feature set. This is commonly used to wrap things like showing a dialog, wrapping database functionality, integrating an api, etc.
+- **View**: Shows the UI to the user. Single widgets also qualify as views (for consistency in terminology) a view, in this case, is not a "Page" it's just a UI representation.
+- **ViewModel**: Manages the state of the View, business logic, and any other logic as required from user interaction. It does this by making use of the services
+- **Services**: A wrapper of a single functionality/feature set. This is commonly used to wrap things like showing a dialog, wrapping database functionality, integrating an API, etc.
 
-Lets go over some of those principles to follow during development.
+Let's go over some of those principles to follow during development.
 
-- Views should never MAKE USE of a service directly.
+- Views should never MAKE USE of services directly.
 - Views should contain zero to (preferred) no logic. If the logic is from UI only items then we do the least amount of required logic and pass the rest to the ViewModel.
 - Views should ONLY render the state in its ViewModel.
 - ViewModels for widgets that represent page views are bound to a single View only.
-- ViewModels may be re-used if the UI required the exact same functionality.
+- ViewModels may be re-used if the UI require the same functionality.
 - ViewModels should not know about other ViewModels
 
 That's quite a bit of "rules" but they help during production. Trust me.
@@ -34,9 +34,9 @@ Stacked provides you with classes and functionalities to make it easy to impleme
 
 ## ViewModelBuilder
 
-The `ViewModelBuilder` was first built in the [Provider Architecture Tutorial](https://youtu.be/kDEflMYTFlk) where it was titled BaseView. The `ViewModelBuilder` is used to create the "binding" between a ViewModel and the View. There is no two-way binding in this architecture, which is why I don't want to say it's an Mvvm implementation and why we have instead given it our own name. The `ViewModelBuilder` wraps up all the `ChangeNotifierProvider` code which allows us to trigger a rebuild of a widget when calling `notifyListeners` within the ViewModel.
+The `ViewModelBuilder` was first built in the [Provider Architecture Tutorial](https://youtu.be/kDEflMYTFlk) where it was titled BaseView. The `ViewModelBuilder` is used to create the "binding" between a ViewModel and the View. There is no two-way binding in this architecture, which is why I don't want to say it's an Mvvm implementation and why we have instead given it our name. The `ViewModelBuilder` wraps up all the `ChangeNotifierProvider` code which allows us to trigger a rebuild of a widget when calling `notifyListeners` within the ViewModel.
 
-A ViewModel is simply a dart class that extends `ChangeNotifier`. The `ViewModelBuilder` has 2 constructors, one that's reactive and one that's not. The tutorial mentioned above emulates the default implementation which has been put into the `.reactive` named constructor. The `.nonReactive` constructor is for UI that does not require the builder to fire when notifyListeners is called in the ViewModel. The nonReactive construction was born in [this tutorial](https://youtu.be/HUSqk0OrR7I?t=224) where we wanted to reduce the boiler plate when the same data has to go to multiple widgets using the same ViewModel. This is very prominent when using the responsive_builder package.
+A ViewModel is simply a dart class that extends `ChangeNotifier`. The `ViewModelBuilder` has 2 constructors, one that's reactive and one that's not. The tutorial mentioned above emulates the default implementation which has been put into the `.reactive` named constructor. The `.nonReactive` constructor is for UI that does not require the builder to fire when `notifyListeners(` is called in the ViewModel. The nonReactive construction was born in [this tutorial](https://youtu.be/HUSqk0OrR7I?t=224) where we wanted to reduce the boilerplate when the same data has to go to multiple widgets using the same ViewModel. This is very prominent when using the responsive_builder package.
 
 ### Reactive
 
@@ -93,7 +93,7 @@ When `notifyListeners` is called in the ViewModel the builder is triggered allow
 The `.nonReactive` constructor is best used for providing your ViewModel to multiple child widgets that will make use of it. It was created to make it easier to build and provide the same ViewModel to multiple UI's. It was born out of the [Responsive UI architecture](https://youtu.be/HUSqk0OrR7I) where we would have to provide the same ViewModel to all the different responsive layouts. Here's a simple example.
 
 ```dart
-// Viewmodel in the above code
+// ViewModel in the above code
 
 // View
 class HomeViewMultipleWidgets extends StatelessWidget {
@@ -152,11 +152,11 @@ class DescriptionSection extends ViewModelWidget<HomeViewModel> {
 }
 ```
 
-So what we're doing here is providing the ViewModel to the children of the builder function. The builder function itself won't retrigger when `notifyListeners` is called. Instead we will extend from `ViewModelWidget` in the widgets that we want to rebuild from the ViewModel. This allows us to easily access the ViewModel in multiple widgets without a lot of repeat boilerplate code. We already extend from a `StatelessWidget` so we can change that to `ViewModelWidget`. Then we simply add the ViewModel as a parameter to the build function. This is the same as calling `Provider<ViewModel>.of` in every widget we want to rebuild.
+So what we're doing here is providing the ViewModel to the children of the builder function. The builder function itself won't retrigger when `notifyListeners` is called. Instead, we will extend from `ViewModelWidget` in the widgets that we want to rebuild from the ViewModel. This allows us to easily access the ViewModel in multiple widgets without a lot of repeat boilerplate code. We already extend from a `StatelessWidget` so we can change that to `ViewModelWidget`. Then we simply add the ViewModel as a parameter to the build function. This is the same as calling `Provider<ViewModel>.of` in every widget we want to rebuild.
 
 ### ViewModelBuilderWidget
 
-If you want to make use of the `ViewModelBuilder` directly as a widget is can be extended as well using the `ViewModelBuilderWidget<T>`. This will give you the same properties to override as the ones you can pass into the named constructors. There are 2 required overrides, the same as the 2 required parameters for the constructors. The difference with this is that your code will look like a normal widget so it fits into the code base. You can also override and implement `onModelReady` and `staticChildBuilder`.
+If you want to make use of the `ViewModelBuilder` directly as a widget is can be extended as well using the `ViewModelBuilderWidget<T>`. This will give you the same properties to override as the ones you can pass into the named constructors. There are 2 required overrides, the same as the 2 required parameters for the constructors. The difference with this is that your code will look like a normal widget so it fits into the codebase. You can also override and implement `onModelReady` and `staticChildBuilder`.
 
 ```dart
 
@@ -196,7 +196,7 @@ This is to help with removing some boilerplate code.
 
 ### Disable ViewModel Dispose
 
-An example of how to disable the dispose for a viewmodel.
+An example of how to disable the dispose of a ViewModel.
 
 ```dart
 // View
@@ -225,7 +225,7 @@ class HomeView extends StatelessWidget {
 
 ```
 
-Note that the `ViewModelBuilder` constructor is called with parameter `disposeViewModel: false`. This enables us to pass an existing instance of a viewmodel.
+Note that the `ViewModelBuilder` constructor is called with parameter `disposeViewModel: false`. This enables us to pass an existing instance of a ViewModel.
 
 ### Call onModelReady only once
 
@@ -259,7 +259,7 @@ class FavoritesView extends StatelessWidget {
 
 ## ViewModel Widget
 
-The `ViewModelWidget` is an implementation of a widget class that returns a value provided by Provider as a parameter in the build function of the widget. Lets say for instance you have a data model you want to use in multiple widgets. We can use the `Provider.value` call to supply that value, then inside the multiple widgets we inherit from the `ViewModelWidget` and make use of the data directly from the build method.
+The `ViewModelWidget` is an implementation of a widget class that returns a value provided by the Provider as a parameter in the build function of the widget. Let's say for instance you have a data model you want to use in multiple widgets. We can use the `Provider.value` call to supply that value, then inside the multiple widgets, we inherit from the `ViewModelWidget` and make use of the data directly from the build method.
 
 ```dart
 
@@ -336,7 +336,7 @@ class DuplicateNameWidget extends ViewModelWidget<Human> {
 
 ### Non reactive ViewModelWidget
 
-Sometimes you want a widget to have access to the ViewModel but you don't want it to rebuild when notifyListeners is called. In this case you can set the reactive value to false for the super constructor of the `ViewModelWidget`. This is commonly used in widgets that don't make use of the models state and only it's functionality.
+Sometimes you want a widget to have access to the ViewModel but you don't want it to rebuild when `notifyListeners()` is called. In this case, you can set the reactive value to false for the super constructor of the `ViewModelWidget`. This is commonly used in widgets that don't make use of the model's state and only it's functionality.
 
 ```dart
 class UpdateTitleButton extends ViewModelWidget<HomeViewModel> {
@@ -505,11 +505,11 @@ In this case the error can be retrieved using `model.error(BusyObjectKey)` or yo
 
 ## Reactivity
 
-One thing that was common a scenario with the first implementation of this architecture that was clearly lacking is reacting to values changed by different ViewModels. I don't have the exact implementation that I would hope for but without reflection some things will have to be a bit more verbose. The stacked architecture makes provision for ViewModels to react to changes to values in a service by making use of RxValue from the [Observable-Ish](https://pub.dev/packages/observable_ish) package.
+One thing that was common in a scenario with the first implementation of this architecture is reacting to values changed by different ViewModels. I don't have the exact implementation that I would hope for but without reflection, some things will have to be a bit more verbose. The stacked architecture makes provision for ViewModels to react to changes to values in service by making use of RxValue from the [Observable-Ish](https://pub.dev/packages/observable_ish) package.
 
 ### Reactive Service Mixin
 
-In the stacked library we have a `ReactiveServiceMixin` which can be used to register values to "react" to. When any of these values change the listeners registered with this service will be notified to update their UI. This is definitely not the most effecient way but I have tested this with 1000 widgets with it's own viewmodel all updating on the screen and it works fine. If you follow general good code implementations and layout structuring you will have no problem keeping your app at 60fps no matter the size.
+In the stacked library, we have a `ReactiveServiceMixin` which can be used to register values to "react" to. When any of these values change the listeners registered with this service will be notified to update their UI. This is definitely not the most efficient way but I have tested this with 1000 widgets with its ViewModel all updating on the screen and it works fine. If you follow general good code implementations and layout structuring you will have no problem keeping your app at 60fps no matter the size.
 
 There are three things you need to make a service reactive.
 
@@ -517,7 +517,7 @@ There are three things you need to make a service reactive.
 2. Wrap your values in an RxValue. The value provided by Observable-ish
 3. Register your reactive values by calling `listenToReactiveValues`. A function provided by the mixin.
 
-Below is some source code for the non theory coders out there like myself.
+Below is some source code for the non-theory coders out there like myself.
 
 ```dart
 class InformationService with ReactiveServiceMixin { //1
@@ -540,14 +540,14 @@ class InformationService with ReactiveServiceMixin { //1
 }
 ```
 
-Easy peasy. This service can now be listened too when any of the properties passed into the `listenToReactiveValues` is changed. So how do listen to these values? I'm glad you asked. Lets move onto the `ReactiveViewModel`.
+Easy peasy. This service can now be listened to when any of the properties passed into the `listenToReactiveValues` is changed. So how do you listen to these values? I'm glad you asked. Let's move onto the `ReactiveViewModel`.
 
 ### Reactive View Model
 
-This ViewModel extends the `BaseViewModel` and adds an additional function that allows you to listen to services that are being used in the model. There are two thing you have to do to make a ViewModel react to changes in a service.
+This ViewModel extends the `BaseViewModel` and adds a function that allows you to listen to services that are being used in the model. There are two things you have to do to make a ViewModel react to changes in a service.
 
 1. Extend from `ReactiveViewModel`.
-2. Implement reactiveServices getter that return a list of reactive services.
+2. Implement `reactiveServices` getter that returns a list of reactive services.
 
 ```dart
 class WidgetOneViewModel extends ReactiveViewModel {
@@ -563,7 +563,7 @@ That's it. To see a full example take a look at the example in the git repo.
 
 ### StreamViewModel
 
-This `ViewModel` extends the `BaseViewModel` and provides functionality to easily listen and react to stream data. It allows you to supply a `Stream` of type `T` which it will subscribe to, manage subscription (dispose when done) and give you callbacks where you can modify / manipulate the data. It will automatically rebuild the `ViewModel` as new stream values come in. It has 1 required override which is the stream getter and 4 optional overrides.
+This `ViewModel` extends the `BaseViewModel` and provides functionality to easily listen and react to stream data. It allows you to supply a `Stream` of type `T` which it will subscribe to, manage subscription (dispose when done), and give you callbacks where you can modify/manipulate the data. It will automatically rebuild the `ViewModel` as new stream values come in. It has 1 required override which is the stream getter and 4 optional overrides.
 
 - **stream**: Returns the `Stream` you would like to listen to
 - **onData**: Called after the view has rebuilt and provides you with the data to use
@@ -705,7 +705,7 @@ class FutureExampleView extends StatelessWidget {
 
 ### MultipleFutureViewModel
 
-In addition to being able to run a Future you also make a view react to data returned from multiple futures. It requires you to provide a map of type string along with a Function that returns a Future that will be executed after the `ViewModel` has been constructed. See below for an example of using a `MultipleFutureViewModel`.
+In addition to being able to run a Future, you also make a view react to data returned from multiple futures. It requires you to provide a map of type string along with a Function that returns a Future that will be executed after the `ViewModel` has been constructed. See below for an example of using a `MultipleFutureViewModel`.
 
 ```dart
 import 'package:stacked/stacked.dart';
@@ -738,7 +738,7 @@ class MultipleFuturesExampleViewModel extends MultipleFutureViewModel {
 }
 ```
 
-The data for the future will be in the `dataMap` when the future is complete. Each future will individually be set to busy using the key for the future passed in. With these functionalities you'll be able to show busy indicator for the UI that depends on the future's data while it's being fetched. There's also a `hasError` function which will indicate if the Future for a specific key has thrown an error.
+The data for the future will be in the `dataMap` when the future is complete. Each future will individually be set to busy using the key for the future passed in. With these functionalities, you'll be able to show a busy indicator for the UI that depends on the future's data while it's being fetched. There's also a `hasError` function which will indicate if the Future for a specific key has thrown an error.
 
 ```dart
 class MultipleFuturesExampleView extends StatelessWidget {
@@ -786,7 +786,7 @@ class MultipleFuturesExampleView extends StatelessWidget {
 
 ### MultipleStreamViewModel
 
-Similarly to the `StreamViewModel` we also have a `MultipleStreamViewModel` which allows you to provide multiple streams through a String key -> Stream paring. Any of the values from these streams will be stored in the data[key] and the same goes for the errors. Each stream value emitted will call notifyListeners to update the UI. `MultipleStreamViewModel` requires the `streamsMap` to be overridden.
+Similarly to the `StreamViewModel`, we also have a `MultipleStreamViewModel` which allows you to provide multiple streams through a String key -> Stream paring. Any of the values from these streams will be stored in the data[key] and the same goes for the errors. Each stream value emitted will call `notifyListeners()` to update the UI. `MultipleStreamViewModel` requires the `streamsMap` to be overridden.
 
 ```dart
 const String _NumbersStreamKey = 'numbers-stream';
@@ -825,11 +825,11 @@ class MultipleStreamsExampleViewModel extends MultipleStreamViewModel {
 }
 ```
 
-Similarly to the single stream model. When your stream has changed you should call `notifySourceChanged` to let the ViewModel know that it should stop listening to the old stream and subscribe to the new one. If you want to check if the stream had an error you can use the `hasError` function with the key for the stream, you can also get the error using `getError` with the key for the Stream.
+Similarly to the single-stream model. When your stream has changed you should call `notifySourceChanged` to let the ViewModel know that it should stop listening to the old stream and subscribe to the new one. If you want to check if the stream had an error you can use the `hasError` function with the key for the stream, you can also get the error using `getError` with the key for the Stream.
 
 ## Migrating from provider_architecture to Stacked
 
-Lets start with a statement to ease your migration panic 😅 stacked is the exact same code from provider_architecture with naming changes and removal of some old deprecated properties. If you don't believe me, open the repo's side by side and look at the lib folders. Well, up till yesterday (22 April 2020) I guess, when I updated the BaseViewModel. I wanted to do this to show that stacked is production ready from the go. It's a new package but it's been used by all of you and the FilledStacks development team for months in the form of provider_architecture. With that out of the way lets start the migrate.
+Let's start with a statement to ease your migration panic 😅 stacked is the same code from `provider_architecture` with name changes and removal of some old deprecated properties. If you don't believe me, open the repo's side by side and look at the lib folders. Well, up till yesterday (22 April 2020) I guess when I updated the BaseViewModel. I wanted to do this to show that stacked is production-ready from the go. It's a new package but it's been used by all of you and the FilledStacks development team for months in the form of provider_architecture. With that out of the way, let's start the migrate.
 
 ### ViewModelProvider Migration
 
@@ -843,7 +843,7 @@ Migrations to take note of:
 - Instead of passing a constructed `ViewModel` which was constructing every rebuilder we pass a `viewModelBuilder`. A function that returns a `ChangeNotifier`.
 - `reuseExisting` has changed to `disposeViewModel` and now has a default value of true. If you used `reuseExisting=true` it has to change to `disposeViewModel=false`.
 
-Lets look at that in code. We'll go over withoutConsumer / nonReactive first
+Let's look at that in code. We'll go over `withoutConsumer/nonReactive` first
 
 ```dart
 class HomeViewMultipleWidgets extends StatelessWidget {
@@ -895,7 +895,7 @@ class HomeViewMultipleWidgets extends StatelessWidget {
 }
 ```
 
-For the withConsumer function we do the following
+For the `withConsumer` function we do the following
 
 ```dart
 class HomeView extends StatelessWidget {
@@ -936,5 +936,4 @@ class DuplicateNameWidget extends ViewModelWidget<Human> {
 }
 ```
 
-The rest of the package is all new functionality which can be seen above. Please check out the issues for tasks we'd like to add. If you would like to see any functionality in here please create an issue and I'll asses and provide feedback.
-
+The rest of the package is all new functionality which can be seen above. Please check out the issues for tasks we'd like to add. If you would like to see any functionality in here please create an issue and I'll assess and provide feedback.
