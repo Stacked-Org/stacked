@@ -2,7 +2,12 @@
 
 An architecture developed and revised by the [FilledStacks](https://www.youtube.com/filledstacks) community. This architecture was initially a version of Mvvm as [described in this video](https://youtu.be/kDEflMYTFlk). Since then Filledstacks app development team has built 6 production applications with various requirements. This experience along with countless requests for improvements and common functionality is what sparked the creation of this architecture package. It aims to provide **common functionalities to make app development easier** as well as code principles to use during development to ensure your code stays maintainable.
 
-**If you're Reading this disclaimer the series that does a deepdive on this architecture has not been published yet.**
+[Here you can watch the full video series](https://www.youtube.com/playlist?list=PLdTodMosi-BwM4XkagNwe4KADOMWQS5X-) for an in depth dive of this architecture.
+
+
+### Migrate from 1.6.1 -> 1.7
+
+- hasError(key) -> error(key) for multiple ViewModel
 
 ## How Does it work
 
@@ -420,6 +425,83 @@ class WidgetOne extends StatelessWidget {
 ```
 
 All the major functionality for the BaseViewModel is shown above
+
+### Busy handling
+
+Stacked makes it easier for you to indicate to the UI if your model is busy or not through by providing some utility functions. Lets look at an example. When you run a future and you want to indicate to the UI the model is busy you would use the `runBusyFuture`.
+
+```dart
+class BusyExampleViewModel extends BaseViewModel {
+ Future longUpdateStuff() async {
+    // Sets busy to true before starting future and sets it to false after executing
+    // You can also pass in an object as the busy object. Otherwise it'll use the model
+    var result = await runBusyFuture(updateStuff());
+  }
+
+  Future updateStuff() {
+    return Future.delayed(const Duration(seconds: 3));
+  }
+}
+```
+
+This will set the busy property using `this` as the key so you can check if the future is still running by calling `isBusy` on the model. If you want to assign it a different key, in the example of a `CartView` where you have multiple items listed. When increasing the quantity of an item you want only that item to show a busy indicator. For that you can also supply a key to the `runBusyFuture` function.
+
+```dart
+const String BusyObjectKey = 'my-busy-key';
+
+class BusyExampleViewModel extends BaseViewModel {
+  Future longUpdateStuff() async {
+    // Sets busy to true before starting future and sets it to false after executing
+    // You can also pass in an object as the busy object. Otherwise it'll use the model
+    var result = await runBusyFuture(updateStuff(), busyObject: BusyObjectKey);
+  }
+
+  Future updateStuff() {
+    return Future.delayed(const Duration(seconds: 3));
+  }
+}
+```
+
+Then you can check the busy state using that busy key and calling `model.busy(BusyObjectKey)`. The key should be any unique value that won't change with the busy state of the object. In the example mentioned above you can use the id of each of the cart products to indicate if it's busy or not. This way you can show a busy state for each of them individually.
+
+### Error Handling
+
+The same way that the busy state is set you also get an error state. When you use one of the specialty `ViewModels` or the future helper functions. `runBusyFuture` or `runErrorFuture` stacked will store the exception thrown in the `ViewModel` for you to use. It will follow the same rules as the busy above and will assign the exception to the `ViewModel` or the key passed in. Lets look at some code.
+
+```dart
+class ErrorExampleViewModel extends BaseViewModel {
+ Future longUpdateStuff() async {
+    // Sets busy to true before starting future and sets it to false after executing
+    // You can also pass in an object as the busy object. Otherwise it'll use the model
+    var result = await runBusyFuture(updateStuff());
+  }
+
+  Future updateStuff() async {
+    await Future.delayed(const Duration(seconds: 3));
+    throw Exception('Things went wrong');
+  }
+}
+```
+
+After 3 seconds this future will throw an error. It will automatically catch that error, set the view back to not busy and then save the error. When no key is supplied to `runBusyFuture` you can check if there's an error using the `hasError` property. You can also get the actual exception from the `modelError` property. If you do supply a key however then you can get the exception back using the error function.
+
+```dart
+const String BusyObjectKey = 'my-busy-key';
+
+class BusyExampleViewModel extends BaseViewModel {
+  Future longUpdateStuff() async {
+    // Sets busy to true before starting future and sets it to false after executing
+    // You can also pass in an object as the busy object. Otherwise it'll use the model
+    var result = await runBusyFuture(updateStuff(), busyObject: BusyObjectKey);
+  }
+
+  Future updateStuff() {
+    return Future.delayed(const Duration(seconds: 3));
+  }
+}
+```
+
+In this case the error can be retrieved using `model.error(BusyObjectKey)` or you can simply check if there is an error for the key using `mode.hasErrorForKey(BusyObjectKey)`. If you want to react to an error from your future you can override `onFutureError` which will return the exception and the key you used for that future. The Specialty `ViewModels` have their own onError override but this one can be used in there as well if needed.
 
 ## Reactivity
 
@@ -855,3 +937,4 @@ class DuplicateNameWidget extends ViewModelWidget<Human> {
 ```
 
 The rest of the package is all new functionality which can be seen above. Please check out the issues for tasks we'd like to add. If you would like to see any functionality in here please create an issue and I'll asses and provide feedback.
+

@@ -173,7 +173,7 @@ void main() async {
       var streamViewModel = TestMultipleStreamViewModel(failOne: true);
       streamViewModel.initialise();
       await Future.delayed(Duration(milliseconds: 1));
-      expect(streamViewModel.hasError(_NumberStream), true);
+      expect(streamViewModel.hasErrorForKey(_NumberStream), true);
       // Make sure we only have 1 error
       // expect(streamViewModel.errorMap.values.where((v) => v == true).length, 1);
     });

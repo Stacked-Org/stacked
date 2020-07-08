@@ -92,7 +92,8 @@ void main() {
     test('When a future fails it should set error to exception', () async {
       var futureViewModel = TestFutureViewModel(fail: true);
       await futureViewModel.initialise();
-      expect(futureViewModel.error.message, _SingleFutureExceptionFailMessage);
+      expect(futureViewModel.modelError.message,
+          _SingleFutureExceptionFailMessage);
     });
 
     test('When a future fails onData should not be called', () async {
@@ -120,7 +121,7 @@ void main() {
     });
   });
 
-  group('MultipleFutureViewModel', () {
+  group('MultipleFutureViewModel -', () {
     test(
         'When running multiple futures the associated key should hold the value when complete',
         () async {
@@ -137,8 +138,8 @@ void main() {
       var futureViewModel = TestMultipleFutureViewModel(failOne: true);
       await futureViewModel.initialise();
 
-      expect(futureViewModel.hasError(NumberDelayFuture), true);
-      expect(futureViewModel.hasError(StringDelayFuture), false);
+      expect(futureViewModel.hasErrorForKey(NumberDelayFuture), true);
+      expect(futureViewModel.hasErrorForKey(StringDelayFuture), false);
     });
 
     test(
@@ -182,10 +183,10 @@ void main() {
       var futureViewModel = TestMultipleFutureViewModel(failOne: true);
       await futureViewModel.initialise();
 
-      expect(futureViewModel.getError(NumberDelayFuture).message,
+      expect(futureViewModel.error(NumberDelayFuture).message,
           _NumberDelayExceptionMessage);
 
-      expect(futureViewModel.getError(StringDelayFuture), null);
+      expect(futureViewModel.error(StringDelayFuture), null);
     });
 
     test(

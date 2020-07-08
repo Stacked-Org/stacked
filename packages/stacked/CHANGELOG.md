@@ -1,3 +1,11 @@
+## 1.7.0 - [BREAKING CHANGES]
+
+### Migrate from 1.6.1 -> 1.7
+- hasError(key) -> error(key) for multiple ViewModel
+
+- Adds `IndexTrackingViewModel` for help with BottomNavBar
+- Adds better error handling for `BaseViewModel`
+
 ## 1.6.1+1
 
 - Adds `fireOnModelReadyOnce` to readme
