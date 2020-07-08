@@ -1,3 +1,7 @@
+## 1.7.1+1
+
+- Adds `initialiseSpecialViewModelsOnce` to the readme.
+
 ## 1.7.1
 
 - Adds `initialiseSpecialViewModelsOnce` property to set initialise function call to only fire once.

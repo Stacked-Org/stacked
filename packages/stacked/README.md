@@ -257,6 +257,37 @@ class FavoritesView extends StatelessWidget {
 }
 ```
 
+### Fire initialisation only once
+
+Special `ViewModels` like `FutureViewModel` or `StreamViewModel` runs it's logic through an initialise call by the ViewModelBuilder. If you want to fire the initialisation logic only once you can set `initialiseSpecialViewModelsOnce: true`
+
+```dart
+class FavoritesView extends StatelessWidget {
+  const FavoritesView({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<FavoritesViewModel>.reactive(
+      builder: (context, model, child) => Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => model.incrementCounter(),
+          ),
+          body: Center(
+              child: Text(
+            model.counter.toString(),
+            style: TextStyle(fontSize: 30),
+          ))),
+      viewModelBuilder: () => locator<FavoritesViewModel>(),
+      disposeViewModel: false,
+      // Tell the ViewModelBuilder to only fire the initialse function once
+      initialiseSpecialViewModelsOnce: true
+    );
+  }
+}
+```
+
+This in cases that you have a Future viewmodel that you'd like to fire only once. To ensure this works correctly you should also make sure you're using a singleton ViewModel so that you always use the same instance and also set disposeViewModel to false. This can be seen in the bottom_nav folder under ui in the example. Look at the bottom_nav_example.dart file for more details.
+
 ## ViewModel Widget
 
 The `ViewModelWidget` is an implementation of a widget class that returns a value provided by the Provider as a parameter in the build function of the widget. Let's say for instance you have a data model you want to use in multiple widgets. We can use the `Provider.value` call to supply that value, then inside the multiple widgets, we inherit from the `ViewModelWidget` and make use of the data directly from the build method.
