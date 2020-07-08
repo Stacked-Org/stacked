@@ -1,3 +1,7 @@
+## 1.7.1
+
+- Adds `initialiseSpecialViewModelsOnce` property to set initialise function call to only fire once.
+
 ## 1.7.0+1
 
 - Adds more migration notes
@@ -5,6 +9,7 @@
 ## 1.7.0 - [BREAKING CHANGES]
 
 ### Migrate from 1.6.1 -> 1.7
+
 - hasError(key) -> error(key) for multiple ViewModel
 
 - Adds `IndexTrackingViewModel` for help with BottomNavBar

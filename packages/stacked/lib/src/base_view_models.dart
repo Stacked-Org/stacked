@@ -11,6 +11,9 @@ class BaseViewModel extends ChangeNotifier {
   bool _initialised = false;
   bool get initialised => _initialised;
 
+  bool _onModelReadyCalled = false;
+  bool get onModelReadyCalled => _onModelReadyCalled;
+
   bool _disposed = false;
   bool get disposed => _disposed;
 
@@ -96,9 +99,14 @@ class BaseViewModel extends ChangeNotifier {
   }
 
   /// Sets the initialised value for the model to true. This is called after
-  /// the first onModelReady call
+  /// the first initialise special viewModel call
   void setInitialised(bool value) {
     _initialised = value;
+  }
+
+  /// Sets the onModelReadyCalled value to true. This is called after this first onModelReady call
+  void setOnModelReadyCalled(bool value) {
+    _onModelReadyCalled = value;
   }
 
   void _setBusyForModelOrObject(bool value, {Object busyObject}) {

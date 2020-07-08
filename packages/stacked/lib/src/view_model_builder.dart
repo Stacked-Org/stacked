@@ -38,6 +38,9 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   /// Or only once during the lifecycle of the model.
   final bool fireOnModelReadyOnce;
 
+  /// Indicates if we should run the initialise functionality for special viewmodels only once
+  final bool initialiseSpecialViewModelsOnce;
+
   /// Constructs a viewmodel provider that will not rebuild the provided widget when notifyListeners is called.
   ///
   /// Widget from [builder] will be used as a staic child and won't rebuild when notifyListeners is called
@@ -48,6 +51,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
     this.disposeViewModel = true,
     this.createNewModelOnInsert = false,
     this.fireOnModelReadyOnce = false,
+    this.initialiseSpecialViewModelsOnce = false,
     Key key,
   })  : providerType = _ViewModelBuilderType.NonReactive,
         staticChild = null,
@@ -62,6 +66,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
     this.disposeViewModel = true,
     this.createNewModelOnInsert = false,
     this.fireOnModelReadyOnce = false,
+    this.initialiseSpecialViewModelsOnce = false,
     Key key,
   })  : providerType = _ViewModelBuilderType.Reactive,
         super(key: key);
@@ -92,14 +97,20 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
       _model = widget.viewModelBuilder();
     }
 
-    _initialiseSpecialViewModels();
+    if (widget.initialiseSpecialViewModelsOnce &&
+        !(_model as BaseViewModel).initialised) {
+      _initialiseSpecialViewModels();
+      (_model as BaseViewModel)?.setInitialised(true);
+    } else if (!widget.initialiseSpecialViewModelsOnce) {
+      _initialiseSpecialViewModels();
+    }
 
     // Fire onModelReady after the model has been constructed
     if (widget.onModelReady != null) {
       if (widget.fireOnModelReadyOnce &&
-          !(_model as BaseViewModel).initialised) {
+          !(_model as BaseViewModel).onModelReadyCalled) {
         widget.onModelReady(_model);
-        (_model as BaseViewModel)?.setInitialised(true);
+        (_model as BaseViewModel)?.setOnModelReadyCalled(true);
       } else if (!widget.fireOnModelReadyOnce) {
         widget.onModelReady(_model);
       }
@@ -107,8 +118,6 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
   }
 
   void _initialiseSpecialViewModels() {
-    // Add any additional actions here for spcialised ViewModels
-    // Add any additional actions here for spcialised ViewModels
     if (_model is Initialisable) {
       (_model as Initialisable).initialise();
     }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:new_architecture/ui/bottom_nav/profile/profile_view.dart';
 import 'package:stacked/stacked.dart';
 
 import 'bottom_nav_example_viewmodel.dart';
 import 'favorites/favorites_view.dart';
 import 'history/history_view.dart';
-import 'history/profile/profile_view.dart';
 
 class BottomNavExample extends StatefulWidget {
   const BottomNavExample({Key key}) : super(key: key);
