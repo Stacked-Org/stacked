@@ -7,6 +7,7 @@ An architecture developed and revised by the [FilledStacks](https://www.youtube.
 ### Migrate from 1.6.1 -> 1.7
 
 - hasError(key) -> error(key) for multiple ViewModel
+- model.error -> model.modelError for multiple ViewModel
 
 ## How Does it work
 
