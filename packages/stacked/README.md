@@ -4,7 +4,6 @@ An architecture developed and revised by the [FilledStacks](https://www.youtube.
 
 [Here you can watch the full video series](https://www.youtube.com/playlist?list=PLdTodMosi-BwM4XkagNwe4KADOMWQS5X-) for an in depth dive of this architecture.
 
-
 ### Migrate from 1.6.1 -> 1.7
 
 - hasError(key) -> error(key) for multiple ViewModel
@@ -826,6 +825,57 @@ class MultipleStreamsExampleViewModel extends MultipleStreamViewModel {
 ```
 
 Similarly to the single-stream model. When your stream has changed you should call `notifySourceChanged` to let the ViewModel know that it should stop listening to the old stream and subscribe to the new one. If you want to check if the stream had an error you can use the `hasError` function with the key for the stream, you can also get the error using `getError` with the key for the Stream.
+
+### IndexTrackingViewModel
+
+This ViewModel provides the basic functionality required for index tracking like bottom nav bar, side drawer, etc. It has functions and properties set and get the current index as well as a property that indicates `reversed` to be used with page transition animations. it can be used in a view as follows.
+
+```dart
+class HomeView extends StatelessWidget {
+  const HomeView({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<HomeViewModel>.reactive(
+      builder: (context, model, child) => Scaffold(
+        body: getViewForIndex(model.currentIndex),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.grey[800],
+          currentIndex: model.currentTabIndex,
+          onTap: model.setTabIndex,
+          items: [
+            BottomNavigationBarItem(
+              title: Text('Posts'),
+              icon: Icon(Icons.art_track),
+            ),
+            BottomNavigationBarItem(
+              title: Text('Todos'),
+              icon: Icon(Icons.list),
+            ),
+          ],
+        ),
+      ),
+      viewModelBuilder: () => HomeViewModel(),
+    );
+  }
+
+  Widget getViewForIndex(int index) {
+    switch (index) {
+      case 0:
+        return PostsView();
+      case 1:
+        return TodosView();
+    }
+  }
+}
+```
+
+Where the `ViewModel` is just this.
+
+```dart
+class HomeViewModel extends IndexTrackingViewModel {}
+```
 
 ## Migrating from provider_architecture to Stacked
 
