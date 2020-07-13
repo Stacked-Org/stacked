@@ -24,18 +24,34 @@ class CounterService with ReactiveServiceMixin {
   }
 }
 
-class MultipleCounterService with ReactiveServiceMixin {
+class ListCounterService with ReactiveServiceMixin {
   RxList<int> _counters = RxList<int>();
   RxList get counters => _counters;
   int _counter = 0;
 
-  MultipleCounterService() {
+  ListCounterService() {
     listenToReactiveValues([
       _counters,
     ]);
   }
 
   void addCounterToList() {
+    _counters.add(_counter++);
+  }
+}
+
+class SetCounterService with ReactiveServiceMixin {
+  RxSet<int> _counters = RxSet<int>();
+  RxSet get counters => _counters;
+  int _counter = 0;
+
+  SetCounterService() {
+    listenToReactiveValues([
+      _counters,
+    ]);
+  }
+
+  void addCounterToSet() {
     _counters.add(_counter++);
   }
 }
@@ -63,7 +79,7 @@ void main() {
     test('When RxList updates on reactive service, should call listeners',
         () async {
       var called = false;
-      var reactiveService = MultipleCounterService();
+      var reactiveService = ListCounterService();
 
       reactiveService.addListener(() {
         called = true;
@@ -77,10 +93,29 @@ void main() {
 
       expect(called, true);
     });
-    test('When notifyListeners is called on a service whould fire the listener',
+
+    test('When RxSet updates on reactive service, should call listeners',
         () async {
       var called = false;
-      var reactiveService = MultipleCounterService();
+      var reactiveService = SetCounterService();
+
+      reactiveService.addListener(() {
+        called = true;
+      });
+
+      reactiveService.addCounterToSet();
+
+      // Have to wait for the listener to be called above. In real life the results is not
+      // expected to happen in the same CPU cycle so this is perfect for a unit test.
+      await Future.delayed(Duration(milliseconds: 10));
+
+      expect(called, true);
+    });
+
+    test('When notifyListeners is called on a service would fire the listener',
+        () async {
+      var called = false;
+      var reactiveService = ListCounterService();
 
       reactiveService.addListener(() {
         called = true;
