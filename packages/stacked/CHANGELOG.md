@@ -1,3 +1,7 @@
+## 1.7.2
+
+- Adds `RxSet` to the reactive list of functionalities.
+
 ## 1.7.1+1
 
 - Adds `initialiseSpecialViewModelsOnce` to the readme.
