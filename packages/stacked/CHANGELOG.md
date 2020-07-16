@@ -1,3 +1,7 @@
+## 1.7.3
+
+- Removes old error handling code for specialty viewmodels
+
 ## 1.7.2
 
 - Adds `RxSet` to the reactive list of functionalities.

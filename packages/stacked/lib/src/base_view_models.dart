@@ -207,15 +207,12 @@ class _SingleDataSourceViewModel<T> extends DynamicSourceViewModel {
   T _data;
   T get data => _data;
 
-  bool _hasError;
-  bool get hasError => _hasError;
-
   dynamic _error;
 
   @override
   dynamic error([Object object]) => _error;
 
-  bool get dataReady => _data != null && !_hasError;
+  bool get dataReady => _data != null && !hasError;
 }
 
 class _MultiDataSourceViewModel extends DynamicSourceViewModel {
@@ -239,7 +236,7 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
   Future<T> futureToRun();
 
   Future initialise() async {
-    _hasError = false;
+    setError(null);
     _error = null;
     // We set busy manually as well because when notify listeners is called to clear error messages the
     // ui is rebuilt and if you expect busy to be true it's not.
@@ -248,7 +245,7 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
 
     _data = await runBusyFuture(futureToRun(), throwException: true)
         .catchError((error) {
-      _hasError = true;
+      setError(error);
       _error = error;
       setBusy(false);
       onError(error);
@@ -459,7 +456,7 @@ abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T>
   void initialise() {
     _streamSubscription = stream.listen(
       (incomingData) {
-        _hasError = false;
+        setError(null);
         _error = null;
         notifyListeners();
         // Extra security in case transformData isnt sent
@@ -476,7 +473,7 @@ abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T>
         notifyListeners();
       },
       onError: (error) {
-        _hasError = true;
+        setError(error);
         _error = error;
         _data = null;
         onError(error);
@@ -549,7 +546,7 @@ class StreamData<T> extends _SingleDataSourceViewModel<T> {
   void initialise() {
     _streamSubscription = stream.listen(
       (incomingData) {
-        _hasError = false;
+        setError(null);
         _error = null;
         notifyListeners();
         // Extra security in case transformData isnt sent
@@ -566,7 +563,7 @@ class StreamData<T> extends _SingleDataSourceViewModel<T> {
         onData(_data);
       },
       onError: (error) {
-        _hasError = true;
+        setError(error);
         _data = null;
         onError(error);
         notifyListeners();
