@@ -45,7 +45,7 @@ class BaseViewModel extends ChangeNotifier {
   }
 
   /// Returns a boolean that indicates if the viewmodel has an error for the key
-  bool hasErrorForKey(Object key) => error(key) != null;
+  bool hasErrorForKey(Object key) => error(key.hashCode) != null;
 
   /// Clears all the errors
   void clearErrors() {

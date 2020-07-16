@@ -1,3 +1,7 @@
+## 1.7.3+1
+
+- Use hascode for hasErrorForObject function instead of value directly
+
 ## 1.7.3
 
 - Removes old error handling code for specialty viewmodels
