@@ -1,4 +1,9 @@
+## 1.7.4
+
+- Makes index tracking viewmodel a reactive viewmodel so it can react to services
+
 ## 1.7.3+2
+
 - REVERT: Use hascode for hasErrorForObject function instead of value directly
 
 ## 1.7.3+1

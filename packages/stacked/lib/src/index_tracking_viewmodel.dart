@@ -1,6 +1,7 @@
 import 'package:stacked/src/base_view_models.dart';
+import 'package:stacked/src/reactive_service_mixin.dart';
 
-class IndexTrackingViewModel extends BaseViewModel {
+class IndexTrackingViewModel extends ReactiveViewModel {
   int _currentIndex = 0;
   int get currentIndex => _currentIndex;
 
@@ -21,4 +22,7 @@ class IndexTrackingViewModel extends BaseViewModel {
   }
 
   bool isIndexSelected(int index) => _currentIndex == index;
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [];
 }
