@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_hooks/stacked_hooks.dart';
 import 'home_viewmodel.dart';
 
 class HookViewModelWidgetExample extends StatelessWidget {
