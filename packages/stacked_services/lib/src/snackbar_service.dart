@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:injectable/injectable.dart';
 
 /// A service that allows the user to show the snackbar from a ViewModel
-@lazySingleton
 class SnackbarService {
   get navigatorKey {
     return Get.key;

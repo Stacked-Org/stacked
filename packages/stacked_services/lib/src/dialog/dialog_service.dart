@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:injectable/injectable.dart';
 import 'package:stacked_services/src/dialog/platform_dialog.dart';
 
 enum DialogPlatform {
@@ -13,7 +12,6 @@ enum DialogPlatform {
 }
 
 /// A DialogService that uses the Get package to show dialogs
-@lazySingleton
 class DialogService {
   Completer<DialogResponse> _dialogCompleter;
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:injectable/injectable.dart';
 
 class NavigationTransition {
   static const String Fade = 'fade';
@@ -16,7 +15,6 @@ class NavigationTransition {
 /// Provides a service that can be injected into the ViewModels for navigation.
 ///
 /// Uses the Get library for all navigation requirements
-@lazySingleton
 class NavigationService {
   Map<String, Transition> _transitions = {
     NavigationTransition.Fade: Transition.fade,

@@ -4,17 +4,22 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-import 'package:stacked_services/stacked_services.dart';
-import 'package:example/services/thirdparty_services_module.dart';
 import 'package:get_it/get_it.dart';
+import 'package:injectable/get_it_helper.dart';
+import 'package:stacked_services/stacked_services.dart';
+
+import '../services/thirdparty_services_module.dart';
+
+/// adds generated dependencies
+/// to the provided [GetIt] instance
 
 void $initGetIt(GetIt g, {String environment}) {
+  final gh = GetItHelper(g, environment);
   final thirdPartyServicesModule = _$ThirdPartyServicesModule();
-  g.registerLazySingleton<DialogService>(
-      () => thirdPartyServicesModule.dialogService);
-  g.registerLazySingleton<NavigationService>(
+  gh.lazySingleton<DialogService>(() => thirdPartyServicesModule.dialogService);
+  gh.lazySingleton<NavigationService>(
       () => thirdPartyServicesModule.navigationService);
-  g.registerLazySingleton<SnackbarService>(
+  gh.lazySingleton<SnackbarService>(
       () => thirdPartyServicesModule.snackbarService);
 }
 

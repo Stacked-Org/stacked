@@ -15,11 +15,18 @@ abstract class Routes {
   static const homeScreenRoute = '/';
   static const firstScreenRoute = '/first-screen-route';
   static const secondScreenRoute = '/second-screen-route';
+  static const all = {
+    homeScreenRoute,
+    firstScreenRoute,
+    secondScreenRoute,
+  };
 }
 
 class Router extends RouterBase {
-  //This will probably be removed in future versions
-  //you should call ExtendedNavigator.ofRouter<Router>() directly
+  @override
+  Set<String> get allRoutes => Routes.all;
+
+  @Deprecated('call ExtendedNavigator.ofRouter<Router>() directly')
   static ExtendedNavigatorState get navigator =>
       ExtendedNavigator.ofRouter<Router>();
 
@@ -71,9 +78,9 @@ class Router extends RouterBase {
   }
 }
 
-//**************************************************************************
+// *************************************************************************
 // Arguments holder classes
-//***************************************************************************
+// **************************************************************************
 
 //HomeScreen arguments holder class
 class HomeScreenArguments {
