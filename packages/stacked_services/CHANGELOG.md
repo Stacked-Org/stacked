@@ -1,5 +1,9 @@
 ## 0.4.4+3
 
+- Bumps injectable version
+
+## 0.4.4+3
+
 - Bumps get version
 
 ## 0.4.4+2
