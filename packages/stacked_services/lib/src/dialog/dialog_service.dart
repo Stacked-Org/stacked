@@ -49,23 +49,25 @@ class DialogService {
 
     if (dialogPlatform != null) {
       _showDialog(
-          title: title,
-          description: description,
-          cancelTitle: cancelTitle,
-          buttonTitle: buttonTitle,
-          dialogPlatform: dialogPlatform,
-          barrierDismissible: barrierDismissible);
+              title: title,
+              description: description,
+              cancelTitle: cancelTitle,
+              buttonTitle: buttonTitle,
+              dialogPlatform: dialogPlatform,
+              barrierDismissible: barrierDismissible)
+          .then((_) => _dialogCompleter?.complete());
     } else {
       var _dialogType = GetPlatform.isAndroid
           ? DialogPlatform.Material
           : DialogPlatform.Cupertino;
       _showDialog(
-          title: title,
-          description: description,
-          cancelTitle: cancelTitle,
-          buttonTitle: buttonTitle,
-          dialogPlatform: _dialogType,
-          barrierDismissible: barrierDismissible);
+              title: title,
+              description: description,
+              cancelTitle: cancelTitle,
+              buttonTitle: buttonTitle,
+              dialogPlatform: _dialogType,
+              barrierDismissible: barrierDismissible)
+          .then((_) => _dialogCompleter?.complete());
     }
 
     return _dialogCompleter.future;
@@ -173,7 +175,7 @@ class DialogService {
       //     child: child,
       //   );
       // },
-    );
+    ).then((_) => _dialogCompleter?.complete());
 
     return _dialogCompleter.future;
   }
@@ -189,19 +191,14 @@ class DialogService {
     ///
     /// When not set a Platform specific dialog will be shown
     DialogPlatform dialogPlatform,
-  }) {
-    _dialogCompleter = Completer<DialogResponse>();
-
-    showDialog(
-      title: title,
-      description: description,
-      buttonTitle: confirmationTitle,
-      cancelTitle: cancelTitle,
-      dialogPlatform: dialogPlatform,
-    );
-
-    return _dialogCompleter.future;
-  }
+  }) =>
+      showDialog(
+        title: title,
+        description: description,
+        buttonTitle: confirmationTitle,
+        cancelTitle: cancelTitle,
+        dialogPlatform: dialogPlatform,
+      );
 
   /// Completes the dialog and passes the [response] to the caller
   void completeDialog(DialogResponse response) {

@@ -1,3 +1,19 @@
+## 0.4.10
+
+-Adds null check to dialog service completer
+
+## 0.4.9
+
+- Completes dialogCompleter for confirmation dialog as well
+
+## 0.4.8
+
+- Completes dialogCompleter if the custom dialog is dismissed without the button tap
+
+## 0.4.7
+
+- Makes the dialog completer finish when dialog is dismissed using barrier dismissal
+
 ## 0.4.6
 
 - Removed injectable
