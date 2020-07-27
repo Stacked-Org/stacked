@@ -1,6 +1,10 @@
+## 0.4.11
+
+- Exposes `barrierDismssible` on showConfirmation dialog
+
 ## 0.4.10
 
--Adds null check to dialog service completer
+- Adds null check to dialog service completer
 
 ## 0.4.9
 
