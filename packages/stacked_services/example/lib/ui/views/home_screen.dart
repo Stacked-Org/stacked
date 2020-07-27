@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 await _dialogService.showConfirmationDialog(
                   title: 'Test Confirmation Dialog Title',
                   description: 'Test Confirmation Dialog Description',
-                  barrierDismissible = true,
+                  barrierDismissible: true,
                 );
               },
               child: Text(
@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   dialogPlatform: DialogPlatform.Cupertino,
                   title: 'Test Confirmation Dialog Title',
                   description: 'Test Confirmation Dialog Description',
-                  barrierDismissible = true,
+                  barrierDismissible: true,
                 );
               },
               child: Text(
