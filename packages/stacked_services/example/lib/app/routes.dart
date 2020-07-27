@@ -7,12 +7,22 @@ import '../ui/views/second_screen.dart';
 
 // Defining routes and global transitions
 @CustomAutoRouter(
-    transitionsBuilder: TransitionsBuilders.zoomIn, durationInMilliseconds: 400)
-class $Router {
-  @initial
-  HomeScreen homeScreenRoute;
-
-  FirstScreen firstScreenRoute;
-
-  SecondScreen secondScreenRoute;
-}
+    routes: <AutoRoute>[
+    MaterialRoute(
+      page: HomeScreen,
+      name: 'homeScreenRoute',
+      initial: true,
+    ),
+    MaterialRoute(
+      page: FirstScreen,
+      name: 'firstScreenRoute',
+    ),
+    MaterialRoute(
+      page: SecondScreen,
+      name: 'secondScreenRoute',
+    ),
+  ],
+  transitionsBuilder: TransitionsBuilders.zoomIn, 
+  durationInMilliseconds: 400,
+)
+class $Router {}
