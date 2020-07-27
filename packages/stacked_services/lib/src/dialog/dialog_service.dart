@@ -186,7 +186,8 @@ class DialogService {
     String description,
     String cancelTitle = 'Cancel',
     String confirmationTitle = 'Ok',
-
+    bool barrierDismissible = false,
+    
     /// Indicates which [DialogPlatform] to show.
     ///
     /// When not set a Platform specific dialog will be shown
@@ -198,6 +199,7 @@ class DialogService {
         buttonTitle: confirmationTitle,
         cancelTitle: cancelTitle,
         dialogPlatform: dialogPlatform,
+        barrierDismissible: barrierDismissible,
       );
 
   /// Completes the dialog and passes the [response] to the caller
