@@ -100,10 +100,24 @@ class SnackbarService {
     );
 
     final getBar = GetBar(
-      title: title,
-      message: message,
-      titleText: snackbarConfig.titleText,
-      messageText: snackbarConfig.messageText,
+      titleText: Text(
+        title,
+        style: TextStyle(
+            color: snackbarConfig?.titleColor ??
+                snackbarConfig?.textColor ??
+                Colors.white,
+            fontWeight: FontWeight.w800,
+            fontSize: 16),
+      ),
+      messageText: Text(
+        message,
+        style: TextStyle(
+            color: snackbarConfig?.messageColor ??
+                snackbarConfig?.textColor ??
+                Colors.white,
+            fontWeight: FontWeight.w300,
+            fontSize: 14),
+      ),
       icon: snackbarConfig.icon,
       shouldIconPulse: snackbarConfig.shouldIconPulse,
       maxWidth: snackbarConfig.maxWidth,
