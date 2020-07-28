@@ -61,7 +61,7 @@ class SnackbarConfig {
     this.instantInit = false,
     this.shouldIconPulse = true,
     this.maxWidth,
-    this.margin = const EdgeInsets.all(0.0),
+    this.margin,
     this.padding = const EdgeInsets.all(16),
     this.borderRadius = 0.0,
     this.borderColor,

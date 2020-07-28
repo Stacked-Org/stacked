@@ -40,6 +40,7 @@ class SnackbarService {
     final mainButtonWidget = _getMainButtonWidget(
       mainButtonTitle: mainButtonTitle,
       onMainButtonTapped: onMainButtonTapped,
+      config: _snackbarConfig,
     );
 
     Get.snackbar(
@@ -95,6 +96,7 @@ class SnackbarService {
     final mainButtonWidget = _getMainButtonWidget(
       mainButtonTitle: mainButtonTitle,
       onMainButtonTapped: onMainButtonTapped,
+      config: snackbarConfig,
     );
 
     final getBar = GetBar(
