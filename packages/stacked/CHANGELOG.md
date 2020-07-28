@@ -1,3 +1,7 @@
+## 1.7.5
+
+- Adds rethrow capability to the `FutureViewModel`
+
 ## 1.7.4
 
 - Makes index tracking viewmodel a reactive viewmodel so it can react to services

@@ -235,6 +235,9 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
 
   Future<T> futureToRun();
 
+  /// Indicates if you want the error caught in futureToRun to be rethrown
+  bool get rethrowException => false;
+
   Future initialise() async {
     setError(null);
     _error = null;
@@ -250,6 +253,9 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
       setBusy(false);
       onError(error);
       notifyListeners();
+      if (rethrowException) {
+        throw error;
+      }
     });
 
     if (_data != null) {
