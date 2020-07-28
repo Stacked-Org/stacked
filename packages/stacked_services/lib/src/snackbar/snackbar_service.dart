@@ -17,8 +17,16 @@ class SnackbarService {
 
   SnackbarConfig _snackbarConfig;
 
+  /// Saves the [config] to be used for the [showSnackbar] function
   void registerSnackbarConfig(SnackbarConfig config) =>
       _snackbarConfig = config;
+
+  /// Saves the [config] against the value of [customData]
+  void registerCustomSnackbarconfig({
+    @required dynamic customData,
+    @required SnackbarConfig config,
+  }) =>
+      _customSnackbarConfigs[customData] = config;
 
   /// Shows a snack bar with the details passed in
   void showSnackbar({
@@ -69,32 +77,9 @@ class SnackbarService {
     );
   }
 
-  Widget _getMainButtonWidget({
-    String mainButtonTitle,
-    Function onMainButtonTapped,
-    SnackbarConfig config,
-  }) {
-    return mainButtonTitle != null
-        ? FlatButton(
-            child: Text(
-              mainButtonTitle,
-              style: TextStyle(
-                  color: config?.mainButtonTextColor ??
-                      config?.textColor ??
-                      Colors.white),
-            ),
-            onPressed: onMainButtonTapped,
-          )
-        : null;
-  }
-
-  // TODO: I don't want UI code in the viewmodels so we will allow users to register UI builders that they can show
-  // using a custom key.
-  /// Allows you to build a custom snack bar
   Future showCustomSnackBar({
     @required String message,
     @required dynamic customData,
-    Key key,
     String title,
     String mainButtonTitle,
     Function onMainButtonTapped,
@@ -113,7 +98,6 @@ class SnackbarService {
     );
 
     final getBar = GetBar(
-      key: key,
       title: title,
       message: message,
       titleText: snackbarConfig.titleText,
@@ -162,5 +146,24 @@ class SnackbarService {
       });
       return completer.future;
     }
+  }
+
+  Widget _getMainButtonWidget({
+    String mainButtonTitle,
+    Function onMainButtonTapped,
+    SnackbarConfig config,
+  }) {
+    return mainButtonTitle != null
+        ? FlatButton(
+            child: Text(
+              mainButtonTitle,
+              style: TextStyle(
+                  color: config?.mainButtonTextColor ??
+                      config?.textColor ??
+                      Colors.white),
+            ),
+            onPressed: onMainButtonTapped,
+          )
+        : null;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+/// Stores the configuration for the visual appearance of a snackbar
 class SnackbarConfig {
   Widget titleText;
   Widget messageText;
