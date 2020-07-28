@@ -240,27 +240,128 @@ The `NavigationService` will allow you to navigate your app easily from the `Vie
 
 ## Snackbar Service
 
-The `SnackbarService` will show a snackbar from the `ViewModel`. A snackbar can be shown using the showSnackbar function on the `SnackbarService`.
+The `SnackbarService` allows you to show a snack bar from the `ViewModel`. Logic and state is handled in the `ViewModel` this is where you know something went wrong, a results is unexpected or when a user has completed an action. Instead of routing the action back to the UI to show a snackbar using the context we can show it directly from the ViewModel using the `SnackbarService`.
+
+### Basic Usage
+
+To use the service is quite easy. Here is an example of how you'd show a snackbar.
 
 ```dart
-await _snackbarService.showSnackbar(
-  /// REQUIRED
-  message: 'Wow, My Regular Snackbar',
-
-  ////////////////////////////
-  /// Optional Parameters ///
-  //////////////////////////
-  title: 'My Regular Snackbar Title',
-  iconData: Icons.hello,
-  /// logic for when the snackbar is tapped!
-  onTap: () {},
-  /// defaults to `false`; accepts `bool`
-  shouldIconPulse: false,
-  /// defaults to `0`; accepts `double`
-  barBlur: 0,
-  /// defaults to `true`; accepts `bool`
-  isDissmissible: true,
-  /// defaults to a `Duration` of `3 seconds`; accepts `Duration()`
-  duration: const Duration(seconds: 3),
+_snackbarService.showSnackbar(
+  message: 'This is a snack bar',
+  title: 'The title',
+  duration: Duration(seconds: 2),
+  onTap: (_) {
+    print('snackbar tapped');
+  },
+  mainButtonTitle: 'Undo',
+  onMainButtonTapped: () => print('Undo the action!'),
 );
 ```
+
+This will show a default Snackbar styled with the background set as Dark grey and the text as white. There will be a main button on the right that will fire the function and print 'Undo the action!' when it's tapped.
+
+### Styling the Snackbar
+
+To supply a style for the `showSnackbar` function you have to supply a `SnackbarConfig`. Create a new file in your ui folder called `setup_snackbar_ui.dart`. Inside create a function that will register your snackbarConfig. We will register a config that makes the background red, text white and the main button title black.
+
+```dart
+void setupSnackbarUi() {
+  final service = locator<SnackbarService>();
+
+  // Registers a config to be used when calling showSnackbar
+  service.registerSnackbarConfig(SnackbarConfig(
+    backgroundColor: Colors.red,
+    textColor: Colors.white,
+    mainButtonTextColor: Colors.black,
+  ));
+}
+```
+
+Then in the main.dart file before running the app, after setting up the locator we call `setupSnackbarUi`.
+
+```dart
+void main() {
+  setupLocator();
+  setupDialogUi();
+  // Setup the snackbar UI
+  setupSnackbarUi();
+  runApp(MyApp());
+}
+```
+
+If you now execute the same showSnackbar function as above you'll see the background is red, text white and the action button has black text.
+
+### Custom Styles
+
+Sometimes you might want more than 1 snackbar style. In this case you can register multiple SnackbarConfigs to be shown using the `showCustomSnackBar` function. To register a custom config we need to define unique values to register it again that's easy to reference when we want to show the snackbar using that config. I like to use enums. We'll start by creating an enum called `SnackbarType`.
+
+```dart
+/// The type of snackbar to show
+enum SnackbarType { blueAndYellow, greenAndRed }
+```
+
+Then open up the `setup_snackbar_ui.dart` created above and we'll add the configs for the two enums.
+
+```dart
+void setupSnackbarUi() {
+  final service = locator<SnackbarService>();
+
+  ...
+
+  service.registerCustomSnackbarconfig(
+    customData: SnackbarType.blueAndYellow,
+    config: SnackbarConfig(
+      backgroundColor: Colors.blueAccent,
+      textColor: Colors.yellow,
+      borderRadius: 1,
+      dismissDirection: SnackDismissDirection.HORIZONTAL,
+    ),
+  );
+
+  service.registerCustomSnackbarconfig(
+    customData: SnackbarType.greenAndRed,
+    config: SnackbarConfig(
+      backgroundColor: Colors.white,
+      titleColor: Colors.green,
+      messageColor: Colors.red,
+      borderRadius: 1,
+    ),
+  );
+}
+```
+
+Now you can call `showCustomSnackBar` and pass in the `customData` enum that you'd like to use. The following code will show the blueAndYellow snackbar.
+
+```dart
+ _snackbarService.showCustomSnackBar(
+  customData: SnackbarType.blueAndYellow,
+  message: 'Blue and yellow',
+  title: 'The message is the message',
+  duration: Duration(seconds: 2),
+  onTap: (_) {
+    print('snackbar tapped');
+  },
+  mainButtonTitle: 'Undo',
+  onMainButtonTapped: () => print('Undo the action!'),
+);
+```
+
+And the following code will show the greenAndRed snackbar
+
+```dart
+ _snackbarService.showCustomSnackBar(
+  customData: SnackbarType.greenAndRed,
+  title: 'Green and Red',
+  message:
+      'The text is green and red and the background is white',
+  duration: Duration(seconds: 2),
+  onTap: (_) {
+    print('snackbar tapped');
+  },
+  mainButtonTitle: 'Undo',
+  onMainButtonTapped: () => print('Undo the action!'),
+);
+```
+
+The snackbar service does not cover every scenario at the moment, especially for adding multiple actions or using icons. If you're looking for those kind of features please make an issue or make a PR for the functionality. I would greatly appreciate it.

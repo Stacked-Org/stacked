@@ -1,3 +1,7 @@
+## 0.5.0 - Custom Snackbar styling
+
+- Adds `SnackbarConfig` functionality and associated functions for custom snackbar styling
+
 ## 0.4.11
 
 - Exposes `barrierDismssible` on showConfirmation dialog
