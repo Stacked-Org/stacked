@@ -7,7 +7,7 @@ import '../ui/views/second_screen.dart';
 
 // Defining routes and global transitions
 @CustomAutoRouter(
-    routes: <AutoRoute>[
+  routes: <AutoRoute>[
     MaterialRoute(
       page: HomeScreen,
       name: 'homeScreenRoute',
