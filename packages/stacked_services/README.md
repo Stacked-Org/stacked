@@ -46,13 +46,12 @@ To use the services you have to assign the navigation key to your Flutter applic
 
 ```dart
 MaterialApp(
-      title: 'Stacked Services',
-      navigatorKey: locator<NavigationService>().navigatorKey,
-      // home: AddCardView(), // Used when testing a view
-      initialRoute: Routes.startupViewRoute,
-      onGenerateRoute: Router().onGenerateRoute,
-      ),
-    );
+  title: 'Stacked Services',
+  navigatorKey: locator<NavigationService>().navigatorKey,
+  // home: AddCardView(), // Used when testing a view
+  initialRoute: Routes.startupViewRoute,
+  onGenerateRoute: Router().onGenerateRoute,
+);
 ```
 
 If you're only using the `DialogService` it also exposes the navigation key. **You only have to set the key for one of the services and it'll work for all the other services.** If you set the nav key using the navigation service you don't have to set it for the DialogService and vice versa.
@@ -77,51 +76,51 @@ In addition to platform-specific UI, you can also build a custom dialog. To do t
 void setupDialogUi() {
   var dialogService = locator<DialogService>();
 
-   dialogService.registerCustomDialogUi((context, dialogRequest) => Dialog(
-     child: // Build your UI here //
-   ));
+  dialogService.registerCustomDialogUi((context, dialogRequest) => Dialog(
+    child: // Build your UI here //
+  ));
 }
 ```
 
 The dialog request is how you will control which dialog to build if you have many custom dialogs. It is also possible to turn some parts on or based on what you'd like to show. The `DialogRequest` has a few properties that can make you easily decide which widgets to place in the dialog to show. All these properties can be passed directly to the `showCustomDialog` function. Here are all the properties available for you to use.
 
 ```dart
- /// The title for the dialog
-  final String title;
+/// The title for the dialog
+final String title;
 
-  /// Text so show in the dialog body
-  final String description;
+/// Text so show in the dialog body
+final String description;
 
-  /// Indicates if an image should be used or not
-  final bool hasImage;
+/// Indicates if an image should be used or not
+final bool hasImage;
 
-  /// The URL / path to the image to show
-  final String imageUrl;
+/// The URL / path to the image to show
+final String imageUrl;
 
-  /// The text shown in the main button
-  final String mainButtonTitle;
+/// The text shown in the main button
+final String mainButtonTitle;
 
-  /// A bool to indicate if you should show an icon in the main button
-  final bool showIconInMainButton;
+/// A bool to indicate if you should show an icon in the main button
+final bool showIconInMainButton;
 
-  /// The text to show on the secondary button on the dialog (cancel usually)
-  final String secondaryButtonTitle;
+/// The text to show on the secondary button on the dialog (cancel usually)
+final String secondaryButtonTitle;
 
-  /// Indicates if you should show an icon in the main button
-  final bool showIconInSecondaryButton;
+/// Indicates if you should show an icon in the main button
+final bool showIconInSecondaryButton;
 
-  /// The text shown on the third button on the dialog
-  final String additionalButtonTitle;
+/// The text shown on the third button on the dialog
+final String additionalButtonTitle;
 
-  /// Indicates if you should show an icon in the additional button
-  final bool showIconInAdditionalButton;
+/// Indicates if you should show an icon in the additional button
+final bool showIconInAdditionalButton;
 
-  /// Indicates if the dialog takes input
-  final bool takesInput;
+/// Indicates if the dialog takes input
+final bool takesInput;
 
-  /// Intended to be used with enums. If you want to create multiple different
-  /// dialogs. Pass your enum in here and check the value in the builder
-  final dynamic customData;
+/// Intended to be used with enums. If you want to create multiple different
+/// dialogs. Pass your enum in here and check the value in the builder
+final dynamic customData;
 ```
 
 ### Setup and usage
@@ -139,11 +138,11 @@ void main() {
 Now in your ViewModels, you can make use of the dialog as follows.
 
 ```dart
- await _dialogService.showCustomDialog(
-    title: 'This is a custom UI with Text as main button',
-    description:
-        'Sheck out the builder in the dialog_ui_register.dart file',
-    mainButtonTitle: 'Ok');
+await _dialogService.showCustomDialog(
+  title: 'This is a custom UI with Text as main button',
+  description: 'Sheck out the builder in the dialog_ui_register.dart file',
+  mainButtonTitle: 'Ok',
+);
 ```
 
 ### Returning Data from Custom Dialog
@@ -151,54 +150,56 @@ Now in your ViewModels, you can make use of the dialog as follows.
 The custom dialog follows the same rules as the normal dialog. Calling `completeDialog` and passing in a `DialogResponse` object will return it to the caller that's awaiting on the dialog response UI. So when you have a tap handler in your dialog and you want to close the dialog, use the `completeDialog` function.
 
 ```dart
-dialogService.registerCustomDialogUi((context, dialogRequest) => Dialog(
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
+dialogService.registerCustomDialogUi(
+  (context, dialogRequest) => Dialog(
+    child: Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            dialogRequest.title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                dialogRequest.title,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                dialogRequest.description,
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              GestureDetector(
-                // Complete the dialog when you're done with it to return some data
-                onTap: () => dialogService.completeDialog(DialogResponse(confirmed: true)),
-                child: Container(
-                  child: dialogRequest.showIconInMainButton
-                      ? Icon(Icons.check_circle)
-                      : Text(dialogRequest.mainButtonTitle),
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.redAccent,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-              )
-            ],
+          SizedBox(
+            height: 10,
           ),
-        ),
-      ));
+          Text(
+            dialogRequest.description,
+            style: TextStyle(
+              fontSize: 18,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          GestureDetector(
+            // Complete the dialog when you're done with it to return some data
+            onTap: () => dialogService.completeDialog(DialogResponse(confirmed: true)),
+            child: Container(
+              child: dialogRequest.showIconInMainButton
+                  ? Icon(Icons.check_circle)
+                  : Text(dialogRequest.mainButtonTitle),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.redAccent,
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  ),
+);
 ```
 
 Where you called your dialog function and awaited you'll receive the data returned from here.
@@ -207,11 +208,11 @@ Where you called your dialog function and awaited you'll receive the data return
 var response = await _dialogService.showCustomDialog(
   title: 'My custom dialog',
   description: 'This is my dialog description',
-  mainButtonTitle:'Confirm',
-  );
+  mainButtonTitle: 'Confirm',
+);
 
 if(response.confirmed) {
-  // do some confirmation action here.
+  // Do some confirmation action here.
 }
 ```
 
@@ -283,8 +284,6 @@ Then in the main.dart file before running the app, after setting up the locator 
 ```dart
 void main() {
   setupLocator();
-  setupDialogUi();
-  // Setup the snackbar UI
   setupSnackbarUi();
   runApp(MyApp());
 }
@@ -306,8 +305,6 @@ Then open up the `setup_snackbar_ui.dart` created above and we'll add the config
 ```dart
 void setupSnackbarUi() {
   final service = locator<SnackbarService>();
-
-  ...
 
   service.registerCustomSnackbarconfig(
     customData: SnackbarType.blueAndYellow,
@@ -334,7 +331,7 @@ void setupSnackbarUi() {
 Now you can call `showCustomSnackBar` and pass in the `customData` enum that you'd like to use. The following code will show the blueAndYellow snackbar.
 
 ```dart
- _snackbarService.showCustomSnackBar(
+_snackbarService.showCustomSnackBar(
   customData: SnackbarType.blueAndYellow,
   message: 'Blue and yellow',
   title: 'The message is the message',
@@ -350,7 +347,7 @@ Now you can call `showCustomSnackBar` and pass in the `customData` enum that you
 And the following code will show the greenAndRed snackbar
 
 ```dart
- _snackbarService.showCustomSnackBar(
+_snackbarService.showCustomSnackBar(
   customData: SnackbarType.greenAndRed,
   title: 'Green and Red',
   message:
