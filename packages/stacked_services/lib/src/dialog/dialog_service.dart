@@ -19,14 +19,18 @@ class DialogService {
       _customDialogBuilders =
       Map<dynamic, Widget Function(BuildContext, DialogRequest)>();
 
-  @Deprecated('Prefer to use the _customDialogBuilders property')
+  @Deprecated(
+    'Prefer to use the _customDialogBuilders property. Will be removed in future release',
+  )
   Widget Function(BuildContext, DialogRequest) _customDialogUI;
 
   get navigatorKey {
     return Get.key;
   }
 
-  @Deprecated('Prefer to use the registerCustomDialogBuilder() method')
+  @Deprecated(
+    'Prefer to use the registerCustomDialogBuilder() method. Will be removed in future release',
+  )
   void registerCustomDialogUi(
     Widget Function(BuildContext, DialogRequest) dialogBuilder,
   ) {

@@ -22,11 +22,23 @@ class SnackbarService {
       _snackbarConfig = config;
 
   /// Saves the [config] against the value of [customData]
+  @Deprecated(
+      'Prefer to use the registerCustomSnackbarConfig() method. Will be removed in future release')
   void registerCustomSnackbarconfig({
     @required dynamic customData,
     @required SnackbarConfig config,
   }) =>
-      _customSnackbarConfigs[customData] = config;
+      registerCustomSnackbarConfig(
+        variant: customData,
+        config: config,
+      );
+
+  /// Saves the [config] against the value of [variant]
+  void registerCustomSnackbarConfig({
+    @required dynamic variant,
+    @required SnackbarConfig config,
+  }) =>
+      _customSnackbarConfigs[variant] = config;
 
   /// Shows a snack bar with the details passed in
   void showSnackbar({
@@ -80,17 +92,27 @@ class SnackbarService {
 
   Future showCustomSnackBar({
     @required String message,
-    @required dynamic customData,
+    @deprecated dynamic customData,
+    dynamic variant,
     String title,
     String mainButtonTitle,
     Function onMainButtonTapped,
     Function onTap,
     Duration duration = const Duration(seconds: 1),
   }) {
-    var snackbarConfig = _customSnackbarConfigs[customData];
+    // TODO: Remove customData in the future release and set variant as required
+    final snakcbarVariant = variant ?? customData;
+    assert(
+      snakcbarVariant != null,
+      'No variant defined, you should provide the variant property to show a custom snackbar',
+    );
+
+    var snackbarConfig = _customSnackbarConfigs[snakcbarVariant];
+
     if (snackbarConfig == null) {
       throw CustomSnackbarException(
-          'No config found for $customData make sure you have called registerCustomConfig. See [README LINK HERE] for implementation details.');
+        'No config found for $snakcbarVariant make sure you have called registerCustomConfig. See [README LINK HERE] for implementation details.',
+      );
     }
 
     final mainButtonWidget = _getMainButtonWidget(
@@ -103,20 +125,22 @@ class SnackbarService {
       titleText: Text(
         title,
         style: TextStyle(
-            color: snackbarConfig?.titleColor ??
-                snackbarConfig?.textColor ??
-                Colors.white,
-            fontWeight: FontWeight.w800,
-            fontSize: 16),
+          color: snackbarConfig?.titleColor ??
+              snackbarConfig?.textColor ??
+              Colors.white,
+          fontWeight: FontWeight.w800,
+          fontSize: 16,
+        ),
       ),
       messageText: Text(
         message,
         style: TextStyle(
-            color: snackbarConfig?.messageColor ??
-                snackbarConfig?.textColor ??
-                Colors.white,
-            fontWeight: FontWeight.w300,
-            fontSize: 14),
+          color: snackbarConfig?.messageColor ??
+              snackbarConfig?.textColor ??
+              Colors.white,
+          fontWeight: FontWeight.w300,
+          fontSize: 14,
+        ),
       ),
       icon: snackbarConfig.icon,
       shouldIconPulse: snackbarConfig.shouldIconPulse,
@@ -169,17 +193,19 @@ class SnackbarService {
     Function onMainButtonTapped,
     SnackbarConfig config,
   }) {
-    return mainButtonTitle != null
-        ? FlatButton(
-            child: Text(
-              mainButtonTitle,
-              style: TextStyle(
-                  color: config?.mainButtonTextColor ??
-                      config?.textColor ??
-                      Colors.white),
-            ),
-            onPressed: onMainButtonTapped,
-          )
-        : null;
+    if (mainButtonTitle == null) {
+      return null;
+    }
+
+    return FlatButton(
+      child: Text(
+        mainButtonTitle,
+        style: TextStyle(
+          color:
+              config?.mainButtonTextColor ?? config?.textColor ?? Colors.white,
+        ),
+      ),
+      onPressed: onMainButtonTapped,
+    );
   }
 }
