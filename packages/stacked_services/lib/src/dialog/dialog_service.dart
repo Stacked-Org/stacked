@@ -15,15 +15,29 @@ enum DialogPlatform {
 class DialogService {
   Completer<DialogResponse> _dialogCompleter;
 
+  Map<dynamic, Widget Function(BuildContext, DialogRequest)>
+      _customDialogBuilders =
+      Map<dynamic, Widget Function(BuildContext, DialogRequest)>();
+
+  @Deprecated('Prefer to use the _customDialogBuilders property')
   Widget Function(BuildContext, DialogRequest) _customDialogUI;
 
   get navigatorKey {
     return Get.key;
   }
 
+  @Deprecated('Prefer to use the registerCustomDialogBuilder() method')
   void registerCustomDialogUi(
-      Widget Function(BuildContext, DialogRequest) dialogBuilder) {
+    Widget Function(BuildContext, DialogRequest) dialogBuilder,
+  ) {
     _customDialogUI = dialogBuilder;
+  }
+
+  void registerCustomDialogBuilder({
+    @required dynamic variant,
+    @required Widget Function(BuildContext, DialogRequest) builder,
+  }) {
+    _customDialogBuilders[variant] = builder;
   }
 
   // TODO: Create a dialog UI registration factory that will allow users to register
@@ -49,25 +63,25 @@ class DialogService {
 
     if (dialogPlatform != null) {
       _showDialog(
-              title: title,
-              description: description,
-              cancelTitle: cancelTitle,
-              buttonTitle: buttonTitle,
-              dialogPlatform: dialogPlatform,
-              barrierDismissible: barrierDismissible)
-          .then((_) => _dialogCompleter?.complete());
+        title: title,
+        description: description,
+        cancelTitle: cancelTitle,
+        buttonTitle: buttonTitle,
+        dialogPlatform: dialogPlatform,
+        barrierDismissible: barrierDismissible,
+      ).then((_) => _dialogCompleter?.complete());
     } else {
       var _dialogType = GetPlatform.isAndroid
           ? DialogPlatform.Material
           : DialogPlatform.Cupertino;
       _showDialog(
-              title: title,
-              description: description,
-              cancelTitle: cancelTitle,
-              buttonTitle: buttonTitle,
-              dialogPlatform: _dialogType,
-              barrierDismissible: barrierDismissible)
-          .then((_) => _dialogCompleter?.complete());
+        title: title,
+        description: description,
+        cancelTitle: cancelTitle,
+        buttonTitle: buttonTitle,
+        dialogPlatform: _dialogType,
+        barrierDismissible: barrierDismissible,
+      ).then((_) => _dialogCompleter?.complete());
     }
 
     return _dialogCompleter.future;
@@ -122,6 +136,7 @@ class DialogService {
 
   // Creates a popup with the given widget, a scale animation, and faded background.
   Future<DialogResponse> showCustomDialog({
+    dynamic variant,
     String title,
     String description,
     bool hasImage = false,
@@ -137,8 +152,14 @@ class DialogService {
     bool barrierDismissible = false,
     dynamic customData,
   }) {
-    assert(_customDialogUI != null,
-        'You have to call registerCustomDialogUi to use this function. Look at the custom dialog UI section in the stacked_services readme.');
+    // TODO: Remove the _customDialogUI in the next release
+    final customDialogUI =
+        variant != null ? _customDialogBuilders[variant] : _customDialogUI;
+
+    assert(
+      customDialogUI != null,
+      'You have to call registerCustomDialogBuilder to use this function. Look at the custom dialog UI section in the stacked_services readme.',
+    );
 
     _dialogCompleter = Completer<DialogResponse>();
 
@@ -148,23 +169,27 @@ class DialogService {
       barrierDismissible: barrierDismissible,
       useRootNavigator: true,
       pageBuilder: (BuildContext buildContext, _, __) => SafeArea(
-          child: Builder(
-              builder: (BuildContext context) => _customDialogUI(
-                  context,
-                  DialogRequest(
-                    title: title,
-                    description: description,
-                    hasImage: hasImage,
-                    imageUrl: imageUrl,
-                    showIconInMainButton: showIconInMainButton,
-                    mainButtonTitle: mainButtonTitle,
-                    showIconInSecondaryButton: showIconInSecondaryButton,
-                    secondaryButtonTitle: secondaryButtonTitle,
-                    showIconInAdditionalButton: showIconInAdditionalButton,
-                    additionalButtonTitle: additionalButtonTitle,
-                    takesInput: takesInput,
-                    customData: customData,
-                  )))),
+        child: Builder(
+          builder: (BuildContext context) => customDialogUI(
+            context,
+            DialogRequest(
+              title: title,
+              description: description,
+              hasImage: hasImage,
+              imageUrl: imageUrl,
+              showIconInMainButton: showIconInMainButton,
+              mainButtonTitle: mainButtonTitle,
+              showIconInSecondaryButton: showIconInSecondaryButton,
+              secondaryButtonTitle: secondaryButtonTitle,
+              showIconInAdditionalButton: showIconInAdditionalButton,
+              additionalButtonTitle: additionalButtonTitle,
+              takesInput: takesInput,
+              customData: customData,
+              variant: variant,
+            ),
+          ),
+        ),
+      ),
       // TODO: Add configurable transition builders to set  from the outside as well
       // transitionBuilder: (context, animation, _, child) {
       //   return ScaleTransition(
@@ -187,7 +212,7 @@ class DialogService {
     String cancelTitle = 'Cancel',
     String confirmationTitle = 'Ok',
     bool barrierDismissible = false,
-    
+
     /// Indicates which [DialogPlatform] to show.
     ///
     /// When not set a Platform specific dialog will be shown
@@ -262,6 +287,9 @@ class DialogRequest {
 
   /// Intended to be used with enums. If you want to create multiple different
   /// dialogs. Pass your enum in here and check the value in the builder
+  final dynamic variant;
+
+  /// Extra data to be passed to the UI
   final dynamic customData;
 
   DialogRequest({
@@ -277,5 +305,6 @@ class DialogRequest {
     this.additionalButtonTitle,
     this.takesInput,
     this.customData,
+    this.variant,
   });
 }
