@@ -70,15 +70,25 @@ await _dialogService.showDialog(
 
 ### Custom Dialog UI
 
-In addition to platform-specific UI, you can also build a custom dialog. To do that we'll do the following. In your UI folder or shared folder under UI, if you have one, create a new file called `setup_dialog_ui.dart`. Inside you will create a new function called `setupDialogUi`. In there you will call the function `registerCustomDialogUi` on the `DialogService`. _Look at the `setup_dialog_ui` file for a full example_
+In addition to platform-specific UI, you can also build a custom dialog. To do that we'll do the following. Start by creating an enum called `DialogType`.
+
+```dart
+/// The type of dialog to show
+enum DialogType { base, form }
+```
+
+In your UI folder or shared folder under UI, if you have one, create a new file called `setup_dialog_ui.dart`. Inside you will create a new function called `setupDialogUi`. In there you will call the function `registerCustomDialogBuilder` on the `DialogService`. _Look at the `setup_dialog_ui` file for a full example_
 
 ```dart
 void setupDialogUi() {
   var dialogService = locator<DialogService>();
 
-  dialogService.registerCustomDialogUi((context, dialogRequest) => Dialog(
-    child: // Build your UI here //
-  ));
+  dialogService.registerCustomDialogBuilder(
+    variant: DialogType.base,
+    builder: (BuildContext context, DialogRequest dialogRequest) => Dialog(
+      child: // Build your UI here //
+    ),
+  );
 }
 ```
 
@@ -120,6 +130,9 @@ final bool takesInput;
 
 /// Intended to be used with enums. If you want to create multiple different
 /// dialogs. Pass your enum in here and check the value in the builder
+final dynamic variant;
+
+/// Extra data to be passed to the UI
 final dynamic customData;
 ```
 
@@ -139,6 +152,7 @@ Now in your ViewModels, you can make use of the dialog as follows.
 
 ```dart
 await _dialogService.showCustomDialog(
+  variant: DialogType.base,
   title: 'This is a custom UI with Text as main button',
   description: 'Sheck out the builder in the dialog_ui_register.dart file',
   mainButtonTitle: 'Ok',
@@ -150,8 +164,9 @@ await _dialogService.showCustomDialog(
 The custom dialog follows the same rules as the normal dialog. Calling `completeDialog` and passing in a `DialogResponse` object will return it to the caller that's awaiting on the dialog response UI. So when you have a tap handler in your dialog and you want to close the dialog, use the `completeDialog` function.
 
 ```dart
-dialogService.registerCustomDialogUi(
-  (context, dialogRequest) => Dialog(
+dialogService.registerCustomDialogBuilder(
+  variant: DialogType.form,
+  builder: (BuildContext context, DialogRequest dialogRequest) => Dialog(
     child: Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -206,6 +221,7 @@ Where you called your dialog function and awaited you'll receive the data return
 
 ```dart
 var response = await _dialogService.showCustomDialog(
+  variant: DialogType.form,
   title: 'My custom dialog',
   description: 'This is my dialog description',
   mainButtonTitle: 'Confirm',
@@ -306,8 +322,8 @@ Then open up the `setup_snackbar_ui.dart` created above and we'll add the config
 void setupSnackbarUi() {
   final service = locator<SnackbarService>();
 
-  service.registerCustomSnackbarconfig(
-    customData: SnackbarType.blueAndYellow,
+  service.registerCustomSnackbarConfig(
+    variant: SnackbarType.blueAndYellow,
     config: SnackbarConfig(
       backgroundColor: Colors.blueAccent,
       textColor: Colors.yellow,
@@ -316,8 +332,8 @@ void setupSnackbarUi() {
     ),
   );
 
-  service.registerCustomSnackbarconfig(
-    customData: SnackbarType.greenAndRed,
+  service.registerCustomSnackbarConfig(
+    variant: SnackbarType.greenAndRed,
     config: SnackbarConfig(
       backgroundColor: Colors.white,
       titleColor: Colors.green,
@@ -328,11 +344,11 @@ void setupSnackbarUi() {
 }
 ```
 
-Now you can call `showCustomSnackBar` and pass in the `customData` enum that you'd like to use. The following code will show the blueAndYellow snackbar.
+Now you can call `showCustomSnackBar` and pass in the `variant` enum that you'd like to use. The following code will show the blueAndYellow snackbar.
 
 ```dart
 _snackbarService.showCustomSnackBar(
-  customData: SnackbarType.blueAndYellow,
+  variant: SnackbarType.blueAndYellow,
   message: 'Blue and yellow',
   title: 'The message is the message',
   duration: Duration(seconds: 2),
@@ -348,10 +364,9 @@ And the following code will show the greenAndRed snackbar
 
 ```dart
 _snackbarService.showCustomSnackBar(
-  customData: SnackbarType.greenAndRed,
+  variant: SnackbarType.greenAndRed,
   title: 'Green and Red',
-  message:
-      'The text is green and red and the background is white',
+  message: 'The text is green and red and the background is white',
   duration: Duration(seconds: 2),
   onTap: (_) {
     print('snackbar tapped');
