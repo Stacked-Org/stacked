@@ -1,3 +1,19 @@
+## 0.5.1
+
+### Custom Dialog
+
+- Add ability, like Custom Snackbar, to registry multiple variants of dialog.
+- Use variant term instead customData, I thins this is more clear then customData term to refer a specific type of Dialog
+- Add a builder property to declare the UI.
+- Rename registerCustomDialogUi to registerCustomDialogBuilder.
+- Update documentation.
+
+### Custom Snackbar
+
+- Use variant term instead customData, like I said for Custom Dialog, I think this is more clear use the variant term instead customData to refer a specific.
+- Normalize the name, instead registerCustomSnackbarconfig use the registerCustomSnackbarConfig.
+- Update documentation.
+
 ## 0.5.0 - Custom Snackbar styling
 
 - Adds `SnackbarConfig` functionality and associated functions for custom snackbar styling
