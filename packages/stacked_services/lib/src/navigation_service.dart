@@ -27,12 +27,10 @@ class NavigationService {
     NavigationTransition.LeftToRighttWithFade: Transition.leftToRightWithFade,
   };
 
-  get navigatorKey {
-    return Get.key;
-  }
+  GlobalKey<NavigatorState> get navigatorKey => Get.key;
 
   /// Creates and/or returns a new navigator key based on the index passed in
-  nestedNavigationKey(int index) => Get.nestedKey(index);
+  GlobalKey<NavigatorState> nestedNavigationKey(int index) => Get.nestedKey(index);
 
   /// Allows you to configure the default behaviour for navigation.
   ///
