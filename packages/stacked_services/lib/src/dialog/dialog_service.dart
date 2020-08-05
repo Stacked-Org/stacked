@@ -247,7 +247,7 @@ class DialogResponse {
 
   /// A place to put any response data from dialogs that may contain text fields
   /// or multi selection options
-  final List<dynamic> responseData;
+  final dynamic responseData;
 
   DialogResponse({
     this.confirmed,

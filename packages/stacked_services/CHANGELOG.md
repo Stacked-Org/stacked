@@ -1,3 +1,7 @@
+## 0.5.2
+
+- Changes Dialog response to a `dynamic` value instead of `List<dynamic>`
+
 ## 0.5.1
 
 ### Custom Dialog
