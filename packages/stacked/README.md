@@ -659,7 +659,7 @@ The future will run after the model has been created automatically.
 ```dart
 class FutureExampleViewModel extends FutureViewModel<String> {
   @override
-  Future<String> get future => getDataFromServer();
+  Future<String> futureToRun() => getDataFromServer();
 
   Future<String> getDataFromServer() async {
     await Future.delayed(const Duration(seconds: 3));
