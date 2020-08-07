@@ -1,3 +1,7 @@
+## 1.7.6
+
+- Adds `fireOnce` properties to the `ViewModelBuilderWidget`
+
 ## 1.7.5
 
 - Adds rethrow capability to the `FutureViewModel`

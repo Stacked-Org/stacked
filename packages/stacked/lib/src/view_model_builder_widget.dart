@@ -39,6 +39,14 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
   /// default's to true
   bool get disposeViewModel => true;
 
+  /// Indicates if you want to only initialise the [FutureViewModel] or [StreamViewModel] once or
+  /// every time it's inserted into the widget tree.
+  bool get initialiseSpecialViewModelsOnce => false;
+
+  /// Indicates if you want to fire onModelReady only once or everytime this widget is inserted into
+  /// the widget tree.
+  bool get fireOnModelReadyOnce => false;
+
   /// Fires when the viewmodel is first created or re-created
   ///
   /// This will fire multiple times when [createNewModelOnInsert] is set to true
@@ -61,6 +69,8 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
         onModelReady: onViewModelReady,
         disposeViewModel: disposeViewModel,
         createNewModelOnInsert: createNewModelOnInsert,
+        initialiseSpecialViewModelsOnce: initialiseSpecialViewModelsOnce,
+        fireOnModelReadyOnce: fireOnModelReadyOnce,
       );
     } else {
       return ViewModelBuilder<T>.nonReactive(
