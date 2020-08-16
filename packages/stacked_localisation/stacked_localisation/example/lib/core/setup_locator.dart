@@ -4,7 +4,10 @@ import 'package:stacked_services/stacked_services.dart';
 
 GetIt locator = GetIt.instance;
 
-void setupLocator() {
-  locator.registerLazySingleton(() => LocalisationService());
+Future setupLocator() async {
+  var localisationService = LocalisationService();
+  await localisationService.initialise();
+  locator.registerSingleton(localisationService);
+  
   locator.registerLazySingleton(() => NavigationService());
 }

@@ -2,5 +2,9 @@
   "HomeView": {
     "title": "Die is my Huis",
     "subtitle": "Ek bly in die Huis"
+  },
+  "SecondView": {
+    "title": "Die is my Huis",
+    "subtitle": "Ek bly in die Huis"
   }
 }

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:stacked_localisation/stacked_localisation.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 import 'core/router.gr.dart';
 import 'core/setup_locator.dart';
 
-void main() {
+Future main() async {
   // sets up the internal locator for the localisation service
   LocalisationService.setupLocator();
-
-  setupLocator();
+  await setupLocator();
   runApp(MyApp());
 }
 
@@ -19,8 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(),
-      navigatorKey: locator<NavigationService>().navigatorKey,
-      initialRoute: Routes.startupView,
+      initialRoute: Routes.homeView,
       onGenerateRoute: Router().onGenerateRoute,
     );
   }

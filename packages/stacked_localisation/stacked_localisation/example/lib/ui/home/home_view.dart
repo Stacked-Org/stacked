@@ -17,7 +17,11 @@ class HomeView extends StatelessWidget {
         body: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[Text(model.translate(HomeViewStrings.subtitle))],
+          children: <Widget>[
+            Text(model.translate(
+              HomeViewStrings.subtitle,
+            ))
+          ],
         ),
       ),
       viewModelBuilder: () => HomeViewModel(),
