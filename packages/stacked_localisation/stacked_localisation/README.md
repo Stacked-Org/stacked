@@ -139,3 +139,7 @@ _dialogSerice.showDialog(title: translate(HomeView.favoriteAddedTitle));
 ```
 
 If you have any requests, questions or pointers you can file an issue or [head over to our slack](https://join.slack.com/t/filledstacks/shared_invite/zt-8hae7yly-vjZX3sW5twN9v7DBlTsgrQ) and chat to use directly about improvements or just code in general.
+
+## Upcoming Features
+
+- [ ] Reload the language strings without having the restart the application. This will require adding something like the [LifeCycle manager shown here](https://youtu.be/NfvA-7-HzYk) to call the initialise function again which will load up the new strings and place them into memory.
