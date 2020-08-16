@@ -1,8 +1,7 @@
 name: stacked_localisation
-description: A new Flutter package project.
-version: 0.0.1
-author:
-homepage:
+description: A service class that helps with implementing localisation functionality in your application
+version: 0.1.0
+homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_localisation
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

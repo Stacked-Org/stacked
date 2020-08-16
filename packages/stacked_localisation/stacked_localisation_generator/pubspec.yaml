@@ -1,17 +1,18 @@
 name: stacked_localisation_generator
-description: A new Flutter package project.
-version: 0.0.1
-author:
-homepage:
+description: a package that generates string keys for use with the the localisation service in a type safe manner
+version: 0.1.0
+homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_localisation/stacked_localisation_generator
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  build:
-  source_gen:
-  analyzer:
+  build: ^1.3.0
+  source_gen: ^0.9.6
+  analyzer: ^0.39.17
   mustache: ^1.1.1
+  glob: ^1.2.0
+  path: ^1.7.0
 
 dev_dependencies:
   test:

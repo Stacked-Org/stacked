@@ -53,10 +53,11 @@ It takes the name of the parent view and adds the word "Strings" behind it. This
 
 ### Setup in code
 
-The localisation service requires a setup function to called and also an initialisation function to load all the strings into memory before starting the app. Lets start with the setup function. Open up your main.dart file and on the first line of the body call the static `setupLocator` function on the `LocalisationService`. We will also change the main function to a Future and change our setupLocator function to a future as well and await on the setup call.
+The localisation service requires a setup function to called and also an initialisation function to load all the strings into memory before starting the app. Lets start with the setup function. Open up your main.dart file and after calling `WidgetsFlutterBinding.ensureInitialized();` on the first line, call the static `setupLocator` function on the `LocalisationService`. The line `WidgetsFlutterBinding.ensureInitialized();` is required because we are making use of some plugins before the app runs which initialises all the plugin bindings. We will also change the main function to a Future and change our setupLocator function to a future as well and await on the setup call.
 
 ```dart
 Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // sets up the internal locator for the localisation service
   LocalisationService.setupLocator();
   await setupLocator();

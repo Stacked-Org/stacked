@@ -170,7 +170,7 @@ packages:
     source: hosted
     version: "0.10.11"
   glob:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: glob
       url: "https://pub.dartlang.org"
@@ -296,12 +296,12 @@ packages:
     source: hosted
     version: "1.9.3"
   path:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.4"
+    version: "1.7.0"
   pedantic:
     dependency: transitive
     description:
