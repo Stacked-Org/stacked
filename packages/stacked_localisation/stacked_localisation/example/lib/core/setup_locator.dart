@@ -8,6 +8,7 @@ Future setupLocator() async {
   var localisationService = LocalisationService();
   await localisationService.initialise();
   locator.registerSingleton(localisationService);
-  
+
   locator.registerLazySingleton(() => NavigationService());
+  locator.registerLazySingleton(() => DialogService());
 }

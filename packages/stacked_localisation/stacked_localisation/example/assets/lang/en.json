@@ -1,6 +1,9 @@
 {
   "HomeView": {
     "title": "This is my Home",
-    "subtitle": "I live in this Home"
+    "subtitle": "I live in this Home",
+    "dialogButtonTitle": "Show dialog",
+    "dialogTitle": "The action was successful",
+    "dialogDescription": "The action taken has completed successfully"
   }
 }

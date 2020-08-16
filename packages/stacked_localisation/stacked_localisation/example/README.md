@@ -1,4 +1,3 @@
-- [x] Create the localisation service
-- [] Create a generator to generate the String key files
-- [] Write the Readme instructions
-- [] publish the package
+## Stacked Localisation Example
+
+This example shows you the setup and usage of the stacked localisation package. In this example there are language files for 2 languages. English and Afrikaans. To test it out you should swap the language and restart the application.
