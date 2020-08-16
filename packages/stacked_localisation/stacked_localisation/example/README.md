@@ -1,0 +1,4 @@
+- [x] Create the localisation service
+- [] Create a generator to generate the String key files
+- [] Write the Readme instructions
+- [] publish the package
