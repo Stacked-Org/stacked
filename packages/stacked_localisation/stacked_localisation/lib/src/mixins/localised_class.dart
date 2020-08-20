@@ -8,7 +8,7 @@ mixin LocalisedClass {
     if (replacements != null) {
       for (int i = 0; i < replacements.length; i++) {
         stringFromFile =
-            stringFromFile.replaceFirst('{$i}', replacements[i].toString());
+            stringFromFile.replaceAll('{$i}', replacements[i].toString());
       }
     }
 

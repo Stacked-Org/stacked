@@ -30,6 +30,26 @@ void main() {
         var translated = model.translate('key', replacements: [9]);
         expect(translated, 'You have tapped 9 times');
       });
+
+      test(
+          'When called with multiple replacements for {0} should replace all of them',
+          () {
+        getAndRegisterLocalistionService(
+            localisationString: 'The number {0} will be shown here {0} too.');
+        var model = LocalisationModel();
+        var translated = model.translate('key', replacements: [9]);
+        expect(translated, 'The number 9 will be shown here 9 too.');
+      });
+
+      test(
+          'When called with multiple replacements for different indices should replace all of them',
+          () {
+        getAndRegisterLocalistionService(localisationString: '{0} {1} {2} {3}');
+        var model = LocalisationModel();
+        var translated =
+            model.translate('key', replacements: [9, 5, 'String', true]);
+        expect(translated, '9 5 String true');
+      });
     });
   });
 }

@@ -127,6 +127,26 @@ This provides you with a translate function that will return the value associate
 
 The language files added into the lang folder can be specific en_US.json or en_UK.json or it can be general en.json which will ensure all localisations starting with en will be given the strings defined in the en.json file. Another thing with the language files is to make sure all the files has the same strings. The localisation keys will be generated using the file that's first in the lang folder. If it's missing strings you won't be able to access them through the string key classes.
 
+## Dynamic values
+
+There is also support for dynamic values in the translations which are for values that you'd like to replace in the app. This is implemented through positional replacements.
+
+```json
+{
+  "CounterView" : {
+     "timesCounted" : "You have tapped {0} times",
+  }
+}
+```
+
+Can be used using the following code
+
+```dart
+translate(CounterViewStrings.timesCounted, replacements: [9]); // Returns 'You have tapped 9 times'
+```
+
+The replacements correlate to the index in the brackets so you can add multiple replacements for the same index or different values. An implementation of named replacements will be added if there is a need for it. 
+
 ## More Code
 
 The `LocalisedClass` mixin can be used in services as well, the exact same way. Which will allow you to throw localised exceptions or show localised dialogs easily as well.
