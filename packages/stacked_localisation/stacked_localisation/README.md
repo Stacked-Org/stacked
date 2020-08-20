@@ -53,13 +53,11 @@ It takes the name of the parent view and adds the word "Strings" behind it. This
 
 ### Setup in code
 
-The localisation service requires a setup function to called and also an initialisation function to load all the strings into memory before starting the app. Lets start with the setup function. Open up your main.dart file and after calling `WidgetsFlutterBinding.ensureInitialized();` on the first line, call the static `setupLocator` function on the `LocalisationService`. The line `WidgetsFlutterBinding.ensureInitialized();` is required because we are making use of some plugins before the app runs which initialises all the plugin bindings. We will also change the main function to a Future and change our setupLocator function to a future as well and await on the setup call.
+On the first line of the main function call the line `WidgetsFlutterBinding.ensureInitialized();` is required because we are making use of some plugins before the app runs which initialises all the plugin bindings. We will also change the main function to a Future and change our setupLocator function to a future as well and await on the setup call.
 
 ```dart
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // sets up the internal locator for the localisation service
-  LocalisationService.setupLocator();
   await setupLocator();
   runApp(MyApp());
 }
@@ -75,8 +73,7 @@ import 'package:stacked_services/stacked_services.dart';
 GetIt locator = GetIt.instance;
 
 Future setupLocator() async {
-  var localisationService = LocalisationService();
-  await localisationService.initialise();
+  var localisationService = await LocalisationService.getInstance();
   locator.registerSingleton(localisationService);
 
   locator.registerLazySingleton(() => NavigationService());
@@ -133,8 +130,8 @@ There is also support for dynamic values in the translations which are for value
 
 ```json
 {
-  "CounterView" : {
-     "timesCounted" : "You have tapped {0} times",
+  "CounterView": {
+    "timesCounted": "You have tapped {0} times"
   }
 }
 ```
@@ -145,7 +142,7 @@ Can be used using the following code
 translate(CounterViewStrings.timesCounted, replacements: [9]); // Returns 'You have tapped 9 times'
 ```
 
-The replacements correlate to the index in the brackets so you can add multiple replacements for the same index or different values. An implementation of named replacements will be added if there is a need for it. 
+The replacements correlate to the index in the brackets so you can add multiple replacements for the same index or different values. An implementation of named replacements will be added if there is a need for it.
 
 ## More Code
 

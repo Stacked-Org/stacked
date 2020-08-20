@@ -5,8 +5,7 @@ import 'package:stacked_services/stacked_services.dart';
 GetIt locator = GetIt.instance;
 
 Future setupLocator() async {
-  var localisationService = LocalisationService();
-  await localisationService.initialise();
+  var localisationService = await LocalisationService.getInstance();
   locator.registerSingleton(localisationService);
 
   locator.registerLazySingleton(() => NavigationService());

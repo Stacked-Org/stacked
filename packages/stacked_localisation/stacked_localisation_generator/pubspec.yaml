@@ -1,6 +1,6 @@
 name: stacked_localisation_generator
 description: a package that generates string keys for use with the the localisation service in a type safe manner
-version: 0.1.0
+version: 0.1.0+1
 homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_localisation/stacked_localisation_generator
 
 environment:
@@ -12,7 +12,7 @@ dependencies:
   analyzer: ^0.39.17
   mustache: ^1.1.1
   glob: ^1.2.0
-  path: ^1.7.0
+  path: ^1.6.4
 
 dev_dependencies:
   test:

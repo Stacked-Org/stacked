@@ -8,7 +8,6 @@ import 'core/setup_locator.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // sets up the internal locator for the localisation service
-  LocalisationService.setupLocator();
   await setupLocator();
   runApp(MyApp());
 }
