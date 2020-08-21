@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:path/path.dart' as p;
 import 'package:build/build.dart';
 import 'package:glob/glob.dart';
+import 'package:yaml/yaml.dart';
 
 import 'map_utils.dart';
 
@@ -22,8 +23,8 @@ class LocalisationStringKeyGenerator implements Builder {
     await for (final input in buildStep.findAssets(_allLanguageFiles)) {
       var fileContent = await buildStep.readAsString(input);
 
-      var languageStringsMap =
-          json.decode(fileContent) as Map<dynamic, dynamic>;
+      var languageStringsMap = loadYaml(fileContent) as Map<dynamic, dynamic>;
+
       var localisationstrings = getStringKeysCodeFromMap(languageStringsMap);
 
       // Bail out after the first file. We only need 1 language file to define all the keys since
