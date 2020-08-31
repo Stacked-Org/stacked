@@ -34,6 +34,9 @@ class NavigationService {
   /// Returns the previous route
   String get previousRoute => Get.previousRoute;
 
+  /// Returns the current route
+  String get currentRoute => Get.currentRoute;
+
   /// Creates and/or returns a new navigator key based on the index passed in
   nestedNavigationKey(int index) => Get.nestedKey(index);
 

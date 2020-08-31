@@ -1,3 +1,7 @@
+## 0.5.4
+
+- Exposes `currentRoute` in the `NavigationService`
+
 ## 0.5.3
 
 - Exposes `previousRoute` in the `NavigationService`
