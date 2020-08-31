@@ -1,4 +1,4 @@
-# Stacked Localisation
+# Stacked Localisation [Not ready for production]
 
 A localisation solution specifically built for using with the [stacked package](https://pub.dev/packages/stacked) for state management. This comes in the form of a localisation service accessible to the ViewModels and other services which takes in a localisation key and returns the string (if any), as provided by the files that define the strings for each language. As all the other solutions provided by [FilledStacks](https://www.youtube.com/filledstacks) this solution aims to reduce the amount of code required for basic language setup, make it easier to understand and make the code more readable in the process. All of this is in hopes of creating a more maintainable code base to work with.
 
