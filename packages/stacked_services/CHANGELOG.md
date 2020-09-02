@@ -1,3 +1,7 @@
+## 0.5.4+2
+
+- Adds barrier label to custom dialog
+
 ## 0.5.4+1
 
 - Updated get version

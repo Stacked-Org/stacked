@@ -154,6 +154,7 @@ class DialogService {
     bool takesInput = false,
     Color barrierColor = Colors.black54,
     bool barrierDismissible = false,
+    String barrierLabel = '',
     dynamic customData,
   }) {
     // TODO: Remove the _customDialogUI in the next release
@@ -171,6 +172,7 @@ class DialogService {
       barrierColor: barrierColor,
       transitionDuration: const Duration(milliseconds: 200),
       barrierDismissible: barrierDismissible,
+      barrierLabel: barrierLabel,
       useRootNavigator: true,
       pageBuilder: (BuildContext buildContext, _, __) => SafeArea(
         child: Builder(
