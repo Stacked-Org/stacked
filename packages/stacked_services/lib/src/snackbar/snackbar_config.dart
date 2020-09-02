@@ -44,7 +44,6 @@ class SnackbarConfig {
   Curve forwardAnimationCurve;
   Curve reverseAnimationCurve;
   Duration animationDuration;
-  SnackStatusCallback onStatusChanged;
   double barBlur;
   double overlayBlur;
   Color overlayColor;
@@ -81,7 +80,6 @@ class SnackbarConfig {
     this.forwardAnimationCurve = Curves.easeOutCirc,
     this.reverseAnimationCurve = Curves.easeOutCirc,
     this.animationDuration = const Duration(seconds: 1),
-    this.onStatusChanged,
     this.barBlur = 0.0,
     this.overlayBlur = 0.0,
     this.overlayColor = Colors.transparent,

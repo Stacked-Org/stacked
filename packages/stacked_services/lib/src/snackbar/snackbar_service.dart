@@ -169,7 +169,6 @@ class SnackbarService {
       forwardAnimationCurve: snackbarConfig.forwardAnimationCurve,
       reverseAnimationCurve: snackbarConfig.reverseAnimationCurve,
       animationDuration: snackbarConfig.animationDuration,
-      onStatusChanged: snackbarConfig.onStatusChanged,
       barBlur: snackbarConfig.barBlur,
       overlayBlur: snackbarConfig.overlayBlur,
       overlayColor: snackbarConfig.overlayColor,

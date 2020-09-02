@@ -1,3 +1,7 @@
+## 0.5.4+1
+
+- Updated get version
+
 ## 0.5.4
 
 - Exposes `currentRoute` in the `NavigationService`
