@@ -1,3 +1,7 @@
+## 0.5.4+3
+
+- Adds type to the navigation key
+
 ## 0.5.4+2
 
 - Adds barrier label to custom dialog
