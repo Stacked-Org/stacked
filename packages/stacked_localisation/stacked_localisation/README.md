@@ -8,7 +8,7 @@ The localisation package is very simple. It provides you with a service from whi
 
 ## Setup
 
-To use the localisation service there's a few things that has to be done. We start off by adding the stacked_localisation and the stacked_localisation_generator package.
+To use the localisation service there's a few things that has to be done. We start off by adding the stacked_localisation and the stacked_localisation_generator package (and build_runner if you don't already have it).
 
 ```yaml
 dependencies:
@@ -17,6 +17,7 @@ dependencies:
 
 dev_dependencies:
   ...
+  build_runner:
   stacked_localisation_generator:
 ```
 
@@ -27,7 +28,7 @@ assets:
   - assets/lang/
 ```
 
-Then we you will create the folders mentioned above and place your strings for a different language in there. Create a folder called assets in the root folder and inside that folder create a new folder called lang. Then create a new file inside it called en.json and place the following json in there.
+Then we will create the folders mentioned above and place your strings for a different language in there. Create a folder called assets in the root folder and inside that folder create a new folder called lang. Then create a new file inside it called en.json or en.yaml and place the following JSON in there.
 
 ```json
 {
@@ -36,6 +37,14 @@ Then we you will create the folders mentioned above and place your strings for a
     "subtitle": "I live in this Home"
   }
 }
+```
+
+or for YAML
+
+```yaml
+HomeView:
+  title: This is my Home
+  subtitle: I live in this Home
 ```
 
 Then run `flutter pub run build_runner build --delete-conflicting-outputs` to generate the localisation_string_keys.dart file. This file will look like this.
