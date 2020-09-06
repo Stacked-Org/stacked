@@ -80,7 +80,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
         selectedTheme = themes.first;
       }
     } else {
-      if (!startInDarkMode) {
+      if (!(startInDarkMode ?? false)) {
         selectedTheme = lightTheme;
       } else {
         selectedTheme = darkTheme;
@@ -99,7 +99,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
   Future selectThemeAtIndex(int themeIndex) async {
     var theme = themes[themeIndex];
     await _applyStatusBarColor(theme);
-    _themesController.add({SelectedTheme: theme});
+    _themesController.add({SelectedTheme: theme, DarkTheme: darkTheme});
     _sharedPreferences.themeIndex = themeIndex;
   }
 

@@ -144,34 +144,34 @@ void main() {
       });
 
       test(
-          'When called with index, should pass the theme at the index to the statusBarColorBuilder',
+          'When called with index, should pass color to the status bar service',
           () async {
+        var statusBar = getAndRegisterStatusBarServiceMock();
         var themes = [
           ThemeData(primaryColor: Colors.blue),
           ThemeData(primaryColor: Colors.yellow),
         ];
         var themeManager = ThemeManager(
-            themes: themes,
-            statusBarColorBuilder: expectAsync1((theme) {
-              expect(theme, themes.last);
-              return null;
-            }));
+          themes: themes,
+          statusBarColorBuilder: (theme) => theme.primaryColor,
+        );
 
         await themeManager.selectThemeAtIndex(1);
+        verify(statusBar.updateStatusBarColor(themes.first.primaryColor));
       });
     });
 
     group('Theme Persistence -', () {
       test(
           'When a theme changes the index should be persisted into shared preferences',
-          () {
+          () async {
         var sharedPreferences = getAndRegisterSharedPreferencesServiceMock();
         var themes = [
           ThemeData(primaryColor: Colors.blue),
           ThemeData(primaryColor: Colors.yellow),
         ];
         var themeManager = ThemeManager(themes: themes);
-        themeManager.selectThemeAtIndex(1);
+        await themeManager.selectThemeAtIndex(1);
         verify(sharedPreferences.themeIndex = 1);
       });
 
