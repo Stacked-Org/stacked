@@ -5,9 +5,13 @@ import 'package:stacked_themes/src/services/shared_preferences_service.dart';
 class SharedPreferencesServiceMock extends Mock
     implements SharedPreferencesService {}
 
-SharedPreferencesService getAndRegisterSharedPreferencesServiceMock() {
+SharedPreferencesService getAndRegisterSharedPreferencesServiceMock(
+    {int themeIndex}) {
   _removeRegistrationIfExists<SharedPreferencesService>();
   var service = SharedPreferencesServiceMock();
+
+  when(service.themeIndex).thenReturn(themeIndex);
+
   locator.registerSingleton<SharedPreferencesService>(service);
   return service;
 }

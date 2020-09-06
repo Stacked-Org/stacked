@@ -9,6 +9,11 @@ import 'package:stacked_themes/src/services/shared_preferences_service.dart';
 class ThemeManager {
   final _sharedPreferences = locator<SharedPreferencesService>();
 
+  /// Has to be called before  we make use of the theme manager
+  static Future initialise() async {
+    await setupLocator();
+  }
+
   /// A list of themes that the application can swap to
   final List<ThemeData> themes;
 
@@ -50,7 +55,22 @@ You can supply either a list of ThemeData objects to the themes property or a li
 
     var storedThemeIndex = _sharedPreferences.themeIndex;
 
-    _themesController = BehaviorSubject<ThemeData>.seeded(themes.first);
+    ThemeData themeToBroadcast;
+
+    if (storedThemeIndex != null) {
+      try {
+        themeToBroadcast = themes[storedThemeIndex];
+      } catch (e) {
+        print(
+            '''WARNING: You have changed your number of themes. Because of this we will clear your previously selected
+        theme and broadcast the first theme in your list of themes.''');
+        themeToBroadcast = themes.first;
+      }
+    } else {
+      themeToBroadcast = themes.first;
+    }
+
+    _themesController = BehaviorSubject<ThemeData>.seeded(themeToBroadcast);
   }
 
   /// Broadcasts the theme at the index over the [themesStream]

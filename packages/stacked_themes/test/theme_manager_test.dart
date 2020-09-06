@@ -7,12 +7,54 @@ import 'test_setup.dart';
 
 void main() {
   group('ThemeManagerTest -', () {
+    setUp(() => registerServices());
+    tearDown(() => unregisterServices());
+
     group('Construction -', () {
-      test('When constructed with themes, should not throw exception', () {
-        expect(
-          () => ThemeManager(),
-          throwsA(null),
-        );
+      test(
+          'When constructed and last theme index is 1, should broadcast theme at 1',
+          () async {
+        getAndRegisterSharedPreferencesServiceMock(themeIndex: 1);
+
+        var themes = [
+          ThemeData(primaryColor: Colors.blue),
+          ThemeData(primaryColor: Colors.yellow),
+        ];
+
+        var themeManager = ThemeManager(themes: themes);
+        themeManager.themesStream.listen(expectAsync1((theme) {
+          expect(theme, themes[1]);
+        }));
+      });
+
+      test(
+          'When constructed and last theme index is 2, if the new theme manager has less themes, reset theme index and broadcast first',
+          () async {
+        getAndRegisterSharedPreferencesServiceMock(themeIndex: 2);
+
+        var themes = [
+          ThemeData(primaryColor: Colors.blue),
+          ThemeData(primaryColor: Colors.yellow),
+        ];
+
+        var themeManager = ThemeManager(themes: themes);
+        themeManager.themesStream.listen(expectAsync1((theme) {
+          expect(theme, themes.first);
+        }));
+      });
+
+      test(
+          'When constructed and no theme has been selected we broadcast the first theme',
+          () async {
+        var themes = [
+          ThemeData(primaryColor: Colors.blue),
+          ThemeData(primaryColor: Colors.yellow),
+        ];
+
+        var themeManager = ThemeManager(themes: themes);
+        themeManager.themesStream.listen(expectAsync1((theme) {
+          expect(theme, themes.first);
+        }));
       });
     });
 
@@ -69,7 +111,10 @@ void main() {
           'When theme manager contructed, should get the themeIndex from the shared preferences',
           () {
         var sharedPreferences = getAndRegisterSharedPreferencesServiceMock();
-        ThemeManager();
+        ThemeManager(themes: [
+          ThemeData(primaryColor: Colors.blue),
+          ThemeData(primaryColor: Colors.yellow),
+        ]);
         verify(sharedPreferences.themeIndex);
       });
     });
