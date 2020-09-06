@@ -4,7 +4,7 @@ import 'package:stacked_themes/src/theme_manager.dart';
 
 /// A widget that rebuilds itself with a new theme
 class ThemeBuilder extends StatefulWidget {
-  final Widget Function(BuildContext, ThemeData) builder;
+  final Widget Function(BuildContext, ThemeData, ThemeData) builder;
   final List<ThemeData> themes;
   final ThemeData lightTheme;
   final ThemeData darkTheme;
@@ -39,11 +39,15 @@ class _ThemeBuilderState extends State<ThemeBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<ThemeData>(
+    return StreamProvider<Map<String, ThemeData>>(
       create: (context) => themeManager.themesStream,
-      builder: (context, child) => Consumer<ThemeData>(
+      builder: (context, child) => Consumer<Map<String, ThemeData>>(
         child: child,
-        builder: (context, value, child) => widget.builder(context, value),
+        builder: (context, value, child) => widget.builder(
+          context,
+          value[SelectedTheme],
+          value[DarkTheme],
+        ),
       ),
     );
   }

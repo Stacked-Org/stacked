@@ -14,9 +14,10 @@ class MyApp extends StatelessWidget {
         ThemeData(backgroundColor: Colors.red),
         ThemeData(backgroundColor: Colors.yellow),
       ],
-      builder: (context, theme) => MaterialApp(
+      builder: (context, regularTheme, darkTheme) => MaterialApp(
         title: 'Flutter Demo',
-        theme: theme,
+        theme: regularTheme,
+        darkTheme: darkTheme,
         home: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
     );

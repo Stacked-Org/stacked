@@ -5,6 +5,9 @@ import 'package:rxdart/rxdart.dart';
 import 'package:stacked_themes/src/locator_setup.dart';
 import 'package:stacked_themes/src/services/shared_preferences_service.dart';
 
+const String SelectedTheme = 'selected-theme';
+const String DarkTheme = 'dark-theme';
+
 /// Provides functionality to manage the current theme for the application
 class ThemeManager {
   final _sharedPreferences = locator<SharedPreferencesService>();
@@ -34,9 +37,9 @@ class ThemeManager {
   /// Indicates if you want the darkmode supplied to be the first theme supplied to the application
   final bool startInDarkMode;
 
-  BehaviorSubject<ThemeData> _themesController;
+  BehaviorSubject<Map<String, ThemeData>> _themesController;
 
-  Stream<ThemeData> get themesStream => _themesController.stream;
+  Stream<Map<String, ThemeData>> get themesStream => _themesController.stream;
 
   ThemeManager({
     this.themes,
@@ -64,18 +67,20 @@ You can supply either a list of ThemeData objects to the themes property or a li
         print(
             '''WARNING: You have changed your number of themes. Because of this we will clear your previously selected
         theme and broadcast the first theme in your list of themes.''');
+        _sharedPreferences.themeIndex = null;
         themeToBroadcast = themes.first;
       }
     } else {
       themeToBroadcast = themes.first;
     }
 
-    _themesController = BehaviorSubject<ThemeData>.seeded(themeToBroadcast);
+    _themesController = BehaviorSubject<Map<String, ThemeData>>.seeded(
+        {SelectedTheme: themeToBroadcast});
   }
 
   /// Broadcasts the theme at the index over the [themesStream]
   void selectThemeAtIndex(int themeIndex) {
-    _themesController.add(themes[themeIndex]);
+    _themesController.add({SelectedTheme: themes[themeIndex]});
     _sharedPreferences.themeIndex = themeIndex;
   }
 }

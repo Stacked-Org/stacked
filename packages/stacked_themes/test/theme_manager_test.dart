@@ -12,7 +12,7 @@ void main() {
 
     group('Construction -', () {
       test(
-          'When constructed and last theme index is 1, should broadcast theme at 1',
+          'When constructed and last theme index is 1, should broadcast theme at 1 as selected theme',
           () async {
         getAndRegisterSharedPreferencesServiceMock(themeIndex: 1);
 
@@ -23,12 +23,12 @@ void main() {
 
         var themeManager = ThemeManager(themes: themes);
         themeManager.themesStream.listen(expectAsync1((theme) {
-          expect(theme, themes[1]);
+          expect(theme[SelectedTheme], themes[1]);
         }));
       });
 
       test(
-          'When constructed and last theme index is 2, if the new theme manager has less themes, reset theme index and broadcast first',
+          'When constructed and last theme index is 2, if the new theme manager has less themes, broadcast first',
           () async {
         getAndRegisterSharedPreferencesServiceMock(themeIndex: 2);
 
@@ -39,8 +39,23 @@ void main() {
 
         var themeManager = ThemeManager(themes: themes);
         themeManager.themesStream.listen(expectAsync1((theme) {
-          expect(theme, themes.first);
+          expect(theme[SelectedTheme], themes.first);
         }));
+      });
+
+      test(
+          'When constructed and last theme index is 2, if the new theme manager has less themes, reset theme',
+          () async {
+        var sharedPreferences =
+            getAndRegisterSharedPreferencesServiceMock(themeIndex: 2);
+
+        var themes = [
+          ThemeData(primaryColor: Colors.blue),
+          ThemeData(primaryColor: Colors.yellow),
+        ];
+
+        ThemeManager(themes: themes);
+        verify(sharedPreferences.themeIndex = null);
       });
 
       test(
@@ -53,7 +68,21 @@ void main() {
 
         var themeManager = ThemeManager(themes: themes);
         themeManager.themesStream.listen(expectAsync1((theme) {
-          expect(theme, themes.first);
+          expect(theme[SelectedTheme], themes.first);
+        }));
+      });
+
+      test(
+          'When constructed with dark and light theme, should broadcast theme based on system',
+          () async {
+        var themes = [
+          ThemeData(primaryColor: Colors.blue),
+          ThemeData(primaryColor: Colors.yellow),
+        ];
+
+        var themeManager = ThemeManager(themes: themes);
+        themeManager.themesStream.listen(expectAsync1((theme) {
+          expect(theme[SelectedTheme], themes.first);
         }));
       });
     });
@@ -67,7 +96,7 @@ void main() {
         ];
         var themeManager = ThemeManager(themes: themes);
         themeManager.themesStream.listen(expectAsync1((theme) {
-          expect(theme, themes.first);
+          expect(theme[SelectedTheme], themes.first);
         }));
       });
     });
@@ -84,7 +113,7 @@ void main() {
         bool alreadyCalled = false;
         themeManager.themesStream.listen(expectAsync1((theme) {
           if (alreadyCalled) {
-            expect(theme, themes[1]);
+            expect(theme[SelectedTheme], themes[1]);
           }
           alreadyCalled = true;
         }, count: 2));
