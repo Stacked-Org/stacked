@@ -58,24 +58,30 @@ You can supply either a list of ThemeData objects to the themes property or a li
 
     var storedThemeIndex = _sharedPreferences.themeIndex;
 
-    ThemeData themeToBroadcast;
+    ThemeData selectedTheme;
 
-    if (storedThemeIndex != null) {
-      try {
-        themeToBroadcast = themes[storedThemeIndex];
-      } catch (e) {
-        print(
-            '''WARNING: You have changed your number of themes. Because of this we will clear your previously selected
+    if (hasMultipleThemes) {
+      if (storedThemeIndex != null) {
+        try {
+          selectedTheme = themes[storedThemeIndex];
+        } catch (e) {
+          print(
+              '''WARNING: You have changed your number of themes. Because of this we will clear your previously selected
         theme and broadcast the first theme in your list of themes.''');
-        _sharedPreferences.themeIndex = null;
-        themeToBroadcast = themes.first;
+          _sharedPreferences.themeIndex = null;
+          selectedTheme = themes.first;
+        }
+      } else {
+        selectedTheme = themes.first;
       }
     } else {
-      themeToBroadcast = themes.first;
+      selectedTheme = lightTheme;
     }
 
-    _themesController = BehaviorSubject<Map<String, ThemeData>>.seeded(
-        {SelectedTheme: themeToBroadcast});
+    _themesController = BehaviorSubject<Map<String, ThemeData>>.seeded({
+      SelectedTheme: selectedTheme,
+      DarkTheme: darkTheme,
+    });
   }
 
   /// Broadcasts the theme at the index over the [themesStream]

@@ -73,16 +73,19 @@ void main() {
       });
 
       test(
-          'When constructed with dark and light theme, should broadcast theme based on system',
+          'When constructed with dark and light theme, should broadcast the light theme as selected and darkTheme as darkTheme',
           () async {
         var themes = [
           ThemeData(primaryColor: Colors.blue),
           ThemeData(primaryColor: Colors.yellow),
         ];
 
-        var themeManager = ThemeManager(themes: themes);
+        var themeManager =
+            ThemeManager(lightTheme: themes.first, darkTheme: themes.last);
         themeManager.themesStream.listen(expectAsync1((theme) {
           expect(theme[SelectedTheme], themes.first);
+          expect(theme[DarkTheme], themes.last,
+              reason: 'Should broadcast dark theme if 1 is supplied');
         }));
       });
     });
