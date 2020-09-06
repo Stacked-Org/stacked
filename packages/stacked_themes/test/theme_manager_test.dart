@@ -87,7 +87,7 @@ void main() {
           expect(theme[DarkTheme], themes.last,
               reason: 'Should broadcast dark theme if 1 is supplied');
         }));
-      });
+      }, skip: 'Add back when the dark/light functionality is complete');
     });
 
     group('themesStream -', () {

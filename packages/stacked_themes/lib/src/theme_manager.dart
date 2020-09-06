@@ -31,16 +31,12 @@ class ThemeManager {
   /// The theme to be used when not using the lightTheme
   final ThemeData darkTheme;
 
-  /// Indicates if you want the system setting for light or dark to take effect
-  /// default value is true. Set this to false if you want the app to determine your theme
-  final bool useSystemTheme;
+  /// The default theme mode to use for the application.
+  final ThemeMode defaultTheme;
 
   /// A builder function that provides you with the new selected theme that expects you to
   /// return a color for the status bar.
   final Color Function(ThemeData) statusBarColorBuilder;
-
-  /// Indicates if you want the darkmode supplied to be the first theme supplied to the application
-  final bool startInDarkMode;
 
   BehaviorSubject<Map<String, ThemeData>> _themesController;
 
@@ -48,11 +44,10 @@ class ThemeManager {
 
   ThemeManager({
     this.themes,
-    this.useSystemTheme,
     this.statusBarColorBuilder,
-    this.startInDarkMode,
     this.darkTheme,
     this.lightTheme,
+    this.defaultTheme = ThemeMode.system,
   }) {
     var hasMultipleThemes = themes != null && themes.length > 1;
     var hasLightAndDarkThemes = darkTheme != null && lightTheme != null;
@@ -80,7 +75,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
         selectedTheme = themes.first;
       }
     } else {
-      if (!(startInDarkMode ?? false)) {
+      if (defaultTheme == ThemeMode.light) {
         selectedTheme = lightTheme;
       } else {
         selectedTheme = darkTheme;

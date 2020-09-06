@@ -19,12 +19,22 @@ class MyApp extends StatelessWidget {
         ThemeData(backgroundColor: Colors.black, accentColor: Colors.red),
         ThemeData(backgroundColor: Colors.red, accentColor: Colors.blue),
       ],
-      startInDarkMode: Theme.of(context).brightness == Brightness.dark,
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        backgroundColor: Colors.blue[700],
+        accentColor: Colors.yellow[700],
+      ),
+      lightTheme: ThemeData(
+        brightness: Brightness.light,
+        backgroundColor: Colors.blue[300],
+        accentColor: Colors.yellow[300],
+      ),
       statusBarColorBuilder: (theme) => theme.accentColor,
-      builder: (context, regularTheme, darkTheme) => MaterialApp(
+      builder: (context, regularTheme, darkTheme, themeMode) => MaterialApp(
         title: 'Flutter Demo',
         theme: regularTheme,
         darkTheme: darkTheme,
+        themeMode: themeMode,
         home: MultipleThemesView(),
       ),
     );

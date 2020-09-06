@@ -4,13 +4,12 @@ import 'package:stacked_themes/src/theme_manager.dart';
 
 /// A widget that rebuilds itself with a new theme
 class ThemeBuilder extends StatefulWidget {
-  final Widget Function(BuildContext, ThemeData, ThemeData) builder;
+  final Widget Function(BuildContext, ThemeData, ThemeData, ThemeMode) builder;
   final List<ThemeData> themes;
   final ThemeData lightTheme;
   final ThemeData darkTheme;
   final Color Function(ThemeData) statusBarColorBuilder;
-  final bool useSystemTheme;
-  final bool startInDarkMode;
+  final ThemeMode defaultThemeMode;
 
   ThemeBuilder({
     Key key,
@@ -19,17 +18,19 @@ class ThemeBuilder extends StatefulWidget {
     this.lightTheme,
     this.darkTheme,
     this.statusBarColorBuilder,
-    this.useSystemTheme = true,
-    this.startInDarkMode = false,
+    this.defaultThemeMode = ThemeMode.system,
   }) : super(key: key);
 
   @override
-  _ThemeBuilderState createState() => _ThemeBuilderState(ThemeManager(
-        themes: themes,
-        statusBarColorBuilder: statusBarColorBuilder,
-        useSystemTheme: useSystemTheme,
-        startInDarkMode: startInDarkMode,
-      ));
+  _ThemeBuilderState createState() => _ThemeBuilderState(
+        ThemeManager(
+          themes: themes,
+          statusBarColorBuilder: statusBarColorBuilder,
+          darkTheme: darkTheme,
+          lightTheme: lightTheme,
+          
+        ),
+      );
 }
 
 class _ThemeBuilderState extends State<ThemeBuilder> {
@@ -49,6 +50,7 @@ class _ThemeBuilderState extends State<ThemeBuilder> {
             context,
             value[SelectedTheme],
             value[DarkTheme],
+            widget.defaultThemeMode,
           ),
         ),
       ),
