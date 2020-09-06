@@ -1,9 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:stacked_themes/src/locator_setup.dart';
 import 'package:stacked_themes/src/services/shared_preferences_service.dart';
+import 'package:stacked_themes/src/services/statusbar_service.dart';
 
 const String SelectedTheme = 'selected-theme';
 const String DarkTheme = 'dark-theme';
@@ -11,9 +14,11 @@ const String DarkTheme = 'dark-theme';
 /// Provides functionality to manage the current theme for the application
 class ThemeManager {
   final _sharedPreferences = locator<SharedPreferencesService>();
+  final _statusBarService = locator<StatusBarService>();
 
   /// Has to be called before  we make use of the theme manager
   static Future initialise() async {
+    WidgetsFlutterBinding.ensureInitialized();
     await setupLocator();
   }
 
@@ -75,8 +80,14 @@ You can supply either a list of ThemeData objects to the themes property or a li
         selectedTheme = themes.first;
       }
     } else {
-      selectedTheme = lightTheme;
+      if (!startInDarkMode) {
+        selectedTheme = lightTheme;
+      } else {
+        selectedTheme = darkTheme;
+      }
     }
+
+    _applyStatusBarColor(selectedTheme);
 
     _themesController = BehaviorSubject<Map<String, ThemeData>>.seeded({
       SelectedTheme: selectedTheme,
@@ -85,8 +96,21 @@ You can supply either a list of ThemeData objects to the themes property or a li
   }
 
   /// Broadcasts the theme at the index over the [themesStream]
-  void selectThemeAtIndex(int themeIndex) {
-    _themesController.add({SelectedTheme: themes[themeIndex]});
+  Future selectThemeAtIndex(int themeIndex) async {
+    var theme = themes[themeIndex];
+    await _applyStatusBarColor(theme);
+    _themesController.add({SelectedTheme: theme});
     _sharedPreferences.themeIndex = themeIndex;
   }
+
+  Future _applyStatusBarColor(ThemeData theme) async {
+    var statusBarColor = statusBarColorBuilder?.call(theme);
+    if (statusBarColor != null) {
+      await _statusBarService.updateStatusBarColor(statusBarColor);
+    }
+  }
 }
+
+/// Returns the [ThemeManger] that
+ThemeManager getThemeManager(BuildContext context) =>
+    Provider.of<ThemeManager>(context, listen: false);

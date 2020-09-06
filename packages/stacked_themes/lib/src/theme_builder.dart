@@ -39,14 +39,17 @@ class _ThemeBuilderState extends State<ThemeBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<Map<String, ThemeData>>(
-      create: (context) => themeManager.themesStream,
-      builder: (context, child) => Consumer<Map<String, ThemeData>>(
-        child: child,
-        builder: (context, value, child) => widget.builder(
-          context,
-          value[SelectedTheme],
-          value[DarkTheme],
+    return Provider<ThemeManager>.value(
+      value: themeManager,
+      builder: (context, child) => StreamProvider<Map<String, ThemeData>>(
+        create: (context) => themeManager.themesStream,
+        builder: (context, child) => Consumer<Map<String, ThemeData>>(
+          child: child,
+          builder: (context, value, child) => widget.builder(
+            context,
+            value[SelectedTheme],
+            value[DarkTheme],
+          ),
         ),
       ),
     );

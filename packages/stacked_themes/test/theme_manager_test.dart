@@ -123,6 +123,42 @@ void main() {
 
         themeManager.selectThemeAtIndex(1);
       });
+
+      test('When called with index, should get status color from the callback',
+          () async {
+        var themes = [
+          ThemeData(primaryColor: Colors.blue),
+          ThemeData(primaryColor: Colors.yellow),
+        ];
+        bool called = false;
+        var themeManager = ThemeManager(
+            themes: themes,
+            statusBarColorBuilder: (themeData) {
+              called = true;
+              return null;
+            });
+
+        await themeManager.selectThemeAtIndex(1);
+
+        expect(called, true);
+      });
+
+      test(
+          'When called with index, should pass the theme at the index to the statusBarColorBuilder',
+          () async {
+        var themes = [
+          ThemeData(primaryColor: Colors.blue),
+          ThemeData(primaryColor: Colors.yellow),
+        ];
+        var themeManager = ThemeManager(
+            themes: themes,
+            statusBarColorBuilder: expectAsync1((theme) {
+              expect(theme, themes.last);
+              return null;
+            }));
+
+        await themeManager.selectThemeAtIndex(1);
+      });
     });
 
     group('Theme Persistence -', () {

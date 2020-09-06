@@ -15,6 +15,7 @@ dependencies:
   rxdart: ^0.24.1
   shared_preferences: ^0.5.10
   get_it: ^4.0.4
+  flutter_statusbarcolor:
 
 dev_dependencies:
   flutter_test:
