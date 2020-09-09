@@ -13,7 +13,7 @@ class SnackbarService {
   }
 
   Map<dynamic, SnackbarConfig> _customSnackbarConfigs =
-      Map<dynamic, SnackbarConfig>();
+  Map<dynamic, SnackbarConfig>();
 
   SnackbarConfig _snackbarConfig;
 
@@ -60,21 +60,21 @@ class SnackbarService {
       message,
       titleText: _snackbarConfig?.titleColor != null
           ? Text(
-              title,
-              style: TextStyle(
-                  color: _snackbarConfig.titleColor,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 16),
-            )
+        title,
+        style: TextStyle(
+            color: _snackbarConfig.titleColor,
+            fontWeight: FontWeight.w800,
+            fontSize: 16),
+      )
           : null,
       messageText: _snackbarConfig?.messageColor != null
           ? Text(
-              message,
-              style: TextStyle(
-                  color: _snackbarConfig.messageColor,
-                  fontWeight: FontWeight.w300,
-                  fontSize: 14),
-            )
+        message,
+        style: TextStyle(
+            color: _snackbarConfig.messageColor,
+            fontWeight: FontWeight.w300,
+            fontSize: 14),
+      )
           : null,
       colorText: _snackbarConfig?.textColor ?? Colors.white,
       shouldIconPulse: _snackbarConfig?.shouldIconPulse,
@@ -101,17 +101,17 @@ class SnackbarService {
     Duration duration = const Duration(seconds: 1),
   }) {
     // TODO: Remove customData in the future release and set variant as required
-    final snackbarVariant = variant ?? customData;
+    final snakcbarVariant = variant ?? customData;
     assert(
-      snakcbarVariant != null,
-      'No variant defined, you should provide the variant property to show a custom snackbar',
+    snakcbarVariant != null,
+    'No variant defined, you should provide the variant property to show a custom snackbar',
     );
 
-    var snackbarConfig = _customSnackbarConfigs[snackbarVariant];
+    var snackbarConfig = _customSnackbarConfigs[snakcbarVariant];
 
     if (snackbarConfig == null) {
       throw CustomSnackbarException(
-        'No config found for $snackbarVariant make sure you have called registerCustomConfig. See [README LINK HERE] for implementation details.',
+        'No config found for $snakcbarVariant make sure you have called registerCustomConfig. See [README LINK HERE] for implementation details.',
       );
     }
 
@@ -121,23 +121,23 @@ class SnackbarService {
       config: snackbarConfig,
     );
 
-    final getBar = Get.snackbar(
-      title,
-      message,
-      titleText: _snackbarConfig?.titleColor != null
+    final getBar = GetBar(
+      title: title,
+      message: message,
+      titleText: snackbarConfig?.titleColor != null
           ? Text(
         title,
         style: TextStyle(
-            color: _snackbarConfig.titleColor,
+            color: snackbarConfig.titleColor,
             fontWeight: FontWeight.w800,
             fontSize: 16),
       )
           : null,
-      messageText: _snackbarConfig?.messageColor != null
+      messageText: snackbarConfig?.messageColor != null
           ? Text(
         message,
         style: TextStyle(
-            color: _snackbarConfig.messageColor,
+            color: snackbarConfig.messageColor,
             fontWeight: FontWeight.w300,
             fontSize: 14),
       )
@@ -162,7 +162,7 @@ class SnackbarService {
       showProgressIndicator: snackbarConfig.showProgressIndicator,
       progressIndicatorController: snackbarConfig.progressIndicatorController,
       progressIndicatorBackgroundColor:
-          snackbarConfig.progressIndicatorBackgroundColor,
+      snackbarConfig.progressIndicatorBackgroundColor,
       progressIndicatorValueColor: snackbarConfig.progressIndicatorValueColor,
       snackPosition: snackbarConfig.snackPosition,
       snackStyle: snackbarConfig.snackStyle,
@@ -201,7 +201,7 @@ class SnackbarService {
         mainButtonTitle,
         style: TextStyle(
           color:
-              config?.mainButtonTextColor ?? config?.textColor ?? Colors.white,
+          config?.mainButtonTextColor ?? config?.textColor ?? Colors.white,
         ),
       ),
       onPressed: onMainButtonTapped,
