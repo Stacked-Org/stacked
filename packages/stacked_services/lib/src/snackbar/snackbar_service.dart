@@ -121,7 +121,7 @@ class SnackbarService {
       config: snackbarConfig,
     );
 
-    final getBar = GetBar(
+    final getBar = Get.snackbar(
       title,
       message,
       titleText: _snackbarConfig?.titleColor != null
