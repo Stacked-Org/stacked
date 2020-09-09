@@ -101,17 +101,17 @@ class SnackbarService {
     Duration duration = const Duration(seconds: 1),
   }) {
     // TODO: Remove customData in the future release and set variant as required
-    final snakcbarVariant = variant ?? customData;
+    final snackbarVariant = variant ?? customData;
     assert(
       snakcbarVariant != null,
       'No variant defined, you should provide the variant property to show a custom snackbar',
     );
 
-    var snackbarConfig = _customSnackbarConfigs[snakcbarVariant];
+    var snackbarConfig = _customSnackbarConfigs[snackbarVariant];
 
     if (snackbarConfig == null) {
       throw CustomSnackbarException(
-        'No config found for $snakcbarVariant make sure you have called registerCustomConfig. See [README LINK HERE] for implementation details.',
+        'No config found for $snackbarVariant make sure you have called registerCustomConfig. See [README LINK HERE] for implementation details.',
       );
     }
 
@@ -122,26 +122,26 @@ class SnackbarService {
     );
 
     final getBar = GetBar(
-      titleText: Text(
+      title,
+      message,
+      titleText: _snackbarConfig?.titleColor != null
+          ? Text(
         title,
         style: TextStyle(
-          color: snackbarConfig?.titleColor ??
-              snackbarConfig?.textColor ??
-              Colors.white,
-          fontWeight: FontWeight.w800,
-          fontSize: 16,
-        ),
-      ),
-      messageText: Text(
+            color: _snackbarConfig.titleColor,
+            fontWeight: FontWeight.w800,
+            fontSize: 16),
+      )
+          : null,
+      messageText: _snackbarConfig?.messageColor != null
+          ? Text(
         message,
         style: TextStyle(
-          color: snackbarConfig?.messageColor ??
-              snackbarConfig?.textColor ??
-              Colors.white,
-          fontWeight: FontWeight.w300,
-          fontSize: 14,
-        ),
-      ),
+            color: _snackbarConfig.messageColor,
+            fontWeight: FontWeight.w300,
+            fontSize: 14),
+      )
+          : null,
       icon: snackbarConfig.icon,
       shouldIconPulse: snackbarConfig.shouldIconPulse,
       maxWidth: snackbarConfig.maxWidth,
