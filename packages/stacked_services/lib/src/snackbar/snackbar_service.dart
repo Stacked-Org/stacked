@@ -131,7 +131,7 @@ class SnackbarService {
             fontWeight: FontWeight.w800,
             fontSize: 16),
       ) : null,
-      messageText: title != null ? Text(
+      messageText: Text(
         message,
         style: TextStyle(
             color: snackbarConfig?.messageColor ?? snackbarConfig?.textColor ?? Colors.white,
