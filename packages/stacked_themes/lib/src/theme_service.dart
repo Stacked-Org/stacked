@@ -27,4 +27,7 @@ class ThemeService {
 
   /// Returns the number of themes supplied to the [ThemeBuilder]
   int get themeCount => _themeManager.themes?.length ?? 0;
+
+  /// Returns true if the ThemeMode is dark. This does not apply when you're using system as ThemeMode
+  bool get isDarkMode => _themeManager.isDarkMode;
 }

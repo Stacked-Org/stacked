@@ -48,6 +48,9 @@ class ThemeManager {
 
   Stream<ThemeModel> get themesStream => _themesController.stream;
 
+  /// Returns true if the ThemeMode is dark. This does not apply when you're using system as ThemeMode
+  bool get isDarkMode => _selectedThemeMode == ThemeMode.dark;
+
   ThemeManager({
     this.themes,
     this.statusBarColorBuilder,

@@ -1,6 +1,6 @@
 name: stacked_themes
 description: A set of classes to help you better manage Themes in flutter
-version: 0.0.1
+version: 0.1.0
 author:
 homepage:
 
@@ -15,7 +15,7 @@ dependencies:
   rxdart: ^0.24.1
   shared_preferences: ^0.5.10
   get_it: ^4.0.4
-  flutter_statusbarcolor:
+  flutter_statusbarcolor: ^0.2.3
 
 dev_dependencies:
   flutter_test:
