@@ -36,7 +36,8 @@ class NavigationService {
   String get currentRoute => Get.currentRoute;
 
   /// Creates and/or returns a new navigator key based on the index passed in
-  GlobalKey<NavigatorState> nestedNavigationKey(int index) => Get.nestedKey(index);
+  GlobalKey<NavigatorState> nestedNavigationKey(int index) =>
+      Get.nestedKey(index);
 
   /// Allows you to configure the default behaviour for navigation.
   ///
@@ -95,7 +96,7 @@ class NavigationService {
       int id}) {
     return Get.to(page,
         transition: _getTransitionOrDefault(transition),
-        duration: duration ?? Get.defaultDurationTransition,
+        duration: duration ?? Get.defaultTransitionDuration,
         popGesture: popGesture ?? Get.isPopGestureEnable,
         opaque: opaque ?? Get.isOpaqueRouteDefault,
         id: id);
@@ -114,7 +115,7 @@ class NavigationService {
     return Get.off(
       page,
       transition: _getTransitionOrDefault(transition),
-      duration: duration ?? Get.defaultDurationTransition,
+      duration: duration ?? Get.defaultTransitionDuration,
       popGesture: popGesture ?? Get.isPopGestureEnable,
       opaque: opaque ?? Get.isOpaqueRouteDefault,
       id: id,
