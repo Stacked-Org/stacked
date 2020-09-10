@@ -142,6 +142,7 @@ class SnackbarService {
             fontSize: 14),
       )
           : null,
+      colorText: snackbarConfig?.textColor ?? Colors.white,
       icon: snackbarConfig.icon,
       shouldIconPulse: snackbarConfig.shouldIconPulse,
       maxWidth: snackbarConfig.maxWidth,
