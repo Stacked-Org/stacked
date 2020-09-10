@@ -22,10 +22,7 @@ class MultipleThemesView extends StatelessWidget {
             children: model.themes
                 .map(
                   (themeData) => GestureDetector(
-                    onTap: () {
-                      getThemeManager(context)
-                          .selectThemeAtIndex(themeData.index);
-                    },
+                    onTap: () => model.setTheme(themeData),
                     child: Container(
                       width: 80,
                       padding: const EdgeInsets.symmetric(

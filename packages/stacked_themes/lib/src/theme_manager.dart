@@ -8,6 +8,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:stacked_themes/src/locator_setup.dart';
 import 'package:stacked_themes/src/services/shared_preferences_service.dart';
 import 'package:stacked_themes/src/services/statusbar_service.dart';
+import 'package:stacked_themes/src/theme_service.dart';
 
 const String SelectedTheme = 'selected-theme';
 const String DarkTheme = 'dark-theme';
@@ -104,9 +105,12 @@ You can supply either a list of ThemeData objects to the themes property or a li
           darkTheme: darkTheme,
           themeMode: _selectedThemeMode),
     );
+
+    ThemeService.getInstance().setThemeManager(this);
   }
 
-  /// Broadcasts the theme at the index over the [themesStream]
+  /// Sets the theme for the application equal to the theme at the index
+  /// in the list of [themes] supplied to the [ThemeBuilder]
   Future selectThemeAtIndex(int themeIndex) async {
     var theme = themes[themeIndex];
     await _applyStatusBarColor(theme);
@@ -127,6 +131,8 @@ You can supply either a list of ThemeData objects to the themes property or a li
     }
   }
 
+  /// Swaps between the light and dark ThemeMode if the defaultThemeMode supplied
+  /// to the ThemeBuilder is not [ThemeMode.system]
   void toggleDarkLightTheme() {
     _selectedThemeMode =
         _selectedThemeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;

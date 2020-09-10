@@ -1,4 +1,6 @@
 import 'package:stacked/stacked.dart';
+import 'package:stacked_themes/stacked_themes.dart';
+import 'package:themes_example/app/locator.dart';
 
 class ThemeModel {
   final int index;
@@ -8,6 +10,8 @@ class ThemeModel {
 }
 
 class MultipleThemesViewModel extends BaseViewModel {
+  final ThemeService _themeService = locator<ThemeService>();
+
   List<ThemeModel> get themes => List<ThemeModel>.generate(
       5,
       (index) => ThemeModel(
@@ -31,4 +35,7 @@ class MultipleThemesViewModel extends BaseViewModel {
 
     return 'No theme for index';
   }
+
+  void setTheme(ThemeModel themeData) =>
+      _themeService.selectThemeAtIndex(themeData.index);
 }
