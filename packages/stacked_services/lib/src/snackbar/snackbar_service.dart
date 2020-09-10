@@ -128,7 +128,7 @@ class SnackbarService {
           ? Text(
         title,
         style: TextStyle(
-            color: snackbarConfig.titleColor,
+            color: snackbarConfig?.titleColor ?? snackbarConfig?.textColor ?? Colors.white,
             fontWeight: FontWeight.w800,
             fontSize: 16),
       )
@@ -137,12 +137,11 @@ class SnackbarService {
           ? Text(
         message,
         style: TextStyle(
-            color: snackbarConfig.messageColor,
+            color: snackbarConfig?.messageColor ?? snackbarConfig?.textColor ?? Colors.white,
             fontWeight: FontWeight.w300,
             fontSize: 14),
       )
           : null,
-      colorText: snackbarConfig?.textColor ?? Colors.white,
       icon: snackbarConfig.icon,
       shouldIconPulse: snackbarConfig.shouldIconPulse,
       maxWidth: snackbarConfig.maxWidth,
