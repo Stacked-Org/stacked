@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
@@ -81,6 +82,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
       _applyStatusBarColor(selectedTheme);
     } else {
       _selectedThemeMode = defaultTheme;
+
       if (defaultTheme != ThemeMode.system) {
         var savedUserThemeMode = _sharedPreferences.userThemeMode;
         if (savedUserThemeMode == null) {
@@ -91,14 +93,17 @@ You can supply either a list of ThemeData objects to the themes property or a li
       } else {
         _sharedPreferences.userThemeMode = null;
       }
-      _applyStatusBarColor(
-          _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme);
+      selectedTheme =
+          _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme;
+      _applyStatusBarColor(selectedTheme);
     }
 
-    _themesController = BehaviorSubject<ThemeModel>.seeded(ThemeModel(
-        selectedTheme: selectedTheme,
-        darkTheme: darkTheme,
-        themeMode: _selectedThemeMode));
+    _themesController = BehaviorSubject<ThemeModel>.seeded(
+      ThemeModel(
+          selectedTheme: selectedTheme,
+          darkTheme: darkTheme,
+          themeMode: _selectedThemeMode),
+    );
   }
 
   /// Broadcasts the theme at the index over the [themesStream]

@@ -42,14 +42,15 @@ class _ThemeBuilderState extends State<ThemeBuilder> {
     return Provider<ThemeManager>.value(
       value: themeManager,
       builder: (context, child) => StreamProvider<ThemeModel>(
+        lazy: false,
         create: (context) => themeManager.themesStream,
         builder: (context, child) => Consumer<ThemeModel>(
           child: child,
           builder: (context, themeModel, child) => widget.builder(
             context,
-            themeModel.selectedTheme,
-            themeModel.selectedTheme,
-            widget.defaultThemeMode,
+            themeModel?.selectedTheme,
+            themeModel?.darkTheme,
+            themeModel?.themeMode,
           ),
         ),
       ),
