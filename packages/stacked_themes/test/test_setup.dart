@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mockito/mockito.dart';
 import 'package:stacked_themes/src/locator_setup.dart';
 import 'package:stacked_themes/src/services/shared_preferences_service.dart';
@@ -9,11 +10,12 @@ class SharedPreferencesServiceMock extends Mock
 class StatusBarServiceMock extends Mock implements StatusBarService {}
 
 SharedPreferencesService getAndRegisterSharedPreferencesServiceMock(
-    {int themeIndex}) {
+    {int themeIndex, ThemeMode userThemeMode}) {
   _removeRegistrationIfExists<SharedPreferencesService>();
   var service = SharedPreferencesServiceMock();
 
   when(service.themeIndex).thenReturn(themeIndex);
+  when(service.userThemeMode).thenReturn(userThemeMode);
 
   locator.registerSingleton<SharedPreferencesService>(service);
   return service;

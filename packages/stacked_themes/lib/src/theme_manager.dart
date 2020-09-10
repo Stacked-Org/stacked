@@ -31,16 +31,20 @@ class ThemeManager {
   /// The theme to be used when not using the lightTheme
   final ThemeData darkTheme;
 
-  /// The default theme mode to use for the application.
+  /// The default theme mode to use for the application when the application is frst used.
+  ///
+  /// When using system all previously user selected theme will be cleared in favor of the system.
   final ThemeMode defaultTheme;
+
+  ThemeMode _selectedThemeMode;
 
   /// A builder function that provides you with the new selected theme that expects you to
   /// return a color for the status bar.
   final Color Function(ThemeData) statusBarColorBuilder;
 
-  BehaviorSubject<Map<String, ThemeData>> _themesController;
+  BehaviorSubject<ThemeModel> _themesController;
 
-  Stream<Map<String, ThemeData>> get themesStream => _themesController.stream;
+  Stream<ThemeModel> get themesStream => _themesController.stream;
 
   ThemeManager({
     this.themes,
@@ -75,26 +79,36 @@ You can supply either a list of ThemeData objects to the themes property or a li
         selectedTheme = themes.first;
       }
     } else {
-      if (defaultTheme == ThemeMode.light) {
-        selectedTheme = lightTheme;
-      } else {
-        selectedTheme = darkTheme;
+      _selectedThemeMode = defaultTheme;
+      if (defaultTheme != ThemeMode.system) {
+        var savedUserThemeMode = _sharedPreferences.userThemeMode;
+        if (savedUserThemeMode == null) {
+          _sharedPreferences.userThemeMode = defaultTheme;
+        } else {
+          _selectedThemeMode = savedUserThemeMode;
+        }
       }
     }
 
     _applyStatusBarColor(selectedTheme);
 
-    _themesController = BehaviorSubject<Map<String, ThemeData>>.seeded({
-      SelectedTheme: selectedTheme,
-      DarkTheme: darkTheme,
-    });
+    _themesController = BehaviorSubject<ThemeModel>.seeded(ThemeModel(
+        selectedTheme: selectedTheme,
+        darkTheme: darkTheme,
+        themeMode: _selectedThemeMode));
   }
 
   /// Broadcasts the theme at the index over the [themesStream]
   Future selectThemeAtIndex(int themeIndex) async {
     var theme = themes[themeIndex];
     await _applyStatusBarColor(theme);
-    _themesController.add({SelectedTheme: theme, DarkTheme: darkTheme});
+
+    _themesController.add(ThemeModel(
+      selectedTheme: theme,
+      darkTheme: darkTheme,
+      themeMode: _selectedThemeMode,
+    ));
+
     _sharedPreferences.themeIndex = themeIndex;
   }
 
@@ -104,8 +118,31 @@ You can supply either a list of ThemeData objects to the themes property or a li
       await _statusBarService.updateStatusBarColor(statusBarColor);
     }
   }
+
+  void toggleDarkLightTheme() {
+    _selectedThemeMode =
+        _selectedThemeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+
+    _themesController.add(ThemeModel(
+      selectedTheme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: _selectedThemeMode,
+    ));
+  }
 }
 
 /// Returns the [ThemeManger] that
 ThemeManager getThemeManager(BuildContext context) =>
     Provider.of<ThemeManager>(context, listen: false);
+
+class ThemeModel {
+  final ThemeData selectedTheme;
+  final ThemeData darkTheme;
+  final ThemeMode themeMode;
+
+  ThemeModel({
+    @required this.selectedTheme,
+    @required this.darkTheme,
+    @required this.themeMode,
+  });
+}

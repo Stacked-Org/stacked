@@ -28,7 +28,6 @@ class ThemeBuilder extends StatefulWidget {
           statusBarColorBuilder: statusBarColorBuilder,
           darkTheme: darkTheme,
           lightTheme: lightTheme,
-          
         ),
       );
 }
@@ -42,14 +41,14 @@ class _ThemeBuilderState extends State<ThemeBuilder> {
   Widget build(BuildContext context) {
     return Provider<ThemeManager>.value(
       value: themeManager,
-      builder: (context, child) => StreamProvider<Map<String, ThemeData>>(
+      builder: (context, child) => StreamProvider<ThemeModel>(
         create: (context) => themeManager.themesStream,
-        builder: (context, child) => Consumer<Map<String, ThemeData>>(
+        builder: (context, child) => Consumer<ThemeModel>(
           child: child,
-          builder: (context, value, child) => widget.builder(
+          builder: (context, themeModel, child) => widget.builder(
             context,
-            value[SelectedTheme],
-            value[DarkTheme],
+            themeModel.selectedTheme,
+            themeModel.selectedTheme,
             widget.defaultThemeMode,
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
@@ -16,10 +17,29 @@ class SharedPreferencesService {
   SharedPreferencesService._(this._preferences);
 
   static const _ThemeIndexKey = 'user_key';
+  static const _UserThemeModeKey = 'user_theme_mode_key';
 
   int get themeIndex => _getFromDisk(_ThemeIndexKey);
 
   set themeIndex(int value) => _saveToDisk(_ThemeIndexKey, value);
+
+  ThemeMode get userThemeMode {
+    var userThemeString = _getFromDisk(_UserThemeModeKey);
+    if (userThemeString == ThemeMode.dark.toString()) {
+      return ThemeMode.dark;
+    }
+
+    if (userThemeString == ThemeMode.light.toString()) {
+      return ThemeMode.light;
+    }
+
+    return ThemeMode.system;
+  }
+
+  set userThemeMode(ThemeMode userThemeMode) {
+    var userTheme = userThemeMode.toString();
+    _saveToDisk(_UserThemeModeKey, userTheme);
+  }
 
   void clearPreferences() {
     _preferences.clear();

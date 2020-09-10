@@ -9,7 +9,17 @@ class DarkLightView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DarkLightViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(),
+      builder: (context, model, child) => Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: Text(
+              'This adjusts Dark/Light depending on the System brightness setting and if you set themeMode to system in the main file.',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+      ),
       viewModelBuilder: () => DarkLightViewModel(),
     );
   }
