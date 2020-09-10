@@ -124,8 +124,7 @@ class SnackbarService {
     final getBar = GetBar(
       title: title,
       message: message,
-      titleText: snackbarConfig?.titleColor != null
-          ? Text(
+      titleText: Text(
         title,
         style: TextStyle(
             color: snackbarConfig?.titleColor ?? snackbarConfig?.textColor ?? Colors.white,
@@ -133,8 +132,7 @@ class SnackbarService {
             fontSize: 16),
       )
           : null,
-      messageText: snackbarConfig?.messageColor != null
-          ? Text(
+      messageText: Text(
         message,
         style: TextStyle(
             color: snackbarConfig?.messageColor ?? snackbarConfig?.textColor ?? Colors.white,
