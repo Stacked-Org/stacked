@@ -33,12 +33,16 @@ class SharedPreferencesService {
       return ThemeMode.light;
     }
 
-    return ThemeMode.system;
+    return null;
   }
 
-  set userThemeMode(ThemeMode userThemeMode) {
-    var userTheme = userThemeMode.toString();
-    _saveToDisk(_UserThemeModeKey, userTheme);
+  set userThemeMode(ThemeMode value) {
+    if (value == null) {
+      _saveToDisk(_UserThemeModeKey, value);
+    } else {
+      var userTheme = value.toString();
+      _saveToDisk(_UserThemeModeKey, userTheme);
+    }
   }
 
   void clearPreferences() {

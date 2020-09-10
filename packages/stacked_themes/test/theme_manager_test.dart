@@ -196,6 +196,23 @@ void main() {
       });
 
       test(
+          'When constructed with ThemeMode.system, should set userThemeMode to null',
+          () {
+        var sharedPreferences = getAndRegisterSharedPreferencesServiceMock();
+        var themes = [
+          ThemeData(primaryColor: Colors.blue),
+          ThemeData(primaryColor: Colors.yellow),
+        ];
+        ThemeManager(
+          darkTheme: themes.first,
+          lightTheme: themes.last,
+          defaultTheme: ThemeMode.system,
+        );
+
+        verify(sharedPreferences.userThemeMode = null);
+      });
+
+      test(
           'When constructed with ThemeMode.light, and user has no theme mode then save user theme mode',
           () {
         var sharedPreferences = getAndRegisterSharedPreferencesServiceMock();
@@ -255,6 +272,47 @@ void main() {
         }, count: 2));
 
         manager.toggleDarkLightTheme();
+      });
+
+      test(
+          'When manager constructed with Light, should get the statusColor from the builder',
+          () {
+        var themes = [
+          ThemeData(primaryColor: Colors.blue),
+          ThemeData(primaryColor: Colors.yellow),
+        ];
+        var statusColor;
+        ThemeManager(
+            darkTheme: themes.first,
+            lightTheme: themes.last,
+            defaultTheme: ThemeMode.light,
+            statusBarColorBuilder: (theme) {
+              statusColor = theme?.primaryColor;
+              return statusColor;
+            });
+
+        expect(statusColor, themes.last.primaryColor);
+      });
+
+      test(
+          'When manager constructed with Light, When toggleDarkLightTheme is called, should get the statusColor from the builder',
+          () {
+        var themes = [
+          ThemeData(primaryColor: Colors.blue),
+          ThemeData(primaryColor: Colors.yellow),
+        ];
+        var statusColor;
+        var manager = ThemeManager(
+            darkTheme: themes.first,
+            lightTheme: themes.last,
+            defaultTheme: ThemeMode.light,
+            statusBarColorBuilder: (theme) {
+              statusColor = theme?.primaryColor;
+              return statusColor;
+            });
+
+        manager.toggleDarkLightTheme();
+        expect(statusColor, themes.first.primaryColor);
       });
     });
 

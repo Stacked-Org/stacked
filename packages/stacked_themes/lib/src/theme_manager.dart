@@ -78,6 +78,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
       } else {
         selectedTheme = themes.first;
       }
+      _applyStatusBarColor(selectedTheme);
     } else {
       _selectedThemeMode = defaultTheme;
       if (defaultTheme != ThemeMode.system) {
@@ -87,10 +88,12 @@ You can supply either a list of ThemeData objects to the themes property or a li
         } else {
           _selectedThemeMode = savedUserThemeMode;
         }
+      } else {
+        _sharedPreferences.userThemeMode = null;
       }
+      _applyStatusBarColor(
+          _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme);
     }
-
-    _applyStatusBarColor(selectedTheme);
 
     _themesController = BehaviorSubject<ThemeModel>.seeded(ThemeModel(
         selectedTheme: selectedTheme,
@@ -122,6 +125,9 @@ You can supply either a list of ThemeData objects to the themes property or a li
   void toggleDarkLightTheme() {
     _selectedThemeMode =
         _selectedThemeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+
+    _applyStatusBarColor(
+        _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme);
 
     _themesController.add(ThemeModel(
       selectedTheme: lightTheme,
