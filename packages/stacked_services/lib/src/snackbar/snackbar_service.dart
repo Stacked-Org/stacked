@@ -131,7 +131,6 @@ class SnackbarService {
             fontWeight: FontWeight.w800,
             fontSize: 16),
       )
-          : null,
       messageText: Text(
         message,
         style: TextStyle(
@@ -139,7 +138,6 @@ class SnackbarService {
             fontWeight: FontWeight.w300,
             fontSize: 14),
       )
-          : null,
       icon: snackbarConfig.icon,
       shouldIconPulse: snackbarConfig.shouldIconPulse,
       maxWidth: snackbarConfig.maxWidth,
