@@ -28,6 +28,7 @@ class ThemeBuilder extends StatefulWidget {
           statusBarColorBuilder: statusBarColorBuilder,
           darkTheme: darkTheme,
           lightTheme: lightTheme,
+          defaultTheme: defaultThemeMode,
         ),
       );
 }
