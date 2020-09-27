@@ -24,6 +24,7 @@ class ThemeBuilder extends StatefulWidget {
   @override
   _ThemeBuilderState createState() => _ThemeBuilderState(
         ThemeManager(
+          
           themes: themes,
           statusBarColorBuilder: statusBarColorBuilder,
           darkTheme: darkTheme,

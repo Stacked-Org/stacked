@@ -179,24 +179,7 @@ void main() {
       });
 
       test(
-          'When constructed with ThemeMode.light, should check if user has a savedThemeMode',
-          () {
-        var sharedPreferences = getAndRegisterSharedPreferencesServiceMock();
-        var themes = [
-          ThemeData(primaryColor: Colors.blue),
-          ThemeData(primaryColor: Colors.yellow),
-        ];
-        ThemeManager(
-          darkTheme: themes.first,
-          lightTheme: themes.last,
-          defaultTheme: ThemeMode.light,
-        );
-
-        verify(sharedPreferences.userThemeMode);
-      });
-
-      test(
-          'When constructed with ThemeMode.system, should set userThemeMode to null',
+          'When constructed with ThemeMode.system, should check if user has a savedThemeMode',
           () {
         var sharedPreferences = getAndRegisterSharedPreferencesServiceMock();
         var themes = [
@@ -209,24 +192,7 @@ void main() {
           defaultTheme: ThemeMode.system,
         );
 
-        verify(sharedPreferences.userThemeMode = null);
-      });
-
-      test(
-          'When constructed with ThemeMode.light, and user has no theme mode then save user theme mode',
-          () {
-        var sharedPreferences = getAndRegisterSharedPreferencesServiceMock();
-        var themes = [
-          ThemeData(primaryColor: Colors.blue),
-          ThemeData(primaryColor: Colors.yellow),
-        ];
-        ThemeManager(
-          darkTheme: themes.first,
-          lightTheme: themes.last,
-          defaultTheme: ThemeMode.light,
-        );
-
-        verify(sharedPreferences.userThemeMode = ThemeMode.light);
+        verify(sharedPreferences.userThemeMode);
       });
 
       test(
@@ -313,6 +279,56 @@ void main() {
 
         manager.toggleDarkLightTheme();
         expect(statusColor, themes.first.primaryColor);
+      });
+    });
+
+    group('setThemeMode -', () {
+      test(
+          'When called with ThemeMode.dark, should save the theme mode to shared preferences',
+          () {
+        var preferences = getAndRegisterSharedPreferencesServiceMock();
+        var themeManager = ThemeManager(
+          lightTheme: ThemeData(),
+          darkTheme: ThemeData(),
+        );
+        themeManager.setThemeMode(ThemeMode.dark);
+        verify(preferences.userThemeMode = ThemeMode.dark);
+      });
+
+      test(
+          'When called with ThemeMode.dark, should set the status bar color from the ThemeManager',
+          () async {
+        bool called = false;
+        var themeManager = ThemeManager(
+            lightTheme: ThemeData(),
+            darkTheme: ThemeData(),
+            statusBarColorBuilder: (themeData) {
+              called = true;
+              return null;
+            });
+
+        themeManager.setThemeMode(ThemeMode.dark);
+
+        expect(called, true);
+      });
+
+      test(
+          'When called with ThemeMode.dark, should broadcast the theme data over the theme stream',
+          () {
+        var themeManager = ThemeManager(
+          lightTheme: ThemeData(),
+          darkTheme: ThemeData(),
+        );
+
+        bool alreadyCalled = false;
+        themeManager.themesStream.listen(expectAsync1((theme) {
+          if (alreadyCalled) {
+            expect(theme.themeMode, ThemeMode.dark);
+          }
+          alreadyCalled = true;
+        }, count: 2));
+
+        themeManager.setThemeMode(ThemeMode.dark);
       });
     });
 

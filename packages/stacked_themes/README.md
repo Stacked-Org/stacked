@@ -117,12 +117,21 @@ Widget build(BuildContext context) {
 }
 ```
 
-When the `defaultThemeMode` is not system, as in the example above, then you can use the `toggleDarkLightTheme` function to swap between the light and dark theme.
+To toggle between light and dark mode you can use the `toggleDarkLightTheme` function on the `ThemeManager`.
 
 ```dart
 getThemeManager(context)
   .toggleDarkLightTheme();
 ```
+
+In addition to toggling the theme you can also use the `setThemeMode` function to set the `ThemeMode` on the `ThemeManager`.
+
+```dart
+getThemeManager(context)
+  .setThemeMode(ThemeMode.light);
+```
+
+The `ThemeManager` will remember the last set value and broadcast that the next time the `ThemeManager` is constructed.
 
 ### Changing status bar color
 

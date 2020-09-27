@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
@@ -87,16 +88,11 @@ You can supply either a list of ThemeData objects to the themes property or a li
     } else {
       _selectedThemeMode = defaultTheme;
 
-      if (defaultTheme != ThemeMode.system) {
-        var savedUserThemeMode = _sharedPreferences.userThemeMode;
-        if (savedUserThemeMode == null) {
-          _sharedPreferences.userThemeMode = defaultTheme;
-        } else {
-          _selectedThemeMode = savedUserThemeMode;
-        }
-      } else {
-        _sharedPreferences.userThemeMode = null;
+      var savedUserThemeMode = _sharedPreferences.userThemeMode;
+      if (savedUserThemeMode != null) {
+        _selectedThemeMode = savedUserThemeMode;
       }
+
       selectedTheme =
           _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme;
       _applyStatusBarColor(selectedTheme);
@@ -134,14 +130,35 @@ You can supply either a list of ThemeData objects to the themes property or a li
     }
   }
 
-  /// Swaps between the light and dark ThemeMode if the defaultThemeMode supplied
-  /// to the ThemeBuilder is not [ThemeMode.system]
+  /// Swaps between the light and dark ThemeMode
   void toggleDarkLightTheme() {
     _selectedThemeMode =
         _selectedThemeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
 
     _applyStatusBarColor(
         _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme);
+
+    _themesController.add(ThemeModel(
+      selectedTheme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: _selectedThemeMode,
+    ));
+  }
+
+  void setThemeMode(ThemeMode themeMode) {
+    _selectedThemeMode = themeMode;
+
+    _sharedPreferences.userThemeMode = themeMode;
+
+    if (themeMode != ThemeMode.system) {
+      _applyStatusBarColor(
+          _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme);
+    } else {
+      var currentBrightness =
+          SchedulerBinding.instance.window.platformBrightness;
+      _applyStatusBarColor(
+          currentBrightness == Brightness.dark ? darkTheme : lightTheme);
+    }
 
     _themesController.add(ThemeModel(
       selectedTheme: lightTheme,

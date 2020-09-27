@@ -1,4 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:stacked_themes/src/theme_manager.dart';
+
+/// An enum that has a 1 to 1 mapping to ThemeMode.light, dark and system.
+///
+/// This is for use in a ViewModel where there should be no reference to Flutter UI
+/// code like ThemeMode.
+enum ThemeManagerMode { light, dark, system }
 
 /// A service accessible outside of the UI to allow the control of the [ThemeManager]
 class ThemeService {
@@ -30,4 +37,20 @@ class ThemeService {
 
   /// Returns true if the ThemeMode is dark. This does not apply when you're using system as ThemeMode
   bool get isDarkMode => _themeManager.isDarkMode;
+
+  /// Sets the theme mode on the [ThemeManager]
+  void setThemeMode(ThemeManagerMode themeManagerMode) =>
+      _themeManager.setThemeMode(_getThemeMode(themeManagerMode));
+
+  ThemeMode _getThemeMode(ThemeManagerMode mode) {
+    switch (mode) {
+      case ThemeManagerMode.dark:
+        return ThemeMode.dark;
+      case ThemeManagerMode.light:
+        return ThemeMode.light;
+      case ThemeManagerMode.system:
+        return ThemeMode.system;
+    }
+    return ThemeMode.system;
+  }
 }
