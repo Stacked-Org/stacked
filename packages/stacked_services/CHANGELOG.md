@@ -1,3 +1,7 @@
+## 0.5.4+4
+
+- Adds an id to the `back` function on the `NavigationService` for nested back calls.
+
 ## 0.5.4+3
 
 - Adds type to the navigation key
