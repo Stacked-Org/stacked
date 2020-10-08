@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'dart:html';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:stacked_themes/src/locator_setup.dart';

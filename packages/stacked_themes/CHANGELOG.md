@@ -1,3 +1,7 @@
+## 0.2.1+1
+
+- Fixes bad push
+
 ## 0.2.1
 
 - Exposes `ThemeManagerMode` on the `ThemeService` and `ThemeMode` on the `ThemeManager`.
