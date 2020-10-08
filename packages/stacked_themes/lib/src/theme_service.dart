@@ -42,6 +42,10 @@ class ThemeService {
   void setThemeMode(ThemeManagerMode themeManagerMode) =>
       _themeManager.setThemeMode(_getThemeMode(themeManagerMode));
 
+  /// Returns the selected theme mode
+  ThemeManagerMode get selectedThemeMode =>
+      _getThemeManagerMode(_themeManager.selectedThemeMode);
+
   ThemeMode _getThemeMode(ThemeManagerMode mode) {
     switch (mode) {
       case ThemeManagerMode.dark:
@@ -52,5 +56,17 @@ class ThemeService {
         return ThemeMode.system;
     }
     return ThemeMode.system;
+  }
+
+  ThemeManagerMode _getThemeManagerMode(ThemeMode mode) {
+    switch (mode) {
+      case ThemeMode.dark:
+        return ThemeManagerMode.dark;
+      case ThemeMode.light:
+        return ThemeManagerMode.light;
+      case ThemeMode.system:
+        return ThemeManagerMode.system;
+    }
+    return ThemeManagerMode.system;
   }
 }

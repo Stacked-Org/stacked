@@ -1,3 +1,7 @@
+## 0.2.1
+
+- Exposes `ThemeManagerMode` on the `ThemeService` and `ThemeMode` on the `ThemeManager`.
+
 ## 0.2.0
 
 - Adds functionality for setting the `ThemeMode` directly using `setThemeMode` function on the `ThemeManager`

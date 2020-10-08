@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:html';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -40,6 +41,9 @@ class ThemeManager {
   final ThemeMode defaultTheme;
 
   ThemeMode _selectedThemeMode;
+
+  /// Returns the current selected theme mode
+  ThemeMode get selectedThemeMode => _selectedThemeMode;
 
   /// A builder function that provides you with the new selected theme that expects you to
   /// return a color for the status bar.

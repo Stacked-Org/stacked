@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'app/locator.dart';
-import 'app/routes.gr.dart';
+import 'app/routes.gr.dart' as auto_router;
 
 void main() {
   setupLocator();
@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       navigatorKey: locator<NavigationService>().navigatorKey,
-      initialRoute: Routes.homeScreenRoute,
-      onGenerateRoute: Router().onGenerateRoute,
+      initialRoute: auto_router.Routes.homeScreenRoute,
+      onGenerateRoute: auto_router.Router().onGenerateRoute,
     );
   }
 }
