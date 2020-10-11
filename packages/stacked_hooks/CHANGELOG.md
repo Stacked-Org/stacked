@@ -1,3 +1,7 @@
+## 0.1.3+1
+
+- Update flutter_hooks
+
 ## 0.1.3
 
 - Update flutter_hooks and provider
