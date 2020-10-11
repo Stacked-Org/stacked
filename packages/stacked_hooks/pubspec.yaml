@@ -1,6 +1,6 @@
 name: stacked_hooks
 description: Classes that help you make use of hooks when using the stacked package
-version: 0.1.3
+version: 0.1.3+1
 homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_hooks
 
 environment:
