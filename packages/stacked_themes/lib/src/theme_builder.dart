@@ -86,17 +86,13 @@ class _ThemeBuilderState extends State<ThemeBuilder>
 
     switch (state) {
       case AppLifecycleState.inactive:
-        print('appLifeCycleState inactive');
         break;
       case AppLifecycleState.resumed:
-        print('appLifeCycleState resumed');
         adjustSystemThemeIfNecessary();
         break;
       case AppLifecycleState.paused:
-        print('appLifeCycleState paused');
         break;
       case AppLifecycleState.detached:
-        print('appLifeCycleState suspending');
         break;
     }
   }
@@ -105,14 +101,13 @@ class _ThemeBuilderState extends State<ThemeBuilder>
   void adjustSystemThemeIfNecessary() {
     switch (themeManager.selectedThemeMode) {
       //do nothing
-      case ThemeMode.dark:
+      case ThemeMode.light:
         break;
       //do nothing
       case ThemeMode.dark:
         break;
       //reapply theme
       case ThemeMode.system:
-        print('reApplying system theme');
         themeManager.setThemeMode(ThemeMode.system);
         break;
       default:
