@@ -1,3 +1,7 @@
+## 0.2.2
+
+- Re-apply system ThemeMode when we get back from background
+
 ## 0.2.1+1
 
 - Fixes bad push
