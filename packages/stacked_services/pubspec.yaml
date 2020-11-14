@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
 
   # navigation
-  get: ^3.8.0
+  get: ^3.17.1 
 
 dev_dependencies:
   flutter_test:
