@@ -1,3 +1,7 @@
+## 0.5.4+5
+
+- Updates get version to latest
+
 ## 0.5.4+4
 
 - Adds an id to the `back` function on the `NavigationService` for nested back calls.
