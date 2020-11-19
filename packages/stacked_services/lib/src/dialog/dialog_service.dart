@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stacked_services/src/dialog/platform_dialog.dart';
+import 'package:stacked_services/src/models/overlay_request.dart';
+import 'package:stacked_services/src/models/overlay_response.dart';
 
 enum DialogPlatform {
   Cupertino,
@@ -241,76 +243,5 @@ class DialogService {
   }
 }
 
-/// The response returned from awaiting a call on the [DialogService]
-class DialogResponse {
-  /// Indicates if a [showConfirmationDialog] has been confirmed or rejected.
-  /// null will be returned when it's not a confirmation dialog.
-  final bool confirmed;
 
-  /// A place to put any response data from dialogs that may contain text fields
-  /// or multi selection options
-  final dynamic responseData;
 
-  DialogResponse({
-    this.confirmed,
-    this.responseData,
-  });
-}
-
-class DialogRequest {
-  /// The title for the dialog
-  final String title;
-
-  /// Text so show in the dialog body
-  final String description;
-
-  /// Indicates if an image should be used or not
-  final bool hasImage;
-
-  /// The url / path to the image to show
-  final String imageUrl;
-
-  /// The text shown in the main button
-  final String mainButtonTitle;
-
-  /// A bool to indicate if you should show an icon in the main button
-  final bool showIconInMainButton;
-
-  /// The text to show on the secondary button on the dialog (cancel usually)
-  final String secondaryButtonTitle;
-
-  /// Indicates if you should show an icon in the main button
-  final bool showIconInSecondaryButton;
-
-  /// The text show on the third button on the dialog
-  final String additionalButtonTitle;
-
-  /// Indicates if you should show an icon in the additional button
-  final bool showIconInAdditionalButton;
-
-  /// Indicates if the dialog takes input
-  final bool takesInput;
-
-  /// Intended to be used with enums. If you want to create multiple different
-  /// dialogs. Pass your enum in here and check the value in the builder
-  final dynamic variant;
-
-  /// Extra data to be passed to the UI
-  final dynamic customData;
-
-  DialogRequest({
-    this.showIconInMainButton,
-    this.showIconInSecondaryButton,
-    this.showIconInAdditionalButton,
-    this.title,
-    this.description,
-    this.hasImage,
-    this.imageUrl,
-    this.mainButtonTitle,
-    this.secondaryButtonTitle,
-    this.additionalButtonTitle,
-    this.takesInput,
-    this.customData,
-    this.variant,
-  });
-}
