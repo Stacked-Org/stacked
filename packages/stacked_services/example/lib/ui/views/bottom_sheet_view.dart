@@ -23,13 +23,38 @@ class BottomSheetView extends StatelessWidget {
           OutlineButton(
             onPressed: () async {
               await _bottomSheetService.showBottomSheet(
-                title: 'Test Dialog Title',
-                description: 'Test Dialog Description',
-                cancelButtonTitle: 'Cancel'
+                title: 'This is my Sheets Title',
+                description:
+                    'This property will display under the title. We\'re not going to provide a lot of UI versions for the sheet because everyone will have a different style.\nInstead you can use the custom sheet builders as shown below.',
               );
             },
             child: Text(
-              'Show Material Dialog',
+              'Show Basic Bottom Sheet Alert',
+            ),
+          ),
+          Text(
+            'Press the button below to show a confirmation bottom sheet',
+            softWrap: true,
+            style: TextStyle(
+              fontSize: 14,
+            ),
+          ),
+          OutlineButton(
+            onPressed: () async {
+              var confirmationResponse =
+                  await _bottomSheetService.showBottomSheet(
+                title: 'Confirm this action with one of the options below',
+                description:
+                    'The result from this call will return a SheetResponse object with confirmed set to true. See the logs where we print out the confirmed value for you.',
+                confirmButtonTitle: 'I confirm',
+                cancelButtonTitle: 'I DONT confirm',
+              );
+
+              print(
+                  'confirmationResponse confirmed: ${confirmationResponse.confirmed}');
+            },
+            child: Text(
+              'Show Confirmation Bottom Sheet',
             ),
           ),
         ],

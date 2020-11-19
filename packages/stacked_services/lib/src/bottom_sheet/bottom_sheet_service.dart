@@ -18,18 +18,27 @@ class BottomSheetService {
     _sheetCompleter = Completer<SheetResponse>();
 
     Get.bottomSheet(
-        Material(
-          type: MaterialType.transparency,
-          child: GeneralBottomSheet(
-            title: title,
-            description: description ?? '',
-            confirmButtonTitle: confirmButtonTitle,
-            cancelButtonTitle: cancelButtonTitle,
-          ),
+      Material(
+        type: MaterialType.transparency,
+        child: GeneralBottomSheet(
+          title: title,
+          description: description ?? '',
+          confirmButtonTitle: confirmButtonTitle,
+          cancelButtonTitle: cancelButtonTitle,
+          onConfirmTapped: () => completeSheet(SheetResponse(confirmed: true)),
+          onCancelTapped: () => completeSheet(SheetResponse(confirmed: false)),
         ),
-        backgroundColor: Theme.of(Get.context).brightness == Brightness.light
-            ? Colors.white
-            : Colors.grey[800]);
+      ),
+      backgroundColor: Theme.of(Get.context).brightness == Brightness.light
+          ? Colors.white
+          : Colors.grey[800],
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
+      ),
+    );
 
     return _sheetCompleter.future;
   }
