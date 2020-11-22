@@ -1,3 +1,4 @@
+import 'package:example/ui/setup_bottom_sheet_ui.dart';
 import 'package:example/ui/setup_dialog_ui.dart';
 import 'package:example/ui/setup_snackbar_ui.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,8 @@ void main() {
   setupLocator();
   setupDialogUi();
   setupSnackbarUi();
+  setupBottomSheetUi();
+
   runApp(MyApp());
 }
 

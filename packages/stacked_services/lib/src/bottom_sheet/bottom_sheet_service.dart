@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stacked_services/src/models/overlay_request.dart';
 import 'package:stacked_services/src/models/overlay_response.dart';
 
 import 'bottom_sheet_ui.dart';
@@ -9,6 +10,18 @@ import 'bottom_sheet_ui.dart';
 /// A service that allows you to show a bottom sheet
 class BottomSheetService {
   Completer<SheetResponse> _sheetCompleter;
+  Map<dynamic,
+          Widget Function(BuildContext, SheetRequest, Function(SheetResponse))>
+      _sheetBuilders;
+
+  void setCustomSheetBuilders(
+      Map<
+              dynamic,
+              Widget Function(
+                  BuildContext, SheetRequest, Function(SheetResponse))>
+          builders) {
+    _sheetBuilders = builders;
+  }
 
   Future<SheetResponse> showBottomSheet({
     @required String title,
@@ -40,6 +53,67 @@ class BottomSheetService {
         ),
       ),
     );
+
+    return _sheetCompleter.future;
+  }
+
+  // Creates a popup with the given widget, a scale animation, and faded background.
+  Future<SheetResponse> showCustomSheet({
+    dynamic variant,
+    String title,
+    String description,
+    bool hasImage = false,
+    String imageUrl,
+    bool showIconInMainButton = false,
+    String mainButtonTitle,
+    bool showIconInSecondaryButton = false,
+    String secondaryButtonTitle,
+    bool showIconInAdditionalButton = false,
+    String additionalButtonTitle,
+    bool takesInput = false,
+    Color barrierColor = Colors.black54,
+    bool barrierDismissible = false,
+    String barrierLabel = '',
+    dynamic customData,
+  }) {
+    final sheetBuilder = _sheetBuilders[variant];
+
+    assert(
+      sheetBuilder != null,
+      '''
+      There's no sheet builder supplied for the variant:$variant. If you haven't yet setup your
+      custom builder. Please call the setCustomSheetBuilders function on the service and supply
+      the UI that you'd like to build for each variant. 
+
+      If you have already done that. Make sure that the variant:$variant has a builder associated
+      with it.
+      ''',
+    );
+
+    _sheetCompleter = Completer<SheetResponse>();
+
+    Get.bottomSheet(Material(
+      type: MaterialType.transparency,
+      child: sheetBuilder(
+        Get.context,
+        SheetRequest(
+          title: title,
+          description: description,
+          hasImage: hasImage,
+          imageUrl: imageUrl,
+          showIconInMainButton: showIconInMainButton,
+          mainButtonTitle: mainButtonTitle,
+          showIconInSecondaryButton: showIconInSecondaryButton,
+          secondaryButtonTitle: secondaryButtonTitle,
+          showIconInAdditionalButton: showIconInAdditionalButton,
+          additionalButtonTitle: additionalButtonTitle,
+          takesInput: takesInput,
+          customData: customData,
+          variant: variant,
+        ),
+        completeSheet,
+      ),
+    ));
 
     return _sheetCompleter.future;
   }
