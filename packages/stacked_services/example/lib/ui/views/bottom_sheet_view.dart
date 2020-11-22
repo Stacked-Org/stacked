@@ -52,7 +52,7 @@ class BottomSheetView extends StatelessWidget {
               );
 
               print(
-                  'confirmationResponse confirmed: ${confirmationResponse.confirmed}');
+                  'confirmationResponse confirmed: ${confirmationResponse?.confirmed}');
             },
             child: Text(
               'Show Confirmation Bottom Sheet',
@@ -78,7 +78,7 @@ class BottomSheetView extends StatelessWidget {
               );
 
               print(
-                  'confirmationResponse confirmed: ${confirmationResponse.confirmed}');
+                  'confirmationResponse confirmed: ${confirmationResponse?.confirmed}');
             },
             child: Text(
               'Show Custom Bottom Sheet',
