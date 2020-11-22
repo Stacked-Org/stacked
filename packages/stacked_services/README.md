@@ -2,6 +2,29 @@
 
 Provides some essential services to aid in implementing the Stacked architecture. These services are only here to reduce boilerplate code for the users of the Stacked Architecture that uses the architecture as instructed by FilledStacks on the architecture series.
 
+## Migration from 0.5.x -> 0.6.x
+
+- The custom builder function has changed for the `DialogService` instead of using `registerCustomDialogBuilder` you should now create a map of builders and pass it to `registerCustomDialogBuilders`.
+- If you're still using `registerCustomDialogBuilder` the builder function now takes a third argument of type `Function(DialogResponse)` that you can call completer.
+
+Old way:
+
+```dart
+service.registerCustomDialogBuilder(variant: Dialog.basic, builder: (context, request) => Dialog(...))
+```
+
+New way:
+
+```dart
+service.registerCustomDialogBuilder(variant: Dialog.basic, builder: (context, request, completer) => Dialog(...))
+```
+
+Take note of the third parameter in the builder function that you can call to complete the builder instead of using the dialog service directly. You can simply call
+
+```dart
+completer(DialogResponse(...));
+```
+
 ## Services
 
 The following services are included in the package
@@ -9,6 +32,7 @@ The following services are included in the package
 - **NavigationService:** Makes use of the [Get](https://pub.dev/packages/get) package to expose basic navigation functionalities
 - **DialogService**: Makes use of the [Get](https://pub.dev/packages/get) package to expose functionality that allows the dev to show dialogs from the ViewModels
 - **SnackbarService**: Makes use of the [Get](https://pub.dev/packages/get) to expose the snack bar functionality to devs.
+- **BottomSheetService**: Makes use of the [Get](https://pub.dev/packages/get) to expose the bottom sheet functionality.
 
 The services can be registered with get_it normally as you would usually
 
@@ -29,6 +53,8 @@ abstract class ThirdPartyServicesModule {
   DialogService get dialogService;
   @lazySingleton
   SnackbarService get snackBarService;
+  @lazySingleton
+  BottomSheetService get bottomSheetService;
 }
 ```
 
@@ -74,25 +100,54 @@ In addition to platform-specific UI, you can also build a custom dialog. To do t
 
 ```dart
 /// The type of dialog to show
-enum DialogType { base, form }
+enum DialogType { basic, form }
 ```
 
-In your UI folder or shared folder under UI, if you have one, create a new file called `setup_dialog_ui.dart`. Inside you will create a new function called `setupDialogUi`. In there you will call the function `registerCustomDialogBuilder` on the `DialogService`. _Look at the `setup_dialog_ui` file for a full example_
+In your UI folder or shared folder under UI, if you have one, create a new file called `setup_dialog_ui.dart`. Inside you will create a new function called `setupDialogUi`. In there you will create a Map of builders that will map to the `enum` values you created above. To keep code maintenance to the highest level you should make each of the widgets into its own widget and construct that instead of building the UI inline.
 
 ```dart
 void setupDialogUi() {
-  var dialogService = locator<DialogService>();
+  final dialogService = locator<DialogService>();
 
-  dialogService.registerCustomDialogBuilder(
-    variant: DialogType.base,
-    builder: (BuildContext context, DialogRequest dialogRequest) => Dialog(
-      child: // Build your UI here //
-    ),
-  );
+  final builders = {
+    DialogType.basic: (context, sheetRequest, completer) =>
+        _BasicDialog(request: sheetRequest, completer: completer),
+    DialogType.form:  (context, sheetRequest, completer) =>
+        _FormDialog(request: sheetRequest, completer: completer),
+  };
+
+  dialogService.registerCustomDialogBuilders(builders);
 }
+
+class _BasicDialog extends StatelessWidget {
+  final DialogRequest request;
+  final Function(DialogResponse) completer;
+  const _BasicDialog({Key key, this.request, this.completer}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: /* Build your dialog UI here */
+    );
+  }
+}
+
+class _FormDialog extends StatelessWidget {
+  final DialogRequest request;
+  final Function(DialogResponse) completer;
+  const _FormDialog({Key key, this.request, this.completer}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: /* Build your dialog UI here */
+    );
+  }
+}
+
 ```
 
-The dialog request is how you will control which dialog to build if you have many custom dialogs. It is also possible to turn some parts on or based on what you'd like to show. The `DialogRequest` has a few properties that can make you easily decide which widgets to place in the dialog to show. All these properties can be passed directly to the `showCustomDialog` function. Here are all the properties available for you to use.
+The `DialogRequest` has a few properties that can make you easily decide which widgets to place in the dialog to show. All these properties can be passed directly to the `showCustomDialog` function. Here are all the properties available for you to use.
 
 ```dart
 /// The title for the dialog
@@ -152,7 +207,7 @@ Now in your ViewModels, you can make use of the dialog as follows.
 
 ```dart
 await _dialogService.showCustomDialog(
-  variant: DialogType.base,
+  variant: DialogType.base, // Which builder you'd like to call that was assigned in the builders function above.
   title: 'This is a custom UI with Text as main button',
   description: 'Sheck out the builder in the dialog_ui_register.dart file',
   mainButtonTitle: 'Ok',
@@ -161,63 +216,7 @@ await _dialogService.showCustomDialog(
 
 ### Returning Data from Custom Dialog
 
-The custom dialog follows the same rules as the normal dialog. Calling `completeDialog` and passing in a `DialogResponse` object will return it to the caller that's awaiting on the dialog response UI. So when you have a tap handler in your dialog and you want to close the dialog, use the `completeDialog` function.
-
-```dart
-dialogService.registerCustomDialogBuilder(
-  variant: DialogType.form,
-  builder: (BuildContext context, DialogRequest dialogRequest) => Dialog(
-    child: Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text(
-            dialogRequest.title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            dialogRequest.description,
-            style: TextStyle(
-              fontSize: 18,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          GestureDetector(
-            // Complete the dialog when you're done with it to return some data
-            onTap: () => dialogService.completeDialog(DialogResponse(confirmed: true)),
-            child: Container(
-              child: dialogRequest.showIconInMainButton
-                  ? Icon(Icons.check_circle)
-                  : Text(dialogRequest.mainButtonTitle),
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.redAccent,
-                borderRadius: BorderRadius.circular(5),
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  ),
-);
-```
-
-Where you called your dialog function and awaited you'll receive the data returned from here.
+The builder function supplied for a Custom dialog builder has a parameter of type `Function(DialogResponse)` as the last parameter. Calling the completer function and passing in a `DialogResponse` object will return it to the caller that's awaiting on the dialog response UI. So when you have a tap handler in your dialog and you want to close the dialog, use the `completer(DialogResponse())` function.
 
 ```dart
 var response = await _dialogService.showCustomDialog(
@@ -377,3 +376,103 @@ _snackbarService.showCustomSnackBar(
 ```
 
 The snackbar service does not cover every scenario at the moment, especially for adding multiple actions or using icons. If you're looking for those kind of features please make an issue or make a PR for the functionality. I would greatly appreciate it.
+
+## BottomSheet Service
+
+This service, similar to the others above, allows the user to show a `BottomSheet` from the same place they handle their business logic. It's calls that can be awaited on for a result returned by the user. This makes writing your business logic much easier in the long run.
+
+## Usage
+
+The `BottomSheetService` has a basic mode for quick and dirty bottom sheet functionality, and also has a custom UI building function. To show a basic bottom sheet you simply get the `BottomSheetService` from the locator and then call `showBottomSheet`.
+
+```dart
+final BottomSheetService _bottomSheetService = locator<BottomSheetService>();
+
+var sheetResponse = await _bottomSheetService.showBottomSheet(
+  title: 'This is my Sheets Title',
+  description:
+      'This property will display under the title. We\'re not going to provide a lot of UI versions for the sheet because everyone will have a different style.\nInstead you can use the custom sheet builders as shown below.',
+);
+```
+
+As you can see above you can get a response from the `showBottomSheet` call. There are also two additional titles you can pass into the function.
+
+```dart
+ var confirmationResponse =
+      await _bottomSheetService.showBottomSheet(
+    title: 'Confirm this action with one of the options below',
+    description:
+        'The result from this call will return a SheetResponse object with confirmed set to true. See the logs where we print out the confirmed value for you.',
+    confirmButtonTitle: 'I confirm',
+    cancelButtonTitle: 'I DONT confirm',
+  );
+
+  print( 'confirmationResponse confirmed: ${confirmationResponse?.confirmed}');
+```
+
+The `confirmButtonTitle` when tapped will return a response where `confirmed` is set to true and the cancel title will return a response where `confired` is set to false.
+
+### Custom UI Setup
+
+Custom UI works the same as the `DialogService`. You can create a new file in your ui folder called `setup_bottom_sheet_ui.dart`. Inside this file you'll get the `BottomSheetService` from the locator (make sure it's registered, check beginning of readme). Then you'll construct a map of builders which take a mapping of an enum to a builder function. The builder function expects a `BuildContext`, `SheetRequest` and `Function<SheetResponse>` which we always call a completer.
+
+```dart
+void setupBottomSheetUi() {
+  final bottomSheetService = locator<BottomSheetService>();
+
+  final builders = {
+    BottomSheetType.FloatingBox: (context, sheetRequest, completer) =>
+        _FloatingBoxBottomSheet(request: sheetRequest, completer: completer)
+  };
+
+  bottomSheetService.setCustomSheetBuilders(builders);
+}
+
+class _FloatingBoxBottomSheet extends StatelessWidget {
+  final SheetRequest request;
+  final Function(SheetResponse) completer;
+  const _FloatingBoxBottomSheet({
+    Key key,
+    this.request,
+    this.completer,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(25),
+      padding: EdgeInsets.all(25),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Column(
+          ...
+      ),
+    );
+  }
+}
+```
+
+Once you've created the builders you set it on the service through `setCustomSheetBuilder`. Now in your code you can show this specific dialog that you registered.
+
+```dart
+ var confirmationResponse =
+    await _bottomSheetService.showCustomSheet(
+  variant: BottomSheetType.FloatingBox,
+  title: 'This is a floating bottom sheet',
+  description:
+      'This sheet is a custom built bottom sheet UI that allows you to show it from any service or viewmodel.',
+  mainButtonTitle: 'Awesome!',
+  secondaryButtonTitle: 'This is cool',
+);
+
+```
+
+### Returning data from the BottomSheet
+
+When you want to complete the dialog and return some data all your do is call the completer function and pass the `SheetResponse` that you'd like the awaiting function to receive.
+
+```dart
+onTap: () => completer(SheetResponse(...))
+```
