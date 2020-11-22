@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:example/app/locator.dart';
 import 'package:example/enums/bottomsheet_type.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -8,12 +6,12 @@ import 'package:flutter/material.dart';
 void setupBottomSheetUi() {
   final bottomSheetService = locator<BottomSheetService>();
 
-  final sheetBuilder = {
+  final builders = {
     BottomSheetType.FloatingBox: (context, sheetRequest, completer) =>
         _FloatingBoxBottomSheet(request: sheetRequest, completer: completer)
   };
 
-  bottomSheetService.setCustomSheetBuilders(sheetBuilder);
+  bottomSheetService.setCustomSheetBuilders(builders);
 }
 
 class _FloatingBoxBottomSheet extends StatelessWidget {

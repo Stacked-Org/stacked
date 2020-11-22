@@ -13,42 +13,52 @@ enum DialogPlatform {
   Custom,
 }
 
-/// A DialogService that uses the Get package to show dialogs
+/// A DialogService that uses the Get package to show dialogs from the business logic
 class DialogService {
-  Completer<DialogResponse> _dialogCompleter;
+  Map<
+          dynamic,
+          Widget Function(
+              BuildContext, DialogRequest, Function(DialogResponse))>
+      _dialogBuilders;
 
-  Map<dynamic, Widget Function(BuildContext, DialogRequest)>
-      _customDialogBuilders =
-      Map<dynamic, Widget Function(BuildContext, DialogRequest)>();
+  void registerCustomDialogBuilders(
+      Map<
+              dynamic,
+              Widget Function(
+                  BuildContext, DialogRequest, Function(DialogResponse))>
+          builders) {
+    _dialogBuilders = builders;
+  }
 
-  @Deprecated(
-    'Prefer to use the _customDialogBuilders property. Will be removed in future release',
-  )
-  Widget Function(BuildContext, DialogRequest) _customDialogUI;
+  Map<
+      dynamic,
+      Widget Function(BuildContext, DialogRequest,
+          Function(DialogResponse))> _customDialogBuilders = Map<dynamic,
+      Widget Function(BuildContext, DialogRequest, Function(DialogResponse))>();
 
   get navigatorKey {
     return Get.key;
   }
 
   @Deprecated(
-    'Prefer to use the registerCustomDialogBuilder() method. Will be removed in future release',
+    'Prefer to use the registerCustomDialogBuilders() method. This method will be removed on the next major release. 0.7.0',
   )
-  void registerCustomDialogUi(
-    Widget Function(BuildContext, DialogRequest) dialogBuilder,
-  ) {
-    _customDialogUI = dialogBuilder;
-  }
 
+  /// Registers a custom dialog builder. The builder function has been updated to include the function to call
+  /// when you want to close the dialog. This improves readability and ease of use. When you want to close a dialog
+  /// and return the result all you do is call the completer function passed in. i.e
+  ///
+  /// [registerCustomDialogBuilder](variant: MyDialog.Large, builder: (context, request, completer) => Button(onPressed: () => completer([DialogResponse]())))
+  ///
+  /// The normal completeDialog function will also still work when called on the service
   void registerCustomDialogBuilder({
     @required dynamic variant,
-    @required Widget Function(BuildContext, DialogRequest) builder,
+    @required
+        Widget Function(BuildContext, DialogRequest, Function(DialogResponse))
+            builder,
   }) {
     _customDialogBuilders[variant] = builder;
   }
-
-  // TODO: Create a dialog UI registration factory that will allow users to register
-  // dialogs to be built along with keys. the user should then be able to show the dialog
-  // using that key.
 
   /// Shows a dialog to the user
   ///
@@ -65,32 +75,28 @@ class DialogService {
     /// When not set a Platform specific dialog will be shown
     DialogPlatform dialogPlatform,
   }) {
-    _dialogCompleter = Completer<DialogResponse>();
-
     if (dialogPlatform != null) {
-      _showDialog(
+      return _showDialog(
         title: title,
         description: description,
         cancelTitle: cancelTitle,
         buttonTitle: buttonTitle,
         dialogPlatform: dialogPlatform,
         barrierDismissible: barrierDismissible,
-      ).then((_) => _dialogCompleter?.complete());
+      );
     } else {
       var _dialogType = GetPlatform.isAndroid
           ? DialogPlatform.Material
           : DialogPlatform.Cupertino;
-      _showDialog(
+      return _showDialog(
         title: title,
         description: description,
         cancelTitle: cancelTitle,
         buttonTitle: buttonTitle,
         dialogPlatform: _dialogType,
         barrierDismissible: barrierDismissible,
-      ).then((_) => _dialogCompleter?.complete());
+      );
     }
-
-    return _dialogCompleter.future;
   }
 
   Future _showDialog({
@@ -114,24 +120,22 @@ class DialogService {
               text: cancelTitle,
               isCancelButton: true,
               onPressed: () {
-                if (!_dialogCompleter.isCompleted)
-                  completeDialog(
-                    DialogResponse(
-                      confirmed: false,
-                    ),
-                  );
+                completeDialog(
+                  DialogResponse(
+                    confirmed: false,
+                  ),
+                );
               },
             ),
           PlatformButton(
             dialogPlatform: dialogPlatform,
             text: buttonTitle,
             onPressed: () {
-              if (!_dialogCompleter.isCompleted)
-                completeDialog(
-                  DialogResponse(
-                    confirmed: true,
-                  ),
-                );
+              completeDialog(
+                DialogResponse(
+                  confirmed: true,
+                ),
+              );
             },
           ),
         ],
@@ -159,18 +163,16 @@ class DialogService {
     String barrierLabel = '',
     dynamic customData,
   }) {
-    // TODO: Remove the _customDialogUI in the next release
+    // TODO: Remove the _customDialogUIBuilders in the next major release 0.7.0
     final customDialogUI =
-        variant != null ? _customDialogBuilders[variant] : _customDialogUI;
+        _dialogBuilders[variant] ?? _customDialogBuilders[variant];
 
     assert(
       customDialogUI != null,
       'You have to call registerCustomDialogBuilder to use this function. Look at the custom dialog UI section in the stacked_services readme.',
     );
 
-    _dialogCompleter = Completer<DialogResponse>();
-
-    Get.generalDialog(
+    return Get.generalDialog(
       barrierColor: barrierColor,
       transitionDuration: const Duration(milliseconds: 200),
       barrierDismissible: barrierDismissible,
@@ -195,6 +197,7 @@ class DialogService {
               customData: customData,
               variant: variant,
             ),
+            completeDialog,
           ),
         ),
       ),
@@ -208,9 +211,7 @@ class DialogService {
       //     child: child,
       //   );
       // },
-    ).then((_) => _dialogCompleter?.complete());
-
-    return _dialogCompleter.future;
+    );
   }
 
   /// Shows a confirmation dialog with title and description
@@ -237,11 +238,6 @@ class DialogService {
 
   /// Completes the dialog and passes the [response] to the caller
   void completeDialog(DialogResponse response) {
-    Get.back();
-    _dialogCompleter.complete(response);
-    _dialogCompleter = null;
+    Get.back(result: response);
   }
 }
-
-
-

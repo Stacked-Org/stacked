@@ -1,3 +1,9 @@
+## 0.6.0
+
+- Adds bottom sheet service
+- Adds dark theme for basic Material Dialogs
+- Updates the way we complete Dialogs
+
 ## 0.5.4+5
 
 - Updates get version to latest
