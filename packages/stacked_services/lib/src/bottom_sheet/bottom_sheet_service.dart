@@ -9,7 +9,6 @@ import 'bottom_sheet_ui.dart';
 
 /// A service that allows you to show a bottom sheet
 class BottomSheetService {
-  Completer<SheetResponse> _sheetCompleter;
   Map<dynamic,
           Widget Function(BuildContext, SheetRequest, Function(SheetResponse))>
       _sheetBuilders;
@@ -29,9 +28,7 @@ class BottomSheetService {
     String confirmButtonTitle = 'Ok',
     String cancelButtonTitle,
   }) {
-    _sheetCompleter = Completer<SheetResponse>();
-
-    Get.bottomSheet(
+    return Get.bottomSheet(
       Material(
         type: MaterialType.transparency,
         child: GeneralBottomSheet(
@@ -53,8 +50,6 @@ class BottomSheetService {
         ),
       ),
     );
-
-    return _sheetCompleter.future;
   }
 
   // Creates a popup with the given widget, a scale animation, and faded background.
@@ -90,9 +85,7 @@ class BottomSheetService {
       ''',
     );
 
-    _sheetCompleter = Completer<SheetResponse>();
-
-    Get.bottomSheet(Material(
+    return Get.bottomSheet(Material(
       type: MaterialType.transparency,
       child: sheetBuilder(
         Get.context,
@@ -114,14 +107,10 @@ class BottomSheetService {
         completeSheet,
       ),
     ));
-
-    return _sheetCompleter.future;
   }
 
   /// Completes the dialog and passes the [response] to the caller
   void completeSheet(SheetResponse response) {
-    Get.back();
-    _sheetCompleter.complete(response);
-    _sheetCompleter = null;
+    Get.back(result: response);
   }
 }

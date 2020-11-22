@@ -55,7 +55,13 @@ class _FloatingBoxBottomSheet extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               MaterialButton(
-                onPressed: () => completer(SheetResponse(confirmed: false)),
+                onPressed: () => locator<BottomSheetService>().showCustomSheet(
+                  variant: BottomSheetType.FloatingBox,
+                  title: 'Second bottomsheet',
+                  description: 'This one will show over the other one',
+                  mainButtonTitle: 'Show again',
+                  secondaryButtonTitle: 'Close this one',
+                ),
                 child: Text(
                   request.secondaryButtonTitle,
                   style: TextStyle(color: Theme.of(context).primaryColor),
