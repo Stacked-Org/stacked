@@ -99,7 +99,7 @@ class DialogService {
     }
   }
 
-  Future _showDialog({
+  Future<DialogResponse> _showDialog({
     String title,
     String description,
     String cancelTitle,
@@ -108,7 +108,7 @@ class DialogService {
     bool barrierDismissible = false,
   }) {
     var isConfirmationDialog = cancelTitle != null;
-    return Get.dialog(
+    return Get.dialog<DialogResponse>(
       PlatformDialog(
         dialogPlatform: dialogPlatform,
         title: title,
