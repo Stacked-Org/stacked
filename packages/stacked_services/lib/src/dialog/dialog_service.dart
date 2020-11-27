@@ -172,7 +172,7 @@ class DialogService {
       'You have to call registerCustomDialogBuilder to use this function. Look at the custom dialog UI section in the stacked_services readme.',
     );
 
-    return Get.generalDialog(
+    return Get.generalDialog<DialogResponse>(
       barrierColor: barrierColor,
       transitionDuration: const Duration(milliseconds: 200),
       barrierDismissible: barrierDismissible,

@@ -28,7 +28,7 @@ class BottomSheetService {
     String confirmButtonTitle = 'Ok',
     String cancelButtonTitle,
   }) {
-    return Get.bottomSheet(
+    return Get.bottomSheet<SheetResponse>(
       Material(
         type: MaterialType.transparency,
         child: GeneralBottomSheet(
@@ -85,7 +85,7 @@ class BottomSheetService {
       ''',
     );
 
-    return Get.bottomSheet(Material(
+    return Get.bottomSheet<SheetResponse>(Material(
       type: MaterialType.transparency,
       child: sheetBuilder(
         Get.context,

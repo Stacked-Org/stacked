@@ -1,3 +1,7 @@
+## 0.6.0+1
+
+- Adds typed return for dialogs and sheets
+
 ## 0.6.0
 
 - Adds bottom sheet service
