@@ -27,6 +27,8 @@ class NavigationService {
     NavigationTransition.LeftToRighttWithFade: Transition.leftToRightWithFade,
   };
 
+  @Deprecated(
+      'Prefer to use the StackedServices.navigatorKey instead of using this key. This will be removed in the next major version update for stacked.')
   GlobalKey<NavigatorState> get navigatorKey => Get.key;
 
   /// Returns the previous route

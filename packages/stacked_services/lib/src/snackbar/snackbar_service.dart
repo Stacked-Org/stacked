@@ -8,6 +8,8 @@ import 'package:stacked_services/src/snackbar/snackbar_config.dart';
 
 /// A service that allows the user to show the snackbar from a ViewModel
 class SnackbarService {
+  @Deprecated(
+      'Prefer to use the StackedServices.navigatorKey instead of using this key. This will be removed in the next major version update for stacked.')
   get navigatorKey {
     return Get.key;
   }
