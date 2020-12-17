@@ -1,3 +1,7 @@
+## 0.2.2+2
+
+- Updates packages to the latest
+
 ## 0.2.2+1
 
 - Updates get it to latest
