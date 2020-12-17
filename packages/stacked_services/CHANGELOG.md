@@ -1,3 +1,7 @@
+## 0.6.1
+
+- Introduces the new `StackedService` class with the navigation properties on it. This is introduced to remove the confusion around every service having a key to set. So going forward if you want to use any of the services you just set the navigatorKey on the `StackedService`.
+
 ## 0.6.0+1
 
 - Adds typed return for dialogs and sheets
