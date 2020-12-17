@@ -68,12 +68,12 @@ Your services will be available as usual on your locator instance.
 
 ## Usage
 
-To use the services you have to assign the navigation key to your Flutter application.
+To use ANY OF the services you have to assign the navigation key to your Flutter application.
 
 ```dart
 MaterialApp(
   title: 'Stacked Services',
-  navigatorKey: locator<NavigationService>().navigatorKey,
+  navigatorKey: StackedService.navigatorKey,
   // home: AddCardView(), // Used when testing a view
   initialRoute: Routes.startupViewRoute,
   onGenerateRoute: Router().onGenerateRoute,

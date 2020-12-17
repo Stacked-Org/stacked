@@ -38,6 +38,8 @@ class NavigationService {
   String get currentRoute => Get.currentRoute;
 
   /// Creates and/or returns a new navigator key based on the index passed in
+  @Deprecated(
+      'Prefer to use the StackedServices.nestedNavigationKey instead of using this property. This will be removed in the next major version update for stacked.')
   GlobalKey<NavigatorState> nestedNavigationKey(int index) =>
       Get.nestedKey(index);
 
