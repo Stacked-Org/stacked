@@ -68,7 +68,9 @@ class DialogService {
     String title,
     String description,
     String cancelTitle,
+    Color cancelTitleColor,
     String buttonTitle = 'Ok',
+    Color buttonTitleColor,
     bool barrierDismissible = false,
 
     /// Indicates which [DialogPlatform] to show.
@@ -93,7 +95,9 @@ class DialogService {
         title: title,
         description: description,
         cancelTitle: cancelTitle,
+        cancelTitleColor: cancelTitleColor,
         buttonTitle: buttonTitle,
+        buttonTitleColor: buttonTitleColor,
         dialogPlatform: _dialogType,
         barrierDismissible: barrierDismissible,
       );
@@ -104,7 +108,9 @@ class DialogService {
     String title,
     String description,
     String cancelTitle,
+    Color cancelTitleColor,
     String buttonTitle,
+    Color buttonTitleColor,
     DialogPlatform dialogPlatform,
     bool barrierDismissible = false,
   }) {
@@ -119,6 +125,7 @@ class DialogService {
             PlatformButton(
               dialogPlatform: dialogPlatform,
               text: cancelTitle,
+              cancelBtnColor: cancelTitleColor,
               isCancelButton: true,
               onPressed: () {
                 completeDialog(
@@ -131,6 +138,7 @@ class DialogService {
           PlatformButton(
             dialogPlatform: dialogPlatform,
             text: buttonTitle,
+            confirmationBtnColor: buttonTitleColor,
             onPressed: () {
               completeDialog(
                 DialogResponse(
