@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_architecture/app/locator.dart';
 import 'package:stacked/stacked.dart';
 
 import 'history_viewmodel.dart';
@@ -9,10 +10,14 @@ class HistoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HistoryViewModel>.reactive(
+      initialiseSpecialViewModelsOnce: true,
+      disposeViewModel: false,
       builder: (context, model, child) => Scaffold(
-        body: Center(child: Text('History'))
-      ),
-      viewModelBuilder: () => HistoryViewModel(),
+          body: Center(
+              child: model.isBusy
+                  ? CircularProgressIndicator()
+                  : Text(model.data.toString()))),
+      viewModelBuilder: () => locator<HistoryViewModel>(),
     );
   }
 }

@@ -1,3 +1,56 @@
+## 1.7.7
+
+- Fixes [Multiple Streams ViewModel causing memory overflow](https://github.com/FilledStacks/stacked/issues/190) bug
+
+## 1.7.6
+
+- Adds `fireOnce` properties to the `ViewModelBuilderWidget`
+
+## 1.7.5
+
+- Adds rethrow capability to the `FutureViewModel`
+
+## 1.7.4
+
+- Makes index tracking viewmodel a reactive viewmodel so it can react to services
+
+## 1.7.3+2
+
+- REVERT: Use hascode for hasErrorForObject function instead of value directly
+
+## 1.7.3+1
+
+- Use hascode for hasErrorForObject function instead of value directly
+
+## 1.7.3
+
+- Removes old error handling code for specialty viewmodels
+
+## 1.7.2
+
+- Adds `RxSet` to the reactive list of functionalities.
+
+## 1.7.1+1
+
+- Adds `initialiseSpecialViewModelsOnce` to the readme.
+
+## 1.7.1
+
+- Adds `initialiseSpecialViewModelsOnce` property to set initialise function call to only fire once.
+
+## 1.7.0+1
+
+- Adds more migration notes
+
+## 1.7.0 - [BREAKING CHANGES]
+
+### Migrate from 1.6.1 -> 1.7
+
+- hasError(key) -> error(key) for multiple ViewModel
+
+- Adds `IndexTrackingViewModel` for help with BottomNavBar
+- Adds better error handling for `BaseViewModel`
+
 ## 1.6.1+1
 
 - Adds `fireOnModelReadyOnce` to readme

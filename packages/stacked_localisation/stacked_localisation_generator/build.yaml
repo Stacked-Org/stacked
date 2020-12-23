@@ -1,0 +1,7 @@
+builders:
+  localisation_string_key_generator:
+    import: "package:stacked_localisation_generator/stacked_localisation_generator.dart"
+    builder_factories: ["localisationStringKeyGenerator"]
+    build_extensions: { "$lib$": ["all_files.txt"] }
+    auto_apply: dependents
+    build_to: source

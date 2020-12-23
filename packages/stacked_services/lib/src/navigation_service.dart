@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:injectable/injectable.dart';
 
 class NavigationTransition {
   static const String Fade = 'fade';
@@ -16,7 +15,6 @@ class NavigationTransition {
 /// Provides a service that can be injected into the ViewModels for navigation.
 ///
 /// Uses the Get library for all navigation requirements
-@lazySingleton
 class NavigationService {
   Map<String, Transition> _transitions = {
     NavigationTransition.Fade: Transition.fade,
@@ -29,12 +27,21 @@ class NavigationService {
     NavigationTransition.LeftToRighttWithFade: Transition.leftToRightWithFade,
   };
 
-  get navigatorKey {
-    return Get.key;
-  }
+  @Deprecated(
+      'Prefer to use the StackedServices.navigatorKey instead of using this key. This will be removed in the next major version update for stacked.')
+  GlobalKey<NavigatorState> get navigatorKey => Get.key;
+
+  /// Returns the previous route
+  String get previousRoute => Get.previousRoute;
+
+  /// Returns the current route
+  String get currentRoute => Get.currentRoute;
 
   /// Creates and/or returns a new navigator key based on the index passed in
-  nestedNavigationKey(int index) => Get.nestedKey(index);
+  @Deprecated(
+      'Prefer to use the StackedServices.nestedNavigationKey instead of using this property. This will be removed in the next major version update for stacked.')
+  GlobalKey<NavigatorState> nestedNavigationKey(int index) =>
+      Get.nestedKey(index);
 
   /// Allows you to configure the default behaviour for navigation.
   ///
@@ -93,7 +100,7 @@ class NavigationService {
       int id}) {
     return Get.to(page,
         transition: _getTransitionOrDefault(transition),
-        duration: duration ?? Get.defaultDurationTransition,
+        duration: duration ?? Get.defaultTransitionDuration,
         popGesture: popGesture ?? Get.isPopGestureEnable,
         opaque: opaque ?? Get.isOpaqueRouteDefault,
         id: id);
@@ -112,7 +119,7 @@ class NavigationService {
     return Get.off(
       page,
       transition: _getTransitionOrDefault(transition),
-      duration: duration ?? Get.defaultDurationTransition,
+      duration: duration ?? Get.defaultTransitionDuration,
       popGesture: popGesture ?? Get.isPopGestureEnable,
       opaque: opaque ?? Get.isOpaqueRouteDefault,
       id: id,
@@ -120,8 +127,8 @@ class NavigationService {
   }
 
   /// Pops the current scope and indicates if you can pop again
-  bool back({dynamic result}) {
-    Get.back(result: result);
+  bool back({dynamic result, int id}) {
+    Get.back(result: result, id: id);
     return Get.key.currentState.canPop();
   }
 

@@ -2,7 +2,12 @@
 
 An architecture developed and revised by the [FilledStacks](https://www.youtube.com/filledstacks) community. This architecture was initially a version of MVVM as [described in this video](https://youtu.be/kDEflMYTFlk). Since then Filledstacks app development team has built 6 production applications with various requirements. This experience along with countless requests for improvements and common functionality is what sparked the creation of this architecture package. It aims to provide **common functionalities to make app development easier** as well as code principles to use during development to ensure your code stays maintainable.
 
-**If you're Reading this disclaimer the series that does a deep-dive on this architecture has not been published yet.**
+[Here you can watch the full video series](https://www.youtube.com/playlist?list=PLdTodMosi-BwM4XkagNwe4KADOMWQS5X-) for an in depth dive of this architecture.
+
+### Migrate from 1.6.1 -> 1.7
+
+- hasError(key) -> error(key) for multiple ViewModel
+- model.error -> model.modelError for multiple ViewModel
 
 ## How Does it work
 
@@ -31,7 +36,7 @@ Stacked provides you with classes and functionalities to make it easy to impleme
 
 The `ViewModelBuilder` was first built in the [Provider Architecture Tutorial](https://youtu.be/kDEflMYTFlk) where it was titled BaseView. The `ViewModelBuilder` is used to create the "binding" between a ViewModel and the View. There is no two-way binding in this architecture, which is why I don't want to say it's an Mvvm implementation and why we have instead given it our name. The `ViewModelBuilder` wraps up all the `ChangeNotifierProvider` code which allows us to trigger a rebuild of a widget when calling `notifyListeners` within the ViewModel.
 
-A ViewModel is simply a dart class that extends `ChangeNotifier`. The `ViewModelBuilder` has 2 constructors, one that's reactive and one that's not. The tutorial mentioned above emulates the default implementation which has been put into the `.reactive` named constructor. The `.nonReactive` constructor is for UI that does not require the builder to fire when `notifyListeners(` is called in the ViewModel. The nonReactive construction was born in [this tutorial](https://youtu.be/HUSqk0OrR7I?t=224) where we wanted to reduce the boilerplate when the same data has to go to multiple widgets using the same ViewModel. This is very prominent when using the responsive_builder package.
+A ViewModel is simply a dart class that extends `ChangeNotifier`. The `ViewModelBuilder` has 2 constructors, one that's reactive and one that's not. The tutorial mentioned above emulates the default implementation which has been put into the `.reactive` named constructor. The `.nonReactive` constructor is for UI that does not require the builder to fire when `notifyListeners` is called in the ViewModel. The nonReactive construction was born in [this tutorial](https://youtu.be/HUSqk0OrR7I?t=224) where we wanted to reduce the boilerplate when the same data has to go to multiple widgets using the same ViewModel. This is very prominent when using the responsive_builder package.
 
 ### Reactive
 
@@ -151,7 +156,7 @@ So what we're doing here is providing the ViewModel to the children of the build
 
 ### ViewModelBuilderWidget
 
-If you want to make use of the `ViewModelBuilder` directly as a widget is can be extended as well using the `ViewModelBuilderWidget<T>`. This will give you the same properties to override as the ones you can pass into the named constructors. There are 2 required overrides, the same as the 2 required parameters for the constructors. The difference with this is that your code will look like a normal widget so it fits into the codebase. You can also override and implement `onModelReady` and `staticChildBuilder`.
+If you want to make use of the `ViewModelBuilder` directly as a widget it can be extended as well using the `ViewModelBuilderWidget<T>`. This will give you the same properties to override as the ones you can pass into the named constructors. There are 2 required overrides, the same as the 2 required parameters for the constructors. The difference with this is that your code will look like a normal widget so it fits into the codebase. You can also override and implement `onModelReady` and `staticChildBuilder`.
 
 ```dart
 
@@ -224,7 +229,7 @@ Note that the `ViewModelBuilder` constructor is called with parameter `disposeVi
 
 ### Call onModelReady only once
 
-In some cases, specifically using a `BottomNavigationBar` you don't want the `onModelReady` function to fire every time the widget that the model is associated with comes into view. to toggle this you can set `fireOnModelReadyOnce` to true. This will fire the onModelReady call only once during the lifecycle of the `ViewModel`. When it's recreated it will fire again. Checkout the [BottomNavigation example](https://github.com/FilledStacks/stacked/blob/master/packages/stacked/example/lib/ui/bottom_nav/bottom_nav_example.dart) in the examples folder.
+In some cases, specifically using a `BottomNavigationBar` you don't want the `onModelReady` function to fire every time the widget that the model is associated with comes into view. To toggle this you can set `fireOnModelReadyOnce` to true. This will fire the onModelReady call only once during the lifecycle of the `ViewModel`. When it's recreated it will fire again. Checkout the [BottomNavigation example](https://github.com/FilledStacks/stacked/blob/master/packages/stacked/example/lib/ui/bottom_nav/bottom_nav_example.dart) in the examples folder.
 
 ```dart
 class FavoritesView extends StatelessWidget {
@@ -251,6 +256,37 @@ class FavoritesView extends StatelessWidget {
   }
 }
 ```
+
+### Fire initialisation only once
+
+Special `ViewModels` like `FutureViewModel` or `StreamViewModel` runs it's logic through an initialise call by the ViewModelBuilder. If you want to fire the initialisation logic only once you can set `initialiseSpecialViewModelsOnce: true`
+
+```dart
+class FavoritesView extends StatelessWidget {
+  const FavoritesView({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<FavoritesViewModel>.reactive(
+      builder: (context, model, child) => Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => model.incrementCounter(),
+          ),
+          body: Center(
+              child: Text(
+            model.counter.toString(),
+            style: TextStyle(fontSize: 30),
+          ))),
+      viewModelBuilder: () => locator<FavoritesViewModel>(),
+      disposeViewModel: false,
+      // Tell the ViewModelBuilder to only fire the initialse function once
+      initialiseSpecialViewModelsOnce: true
+    );
+  }
+}
+```
+
+This in cases that you have a Future viewmodel that you'd like to fire only once. To ensure this works correctly you should also make sure you're using a singleton ViewModel so that you always use the same instance and also set disposeViewModel to false. This can be seen in the bottom_nav folder under ui in the example. Look at the bottom_nav_example.dart file for more details.
 
 ## ViewModel Widget
 
@@ -421,6 +457,83 @@ class WidgetOne extends StatelessWidget {
 
 All the major functionality for the BaseViewModel is shown above
 
+### Busy handling
+
+Stacked makes it easier for you to indicate to the UI if your model is busy or not through by providing some utility functions. Lets look at an example. When you run a future and you want to indicate to the UI the model is busy you would use the `runBusyFuture`.
+
+```dart
+class BusyExampleViewModel extends BaseViewModel {
+ Future longUpdateStuff() async {
+    // Sets busy to true before starting future and sets it to false after executing
+    // You can also pass in an object as the busy object. Otherwise it'll use the model
+    var result = await runBusyFuture(updateStuff());
+  }
+
+  Future updateStuff() {
+    return Future.delayed(const Duration(seconds: 3));
+  }
+}
+```
+
+This will set the busy property using `this` as the key so you can check if the future is still running by calling `isBusy` on the model. If you want to assign it a different key, in the example of a `CartView` where you have multiple items listed. When increasing the quantity of an item you want only that item to show a busy indicator. For that you can also supply a key to the `runBusyFuture` function.
+
+```dart
+const String BusyObjectKey = 'my-busy-key';
+
+class BusyExampleViewModel extends BaseViewModel {
+  Future longUpdateStuff() async {
+    // Sets busy to true before starting future and sets it to false after executing
+    // You can also pass in an object as the busy object. Otherwise it'll use the model
+    var result = await runBusyFuture(updateStuff(), busyObject: BusyObjectKey);
+  }
+
+  Future updateStuff() {
+    return Future.delayed(const Duration(seconds: 3));
+  }
+}
+```
+
+Then you can check the busy state using that busy key and calling `model.busy(BusyObjectKey)`. The key should be any unique value that won't change with the busy state of the object. In the example mentioned above you can use the id of each of the cart products to indicate if it's busy or not. This way you can show a busy state for each of them individually.
+
+### Error Handling
+
+The same way that the busy state is set you also get an error state. When you use one of the specialty `ViewModels` or the future helper functions. `runBusyFuture` or `runErrorFuture` stacked will store the exception thrown in the `ViewModel` for you to use. It will follow the same rules as the busy above and will assign the exception to the `ViewModel` or the key passed in. Lets look at some code.
+
+```dart
+class ErrorExampleViewModel extends BaseViewModel {
+ Future longUpdateStuff() async {
+    // Sets busy to true before starting future and sets it to false after executing
+    // You can also pass in an object as the busy object. Otherwise it'll use the model
+    var result = await runBusyFuture(updateStuff());
+  }
+
+  Future updateStuff() async {
+    await Future.delayed(const Duration(seconds: 3));
+    throw Exception('Things went wrong');
+  }
+}
+```
+
+After 3 seconds this future will throw an error. It will automatically catch that error, set the view back to not busy and then save the error. When no key is supplied to `runBusyFuture` you can check if there's an error using the `hasError` property. You can also get the actual exception from the `modelError` property. If you do supply a key however then you can get the exception back using the error function.
+
+```dart
+const String BusyObjectKey = 'my-busy-key';
+
+class BusyExampleViewModel extends BaseViewModel {
+  Future longUpdateStuff() async {
+    // Sets busy to true before starting future and sets it to false after executing
+    // You can also pass in an object as the busy object. Otherwise it'll use the model
+    var result = await runBusyFuture(updateStuff(), busyObject: BusyObjectKey);
+  }
+
+  Future updateStuff() {
+    return Future.delayed(const Duration(seconds: 3));
+  }
+}
+```
+
+In this case the error can be retrieved using `model.error(BusyObjectKey)` or you can simply check if there is an error for the key using `mode.hasErrorForKey(BusyObjectKey)`. If you want to react to an error from your future you can override `onFutureError` which will return the exception and the key you used for that future. The Specialty `ViewModels` have their own onError override but this one can be used in there as well if needed.
+
 ## Reactivity
 
 One thing that was common in a scenario with the first implementation of this architecture is reacting to values changed by different ViewModels. I don't have the exact implementation that I would hope for but without reflection, some things will have to be a bit more verbose. The stacked architecture makes provision for ViewModels to react to changes to values in service by making use of RxValue from the [Observable-Ish](https://pub.dev/packages/observable_ish) package.
@@ -546,7 +659,7 @@ The future will run after the model has been created automatically.
 ```dart
 class FutureExampleViewModel extends FutureViewModel<String> {
   @override
-  Future<String> get future => getDataFromServer();
+  Future<String> futureToRun() => getDataFromServer();
 
   Future<String> getDataFromServer() async {
     await Future.delayed(const Duration(seconds: 3));
@@ -744,6 +857,57 @@ class MultipleStreamsExampleViewModel extends MultipleStreamViewModel {
 ```
 
 Similarly to the single-stream model. When your stream has changed you should call `notifySourceChanged` to let the ViewModel know that it should stop listening to the old stream and subscribe to the new one. If you want to check if the stream had an error you can use the `hasError` function with the key for the stream, you can also get the error using `getError` with the key for the Stream.
+
+### IndexTrackingViewModel
+
+This ViewModel provides the basic functionality required for index tracking like bottom nav bar, side drawer, etc. It has functions and properties set and get the current index as well as a property that indicates `reversed` to be used with page transition animations. it can be used in a view as follows.
+
+```dart
+class HomeView extends StatelessWidget {
+  const HomeView({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<HomeViewModel>.reactive(
+      builder: (context, model, child) => Scaffold(
+        body: getViewForIndex(model.currentIndex),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.grey[800],
+          currentIndex: model.currentTabIndex,
+          onTap: model.setTabIndex,
+          items: [
+            BottomNavigationBarItem(
+              title: Text('Posts'),
+              icon: Icon(Icons.art_track),
+            ),
+            BottomNavigationBarItem(
+              title: Text('Todos'),
+              icon: Icon(Icons.list),
+            ),
+          ],
+        ),
+      ),
+      viewModelBuilder: () => HomeViewModel(),
+    );
+  }
+
+  Widget getViewForIndex(int index) {
+    switch (index) {
+      case 0:
+        return PostsView();
+      case 1:
+        return TodosView();
+    }
+  }
+}
+```
+
+Where the `ViewModel` is just this.
+
+```dart
+class HomeViewModel extends IndexTrackingViewModel {}
+```
 
 ## Migrating from provider_architecture to Stacked
 

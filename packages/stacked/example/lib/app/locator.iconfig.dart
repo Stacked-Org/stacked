@@ -6,6 +6,7 @@
 
 import 'package:new_architecture/services/epoch_service.dart';
 import 'package:new_architecture/ui/bottom_nav/favorites/favorites_viewmodel.dart';
+import 'package:new_architecture/ui/bottom_nav/history/history_viewmodel.dart';
 import 'package:new_architecture/services/information_service.dart';
 import 'package:get_it/get_it.dart';
 
@@ -15,4 +16,5 @@ void $initGetIt(GetIt g, {String environment}) {
 
   //Eager singletons must be registered in the right order
   g.registerSingleton<FavoritesViewModel>(FavoritesViewModel());
+  g.registerSingleton<HistoryViewModel>(HistoryViewModel());
 }

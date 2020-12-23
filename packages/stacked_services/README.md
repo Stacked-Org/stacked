@@ -2,6 +2,29 @@
 
 Provides some essential services to aid in implementing the Stacked architecture. These services are only here to reduce boilerplate code for the users of the Stacked Architecture that uses the architecture as instructed by FilledStacks on the architecture series.
 
+## Migration from 0.5.x -> 0.6.x
+
+- The custom builder function has changed for the `DialogService` instead of using `registerCustomDialogBuilder` you should now create a map of builders and pass it to `registerCustomDialogBuilders`.
+- If you're still using `registerCustomDialogBuilder` the builder function now takes a third argument of type `Function(DialogResponse)` that you can call completer.
+
+Old way:
+
+```dart
+service.registerCustomDialogBuilder(variant: Dialog.basic, builder: (context, request) => Dialog(...))
+```
+
+New way:
+
+```dart
+service.registerCustomDialogBuilder(variant: Dialog.basic, builder: (context, request, completer) => Dialog(...))
+```
+
+Take note of the third parameter in the builder function that you can call to complete the builder instead of using the dialog service directly. You can simply call
+
+```dart
+completer(DialogResponse(...));
+```
+
 ## Services
 
 The following services are included in the package
@@ -9,6 +32,7 @@ The following services are included in the package
 - **NavigationService:** Makes use of the [Get](https://pub.dev/packages/get) package to expose basic navigation functionalities
 - **DialogService**: Makes use of the [Get](https://pub.dev/packages/get) package to expose functionality that allows the dev to show dialogs from the ViewModels
 - **SnackbarService**: Makes use of the [Get](https://pub.dev/packages/get) to expose the snack bar functionality to devs.
+- **BottomSheetService**: Makes use of the [Get](https://pub.dev/packages/get) to expose the bottom sheet functionality.
 
 The services can be registered with get_it normally as you would usually
 
@@ -29,6 +53,8 @@ abstract class ThirdPartyServicesModule {
   DialogService get dialogService;
   @lazySingleton
   SnackbarService get snackBarService;
+  @lazySingleton
+  BottomSheetService get bottomSheetService;
 }
 ```
 
@@ -42,17 +68,16 @@ Your services will be available as usual on your locator instance.
 
 ## Usage
 
-To use the services you have to assign the navigation key to your Flutter application.
+To use ANY OF the services you have to assign the navigation key to your Flutter application.
 
 ```dart
 MaterialApp(
-      title: 'Stacked Services',
-      navigatorKey: locator<NavigationService>().navigatorKey,
-      // home: AddCardView(), // Used when testing a view
-      initialRoute: Routes.startupViewRoute,
-      onGenerateRoute: Router().onGenerateRoute,
-      ),
-    );
+  title: 'Stacked Services',
+  navigatorKey: StackedService.navigatorKey,
+  // home: AddCardView(), // Used when testing a view
+  initialRoute: Routes.startupViewRoute,
+  onGenerateRoute: Router().onGenerateRoute,
+);
 ```
 
 If you're only using the `DialogService` it also exposes the navigation key. **You only have to set the key for one of the services and it'll work for all the other services.** If you set the nav key using the navigation service you don't have to set it for the DialogService and vice versa.
@@ -71,57 +96,99 @@ await _dialogService.showDialog(
 
 ### Custom Dialog UI
 
-In addition to platform-specific UI, you can also build a custom dialog. To do that we'll do the following. In your UI folder or shared folder under UI, if you have one, create a new file called `setup_dialog_ui.dart`. Inside you will create a new function called `setupDialogUi`. In there you will call the function `registerCustomDialogUi` on the `DialogService`. _Look at the `setup_dialog_ui` file for a full example_
+In addition to platform-specific UI, you can also build a custom dialog. To do that we'll do the following. Start by creating an enum called `DialogType`.
 
 ```dart
-void registerCustomDialogUi() {
-  var dialogService = locator<DialogService>();
-
-   dialogService.registerCustomDialogUi((context, dialogRequest) => Dialog(
-     child: // Build your UI here //
-   ));
-}
+/// The type of dialog to show
+enum DialogType { basic, form }
 ```
 
-The dialog request is how you will control which dialog to build if you have many custom dialogs. It is also possible to turn some parts on or based on what you'd like to show. The `DialogRequest` has a few properties that can make you easily decide which widgets to place in the dialog to show. All these properties can be passed directly to the `showCustomDialog` function. Here are all the properties available for you to use.
+In your UI folder or shared folder under UI, if you have one, create a new file called `setup_dialog_ui.dart`. Inside you will create a new function called `setupDialogUi`. In there you will create a Map of builders that will map to the `enum` values you created above. To keep code maintenance to the highest level you should make each of the widgets into its own widget and construct that instead of building the UI inline.
 
 ```dart
- /// The title for the dialog
-  final String title;
+void setupDialogUi() {
+  final dialogService = locator<DialogService>();
 
-  /// Text so show in the dialog body
-  final String description;
+  final builders = {
+    DialogType.basic: (context, sheetRequest, completer) =>
+        _BasicDialog(request: sheetRequest, completer: completer),
+    DialogType.form:  (context, sheetRequest, completer) =>
+        _FormDialog(request: sheetRequest, completer: completer),
+  };
 
-  /// Indicates if an image should be used or not
-  final bool hasImage;
+  dialogService.registerCustomDialogBuilders(builders);
+}
 
-  /// The URL / path to the image to show
-  final String imageUrl;
+class _BasicDialog extends StatelessWidget {
+  final DialogRequest request;
+  final Function(DialogResponse) completer;
+  const _BasicDialog({Key key, this.request, this.completer}) : super(key: key);
 
-  /// The text shown in the main button
-  final String mainButtonTitle;
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: /* Build your dialog UI here */
+    );
+  }
+}
 
-  /// A bool to indicate if you should show an icon in the main button
-  final bool showIconInMainButton;
+class _FormDialog extends StatelessWidget {
+  final DialogRequest request;
+  final Function(DialogResponse) completer;
+  const _FormDialog({Key key, this.request, this.completer}) : super(key: key);
 
-  /// The text to show on the secondary button on the dialog (cancel usually)
-  final String secondaryButtonTitle;
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: /* Build your dialog UI here */
+    );
+  }
+}
 
-  /// Indicates if you should show an icon in the main button
-  final bool showIconInSecondaryButton;
+```
 
-  /// The text shown on the third button on the dialog
-  final String additionalButtonTitle;
+The `DialogRequest` has a few properties that can make you easily decide which widgets to place in the dialog to show. All these properties can be passed directly to the `showCustomDialog` function. Here are all the properties available for you to use.
 
-  /// Indicates if you should show an icon in the additional button
-  final bool showIconInAdditionalButton;
+```dart
+/// The title for the dialog
+final String title;
 
-  /// Indicates if the dialog takes input
-  final bool takesInput;
+/// Text so show in the dialog body
+final String description;
 
-  /// Intended to be used with enums. If you want to create multiple different
-  /// dialogs. Pass your enum in here and check the value in the builder
-  final dynamic customData;
+/// Indicates if an image should be used or not
+final bool hasImage;
+
+/// The URL / path to the image to show
+final String imageUrl;
+
+/// The text shown in the main button
+final String mainButtonTitle;
+
+/// A bool to indicate if you should show an icon in the main button
+final bool showIconInMainButton;
+
+/// The text to show on the secondary button on the dialog (cancel usually)
+final String secondaryButtonTitle;
+
+/// Indicates if you should show an icon in the main button
+final bool showIconInSecondaryButton;
+
+/// The text shown on the third button on the dialog
+final String additionalButtonTitle;
+
+/// Indicates if you should show an icon in the additional button
+final bool showIconInAdditionalButton;
+
+/// Indicates if the dialog takes input
+final bool takesInput;
+
+/// Intended to be used with enums. If you want to create multiple different
+/// dialogs. Pass your enum in here and check the value in the builder
+final dynamic variant;
+
+/// Extra data to be passed to the UI
+final dynamic customData;
 ```
 
 ### Setup and usage
@@ -139,79 +206,28 @@ void main() {
 Now in your ViewModels, you can make use of the dialog as follows.
 
 ```dart
- await _dialogService.showCustomDialog(
-    title: 'This is a custom UI with Text as main button',
-    description:
-        'Sheck out the builder in the dialog_ui_register.dart file',
-    mainButtonTitle: 'Ok');
+await _dialogService.showCustomDialog(
+  variant: DialogType.base, // Which builder you'd like to call that was assigned in the builders function above.
+  title: 'This is a custom UI with Text as main button',
+  description: 'Sheck out the builder in the dialog_ui_register.dart file',
+  mainButtonTitle: 'Ok',
+);
 ```
 
 ### Returning Data from Custom Dialog
 
-The custom dialog follows the same rules as the normal dialog. Calling `completeDialog` and passing in a `DialogResponse` object will return it to the caller that's awaiting on the dialog response UI. So when you have a tap handler in your dialog and you want to close the dialog, use the `completeDialog` function.
-
-```dart
-dialogService.registerCustomDialogUi((context, dialogRequest) => Dialog(
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                dialogRequest.title,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                dialogRequest.description,
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              GestureDetector(
-                // Complete the dialog when you're done with it to return some data
-                onTap: () => dialogService.completeDialog(DialogResponse(confirmed: true)),
-                child: Container(
-                  child: dialogRequest.showIconInMainButton
-                      ? Icon(Icons.check_circle)
-                      : Text(dialogRequest.mainButtonTitle),
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.redAccent,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ));
-```
-
-Where you called your dialog function and awaited you'll receive the data returned from here.
+The builder function supplied for a Custom dialog builder has a parameter of type `Function(DialogResponse)` as the last parameter. Calling the completer function and passing in a `DialogResponse` object will return it to the caller that's awaiting on the dialog response UI. So when you have a tap handler in your dialog and you want to close the dialog, use the `completer(DialogResponse())` function.
 
 ```dart
 var response = await _dialogService.showCustomDialog(
+  variant: DialogType.form,
   title: 'My custom dialog',
   description: 'This is my dialog description',
-  mainButtonTitle:'Confirm',
-  );
+  mainButtonTitle: 'Confirm',
+);
 
 if(response.confirmed) {
-  // do some confirmation action here.
+  // Do some confirmation action here.
 }
 ```
 
@@ -240,27 +256,223 @@ The `NavigationService` will allow you to navigate your app easily from the `Vie
 
 ## Snackbar Service
 
-The `SnackbarService` will show a snackbar from the `ViewModel`. A snackbar can be shown using the showSnackbar function on the `SnackbarService`.
+The `SnackbarService` allows you to show a snack bar from the `ViewModel`. Logic and state is handled in the `ViewModel` this is where you know something went wrong, a results is unexpected or when a user has completed an action. Instead of routing the action back to the UI to show a snackbar using the context we can show it directly from the ViewModel using the `SnackbarService`.
+
+### Basic Usage
+
+To use the service is quite easy. Here is an example of how you'd show a snackbar.
 
 ```dart
-await _snackbarService.showSnackbar(
-  /// REQUIRED
-  message: 'Wow, My Regular Snackbar',
-
-  ////////////////////////////
-  /// Optional Parameters ///
-  //////////////////////////
-  title: 'My Regular Snackbar Title',
-  iconData: Icons.hello,
-  /// logic for when the snackbar is tapped!
-  onTap: () {},
-  /// defaults to `false`; accepts `bool`
-  shouldIconPulse: false,
-  /// defaults to `0`; accepts `double`
-  barBlur: 0,
-  /// defaults to `true`; accepts `bool`
-  isDissmissible: true,
-  /// defaults to a `Duration` of `3 seconds`; accepts `Duration()`
-  duration: const Duration(seconds: 3),
+_snackbarService.showSnackbar(
+  message: 'This is a snack bar',
+  title: 'The title',
+  duration: Duration(seconds: 2),
+  onTap: (_) {
+    print('snackbar tapped');
+  },
+  mainButtonTitle: 'Undo',
+  onMainButtonTapped: () => print('Undo the action!'),
 );
+```
+
+This will show a default Snackbar styled with the background set as Dark grey and the text as white. There will be a main button on the right that will fire the function and print 'Undo the action!' when it's tapped.
+
+### Styling the Snackbar
+
+To supply a style for the `showSnackbar` function you have to supply a `SnackbarConfig`. Create a new file in your ui folder called `setup_snackbar_ui.dart`. Inside create a function that will register your snackbarConfig. We will register a config that makes the background red, text white and the main button title black.
+
+```dart
+void setupSnackbarUi() {
+  final service = locator<SnackbarService>();
+
+  // Registers a config to be used when calling showSnackbar
+  service.registerSnackbarConfig(SnackbarConfig(
+    backgroundColor: Colors.red,
+    textColor: Colors.white,
+    mainButtonTextColor: Colors.black,
+  ));
+}
+```
+
+Then in the main.dart file before running the app, after setting up the locator we call `setupSnackbarUi`.
+
+```dart
+void main() {
+  setupLocator();
+  setupSnackbarUi();
+  runApp(MyApp());
+}
+```
+
+If you now execute the same showSnackbar function as above you'll see the background is red, text white and the action button has black text.
+
+### Custom Styles
+
+Sometimes you might want more than 1 snackbar style. In this case you can register multiple SnackbarConfigs to be shown using the `showCustomSnackBar` function. To register a custom config we need to define unique values to register it again that's easy to reference when we want to show the snackbar using that config. I like to use enums. We'll start by creating an enum called `SnackbarType`.
+
+```dart
+/// The type of snackbar to show
+enum SnackbarType { blueAndYellow, greenAndRed }
+```
+
+Then open up the `setup_snackbar_ui.dart` created above and we'll add the configs for the two enums.
+
+```dart
+void setupSnackbarUi() {
+  final service = locator<SnackbarService>();
+
+  service.registerCustomSnackbarConfig(
+    variant: SnackbarType.blueAndYellow,
+    config: SnackbarConfig(
+      backgroundColor: Colors.blueAccent,
+      textColor: Colors.yellow,
+      borderRadius: 1,
+      dismissDirection: SnackDismissDirection.HORIZONTAL,
+    ),
+  );
+
+  service.registerCustomSnackbarConfig(
+    variant: SnackbarType.greenAndRed,
+    config: SnackbarConfig(
+      backgroundColor: Colors.white,
+      titleColor: Colors.green,
+      messageColor: Colors.red,
+      borderRadius: 1,
+    ),
+  );
+}
+```
+
+Now you can call `showCustomSnackBar` and pass in the `variant` enum that you'd like to use. The following code will show the blueAndYellow snackbar.
+
+```dart
+_snackbarService.showCustomSnackBar(
+  variant: SnackbarType.blueAndYellow,
+  message: 'Blue and yellow',
+  title: 'The message is the message',
+  duration: Duration(seconds: 2),
+  onTap: (_) {
+    print('snackbar tapped');
+  },
+  mainButtonTitle: 'Undo',
+  onMainButtonTapped: () => print('Undo the action!'),
+);
+```
+
+And the following code will show the greenAndRed snackbar
+
+```dart
+_snackbarService.showCustomSnackBar(
+  variant: SnackbarType.greenAndRed,
+  title: 'Green and Red',
+  message: 'The text is green and red and the background is white',
+  duration: Duration(seconds: 2),
+  onTap: (_) {
+    print('snackbar tapped');
+  },
+  mainButtonTitle: 'Undo',
+  onMainButtonTapped: () => print('Undo the action!'),
+);
+```
+
+The snackbar service does not cover every scenario at the moment, especially for adding multiple actions or using icons. If you're looking for those kind of features please make an issue or make a PR for the functionality. I would greatly appreciate it.
+
+## BottomSheet Service
+
+This service, similar to the others above, allows the user to show a `BottomSheet` from the same place they handle their business logic. It's calls that can be awaited on for a result returned by the user. This makes writing your business logic much easier in the long run.
+
+## Usage
+
+The `BottomSheetService` has a basic mode for quick and dirty bottom sheet functionality, and also has a custom UI building function. To show a basic bottom sheet you simply get the `BottomSheetService` from the locator and then call `showBottomSheet`.
+
+```dart
+final BottomSheetService _bottomSheetService = locator<BottomSheetService>();
+
+var sheetResponse = await _bottomSheetService.showBottomSheet(
+  title: 'This is my Sheets Title',
+  description:
+      'This property will display under the title. We\'re not going to provide a lot of UI versions for the sheet because everyone will have a different style.\nInstead you can use the custom sheet builders as shown below.',
+);
+```
+
+As you can see above you can get a response from the `showBottomSheet` call. There are also two additional titles you can pass into the function.
+
+```dart
+ var confirmationResponse =
+      await _bottomSheetService.showBottomSheet(
+    title: 'Confirm this action with one of the options below',
+    description:
+        'The result from this call will return a SheetResponse object with confirmed set to true. See the logs where we print out the confirmed value for you.',
+    confirmButtonTitle: 'I confirm',
+    cancelButtonTitle: 'I DONT confirm',
+  );
+
+  print( 'confirmationResponse confirmed: ${confirmationResponse?.confirmed}');
+```
+
+The `confirmButtonTitle` when tapped will return a response where `confirmed` is set to true and the cancel title will return a response where `confired` is set to false.
+
+### Custom UI Setup
+
+Custom UI works the same as the `DialogService`. You can create a new file in your ui folder called `setup_bottom_sheet_ui.dart`. Inside this file you'll get the `BottomSheetService` from the locator (make sure it's registered, check beginning of readme). Then you'll construct a map of builders which take a mapping of an enum to a builder function. The builder function expects a `BuildContext`, `SheetRequest` and `Function<SheetResponse>` which we always call a completer.
+
+```dart
+void setupBottomSheetUi() {
+  final bottomSheetService = locator<BottomSheetService>();
+
+  final builders = {
+    BottomSheetType.FloatingBox: (context, sheetRequest, completer) =>
+        _FloatingBoxBottomSheet(request: sheetRequest, completer: completer)
+  };
+
+  bottomSheetService.setCustomSheetBuilders(builders);
+}
+
+class _FloatingBoxBottomSheet extends StatelessWidget {
+  final SheetRequest request;
+  final Function(SheetResponse) completer;
+  const _FloatingBoxBottomSheet({
+    Key key,
+    this.request,
+    this.completer,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(25),
+      padding: EdgeInsets.all(25),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Column(
+          ...
+      ),
+    );
+  }
+}
+```
+
+Once you've created the builders you set it on the service through `setCustomSheetBuilder`. Now in your code you can show this specific dialog that you registered.
+
+```dart
+ var confirmationResponse =
+    await _bottomSheetService.showCustomSheet(
+  variant: BottomSheetType.FloatingBox,
+  title: 'This is a floating bottom sheet',
+  description:
+      'This sheet is a custom built bottom sheet UI that allows you to show it from any service or viewmodel.',
+  mainButtonTitle: 'Awesome!',
+  secondaryButtonTitle: 'This is cool',
+);
+
+```
+
+### Returning data from the BottomSheet
+
+When you want to complete the dialog and return some data all your do is call the completer function and pass the `SheetResponse` that you'd like the awaiting function to receive.
+
+```dart
+onTap: () => completer(SheetResponse(...))
 ```

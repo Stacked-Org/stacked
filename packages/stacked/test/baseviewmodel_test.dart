@@ -2,10 +2,23 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:stacked/stacked.dart';
 
 class TestViewModel extends BaseViewModel {
+  bool onErrorCalled = false;
   Future runFuture(
       {String busyKey, bool fail = false, bool throwException = false}) {
-    return runBusyFuture(_futureToRun(fail),
-        busyObject: busyKey, throwException: throwException);
+    return runBusyFuture(
+      _futureToRun(fail),
+      busyObject: busyKey,
+      throwException: throwException,
+    );
+  }
+
+  Future runTestErrorFuture(
+      {String key, bool fail = false, bool throwException = false}) {
+    return runErrorFuture(
+      _futureToRun(fail),
+      key: key,
+      throwException: throwException,
+    );
   }
 
   Future _futureToRun(bool fail) async {
@@ -14,11 +27,16 @@ class TestViewModel extends BaseViewModel {
       throw Exception('Broken Future');
     }
   }
+
+  @override
+  void onFutureError(error, key) {
+    onErrorCalled = true;
+  }
 }
 
 void main() {
-  group('BaseViewModel Tests', () {
-    group('Busy functionality', () {
+  group('BaseViewModel Tests -', () {
+    group('Busy functionality -', () {
       test('When setBusy is called with true isBusy should be true', () {
         var viewModel = TestViewModel();
         viewModel.setBusy(true);
@@ -88,8 +106,20 @@ void main() {
         viewModel.addListener(() {
           ++called;
         });
-        await viewModel.runFuture(fail: true);
+        await viewModel.runFuture();
         expect(called, 2);
+      });
+
+      test(
+          'When busy future fails should have called notifyListeners three times, 1 for busy 1 for not busy and 1 for error',
+          () async {
+        var called = 0;
+        var viewModel = TestViewModel();
+        viewModel.addListener(() {
+          ++called;
+        });
+        await viewModel.runFuture(fail: true);
+        expect(called, 3);
       });
 
       test(
@@ -110,6 +140,21 @@ void main() {
         viewModel.dispose();
         viewModel.notifyListeners();
         expect(() => viewModel.notifyListeners(), returnsNormally);
+      });
+    });
+
+    group('runErrorFuture -', () {
+      test('When called and error is thrown should set error', () async {
+        var model = TestViewModel();
+        await model.runTestErrorFuture(fail: true);
+        expect(model.hasError, true);
+      });
+      test(
+          'When called and error is thrown should call onErrorForFuture override',
+          () async {
+        var model = TestViewModel();
+        await model.runTestErrorFuture(fail: true, throwException: false);
+        expect(model.onErrorCalled, true);
       });
     });
   });

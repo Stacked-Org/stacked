@@ -1,6 +1,6 @@
 name: stacked_hooks
-description: A new Flutter package project.
-version: 0.1.2
+description: Classes that help you make use of hooks when using the stacked package
+version: 0.1.3+2
 homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_hooks
 
 environment:
@@ -9,8 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_hooks: ^0.9.0
-  provider: ^4.0.5
+  flutter_hooks: ^0.15.0
+  provider: ^4.3.1
 
 dev_dependencies:
   flutter_test:

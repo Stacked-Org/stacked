@@ -1,0 +1,1 @@
+class DuplicateViewKeysException implements Exception {}

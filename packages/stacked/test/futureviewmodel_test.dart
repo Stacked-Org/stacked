@@ -5,10 +5,17 @@ const _SingleFutureExceptionFailMessage = 'Future to Run failed';
 
 class TestFutureViewModel extends FutureViewModel<int> {
   final bool fail;
-  TestFutureViewModel({this.fail = false});
+  final bool shouldRethrow;
+  TestFutureViewModel({
+    this.fail = false,
+    this.shouldRethrow = false,
+  });
 
   int numberToReturn = 5;
   bool dataCalled = false;
+
+  @override
+  bool get rethrowException => shouldRethrow;
 
   @override
   Future<int> futureToRun() async {
@@ -89,10 +96,19 @@ void main() {
       expect(futureViewModel.isBusy, false);
     });
 
+    test(
+        'When a future fails and rethrowException is true, should throw exception',
+        () async {
+      var futureViewModel =
+          TestFutureViewModel(fail: true, shouldRethrow: true);
+      expect(() async => await futureViewModel.initialise(), throwsException);
+    });
+
     test('When a future fails it should set error to exception', () async {
       var futureViewModel = TestFutureViewModel(fail: true);
       await futureViewModel.initialise();
-      expect(futureViewModel.error.message, _SingleFutureExceptionFailMessage);
+      expect(futureViewModel.modelError.message,
+          _SingleFutureExceptionFailMessage);
     });
 
     test('When a future fails onData should not be called', () async {
@@ -120,7 +136,7 @@ void main() {
     });
   });
 
-  group('MultipleFutureViewModel', () {
+  group('MultipleFutureViewModel -', () {
     test(
         'When running multiple futures the associated key should hold the value when complete',
         () async {
@@ -137,8 +153,8 @@ void main() {
       var futureViewModel = TestMultipleFutureViewModel(failOne: true);
       await futureViewModel.initialise();
 
-      expect(futureViewModel.hasError(NumberDelayFuture), true);
-      expect(futureViewModel.hasError(StringDelayFuture), false);
+      expect(futureViewModel.hasErrorForKey(NumberDelayFuture), true);
+      expect(futureViewModel.hasErrorForKey(StringDelayFuture), false);
     });
 
     test(
@@ -182,10 +198,10 @@ void main() {
       var futureViewModel = TestMultipleFutureViewModel(failOne: true);
       await futureViewModel.initialise();
 
-      expect(futureViewModel.getError(NumberDelayFuture).message,
+      expect(futureViewModel.error(NumberDelayFuture).message,
           _NumberDelayExceptionMessage);
 
-      expect(futureViewModel.getError(StringDelayFuture), null);
+      expect(futureViewModel.error(StringDelayFuture), null);
     });
 
     test(

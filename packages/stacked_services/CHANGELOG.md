@@ -1,3 +1,97 @@
+## 0.6.1
+
+- Introduces the new `StackedService` class with the navigation properties on it. This is introduced to remove the confusion around every service having a key to set. So going forward if you want to use any of the services you just set the navigatorKey on the `StackedService`.
+
+## 0.6.0+1
+
+- Adds typed return for dialogs and sheets
+
+## 0.6.0
+
+- Adds bottom sheet service
+- Adds dark theme for basic Material Dialogs
+- Updates the way we complete Dialogs
+
+## 0.5.4+5
+
+- Updates get version to latest
+
+## 0.5.4+4
+
+- Adds an id to the `back` function on the `NavigationService` for nested back calls.
+
+## 0.5.4+3
+
+- Adds type to the navigation key
+
+## 0.5.4+2
+
+- Adds barrier label to custom dialog
+
+## 0.5.4+1
+
+- Updated get version
+
+## 0.5.4
+
+- Exposes `currentRoute` in the `NavigationService`
+
+## 0.5.3
+
+- Exposes `previousRoute` in the `NavigationService`
+
+## 0.5.2
+
+- Changes Dialog response to a `dynamic` value instead of `List<dynamic>`
+
+## 0.5.1
+
+### Custom Dialog
+
+- Add ability, like Custom Snackbar, to registry multiple variants of dialog.
+- Use variant term instead customData, I thins this is more clear then customData term to refer a specific type of Dialog
+- Add a builder property to declare the UI.
+- Rename registerCustomDialogUi to registerCustomDialogBuilder.
+- Update documentation.
+
+### Custom Snackbar
+
+- Use variant term instead customData, like I said for Custom Dialog, I think this is more clear use the variant term instead customData to refer a specific.
+- Normalize the name, instead registerCustomSnackbarconfig use the registerCustomSnackbarConfig.
+- Update documentation.
+
+## 0.5.0 - Custom Snackbar styling
+
+- Adds `SnackbarConfig` functionality and associated functions for custom snackbar styling
+
+## 0.4.11
+
+- Exposes `barrierDismssible` on showConfirmation dialog
+
+## 0.4.10
+
+- Adds null check to dialog service completer
+
+## 0.4.9
+
+- Completes dialogCompleter for confirmation dialog as well
+
+## 0.4.8
+
+- Completes dialogCompleter if the custom dialog is dismissed without the button tap
+
+## 0.4.7
+
+- Makes the dialog completer finish when dialog is dismissed using barrier dismissal
+
+## 0.4.6
+
+- Removed injectable
+
+## 0.4.5
+
+- Bumps injectable version
+
 ## 0.4.4+3
 
 - Bumps get version
@@ -26,7 +120,7 @@
 ## 0.4.1
 
 - Adds custom data parameter to dialog service
-- Adds default values for show custom dialog 
+- Adds default values for show custom dialog
 
 ## 0.4.0
 
