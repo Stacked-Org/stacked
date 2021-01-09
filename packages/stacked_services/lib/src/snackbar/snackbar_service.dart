@@ -103,17 +103,17 @@ class SnackbarService {
     Duration duration = const Duration(seconds: 1),
   }) {
     // TODO: Remove customData in the future release and set variant as required
-    final snakcbarVariant = variant ?? customData;
+    final snackbarVariant = variant ?? customData;
     assert(
-      snakcbarVariant != null,
+      snackbarVariant != null,
       'No variant defined, you should provide the variant property to show a custom snackbar',
     );
 
-    var snackbarConfig = _customSnackbarConfigs[snakcbarVariant];
+    var snackbarConfig = _customSnackbarConfigs[snackbarVariant];
 
     if (snackbarConfig == null) {
       throw CustomSnackbarException(
-        'No config found for $snakcbarVariant make sure you have called registerCustomConfig. See [README LINK HERE] for implementation details.',
+        'No config found for $snackbarVariant make sure you have called registerCustomConfig. See [README LINK HERE] for implementation details.',
       );
     }
 
