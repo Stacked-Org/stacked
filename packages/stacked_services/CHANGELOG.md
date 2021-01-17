@@ -1,3 +1,7 @@
+## 0.6.2
+
+- Adds functionality to allow to set isDismissible on the `BottomSheetService`
+
 ## 0.6.1
 
 - Introduces the new `StackedService` class with the navigation properties on it. This is introduced to remove the confusion around every service having a key to set. So going forward if you want to use any of the services you just set the navigatorKey on the `StackedService`.
