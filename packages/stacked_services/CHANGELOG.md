@@ -1,3 +1,7 @@
+## 0.6.3
+
+- Adds `Color` to dialog service to set the color of the basic dialogs
+
 ## 0.6.2
 
 - Adds functionality to allow to set isDismissible on the `BottomSheetService`
