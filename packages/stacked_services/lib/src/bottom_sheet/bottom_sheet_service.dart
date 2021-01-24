@@ -61,6 +61,7 @@ class BottomSheetService {
     bool takesInput = false,
     Color barrierColor = Colors.black54,
     bool barrierDismissible = false,
+    bool isScrollControlled = false,
     String barrierLabel = '',
     dynamic customData,
   }) {
@@ -102,6 +103,7 @@ class BottomSheetService {
         ),
       ),
       isDismissible: barrierDismissible,
+      isScrollControlled: isScrollControlled,
     );
   }
 
