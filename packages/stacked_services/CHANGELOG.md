@@ -1,3 +1,7 @@
+## 0.6.4
+
+- Adds `isScrollControlled` to the bottom sheet function
+
 ## 0.6.3
 
 - Adds `Color` to dialog service to set the color of the basic dialogs
