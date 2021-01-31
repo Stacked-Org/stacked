@@ -36,7 +36,7 @@ class Router extends RouterBase {
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, AutoRouteFactory>{
     HomeScreen: (data) {
-      var args = data.getArgs<HomeScreenArguments>(
+      final args = data.getArgs<HomeScreenArguments>(
         orElse: () => HomeScreenArguments(),
       );
       return MaterialPageRoute<dynamic>(

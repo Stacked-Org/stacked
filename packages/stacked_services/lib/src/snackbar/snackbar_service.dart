@@ -8,6 +8,8 @@ import 'package:stacked_services/src/snackbar/snackbar_config.dart';
 
 /// A service that allows the user to show the snackbar from a ViewModel
 class SnackbarService {
+  @Deprecated(
+      'Prefer to use the StackedServices.navigatorKey instead of using this key. This will be removed in the next major version update for stacked.')
   get navigatorKey {
     return Get.key;
   }
@@ -16,6 +18,9 @@ class SnackbarService {
   Map<dynamic, SnackbarConfig>();
 
   SnackbarConfig _snackbarConfig;
+
+  /// Checks if there is a snackbar open
+  bool get isOpen => Get.isSnackbarOpen;
 
   /// Saves the [config] to be used for the [showSnackbar] function
   void registerSnackbarConfig(SnackbarConfig config) =>
@@ -101,17 +106,17 @@ class SnackbarService {
     Duration duration = const Duration(seconds: 1),
   }) {
     // TODO: Remove customData in the future release and set variant as required
-    final snakcbarVariant = variant ?? customData;
+    final snackbarVariant = variant ?? customData;
     assert(
     snakcbarVariant != null,
     'No variant defined, you should provide the variant property to show a custom snackbar',
     );
 
-    var snackbarConfig = _customSnackbarConfigs[snakcbarVariant];
+    var snackbarConfig = _customSnackbarConfigs[snackbarVariant];
 
     if (snackbarConfig == null) {
       throw CustomSnackbarException(
-        'No config found for $snakcbarVariant make sure you have called registerCustomConfig. See [README LINK HERE] for implementation details.',
+        'No config found for $snackbarVariant make sure you have called registerCustomConfig. See [README LINK HERE] for implementation details.',
       );
     }
 

@@ -1,5 +1,6 @@
 import 'package:example/app/locator.dart';
 import 'package:example/app/routes.gr.dart';
+import 'package:example/ui/views/bottom_sheet_view.dart';
 import 'package:example/ui/views/dialog_view.dart';
 import 'package:example/ui/views/snackbar_view.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +27,15 @@ class _HomeScreenState extends State<HomeScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble),
-            title: Text('Dialogs'),
+            label: 'Dialogs',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add_alert),
-            title: Text('Snackbar'),
+            label: 'Snackbar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.ad_units),
+            label: 'BottomSheet',
           ),
         ],
         currentIndex: currentIndex,
@@ -56,6 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget getViewForIndex(int currentIndex) {
     switch (currentIndex) {
+      case 2:
+        return BottomSheetView();
       case 1:
         return SnackbarView();
       case 0:

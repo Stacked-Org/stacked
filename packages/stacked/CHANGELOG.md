@@ -1,3 +1,7 @@
+## 1.7.7
+
+- Fixes [Multiple Streams ViewModel causing memory overflow](https://github.com/FilledStacks/stacked/issues/190) bug
+
 ## 1.7.6
 
 - Adds `fireOnce` properties to the `ViewModelBuilderWidget`

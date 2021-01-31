@@ -1,3 +1,37 @@
+## 0.6.4
+
+- Adds `isScrollControlled` to the bottom sheet function
+
+## 0.6.3
+
+- Adds `Color` to dialog service to set the color of the basic dialogs
+
+## 0.6.2
+
+- Adds functionality to allow to set isDismissible on the `BottomSheetService`
+
+## 0.6.1
+
+- Introduces the new `StackedService` class with the navigation properties on it. This is introduced to remove the confusion around every service having a key to set. So going forward if you want to use any of the services you just set the navigatorKey on the `StackedService`.
+
+## 0.6.0+1
+
+- Adds typed return for dialogs and sheets
+
+## 0.6.0
+
+- Adds bottom sheet service
+- Adds dark theme for basic Material Dialogs
+- Updates the way we complete Dialogs
+
+## 0.5.4+5
+
+- Updates get version to latest
+
+## 0.5.4+4
+
+- Adds an id to the `back` function on the `NavigationService` for nested back calls.
+
 ## 0.5.4+3
 
 - Adds type to the navigation key

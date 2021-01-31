@@ -37,19 +37,23 @@ class TestMultipleStreamViewModel extends MultipleStreamViewModel {
   TestMultipleStreamViewModel({this.failOne = false, this.delay = 0});
   int loadedData;
   int cancelledCalls = 0;
+  int getStreamsMapCalls = 0;
   @override
-  Map<String, StreamData> get streamsMap => {
-        _NumberStream: StreamData(numberStream(
-          5,
-          fail: failOne,
-          delay: delay,
-        )),
-        _StringStream: StreamData(textStream(
-          "five",
-          fail: false,
-          delay: delay,
-        )),
-      };
+  Map<String, StreamData> get streamsMap {
+    getStreamsMapCalls++;
+    return {
+      _NumberStream: StreamData(numberStream(
+        5,
+        fail: failOne,
+        delay: delay,
+      )),
+      _StringStream: StreamData(textStream(
+        "five",
+        fail: false,
+        delay: delay,
+      )),
+    };
+  }
 
   @override
   void onCancel(String key) {
@@ -206,6 +210,15 @@ void main() async {
       streamViewModel.initialise();
       await Future.delayed(Duration(milliseconds: 100));
       expect(listenersCalled, true);
+    });
+
+    test(
+        'When a stream is initialised, should only call streamsMap property once',
+        () async {
+      var streamViewModel = TestMultipleStreamViewModel(delay: 50);
+      streamViewModel.initialise();
+      await Future.delayed(Duration(milliseconds: 300));
+      expect(streamViewModel.getStreamsMapCalls, 1);
     });
 
     test(

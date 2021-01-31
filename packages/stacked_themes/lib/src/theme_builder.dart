@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked_themes/src/theme_manager.dart';
 
+import '../stacked_themes.dart';
+
 /// A widget that rebuilds itself with a new theme
 class ThemeBuilder extends StatefulWidget {
   final Widget Function(BuildContext, ThemeData, ThemeData, ThemeMode) builder;
@@ -28,12 +30,13 @@ class ThemeBuilder extends StatefulWidget {
           statusBarColorBuilder: statusBarColorBuilder,
           darkTheme: darkTheme,
           lightTheme: lightTheme,
-          
+          defaultTheme: defaultThemeMode,
         ),
       );
 }
 
-class _ThemeBuilderState extends State<ThemeBuilder> {
+class _ThemeBuilderState extends State<ThemeBuilder>
+    with WidgetsBindingObserver {
   final ThemeManager themeManager;
 
   _ThemeBuilderState(this.themeManager);
@@ -42,18 +45,72 @@ class _ThemeBuilderState extends State<ThemeBuilder> {
   Widget build(BuildContext context) {
     return Provider<ThemeManager>.value(
       value: themeManager,
-      builder: (context, child) => StreamProvider<Map<String, ThemeData>>(
+      builder: (context, child) => StreamProvider<ThemeModel>(
+        lazy: false,
         create: (context) => themeManager.themesStream,
-        builder: (context, child) => Consumer<Map<String, ThemeData>>(
+        builder: (context, child) => Consumer<ThemeModel>(
           child: child,
-          builder: (context, value, child) => widget.builder(
+          builder: (context, themeModel, child) => widget.builder(
             context,
-            value[SelectedTheme],
-            value[DarkTheme],
-            widget.defaultThemeMode,
+            themeModel?.selectedTheme,
+            themeModel?.darkTheme,
+            themeModel?.themeMode,
           ),
         ),
       ),
     );
+  }
+
+  // Get all services
+  // final themeService = locator<ThemeService>();
+  // @override
+  // Widget build(BuildContext context) {
+  //   return widget.child;
+  // }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    switch (state) {
+      case AppLifecycleState.inactive:
+        break;
+      case AppLifecycleState.resumed:
+        adjustSystemThemeIfNecessary();
+        break;
+      case AppLifecycleState.paused:
+        break;
+      case AppLifecycleState.detached:
+        break;
+    }
+  }
+
+  //NOTE: re-apply the appropriate theme when the application gets back into the foreground
+  void adjustSystemThemeIfNecessary() {
+    switch (themeManager.selectedThemeMode) {
+      //do nothing
+      case ThemeMode.light:
+        break;
+      //do nothing
+      case ThemeMode.dark:
+        break;
+      //reapply theme
+      case ThemeMode.system:
+        themeManager.setThemeMode(ThemeMode.system);
+        break;
+      default:
+    }
   }
 }

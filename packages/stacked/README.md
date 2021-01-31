@@ -36,7 +36,7 @@ Stacked provides you with classes and functionalities to make it easy to impleme
 
 The `ViewModelBuilder` was first built in the [Provider Architecture Tutorial](https://youtu.be/kDEflMYTFlk) where it was titled BaseView. The `ViewModelBuilder` is used to create the "binding" between a ViewModel and the View. There is no two-way binding in this architecture, which is why I don't want to say it's an Mvvm implementation and why we have instead given it our name. The `ViewModelBuilder` wraps up all the `ChangeNotifierProvider` code which allows us to trigger a rebuild of a widget when calling `notifyListeners` within the ViewModel.
 
-A ViewModel is simply a dart class that extends `ChangeNotifier`. The `ViewModelBuilder` has 2 constructors, one that's reactive and one that's not. The tutorial mentioned above emulates the default implementation which has been put into the `.reactive` named constructor. The `.nonReactive` constructor is for UI that does not require the builder to fire when `notifyListeners(` is called in the ViewModel. The nonReactive construction was born in [this tutorial](https://youtu.be/HUSqk0OrR7I?t=224) where we wanted to reduce the boilerplate when the same data has to go to multiple widgets using the same ViewModel. This is very prominent when using the responsive_builder package.
+A ViewModel is simply a dart class that extends `ChangeNotifier`. The `ViewModelBuilder` has 2 constructors, one that's reactive and one that's not. The tutorial mentioned above emulates the default implementation which has been put into the `.reactive` named constructor. The `.nonReactive` constructor is for UI that does not require the builder to fire when `notifyListeners` is called in the ViewModel. The nonReactive construction was born in [this tutorial](https://youtu.be/HUSqk0OrR7I?t=224) where we wanted to reduce the boilerplate when the same data has to go to multiple widgets using the same ViewModel. This is very prominent when using the responsive_builder package.
 
 ### Reactive
 
@@ -156,7 +156,7 @@ So what we're doing here is providing the ViewModel to the children of the build
 
 ### ViewModelBuilderWidget
 
-If you want to make use of the `ViewModelBuilder` directly as a widget is can be extended as well using the `ViewModelBuilderWidget<T>`. This will give you the same properties to override as the ones you can pass into the named constructors. There are 2 required overrides, the same as the 2 required parameters for the constructors. The difference with this is that your code will look like a normal widget so it fits into the codebase. You can also override and implement `onModelReady` and `staticChildBuilder`.
+If you want to make use of the `ViewModelBuilder` directly as a widget it can be extended as well using the `ViewModelBuilderWidget<T>`. This will give you the same properties to override as the ones you can pass into the named constructors. There are 2 required overrides, the same as the 2 required parameters for the constructors. The difference with this is that your code will look like a normal widget so it fits into the codebase. You can also override and implement `onModelReady` and `staticChildBuilder`.
 
 ```dart
 
@@ -229,7 +229,7 @@ Note that the `ViewModelBuilder` constructor is called with parameter `disposeVi
 
 ### Call onModelReady only once
 
-In some cases, specifically using a `BottomNavigationBar` you don't want the `onModelReady` function to fire every time the widget that the model is associated with comes into view. to toggle this you can set `fireOnModelReadyOnce` to true. This will fire the onModelReady call only once during the lifecycle of the `ViewModel`. When it's recreated it will fire again. Checkout the [BottomNavigation example](https://github.com/FilledStacks/stacked/blob/master/packages/stacked/example/lib/ui/bottom_nav/bottom_nav_example.dart) in the examples folder.
+In some cases, specifically using a `BottomNavigationBar` you don't want the `onModelReady` function to fire every time the widget that the model is associated with comes into view. To toggle this you can set `fireOnModelReadyOnce` to true. This will fire the onModelReady call only once during the lifecycle of the `ViewModel`. When it's recreated it will fire again. Checkout the [BottomNavigation example](https://github.com/FilledStacks/stacked/blob/master/packages/stacked/example/lib/ui/bottom_nav/bottom_nav_example.dart) in the examples folder.
 
 ```dart
 class FavoritesView extends StatelessWidget {
