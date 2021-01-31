@@ -15,7 +15,7 @@ class SnackbarService {
   }
 
   Map<dynamic, SnackbarConfig> _customSnackbarConfigs =
-  Map<dynamic, SnackbarConfig>();
+      Map<dynamic, SnackbarConfig>();
 
   SnackbarConfig _snackbarConfig;
 
@@ -65,21 +65,21 @@ class SnackbarService {
       message,
       titleText: _snackbarConfig?.titleColor != null
           ? Text(
-        title,
-        style: TextStyle(
-            color: _snackbarConfig.titleColor,
-            fontWeight: FontWeight.w800,
-            fontSize: 16),
-      )
+              title,
+              style: TextStyle(
+                  color: _snackbarConfig.titleColor,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 16),
+            )
           : null,
       messageText: _snackbarConfig?.messageColor != null
           ? Text(
-        message,
-        style: TextStyle(
-            color: _snackbarConfig.messageColor,
-            fontWeight: FontWeight.w300,
-            fontSize: 14),
-      )
+              message,
+              style: TextStyle(
+                  color: _snackbarConfig.messageColor,
+                  fontWeight: FontWeight.w300,
+                  fontSize: 14),
+            )
           : null,
       colorText: _snackbarConfig?.textColor ?? Colors.white,
       shouldIconPulse: _snackbarConfig?.shouldIconPulse,
@@ -108,8 +108,8 @@ class SnackbarService {
     // TODO: Remove customData in the future release and set variant as required
     final snackbarVariant = variant ?? customData;
     assert(
-    snakcbarVariant != null,
-    'No variant defined, you should provide the variant property to show a custom snackbar',
+      snackbarVariant != null,
+      'No variant defined, you should provide the variant property to show a custom snackbar',
     );
 
     var snackbarConfig = _customSnackbarConfigs[snackbarVariant];
@@ -127,19 +127,23 @@ class SnackbarService {
     );
 
     final getBar = GetBar(
-      title: title,
-      message: message,
-      titleText: title != null ? Text(
-        title,
-        style: TextStyle(
-            color: snackbarConfig?.titleColor ?? snackbarConfig?.textColor ?? Colors.white,
-            fontWeight: FontWeight.w800,
-            fontSize: 16),
-      ) : null,
+      titleText: title != null
+          ? Text(
+              title,
+              style: TextStyle(
+                  color: snackbarConfig?.titleColor ??
+                      snackbarConfig?.textColor ??
+                      Colors.white,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 16),
+            )
+          : null,
       messageText: Text(
         message,
         style: TextStyle(
-            color: snackbarConfig?.messageColor ?? snackbarConfig?.textColor ?? Colors.white,
+            color: snackbarConfig?.messageColor ??
+                snackbarConfig?.textColor ??
+                Colors.white,
             fontWeight: FontWeight.w300,
             fontSize: 14),
       ),
@@ -163,7 +167,7 @@ class SnackbarService {
       showProgressIndicator: snackbarConfig.showProgressIndicator,
       progressIndicatorController: snackbarConfig.progressIndicatorController,
       progressIndicatorBackgroundColor:
-      snackbarConfig.progressIndicatorBackgroundColor,
+          snackbarConfig.progressIndicatorBackgroundColor,
       progressIndicatorValueColor: snackbarConfig.progressIndicatorValueColor,
       snackPosition: snackbarConfig.snackPosition,
       snackStyle: snackbarConfig.snackStyle,
@@ -202,7 +206,7 @@ class SnackbarService {
         mainButtonTitle,
         style: TextStyle(
           color:
-          config?.mainButtonTextColor ?? config?.textColor ?? Colors.white,
+              config?.mainButtonTextColor ?? config?.textColor ?? Colors.white,
         ),
       ),
       onPressed: onMainButtonTapped,

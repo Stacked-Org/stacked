@@ -1,3 +1,7 @@
+## 0.6.5
+
+- Allows for null title and message for custom snackbar
+
 ## 0.6.4
 
 - Adds `isScrollControlled` to the bottom sheet function
