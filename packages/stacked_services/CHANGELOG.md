@@ -1,3 +1,7 @@
+## 0.6.6
+
+- Adds title and message textAlign to the config
+
 ## 0.6.5
 
 - Allows for null title and message for custom snackbar

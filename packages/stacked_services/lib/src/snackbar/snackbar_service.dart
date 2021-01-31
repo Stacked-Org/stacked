@@ -67,18 +67,22 @@ class SnackbarService {
           ? Text(
               title,
               style: TextStyle(
-                  color: _snackbarConfig.titleColor,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 16),
+                color: _snackbarConfig.titleColor,
+                fontWeight: FontWeight.w800,
+                fontSize: 16,
+              ),
+              textAlign: _snackbarConfig.titleTextAlign ?? TextAlign.left,
             )
           : null,
       messageText: _snackbarConfig?.messageColor != null
           ? Text(
               message,
               style: TextStyle(
-                  color: _snackbarConfig.messageColor,
-                  fontWeight: FontWeight.w300,
-                  fontSize: 14),
+                color: _snackbarConfig.messageColor,
+                fontWeight: FontWeight.w300,
+                fontSize: 14,
+              ),
+              textAlign: _snackbarConfig.messageTextAlign ?? TextAlign.left,
             )
           : null,
       colorText: _snackbarConfig?.textColor ?? Colors.white,
@@ -131,21 +135,25 @@ class SnackbarService {
           ? Text(
               title,
               style: TextStyle(
-                  color: snackbarConfig?.titleColor ??
-                      snackbarConfig?.textColor ??
-                      Colors.white,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 16),
+                color: snackbarConfig?.titleColor ??
+                    snackbarConfig?.textColor ??
+                    Colors.white,
+                fontWeight: FontWeight.w800,
+                fontSize: 16,
+              ),
+              textAlign: snackbarConfig?.titleTextAlign ?? TextAlign.left,
             )
           : null,
       messageText: Text(
         message,
         style: TextStyle(
-            color: snackbarConfig?.messageColor ??
-                snackbarConfig?.textColor ??
-                Colors.white,
-            fontWeight: FontWeight.w300,
-            fontSize: 14),
+          color: snackbarConfig?.messageColor ??
+              snackbarConfig?.textColor ??
+              Colors.white,
+          fontWeight: FontWeight.w300,
+          fontSize: 14,
+        ),
+        textAlign: snackbarConfig?.messageTextAlign ?? TextAlign.left,
       ),
       icon: snackbarConfig.icon,
       shouldIconPulse: snackbarConfig.shouldIconPulse,
