@@ -10,10 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  provider: ^4.3.2+3
+  provider: ^4.3.3
   rxdart: ^0.25.0
   shared_preferences: ^0.5.12+4
-  get_it: ^5.0.3
+  get_it: ^5.0.6
   flutter_statusbarcolor: ^0.2.3
 
 dev_dependencies:
