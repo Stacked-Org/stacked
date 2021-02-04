@@ -1,3 +1,7 @@
+## 0.2.3
+
+- Use get_it newInstance to avoid clashing with the app
+
 ## 0.2.2+2
 
 - Updates packages to the latest
