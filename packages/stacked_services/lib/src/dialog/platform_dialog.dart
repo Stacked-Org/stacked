@@ -25,7 +25,7 @@ class PlatformButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    // final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     switch (dialogPlatform) {
       case DialogPlatform.Cupertino:
         return CupertinoDialogAction(
@@ -109,7 +109,7 @@ class PlatformDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    // final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     switch (dialogPlatform) {
       case DialogPlatform.Cupertino:
         return CupertinoAlertDialog(
@@ -124,16 +124,16 @@ class PlatformDialog extends StatelessWidget {
       case DialogPlatform.Material:
       default: // TODO: When custom dialog registrations are implemented it'll be shown here
         return AlertDialog(
-          backgroundColor: isDarkMode ? Colors.grey[850] : Colors.white,
+          // backgroundColor: isDarkMode ? Colors.grey[850] : Colors.white,
           titleTextStyle: Theme.of(context).dialogTheme.titleTextStyle,
           contentTextStyle: Theme.of(context).dialogTheme.contentTextStyle,
           title: Text(
             title,
-            style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+            // style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
           ),
           content: Text(
             content,
-            style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+            // style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
           ),
           actions: actions,
         );
