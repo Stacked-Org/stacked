@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../enums/dialog_type.dart';
-import '../../enums/dialog_type.dart';
 
 class DialogView extends StatelessWidget {
   DialogView({Key key}) : super(key: key);
