@@ -2,6 +2,9 @@ import 'package:example/app/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../../enums/dialog_type.dart';
+import '../../enums/dialog_type.dart';
+
 class DialogView extends StatelessWidget {
   DialogView({Key key}) : super(key: key);
 
@@ -41,6 +44,7 @@ class DialogView extends StatelessWidget {
           OutlineButton(
             onPressed: () async {
               await _dialogService.showCustomDialog(
+                  variant: DialogType.Basic,
                   title: 'This is a custom UI with Text as main button',
                   description:
                       'Sheck out the builder in the dialog_ui_register.dart file',
@@ -55,6 +59,7 @@ class DialogView extends StatelessWidget {
           OutlineButton(
             onPressed: () async {
               await _dialogService.showCustomDialog(
+                  variant: DialogType.Basic,
                   title: 'This is a custom UI with icon',
                   description:
                       'Sheck out the builder in the dialog_ui_register.dart file',
