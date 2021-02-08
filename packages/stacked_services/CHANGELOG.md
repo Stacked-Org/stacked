@@ -1,3 +1,7 @@
+## 0.6.7
+
+- Made dialog title or content optional
+
 ## 0.6.6
 
 - Adds title and message textAlign to the config
