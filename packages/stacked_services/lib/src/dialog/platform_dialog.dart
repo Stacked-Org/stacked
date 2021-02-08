@@ -112,31 +112,75 @@ class PlatformDialog extends StatelessWidget {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     switch (dialogPlatform) {
       case DialogPlatform.Cupertino:
-        return CupertinoAlertDialog(
-          title: Text(
-            title,
-          ),
-          content: Text(
-            content,
-          ),
-          actions: actions,
-        );
+        return buildCupertinoAlertDialog();
       case DialogPlatform.Material:
       default: // TODO: When custom dialog registrations are implemented it'll be shown here
-        return AlertDialog(
-          backgroundColor: isDarkMode ? Colors.grey[850] : Colors.white,
-          titleTextStyle: Theme.of(context).dialogTheme.titleTextStyle,
-          contentTextStyle: Theme.of(context).dialogTheme.contentTextStyle,
-          title: Text(
-            title,
-            style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
-          ),
-          content: Text(
-            content,
-            style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
-          ),
-          actions: actions,
-        );
+        if (content == null) {
+          return AlertDialog(
+            backgroundColor: isDarkMode ? Colors.grey[850] : Colors.white,
+            titleTextStyle: Theme.of(context).dialogTheme.titleTextStyle,
+            contentTextStyle: Theme.of(context).dialogTheme.contentTextStyle,
+            title: Text(
+              title,
+              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+            ),
+            actions: actions,
+          );
+        } else if (title == null) {
+          return AlertDialog(
+            backgroundColor: isDarkMode ? Colors.grey[850] : Colors.white,
+            titleTextStyle: Theme.of(context).dialogTheme.titleTextStyle,
+            contentTextStyle: Theme.of(context).dialogTheme.contentTextStyle,
+            content: Text(
+              content,
+              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+            ),
+            actions: actions,
+          );
+        } else {
+          return AlertDialog(
+            backgroundColor: isDarkMode ? Colors.grey[850] : Colors.white,
+            titleTextStyle: Theme.of(context).dialogTheme.titleTextStyle,
+            contentTextStyle: Theme.of(context).dialogTheme.contentTextStyle,
+            title: Text(
+              title,
+              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+            ),
+            content: Text(
+              content,
+              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+            ),
+            actions: actions,
+          );
+        }
+    }
+  }
+
+  CupertinoAlertDialog buildCupertinoAlertDialog() {
+    if (title == null) {
+      return CupertinoAlertDialog(
+        content: Text(
+          content,
+        ),
+        actions: actions,
+      );
+    } else if (content == null) {
+      return CupertinoAlertDialog(
+        title: Text(
+          title,
+        ),
+        actions: actions,
+      );
+    } else {
+      return CupertinoAlertDialog(
+        title: Text(
+          title,
+        ),
+        content: Text(
+          content,
+        ),
+        actions: actions,
+      );
     }
   }
 }
