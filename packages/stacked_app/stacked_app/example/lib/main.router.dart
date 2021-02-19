@@ -9,30 +9,34 @@
 import 'package:flutter/material.dart';
 import 'package:stacked_app/stacked_app.dart';
 
-import '../main.dart';
+import 'ui/home/home_view.dart';
 
 class Routes {
-  static const String myHomePage = '/my-home-page';
+  static const String homeView = '/home-view';
   static const all = <String>{
-    myHomePage,
+    homeView,
   };
 }
 
 class StackedRouter extends RouterBase {
+  static Route<dynamic> onGenerateRoute(RouteSettings settings,
+          [String basePath]) =>
+      RouterBase.onGenerateRoute(settings);
+
   @override
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
-    RouteDef(Routes.myHomePage, page: MyHomePage),
+    RouteDef(Routes.homeView, page: HomeView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, StackedRouteFactory>{
-    MyHomePage: (data) {
-      var args = data.getArgs<MyHomePageArguments>(
-        orElse: () => MyHomePageArguments(),
+    HomeView: (data) {
+      var args = data.getArgs<HomeViewArguments>(
+        orElse: () => HomeViewArguments(),
       );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => MyHomePage(
+        builder: (context) => HomeView(
           key: args.key,
           title: args.title,
         ),
@@ -46,9 +50,9 @@ class StackedRouter extends RouterBase {
 /// Arguments holder classes
 /// *************************************************************************
 
-/// MyHomePage arguments holder class
-class MyHomePageArguments {
+/// HomeView arguments holder class
+class HomeViewArguments {
   final Key key;
   final String title;
-  MyHomePageArguments({this.key, this.title});
+  HomeViewArguments({this.key, this.title});
 }

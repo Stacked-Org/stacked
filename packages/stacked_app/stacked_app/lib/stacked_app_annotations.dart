@@ -4,6 +4,8 @@ import 'package:meta/meta.dart';
 class StackedApp {
   /// Defines all the routes that has to be generated for the onGenerateRoute function
   final List<StackedRoute> routes;
+
+  const StackedApp({this.routes}) : assert(routes != null);
 }
 
 class StackedRouterAnnotation {

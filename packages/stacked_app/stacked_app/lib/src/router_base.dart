@@ -13,7 +13,8 @@ abstract class RouterBase {
 
   Set<String> get allRoutes => routes.map((e) => e.template).toSet();
 
-  Route<dynamic> onGenerateRoute(RouteSettings settings, [String basePath]) {
+  static Route<dynamic> onGenerateRoute(RouteSettings settings,
+      [String basePath]) {
     assert(routes != null);
     assert(settings != null);
     var match = findMatch(settings);

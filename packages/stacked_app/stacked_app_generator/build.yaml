@@ -2,6 +2,6 @@ builders:
   stackedRouterGenerator:
     import: "package:stacked_app_generator/builder.dart"
     builder_factories: ["stackedRouterGenerator"]
-    build_extensions: {'.dart': ['.gr.dart']}
+    build_extensions: {'.dart': ['.router.dart']}
     auto_apply: dependents
     build_to: source

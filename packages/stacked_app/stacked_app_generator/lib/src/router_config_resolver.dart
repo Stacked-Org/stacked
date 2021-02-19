@@ -65,16 +65,7 @@ class RouterConfigResolver {
 
   RouterConfigResolver(this._importResolver);
 
-  Future<RouterConfig> resolve(
-      ConstantReader stackedRouter, ClassElement clazz) async {
-    // ensure router config classes are prefixed with $
-    // to use the stripped name for the generated class
-    throwIf(
-      !clazz.displayName.startsWith(r'$'),
-      'Router class name must be prefixed with \$',
-      element: clazz,
-    );
-
+  Future<RouterConfig> resolve(ConstantReader stackedRouter) async {
     var globalRouteConfig = RouteConfig();
     if (stackedRouter.instanceOf(TypeChecker.fromRuntime(CupertinoRouter))) {
       globalRouteConfig.routeType = RouteType.cupertino;
@@ -90,8 +81,10 @@ class RouterConfigResolver {
           stackedRouter.peek('opaque')?.boolValue;
       globalRouteConfig.customRouteBarrierDismissible =
           stackedRouter.peek('barrierDismissible')?.boolValue;
-      final function =
-          stackedRouter.peek('transitionsBuilder')?.objectValue?.toFunctionValue();
+      final function = stackedRouter
+          .peek('transitionsBuilder')
+          ?.objectValue
+          ?.toFunctionValue();
       if (function != null) {
         final displayName = function.displayName.replaceFirst(RegExp('^_'), '');
         final functionName = (function.isStatic &&
@@ -118,7 +111,7 @@ class RouterConfigResolver {
 
     var routerConfig = RouterConfig(
       globalRouteConfig: globalRouteConfig,
-      routerClassName: clazz.displayName.substring(1),
+      routerClassName: 'StackedRouter',
       routesClassName: routesClassName,
       routeNamePrefix: routeNamePrefix,
       generateNavigationHelper: generateNavigationExt,

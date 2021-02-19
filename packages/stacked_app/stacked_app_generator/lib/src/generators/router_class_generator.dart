@@ -256,6 +256,12 @@ class RouterClassGenerator {
     _writeln('\nclass ${routerConfig.routerClassName} extends RouterBase {');
 
     _writeln('''
+    static Route<dynamic> onGenerateRoute(RouteSettings settings,
+    [String basePath]) =>
+    RouterBase.onGenerateRoute(settings);
+    ''');
+
+    _writeln('''
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
