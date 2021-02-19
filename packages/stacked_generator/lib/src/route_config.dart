@@ -1,4 +1,4 @@
-import 'package:stacked_app_generator/route_config_resolver.dart';
+import 'package:stacked_generator/route_config_resolver.dart';
 
 import 'custom_transition_builder.dart';
 

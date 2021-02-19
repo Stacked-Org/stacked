@@ -1,5 +1,5 @@
-import 'package:stacked_app_generator/route_config_resolver.dart';
-import 'package:stacked_app_generator/utils.dart';
+import 'package:stacked_generator/route_config_resolver.dart';
+import 'package:stacked_generator/utils.dart';
 
 class RouterClassGenerator {
   final RouterConfig _rootRouterConfig;

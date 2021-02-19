@@ -1,5 +1,5 @@
-name: stacked_app_generator
-description: Stacked App is a package dedicated to reduce the boilerplate required to setup a stacked application
+name: stacked_generator
+description: Stacked Generator is a package dedicated to reduce the boilerplate required to setup a stacked application
 version: 0.1.0
 homepage: https://github.com/Milad-Akarie/auto_route_library
 
