@@ -1,5 +1,11 @@
 import 'package:meta/meta.dart';
 
+/// The annotation that defines a stacked application
+class StackedApp {
+  /// Defines all the routes that has to be generated for the onGenerateRoute function
+  final List<StackedRoute> routes;
+}
+
 class StackedRouterAnnotation {
   // if true a Navigator extension will be generated with
   // helper push methods of all routes

@@ -1,5 +1,5 @@
 import 'package:analyzer/dart/element/element.dart';
-import 'package:stacked_app_generator/stacked_router_generator.dart';
+import 'package:stacked_app_generator/src/generators/stacked_router_generator.dart';
 import 'package:build/build.dart';
 
 const pkg = '_test_';
