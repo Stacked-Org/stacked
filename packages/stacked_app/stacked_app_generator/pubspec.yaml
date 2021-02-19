@@ -1,0 +1,21 @@
+name: stacked_app_generator
+description: Stacked App generator generates the boilerplate required to run a stacked application
+version: 0.1.0
+homepage: https://github.com/Milad-Akarie/auto_route_library
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  build: ^1.0.0
+  source_gen: ^0.9.0
+  analyzer: ">=0.40.0 <2.0.0"
+  path: ^1.6.4
+  build_runner: ^1.10.1
+  code_builder: 3.5.0
+  stacked_app:
+    path: ../stacked_app
+
+dev_dependencies:
+  source_gen_test:
+  test:

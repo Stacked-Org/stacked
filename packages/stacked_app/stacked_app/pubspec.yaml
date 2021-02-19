@@ -1,0 +1,19 @@
+name: stacked_app
+description: Stacked App is a library to reduce the boilerplate required to build a stacked application
+version: 0.1.0
+homepage: https://github.com/FilledStacks/stacked
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  meta: ^1.1.8
+  path:
+  equatable: ^1.0.0
+dev_dependecies:
+  flutter_test:
+    sdk: flutter
+  test:
+
