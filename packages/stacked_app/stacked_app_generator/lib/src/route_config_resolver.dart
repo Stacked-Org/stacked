@@ -1,71 +1,54 @@
 import 'package:analyzer/dart/element/element.dart';
-import 'package:stacked_app/annotations.dart';
+import 'package:stacked_app/stacked_app_annotations.dart';
 import 'package:stacked_app_generator/import_resolver.dart';
 import 'package:stacked_app_generator/route_config_resolver.dart';
 import 'package:stacked_app_generator/utils.dart';
 import 'package:source_gen/source_gen.dart';
 
-const TypeChecker autoRouteChecker = TypeChecker.fromRuntime(AutoRoute);
+const TypeChecker stackedRouteChecker = TypeChecker.fromRuntime(StackedRoute);
 
-// extracts route configs from class fields and their meta data
+// extracts route configs from class fields
 class RouteConfigResolver {
   final RouterConfig _routerConfig;
-  final TypeResolver _typeResolver;
+  final ImportResolver _importResolver;
 
-  RouteConfigResolver(this._routerConfig, this._typeResolver);
+  RouteConfigResolver(this._routerConfig, this._importResolver);
 
-  RouteConfig resolve(ConstantReader autoRoute) {
-    final config = RouteConfig();
+  Future<RouteConfig> resolve(ConstantReader stackedRoute) async {
+    final routeConfig = RouteConfig();
+    final type = stackedRoute.read('page').typeValue;
+    final classElement = type.element as ClassElement;
 
-    final page = autoRoute.peek('page')?.typeValue;
-    var path = autoRoute.peek('path')?.stringValue;
-    if (page == null) {
-      var redirectTo = autoRoute.peek('redirectTo')?.stringValue;
-      throwIf(redirectTo == null, 'Route must have either a page or a redirect destination');
-      return config
-        ..pathName = path
-        ..redirectTo = redirectTo
-        ..fullMatch = autoRoute.peek('fullMatch')?.boolValue
-        ..routeType = RouteType.redirect;
+    final import = _importResolver.resolve(classElement);
+    if (import != null) {
+      routeConfig.imports.add(import);
     }
-
-    final classElement = page.element as ClassElement;
-    config.pageType = _typeResolver.resolveType(page);
-    config.className = page.getDisplayString(withNullability: false);
-
+    routeConfig.className = type.getDisplayString();
+    var path = stackedRoute.peek('path')?.stringValue;
     if (path == null) {
-      if (autoRoute.peek('initial')?.boolValue == true) {
-        path = _routerConfig.parent != null ? '' : '/';
+      if (stackedRoute.peek('initial')?.boolValue == true) {
+        path = '/';
       } else {
-        if (_routerConfig.usesLegacyGenerator) {
-          path = '${_routerConfig.routeNamePrefix}${toKababCase(config.className)}';
-        } else {
-          path = '${toKababCase(config.className)}';
-        }
+        path =
+            '${_routerConfig.routeNamePrefix}${toKababCase(routeConfig.className)}';
       }
-    } else if (!_routerConfig.usesLegacyGenerator) {
-      throwIf(
-        path.startsWith("/") && _routerConfig.parent != null,
-        'Child [$path] can not start with a forward slash',
-      );
     }
-
-    config.pathName = path;
-    config.pathParams = RouteParameterResolver.extractPathParams(path);
+    routeConfig.pathName = path;
 
     throwIf(
-      page.element is! ClassElement,
-      '${page.getDisplayString(withNullability: false)} is not a class element',
-      element: page.element,
+      type.element is! ClassElement,
+      '${type.getDisplayString()} is not a class element',
+      element: type.element,
     );
 
-    _extractRouteMetaDataInto(config, autoRoute);
+    await _extractRouteMetaData(routeConfig, stackedRoute);
 
-    config.name = autoRoute.peek('name')?.stringValue;
+    routeConfig.name = stackedRoute.peek('name')?.stringValue ??
+        toLowerCamelCase(routeConfig.className);
 
-    config.hasWrapper = classElement.allSupertypes
-        .map<String>((el) => el.getDisplayString(withNullability: false))
-        .contains('AutoRouteWrapper');
+    routeConfig.hasWrapper = classElement.allSupertypes
+        .map<String>((el) => el.getDisplayString())
+        .contains('StackedRouteWrapper');
 
     final constructor = classElement.unnamedConstructor;
 
@@ -73,68 +56,84 @@ class RouteConfigResolver {
     if (params?.isNotEmpty == true) {
       if (constructor.isConst &&
           params.length == 1 &&
-          params.first.type.getDisplayString(withNullability: false) == 'Key') {
-        config.hasConstConstructor = true;
+          params.first.type.getDisplayString() == 'Key') {
+        routeConfig.hasConstConstructor = true;
       } else {
-        final paramResolver = RouteParameterResolver(_typeResolver);
-        config.parameters = [];
-
+        final paramResolver = RouteParameterResolver(_importResolver);
+        routeConfig.parameters = [];
         for (ParameterElement p in constructor.parameters) {
-          config.parameters.add(paramResolver.resolve(p));
+          routeConfig.parameters.add(await paramResolver.resolve(p));
         }
       }
     }
     // _validatePathParams(routeConfig, classElement);
-    return config;
+    return routeConfig;
   }
 
-  void _extractRouteMetaDataInto(RouteConfig config, ConstantReader autoRoute) {
-    config.fullscreenDialog = autoRoute.peek('fullscreenDialog')?.boolValue;
-    config.maintainState = autoRoute.peek('maintainState')?.boolValue;
-    config.fullMatch = autoRoute.peek('fullMatch')?.boolValue;
+  Future<void> _extractRouteMetaData(
+      RouteConfig routeConfig, ConstantReader stackedRoute) async {
+    routeConfig.fullscreenDialog =
+        stackedRoute.peek('fullscreenDialog')?.boolValue;
+    routeConfig.maintainState = stackedRoute.peek('maintainState')?.boolValue;
 
-    autoRoute.peek('guards')?.listValue?.map((g) => g.toTypeValue())?.forEach((guard) {
-      config.guards.add(_typeResolver.resolveType(guard));
+    stackedRoute
+        .peek('guards')
+        ?.listValue
+        ?.map((g) => g.toTypeValue())
+        ?.forEach((guard) {
+      routeConfig.guards.add(RouteGuardConfig(
+          type: guard.getDisplayString(),
+          import: _importResolver.resolve(guard.element)));
     });
 
-    final returnType = autoRoute.objectValue.type.typeArguments.first;
-    config.returnType = _typeResolver.resolveType(returnType);
+    final returnType = stackedRoute.objectValue.type.typeArguments.first;
+    routeConfig.returnType = returnType.getDisplayString();
 
-    if (autoRoute.instanceOf(TypeChecker.fromRuntime(MaterialRoute))) {
-      config.routeType = RouteType.material;
-    } else if (autoRoute.instanceOf(TypeChecker.fromRuntime(CupertinoRoute))) {
-      config.routeType = RouteType.cupertino;
-      config.cupertinoNavTitle = autoRoute.peek('title')?.stringValue;
-    } else if (autoRoute.instanceOf(TypeChecker.fromRuntime(AdaptiveRoute))) {
-      config.routeType = RouteType.adaptive;
-      config.cupertinoNavTitle = autoRoute.peek('cupertinoPageTitle')?.stringValue;
-    } else if (autoRoute.instanceOf(TypeChecker.fromRuntime(CustomRoute))) {
-      config.routeType = RouteType.custom;
+    if (routeConfig.returnType != 'dynamic') {
+      routeConfig.imports.addAll(_importResolver.resolveAll(returnType));
+    }
 
-      config.durationInMilliseconds = autoRoute.peek('durationInMilliseconds')?.intValue;
-      config.reverseDurationInMilliseconds = autoRoute.peek('reverseDurationInMilliseconds')?.intValue;
-      config.customRouteOpaque = autoRoute.peek('opaque')?.boolValue;
-      config.customRouteBarrierDismissible = autoRoute.peek('barrierDismissible')?.boolValue;
-      config.customRouteBarrierLabel = autoRoute.peek('barrierLabel')?.stringValue;
-
-      final function = autoRoute.peek('transitionsBuilder')?.objectValue?.toFunctionValue();
+    if (stackedRoute.instanceOf(TypeChecker.fromRuntime(MaterialRoute))) {
+      routeConfig.routeType = RouteType.material;
+    } else if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CupertinoRoute))) {
+      routeConfig.routeType = RouteType.cupertino;
+      routeConfig.cupertinoNavTitle = stackedRoute.peek('title')?.stringValue;
+    } else if (stackedRoute.instanceOf(TypeChecker.fromRuntime(AdaptiveRoute))) {
+      routeConfig.routeType = RouteType.adaptive;
+      routeConfig.cupertinoNavTitle =
+          stackedRoute.peek('cupertinoPageTitle')?.stringValue;
+    } else if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CustomRoute))) {
+      routeConfig.routeType = RouteType.custom;
+      routeConfig.durationInMilliseconds =
+          stackedRoute.peek('durationInMilliseconds')?.intValue;
+      routeConfig.customRouteOpaque = stackedRoute.peek('opaque')?.boolValue;
+      routeConfig.customRouteBarrierDismissible =
+          stackedRoute.peek('barrierDismissible')?.boolValue;
+      final function =
+          stackedRoute.peek('transitionsBuilder')?.objectValue?.toFunctionValue();
       if (function != null) {
-        config.transitionBuilder = _typeResolver.resolveImportableFunctionType(function);
-      }
-      final builderFunction = autoRoute.peek('customRouteBuilder')?.objectValue?.toFunctionValue();
-      if (builderFunction != null) {
-        config.customRouteBuilder = _typeResolver.resolveImportableFunctionType(builderFunction);
+        final displayName = function.displayName.replaceFirst(RegExp('^_'), '');
+        final functionName = (function.isStatic &&
+                function.enclosingElement?.displayName != null)
+            ? '${function.enclosingElement.displayName}.$displayName'
+            : displayName;
+
+        var import;
+        if (function.enclosingElement?.name != 'TransitionsBuilders') {
+          import = _importResolver.resolve(function);
+        }
+        routeConfig.transitionBuilder =
+            CustomTransitionBuilder(functionName, import);
       }
     } else {
       var globConfig = _routerConfig.globalRouteConfig;
-      config.routeType = globConfig.routeType;
+      routeConfig.routeType = globConfig.routeType;
       if (globConfig.routeType == RouteType.custom) {
-        config.transitionBuilder = globConfig.transitionBuilder;
-        config.durationInMilliseconds = globConfig.durationInMilliseconds;
-        config.customRouteBarrierDismissible = globConfig.customRouteBarrierDismissible;
-        config.customRouteOpaque = globConfig.customRouteOpaque;
-        config.reverseDurationInMilliseconds = globConfig.reverseDurationInMilliseconds;
-        config.customRouteBuilder = globConfig.customRouteBuilder;
+        routeConfig.transitionBuilder = globConfig.transitionBuilder;
+        routeConfig.durationInMilliseconds = globConfig.durationInMilliseconds;
+        routeConfig.customRouteBarrierDismissible =
+            globConfig.customRouteBarrierDismissible;
+        routeConfig.customRouteOpaque = globConfig.customRouteOpaque;
       }
     }
   }

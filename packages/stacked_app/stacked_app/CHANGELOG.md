@@ -1,13 +1,5 @@
 # ChangeLog
-## [0.6.9]
-- Fix generator error running flutter version 1.22
-- Fix bar-url not updated in flutter version 1.22 
-## [0.6.7] 
-- Fix blue screen issue when using guards on initial route #189
-- Fix relative import issues
-- Add option to not prefer relative imports 
-- Fix some linter warnings
-- Fix issue #176
+
 ## [0.6.6] 
 - Fix hot reload issue #170
 - Fix Hero animations not working with the new ExtendedNavigator # 169 
@@ -15,7 +7,7 @@
 
 ## [0.6.5] 
 - Downgrade path package to >= 1.6.4 to solve conflict with flutter_test 
-- Clean up auto_route index file
+- Clean up stacked_app index file
 
 ## [0.6.4] 
 - Add usage of const constructors when possible

@@ -1,6 +1,7 @@
-import 'package:stacked_app/annotations.dart';
+import 'package:stacked_app/stacked_app.dart';
+import 'package:stacked_app/stacked_app_annotations.dart';
 
 import '../main.dart';
 
-@MaterialAutoRouter(routes: [MaterialRoute(page: MyHomePage)])
+@MaterialRouter(routes: [MaterialRoute(page: MyHomePage)])
 abstract class $StackedRouter {}

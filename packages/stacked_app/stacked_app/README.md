@@ -1,4 +1,4 @@
-# auto_route:
+# stacked_app:
 
 AutoRoute is a declarative routing solution, where everything needed for navigation is automatically generated for you.
 
@@ -23,7 +23,7 @@ AutoRoute is a declarative routing solution, where everything needed for navigat
 
 ```yaml
 dependencies:
-  auto_route: [latest-version]
+  stacked_app: [latest-version]
 
 dev_dependencies:
   auto_route_generator: [latest-version]
@@ -252,7 +252,7 @@ class WelcomeScreenArguments {
 ##### Pass your typed args using the generated arguments holder class
 
 ```dart
-ExtendedNavigator.of(ctx).push(Router.welcomeScreenRoute,
+ExtendedNavigator.of(ctx).pushNamed(Router.welcomeScreenRoute,
     arguments: WelcomeScreenArguments(
         title: "Hello World!"
         message: "Let's AutoRoute!"
@@ -294,7 +294,7 @@ class UsersScreen extends StatelessWidget {
      ...
 ```
 ### isn't there a better way to extract route parameters? This doesn't feel very auto!
-of course there is! simply annotate your constructor parameters with `@PathParam()` or `@QueryParam()` and let auto_route do the work for you
+of course there is! simply annotate your constructor parameters with `@PathParam()` or `@QueryParam()` and let stacked_app do the work for you
 ```dart
 class UsersScreen extends StatefulWidget {
   const UsersScreen({
@@ -309,7 +309,7 @@ class UsersScreen extends StatefulWidget {
  ```dart
   MaterialPageRoute<dynamic>(
        builder: (context,) => UsersScreen(
-       // auto_route will know the right type to parse the raw value to
+       // stacked_app will know the right type to parse the raw value to
        id: data.pathParams['id'].intValue,
        filterFromQuery: data.queryParams['filter'].stringValue)
 ```
@@ -342,7 +342,7 @@ ExtendedNavigator(
     } ,
    ...
 ```
-If you're using auto_route with the native `Navigator` use the function inside of `MaterialApp`
+If you're using stacked_app with the native `Navigator` use the function inside of `MaterialApp`
 
 ```dart
  MaterialApp(
@@ -383,8 +383,8 @@ class UsersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Users Page")),
-      // this navigator will obtain its router
-      // on its own
+      // this navigator will obtain it's router
+      // on it's own
       body: ExtendedNavigator(),
     );
   }
@@ -413,12 +413,12 @@ context.rootNavigator.push(...)
 ```dart
 // give your navigator a name
 ExtendedNavigator(router: Router(), name: "nestedNav")
-//call it by its name
+//call it by it's name
 ExtendedNavigator.named("nestedNav").push(...)
 ```
  if you're working with only one navigator
 ```dart
-ExtendedNavigator.root.push(..)
+ExtendedNavigator.root.pushNamed(..)
 ```
 
 
@@ -430,10 +430,10 @@ This will generate
 
 ```dart
 extension RouterNavigationHelperMethods on ExtendedNavigatorState {
-  Future pushHomeScreen() => push(Routes.homeScreen);
+  Future pushHomeScreen() => pushNamed(Routes.homeScreen);
   Future<bool> pushSecondScreen(
           {@required String title, String message}) =>
-      push<bool>(Routes.secondScreen,
+      pushNamed<bool>(Routes.secondScreen,
           arguments: SecondScreenArguments(title: title, message: message));
 }
 ```
@@ -539,7 +539,7 @@ CustomRoute(page: ZoomInScreen, transitionsBuilder: zoomInTransition)
 ---
 I apologize for the good 5 to 10 minutes you're gonna lose rewriting your router class but it's for the greater good ;).
 
-#### Migrating from auto_route <= 0.5.0
+#### Migrating from stacked_app <= 0.5.0
 Basically instead of declaring our routes as class fields we're going to use a more readable and scalable way (a static routes list).
 
 old way `<= 0.5.0`
@@ -635,5 +635,5 @@ Make sure you always **Save** your files before running the generator, if that d
 ```terminal
 flutter packages pub run build_runner clean
 ```
-### Support auto_route
-You can support auto_route by liking it on Pub and staring it on Github, sharing ideas on how we can enhance a certain functionality or by reporting any problems you encounter
+### Support stacked_app
+You can support stacked_app by liking it on Pub and staring it on Github, sharing ideas on how we can enhance a certain functionality or by reporting any problems you encounter

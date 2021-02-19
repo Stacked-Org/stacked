@@ -1,5 +1,4 @@
-import 'package:stacked_app/src/common/common.dart';
-import 'package:stacked_app/src/legacy/route_def.dart';
+import 'package:stacked_app/stacked_app.dart';
 import 'package:flutter/widgets.dart';
 
 import 'uri_extension.dart';
@@ -46,7 +45,9 @@ class RouteMatcher {
       }
 
       matchResult = RouteMatch(
-          name: !rest.hasEmptyPath || !segment.hasQueryParams || route.isParent ? segment.path : segment.toString(),
+          name: !rest.hasEmptyPath || !segment.hasQueryParams || route.isParent
+              ? segment.path
+              : segment.toString(),
           arguments: args,
           initialArgsToPass: argsToPass,
           uri: segment,
@@ -101,12 +102,14 @@ class RouteMatch extends RouteSettings {
 
   Parameters get pathParams => Parameters(pathParamsMap);
 
-  RouteMatch replace({
+  @override
+  RouteSettings copyWith({
     String name,
+    Object arguments,
   }) {
     return RouteMatch(
         name: name ?? this.name,
-        arguments: arguments,
+        arguments: arguments ?? this.arguments,
         initialArgsToPass: this.initialArgsToPass,
         uri: this.uri,
         routeDef: this.routeDef,

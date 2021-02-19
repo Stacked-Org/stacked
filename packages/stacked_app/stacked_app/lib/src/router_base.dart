@@ -1,8 +1,7 @@
+import 'package:stacked_app/src/route_data.dart';
+import 'package:stacked_app/src/route_def.dart';
+import 'package:stacked_app/src/route_matcher.dart';
 import 'package:flutter/widgets.dart';
-
-import 'route_data.dart';
-import 'route_def.dart';
-import 'route_matcher.dart';
 
 typedef StackedRouteFactory = Route<dynamic> Function(RouteData data);
 typedef RouterBuilder<T extends RouterBase> = T Function();
@@ -20,7 +19,7 @@ abstract class RouterBase {
     var match = findMatch(settings);
     if (match != null) {
       if (basePath != null) {
-        match = match.replace(name: _joinPath(basePath, match.name));
+        match = match.copyWith(name: _joinPath(basePath, match.name));
       }
 
       RouteData data;
@@ -40,11 +39,11 @@ abstract class RouterBase {
 
   String _joinPath(String basePath, String part) {
     var name;
-    var path = Uri.parse(basePath).path;
-    if (part == "" || path.endsWith("/") || part.startsWith("/")) {
-      name = "$path$part";
+    var pathOnly = Uri.parse(basePath).path;
+    if (part == "" || pathOnly.endsWith("/") || part.startsWith("/")) {
+      name = "$pathOnly$part";
     } else {
-      name = "$path/$part";
+      name = "$pathOnly/$part";
     }
     return name;
   }
@@ -60,7 +59,8 @@ abstract class RouterBase {
       var match = matcher.match(route);
       if (match != null) {
         // matching root "/" must be exact
-        if ((route.template == "/" || route.template.isEmpty) && match.hasRest) {
+        if ((route.template == "/" || route.template.isEmpty) &&
+            match.hasRest) {
           continue;
         }
         return match;

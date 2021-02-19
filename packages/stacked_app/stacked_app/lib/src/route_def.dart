@@ -1,4 +1,4 @@
-import 'router_base.dart';
+import 'package:stacked_app/stacked_app.dart';
 
 class RouteDef {
   final String template;

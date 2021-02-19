@@ -1,4 +1,4 @@
-//import 'package:stacked_app/auto_route_annotations.dart';
+//import 'package:auto_route/auto_route_annotations.dart';
 //import 'package:source_gen_test/annotations.dart';
 //
 //@ShouldThrow('Class name must be prefixed with \$')

@@ -1,3 +1,3 @@
-# stacked_app_generator
+# auto_route_generator
 
-### A generator for [stacked_app](https://pub.dev/packages/stacked_app) library.
+### A generator for [auto_route](https://pub.dev/packages/auto_route) library.
