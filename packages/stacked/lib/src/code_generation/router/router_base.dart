@@ -1,7 +1,8 @@
-import 'package:stacked_app/src/route_data.dart';
-import 'package:stacked_app/src/route_def.dart';
-import 'package:stacked_app/src/route_matcher.dart';
+import 'package:stacked/src/code_generation/router/route_data.dart';
+import 'package:stacked/src/code_generation/router/route_def.dart';
+
 import 'package:flutter/widgets.dart';
+import 'package:stacked/src/code_generation/router/route_matcher.dart';
 
 typedef StackedRouteFactory = Route<dynamic> Function(RouteData data);
 typedef RouterBuilder<T extends RouterBase> = T Function();
@@ -13,8 +14,7 @@ abstract class RouterBase {
 
   Set<String> get allRoutes => routes.map((e) => e.template).toSet();
 
-  static Route<dynamic> onGenerateRoute(RouteSettings settings,
-      [String basePath]) {
+  Route<dynamic> onGenerateRoute(RouteSettings settings, [String basePath]) {
     assert(routes != null);
     assert(settings != null);
     var match = findMatch(settings);

@@ -4,7 +4,7 @@ import 'package:path/path.dart' as p;
 
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
-import 'package:stacked_app/stacked_app_annotations.dart';
+import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_generator/src/core/logger.dart';
 import 'package:stacked_generator/src/generators/router_class_generator.dart';
 

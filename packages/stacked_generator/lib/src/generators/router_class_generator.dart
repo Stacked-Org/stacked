@@ -38,7 +38,7 @@ class RouterClassGenerator {
   void _generateImports(List<RouteConfig> routes) {
     // write route imports
     final imports = <String>{
-      "package:stacked_app/stacked_app.dart",
+      "package:stacked/stacked.dart",
       if (routes.any((e) =>
           e.routeType == RouteType.material || e.routeType == RouteType.custom))
         "package:flutter/material.dart",
@@ -254,12 +254,6 @@ class RouterClassGenerator {
 
   void _generateRouterClass(RouterConfig routerConfig) {
     _writeln('\nclass ${routerConfig.routerClassName} extends RouterBase {');
-
-    _writeln('''
-    static Route<dynamic> onGenerateRoute(RouteSettings settings,
-    [String basePath]) =>
-    RouterBase.onGenerateRoute(settings);
-    ''');
 
     _writeln('''
      @override

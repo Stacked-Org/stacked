@@ -1,9 +1,12 @@
 import 'dart:async';
 
-import 'package:stacked_app/stacked_app.dart';
+import 'package:stacked/src/code_generation/router/route_data.dart';
+import 'package:stacked/src/code_generation/router/route_guard.dart';
+import 'package:stacked/src/code_generation/router/router_base.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:stacked/src/code_generation/router/router_utils.dart';
 
 import 'uri_extension.dart';
 

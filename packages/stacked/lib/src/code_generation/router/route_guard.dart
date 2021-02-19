@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:stacked_app/src/extended_navigator.dart';
+import 'extended_navigator.dart';
 
 abstract class RouteGuard {
   Future<bool> canNavigate(

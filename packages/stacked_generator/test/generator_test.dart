@@ -1,8 +1,5 @@
 import 'dart:io';
-
-import 'package:stacked_app/stacked_app_annotations.dart';
 import 'package:source_gen_test/source_gen_test.dart';
-
 import 'mocks.dart';
 
 const samplesDirectory = 'test/samples';

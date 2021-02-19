@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:observable_ish/observable_ish.dart';
-import 'package:stacked/src/reactive_service_mixin.dart';
+import 'package:stacked/src/state_management/reactive_service_mixin.dart';
 
 class CounterService with ReactiveServiceMixin {
   RxValue<int> _counter = RxValue<int>(initial: 0);

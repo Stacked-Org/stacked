@@ -1,4 +1,6 @@
-import 'package:stacked_app/stacked_app.dart';
+import 'package:stacked/src/code_generation/router/parameters.dart';
+import 'package:stacked/src/code_generation/router/route_def.dart';
+
 import 'package:flutter/widgets.dart';
 
 import 'uri_extension.dart';

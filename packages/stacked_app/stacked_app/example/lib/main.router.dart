@@ -19,10 +19,6 @@ class Routes {
 }
 
 class StackedRouter extends RouterBase {
-  static Route<dynamic> onGenerateRoute(RouteSettings settings,
-          [String basePath]) =>
-      RouterBase.onGenerateRoute(settings);
-
   @override
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[

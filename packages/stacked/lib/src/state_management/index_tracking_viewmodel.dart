@@ -1,5 +1,5 @@
-import 'package:stacked/src/base_view_models.dart';
-import 'package:stacked/src/reactive_service_mixin.dart';
+import 'package:stacked/src/state_management/base_view_models.dart';
+import 'package:stacked/src/state_management/reactive_service_mixin.dart';
 
 class IndexTrackingViewModel extends ReactiveViewModel {
   int _currentIndex = 0;
