@@ -1,4 +1,4 @@
-enum ServiceType {
+enum DependencyType {
   Factory,
   LazySingleton,
   Singleton,

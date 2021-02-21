@@ -1,3 +1,6 @@
 # ChangeLog
 
-## 0.1.0 - Initial version cloned from v 0.6.0 of auto_route package
+## 0.1.0 - Initial functionality
+
+- Generate a `StackedRouter` from the routes defined on `StackedApp`
+- Generate all get_it registrations from the dependencies defined on `StackedApp`

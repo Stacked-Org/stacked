@@ -1,3 +1,7 @@
+## 1.9.0
+
+Big Update! This version of stacked aims to reduce the boiler plate required to setup a stacked application. We introduce the annotation that are used by the stacked_generator to generate the router and locator setup functionality. 
+
 ## 1.7.7
 
 - Fixes [Multiple Streams ViewModel causing memory overflow](https://github.com/FilledStacks/stacked/issues/190) bug

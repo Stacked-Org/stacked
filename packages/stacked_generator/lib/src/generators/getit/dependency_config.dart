@@ -1,7 +1,7 @@
-import 'package:stacked_generator/src/generators/enums/serivce_type.dart';
+import 'package:stacked_generator/src/generators/enums/dependency_type.dart';
 import 'package:recase/recase.dart';
 
-class ServiceConfig {
+class DependencyConfig {
   /// The import to use for the type of the service
   final String import;
 
@@ -9,12 +9,12 @@ class ServiceConfig {
   final String className;
 
   /// The type of the service to register
-  final ServiceType type;
+  final DependencyType type;
 
   /// The static function to use for presolving the service
   final String presolveFunction;
 
-  ServiceConfig({
+  DependencyConfig({
     this.import,
     this.className,
     this.type,

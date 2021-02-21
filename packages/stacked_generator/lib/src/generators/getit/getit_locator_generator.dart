@@ -1,6 +1,6 @@
 import 'package:stacked_generator/src/generators/base_generator.dart';
-import 'package:stacked_generator/src/generators/enums/serivce_type.dart';
-import 'package:stacked_generator/src/generators/getit/service_config.dart';
+import 'package:stacked_generator/src/generators/enums/dependency_type.dart';
+import 'package:stacked_generator/src/generators/getit/dependency_config.dart';
 import 'package:stacked_generator/src/generators/getit/services_config.dart';
 
 class GetItLocatorGenerator extends BaseGenerator {
@@ -19,7 +19,7 @@ class GetItLocatorGenerator extends BaseGenerator {
     newLine();
 
     final hasPresolve = services
-        .any((service) => service.type == ServiceType.PresolvedSingleton);
+        .any((service) => service.type == DependencyType.PresolvedSingleton);
 
     writeLine(
         '${hasPresolve ? 'Future' : 'void'} setupLocator() ${hasPresolve ? 'async' : ''} {');
@@ -36,24 +36,25 @@ class GetItLocatorGenerator extends BaseGenerator {
     return stringBuffer.toString();
   }
 
-  String _getLocatorRegistrationStringForType(ServiceConfig serviceDefinition) {
-    switch (serviceDefinition.type) {
-      case ServiceType.LazySingleton:
-        return 'locator.registerLazySingleton(() => ${serviceDefinition.className}());';
-      case ServiceType.PresolvedSingleton:
+  String _getLocatorRegistrationStringForType(
+      DependencyConfig dependencyDefinition) {
+    switch (dependencyDefinition.type) {
+      case DependencyType.LazySingleton:
+        return 'locator.registerLazySingleton(() => ${dependencyDefinition.className}());';
+      case DependencyType.PresolvedSingleton:
         return '''
-        final ${serviceDefinition.camelCaseClassName} = await ${serviceDefinition.className}.${serviceDefinition.presolveFunction}();
-        locator.registerSingleton(${serviceDefinition.camelCaseClassName});
+        final ${dependencyDefinition.camelCaseClassName} = await ${dependencyDefinition.className}.${dependencyDefinition.presolveFunction}();
+        locator.registerSingleton(${dependencyDefinition.camelCaseClassName});
         ''';
-      case ServiceType.Factory:
-        return 'locator.registerFactory(() => ${serviceDefinition.className}());';
-      case ServiceType.Singleton:
+      case DependencyType.Factory:
+        return 'locator.registerFactory(() => ${dependencyDefinition.className}());';
+      case DependencyType.Singleton:
       default:
-        return 'locator.registerSingleton(${serviceDefinition.className}());';
+        return 'locator.registerSingleton(${dependencyDefinition.className}());';
     }
   }
 
-  void _generateImports(List<ServiceConfig> services) {
+  void _generateImports(List<DependencyConfig> services) {
     // write route imports
     final imports = <String>{"package:get_it/get_it.dart"};
 

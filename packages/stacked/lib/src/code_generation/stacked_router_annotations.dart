@@ -7,11 +7,11 @@ class StackedApp {
   final List<StackedRoute> routes;
 
   /// Defines a list of services to be registered on the locator for use in the app
-  final List<DependencyRegistration> services;
+  final List<DependencyRegistration> dependencies;
 
   const StackedApp({
     this.routes,
-    this.services,
+    this.dependencies,
   }) : assert(routes != null);
 }
 
@@ -80,8 +80,8 @@ class AdaptiveRouter extends StackedRouterAnnotation {
         );
 }
 
-// Defaults created routes to PageRouteBuilder unless
-// overridden by AutoRoute annotation
+/// Defaults created routes to PageRouteBuilder unless
+/// overridden by AutoRoute annotation
 class CustomRouter extends StackedRouterAnnotation {
   /// this builder function is passed to the transition builder
   /// function in [PageRouteBuilder]
@@ -122,7 +122,7 @@ class CustomRouter extends StackedRouterAnnotation {
         );
 }
 
-// [T] is the results type returned
+/// [T] is the results type returned
 /// from this page route MaterialPageRoute<T>()
 /// defaults to dynamic
 
