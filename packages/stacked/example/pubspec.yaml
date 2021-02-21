@@ -25,6 +25,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   stacked:
     path: ../
+  stacked_services:
+    path: ../../stacked_services
 
   # dependency injection
   get_it: ^4.0.1
