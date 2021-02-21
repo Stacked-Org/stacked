@@ -18,31 +18,17 @@ class GetItLocatorGenerator extends BaseGenerator {
     writeLine('final locator = GetIt.instance;');
     newLine();
 
-    // TODO: Check for void or Future and write accordingly
-    // write('void' or 'Future')
-    writeLine('void setupLocator() {');
+    final hasPresolve = services
+        .any((service) => service.type == ServiceType.PresolvedSingleton);
+
+    writeLine(
+        '${hasPresolve ? 'Future' : 'void'} setupLocator() ${hasPresolve ? 'async' : ''} {');
 
     // Loop through all service definitions and generate the code for it
     for (final serviceDefinition in services) {
-      switch (serviceDefinition.type) {
-        case ServiceType.Factory:
-          writeLine(
-              'locator.registerFactory(() => ${serviceDefinition.className}());');
-          break;
-        case ServiceType.Singleton:
-          writeLine(
-              'locator.registerSingleton(${serviceDefinition.className}());');
-          break;
-        case ServiceType.LazySingleton:
-          writeLine(
-              'locator.registerLazySingleton(() => ${serviceDefinition.className}());');
-          break;
-        case ServiceType.PresolvedSingleton:
-          writeLine(
-              'locator.registerFactory(() => ${serviceDefinition.className}());');
-          break;
-        default:
-      }
+      final registrationCodeForType =
+          _getLocatorRegistrationStringForType(serviceDefinition);
+      writeLine(registrationCodeForType);
     }
 
     writeLine('}');
@@ -50,12 +36,26 @@ class GetItLocatorGenerator extends BaseGenerator {
     return stringBuffer.toString();
   }
 
+  String _getLocatorRegistrationStringForType(ServiceConfig serviceDefinition) {
+    switch (serviceDefinition.type) {
+      case ServiceType.LazySingleton:
+        return 'locator.registerLazySingleton(() => ${serviceDefinition.className}());';
+      case ServiceType.PresolvedSingleton:
+        return '''
+        final ${serviceDefinition.camelCaseClassName} = await ${serviceDefinition.className}.${serviceDefinition.presolveFunction}();
+        locator.registerSingleton(${serviceDefinition.camelCaseClassName});
+        ''';
+      case ServiceType.Factory:
+        return 'locator.registerFactory(() => ${serviceDefinition.className}());';
+      case ServiceType.Singleton:
+      default:
+        return 'locator.registerSingleton(${serviceDefinition.className}());';
+    }
+  }
+
   void _generateImports(List<ServiceConfig> services) {
     // write route imports
-    final imports = <String>{
-      "package:stacked/stacked.dart",
-      "package:get_it/get_it.dart"
-    };
+    final imports = <String>{"package:get_it/get_it.dart"};
 
     imports.addAll(services.map((e) => e.import));
 

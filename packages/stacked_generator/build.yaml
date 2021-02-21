@@ -1,4 +1,5 @@
 builders:
+  # Generate the router file and routes
   stackedRouterGenerator:
     import: "package:stacked_generator/builder.dart"
     builder_factories: ["stackedRouterGenerator"]
@@ -6,9 +7,10 @@ builders:
     auto_apply: dependents
     build_to: source
 
-  # stackedLocatorGenerator:
-  #   import: "package:stacked_generator/builder.dart"
-  #   builder_factories: ["stackedLocatorGenerator"]
-  #   build_extensions: { ".dart": [".locator.dart"] }
-  #   auto_apply: dependents
-  #   build_to: source
+  # Generator the get it service registrations
+  stackedLocatorGenerator:
+    import: "package:stacked_generator/builder.dart"
+    builder_factories: ["stackedLocatorGenerator"]
+    build_extensions: { ".dart": [".locator.dart"] }
+    auto_apply: dependents
+    build_to: source

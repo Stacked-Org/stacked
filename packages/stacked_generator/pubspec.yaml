@@ -12,6 +12,7 @@ dependencies:
   analyzer: ">=0.39.2 <0.40.0"
   path: ^1.6.4
   logger: ^0.9.0
+  recase: ^3.0.1
 
   stacked:
     path: ../stacked
