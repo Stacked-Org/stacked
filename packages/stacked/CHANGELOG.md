@@ -1,6 +1,18 @@
+## 1.9.1+2
+
+- Fix null error from locator
+
+## 1.9.1+1
+
+- Adds export for `StackedLocator`
+
+## 1.9.1
+
+- Adds `StackedLocator` to remove the apps dependency from GetIt. It's a thin wrapper around the `GetIt` object implementation
+
 ## 1.9.0
 
-Big Update! This version of stacked aims to reduce the boiler plate required to setup a stacked application. We introduce the annotation that are used by the stacked_generator to generate the router and locator setup functionality. 
+Big Update! This version of stacked aims to reduce the boiler plate required to setup a stacked application. We introduce the annotation that are used by the stacked_generator to generate the router and locator setup functionality.
 
 ## 1.7.7
 

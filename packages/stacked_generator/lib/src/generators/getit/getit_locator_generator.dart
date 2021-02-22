@@ -15,7 +15,7 @@ class GetItLocatorGenerator extends BaseGenerator {
     _generateImports(services);
 
     newLine();
-    writeLine('final locator = GetIt.instance;');
+    writeLine('final locator = StackedLocator.instance;');
     newLine();
 
     final hasPresolve = services
@@ -56,7 +56,7 @@ class GetItLocatorGenerator extends BaseGenerator {
 
   void _generateImports(List<DependencyConfig> services) {
     // write route imports
-    final imports = <String>{"package:get_it/get_it.dart"};
+    final imports = <String>{"package:stacked/stacked.dart"};
 
     imports.addAll(services.map((e) => e.import));
 

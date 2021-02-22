@@ -27,19 +27,21 @@ class StackedGetItGenerator extends GeneratorForAnnotation<StackedApp> {
     var libs = await buildStep.resolver.libraries.toList();
     var importResolver = ImportResolver(libs, element.source.uri.path);
 
-    final servicesConfig = stackedApplication.read('dependencies').listValue;
+    final servicesConfig = stackedApplication.peek('dependencies')?.listValue;
+    if (servicesConfig != null) {
+      List<DependencyConfig> services = List<DependencyConfig>();
+      // Convert the services config into Services configuration
+      for (final serviceConfig in servicesConfig) {
+        final serialisedServiceConfig = _readDependencyConfig(
+          dependencyConfig: serviceConfig,
+          importResolver: importResolver,
+        );
+        services.add(serialisedServiceConfig);
+      }
 
-    List<DependencyConfig> services = List<DependencyConfig>();
-    // Convert the services config into Services configuration
-    for (final serviceConfig in servicesConfig) {
-      final serialisedServiceConfig = _readDependencyConfig(
-        dependencyConfig: serviceConfig,
-        importResolver: importResolver,
-      );
-      services.add(serialisedServiceConfig);
+      return GetItLocatorGenerator(ServicesConfig(services: services))
+          .generate();
     }
-
-    return GetItLocatorGenerator(ServicesConfig(services: services)).generate();
   }
 
   DependencyConfig _readDependencyConfig({

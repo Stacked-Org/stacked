@@ -1,6 +1,5 @@
 import 'package:new_architecture/services/epoch_service.dart';
 import 'package:new_architecture/services/information_service.dart';
-import 'package:new_architecture/services/shared_preferences_service.dart';
 import 'package:new_architecture/ui/bottom_nav/bottom_nav_example.dart';
 import 'package:new_architecture/ui/bottom_nav/favorites/favorites_viewmodel.dart';
 import 'package:new_architecture/ui/bottom_nav/history/history_viewmodel.dart';
@@ -28,12 +27,6 @@ import 'package:stacked_services/stacked_services.dart';
     // singletons
     Singleton(classType: HistoryViewModel),
     Singleton(classType: FavoritesViewModel),
-
-    // Presolve functions
-    Presolve(
-      classType: SharedPreferencesService,
-      presolveUsing: SharedPreferencesService.getInstance,
-    ),
   ],
 )
 class App {

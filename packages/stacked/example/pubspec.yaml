@@ -41,8 +41,7 @@ dev_dependencies:
 
   # dependency injection
   injectable_generator:
-  stacked_generator:
-    path: ../../stacked_generator
+  stacked_generator: ^0.1.1
   build_runner:
 
 # For information on the generic Dart part of this file, see the
