@@ -17,6 +17,9 @@ class SnackbarService {
   Map<dynamic, SnackbarConfig> _customSnackbarConfigs =
       Map<dynamic, SnackbarConfig>();
 
+  Map<dynamic, SnackbarConfig Function()> _customSnackbarConfigBuilders =
+      Map<dynamic, SnackbarConfig Function()>();
+
   Map<dynamic, Widget Function(String, Function)> _mainButtonBuilder =
       Map<dynamic, Widget Function(String, Function)>();
 
@@ -50,12 +53,16 @@ class SnackbarService {
   }) =>
       _mainButtonBuilder[variant] = builder;
 
-  /// Saves the [config] against the value of [variant]
+  /// Saves the [config] against the value of [variant]. A [configBuilder] can also be
+  /// supplied which will be chosen over the config for the same variant when requested.
   void registerCustomSnackbarConfig({
     @required dynamic variant,
     @required SnackbarConfig config,
-  }) =>
-      _customSnackbarConfigs[variant] = config;
+    SnackbarConfig Function() configBuilder,
+  }) {
+    _customSnackbarConfigs[variant] = config;
+    _customSnackbarConfigBuilders[variant] = configBuilder;
+  }
 
   /// Shows a snack bar with the details passed in
   void showSnackbar({
@@ -129,10 +136,12 @@ class SnackbarService {
     );
 
     var snackbarConfig = _customSnackbarConfigs[snackbarVariant];
+    final snackbarConfigBuilder =
+        _customSnackbarConfigBuilders[snackbarVariant];
 
-    if (snackbarConfig == null) {
+    if (snackbarConfig == null && snackbarConfigBuilder == null) {
       throw CustomSnackbarException(
-        'No config found for $snackbarVariant make sure you have called registerCustomConfig. See [README LINK HERE] for implementation details.',
+        'No config found for $snackbarVariant make sure you have called registerCustomConfig with a config or a builder. See [https://pub.dev/packages/stacked_services#custom-styles] for implementation details.',
       );
     }
 
@@ -144,7 +153,9 @@ class SnackbarService {
         : _getMainButtonWidget(
             mainButtonTitle: mainButtonTitle,
             onMainButtonTapped: onMainButtonTapped,
-            config: snackbarConfig,
+            config: snackbarConfigBuilder != null
+                ? snackbarConfigBuilder()
+                : snackbarConfig,
           );
 
     final getBar = GetBar(

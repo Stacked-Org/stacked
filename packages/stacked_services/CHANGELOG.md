@@ -1,3 +1,7 @@
+## 0.7.1
+
+- Adds `snackbarConfigBuilder` to allow for building the config at runtime instead of before `runApp` is called
+
 ## 0.7.0
 
 - Adds custom mainButtonBuilder to allow you to build a main button UI from the variant passed in
