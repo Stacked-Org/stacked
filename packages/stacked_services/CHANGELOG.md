@@ -1,3 +1,7 @@
+## 0.7.1+2
+
+- Fixes snackBar config null exception when using builder
+
 ## 0.7.1+1
 
 - Removes requirement for config

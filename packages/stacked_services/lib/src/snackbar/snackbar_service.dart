@@ -135,11 +135,15 @@ class SnackbarService {
       'No variant defined, you should provide the variant property to show a custom snackbar',
     );
 
-    var snackbarConfig = _customSnackbarConfigs[snackbarVariant];
+    final snackbarConfigSupplied = _customSnackbarConfigs[snackbarVariant];
     final snackbarConfigBuilder =
         _customSnackbarConfigBuilders[snackbarVariant];
 
-    if (snackbarConfig == null && snackbarConfigBuilder == null) {
+    final snackbarConfig = snackbarConfigBuilder != null
+        ? snackbarConfigBuilder()
+        : snackbarConfigSupplied;
+
+    if (snackbarConfig == null) {
       throw CustomSnackbarException(
         'No config found for $snackbarVariant make sure you have called registerCustomConfig with a config or a builder. See [https://pub.dev/packages/stacked_services#custom-styles] for implementation details.',
       );
@@ -153,9 +157,7 @@ class SnackbarService {
         : _getMainButtonWidget(
             mainButtonTitle: mainButtonTitle,
             onMainButtonTapped: onMainButtonTapped,
-            config: snackbarConfigBuilder != null
-                ? snackbarConfigBuilder()
-                : snackbarConfig,
+            config: snackbarConfig,
           );
 
     final getBar = GetBar(
