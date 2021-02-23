@@ -1,3 +1,7 @@
+## 0.6.8
+
+- Adds isOpen functionality
+
 ## 0.6.7
 
 - Made dialog title or content optional
