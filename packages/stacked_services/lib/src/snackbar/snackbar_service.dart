@@ -57,7 +57,7 @@ class SnackbarService {
   /// supplied which will be chosen over the config for the same variant when requested.
   void registerCustomSnackbarConfig({
     @required dynamic variant,
-    @required SnackbarConfig config,
+    SnackbarConfig config,
     SnackbarConfig Function() configBuilder,
   }) {
     _customSnackbarConfigs[variant] = config;

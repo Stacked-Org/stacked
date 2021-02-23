@@ -1,3 +1,7 @@
+## 0.7.1+1
+
+- Removes requirement for config
+
 ## 0.7.1
 
 - Adds `snackbarConfigBuilder` to allow for building the config at runtime instead of before `runApp` is called
