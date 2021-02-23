@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.1.3
+
+- Updates the analyzer dependency to `">=0.39.2 <0.41.2"`
+
 ## 0.1.2
 
 - Updates generator to use `StackedLocator` for `.locator.dart` file
