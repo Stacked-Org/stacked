@@ -17,6 +17,9 @@ class SnackbarService {
   Map<dynamic, SnackbarConfig> _customSnackbarConfigs =
       Map<dynamic, SnackbarConfig>();
 
+  Map<dynamic, Widget Function(String, Function)> _mainButtonBuilder =
+      Map<dynamic, Widget Function(String, Function)>();
+
   SnackbarConfig _snackbarConfig;
 
   /// Checks if there is a snackbar open
@@ -37,6 +40,15 @@ class SnackbarService {
         variant: customData,
         config: config,
       );
+
+  /// Registers a builder that will be used when showing a matching variant value. The builder
+  /// function takes in a [String] to display as the title and a `Function` to be used to the
+  /// onTap callback
+  void registerCustomMainButtonBuilder({
+    @required dynamic variant,
+    @required Widget Function(String, Function) builder,
+  }) =>
+      _mainButtonBuilder[variant] = builder;
 
   /// Saves the [config] against the value of [variant]
   void registerCustomSnackbarConfig({
@@ -124,11 +136,16 @@ class SnackbarService {
       );
     }
 
-    final mainButtonWidget = _getMainButtonWidget(
-      mainButtonTitle: mainButtonTitle,
-      onMainButtonTapped: onMainButtonTapped,
-      config: snackbarConfig,
-    );
+    final mainButtonBuilder = _mainButtonBuilder[variant];
+    final hasMainButtonBuilder = mainButtonBuilder != null;
+
+    final mainButtonWidget = hasMainButtonBuilder
+        ? mainButtonBuilder(mainButtonTitle, onMainButtonTapped)
+        : _getMainButtonWidget(
+            mainButtonTitle: mainButtonTitle,
+            onMainButtonTapped: onMainButtonTapped,
+            config: snackbarConfig,
+          );
 
     final getBar = GetBar(
       titleText: title != null

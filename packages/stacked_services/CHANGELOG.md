@@ -1,3 +1,7 @@
+## 0.7.0
+
+- Adds custom mainButtonBuilder to allow you to build a main button UI from the variant passed in
+
 ## 0.6.8
 
 - Adds isOpen functionality
