@@ -198,7 +198,7 @@ class SnackbarService {
       boxShadows: snackbarConfig.boxShadows,
       backgroundGradient: snackbarConfig.backgroundGradient,
       mainButton: mainButtonWidget,
-      onTap: onTap,
+      onTap: (object) => onTap(),
       duration: duration,
       isDismissible: snackbarConfig.isDismissible,
       dismissDirection: snackbarConfig.dismissDirection,

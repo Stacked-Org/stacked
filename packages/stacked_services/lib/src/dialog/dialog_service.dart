@@ -121,6 +121,7 @@ class DialogService {
         title: title,
         content: description,
         actions: <Widget>[
+          
           if (isConfirmationDialog)
             PlatformButton(
               dialogPlatform: dialogPlatform,

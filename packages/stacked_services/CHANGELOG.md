@@ -1,3 +1,11 @@
+## 0.7.2
+
+- Fixes a regression bug for allowing null title and content for a dialog
+
+## 0.7.1+3
+
+- Fixes onTap signature
+
 ## 0.7.1+2
 
 - Fixes snackBar config null exception when using builder

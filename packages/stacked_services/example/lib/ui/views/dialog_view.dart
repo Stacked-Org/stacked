@@ -87,6 +87,7 @@ class DialogView extends StatelessWidget {
               OutlineButton(
                 onPressed: () async {
                   await _dialogService.showCustomDialog(
+                      variant: DialogType.Basic,
                       title: 'This is a custom UI with Text as main button',
                       description:
                           'Sheck out the builder in the dialog_ui_register.dart file',
@@ -101,10 +102,12 @@ class DialogView extends StatelessWidget {
               OutlineButton(
                 onPressed: () async {
                   await _dialogService.showCustomDialog(
-                      title: 'This is a custom UI with icon',
-                      description:
-                          'Sheck out the builder in the dialog_ui_register.dart file',
-                      showIconInMainButton: true);
+                    variant: DialogType.Basic,
+                    title: 'This is a custom UI with icon',
+                    description:
+                        'Sheck out the builder in the dialog_ui_register.dart file',
+                    showIconInMainButton: true,
+                  );
                 },
                 child: Text(
                   'Show Custom Icon Dialog',
