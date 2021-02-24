@@ -36,21 +36,24 @@ class GetItLocatorGenerator extends BaseGenerator {
     return stringBuffer.toString();
   }
 
-  String _getLocatorRegistrationStringForType(
-      DependencyConfig dependencyDefinition) {
+  String _getLocatorRegistrationStringForType(DependencyConfig dependencyDefinition) {
+    final hasAbstratedType = dependencyDefinition.abstractedTypeClassName != null;
+    final abstractionType =
+        hasAbstratedType ? '<${dependencyDefinition.abstractedTypeClassName}>' : '';
+
     switch (dependencyDefinition.type) {
       case DependencyType.LazySingleton:
-        return 'locator.registerLazySingleton(() => ${dependencyDefinition.className}());';
+        return 'locator.registerLazySingleton$abstractionType(() => ${dependencyDefinition.className}());';
       case DependencyType.PresolvedSingleton:
         return '''
         final ${dependencyDefinition.camelCaseClassName} = await ${dependencyDefinition.className}.${dependencyDefinition.presolveFunction}();
-        locator.registerSingleton(${dependencyDefinition.camelCaseClassName});
+        locator.registerSingleton$abstractionType(${dependencyDefinition.camelCaseClassName});
         ''';
       case DependencyType.Factory:
-        return 'locator.registerFactory(() => ${dependencyDefinition.className}());';
+        return 'locator.registerFactory$abstractionType(() => ${dependencyDefinition.className}());';
       case DependencyType.Singleton:
       default:
-        return 'locator.registerSingleton(${dependencyDefinition.className}());';
+        return 'locator.registerSingleton$abstractionType(${dependencyDefinition.className}());';
     }
   }
 
@@ -59,6 +62,7 @@ class GetItLocatorGenerator extends BaseGenerator {
     final imports = <String>{"package:stacked/stacked.dart"};
 
     imports.addAll(services.map((e) => e.import));
+    imports.addAll(services.map((e) => e.abstractedImport));
 
     var validImports = imports.where((import) => import != null).toSet();
     var dartImports =

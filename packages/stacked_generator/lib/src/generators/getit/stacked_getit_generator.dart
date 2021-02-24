@@ -51,13 +51,15 @@ class StackedGetItGenerator extends GeneratorForAnnotation<StackedApp> {
     var dependencyReader = ConstantReader(dependencyConfig);
     // Get the type of the service that we want to register
     final dependencyClassType = dependencyReader.read('classType').typeValue;
+    final dependencyAbstractedClassType = dependencyReader.peek('asType')?.typeValue;
 
     throwIf(
       dependencyClassType == null,
-      '🛑 No depedency class Type defined for ${dependencyConfig.toString()}. Please make sure that any of the services provided to the services list in the StackedApp annotation has a service provided. Please see the documentation for stacked_generator if you don\'t know what this means.',
+      '🛑 No dependency class Type defined for ${dependencyConfig.toString()}. Please make sure that any of the services provided to the services list in the StackedApp annotation has a service provided. Please see the documentation for stacked_generator if you don\'t know what this means.',
     );
 
     final classElement = dependencyClassType.element as ClassElement;
+    final abstractedClassElement = dependencyAbstractedClassType?.element as ClassElement;
 
     throwIf(
       classElement == null,
@@ -66,8 +68,10 @@ class StackedGetItGenerator extends GeneratorForAnnotation<StackedApp> {
 
     // Get the import of the class type that's defined for the service
     final import = importResolver.resolve(classElement);
+    final abstractedImport = importResolver.resolve(abstractedClassElement);
 
     final className = dependencyClassType.getDisplayString();
+    final abstractedTypeClassName = dependencyAbstractedClassType?.getDisplayString();
 
     // NOTE: This can be used for actual dependency inject. We do service location instead.
     final constructor = classElement.unnamedConstructor;
@@ -84,7 +88,9 @@ class StackedGetItGenerator extends GeneratorForAnnotation<StackedApp> {
 
     return DependencyConfig(
       className: className,
+      abstractedTypeClassName: abstractedTypeClassName,
       import: import,
+      abstractedImport: abstractedImport,
       type: serviceType,
       presolveFunction: presolveFunction,
     );
