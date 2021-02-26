@@ -7,8 +7,8 @@ abstract class BaseFormViewModel extends BaseViewModel {
   String _validationMessage;
   String get validationMessage => _validationMessage;
 
-  /// Stores the mapping of the Text controllers against Keys
-  Map<String, String> formValueMap = Map<String, String>();
+  /// Stores the mapping of the form key to the value entered by the user
+  Map<String, dynamic> formValueMap = Map<String, dynamic>();
 
   void setValidationMessage(String value) {
     _validationMessage = value;

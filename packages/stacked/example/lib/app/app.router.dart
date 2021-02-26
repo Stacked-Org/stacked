@@ -76,7 +76,7 @@ class StackedRouter extends RouterBase {
     },
     FormView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const FormView(),
+        builder: (context) => FormView(),
         settings: data,
       );
     },
