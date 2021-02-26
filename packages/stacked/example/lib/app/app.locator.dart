@@ -16,7 +16,7 @@ import '../ui/bottom_nav/history/history_viewmodel.dart';
 
 final locator = StackedLocator.instance;
 
-Future setupLocator() async {
+void setupLocator() {
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => BottomSheetService());
   locator.registerLazySingleton(() => InformationService());

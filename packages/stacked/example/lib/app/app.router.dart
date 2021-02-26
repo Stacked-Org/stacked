@@ -12,19 +12,22 @@ import 'package:stacked/stacked.dart';
 
 import '../ui/bottom_nav/bottom_nav_example.dart';
 import '../ui/details/details_view.dart';
+import '../ui/form/form_view.dart';
 import '../ui/home/home_view.dart';
 import '../ui/stream_view/stream_counter_view.dart';
 
 class Routes {
-  static const String homeView = '/';
+  static const String homeView = '/home-view';
   static const String bottomNavExample = '/bottom-nav-example';
   static const String streamCounterView = '/stream-counter-view';
   static const String detailsView = '/details-view';
+  static const String formView = '/';
   static const all = <String>{
     homeView,
     bottomNavExample,
     streamCounterView,
     detailsView,
+    formView,
   };
 }
 
@@ -36,6 +39,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.bottomNavExample, page: BottomNavExample),
     RouteDef(Routes.streamCounterView, page: StreamCounterView),
     RouteDef(Routes.detailsView, page: DetailsView),
+    RouteDef(Routes.formView, page: FormView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -67,6 +71,12 @@ class StackedRouter extends RouterBase {
           key: args.key,
           name: args.name,
         ),
+        settings: data,
+      );
+    },
+    FormView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const FormView(),
         settings: data,
       );
     },
