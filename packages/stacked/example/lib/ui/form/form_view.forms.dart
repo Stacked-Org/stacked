@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:new_architecture/ui/form/base_form_viewmodel.dart';
 import 'package:new_architecture/ui/form/form_viewmodel.dart';
 
 const String EmailValueKey = 'email';
@@ -36,4 +37,9 @@ mixin $FormView on StatelessWidget {
     emailFocusNode.dispose();
     passwordFocusNode.dispose();
   }
+}
+
+extension ValueProperties on BaseFormViewModel {
+  String get emailValue => this.formValueMap[EmailValueKey];
+  String get passwordValue => this.formValueMap[PasswordValueKey];
 }
