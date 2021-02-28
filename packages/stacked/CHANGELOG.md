@@ -1,3 +1,9 @@
+## 1.9.2
+
+### MAJOR UPDATE: FORMS!!!
+
+- Adds brand new form first party support and form generation functionality
+
 ## 1.9.1+2
 
 - Fix null error from locator

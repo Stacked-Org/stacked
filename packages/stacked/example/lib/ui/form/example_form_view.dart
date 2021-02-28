@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart' as annotations;
+import 'package:stacked/stacked_annotations.dart';
 
-import 'form_view.forms.dart';
-import 'form_viewmodel.dart';
+import 'example_form_view.form.dart';
+import 'example_form_viewmodel.dart';
 
-@annotations.FormView(fields: [
-  annotations.FormField(name: 'email'),
-  annotations.FormField(name: 'password', isPassword: true),
+// #1: Add the annotation
+@FormView(fields: [
+  FormTextField(name: 'email'),
+  FormTextField(name: 'password', isPassword: true),
 ])
-class FormView extends StatelessWidget with $FormView {
-  FormView({Key key}) : super(key: key);
+// #2: with $ExampleFormView
+class ExampleFormView extends StatelessWidget with $ExampleFormView {
+  ExampleFormView({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<FormViewModel>.reactive(
+    return ViewModelBuilder<ExampleFormViewModel>.reactive(
       onModelReady: (model) {
+        // #3: Listen to text updates by calling listenToFormUpdated(model);
         listenToFormUpdated(model);
       },
       builder: (context, model, child) => Scaffold(
@@ -29,14 +32,16 @@ class FormView extends StatelessWidget with $FormView {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               TextFormField(
+                //#4: Set email emailController and focus node
                 controller: emailController,
                 focusNode: emailFocusNode,
               ),
               SizedBox(height: 15),
               TextFormField(
+                //#4: Set email emailController and focus node
                 controller: passwordController,
-                onFieldSubmitted: (_) => model.saveData(),
                 focusNode: passwordFocusNode,
+                onFieldSubmitted: (_) => model.saveData(),
               ),
               SizedBox(height: 15),
               if (model.showValidation)
@@ -48,7 +53,7 @@ class FormView extends StatelessWidget with $FormView {
           ),
         ),
       ),
-      viewModelBuilder: () => FormViewModel(),
+      viewModelBuilder: () => ExampleFormViewModel(),
     );
   }
 }

@@ -1,12 +1,13 @@
 import 'package:new_architecture/app/app.locator.dart';
 import 'package:new_architecture/app/app.logger.dart';
 import 'package:new_architecture/app/app.router.dart';
-import 'package:new_architecture/ui/form/base_form_viewmodel.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:stacked/stacked.dart';
 
-import 'form_view.forms.dart';
+import 'example_form_view.form.dart';
 
-class FormViewModel extends BaseFormViewModel {
+// #5: extend from FormViewModel
+class ExampleFormViewModel extends FormViewModel {
   final log = getLogger('FormViewModel');
   final _navigationService = locator<NavigationService>();
 
