@@ -135,7 +135,10 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
 
       return ChangeNotifierProvider(
         create: (context) => _model,
-        child: widget.builder(context, _model, widget.staticChild),
+        child: Consumer(
+          builder: widget.builder,
+          child: widget.staticChild,
+        ),
       );
     }
 
