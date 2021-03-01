@@ -3,10 +3,10 @@ import 'package:stacked_generator/src/generators/enums/dependency_type.dart';
 import 'package:stacked_generator/src/generators/getit/dependency_config.dart';
 import 'package:stacked_generator/src/generators/getit/services_config.dart';
 
-class GetItLocatorGenerator extends BaseGenerator {
+class StackedLocatorContentGenerator extends BaseGenerator {
   final ServicesConfig _servicesConfig;
 
-  GetItLocatorGenerator(this._servicesConfig);
+  StackedLocatorContentGenerator(this._servicesConfig);
 
   String generate() {
     final services = _servicesConfig.services;

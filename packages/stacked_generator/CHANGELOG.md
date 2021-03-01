@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.2.0
+
+- Adds form generation functionality
+
 ## 0.1.3
 
 - Updates the analyzer dependency to `">=0.39.2 <0.41.2"`

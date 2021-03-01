@@ -7,10 +7,18 @@ builders:
     auto_apply: dependents
     build_to: source
 
-  # Generator the get it service registrations
+  # Generator the stacked locator service registrations
   stackedLocatorGenerator:
     import: "package:stacked_generator/builder.dart"
     builder_factories: ["stackedLocatorGenerator"]
     build_extensions: { ".dart": [".locator.dart"] }
+    auto_apply: dependents
+    build_to: source
+
+  # Generator the form view
+  stackedFormGenerator:
+    import: "package:stacked_generator/builder.dart"
+    builder_factories: ["stackedFormGenerator"]
+    build_extensions: { ".dart": [".form.dart"] }
     auto_apply: dependents
     build_to: source

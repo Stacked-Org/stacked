@@ -8,15 +8,14 @@ import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/src/core/logger.dart';
 import 'package:stacked_generator/src/generators/enums/dependency_type.dart';
 import 'package:stacked_generator/src/generators/getit/dependency_config.dart';
+import 'package:stacked_generator/src/generators/getit/stacked_locator_content_generator.dart';
 import 'package:stacked_generator/src/generators/getit/services_config.dart';
 import 'package:stacked_generator/utils.dart';
 
-import 'getit_locator_generator.dart';
-
 const stackedRouteChecker = TypeChecker.fromRuntime(StackedRoute);
 
-class StackedGetItGenerator extends GeneratorForAnnotation<StackedApp> {
-  final log = getLogger('StackedGetItGenerator');
+class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
+  final log = getLogger('LocatorGenerator');
 
   @override
   dynamic generateForAnnotatedElement(
@@ -39,7 +38,7 @@ class StackedGetItGenerator extends GeneratorForAnnotation<StackedApp> {
         services.add(serialisedServiceConfig);
       }
 
-      return GetItLocatorGenerator(ServicesConfig(services: services))
+      return StackedLocatorContentGenerator(ServicesConfig(services: services))
           .generate();
     }
   }

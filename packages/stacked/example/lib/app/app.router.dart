@@ -12,19 +12,22 @@ import 'package:stacked/stacked.dart';
 
 import '../ui/bottom_nav/bottom_nav_example.dart';
 import '../ui/details/details_view.dart';
+import '../ui/form/example_form_view.dart';
 import '../ui/home/home_view.dart';
 import '../ui/stream_view/stream_counter_view.dart';
 
 class Routes {
-  static const String homeView = '/';
+  static const String homeView = '/home-view';
   static const String bottomNavExample = '/bottom-nav-example';
   static const String streamCounterView = '/stream-counter-view';
   static const String detailsView = '/details-view';
+  static const String exampleFormView = '/';
   static const all = <String>{
     homeView,
     bottomNavExample,
     streamCounterView,
     detailsView,
+    exampleFormView,
   };
 }
 
@@ -36,6 +39,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.bottomNavExample, page: BottomNavExample),
     RouteDef(Routes.streamCounterView, page: StreamCounterView),
     RouteDef(Routes.detailsView, page: DetailsView),
+    RouteDef(Routes.exampleFormView, page: ExampleFormView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -70,6 +74,15 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    ExampleFormView: (data) {
+      var args = data.getArgs<ExampleFormViewArguments>(
+        orElse: () => ExampleFormViewArguments(),
+      );
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => ExampleFormView(key: args.key),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -82,4 +95,10 @@ class DetailsViewArguments {
   final Key key;
   final String name;
   DetailsViewArguments({this.key, this.name});
+}
+
+/// ExampleFormView arguments holder class
+class ExampleFormViewArguments {
+  final Key key;
+  ExampleFormViewArguments({this.key});
 }

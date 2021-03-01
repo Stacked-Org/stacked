@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
-// StackedGetItGenerator
+// StackedLocatorGenerator
 // **************************************************************************
 
 // ignore_for_file: public_member_api_docs
@@ -16,7 +16,7 @@ import '../ui/bottom_nav/history/history_viewmodel.dart';
 
 final locator = StackedLocator.instance;
 
-Future setupLocator() async {
+void setupLocator() {
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => BottomSheetService());
   locator.registerLazySingleton(() => InformationService());
