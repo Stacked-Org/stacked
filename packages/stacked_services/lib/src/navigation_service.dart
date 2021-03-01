@@ -27,6 +27,8 @@ class NavigationService {
     NavigationTransition.LeftToRighttWithFade: Transition.leftToRightWithFade,
   };
 
+  @Deprecated(
+      'Prefer to use the StackedServices.navigatorKey instead of using this key. This will be removed in the next major version update for stacked.')
   GlobalKey<NavigatorState> get navigatorKey => Get.key;
 
   /// Returns the previous route
@@ -36,6 +38,8 @@ class NavigationService {
   String get currentRoute => Get.currentRoute;
 
   /// Creates and/or returns a new navigator key based on the index passed in
+  @Deprecated(
+      'Prefer to use the StackedServices.nestedNavigationKey instead of using this property. This will be removed in the next major version update for stacked.')
   GlobalKey<NavigatorState> nestedNavigationKey(int index) =>
       Get.nestedKey(index);
 

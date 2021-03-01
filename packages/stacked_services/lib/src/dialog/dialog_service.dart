@@ -36,13 +36,11 @@ class DialogService {
           Function(DialogResponse))> _customDialogBuilders = Map<dynamic,
       Widget Function(BuildContext, DialogRequest, Function(DialogResponse))>();
 
+  @Deprecated(
+      'Prefer to use the StackedServices.navigatorKey instead of using this key. This will be removed in the next major version update for stacked.')
   get navigatorKey {
     return Get.key;
   }
-
-  @Deprecated(
-    'Prefer to use the registerCustomDialogBuilders() method. This method will be removed on the next major release. 0.7.0',
-  )
 
   /// Registers a custom dialog builder. The builder function has been updated to include the function to call
   /// when you want to close the dialog. This improves readability and ease of use. When you want to close a dialog
@@ -51,6 +49,9 @@ class DialogService {
   /// [registerCustomDialogBuilder](variant: MyDialog.Large, builder: (context, request, completer) => Button(onPressed: () => completer([DialogResponse]())))
   ///
   /// The normal completeDialog function will also still work when called on the service
+  @Deprecated(
+    'Prefer to use the registerCustomDialogBuilders() method. This method will be removed on the next major release. 0.7.0',
+  )
   void registerCustomDialogBuilder({
     @required dynamic variant,
     @required
@@ -67,7 +68,9 @@ class DialogService {
     String title,
     String description,
     String cancelTitle,
+    Color cancelTitleColor,
     String buttonTitle = 'Ok',
+    Color buttonTitleColor,
     bool barrierDismissible = false,
 
     /// Indicates which [DialogPlatform] to show.
@@ -92,7 +95,9 @@ class DialogService {
         title: title,
         description: description,
         cancelTitle: cancelTitle,
+        cancelTitleColor: cancelTitleColor,
         buttonTitle: buttonTitle,
+        buttonTitleColor: buttonTitleColor,
         dialogPlatform: _dialogType,
         barrierDismissible: barrierDismissible,
       );
@@ -103,7 +108,9 @@ class DialogService {
     String title,
     String description,
     String cancelTitle,
+    Color cancelTitleColor,
     String buttonTitle,
+    Color buttonTitleColor,
     DialogPlatform dialogPlatform,
     bool barrierDismissible = false,
   }) {
@@ -114,10 +121,12 @@ class DialogService {
         title: title,
         content: description,
         actions: <Widget>[
+          
           if (isConfirmationDialog)
             PlatformButton(
               dialogPlatform: dialogPlatform,
               text: cancelTitle,
+              cancelBtnColor: cancelTitleColor,
               isCancelButton: true,
               onPressed: () {
                 completeDialog(
@@ -130,6 +139,7 @@ class DialogService {
           PlatformButton(
             dialogPlatform: dialogPlatform,
             text: buttonTitle,
+            confirmationBtnColor: buttonTitleColor,
             onPressed: () {
               completeDialog(
                 DialogResponse(

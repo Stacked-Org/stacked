@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:stacked/src/index_tracking_viewmodel.dart';
+import 'package:stacked/src/state_management/index_tracking_viewmodel.dart';
 
 void main() {
   group('IndexTrackingViewmodelTest -', () {

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:stacked/src/reactive_service_mixin.dart';
+import 'package:stacked/src/state_management/reactive_service_mixin.dart';
 
 /// Contains ViewModel functionality for busy state management
 class BaseViewModel extends ChangeNotifier {
@@ -357,17 +357,18 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel
     if (!changeSource) {
       notifyListeners();
     }
+    var _streamsMapValues = Map<String, StreamData>.from(streamsMap);
 
-    for (var key in streamsMap.keys) {
+    for (var key in _streamsMapValues.keys) {
       // If a lifecycle function isn't supplied, we fallback to default
-      _streamsSubscriptions[key] = streamsMap[key].stream.listen(
+      _streamsSubscriptions[key] = _streamsMapValues[key].stream.listen(
         (incomingData) {
           setErrorForObject(key, null);
           notifyListeners();
           // Extra security in case transformData isnt sent
-          var interceptedData = streamsMap[key].transformData == null
+          var interceptedData = _streamsMapValues[key].transformData == null
               ? transformData(key, incomingData)
-              : streamsMap[key].transformData(incomingData);
+              : _streamsMapValues[key].transformData(incomingData);
 
           if (interceptedData != null) {
             _dataMap[key] = interceptedData;
@@ -376,22 +377,22 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel
           }
 
           notifyListeners();
-          streamsMap[key].onData != null
-              ? streamsMap[key].onData(_dataMap[key])
+          _streamsMapValues[key].onData != null
+              ? _streamsMapValues[key].onData(_dataMap[key])
               : onData(key, _dataMap[key]);
         },
         onError: (error) {
           setErrorForObject(key, error);
           _dataMap[key] = null;
 
-          streamsMap[key].onError != null
-              ? streamsMap[key].onError(error)
+          _streamsMapValues[key].onError != null
+              ? _streamsMapValues[key].onError(error)
               : onError(key, error);
           notifyListeners();
         },
       );
-      streamsMap[key].onSubscribed != null
-          ? streamsMap[key].onSubscribed()
+      _streamsMapValues[key].onSubscribed != null
+          ? _streamsMapValues[key].onSubscribed()
           : onSubscribed(key);
       changeSource = false;
     }

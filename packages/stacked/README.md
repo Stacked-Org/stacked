@@ -909,6 +909,198 @@ Where the `ViewModel` is just this.
 class HomeViewModel extends IndexTrackingViewModel {}
 ```
 
+## Application Setup
+
+In addition to providing state management it's been clear that every stacked application also requires the following functionality:
+
+- Navigation setup to make it accessible from the `ViewModels`
+- Dependency registration for service location
+
+From v 1.9.0 and onward we have the functionality to generate this code for the user. This will remove the reliance on auto_route as well as injectable. To use this functionality it's quite simple. Add the [stacked_generator] package to your application and if you don't have `build_runner` add that in as well.
+
+```yaml
+dev_dependencies:
+  ...
+  build_runner:
+  stacked_generator:
+```
+
+In the lib folder create a new folder called `app`. In that folder create a file called `app.dart`.
+
+```dart
+@StackedApp()
+class App {
+  /** This class has no puporse besides housing the annotation that generates the required functionality **/
+}
+```
+
+In that file we define a class called App and we annotate it with `StackedApp`. This annotation class takes in `routes` and `dependencies`.
+
+### Router
+
+The `StackedApp` annotation takes in a list of `routes`. These routes can be one of the following:
+
+- MaterialRoute: Defines a route which will have a default transition based on the Material design guidelines.
+- CupertinoRoute: Defines a route which will have a default transition based on the Cupertino design guidelines.
+- CustomRouter: Defines a route that defaults to using a `PageRouteBuilder` for custom route building functionality
+
+```dart
+@StackedApp(routes: [
+    MaterialRoute(page: HomeView, initial: true),
+    CupertinoRoute(page: BottomNavExample),
+    CustomRouter(page: StreamCounterView),
+  ],
+)
+
+```
+
+Each route requires you to provide a page type. This will be the type it looks at to generate the route as well as the arguments to parse when navigating to this route. Run the default code generator command
+
+```
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+This will generate a new file in the app folder called `app.router.dart`. This contains all the routing code for your views. To use this router open your `main.dart` file and set the `onGenerateRoute` function.
+
+```dart
+
+import 'package:stacked_services/stacked_services.dart';
+import 'app/app.router.dart';
+
+...
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      // If you've added the stacked_services package then set the navigatorKey, otherwise set
+      // your own navigator key
+      navigatorKey: StackedService.navigatorKey,
+      // Construct the StackedRouter and set the onGenerateRoute function
+      onGenerateRoute: StackedRouter().onGenerateRoute,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+    );
+  }
+}
+```
+
+Now you can perform navigations using the `NavigationService` if it's been registered as a dependency on your `locator`.
+
+### Router Arguments
+
+View argument serialisation is automatic when using the generated router. Lets take the following view
+
+```dart
+class DetailsView extends StatelessWidget {
+  final String name;
+
+  const DetailsView({Key key, this.name}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(name),
+    );
+  }
+}
+```
+
+This view will generate a class called `DetailsViewArguments`.
+
+```dart
+class DetailsViewArguments {
+  final Key key;
+  final String name;
+  DetailsViewArguments({this.key, this.name});
+}
+```
+
+When you navigate to the `DetailsView` using the `NavigationService` then you can pass in the `DetailsViewArguments` class as your arguments.
+
+```dart
+_navigationService.navigateTo(
+  Routes.detailsView,
+  arguments: DetailsViewArguments(name: 'FilledStacks'),
+);
+```
+
+These arguments can be passed into any of the navigation calls that takes in the route name. They will be generated for any view that has arguments in it and for all types, including custom classes created in your code.
+
+_Note_: When your view arguments change you have to run the code generation command again.
+
+### Dependency Registration
+
+The other major piece of boilerplate that was required was setting up get_it and making use of it on its own. This is still a very valid approach but with this new changes I wanted to introduce a quicker way of setting all that up and remove the boilerplate. This is also done using the `StackedApp` annotation. The class takes in a list of `DependencyRegistration`'s into a property called `dependencies`.
+
+```dart
+@StackedApp(
+dependencies: [
+    LazySingleton(classType: DialogService),
+
+    Singleton(classType: NavigationService),
+
+    Presolve(
+      classType: SharedPreferencesService,
+      presolveUsing: SharedPreferencesService.getInstance,
+    ),
+  ],
+)
+```
+
+There are (at the point of writing **21 February 2021**) 4 dependency types that can be registered as a dependency.
+
+- Factory: When this dependency is requested from get_it it will return a new instance of the class given as the `classType`
+- Singleton: This will **construct** and register a single instance of the class. When that `classType` is requested it will always return the instance that was created
+- LazySingleton: This will **only construct the type when requested** and for every request after that return the same instance that was first constructed
+- Presolve: This is a type that requires the instance to be initialised or resolved before being able to register it. Your have to supply `presolveUsing` and it has to be a static function that returns a Future of the type defined in `classType`. The presolve function for the above function looks as follows.
+
+```dart
+static Future<SharedPreferencesService> getInstance() async {
+  if (_instance == null) {
+    // Initialise the asynchronous shared preferences
+    _sharedPreferences = await SharedPreferences.getSharedPrefs();
+    _instance = SharedPreferencesService();
+  }
+
+  return Future.value(_instance);
+}
+```
+
+Once you've defined your dependencies then you can run
+
+```
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+This will create a new file called app.locator.dart which contains a `setupLocator` function. That function should be called before the runApp function call in main.dart
+
+```dart
+void main() {
+  setupLocator();
+  runApp(MyApp());
+}
+```
+
+If you have any dependency registered that needs to be preSolved then you have to change your main function into a Future and await the setupLocator call.
+
+```dart
+Future main() async {
+  await setupLocator();
+  runApp(MyApp());
+}
+```
+
+After that you can start using the get_it locator
+
+```dart
+final navigationService = locator<NavigationService>;
+```
+
+To learn more about using get_it as a service locator you can [watch this video](https://youtu.be/vBT-FhgMaWM?t=321). That's all the functionality that the stacked_generator will generate for now. Over time we'll add more functionality that can help us reduce the amount of boilerplate required to build a stacked application.
+
 ## Migrating from provider_architecture to Stacked
 
 Let's start with a statement to ease your migration panic 😅 stacked is the same code from `provider_architecture` with name changes and removal of some old deprecated properties. If you don't believe me, open the repo's side by side and look at the lib folders. Well, up till yesterday (22 April 2020) I guess when I updated the BaseViewModel. I wanted to do this to show that stacked is production-ready from the go. It's a new package but it's been used by all of you and the FilledStacks development team for months in the form of provider_architecture. With that out of the way, let's start the migrate.

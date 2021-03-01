@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:observable_ish/observable_ish.dart';
-import 'package:stacked/src/base_view_models.dart';
-import 'package:stacked/src/reactive_service_mixin.dart';
+import 'package:stacked/src/state_management/base_view_models.dart';
+import 'package:stacked/src/state_management/reactive_service_mixin.dart';
 
 class TestReactiveService with ReactiveServiceMixin {
   RxValue<int> _counter = RxValue(initial: 0);
