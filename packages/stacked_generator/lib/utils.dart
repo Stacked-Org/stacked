@@ -16,6 +16,18 @@ String toKababCase(String s) {
       (match) => '${match.group(1)}-${match.group(2)}'.toLowerCase());
 }
 
+String toDisplayString(dynamic e) {
+  try {
+    return e.getDisplayString(withNullability: false) as String;
+  } catch (error) {
+    if (error is TypeError) {
+      return e.getDisplayString() as String;
+    } else {
+      rethrow;
+    }
+  }
+}
+
 void throwIf(bool condition, String message, {Element element, String todo}) {
   if (condition) {
     throwError(message, todo: todo, element: element);
