@@ -1033,12 +1033,14 @@ _Note_: When your view arguments change you have to run the code generation comm
 
 ### Dependency Registration
 
-The other major piece of boilerplate that was required was setting up get_it and making use of it on its own. This is still a very valid approach but with this new changes I wanted to introduce a quicker way of setting all that up and remove the boilerplate. This is also done using the `StackedApp` annotation. The class takes in a list of `DependencyRegistration`'s into a property called `dependencies`.
+The other major piece of boilerplate that was required was setting up get_it and making use of it on its own. This is still a very valid approach but with these new changes I wanted to introduce a quicker way of setting all that up and remove the boilerplate. This is also done using the `StackedApp` annotation. The class takes in a list of `DependencyRegistration`'s into a property called `dependencies`.
 
 ```dart
 @StackedApp(
 dependencies: [
     LazySingleton(classType: DialogService),
+    // abstracted class type support
+    LazySingleton(classType: FirebaseAuthService, asType: AuthService),
 
     Singleton(classType: NavigationService),
 
