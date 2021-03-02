@@ -1,3 +1,7 @@
+## 1.9.3
+
+- Adds onDispose functionality
+
 ## 1.9.2
 
 ### MAJOR UPDATE: FORMS!!!
