@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.2.2
+
+- Adds support to register a service `asType` when generating the getIt registrations
+
 ## 0.2.1
 
 - fixes the incompaitility with using an analyzer version that requires the withNullability argument on .getDisplayString()
