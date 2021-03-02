@@ -60,13 +60,13 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
 
     throwIf(
       classElement == null,
-      '🛑 ${dependencyClassType.getDisplayString()} is not a class element. All services should be classes. We don\'t register individual values for global access through the locator. Make sure the value provided as your service type is a class.',
+      '🛑 ${toDisplayString(dependencyClassType)} is not a class element. All services should be classes. We don\'t register individual values for global access through the locator. Make sure the value provided as your service type is a class.',
     );
 
     // Get the import of the class type that's defined for the service
     final import = importResolver.resolve(classElement);
 
-    final className = dependencyClassType.getDisplayString();
+    final className = toDisplayString(dependencyClassType);
 
     // NOTE: This can be used for actual dependency inject. We do service location instead.
     final constructor = classElement.unnamedConstructor;
