@@ -1,3 +1,7 @@
+## 1.9.4
+
+- Adds fix for [issue #171](https://github.com/FilledStacks/stacked/issues/171)
+
 ## 1.9.3
 
 - Adds onDispose functionality

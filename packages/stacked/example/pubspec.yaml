@@ -26,7 +26,7 @@ dependencies:
 
   # state management
   stacked:
-    path: ../
+    # path: ../
   stacked_services:
   stacked_hooks:
   flutter_hooks:
@@ -42,7 +42,7 @@ dev_dependencies:
   injectable_generator:
   build_runner:
   stacked_generator:
-    path: ../../stacked_generator
+    # path: ../../stacked_generator
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
