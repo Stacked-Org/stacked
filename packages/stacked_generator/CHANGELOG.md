@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.2.1
+
+- fixes the incompaitility with using an analyzer version that requires the withNullability argument on .getDisplayString()
+
 ## 0.2.0
 
 - Adds form generation functionality
