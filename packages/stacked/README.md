@@ -989,6 +989,41 @@ class MyApp extends StatelessWidget {
 
 Now you can perform navigations using the `NavigationService` if it's been registered as a dependency on your `locator`.
 
+### Nested Navigation
+
+Declaring your nested routes inside of the parent route's children property will generate a nested router class. The name will be the page name provided to the parent + Route. In this example: `OtherNavigatorRouter`.
+
+```dart
+@StackedApp(routes: [
+    MaterialRoute(page: HomeView, initial: true),
+    MaterialRoute(page: OtherNavigator, children: [
+      MaterialRoute(page: OtherView, initial: true),
+      MaterialRoute(page: OtherNestedView),
+    ]),
+  ],
+)
+
+```
+
+Now we need to render these nested routes inside of their parent `OtherNavigator` and for that we use an `ExtendedNavigator()`.
+
+```dart
+class OtherNavigator extends StatelessWidget {
+  ...
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ExtendedNavigator(router: OtherNavigatorRouter(), navigatorKey: StackedService.nestedNavigationKey(1)));
+  }
+}
+
+```
+Now we can navigate to the nested route using the `NavigationService`, making sure to match the `id` to the `nestedNavigationKey` supplied when creating the `ExtendedNavigator()`.
+
+```dart
+_navigationService.navigateTo(OtherNavigatorRoutes.otherNestedView, id: 1);
+```
+
 ### Router Arguments
 
 View argument serialisation is automatic when using the generated router. Lets take the following view
