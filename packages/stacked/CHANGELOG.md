@@ -1,3 +1,7 @@
+## 1.9.5
+
+- Adds the asType property into the locator types
+
 ## 1.9.4
 
 - Adds fix for [issue #171](https://github.com/FilledStacks/stacked/issues/171)

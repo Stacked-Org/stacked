@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:new_architecture/services/iepoch_service.dart';
 
 @lazySingleton
 class EpochService {
