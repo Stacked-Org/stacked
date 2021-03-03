@@ -73,8 +73,9 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
 
     final className = toDisplayString(dependencyClassType);
 
-    final abstractedTypeClassName =
-        toDisplayString(dependencyAbstractedClassType);
+    final abstractedTypeClassName = dependencyAbstractedClassType != null
+        ? toDisplayString(dependencyAbstractedClassType)
+        : null;
 
     // NOTE: This can be used for actual dependency inject. We do service location instead.
     final constructor = classElement.unnamedConstructor;
