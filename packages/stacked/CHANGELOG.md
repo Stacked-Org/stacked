@@ -1,3 +1,7 @@
+## 1.9.6
+
+- Exports the `ExtendedNavigator` for nested navigation
+
 ## 1.9.5
 
 - Adds the asType property into the locator types
