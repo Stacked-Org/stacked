@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.2.4
+
+- Bumps `analyzer` and `build_runner` versions
+
 ## 0.2.3
 
 - Fixes issue #240
