@@ -98,7 +98,7 @@ class NavigationService {
       Duration duration,
       bool popGesture,
       int id}) {
-    return Get.to(page,
+    return Get.to(() => page,
         transition: _getTransitionOrDefault(transition),
         duration: duration ?? Get.defaultTransitionDuration,
         popGesture: popGesture ?? Get.isPopGestureEnable,
@@ -149,7 +149,7 @@ class NavigationService {
 
   /// Pushes [view] onto the navigation stack
   Future<dynamic> navigateToView(Widget view, {dynamic arguments, int id}) {
-    return Get.to(view, arguments: arguments, id: id);
+    return Get.to(() => view, arguments: arguments, id: id);
   }
 
   /// Replaces the current route with the [routeName]
