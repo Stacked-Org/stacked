@@ -39,9 +39,8 @@ dev_dependencies:
     sdk: flutter
 
   # dependency injection
-  injectable_generator:
   build_runner:
-  stacked_generator: ^0.2.3
+  stacked_generator: ^0.2.4
     # path: ../../stacked_generator
 
 # For information on the generic Dart part of this file, see the
