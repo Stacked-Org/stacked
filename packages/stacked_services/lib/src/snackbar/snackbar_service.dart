@@ -239,7 +239,7 @@ class SnackbarService {
       return null;
     }
 
-    return FlatButton(
+    return TextButton(
       child: Text(
         mainButtonTitle,
         style: TextStyle(
