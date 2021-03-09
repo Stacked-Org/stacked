@@ -5,7 +5,6 @@ import 'package:source_gen/source_gen.dart';
 
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_generator/import_resolver.dart';
-import 'package:stacked_generator/src/core/logger.dart';
 import 'package:stacked_generator/src/generators/enums/dependency_type.dart';
 import 'package:stacked_generator/src/generators/getit/dependency_config.dart';
 import 'package:stacked_generator/src/generators/getit/stacked_locator_content_generator.dart';
@@ -15,8 +14,6 @@ import 'package:stacked_generator/utils.dart';
 const stackedRouteChecker = TypeChecker.fromRuntime(StackedRoute);
 
 class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
-  final log = getLogger('LocatorGenerator');
-
   @override
   dynamic generateForAnnotatedElement(
     Element element,
@@ -86,8 +83,6 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
       final presolveUsing = dependencyReader.read('presolveUsing');
       final presolveObject = presolveUsing.objectValue.toFunctionValue();
       presolveFunction = presolveObject.displayName;
-      log.d(
-          'presolveUsing:$presolveUsing objectValue:${presolveObject.toString()} presolveFunction:$presolveFunction');
     }
 
     return DependencyConfig(

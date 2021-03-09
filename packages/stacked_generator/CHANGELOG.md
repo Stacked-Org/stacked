@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.2.5
+
+- Removes dependency on logger
+
 ## 0.2.4
 
 - Bumps `analyzer` and `build_runner` versions
