@@ -1,3 +1,7 @@
+## 1.9.7
+
+- Adds `resolveUsing` function that can be used for singleton type dependency registrations. 
+
 ## 1.9.6
 
 - Exports the `ExtendedNavigator` for nested navigation

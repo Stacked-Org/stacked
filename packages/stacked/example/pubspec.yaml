@@ -30,9 +30,13 @@ dependencies:
   stacked_services:
   stacked_hooks:
   flutter_hooks:
+  stacked_themes:
 
   # navigation
   get:
+
+  # logging
+  logger:
 
 dev_dependencies:
   flutter_test:
@@ -40,7 +44,7 @@ dev_dependencies:
 
   # dependency injection
   build_runner:
-  stacked_generator: ^0.2.4
+  stacked_generator: ^0.2.6
     # path: ../../stacked_generator
 
 # For information on the generic Dart part of this file, see the

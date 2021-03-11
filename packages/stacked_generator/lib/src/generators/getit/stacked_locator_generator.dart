@@ -78,11 +78,20 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
     final constructor = classElement.unnamedConstructor;
 
     final serviceType = _getDependencyType(dependencyReader);
+
     String presolveFunction;
     if (serviceType == DependencyType.PresolvedSingleton) {
-      final presolveUsing = dependencyReader.read('presolveUsing');
-      final presolveObject = presolveUsing.objectValue.toFunctionValue();
-      presolveFunction = presolveObject.displayName;
+      final presolveUsing = dependencyReader.peek('presolveUsing');
+      final presolveObject = presolveUsing?.objectValue?.toFunctionValue();
+      presolveFunction = presolveObject?.displayName;
+    }
+
+    String resolveFunction;
+    if (serviceType == DependencyType.LazySingleton ||
+        serviceType == DependencyType.Singleton) {
+      final resolveUsing = dependencyReader.peek('resolveUsing');
+      final resolveObject = resolveUsing?.objectValue?.toFunctionValue();
+      resolveFunction = resolveObject?.displayName;
     }
 
     return DependencyConfig(
@@ -92,6 +101,7 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
       abstractedImport: abstractedImport,
       type: serviceType,
       presolveFunction: presolveFunction,
+      resolveFunction: resolveFunction,
     );
   }
 

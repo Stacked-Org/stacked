@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.2.6
+
+- Adds the `resolveUsing` code generation for `Singleton` and `LazySingleton` registrations
+
 ## 0.2.5
 
 - Removes dependency on logger

@@ -20,6 +20,9 @@ class DependencyConfig {
   /// The static function to use for presolving the service
   final String presolveFunction;
 
+  /// The static function to use for resolving a singleton instance
+  final String resolveFunction;
+
   DependencyConfig({
     this.import,
     this.abstractedImport,
@@ -27,6 +30,7 @@ class DependencyConfig {
     this.abstractedTypeClassName,
     this.type,
     this.presolveFunction,
+    this.resolveFunction,
   });
 
   /// Returns a camel case version o the [className]

@@ -10,6 +10,7 @@ import 'package:new_architecture/ui/nonreactive/nonreactive_view.dart';
 import 'package:new_architecture/ui/stream_view/stream_counter_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:stacked_themes/stacked_themes.dart';
 
 @StackedApp(
   routes: [
@@ -28,6 +29,10 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: InformationService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: EpochService),
+    LazySingleton(
+      classType: ThemeService,
+      resolveUsing: ThemeService.getInstance,
+    ),
 
     // singletons
     Singleton(classType: HistoryViewModel),

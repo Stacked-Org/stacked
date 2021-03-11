@@ -1073,7 +1073,7 @@ The other major piece of boilerplate that was required was setting up get_it and
 ```dart
 @StackedApp(
 dependencies: [
-    LazySingleton(classType: DialogService),
+    LazySingleton(classType: ThemeService, resolveUsing: ThemeService.getInstance),
     // abstracted class type support
     LazySingleton(classType: FirebaseAuthService, asType: AuthService),
 
@@ -1106,7 +1106,13 @@ static Future<SharedPreferencesService> getInstance() async {
 }
 ```
 
-Once you've defined your dependencies then you can run
+You can also pass in a `resolveFunction` for singleton registrations which takes a static `Function`. This would produce something like this
+
+```dart
+locator.registerLazySingleton(() => ThemeService.getInstance());
+```
+
+When looking at the `ThemeService` dependency registration. Once you've defined your dependencies then you can run
 
 ```
 flutter pub run build_runner build --delete-conflicting-outputs

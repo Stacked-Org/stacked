@@ -36,14 +36,22 @@ class StackedLocatorContentGenerator extends BaseGenerator {
     return stringBuffer.toString();
   }
 
-  String _getLocatorRegistrationStringForType(DependencyConfig dependencyDefinition) {
-    final hasAbstratedType = dependencyDefinition.abstractedTypeClassName != null;
-    final abstractionType =
-        hasAbstratedType ? '<${dependencyDefinition.abstractedTypeClassName}>' : '';
+  String _getLocatorRegistrationStringForType(
+      DependencyConfig dependencyDefinition) {
+    final hasAbstratedType =
+        dependencyDefinition.abstractedTypeClassName != null;
+    final abstractionType = hasAbstratedType
+        ? '<${dependencyDefinition.abstractedTypeClassName}>'
+        : '';
+
+    final hasResolveFunction = dependencyDefinition.resolveFunction != null;
+    final singletonInstanceToReturn = hasResolveFunction
+        ? '${dependencyDefinition.className}.${dependencyDefinition.resolveFunction}()'
+        : '${dependencyDefinition.className}()';
 
     switch (dependencyDefinition.type) {
       case DependencyType.LazySingleton:
-        return 'locator.registerLazySingleton$abstractionType(() => ${dependencyDefinition.className}());';
+        return 'locator.registerLazySingleton$abstractionType(() => $singletonInstanceToReturn);';
       case DependencyType.PresolvedSingleton:
         return '''
         final ${dependencyDefinition.camelCaseClassName} = await ${dependencyDefinition.className}.${dependencyDefinition.presolveFunction}();
@@ -53,7 +61,7 @@ class StackedLocatorContentGenerator extends BaseGenerator {
         return 'locator.registerFactory$abstractionType(() => ${dependencyDefinition.className}());';
       case DependencyType.Singleton:
       default:
-        return 'locator.registerSingleton$abstractionType(${dependencyDefinition.className}());';
+        return 'locator.registerSingleton$abstractionType($singletonInstanceToReturn);';
     }
   }
 
