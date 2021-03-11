@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -111,6 +115,13 @@ class FirebaseAuthenticationService {
         );
       }
 
+      // To prevent replay attacks with the credential returned from Apple, we
+      // include a nonce in the credential request. When signing in in with
+      // Firebase, the nonce in the id token returned by Apple, is expected to
+      // match the sha256 hash of `rawNonce`.
+      final rawNonce = generateNonce();
+      final nonce = sha256ofString(rawNonce);
+
       final appleIdCredential = await SignInWithApple.getAppleIDCredential(
         scopes: [
           AppleIDAuthorizationScopes.email,
@@ -120,12 +131,14 @@ class FirebaseAuthenticationService {
           clientId: appleClientId,
           redirectUri: Uri.parse(appleRedirectUri),
         ),
+        nonce: nonce,
       );
 
       final oAuthProvider = OAuthProvider('apple.com');
       final credential = oAuthProvider.credential(
         idToken: appleIdCredential.identityToken,
         accessToken: appleIdCredential.authorizationCode,
+        rawNonce: rawNonce,
       );
 
       var result = await _signInWithCredential(credential);
@@ -371,6 +384,23 @@ class FirebaseAuthenticationService {
   /// Update the [password] of the Firebase User
   Future updatePassword(String password) async {
     await _firebaseAuth.currentUser.updatePassword(password);
+  }
+
+  /// Generates a cryptographically secure random nonce, to be included in a
+  /// credential request.
+  String generateNonce([int length = 32]) {
+    final charset =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    final random = Random.secure();
+    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
+        .join();
+  }
+
+  /// Returns the sha256 hash of [input] in hex notation.
+  String sha256ofString(String input) {
+    final bytes = utf8.encode(input);
+    final digest = sha256.convert(bytes);
+    return digest.toString();
   }
 }
 
