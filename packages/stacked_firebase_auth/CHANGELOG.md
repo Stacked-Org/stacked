@@ -1,3 +1,7 @@
+## 0.1.1
+
+- Adds `nonce` to remove the probability of a replay attack when using `AppleSignIn`
+
 ## 0.1.0+1
 
 - Readme formatting update
