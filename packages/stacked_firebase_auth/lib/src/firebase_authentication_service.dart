@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -29,7 +29,7 @@ class FirebaseAuthenticationService {
 
   final _firebaseAuth = FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn();
-  final _facebookLogin = FacebookLogin();
+  final _facebookLogin = FacebookAuth.instance;
 
   FirebaseAuthenticationService({
     this.appleRedirectUri,
@@ -167,26 +167,12 @@ class FirebaseAuthenticationService {
   }
 
   Future<FirebaseAuthenticationResult> signInWithFacebook() async {
-    log?.i('');
-
     try {
-      FacebookLoginResult loginResult = await _facebookLogin.logIn(['email']);
-      log?.v(
-          'Facebook Sign In complete. \nstatus:${loginResult.status} \naccessToken:${loginResult.accessToken} \nerrorMessage:${loginResult.errorMessage}');
+      AccessToken accessToken = await _facebookLogin.login();
+      log?.v('Facebook Sign In complete. \naccessToken:${accessToken.token}');
 
-      if (loginResult.status == FacebookLoginStatus.cancelledByUser) {
-        log?.i('Process is canceled by the user');
-        return null;
-      }
-
-      if (loginResult.status == FacebookLoginStatus.error) {
-        return FirebaseAuthenticationResult.error(
-          errorMessage: loginResult.errorMessage,
-        );
-      }
-
-      var facebookCredentials =
-          FacebookAuthProvider.credential(loginResult.accessToken.token);
+      final FacebookAuthCredential facebookCredentials =
+          FacebookAuthProvider.credential(accessToken.token);
 
       var result = await _signInWithCredential(facebookCredentials);
 
@@ -203,6 +189,11 @@ class FirebaseAuthenticationService {
     } on FirebaseAuthException catch (e) {
       log?.e(e);
       return await _handleAccountExists(e);
+    } on FacebookAuthException catch (e) {
+      log?.e(e);
+      if(e.errorCode == FacebookAuthErrorCode.CANCELLED) return null;
+
+      return FirebaseAuthenticationResult.error(errorMessage: e.toString());
     } catch (e) {
       log?.e(e);
       return FirebaseAuthenticationResult.error(errorMessage: e.toString());
