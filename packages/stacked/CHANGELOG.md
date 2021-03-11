@@ -1,6 +1,10 @@
 ## 1.9.6
 
 - Exports the `ExtendedNavigator` for nested navigation
+- Update provider in stacked to 5.0.0
+- Revert nonReactive update update for stacked
+- Update get_it to 6.0.0
+- Will revert fix for issue that came with disposing a nonReactive Viewmodel.
 
 ## 1.9.5
 
