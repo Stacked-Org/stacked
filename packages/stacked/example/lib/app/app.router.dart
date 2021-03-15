@@ -14,6 +14,7 @@ import '../ui/bottom_nav/bottom_nav_example.dart';
 import '../ui/details/details_view.dart';
 import '../ui/form/example_form_view.dart';
 import '../ui/home/home_view.dart';
+import '../ui/logic_example/logic_view.dart';
 import '../ui/nonreactive/nonreactive_view.dart';
 import '../ui/stream_view/stream_counter_view.dart';
 
@@ -23,7 +24,8 @@ class Routes {
   static const String streamCounterView = '/stream-counter-view';
   static const String detailsView = '/details-view';
   static const String exampleFormView = '/example-form-view';
-  static const String nonReactiveView = '/';
+  static const String nonReactiveView = '/non-reactive-view';
+  static const String logicView = '/';
   static const all = <String>{
     homeView,
     bottomNavExample,
@@ -31,6 +33,7 @@ class Routes {
     detailsView,
     exampleFormView,
     nonReactiveView,
+    logicView,
   };
 }
 
@@ -44,6 +47,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.detailsView, page: DetailsView),
     RouteDef(Routes.exampleFormView, page: ExampleFormView),
     RouteDef(Routes.nonReactiveView, page: NonReactiveView),
+    RouteDef(Routes.logicView, page: LogicView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -90,6 +94,12 @@ class StackedRouter extends RouterBase {
     NonReactiveView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => const NonReactiveView(),
+        settings: data,
+      );
+    },
+    LogicView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const LogicView(),
         settings: data,
       );
     },
