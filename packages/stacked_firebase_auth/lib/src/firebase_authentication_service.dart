@@ -191,9 +191,18 @@ class FirebaseAuthenticationService {
       return await _handleAccountExists(e);
     } on FacebookAuthException catch (e) {
       log?.e(e);
-      if(e.errorCode == FacebookAuthErrorCode.CANCELLED) return null;
-
-      return FirebaseAuthenticationResult.error(errorMessage: e.toString());
+      switch (e.errorCode) {
+        case FacebookAuthErrorCode.OPERATION_IN_PROGRESS:
+          return FirebaseAuthenticationResult.error(
+              errorMessage:
+                  'You have a previous Facebook login operation in progress');
+        case FacebookAuthErrorCode.CANCELLED:
+          return FirebaseAuthenticationResult.error(
+              errorMessage: 'Facebook login has been cancelled by the user');
+        case FacebookAuthErrorCode.FAILED:
+          return FirebaseAuthenticationResult.error(
+              errorMessage: 'Facebook login has failed');
+      }
     } catch (e) {
       log?.e(e);
       return FirebaseAuthenticationResult.error(errorMessage: e.toString());
