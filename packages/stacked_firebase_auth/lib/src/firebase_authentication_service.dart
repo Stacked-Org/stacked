@@ -201,6 +201,8 @@ class FirebaseAuthenticationService {
         case FacebookAuthErrorCode.FAILED:
           return FirebaseAuthenticationResult.error(
               errorMessage: 'Facebook login has failed');
+        default:
+          return FirebaseAuthenticationResult.error(errorMessage: e.toString());
       }
     } catch (e) {
       log?.e(e);
