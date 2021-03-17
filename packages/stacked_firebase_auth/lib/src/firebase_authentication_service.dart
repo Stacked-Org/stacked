@@ -62,7 +62,8 @@ class FirebaseAuthenticationService {
           await _googleSignIn.signIn();
       if (googleSignInAccount == null) {
         log?.i('Process is canceled by the user');
-        return null;
+        return FirebaseAuthenticationResult.error(
+            errorMessage: 'Google Sign In has been cancelled by the user');
       }
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
@@ -157,8 +158,6 @@ class FirebaseAuthenticationService {
       log?.e(e);
       return await _handleAccountExists(e);
     } on SignInWithAppleAuthorizationException catch (e) {
-      if (e.code == AuthorizationErrorCode.canceled) return null;
-
       return FirebaseAuthenticationResult.error(errorMessage: e.toString());
     } catch (e) {
       log?.e(e);
