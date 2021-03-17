@@ -73,7 +73,7 @@ class FirebaseAuthenticationService {
         idToken: googleSignInAuthentication.idToken,
       );
 
-      var result = await _signInWithCredential(credential);
+      final result = await _signInWithCredential(credential);
 
       // Link the pending credential with the existing account
       if (_pendingCredential != null) {
@@ -142,7 +142,7 @@ class FirebaseAuthenticationService {
         rawNonce: rawNonce,
       );
 
-      var result = await _signInWithCredential(credential);
+      final result = await _signInWithCredential(credential);
 
       // Link the pending credential with the existing account
       if (_pendingCredential != null) {
@@ -173,7 +173,7 @@ class FirebaseAuthenticationService {
       final FacebookAuthCredential facebookCredentials =
           FacebookAuthProvider.credential(accessToken.token);
 
-      var result = await _signInWithCredential(facebookCredentials);
+      final result = await _signInWithCredential(facebookCredentials);
 
       // Link the pending credential with the existing account
       if (_pendingCredential != null) {
@@ -214,7 +214,7 @@ class FirebaseAuthenticationService {
   }) async {
     try {
       log?.d('email:$email');
-      var result = await _firebaseAuth.signInWithEmailAndPassword(
+      final result = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -248,7 +248,7 @@ class FirebaseAuthenticationService {
       {String email, String password}) async {
     try {
       log?.d('email:$email');
-      var result = await _firebaseAuth.createUserWithEmailAndPassword(
+      final result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
