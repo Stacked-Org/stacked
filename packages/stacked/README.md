@@ -989,6 +989,41 @@ class MyApp extends StatelessWidget {
 
 Now you can perform navigations using the `NavigationService` if it's been registered as a dependency on your `locator`.
 
+### Nested Navigation
+
+Declaring your nested routes inside of the parent route's children property will generate a nested router class. The name will be the page name provided to the parent + Route. In this example: `OtherNavigatorRouter`.
+
+```dart
+@StackedApp(routes: [
+    MaterialRoute(page: HomeView, initial: true),
+    MaterialRoute(page: OtherNavigator, children: [
+      MaterialRoute(page: OtherView, initial: true),
+      MaterialRoute(page: OtherNestedView),
+    ]),
+  ],
+)
+
+```
+
+Now we need to render these nested routes inside of their parent `OtherNavigator` and for that we use an `ExtendedNavigator()`.
+
+```dart
+class OtherNavigator extends StatelessWidget {
+  ...
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ExtendedNavigator(router: OtherNavigatorRouter(), navigatorKey: StackedService.nestedNavigationKey(1)));
+  }
+}
+
+```
+Now we can navigate to the nested route using the `NavigationService`, making sure to match the `id` to the `nestedNavigationKey` supplied when creating the `ExtendedNavigator()`.
+
+```dart
+_navigationService.navigateTo(OtherNavigatorRoutes.otherNestedView, id: 1);
+```
+
 ### Router Arguments
 
 View argument serialisation is automatic when using the generated router. Lets take the following view
@@ -1033,12 +1068,14 @@ _Note_: When your view arguments change you have to run the code generation comm
 
 ### Dependency Registration
 
-The other major piece of boilerplate that was required was setting up get_it and making use of it on its own. This is still a very valid approach but with this new changes I wanted to introduce a quicker way of setting all that up and remove the boilerplate. This is also done using the `StackedApp` annotation. The class takes in a list of `DependencyRegistration`'s into a property called `dependencies`.
+The other major piece of boilerplate that was required was setting up get_it and making use of it on its own. This is still a very valid approach but with these new changes I wanted to introduce a quicker way of setting all that up and remove the boilerplate. This is also done using the `StackedApp` annotation. The class takes in a list of `DependencyRegistration`'s into a property called `dependencies`.
 
 ```dart
 @StackedApp(
 dependencies: [
-    LazySingleton(classType: DialogService),
+    LazySingleton(classType: ThemeService, resolveUsing: ThemeService.getInstance),
+    // abstracted class type support
+    LazySingleton(classType: FirebaseAuthService, asType: AuthService),
 
     Singleton(classType: NavigationService),
 
@@ -1069,7 +1106,13 @@ static Future<SharedPreferencesService> getInstance() async {
 }
 ```
 
-Once you've defined your dependencies then you can run
+You can also pass in a `resolveFunction` for singleton registrations which takes a static `Function`. This would produce something like this
+
+```dart
+locator.registerLazySingleton(() => ThemeService.getInstance());
+```
+
+When looking at the `ThemeService` dependency registration. Once you've defined your dependencies then you can run
 
 ```
 flutter pub run build_runner build --delete-conflicting-outputs

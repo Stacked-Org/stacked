@@ -14,6 +14,8 @@ mixin ReactiveServiceMixin {
         reactiveValue.onChange.listen((event) => notifyListeners());
       } else if (reactiveValue is RxSet) {
         reactiveValue.onChange.listen((event) => notifyListeners());
+      } else if (reactiveValue is ChangeNotifier) {
+        (reactiveValue as ChangeNotifier).notifyListeners();
       }
     }
   }

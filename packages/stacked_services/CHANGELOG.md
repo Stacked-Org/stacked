@@ -1,3 +1,9 @@
+## 0.7.3
+
+- Removes the warning from the get package
+- Complies with "Replaced reference to obsolete FlatButton button class in SnackBar"
+- Support `ChangeNotifier` in `ReactiveServiceMixin`
+
 ## 0.7.2
 
 - Fixes a regression bug for allowing null title and content for a dialog

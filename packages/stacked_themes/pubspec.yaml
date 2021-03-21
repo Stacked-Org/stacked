@@ -1,6 +1,6 @@
 name: stacked_themes
 description: A set of classes to help you better manage Themes in flutter
-version: 0.2.3
+version: 0.2.4
 homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_themes
 
 environment:
@@ -10,10 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  provider: ^4.3.3
-  rxdart: ^0.25.0
-  shared_preferences: ^0.5.12+4
-  get_it: ^5.0.6
+  provider: ^5.0.0
+  rxdart: ^0.26.0
+  shared_preferences: ^2.0.4
+  get_it: ^6.0.0
   flutter_statusbarcolor: ^0.2.3
 
 dev_dependencies:

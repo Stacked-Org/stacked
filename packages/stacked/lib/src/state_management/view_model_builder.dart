@@ -41,6 +41,10 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   /// Indicates if we should run the initialise functionality for special viewmodels only once
   final bool initialiseSpecialViewModelsOnce;
 
+  /// Fires when the widget has been removed from the widget tree and allows you to dispose
+  /// of any controllers or state values that need disposing
+  final Function onDispose;
+
   /// Constructs a viewmodel provider that will not rebuild the provided widget when notifyListeners is called.
   ///
   /// Widget from [builder] will be used as a staic child and won't rebuild when notifyListeners is called
@@ -48,6 +52,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
     @required this.builder,
     @required this.viewModelBuilder,
     this.onModelReady,
+    this.onDispose,
     this.disposeViewModel = true,
     this.createNewModelOnInsert = false,
     this.fireOnModelReadyOnce = false,
@@ -63,6 +68,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
     @required this.viewModelBuilder,
     this.staticChild,
     this.onModelReady,
+    this.onDispose,
     this.disposeViewModel = true,
     this.createNewModelOnInsert = false,
     this.fireOnModelReadyOnce = false,
@@ -124,6 +130,12 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    widget?.onDispose?.call();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (widget.providerType == _ViewModelBuilderType.NonReactive) {
       if (!widget.disposeViewModel) {
@@ -135,10 +147,7 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
 
       return ChangeNotifierProvider(
         create: (context) => _model,
-        child: Consumer(
-          builder: widget.builder,
-          child: widget.staticChild,
-        ),
+        child: widget.builder(context, _model, widget.staticChild),
       );
     }
 

@@ -1,3 +1,27 @@
+## 1.9.7
+
+- Adds `resolveUsing` function that can be used for singleton type dependency registrations. 
+
+## 1.9.6
+
+- Exports the `ExtendedNavigator` for nested navigation
+- Update provider in stacked to 5.0.0
+- Revert nonReactive update update for stacked
+- Update get_it to 6.0.0
+- Will revert fix for issue that came with disposing a nonReactive Viewmodel.
+
+## 1.9.5
+
+- Adds the asType property into the locator types
+
+## 1.9.4
+
+- Adds fix for [issue #171](https://github.com/FilledStacks/stacked/issues/171)
+
+## 1.9.3
+
+- Adds onDispose functionality
+
 ## 1.9.2
 
 ### MAJOR UPDATE: FORMS!!!

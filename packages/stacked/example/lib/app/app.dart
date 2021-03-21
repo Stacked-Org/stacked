@@ -6,9 +6,11 @@ import 'package:new_architecture/ui/bottom_nav/history/history_viewmodel.dart';
 import 'package:new_architecture/ui/details/details_view.dart';
 import 'package:new_architecture/ui/form/example_form_view.dart';
 import 'package:new_architecture/ui/home/home_view.dart';
+import 'package:new_architecture/ui/nonreactive/nonreactive_view.dart';
 import 'package:new_architecture/ui/stream_view/stream_counter_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:stacked_themes/stacked_themes.dart';
 
 @StackedApp(
   routes: [
@@ -17,7 +19,8 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: StreamCounterView),
     CupertinoRoute(page: DetailsView),
     // TODO: Change the name of the FormView to avoid type clashing
-    MaterialRoute(page: ExampleFormView, initial: true),
+    MaterialRoute(page: ExampleFormView),
+    MaterialRoute(page: NonReactiveView, initial: true),
   ],
   dependencies: [
     // Lazy singletons
@@ -26,6 +29,10 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: InformationService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: EpochService),
+    LazySingleton(
+      classType: ThemeService,
+      resolveUsing: ThemeService.getInstance,
+    ),
 
     // singletons
     Singleton(classType: HistoryViewModel),

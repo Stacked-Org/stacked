@@ -2,6 +2,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_generator/import_resolver.dart';
 import 'package:source_gen/source_gen.dart';
+import 'package:stacked_generator/utils.dart';
 
 final pathParamChecker = TypeChecker.fromRuntime(PathParam);
 final queryParamChecker = TypeChecker.fromRuntime(QueryParam);
@@ -77,7 +78,7 @@ class RouteParameterResolver {
     }
 
     return RouteParamConfig(
-        type: paramType.getDisplayString(),
+        type: toDisplayString(paramType),
         name: parameterElement.name.replaceFirst("_", ''),
         alias: paramAlias,
         isPositional: parameterElement.isPositional,

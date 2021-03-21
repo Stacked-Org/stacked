@@ -24,7 +24,7 @@ class RouteConfigResolver {
     if (import != null) {
       routeConfig.imports.add(import);
     }
-    routeConfig.className = type.getDisplayString();
+    routeConfig.className = toDisplayString(type);
     var path = stackedRoute.peek('path')?.stringValue;
     if (path == null) {
       if (stackedRoute.peek('initial')?.boolValue == true) {
@@ -38,7 +38,7 @@ class RouteConfigResolver {
 
     throwIf(
       type.element is! ClassElement,
-      '${type.getDisplayString()} is not a class element',
+      '${toDisplayString(type)} is not a class element',
       element: type.element,
     );
 
@@ -48,7 +48,7 @@ class RouteConfigResolver {
         toLowerCamelCase(routeConfig.className);
 
     routeConfig.hasWrapper = classElement.allSupertypes
-        .map<String>((el) => el.getDisplayString())
+        .map<String>((el) => toDisplayString(el))
         .contains('StackedRouteWrapper');
 
     final constructor = classElement.unnamedConstructor;
@@ -57,7 +57,7 @@ class RouteConfigResolver {
     if (params?.isNotEmpty == true) {
       if (constructor.isConst &&
           params.length == 1 &&
-          params.first.type.getDisplayString() == 'Key') {
+          toDisplayString(params.first.type) == 'Key') {
         routeConfig.hasConstConstructor = true;
       } else {
         final paramResolver = RouteParameterResolver(_importResolver);
@@ -83,12 +83,12 @@ class RouteConfigResolver {
         ?.map((g) => g.toTypeValue())
         ?.forEach((guard) {
       routeConfig.guards.add(RouteGuardConfig(
-          type: guard.getDisplayString(),
+          type: toDisplayString(guard),
           import: _importResolver.resolve(guard.element)));
     });
 
     final returnType = stackedRoute.objectValue.type.typeArguments.first;
-    routeConfig.returnType = returnType.getDisplayString();
+    routeConfig.returnType = toDisplayString(returnType);
 
     if (routeConfig.returnType != 'dynamic') {
       routeConfig.imports.addAll(_importResolver.resolveAll(returnType));
