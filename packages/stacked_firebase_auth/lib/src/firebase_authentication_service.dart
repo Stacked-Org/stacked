@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -29,7 +29,7 @@ class FirebaseAuthenticationService {
 
   final _firebaseAuth = FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn();
-  final _facebookLogin = FacebookLogin();
+  final _facebookLogin = FacebookAuth.instance;
 
   FirebaseAuthenticationService({
     this.appleRedirectUri,
@@ -62,7 +62,8 @@ class FirebaseAuthenticationService {
           await _googleSignIn.signIn();
       if (googleSignInAccount == null) {
         log?.i('Process is canceled by the user');
-        return null;
+        return FirebaseAuthenticationResult.error(
+            errorMessage: 'Google Sign In has been cancelled by the user');
       }
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
@@ -72,7 +73,7 @@ class FirebaseAuthenticationService {
         idToken: googleSignInAuthentication.idToken,
       );
 
-      var result = await _signInWithCredential(credential);
+      final result = await _signInWithCredential(credential);
 
       // Link the pending credential with the existing account
       if (_pendingCredential != null) {
@@ -141,7 +142,7 @@ class FirebaseAuthenticationService {
         rawNonce: rawNonce,
       );
 
-      var result = await _signInWithCredential(credential);
+      final result = await _signInWithCredential(credential);
 
       // Link the pending credential with the existing account
       if (_pendingCredential != null) {
@@ -157,8 +158,6 @@ class FirebaseAuthenticationService {
       log?.e(e);
       return await _handleAccountExists(e);
     } on SignInWithAppleAuthorizationException catch (e) {
-      if (e.code == AuthorizationErrorCode.canceled) return null;
-
       return FirebaseAuthenticationResult.error(errorMessage: e.toString());
     } catch (e) {
       log?.e(e);
@@ -167,28 +166,14 @@ class FirebaseAuthenticationService {
   }
 
   Future<FirebaseAuthenticationResult> signInWithFacebook() async {
-    log?.i('');
-
     try {
-      FacebookLoginResult loginResult = await _facebookLogin.logIn(['email']);
-      log?.v(
-          'Facebook Sign In complete. \nstatus:${loginResult.status} \naccessToken:${loginResult.accessToken} \nerrorMessage:${loginResult.errorMessage}');
+      AccessToken accessToken = await _facebookLogin.login();
+      log?.v('Facebook Sign In complete. \naccessToken:${accessToken.token}');
 
-      if (loginResult.status == FacebookLoginStatus.cancelledByUser) {
-        log?.i('Process is canceled by the user');
-        return null;
-      }
+      final FacebookAuthCredential facebookCredentials =
+          FacebookAuthProvider.credential(accessToken.token);
 
-      if (loginResult.status == FacebookLoginStatus.error) {
-        return FirebaseAuthenticationResult.error(
-          errorMessage: loginResult.errorMessage,
-        );
-      }
-
-      var facebookCredentials =
-          FacebookAuthProvider.credential(loginResult.accessToken.token);
-
-      var result = await _signInWithCredential(facebookCredentials);
+      final result = await _signInWithCredential(facebookCredentials);
 
       // Link the pending credential with the existing account
       if (_pendingCredential != null) {
@@ -203,6 +188,22 @@ class FirebaseAuthenticationService {
     } on FirebaseAuthException catch (e) {
       log?.e(e);
       return await _handleAccountExists(e);
+    } on FacebookAuthException catch (e) {
+      log?.e(e);
+      switch (e.errorCode) {
+        case FacebookAuthErrorCode.OPERATION_IN_PROGRESS:
+          return FirebaseAuthenticationResult.error(
+              errorMessage:
+                  'You have a previous Facebook login operation in progress');
+        case FacebookAuthErrorCode.CANCELLED:
+          return FirebaseAuthenticationResult.error(
+              errorMessage: 'Facebook login has been cancelled by the user');
+        case FacebookAuthErrorCode.FAILED:
+          return FirebaseAuthenticationResult.error(
+              errorMessage: 'Facebook login has failed');
+        default:
+          return FirebaseAuthenticationResult.error(errorMessage: e.toString());
+      }
     } catch (e) {
       log?.e(e);
       return FirebaseAuthenticationResult.error(errorMessage: e.toString());
@@ -215,7 +216,7 @@ class FirebaseAuthenticationService {
   }) async {
     try {
       log?.d('email:$email');
-      var result = await _firebaseAuth.signInWithEmailAndPassword(
+      final result = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -249,7 +250,7 @@ class FirebaseAuthenticationService {
       {String email, String password}) async {
     try {
       log?.d('email:$email');
-      var result = await _firebaseAuth.createUserWithEmailAndPassword(
+      final result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
