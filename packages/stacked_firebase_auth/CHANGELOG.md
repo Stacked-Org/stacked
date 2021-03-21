@@ -1,3 +1,7 @@
+## 0.1.3
+
+- Replaced `flutter_facebook_login` with `flutter_facebook_auth`
+
 ## 0.1.2
 
 Updates dependencies
