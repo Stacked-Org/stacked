@@ -38,7 +38,7 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
               ),
               SizedBox(height: 15),
               TextFormField(
-                //#4: Set email emailController and focus node
+                //#5: Set password passwordController and focus node
                 controller: passwordController,
                 focusNode: passwordFocusNode,
                 onFieldSubmitted: (_) => model.saveData(),
