@@ -9,16 +9,10 @@ import 'bottom_sheet_ui.dart';
 
 /// A service that allows you to show a bottom sheet
 class BottomSheetService {
-  Map<dynamic,
-          Widget Function(BuildContext, SheetRequest, Function(SheetResponse))>
-      _sheetBuilders;
+  Map<dynamic, Widget Function(BuildContext, SheetRequest, Function(SheetResponse))> _sheetBuilders;
 
   void setCustomSheetBuilders(
-      Map<
-              dynamic,
-              Widget Function(
-                  BuildContext, SheetRequest, Function(SheetResponse))>
-          builders) {
+      Map<dynamic, Widget Function(BuildContext, SheetRequest, Function(SheetResponse))> builders) {
     _sheetBuilders = builders;
   }
 
@@ -40,9 +34,8 @@ class BottomSheetService {
           onCancelTapped: () => completeSheet(SheetResponse(confirmed: false)),
         ),
       ),
-      backgroundColor: Theme.of(Get.context).brightness == Brightness.light
-          ? Colors.white
-          : Colors.grey[800],
+      backgroundColor:
+          Theme.of(Get.context).brightness == Brightness.light ? Colors.white : Colors.grey[800],
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15),
@@ -68,6 +61,7 @@ class BottomSheetService {
     bool takesInput = false,
     Color barrierColor = Colors.black54,
     bool barrierDismissible = false,
+    bool isScrollControlled = false,
     String barrierLabel = '',
     dynamic customData,
   }) {
@@ -78,35 +72,39 @@ class BottomSheetService {
       '''
       There's no sheet builder supplied for the variant:$variant. If you haven't yet setup your
       custom builder. Please call the setCustomSheetBuilders function on the service and supply
-      the UI that you'd like to build for each variant. 
+      the UI that you'd like to build for each variant.
 
       If you have already done that. Make sure that the variant:$variant has a builder associated
       with it.
       ''',
     );
 
-    return Get.bottomSheet<SheetResponse>(Material(
-      type: MaterialType.transparency,
-      child: sheetBuilder(
-        Get.context,
-        SheetRequest(
-          title: title,
-          description: description,
-          hasImage: hasImage,
-          imageUrl: imageUrl,
-          showIconInMainButton: showIconInMainButton,
-          mainButtonTitle: mainButtonTitle,
-          showIconInSecondaryButton: showIconInSecondaryButton,
-          secondaryButtonTitle: secondaryButtonTitle,
-          showIconInAdditionalButton: showIconInAdditionalButton,
-          additionalButtonTitle: additionalButtonTitle,
-          takesInput: takesInput,
-          customData: customData,
-          variant: variant,
+    return Get.bottomSheet<SheetResponse>(
+      Material(
+        type: MaterialType.transparency,
+        child: sheetBuilder(
+          Get.context,
+          SheetRequest(
+            title: title,
+            description: description,
+            hasImage: hasImage,
+            imageUrl: imageUrl,
+            showIconInMainButton: showIconInMainButton,
+            mainButtonTitle: mainButtonTitle,
+            showIconInSecondaryButton: showIconInSecondaryButton,
+            secondaryButtonTitle: secondaryButtonTitle,
+            showIconInAdditionalButton: showIconInAdditionalButton,
+            additionalButtonTitle: additionalButtonTitle,
+            takesInput: takesInput,
+            customData: customData,
+            variant: variant,
+          ),
+          completeSheet,
         ),
-        completeSheet,
       ),
-    ));
+      isDismissible: barrierDismissible,
+      isScrollControlled: isScrollControlled,
+    );
   }
 
   /// Completes the dialog and passes the [response] to the caller

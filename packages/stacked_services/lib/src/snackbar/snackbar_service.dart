@@ -19,6 +19,9 @@ class SnackbarService {
 
   SnackbarConfig _snackbarConfig;
 
+  /// Checks if there is a snackbar open
+  bool get isOpen => Get.isSnackbarOpen;
+
   /// Saves the [config] to be used for the [showSnackbar] function
   void registerSnackbarConfig(SnackbarConfig config) =>
       _snackbarConfig = config;
@@ -124,25 +127,25 @@ class SnackbarService {
     );
 
     final getBar = GetBar(
-      titleText: Text(
-        title,
-        style: TextStyle(
-          color: snackbarConfig?.titleColor ??
-              snackbarConfig?.textColor ??
-              Colors.white,
-          fontWeight: FontWeight.w800,
-          fontSize: 16,
-        ),
-      ),
+      titleText: title != null
+          ? Text(
+              title,
+              style: TextStyle(
+                  color: snackbarConfig?.titleColor ??
+                      snackbarConfig?.textColor ??
+                      Colors.white,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 16),
+            )
+          : null,
       messageText: Text(
         message,
         style: TextStyle(
-          color: snackbarConfig?.messageColor ??
-              snackbarConfig?.textColor ??
-              Colors.white,
-          fontWeight: FontWeight.w300,
-          fontSize: 14,
-        ),
+            color: snackbarConfig?.messageColor ??
+                snackbarConfig?.textColor ??
+                Colors.white,
+            fontWeight: FontWeight.w300,
+            fontSize: 14),
       ),
       icon: snackbarConfig.icon,
       shouldIconPulse: snackbarConfig.shouldIconPulse,
