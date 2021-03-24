@@ -1,8 +1,6 @@
-import 'package:injectable/injectable.dart';
 import 'package:observable_ish/value/value.dart';
 import 'package:stacked/stacked.dart';
 
-@lazySingleton
 class InformationService with ReactiveServiceMixin {
   InformationService() {
     listenToReactiveValues([_postCount]);

@@ -17,6 +17,12 @@ class SnackbarService {
   Map<dynamic, SnackbarConfig> _customSnackbarConfigs =
       Map<dynamic, SnackbarConfig>();
 
+  Map<dynamic, SnackbarConfig Function()> _customSnackbarConfigBuilders =
+      Map<dynamic, SnackbarConfig Function()>();
+
+  Map<dynamic, Widget Function(String, Function)> _mainButtonBuilder =
+      Map<dynamic, Widget Function(String, Function)>();
+
   SnackbarConfig _snackbarConfig;
 
   /// Checks if there is a snackbar open
@@ -38,12 +44,25 @@ class SnackbarService {
         config: config,
       );
 
-  /// Saves the [config] against the value of [variant]
+  /// Registers a builder that will be used when showing a matching variant value. The builder
+  /// function takes in a [String] to display as the title and a `Function` to be used to the
+  /// onTap callback
+  void registerCustomMainButtonBuilder({
+    @required dynamic variant,
+    @required Widget Function(String, Function) builder,
+  }) =>
+      _mainButtonBuilder[variant] = builder;
+
+  /// Saves the [config] against the value of [variant]. A [configBuilder] can also be
+  /// supplied which will be chosen over the config for the same variant when requested.
   void registerCustomSnackbarConfig({
     @required dynamic variant,
-    @required SnackbarConfig config,
-  }) =>
-      _customSnackbarConfigs[variant] = config;
+    SnackbarConfig config,
+    SnackbarConfig Function() configBuilder,
+  }) {
+    _customSnackbarConfigs[variant] = config;
+    _customSnackbarConfigBuilders[variant] = configBuilder;
+  }
 
   /// Shows a snack bar with the details passed in
   void showSnackbar({
@@ -67,18 +86,22 @@ class SnackbarService {
           ? Text(
               title,
               style: TextStyle(
-                  color: _snackbarConfig.titleColor,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 16),
+                color: _snackbarConfig.titleColor,
+                fontWeight: FontWeight.w800,
+                fontSize: 16,
+              ),
+              textAlign: _snackbarConfig.titleTextAlign ?? TextAlign.left,
             )
           : null,
       messageText: _snackbarConfig?.messageColor != null
           ? Text(
               message,
               style: TextStyle(
-                  color: _snackbarConfig.messageColor,
-                  fontWeight: FontWeight.w300,
-                  fontSize: 14),
+                color: _snackbarConfig.messageColor,
+                fontWeight: FontWeight.w300,
+                fontSize: 14,
+              ),
+              textAlign: _snackbarConfig.messageTextAlign ?? TextAlign.left,
             )
           : null,
       colorText: _snackbarConfig?.textColor ?? Colors.white,
@@ -112,40 +135,55 @@ class SnackbarService {
       'No variant defined, you should provide the variant property to show a custom snackbar',
     );
 
-    var snackbarConfig = _customSnackbarConfigs[snackbarVariant];
+    final snackbarConfigSupplied = _customSnackbarConfigs[snackbarVariant];
+    final snackbarConfigBuilder =
+        _customSnackbarConfigBuilders[snackbarVariant];
+
+    final snackbarConfig = snackbarConfigBuilder != null
+        ? snackbarConfigBuilder()
+        : snackbarConfigSupplied;
 
     if (snackbarConfig == null) {
       throw CustomSnackbarException(
-        'No config found for $snackbarVariant make sure you have called registerCustomConfig. See [README LINK HERE] for implementation details.',
+        'No config found for $snackbarVariant make sure you have called registerCustomConfig with a config or a builder. See [https://pub.dev/packages/stacked_services#custom-styles] for implementation details.',
       );
     }
 
-    final mainButtonWidget = _getMainButtonWidget(
-      mainButtonTitle: mainButtonTitle,
-      onMainButtonTapped: onMainButtonTapped,
-      config: snackbarConfig,
-    );
+    final mainButtonBuilder = _mainButtonBuilder[variant];
+    final hasMainButtonBuilder = mainButtonBuilder != null;
+
+    final mainButtonWidget = hasMainButtonBuilder
+        ? mainButtonBuilder(mainButtonTitle, onMainButtonTapped)
+        : _getMainButtonWidget(
+            mainButtonTitle: mainButtonTitle,
+            onMainButtonTapped: onMainButtonTapped,
+            config: snackbarConfig,
+          );
 
     final getBar = GetBar(
       titleText: title != null
           ? Text(
               title,
               style: TextStyle(
-                  color: snackbarConfig?.titleColor ??
-                      snackbarConfig?.textColor ??
-                      Colors.white,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 16),
+                color: snackbarConfig?.titleColor ??
+                    snackbarConfig?.textColor ??
+                    Colors.white,
+                fontWeight: FontWeight.w800,
+                fontSize: 16,
+              ),
+              textAlign: snackbarConfig?.titleTextAlign ?? TextAlign.left,
             )
           : null,
       messageText: Text(
         message,
         style: TextStyle(
-            color: snackbarConfig?.messageColor ??
-                snackbarConfig?.textColor ??
-                Colors.white,
-            fontWeight: FontWeight.w300,
-            fontSize: 14),
+          color: snackbarConfig?.messageColor ??
+              snackbarConfig?.textColor ??
+              Colors.white,
+          fontWeight: FontWeight.w300,
+          fontSize: 14,
+        ),
+        textAlign: snackbarConfig?.messageTextAlign ?? TextAlign.left,
       ),
       icon: snackbarConfig.icon,
       shouldIconPulse: snackbarConfig.shouldIconPulse,
@@ -160,7 +198,7 @@ class SnackbarService {
       boxShadows: snackbarConfig.boxShadows,
       backgroundGradient: snackbarConfig.backgroundGradient,
       mainButton: mainButtonWidget,
-      onTap: onTap,
+      onTap: (object) => onTap(),
       duration: duration,
       isDismissible: snackbarConfig.isDismissible,
       dismissDirection: snackbarConfig.dismissDirection,
@@ -201,7 +239,7 @@ class SnackbarService {
       return null;
     }
 
-    return FlatButton(
+    return TextButton(
       child: Text(
         mainButtonTitle,
         style: TextStyle(

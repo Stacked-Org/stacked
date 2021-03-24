@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:stacked_localisation/src/setup_locator.dart';
 import 'package:stacked_localisation/src/utils/locale_provider.dart';
 import 'package:stacked_localisation/src/utils/string_reader.dart';
 
-class LocalisationService {
+class LocalisationService with WidgetsBindingObserver {
   final _localeProvider = locator<LocaleProvider>();
   final _stringReader = locator<StringReader>();
 
@@ -15,6 +16,10 @@ class LocalisationService {
       await _instance.initialise();
     }
     return _instance;
+  }
+
+  LocalisationService() {
+    WidgetsBinding.instance.addObserver(this);
   }
 
   /// Stores the Strings for the locale that the service was initialised with
@@ -33,4 +38,19 @@ class LocalisationService {
     locator.registerLazySingleton(() => LocaleProvider());
     locator.registerLazySingleton(() => StringReader());
   }
+
+  @override
+  void didChangeLocales(List<Locale> locale) async {
+    final currentLocale = locale.first.toString();
+    _localisedStrings = await _stringReader.getStringsFromAssets(currentLocale);
+  }
+
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) async {
+  //   // If the user changes language on the device and come back to the app,
+  //   // it will trigger this function with AppLifecycleState.resumed
+  //   if (state == AppLifecycleState.resumed) {
+  //     await _instance.initialise();
+  //   }
+  // }
 }

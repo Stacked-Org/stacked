@@ -1,3 +1,49 @@
+## 1.9.7
+
+- Adds `resolveUsing` function that can be used for singleton type dependency registrations. 
+
+## 1.9.6
+
+- Exports the `ExtendedNavigator` for nested navigation
+- Update provider in stacked to 5.0.0
+- Revert nonReactive update update for stacked
+- Update get_it to 6.0.0
+- Will revert fix for issue that came with disposing a nonReactive Viewmodel.
+
+## 1.9.5
+
+- Adds the asType property into the locator types
+
+## 1.9.4
+
+- Adds fix for [issue #171](https://github.com/FilledStacks/stacked/issues/171)
+
+## 1.9.3
+
+- Adds onDispose functionality
+
+## 1.9.2
+
+### MAJOR UPDATE: FORMS!!!
+
+- Adds brand new form first party support and form generation functionality
+
+## 1.9.1+2
+
+- Fix null error from locator
+
+## 1.9.1+1
+
+- Adds export for `StackedLocator`
+
+## 1.9.1
+
+- Adds `StackedLocator` to remove the apps dependency from GetIt. It's a thin wrapper around the `GetIt` object implementation
+
+## 1.9.0
+
+Big Update! This version of stacked aims to reduce the boiler plate required to setup a stacked application. We introduce the annotation that are used by the stacked_generator to generate the router and locator setup functionality.
+
 ## 1.7.7
 
 - Fixes [Multiple Streams ViewModel causing memory overflow](https://github.com/FilledStacks/stacked/issues/190) bug

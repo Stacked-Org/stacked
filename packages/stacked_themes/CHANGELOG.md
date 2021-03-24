@@ -1,3 +1,14 @@
+## 0.2.4
+
+- provider: ^4.3.3 -> ^5.0.0
+- rxdart: ^0.25.0 -> ^0.26.0
+- shared_preferences: ^0.5.12+4 -> ^2.0.4
+- get_it: ^5.0.6 -> ^6.0.0
+
+## 0.2.3
+
+- Use get_it newInstance to avoid clashing with the app
+
 ## 0.2.2+2
 
 - Updates packages to the latest

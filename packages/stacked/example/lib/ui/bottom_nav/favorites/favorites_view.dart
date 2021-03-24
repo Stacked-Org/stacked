@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_architecture/app/locator.dart';
+import 'package:new_architecture/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
 
 import 'favorites_viewmodel.dart';

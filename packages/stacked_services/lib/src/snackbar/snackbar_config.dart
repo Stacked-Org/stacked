@@ -48,6 +48,8 @@ class SnackbarConfig {
   double overlayBlur;
   Color overlayColor;
   Form userInputForm;
+  TextAlign titleTextAlign;
+  TextAlign messageTextAlign;
 
   SnackbarConfig({
     this.titleText,
@@ -84,5 +86,7 @@ class SnackbarConfig {
     this.overlayBlur = 0.0,
     this.overlayColor = Colors.transparent,
     this.userInputForm,
+    this.titleTextAlign = TextAlign.left,
+    this.messageTextAlign = TextAlign.left,
   });
 }
