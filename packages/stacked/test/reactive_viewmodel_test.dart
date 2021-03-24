@@ -5,14 +5,14 @@ import 'package:stacked/src/state_management/reactive_service_mixin.dart';
 
 class TestReactiveService with ReactiveServiceMixin {
   RxValue<int> _counter = RxValue(initial: 0);
-  int get counter => _counter.value;
+  int? get counter => _counter.value;
 
   TestReactiveService() {
     listenToReactiveValues([_counter]);
   }
 
   void updateCounter() {
-    _counter.value++;
+    _counter.value = _counter.value! +1 ;
   }
 }
 
