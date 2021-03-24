@@ -9,6 +9,7 @@ import 'example_form_viewmodel.dart';
 @FormView(fields: [
   FormTextField(name: 'email'),
   FormTextField(name: 'password', isPassword: true),
+  FormDateField(name: 'birthDate'),
 ])
 // #2: with $ExampleFormView
 class ExampleFormView extends StatelessWidget with $ExampleFormView {
@@ -58,12 +59,25 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                     onFieldSubmitted: (_) => model.saveData(),
                   ),
                 ),
-                SizedBox(height: 15),
                 if (model.showValidation)
                   Text(
                     model.validationMessage,
                     style: TextStyle(color: Colors.red),
-                  )
+                  ),
+                SizedBox(height: 15),
+                ElevatedButton(
+                  onPressed: () => model.selectBirthDate(
+                      context: context,
+                      firstDate: DateTime(1950),
+                      initialDate: DateTime.now(),
+                      lastDate: DateTime(2023)),
+                  child: Text(
+                    model.hasBirthDate
+                        ? model.birthDateValue.toString()
+                        : 'Select your Date of birth',
+                  ),
+                ),
+                SizedBox(height: 15),
               ],
             ),
           ),

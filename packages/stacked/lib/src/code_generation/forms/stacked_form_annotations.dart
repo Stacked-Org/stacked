@@ -1,7 +1,7 @@
 /// The annotation to be used for a view that contains a Form
 class FormView {
   /// The list of form fields to generate
-  final List<FormTextField> fields;
+  final List<FormField> fields;
 
   const FormView({this.fields});
 }
@@ -20,4 +20,9 @@ class FormTextField extends FormField {
   final bool isPassword;
 
   const FormTextField({String name, this.isPassword}) : super(name: name);
+}
+
+/// Describes a date form field.
+class FormDateField extends FormField {
+  const FormDateField({String name}) : super(name: name);
 }

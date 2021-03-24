@@ -62,29 +62,32 @@ class StackedFormContentGenerator extends BaseGenerator {
     final formName = _formViewConfig.viewName;
     writeLine("mixin \$$formName on StatelessWidget {");
 
-    _generateTextEdittingControllers(fields);
-    _generateFocusNodes(fields);
-    _generateListenerRegistrations(fields);
-    _generateFormDataUpdateFunction(fields);
-    _generateDisposeForControllers(fields);
+    _generateTextEdittingControllersForTextFields(fields.onlyTextFieldConfigs);
+    _generateFocusNodesForTextFields(fields.onlyTextFieldConfigs);
+    _generateListenerRegistrationsForTextFields(fields.onlyTextFieldConfigs);
+    _generateFormDataUpdateFunctionTorTextControllers(
+        fields.onlyTextFieldConfigs);
+    _generateDisposeForTextControllers(fields.onlyTextFieldConfigs);
 
     writeLine('}');
   }
 
-  void _generateTextEdittingControllers(List<FieldConfig> fields) {
+  void _generateTextEdittingControllersForTextFields(
+      List<TextFieldConfig> fields) {
     for (final field in fields) {
       writeLine(
           'final TextEditingController ${_getControllerName(field)} = TextEditingController();');
     }
   }
 
-  void _generateFocusNodes(List<FieldConfig> fields) {
+  void _generateFocusNodesForTextFields(List<TextFieldConfig> fields) {
     for (final field in fields) {
       writeLine('final FocusNode ${field.name}FocusNode = FocusNode();');
     }
   }
 
-  void _generateListenerRegistrations(List<FieldConfig> fields) {
+  void _generateListenerRegistrationsForTextFields(
+      List<TextFieldConfig> fields) {
     writeLine('''
               /// Registers a listener on every generated controller that calls [model.setData()]
               /// with the latest textController values
@@ -99,11 +102,13 @@ class StackedFormContentGenerator extends BaseGenerator {
     newLine();
   }
 
-  void _generateFormDataUpdateFunction(List<FieldConfig> fields) {
+  void _generateFormDataUpdateFunctionTorTextControllers(
+      List<TextFieldConfig> fields) {
     writeLine('''
         /// Updates the formData on the FormViewModel
         void _updateFormData(FormViewModel model) => model.setData(
-              {
+              model.formValueMap
+                ..addAll({
             ''');
 
     for (final field in fields) {
@@ -113,12 +118,12 @@ class StackedFormContentGenerator extends BaseGenerator {
     }
 
     writeLine('''
-                },
-              );
+              }),
+          );
               ''');
   }
 
-  void _generateDisposeForControllers(List<FieldConfig> fields) {
+  void _generateDisposeForTextControllers(List<TextFieldConfig> fields) {
     newLine();
     writeLine('''
       /// Calls dispose on all the generated controllers and focus nodes
@@ -134,14 +139,64 @@ class StackedFormContentGenerator extends BaseGenerator {
   }
 
   void _generateFormViewModelExtensions(List<FieldConfig> fields) {
+    _generateFormViewModelExtensionForGetters(fields);
+    _generateFormViewModelExtensionForMethods(fields);
+  }
+
+  void _generateFormViewModelExtensionForGetters(List<FieldConfig> fields) {
     newLine();
     writeLine('extension ValueProperties on FormViewModel {');
     for (final field in fields) {
       final caseName = ReCase(field.name);
+      final type = _getFormFieldValueType(field);
       writeLine(
-          'String get ${caseName.camelCase}Value => this.formValueMap[${_getFormKeyName(caseName)}];');
+          '$type get ${caseName.camelCase}Value => this.formValueMap[${_getFormKeyName(caseName)}];');
     }
+
+    // Generate the getters that check whether a field is set or not
+    newLine();
+    newLine();
+    for (final field in fields) {
+      final caseName = ReCase(field.name);
+      writeLine(
+          'bool get has${caseName.pascalCase} => this.formValueMap.containsKey(${_getFormKeyName(caseName)});');
+    }
+
     writeLine('}');
+  }
+
+  void _generateFormViewModelExtensionForMethods(List<FieldConfig> fields) {
+    newLine();
+    writeLine('extension Methods on FormViewModel {');
+
+    // Generate the date pickers
+    for (final field in fields.onlyDateFieldConfigs) {
+      final caseName = ReCase(field.name);
+      writeLine('''
+          Future<void> select${caseName.pascalCase}(
+              {@required BuildContext context,
+              @required DateTime initialDate,
+              @required DateTime firstDate,
+              @required DateTime lastDate}) async {
+            final selectedDate = await showDatePicker(
+                context: context,
+                initialDate: initialDate,
+                firstDate: firstDate,
+                lastDate: lastDate);
+            if (selectedDate != null) {
+              this.setData(
+                  this.formValueMap..addAll({${_getFormKeyName(caseName)}: selectedDate}));
+            }
+          }
+    ''');
+      newLine();
+    }
+
+    writeLine('}');
+  }
+
+  String _getFormFieldValueType(FieldConfig field) {
+    return field is TextFieldConfig ? 'String' : 'DateTime';
   }
 
   String _getControllerName(FieldConfig field) => '${field.name}Controller';
