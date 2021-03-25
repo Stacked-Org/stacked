@@ -3,42 +3,42 @@ import 'package:get/get.dart';
 
 /// Stores the configuration for the visual appearance of a snackbar
 class SnackbarConfig {
-  Widget titleText;
-  Widget messageText;
-  Widget icon;
+  Widget? titleText;
+  Widget? messageText;
+  Widget? icon;
 
   /// with instantInit = false you can put Get.snackbar on initState
   bool instantInit;
   bool shouldIconPulse;
-  double maxWidth;
-  EdgeInsets margin;
+  double? maxWidth;
+  EdgeInsets? margin;
   EdgeInsets padding;
   double borderRadius;
-  Color borderColor;
+  Color? borderColor;
   double borderWidth;
   Color backgroundColor;
-  Color leftBarIndicatorColor;
+  Color? leftBarIndicatorColor;
+
+  /// Sets the color of the title text regardless of [textColor]
+  Color? titleColor;
 
   /// Sets the color of all the test
   Color textColor;
 
-  /// Sets the color of the title text regardless of [textColor]
-  Color titleColor;
-
   /// Sets the color of the message text regardless of [textColor]
-  Color messageColor;
+  Color? messageColor;
 
   /// Sets the color of the main button text regardless of [textColor]
-  Color mainButtonTextColor;
+  Color? mainButtonTextColor;
 
-  List<BoxShadow> boxShadows;
-  Gradient backgroundGradient;
+  List<BoxShadow>? boxShadows;
+  Gradient? backgroundGradient;
   bool isDismissible;
   SnackDismissDirection dismissDirection;
   bool showProgressIndicator;
-  AnimationController progressIndicatorController;
-  Color progressIndicatorBackgroundColor;
-  Animation<Color> progressIndicatorValueColor;
+  AnimationController? progressIndicatorController;
+  Color? progressIndicatorBackgroundColor;
+  Animation<Color>? progressIndicatorValueColor;
   SnackPosition snackPosition;
   SnackStyle snackStyle;
   Curve forwardAnimationCurve;
@@ -47,7 +47,7 @@ class SnackbarConfig {
   double barBlur;
   double overlayBlur;
   Color overlayColor;
-  Form userInputForm;
+  Form? userInputForm;
   TextAlign titleTextAlign;
   TextAlign messageTextAlign;
 
