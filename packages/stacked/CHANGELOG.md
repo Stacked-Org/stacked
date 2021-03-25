@@ -1,3 +1,7 @@
+## 2.0.0-nullsafety.2
+
+- Adds back `resolveUsing` function to the annotations
+
 ## 2.0.0-nullsafety.1
 
 - Migrate to null-safety. We will remove null safety when we iron out all the issues

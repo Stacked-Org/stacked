@@ -14,12 +14,20 @@ class DependencyRegistration {
 
 /// Registers the type passed in as a singleton instance in the get_it locator
 class Singleton extends DependencyRegistration {
-  const Singleton({Type? classType}) : super(classType: classType);
+  const Singleton({Type? classType, Function? resolveUsing})
+      : super(
+          classType: classType,
+          resolveUsing: resolveUsing,
+        );
 }
 
 /// Registers the type passed in as a LazySingleton instance in the get_it locator
 class LazySingleton extends DependencyRegistration {
-  const LazySingleton({Type? classType}) : super(classType: classType);
+  const LazySingleton({Type? classType, Function? resolveUsing})
+      : super(
+          classType: classType,
+          resolveUsing: resolveUsing,
+        );
 }
 
 /// Registers the type passed in as a Factory in the get_it locator
