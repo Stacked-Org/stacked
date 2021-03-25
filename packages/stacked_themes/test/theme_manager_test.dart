@@ -136,7 +136,7 @@ void main() {
         ];
         var themeManager = ThemeManager(
           themes: themes,
-          statusBarColorBuilder: (theme) => theme.primaryColor,
+          statusBarColorBuilder: (theme) => theme!.primaryColor,
         );
 
         await themeManager.selectThemeAtIndex(1);

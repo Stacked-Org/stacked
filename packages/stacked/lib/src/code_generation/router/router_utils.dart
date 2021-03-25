@@ -23,7 +23,7 @@ PageRoute defaultUnknownRoutePage(RouteSettings settings) => MaterialPageRoute(
                   style: TextStyle(fontSize: 16),
                 ),
               ),
-              if (!ModalRoute.of(ctx).isFirst)
+              if (!ModalRoute.of(ctx)!.isFirst)
                 OutlineButton.icon(
                   label: Text('Back'),
                   icon: Icon(Icons.arrow_back),
@@ -69,11 +69,11 @@ PageRoute misTypedArgsRoute<T>(Object args) {
 }
 
 PageRoute<T> buildAdaptivePageRoute<T>({
-  @required WidgetBuilder builder,
-  RouteSettings settings,
+  required WidgetBuilder builder,
+  RouteSettings? settings,
   bool maintainState = true,
   bool fullscreenDialog = false,
-  String cupertinoTitle,
+  String? cupertinoTitle,
 }) {
   assert(builder != null);
   assert(maintainState != null);

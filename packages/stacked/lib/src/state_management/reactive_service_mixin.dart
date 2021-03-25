@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 /// Adds functionality to easily listen to all reactive values in a service
 mixin ReactiveServiceMixin {
-  List<Function> _listeners = List<Function>();
+  List<Function> _listeners = List<Function>.empty(growable: true);
 
   /// List to the values and react when there are any changes
   void listenToReactiveValues(

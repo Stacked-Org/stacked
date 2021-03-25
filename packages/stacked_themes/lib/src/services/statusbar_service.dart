@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 
 /// A service dedicated to changing the color of the status bar
 class StatusBarService {
