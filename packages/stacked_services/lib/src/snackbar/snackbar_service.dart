@@ -165,25 +165,21 @@ class SnackbarService {
           ? Text(
               title,
               style: TextStyle(
-                color: snackbarConfig?.titleColor ??
-                    snackbarConfig?.textColor ??
-                    Colors.white,
+                color: snackbarConfig.titleColor ?? snackbarConfig.textColor,
                 fontWeight: FontWeight.w800,
                 fontSize: 16,
               ),
-              textAlign: snackbarConfig?.titleTextAlign ?? TextAlign.left,
+              textAlign: snackbarConfig.titleTextAlign,
             )
           : null,
       messageText: Text(
         message,
         style: TextStyle(
-          color: snackbarConfig?.messageColor ??
-              snackbarConfig?.textColor ??
-              Colors.white,
+          color: snackbarConfig.messageColor ?? snackbarConfig.textColor,
           fontWeight: FontWeight.w300,
           fontSize: 14,
         ),
-        textAlign: snackbarConfig?.messageTextAlign ?? TextAlign.left,
+        textAlign: snackbarConfig.messageTextAlign,
       ),
       icon: snackbarConfig.icon,
       shouldIconPulse: snackbarConfig.shouldIconPulse,
