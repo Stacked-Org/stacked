@@ -1,3 +1,7 @@
+## 2.0.0-nullsafety.1
+
+- Migrate to null-safety. We will remove null safety when we iron out all the issues
+
 ## 1.9.7
 
 - Adds `resolveUsing` function that can be used for singleton type dependency registrations. 

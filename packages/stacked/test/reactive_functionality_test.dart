@@ -20,7 +20,7 @@ class CounterService with ReactiveServiceMixin {
 }
 
 class ListCounterService with ReactiveServiceMixin {
-  List<int> _counters = List<int>();
+  List<int> _counters = <int>[];
   List get counters => _counters;
   int _counter = 0;
 
@@ -31,7 +31,7 @@ class ListCounterService with ReactiveServiceMixin {
 }
 
 class SetCounterService with ReactiveServiceMixin {
-  List<int> _counters = List<int>();
+  List<int> _counters = <int>[];
   List get counters => _counters;
   int _counter = 0;
 

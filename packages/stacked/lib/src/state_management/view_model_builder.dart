@@ -43,7 +43,7 @@ class ViewModelBuilder<T extends ChangeNotifier?> extends StatefulWidget {
 
   /// Fires when the widget has been removed from the widget tree and allows you to dispose
   /// of any controllers or state values that need disposing
-  final Function onDispose;
+  final Function()? onDispose;
 
   /// Constructs a viewmodel provider that will not rebuild the provided widget when notifyListeners is called.
   ///
@@ -100,7 +100,7 @@ class _ViewModelBuilderState<T extends ChangeNotifier?>
 
   void _createViewModel() {
     // if (widget.viewModelBuilder) {
-      _model = widget.viewModelBuilder();
+    _model = widget.viewModelBuilder();
     // }
 
     if (widget.initialiseSpecialViewModelsOnce &&
@@ -132,7 +132,7 @@ class _ViewModelBuilderState<T extends ChangeNotifier?>
   @override
   void dispose() {
     super.dispose();
-    widget?.onDispose?.call();
+    widget.onDispose?.call();
   }
 
   @override
