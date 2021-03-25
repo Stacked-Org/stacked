@@ -56,10 +56,10 @@ extension ValueProperties on FormViewModel {
 
 extension Methods on FormViewModel {
   Future<void> selectBirthDate(
-      {@required BuildContext context,
-      @required DateTime initialDate,
-      @required DateTime firstDate,
-      @required DateTime lastDate}) async {
+      {required BuildContext context,
+      required DateTime initialDate,
+      required DateTime firstDate,
+      required DateTime lastDate}) async {
     final selectedDate = await showDatePicker(
         context: context,
         initialDate: initialDate,
