@@ -1,3 +1,7 @@
+## 0.8.0-nullsafety.1
+
+- Migrates to null safety
+
 ## 0.7.3
 
 - Removes the warning from the get package
