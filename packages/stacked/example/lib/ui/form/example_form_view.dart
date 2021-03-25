@@ -10,6 +10,10 @@ import 'example_form_viewmodel.dart';
   FormTextField(name: 'email'),
   FormTextField(name: 'password', isPassword: true),
   FormDateField(name: 'birthDate'),
+  FormDropdownField(
+    name: 'orderSize',
+    items: ['Extra Large', 'Large', 'Medium', 'Small', 'Extra Small'],
+  )
 ])
 // #2: with $ExampleFormView
 class ExampleFormView extends StatelessWidget with $ExampleFormView {
@@ -78,6 +82,19 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                   ),
                 ),
                 SizedBox(height: 15),
+                DropdownButton<String>(
+                  value: model.hasOrderSize
+                      ? model.orderSizeValue
+                      : OrderSizeValues.first,
+                  onChanged: (orderSize) {
+                    model.setOrderSize(orderSize!);
+                  },
+                  items: OrderSizeValues.map(
+                    (e) => DropdownMenuItem<String>(
+                      child: Text(e),
+                    ),
+                  ).toList(),
+                )
               ],
             ),
           ),

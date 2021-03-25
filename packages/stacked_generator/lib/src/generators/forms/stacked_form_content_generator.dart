@@ -18,6 +18,7 @@ class StackedFormContentGenerator extends BaseGenerator {
     // and can then be unit tested to avoid simple mistakes. BUT, that's for later.
     _generateImports();
     _generateValueMapKeys(fields);
+    _generateDropdownItemsList(fields.onlyDropdownFieldConfigs);
     _generateFormMixin();
     _generateFormViewModelExtensions(fields);
 
@@ -31,6 +32,19 @@ class StackedFormContentGenerator extends BaseGenerator {
       writeLine(
           "const String ${_getFormKeyName(caseName)} = '${caseName.camelCase}';");
     }
+    newLine();
+  }
+
+  void _generateDropdownItemsList(List<DropdownFieldConfig> fields) {
+    newLine();
+    for (var field in fields) {
+      final caseName = ReCase(field.name);
+      writeLine("const List<String> ${caseName.pascalCase}Values = [");
+      for (final item in field.items) {
+        writeLine("'$item',");
+      }
+    }
+    writeLine('];');
     newLine();
   }
 
@@ -192,11 +206,24 @@ class StackedFormContentGenerator extends BaseGenerator {
       newLine();
     }
 
+    // Generate the drop down selected item setter
+    for (final field in fields.onlyDropdownFieldConfigs) {
+      final caseName = ReCase(field.name);
+      writeLine('''
+          void set${caseName.pascalCase}(String ${caseName.camelCase}) {
+            this.setData(this.formValueMap..addAll({${_getFormKeyName(caseName)}: ${caseName.camelCase}}));
+          }
+    ''');
+      newLine();
+    }
+
     writeLine('}');
   }
 
   String _getFormFieldValueType(FieldConfig field) {
-    return field is TextFieldConfig ? 'String' : 'DateTime';
+    return field is TextFieldConfig || field is DropdownFieldConfig
+        ? 'String'
+        : 'DateTime';
   }
 
   String _getControllerName(FieldConfig field) => '${field.name}Controller';
