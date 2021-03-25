@@ -11,6 +11,7 @@ import 'package:stacked/stacked.dart';
 
 const String EmailValueKey = 'email';
 const String PasswordValueKey = 'password';
+const String BirthDateValueKey = 'birthDate';
 
 mixin $ExampleFormView on StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -27,10 +28,11 @@ mixin $ExampleFormView on StatelessWidget {
 
   /// Updates the formData on the FormViewModel
   void _updateFormData(FormViewModel model) => model.setData(
-        {
-          EmailValueKey: emailController.text,
-          PasswordValueKey: passwordController.text,
-        },
+        model.formValueMap
+          ..addAll({
+            EmailValueKey: emailController.text,
+            PasswordValueKey: passwordController.text,
+          }),
       );
 
   /// Calls dispose on all the generated controllers and focus nodes
@@ -45,4 +47,27 @@ mixin $ExampleFormView on StatelessWidget {
 extension ValueProperties on FormViewModel {
   String get emailValue => this.formValueMap[EmailValueKey];
   String get passwordValue => this.formValueMap[PasswordValueKey];
+  DateTime get birthDateValue => this.formValueMap[BirthDateValueKey];
+
+  bool get hasEmail => this.formValueMap.containsKey(EmailValueKey);
+  bool get hasPassword => this.formValueMap.containsKey(PasswordValueKey);
+  bool get hasBirthDate => this.formValueMap.containsKey(BirthDateValueKey);
+}
+
+extension Methods on FormViewModel {
+  Future<void> selectBirthDate(
+      {@required BuildContext context,
+      @required DateTime initialDate,
+      @required DateTime firstDate,
+      @required DateTime lastDate}) async {
+    final selectedDate = await showDatePicker(
+        context: context,
+        initialDate: initialDate,
+        firstDate: firstDate,
+        lastDate: lastDate);
+    if (selectedDate != null) {
+      this.setData(
+          this.formValueMap..addAll({BirthDateValueKey: selectedDate}));
+    }
+  }
 }
