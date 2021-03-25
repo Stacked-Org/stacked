@@ -4,7 +4,7 @@ version: 0.2.4
 homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_themes
 
 environment:
-  sdk: '>=2.12.0-0 <3.0.0'
+  sdk: ">=2.12.0-0 <3.0.0"
 
 dependencies:
   flutter:
@@ -14,8 +14,7 @@ dependencies:
   rxdart: ^0.26.0
   shared_preferences: ^2.0.4
   get_it: ^6.0.0
-  flutter_statusbarcolor: ^0.2.3
-
+  flutter_statusbarcolor_ns: ^0.3.0-nullsafety
 dev_dependencies:
   flutter_test:
     sdk: flutter
