@@ -1,0 +1,24 @@
+builders:
+  # Generate the router file and routes
+  stackedRouterGenerator:
+    import: "package:stacked_generator/builder.dart"
+    builder_factories: ["stackedRouterGenerator"]
+    build_extensions: { ".dart": [".router.dart"] }
+    auto_apply: dependents
+    build_to: source
+
+  # Generator the stacked locator service registrations
+  stackedLocatorGenerator:
+    import: "package:stacked_generator/builder.dart"
+    builder_factories: ["stackedLocatorGenerator"]
+    build_extensions: { ".dart": [".locator.dart"] }
+    auto_apply: dependents
+    build_to: source
+
+  # Generator the form view
+  stackedFormGenerator:
+    import: "package:stacked_generator/builder.dart"
+    builder_factories: ["stackedFormGenerator"]
+    build_extensions: { ".dart": [".form.dart"] }
+    auto_apply: dependents
+    build_to: source

@@ -48,7 +48,7 @@ class SnackbarView extends StatelessWidget {
           OutlineButton(
             onPressed: () async {
               _snackbarService.showCustomSnackBar(
-                customData: SnackbarType.blueAndYellow,
+                variant: SnackbarType.blueAndYellow,
                 message: 'Blue and yellow',
                 title: 'The message is the message',
                 duration: Duration(seconds: 2),
@@ -73,8 +73,7 @@ class SnackbarView extends StatelessWidget {
           OutlineButton(
             onPressed: () async {
               _snackbarService.showCustomSnackBar(
-                customData: SnackbarType.greenAndRed,
-                title: 'Green and Red',
+                variant: SnackbarType.greenAndRed,
                 message:
                     'The text is green and red and the background is white',
                 duration: Duration(seconds: 2),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class NavigationTransition {
   static const String Fade = 'fade';
@@ -29,7 +30,7 @@ class NavigationService {
 
   @Deprecated(
       'Prefer to use the StackedServices.navigatorKey instead of using this key. This will be removed in the next major version update for stacked.')
-  GlobalKey<NavigatorState> get navigatorKey => Get.key;
+  GlobalKey<NavigatorState>? get navigatorKey => Get.key;
 
   /// Returns the previous route
   String get previousRoute => Get.previousRoute;
@@ -40,7 +41,7 @@ class NavigationService {
   /// Creates and/or returns a new navigator key based on the index passed in
   @Deprecated(
       'Prefer to use the StackedServices.nestedNavigationKey instead of using this property. This will be removed in the next major version update for stacked.')
-  GlobalKey<NavigatorState> nestedNavigationKey(int index) =>
+  GlobalKey<NavigatorState>? nestedNavigationKey(int index) =>
       Get.nestedKey(index);
 
   /// Allows you to configure the default behaviour for navigation.
@@ -60,19 +61,19 @@ class NavigationService {
   /// - leftToRightWithFade
   /// - cupertino
   void config(
-      {bool enableLog,
-      bool defaultPopGesture,
-      bool defaultOpaqueRoute,
-      Duration defaultDurationTransition,
-      bool defaultGlobalState,
-      String defaultTransition}) {
+      {bool? enableLog,
+      bool? defaultPopGesture,
+      bool? defaultOpaqueRoute,
+      Duration? defaultDurationTransition,
+      bool? defaultGlobalState,
+      String? defaultTransition}) {
     Get.config(
         enableLog: enableLog,
         defaultPopGesture: defaultPopGesture,
         defaultOpaqueRoute: defaultOpaqueRoute,
         defaultDurationTransition: defaultDurationTransition,
         defaultGlobalState: defaultGlobalState,
-        defaultTransition: _getTransitionOrDefault(defaultTransition));
+        defaultTransition: _getTransitionOrDefault(defaultTransition!));
   }
 
   /// Pushes [page] onto the navigation stack. This uses the [page] itself (Widget) instead
@@ -92,30 +93,32 @@ class NavigationService {
   /// - rightToLeftWithFade
   /// - leftToRightWithFade
   /// - cupertino
-  Future<dynamic> navigateWithTransition(Widget page,
-      {bool opaque,
-      String transition,
-      Duration duration,
-      bool popGesture,
-      int id}) {
-    return Get.to(page,
-        transition: _getTransitionOrDefault(transition),
-        duration: duration ?? Get.defaultTransitionDuration,
-        popGesture: popGesture ?? Get.isPopGestureEnable,
-        opaque: opaque ?? Get.isOpaqueRouteDefault,
-        id: id);
+  Future<dynamic>? navigateWithTransition(Widget page,
+      {bool? opaque,
+      String transition = '',
+      Duration? duration,
+      bool? popGesture,
+      int? id}) {
+    return Get.to(
+      () => page,
+      transition: _getTransitionOrDefault(transition),
+      duration: duration ?? Get.defaultTransitionDuration,
+      popGesture: popGesture ?? Get.isPopGestureEnable,
+      opaque: opaque ?? Get.isOpaqueRouteDefault,
+      id: id,
+    );
   }
 
   /// Replaces current view in the navigation stack. This uses the [page] itself (Widget) instead
   /// of routeName (String).
   ///
   /// Defined [transition] values can be accessed as static memebers of [NavigationTransition]
-  Future<dynamic> replaceWithTransition(Widget page,
-      {bool opaque,
-      String transition,
-      Duration duration,
-      bool popGesture,
-      int id}) {
+  Future<dynamic>? replaceWithTransition(Widget page,
+      {bool? opaque,
+      String transition = '',
+      Duration? duration,
+      bool? popGesture,
+      int? id}) {
     return Get.off(
       page,
       transition: _getTransitionOrDefault(transition),
@@ -127,14 +130,14 @@ class NavigationService {
   }
 
   /// Pops the current scope and indicates if you can pop again
-  bool back({dynamic result, int id}) {
+  bool back({dynamic result, int? id}) {
     Get.back(result: result, id: id);
-    return Get.key.currentState.canPop();
+    return Get.key?.currentState?.canPop() ?? false;
   }
 
   /// Pops the back stack until the predicate is satisfied
   void popUntil(RoutePredicate predicate) {
-    Get.key.currentState.popUntil(predicate);
+    Get.key?.currentState?.popUntil(predicate);
   }
 
   /// Pops the back stack the number of times you indicate with [popTimes]
@@ -143,45 +146,45 @@ class NavigationService {
   }
 
   /// Pushes [routeName] onto the navigation stack
-  Future<dynamic> navigateTo(String routeName, {dynamic arguments, int id}) {
+  Future<dynamic>? navigateTo(String routeName, {dynamic arguments, int? id}) {
     return Get.toNamed(routeName, arguments: arguments, id: id);
   }
 
   /// Pushes [view] onto the navigation stack
-  Future<dynamic> navigateToView(Widget view, {dynamic arguments, int id}) {
-    return Get.to(view, arguments: arguments, id: id);
+  Future<dynamic>? navigateToView(Widget view, {dynamic arguments, int? id}) {
+    return Get.to(() => view, arguments: arguments, id: id);
   }
 
   /// Replaces the current route with the [routeName]
-  Future<dynamic> replaceWith(String routeName, {dynamic arguments, int id}) {
+  Future<dynamic>? replaceWith(String routeName, {dynamic arguments, int? id}) {
     return Get.offNamed(routeName, arguments: arguments, id: id);
   }
 
   /// Clears the entire back stack and shows [routeName]
-  Future<dynamic> clearStackAndShow(String routeName,
-      {dynamic arguments, int id}) {
+  Future<dynamic>? clearStackAndShow(String routeName,
+      {dynamic arguments, int? id}) {
     return Get.offAllNamed(routeName, arguments: arguments, id: id);
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [routeName] onto the stack
-  Future<dynamic> clearTillFirstAndShow(String routeName,
-      {dynamic arguments, int id}) {
+  Future<dynamic>? clearTillFirstAndShow(String routeName,
+      {dynamic arguments, int? id}) {
     _clearBackstackTillFirst();
 
     return navigateTo(routeName, arguments: arguments, id: id);
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [view] onto the stack
-  Future<dynamic> clearTillFirstAndShowView(Widget view,
-      {dynamic arguments, int id}) {
+  Future<dynamic>? clearTillFirstAndShowView(Widget view,
+      {dynamic arguments, int? id}) {
     _clearBackstackTillFirst();
 
     return navigateToView(view, arguments: arguments, id: id);
   }
 
   /// Push route and clear stack until predicate is satisfied
-  Future<dynamic> pushNamedAndRemoveUntil(String routeName,
-      {RoutePredicate predicate, arguments, int id}) {
+  Future<dynamic>? pushNamedAndRemoveUntil(String routeName,
+      {RoutePredicate? predicate, dynamic arguments, int? id}) {
     return Get.offAllNamed(
       routeName,
       predicate: predicate,
@@ -191,10 +194,11 @@ class NavigationService {
   }
 
   void _clearBackstackTillFirst() {
-    navigatorKey.currentState.popUntil((Route route) => route.isFirst);
+    StackedService.navigatorKey?.currentState
+        ?.popUntil((Route route) => route.isFirst);
   }
 
-  Transition _getTransitionOrDefault(String transition) {
+  Transition? _getTransitionOrDefault(String transition) {
     String _transition = transition.toLowerCase();
     return _transitions[_transition] ?? Get.defaultTransition;
   }

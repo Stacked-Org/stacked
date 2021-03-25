@@ -2,3 +2,6 @@
 org.eclipse.buildship.core.prefs
 .classpath
 launch.json
+
+**/*.lock
+*.lock

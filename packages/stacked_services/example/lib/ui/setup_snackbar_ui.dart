@@ -14,8 +14,8 @@ void setupSnackbarUi() {
     mainButtonTextColor: Colors.black,
   ));
 
-  service.registerCustomSnackbarconfig(
-    customData: SnackbarType.blueAndYellow,
+  service.registerCustomSnackbarConfig(
+    variant: SnackbarType.blueAndYellow,
     config: SnackbarConfig(
       backgroundColor: Colors.blueAccent,
       textColor: Colors.yellow,
@@ -24,8 +24,8 @@ void setupSnackbarUi() {
     ),
   );
 
-  service.registerCustomSnackbarconfig(
-    customData: SnackbarType.greenAndRed,
+  service.registerCustomSnackbarConfig(
+    variant: SnackbarType.greenAndRed,
     config: SnackbarConfig(
       backgroundColor: Colors.white,
       titleColor: Colors.green,

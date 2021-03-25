@@ -1,4 +1,4 @@
-import 'package:new_architecture/app/locator.dart';
+import 'package:new_architecture/app/app.locator.dart';
 import 'package:new_architecture/services/information_service.dart';
 import 'package:stacked/stacked.dart';
 

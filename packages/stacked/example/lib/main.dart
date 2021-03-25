@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:new_architecture/app/locator.dart';
-import 'package:new_architecture/ui/bottom_nav/bottom_nav_example.dart';
-import 'package:new_architecture/ui/multiple_streams_example/multiple_streams_example_view.dart';
+import 'package:new_architecture/app/app.locator.dart';
+import 'package:stacked_services/stacked_services.dart';
+
+import 'app/app.router.dart';
 
 void main() {
-  configure();
+  setupLocator();
   runApp(MyApp());
 }
 
@@ -14,11 +14,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      navigatorKey: Get.key,
+      navigatorKey: StackedService.navigatorKey,
+      onGenerateRoute: StackedRouter().onGenerateRoute,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: BottomNavExample(),
     );
   }
 }

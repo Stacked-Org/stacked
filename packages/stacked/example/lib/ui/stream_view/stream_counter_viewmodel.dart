@@ -1,11 +1,11 @@
-import 'package:new_architecture/app/locator.dart';
+import 'package:new_architecture/app/app.locator.dart';
 import 'package:new_architecture/services/epoch_service.dart';
 import 'package:stacked/stacked.dart';
 
 class StreamCounterViewModel extends StreamViewModel<int> {
   String get title => 'This is the time since epoch in seconds \n $data';
 
-  Stream _currentSource;
+  late Stream<int> _currentSource;
   bool isSlowEpochNumbers = true;
 
   StreamCounterViewModel() {
@@ -22,7 +22,7 @@ class StreamCounterViewModel extends StreamViewModel<int> {
   Stream<int> get stream => _currentSource;
 
   @override
-  void onData(int data) {}
+  void onData(int? data) {}
 
   @override
   void onCancel() {}

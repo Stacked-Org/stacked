@@ -1,58 +1,43 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:observable_ish/observable_ish.dart';
-import 'package:stacked/src/reactive_service_mixin.dart';
+import 'package:stacked/src/state_management/reactive_service_mixin.dart';
 
 class CounterService with ReactiveServiceMixin {
-  RxValue<int> _counter = RxValue<int>(initial: 0);
-  int get counter => _counter.value;
+  int _counter = 0;
+  int get counter => _counter;
 
-  RxList<int> _counters = RxList<int>();
-  RxList get counters => _counters;
-
-  CounterService() {
-    listenToReactiveValues([
-      _counter,
-    ]);
-  }
+  List<int> _counters = <int>[];
+  List<int> get counters => _counters;
 
   void updateCounter() {
-    _counter.value++;
+    _counter++;
+    notifyListeners();
   }
 
   void addCounterToList() {
-    _counters.add(_counter.value);
+    _counters.add(_counter);
+    notifyListeners();
   }
 }
 
 class ListCounterService with ReactiveServiceMixin {
-  RxList<int> _counters = RxList<int>();
-  RxList get counters => _counters;
+  List<int> _counters = <int>[];
+  List get counters => _counters;
   int _counter = 0;
-
-  ListCounterService() {
-    listenToReactiveValues([
-      _counters,
-    ]);
-  }
 
   void addCounterToList() {
     _counters.add(_counter++);
+    notifyListeners();
   }
 }
 
 class SetCounterService with ReactiveServiceMixin {
-  RxSet<int> _counters = RxSet<int>();
-  RxSet get counters => _counters;
+  List<int> _counters = <int>[];
+  List get counters => _counters;
   int _counter = 0;
-
-  SetCounterService() {
-    listenToReactiveValues([
-      _counters,
-    ]);
-  }
 
   void addCounterToSet() {
     _counters.add(_counter++);
+    notifyListeners();
   }
 }
 

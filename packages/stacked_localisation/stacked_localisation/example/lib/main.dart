@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:stacked_localisation/stacked_localisation.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(),
       initialRoute: Routes.homeView,
       navigatorKey: locator<NavigationService>().navigatorKey,
-      onGenerateRoute: Router().onGenerateRoute,
+      // onGenerateRoute: Router().onGenerateRoute,
     );
   }
 }

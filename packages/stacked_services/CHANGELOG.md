@@ -1,3 +1,65 @@
+## 0.8.0-nullsafety.1
+
+- Migrates to null safety
+
+## 0.7.3
+
+- Removes the warning from the get package
+- Complies with "Replaced reference to obsolete FlatButton button class in SnackBar"
+- Support `ChangeNotifier` in `ReactiveServiceMixin`
+
+## 0.7.2
+
+- Fixes a regression bug for allowing null title and content for a dialog
+
+## 0.7.1+3
+
+- Fixes onTap signature
+
+## 0.7.1+2
+
+- Fixes snackBar config null exception when using builder
+
+## 0.7.1+1
+
+- Removes requirement for config
+
+## 0.7.1
+
+- Adds `snackbarConfigBuilder` to allow for building the config at runtime instead of before `runApp` is called
+
+## 0.7.0
+
+- Adds custom mainButtonBuilder to allow you to build a main button UI from the variant passed in
+
+## 0.6.8
+
+- Adds isOpen functionality
+
+## 0.6.7
+
+- Made dialog title or content optional
+
+## 0.6.6
+
+- Adds title and message textAlign to the config
+
+## 0.6.5
+
+- Allows for null title and message for custom snackbar
+
+## 0.6.4
+
+- Adds `isScrollControlled` to the bottom sheet function
+
+## 0.6.3
+
+- Adds `Color` to dialog service to set the color of the basic dialogs
+
+## 0.6.2
+
+- Adds functionality to allow to set isDismissible on the `BottomSheetService`
+
 ## 0.6.1
 
 - Introduces the new `StackedService` class with the navigation properties on it. This is introduced to remove the confusion around every service having a key to set. So going forward if you want to use any of the services you just set the navigatorKey on the `StackedService`.
