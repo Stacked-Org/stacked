@@ -79,7 +79,7 @@ class RouteConfigResolver {
     stackedRoute
         .peek('guards')
         ?.listValue
-        ?.map((g) => g.toTypeValue())
+        .map((g) => g.toTypeValue())
         .forEach((guard) {
       if (guard != null && guard.element != null) {
         routeConfig.guards.add(RouteGuardConfig(
@@ -116,7 +116,7 @@ class RouteConfigResolver {
       final function = stackedRoute
           .peek('transitionsBuilder')
           ?.objectValue
-          ?.toFunctionValue();
+          .toFunctionValue();
       if (function != null) {
         final displayName = function.displayName.replaceFirst(RegExp('^_'), '');
         final functionName = function.isStatic

@@ -9,6 +9,7 @@ import 'example_form_viewmodel.dart';
 @FormView(fields: [
   FormTextField(name: 'email'),
   FormTextField(name: 'password', isPassword: true),
+  FormDateField(name: 'birthDate'),
 ])
 // #2: with $ExampleFormView
 class ExampleFormView extends StatelessWidget with $ExampleFormView {
@@ -27,29 +28,58 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
             model.navigateSomewhere();
           },
         ),
-        body: Form(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              TextFormField(
-                //#4: Set email emailController and focus node
-                controller: emailController,
-                focusNode: emailFocusNode,
-              ),
-              SizedBox(height: 15),
-              TextFormField(
-                //#4: Set email emailController and focus node
-                controller: passwordController,
-                focusNode: passwordFocusNode,
-                onFieldSubmitted: (_) => model.saveData(),
-              ),
-              SizedBox(height: 15),
-              if (model.showValidation)
-                Text(
-                  model.validationMessage!,
-                  style: TextStyle(color: Colors.red),
-                )
-            ],
+        body: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Form(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: 300,
+                  ),
+                  child: TextFormField(
+                    //#4: Set email emailController and focus node
+                    controller: emailController,
+                    decoration: InputDecoration(hintText: 'email'),
+                    keyboardType: TextInputType.emailAddress,
+                    focusNode: emailFocusNode,
+                  ),
+                ),
+                SizedBox(height: 15),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: 300,
+                  ),
+                  child: TextFormField(
+                    //#5: Set password passwordController and focus node
+                    controller: passwordController,
+                    decoration: InputDecoration(hintText: 'password'),
+                    focusNode: passwordFocusNode,
+                    onFieldSubmitted: (_) => model.saveData(),
+                  ),
+                ),
+                if (model.showValidation)
+                  Text(
+                    model.validationMessage,
+                    style: TextStyle(color: Colors.red),
+                  ),
+                SizedBox(height: 15),
+                ElevatedButton(
+                  onPressed: () => model.selectBirthDate(
+                      context: context,
+                      firstDate: DateTime(1950),
+                      initialDate: DateTime.now(),
+                      lastDate: DateTime(2023)),
+                  child: Text(
+                    model.hasBirthDate
+                        ? model.birthDateValue.toString()
+                        : 'Select your Date of birth',
+                  ),
+                ),
+                SizedBox(height: 15),
+              ],
+            ),
           ),
         ),
       ),

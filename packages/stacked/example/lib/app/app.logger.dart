@@ -42,7 +42,7 @@ class SimpleLogPrinter extends LogPrinter {
         if (kReleaseMode) {
           return match.group(0)!;
         } else {
-          return color!(match.group(0));
+          return color!(match.group(0)!);
         }
       }));
     }

@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.3.1-nullsafety.1
+
+- Adds DatePicker form field option to the Form Generation functionality
+
 ## 0.3.0-nullsafety.1
 
 - Migrates to null safety

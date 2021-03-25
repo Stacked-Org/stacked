@@ -48,8 +48,38 @@ FieldConfig _readFieldConfig({
 }) {
   var fieldReader = ConstantReader(fieldConfig);
 
+  bool isTextField =
+      fieldReader.instanceOf(TypeChecker.fromRuntime(FormTextField));
+  bool isDateField =
+      fieldReader.instanceOf(TypeChecker.fromRuntime(FormDateField));
+
+  if (isTextField) {
+    return _readTextFieldConfig(
+        fieldReader: fieldReader, importResolver: importResolver);
+  } else if (isDateField) {
+    return _readDateFieldConfig(
+        fieldReader: fieldReader, importResolver: importResolver);
+  } else {
+    throw ArgumentError('Unknown form field $fieldConfig');
+  }
+}
+
+FieldConfig _readTextFieldConfig({
+  ConstantReader fieldReader,
+  ImportResolver importResolver,
+}) {
   final String name = (fieldReader.peek('name')?.stringValue) ?? '';
-  return FieldConfig(
+  return TextFieldConfig(
+    name: name,
+  );
+}
+
+FieldConfig _readDateFieldConfig({
+  ConstantReader fieldReader,
+  ImportResolver importResolver,
+}) {
+  final String name = (fieldReader.peek('name')?.stringValue) ?? '';
+  return DateFieldConfig(
     name: name,
   );
 }

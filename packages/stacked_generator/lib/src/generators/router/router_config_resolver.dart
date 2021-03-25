@@ -81,7 +81,7 @@ class RouterConfigResolver {
       globalRouteConfig.customRouteBarrierDismissible =
           stackedApp.peek('barrierDismissible')?.boolValue;
       final function =
-          stackedApp.peek('transitionsBuilder')?.objectValue?.toFunctionValue();
+          stackedApp.peek('transitionsBuilder')?.objectValue.toFunctionValue();
       if (function != null) {
         final displayName = function.displayName.replaceFirst(RegExp('^_'), '');
         final functionName = function.isStatic

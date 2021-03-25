@@ -21,3 +21,8 @@ class FormTextField extends FormField {
 
   const FormTextField({String? name, this.isPassword}) : super(name: name);
 }
+
+/// Describes a date form field.
+class FormDateField extends FormField {
+  const FormDateField({String? name}) : super(name: name);
+}

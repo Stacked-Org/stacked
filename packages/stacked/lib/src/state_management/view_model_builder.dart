@@ -14,7 +14,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   final Function(T)? onModelReady;
 
   /// Builder function with access to the model to build UI form
-  final Widget Function(BuildContext, T, Widget) builder;
+  final Widget Function(BuildContext, T, Widget?) builder;
 
   /// A builder function that returns the viewmodel for this widget
   final T Function() viewModelBuilder;
@@ -81,9 +81,9 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   _ViewModelBuilderState<T> createState() => _ViewModelBuilderState<T>();
 }
 
-class _ViewModelBuilderState<T extends ChangeNotifier?>
+class _ViewModelBuilderState<T extends ChangeNotifier>
     extends State<ViewModelBuilder> {
-  late T _model;
+  T? _model;
 
   @override
   void initState() {
@@ -137,31 +137,31 @@ class _ViewModelBuilderState<T extends ChangeNotifier?>
   Widget build(BuildContext context) {
     if (widget.providerType == _ViewModelBuilderType.NonReactive) {
       if (!widget.disposeViewModel) {
-        return ChangeNotifierProvider.value(
-          value: _model,
+        return ChangeNotifierProvider<T>.value(
+          value: _model!,
           child: widget.builder(context, _model!, widget.staticChild!),
         );
       }
 
-      return ChangeNotifierProvider(
-        create: (context) => _model,
+      return ChangeNotifierProvider<T>(
+        create: (context) => _model!,
         child: widget.builder(context, _model!, widget.staticChild!),
       );
     }
 
     if (!widget.disposeViewModel) {
-      return ChangeNotifierProvider.value(
-        value: _model,
-        child: Consumer(
+      return ChangeNotifierProvider<T>.value(
+        value: _model!,
+        child: Consumer<T>(
           builder: builderWithDynamicSourceInitialise,
           child: widget.staticChild,
         ),
       );
     }
 
-    return ChangeNotifierProvider(
-      create: (context) => _model,
-      child: Consumer(
+    return ChangeNotifierProvider<T>(
+      create: (context) => _model!,
+      child: Consumer<T>(
         builder: builderWithDynamicSourceInitialise,
         child: widget.staticChild,
       ),
@@ -169,13 +169,14 @@ class _ViewModelBuilderState<T extends ChangeNotifier?>
   }
 
   Widget builderWithDynamicSourceInitialise(
-      BuildContext context, T model, Widget? child) {
+      BuildContext context, T? model, Widget? child) {
     if (model is DynamicSourceViewModel) {
       if (model.changeSource) {
         _initialiseSpecialViewModels();
       }
     }
-    return widget.builder(context, model!, child!);
+
+    return widget.builder(context, model as BaseViewModel, child);
   }
 }
 

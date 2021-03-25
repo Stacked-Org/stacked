@@ -66,14 +66,14 @@ class RouteParameterResolver {
     if (pathParam) {
       paramAlias = pathParamChecker
           .firstAnnotationOf(parameterElement)
-          .getField('name')
+          ?.getField('name')
           ?.toStringValue();
     }
     var isQuery = queryParamChecker.hasAnnotationOfExact(parameterElement);
     if (isQuery) {
       paramAlias = queryParamChecker
           .firstAnnotationOf(parameterElement)
-          .getField('name')
+          ?.getField('name')
           ?.toStringValue();
     }
 
