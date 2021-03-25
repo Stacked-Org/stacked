@@ -10,12 +10,12 @@ import '../../../utils.dart';
 /// to be used in [RouterClassGenerator]
 
 class RouterConfig {
-  final bool generateNavigationHelper;
-  final List<RouteConfig> routes;
-  final RouteConfig globalRouteConfig;
-  final String routesClassName;
-  final String routeNamePrefix;
-  final String routerClassName;
+  final bool? generateNavigationHelper;
+  final List<RouteConfig>? routes;
+  final RouteConfig? globalRouteConfig;
+  final String? routesClassName;
+  final String? routeNamePrefix;
+  final String? routerClassName;
 
   RouterConfig({
     this.generateNavigationHelper,
@@ -27,12 +27,12 @@ class RouterConfig {
   });
 
   RouterConfig copyWith({
-    bool generateNavigationHelper,
-    List<RouteConfig> routes,
-    RouteConfig globalRouteConfig,
-    String routesClassName,
-    String routeNamePrefix,
-    String routerClassName,
+    bool? generateNavigationHelper,
+    List<RouteConfig>? routes,
+    RouteConfig? globalRouteConfig,
+    String? routesClassName,
+    String? routeNamePrefix,
+    String? routerClassName,
   }) {
     return RouterConfig(
       generateNavigationHelper:
@@ -45,13 +45,15 @@ class RouterConfig {
     );
   }
 
-  List<RouterConfig> get subRouters => routes
-      .where((e) => e.routerConfig != null)
-      .map((e) => e.routerConfig)
-      .toList();
+  List<RouterConfig?> get subRouters =>
+      routes
+          ?.where((e) => e.routerConfig != null)
+          .map((e) => e.routerConfig)
+          .toList() ??
+      [];
 
   List<RouterConfig> get collectAllRoutersIncludingParent => subRouters.fold(
-      [this], (all, e) => all..addAll(e.collectAllRoutersIncludingParent));
+      [this], (all, e) => all..addAll(e!.collectAllRoutersIncludingParent));
 
   @override
   String toString() {
@@ -117,7 +119,9 @@ class RouterConfigResolver {
   }
 
   Future<List<RouteConfig>> _resolveRoutes(
-      RouterConfig routerConfig, List<DartObject> routesList) async {
+    RouterConfig routerConfig,
+    List<DartObject> routesList,
+  ) async {
     var routeResolver = RouteConfigResolver(routerConfig, _importResolver);
     final routes = <RouteConfig>[];
     for (var entry in routesList) {
@@ -133,7 +137,7 @@ class RouterConfigResolver {
           routerClassName: '${name}Router',
           routesClassName: '${name}Routes',
         );
-        var routes = await _resolveRoutes(subRouterConfig, children);
+        var routes = await _resolveRoutes(subRouterConfig, children!);
         route.routerConfig = subRouterConfig.copyWith(routes: routes);
       }
     }

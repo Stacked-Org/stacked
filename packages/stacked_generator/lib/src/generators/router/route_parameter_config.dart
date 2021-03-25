@@ -10,22 +10,22 @@ final queryParamChecker = TypeChecker.fromRuntime(QueryParam);
 /// holds constructor parameter info to be used
 /// in generating route parameters.
 class RouteParamConfig {
-  final String type;
-  final String name;
-  final String alias;
+  final String? type;
+  final String? name;
+  final String? alias;
   final bool isPositional;
   final bool isRequired;
-  final bool isPathParam;
-  final bool isQueryParam;
-  final String defaultValueCode;
-  final Set<String> imports;
+  final bool? isPathParam;
+  final bool? isQueryParam;
+  final String? defaultValueCode;
+  final Set<String>? imports;
 
   RouteParamConfig({
     this.type,
     this.name,
     this.alias,
-    this.isPositional,
-    this.isRequired,
+    this.isPositional = false,
+    this.isRequired = false,
     this.isPathParam,
     this.isQueryParam,
     this.defaultValueCode,
@@ -49,7 +49,7 @@ class RouteParamConfig {
     }
   }
 
-  String get paramName => alias ?? name;
+  String? get paramName => alias ?? name;
 }
 
 class RouteParameterResolver {

@@ -102,7 +102,7 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
     return DependencyConfig(
       className: className,
       abstractedTypeClassName: abstractedTypeClassName,
-      import: import,
+      import: import!,
       abstractedImport: abstractedImport,
       type: serviceType,
       presolveFunction: presolveFunction,

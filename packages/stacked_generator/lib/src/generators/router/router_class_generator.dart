@@ -11,14 +11,14 @@ class RouterClassGenerator extends BaseGenerator {
     writeLine("// ignore_for_file: public_member_api_docs");
     var allRouters = _rootRouterConfig.collectAllRoutersIncludingParent;
     var allRoutes = allRouters.fold<List<RouteConfig>>(
-        [], (all, e) => all..addAll(e.routes)).toList();
+        [], (all, e) => all..addAll(e.routes ?? [])).toList();
     _generateImports(allRoutes);
 
     allRouters.forEach((routerConfig) {
       _generateRoutesClass(routerConfig);
       _generateRouterClass(routerConfig);
 
-      if (_rootRouterConfig.generateNavigationHelper) {
+      if (_rootRouterConfig.generateNavigationHelper ?? false) {
         _generateNavigationHelpers(routerConfig);
       }
     });
@@ -38,18 +38,18 @@ class RouterClassGenerator extends BaseGenerator {
       if (routes.any((e) => e.routeType == RouteType.cupertino))
         "package:flutter/cupertino.dart",
     };
-    routes.forEach((r) {
-      imports.addAll(r.imports);
-      if (r.transitionBuilder != null) {
-        imports.add(r.transitionBuilder.import);
+    routes.forEach((route) {
+      imports.addAll(route.imports);
+      if (route.transitionBuilder != null) {
+        imports.add(route.transitionBuilder!.import);
       }
-      if (r.parameters != null) {
-        r.parameters.where((p) => p.imports != null).forEach((param) {
-          imports.addAll(param.imports);
+      if (route.parameters != null) {
+        route.parameters!.where((p) => p.imports != null).forEach((param) {
+          imports.addAll(param.imports!);
         });
       }
-      if (r.guards != null) {
-        r.guards.forEach((g) => imports.add(g.import));
+      if (route.guards != null) {
+        route.guards.forEach((g) => imports.add(g.import!));
       }
     });
 
@@ -71,17 +71,17 @@ class RouterClassGenerator extends BaseGenerator {
   void _generateRoutesClass(RouterConfig routerConfig) {
     writeLine('class ${routerConfig.routesClassName} {');
     var allNames = <String>{};
-    routerConfig.routes.forEach((r) {
+    routerConfig.routes?.forEach((r) {
       final routeName = r.name;
       final path = r.pathName;
 
-      if (path.contains(':')) {
+      if (path!.contains(':')) {
         // handle template paths
         writeLine("static const String _$routeName = '$path';");
         allNames.add('_$routeName');
         var params = RegExp(r':([^/]+)').allMatches(path).map((m) {
           var match = m.group(1);
-          if (match.endsWith('?')) {
+          if (match!.endsWith('?')) {
             return "dynamic  ${match.substring(0, match.length - 1)} = ''";
           } else {
             return "@required  dynamic $match";
@@ -97,7 +97,7 @@ class RouterClassGenerator extends BaseGenerator {
           })}';",
         );
       } else {
-        allNames.add(routeName);
+        allNames.add(routeName!);
         writeLine("static const String $routeName = '$path';");
       }
     });
@@ -109,14 +109,14 @@ class RouterClassGenerator extends BaseGenerator {
 
   void _generateRouteTemplates(RouterConfig routerConfig) {
     newLine();
-    routerConfig.routes.forEach((r) {
+    routerConfig.routes?.forEach((r) {
       writeLine("RouteDef(${routerConfig.routesClassName}.${r.templateName}");
       writeLine(",page: ${r.className}");
       if (r.guards?.isNotEmpty == true) {
         writeLine(",guards:${r.guards.map((e) => e.type).toList().toString()}");
       }
       if (r.routerConfig != null) {
-        writeLine(",generator: ${r.routerConfig.routerClassName}(),");
+        writeLine(",generator: ${r.routerConfig!.routerClassName}(),");
       }
       writeLine('),');
     });
@@ -126,8 +126,8 @@ class RouterClassGenerator extends BaseGenerator {
     newLine();
 
     var routesMap = <String, RouteConfig>{};
-    routerConfig.routes.forEach((route) {
-      routesMap[route.className] = route;
+    routerConfig.routes?.forEach((route) {
+      routesMap[route.className!] = route;
     });
 
     routesMap.forEach((name, route) {
@@ -139,11 +139,11 @@ class RouterClassGenerator extends BaseGenerator {
   }
 
   void _generateRoute(RouteConfig r) {
-    List constructorParams = [];
+    List<String>? constructorParams = [];
 
     if (r.parameters?.isNotEmpty == true) {
       // if router has any required or positional params the argument class holder becomes required.
-      final nullOk = !r.argParams.any((p) => p.isRequired || p.isPositional);
+      final nullOk = !r.argParams.any((p) => p.isRequired! || p.isPositional!);
       // show an error page  if passed args are not the same as declared args
 
       if (r.argParams.isNotEmpty) {
@@ -156,18 +156,18 @@ class RouterClassGenerator extends BaseGenerator {
         }
         write(");");
       }
-      constructorParams = r.parameters.map<String>((param) {
+      constructorParams = r.parameters?.map<String>((param) {
         String getterName;
-        if (param.isPathParam) {
+        if (param.isPathParam ?? false) {
           getterName =
               "data.pathParams['${param.paramName}'].${param.getterName}${param.defaultValueCode != null ? '?? ${param.defaultValueCode}' : ''}";
-        } else if (param.isQueryParam) {
+        } else if (param.isQueryParam ?? false) {
           getterName =
               "data.queryParams['${param.paramName}'].${param.getterName}${param.defaultValueCode != null ? '?? ${param.defaultValueCode}' : ''}";
         } else {
           getterName = "args.${param.name}";
         }
-        if (param.isPositional) {
+        if (param.isPositional ?? false) {
           return getterName;
         } else {
           return '${param.name}:$getterName';
@@ -177,11 +177,11 @@ class RouterClassGenerator extends BaseGenerator {
 
     // add any empty item to add a comma at end
     // when join(',') is called
-    if (constructorParams.length > 1) {
+    if (constructorParams!.length > 1) {
       constructorParams.add('');
     }
     final constructor =
-        "${r.hasConstConstructor == true ? 'const' : ''}  ${r.className}(${constructorParams.join(',')})${r.hasWrapper ? ".wrappedRoute(context)" : ""}";
+        "${r.hasConstConstructor == true ? 'const' : ''}  ${r.className}(${constructorParams.join(',')})${(r.hasWrapper ?? false) ? ".wrappedRoute(context)" : ""}";
 
     _generateRouteBuilder(r, constructor);
   }
@@ -195,7 +195,7 @@ class RouterClassGenerator extends BaseGenerator {
 
     routes
         .where((r) => r.argParams.isNotEmpty)
-        .forEach((r) => routesWithArgsHolders[r.className] = r);
+        .forEach((r) => routesWithArgsHolders[r.className!] = r);
 
     if (routesWithArgsHolders.isNotEmpty) {
       _generateBoxed('Arguments holder classes');
@@ -218,7 +218,7 @@ class RouterClassGenerator extends BaseGenerator {
     writeLine('$argsClassName({');
     params.asMap().forEach((i, param) {
       if (param.isRequired || param.isPositional) {
-        write('@required ');
+        write('required ');
       }
 
       write('this.${param.name}');
@@ -292,7 +292,7 @@ class RouterClassGenerator extends BaseGenerator {
             'barrierDismissible:${r.customRouteBarrierDismissible.toString()},');
       }
       if (r.transitionBuilder != null) {
-        write('transitionsBuilder: ${r.transitionBuilder.name},');
+        write('transitionsBuilder: ${r.transitionBuilder!.name},');
       }
       if (r.durationInMilliseconds != null) {
         write(
@@ -314,13 +314,13 @@ class RouterClassGenerator extends BaseGenerator {
     _generateBoxed('Navigation helper methods extension');
     writeLine(
         'extension ${routerConfig.routerClassName}ExtendedNavigatorStateX on ExtendedNavigatorState {');
-    for (var route in routerConfig.routes) {
+    for (var route in routerConfig.routes ?? []) {
       // skip routes that has path params until
       // until there's a practical way to handle them
       if (RegExp(r':([^/]+)').hasMatch(route.pathName)) {
         continue;
       }
-      _generateHelperMethod(route, routerConfig.routesClassName);
+      _generateHelperMethod(route, routerConfig.routesClassName!);
     }
     writeLine('}');
   }
@@ -331,7 +331,7 @@ class RouterClassGenerator extends BaseGenerator {
     // generate constructor
     if (route.parameters != null) {
       write('{');
-      route.parameters.forEach((param) {
+      route.parameters?.forEach((param) {
         if (param.isRequired || param.isPositional) {
           write('@required ');
         }
@@ -352,7 +352,8 @@ class RouterClassGenerator extends BaseGenerator {
     if (route.parameters != null) {
       write(',arguments: ');
       write('${route.argumentsHolderClassName}(');
-      write(route.parameters.map((p) => '${p.name}: ${p.name}').join(','));
+      write(
+          route.parameters?.map((p) => '${p.name}: ${p.name}').join(',') ?? '');
       write('),');
 
       if (route.guards?.isNotEmpty == true) {

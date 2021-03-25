@@ -6,7 +6,7 @@ class BaseGenerator {
   void write(Object obj) => stringBuffer.write(obj);
 
   /// Writes a line of text into the current [StringBuffer] and adds a space new line after it
-  void writeLine([Object obj]) => stringBuffer.writeln(obj);
+  void writeLine([Object obj = '']) => stringBuffer.writeln(obj);
 
   /// Adds a new line after what was written before this
   void newLine() => stringBuffer.writeln();

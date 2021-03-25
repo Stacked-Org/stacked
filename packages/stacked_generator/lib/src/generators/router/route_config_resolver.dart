@@ -17,7 +17,7 @@ class RouteConfigResolver {
   Future<RouteConfig> resolve(ConstantReader stackedRoute) async {
     final routeConfig = RouteConfig();
     final type = stackedRoute.read('page').typeValue;
-    
+
     final classElement = type.element as ClassElement;
 
     final import = _importResolver.resolve(classElement);
@@ -31,7 +31,7 @@ class RouteConfigResolver {
         path = '/';
       } else {
         path =
-            '${_routerConfig.routeNamePrefix}${toKababCase(routeConfig.className)}';
+            '${_routerConfig.routeNamePrefix}${toKababCase(routeConfig.className!)}';
       }
     }
     routeConfig.pathName = path;
@@ -39,13 +39,13 @@ class RouteConfigResolver {
     throwIf(
       type.element is! ClassElement,
       '${toDisplayString(type)} is not a class element',
-      element: type.element,
+      element: type.element!,
     );
 
     await _extractRouteMetaData(routeConfig, stackedRoute);
 
     routeConfig.name = stackedRoute.peek('name')?.stringValue ??
-        toLowerCamelCase(routeConfig.className);
+        toLowerCamelCase(routeConfig.className!);
 
     routeConfig.hasWrapper = classElement.allSupertypes
         .map<String>((el) => toDisplayString(el))
@@ -55,15 +55,15 @@ class RouteConfigResolver {
 
     var params = constructor?.parameters;
     if (params?.isNotEmpty == true) {
-      if (constructor.isConst &&
-          params.length == 1 &&
+      if (constructor!.isConst &&
+          params!.length == 1 &&
           toDisplayString(params.first.type) == 'Key') {
         routeConfig.hasConstConstructor = true;
       } else {
         final paramResolver = RouteParameterResolver(_importResolver);
         routeConfig.parameters = [];
         for (ParameterElement p in constructor.parameters) {
-          routeConfig.parameters.add(await paramResolver.resolve(p));
+          routeConfig.parameters?.add(await paramResolver.resolve(p));
         }
       }
     }
@@ -81,25 +81,29 @@ class RouteConfigResolver {
         .peek('guards')
         ?.listValue
         ?.map((g) => g.toTypeValue())
-        ?.forEach((guard) {
-      routeConfig.guards.add(RouteGuardConfig(
-          type: toDisplayString(guard),
-          import: _importResolver.resolve(guard.element)));
+        .forEach((guard) {
+      if (guard != null && guard.element != null) {
+        routeConfig.guards.add(RouteGuardConfig(
+            type: toDisplayString(guard),
+            import: _importResolver.resolve((guard.element)!)));
+      }
     });
 
-    final returnType = stackedRoute.objectValue.type.typeArguments.first;
+    final returnType = stackedRoute.objectValue.type?.typeArguments.first;
     routeConfig.returnType = toDisplayString(returnType);
 
     if (routeConfig.returnType != 'dynamic') {
-      routeConfig.imports.addAll(_importResolver.resolveAll(returnType));
+      routeConfig.imports.addAll(_importResolver.resolveAll(returnType!));
     }
 
     if (stackedRoute.instanceOf(TypeChecker.fromRuntime(MaterialRoute))) {
       routeConfig.routeType = RouteType.material;
-    } else if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CupertinoRoute))) {
+    } else if (stackedRoute
+        .instanceOf(TypeChecker.fromRuntime(CupertinoRoute))) {
       routeConfig.routeType = RouteType.cupertino;
       routeConfig.cupertinoNavTitle = stackedRoute.peek('title')?.stringValue;
-    } else if (stackedRoute.instanceOf(TypeChecker.fromRuntime(AdaptiveRoute))) {
+    } else if (stackedRoute
+        .instanceOf(TypeChecker.fromRuntime(AdaptiveRoute))) {
       routeConfig.routeType = RouteType.adaptive;
       routeConfig.cupertinoNavTitle =
           stackedRoute.peek('cupertinoPageTitle')?.stringValue;
@@ -110,17 +114,19 @@ class RouteConfigResolver {
       routeConfig.customRouteOpaque = stackedRoute.peek('opaque')?.boolValue;
       routeConfig.customRouteBarrierDismissible =
           stackedRoute.peek('barrierDismissible')?.boolValue;
-      final function =
-          stackedRoute.peek('transitionsBuilder')?.objectValue?.toFunctionValue();
+      final function = stackedRoute
+          .peek('transitionsBuilder')
+          ?.objectValue
+          ?.toFunctionValue();
       if (function != null) {
         final displayName = function.displayName.replaceFirst(RegExp('^_'), '');
-        final functionName = (function.isStatic &&
-                function.enclosingElement?.displayName != null)
-            ? '${function.enclosingElement.displayName}.$displayName'
-            : displayName;
+        final functionName =
+            (function.isStatic && function.enclosingElement.displayName != null)
+                ? '${function.enclosingElement.displayName}.$displayName'
+                : displayName;
 
         var import;
-        if (function.enclosingElement?.name != 'TransitionsBuilders') {
+        if (function.enclosingElement.name != 'TransitionsBuilders') {
           import = _importResolver.resolve(function);
         }
         routeConfig.transitionBuilder =
@@ -128,13 +134,13 @@ class RouteConfigResolver {
       }
     } else {
       var globConfig = _routerConfig.globalRouteConfig;
-      routeConfig.routeType = globConfig.routeType;
-      if (globConfig.routeType == RouteType.custom) {
-        routeConfig.transitionBuilder = globConfig.transitionBuilder;
-        routeConfig.durationInMilliseconds = globConfig.durationInMilliseconds;
+      routeConfig.routeType = globConfig?.routeType ?? RouteType.material;
+      if (globConfig?.routeType == RouteType.custom) {
+        routeConfig.transitionBuilder = globConfig?.transitionBuilder;
+        routeConfig.durationInMilliseconds = globConfig?.durationInMilliseconds;
         routeConfig.customRouteBarrierDismissible =
-            globConfig.customRouteBarrierDismissible;
-        routeConfig.customRouteOpaque = globConfig.customRouteOpaque;
+            globConfig?.customRouteBarrierDismissible;
+        routeConfig.customRouteOpaque = globConfig?.customRouteOpaque;
       }
     }
   }
