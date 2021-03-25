@@ -23,10 +23,10 @@ class ExampleFormViewModel extends FormViewModel {
   // simply validate in the function that they'll use to submit the
   // data to the backend or db.
 
-  Future saveData() {
+  Future? saveData() {
     // here we can run custom functionality to save to our api
   }
 
-  Future navigateSomewhere() =>
+  Future? navigateSomewhere() =>
       _navigationService.navigateTo(Routes.streamCounterView);
 }

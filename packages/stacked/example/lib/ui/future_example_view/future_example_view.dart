@@ -4,7 +4,7 @@ import 'package:stacked/stacked.dart';
 import 'future_example_viewmodel.dart';
 
 class FutureExampleView extends StatelessWidget {
-  const FutureExampleView({Key key}) : super(key: key);
+  const FutureExampleView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class FutureExampleView extends StatelessWidget {
             : Center(
                 child: model.isBusy
                     ? CircularProgressIndicator()
-                    : Text(model.data),
+                    : Text(model.data!),
               ),
       ),
       viewModelBuilder: () => FutureExampleViewModel(),

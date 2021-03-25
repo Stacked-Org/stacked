@@ -24,7 +24,7 @@ class HomeViewTraditional extends StatelessWidget {
 
 class UpdateTitleButton extends ViewModelWidget<HomeViewModel> {
   const UpdateTitleButton({
-    Key key,
+    Key? key,
   }) : super(key: key, reactive: false);
 
   @override

@@ -12,7 +12,7 @@ import 'example_form_viewmodel.dart';
 ])
 // #2: with $ExampleFormView
 class ExampleFormView extends StatelessWidget with $ExampleFormView {
-  ExampleFormView({Key key}) : super(key: key);
+  ExampleFormView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
               SizedBox(height: 15),
               if (model.showValidation)
                 Text(
-                  model.validationMessage,
+                  model.validationMessage!,
                   style: TextStyle(color: Colors.red),
                 )
             ],

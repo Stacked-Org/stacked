@@ -1,19 +1,16 @@
-import 'package:observable_ish/value/value.dart';
 import 'package:stacked/stacked.dart';
 
 class InformationService with ReactiveServiceMixin {
-  InformationService() {
-    listenToReactiveValues([_postCount]);
-  }
-
-  RxValue<int> _postCount = RxValue<int>(initial: 0);
-  int get postCount => _postCount.value;
+  int _postCount = 0;
+  int get postCount => _postCount;
 
   void updatePostCount() {
-    _postCount.value++;
+    _postCount++;
+    notifyListeners();
   }
 
   void resetCount() {
-    _postCount.value = 0;
+    _postCount = 0;
+    notifyListeners();
   }
 }

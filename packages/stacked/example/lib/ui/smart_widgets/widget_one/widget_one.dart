@@ -4,7 +4,7 @@ import 'package:stacked/stacked.dart';
 import 'widget_one_viewmodel.dart';
 
 class WidgetOne extends StatelessWidget {
-  const WidgetOne({Key key}) : super(key: key);
+  const WidgetOne({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
