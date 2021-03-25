@@ -1,7 +1,7 @@
 /// The annotation to be used for a view that contains a Form
 class FormView {
   /// The list of form fields to generate
-  final List<FormTextField>? fields;
+  final List<FormField>? fields;
 
   const FormView({this.fields});
 }

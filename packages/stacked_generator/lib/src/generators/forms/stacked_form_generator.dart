@@ -65,8 +65,8 @@ FieldConfig _readFieldConfig({
 }
 
 FieldConfig _readTextFieldConfig({
-  ConstantReader fieldReader,
-  ImportResolver importResolver,
+  required ConstantReader fieldReader,
+  required ImportResolver importResolver,
 }) {
   final String name = (fieldReader.peek('name')?.stringValue) ?? '';
   return TextFieldConfig(
@@ -75,8 +75,8 @@ FieldConfig _readTextFieldConfig({
 }
 
 FieldConfig _readDateFieldConfig({
-  ConstantReader fieldReader,
-  ImportResolver importResolver,
+  required ConstantReader fieldReader,
+  required ImportResolver importResolver,
 }) {
   final String name = (fieldReader.peek('name')?.stringValue) ?? '';
   return DateFieldConfig(
