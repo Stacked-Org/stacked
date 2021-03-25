@@ -8,7 +8,7 @@ class OverlayResponse {
   final dynamic responseData;
 
   OverlayResponse({
-    this.confirmed,
+    this.confirmed = false,
     this.responseData,
   });
 }
@@ -16,7 +16,7 @@ class OverlayResponse {
 /// The response returned from awaiting a call on the [DialogService]
 class DialogResponse extends OverlayResponse {
   DialogResponse({
-    bool confirmed,
+    bool confirmed = false,
     dynamic responseData,
   }) : super(
           confirmed: confirmed,
@@ -27,7 +27,7 @@ class DialogResponse extends OverlayResponse {
 /// The response returned from awaiting a call on the [BottomSheetService]
 class SheetResponse extends OverlayResponse {
   SheetResponse({
-    bool confirmed,
+    bool confirmed = false,
     dynamic responseData,
   }) : super(
           confirmed: confirmed,

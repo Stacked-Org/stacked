@@ -188,7 +188,7 @@ class SnackbarService {
       icon: snackbarConfig.icon,
       shouldIconPulse: snackbarConfig.shouldIconPulse,
       maxWidth: snackbarConfig.maxWidth,
-      margin: snackbarConfig.margin,
+      margin: snackbarConfig.margin ?? EdgeInsets.zero,
       padding: snackbarConfig.padding,
       borderRadius: snackbarConfig.borderRadius,
       borderColor: snackbarConfig.borderColor,

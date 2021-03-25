@@ -1,36 +1,36 @@
 class OverlayRequest {
   /// The title for the dialog
-  final String title;
+  final String? title;
 
   /// Text so show in the dialog body
-  final String description;
+  final String? description;
 
   /// Indicates if an image should be used or not
-  final bool hasImage;
+  final bool? hasImage;
 
   /// The url / path to the image to show
-  final String imageUrl;
+  final String? imageUrl;
 
   /// The text shown in the main button
-  final String mainButtonTitle;
+  final String? mainButtonTitle;
 
   /// A bool to indicate if you should show an icon in the main button
-  final bool showIconInMainButton;
+  final bool? showIconInMainButton;
 
   /// The text to show on the secondary button on the dialog (cancel usually)
-  final String secondaryButtonTitle;
+  final String? secondaryButtonTitle;
 
   /// Indicates if you should show an icon in the main button
-  final bool showIconInSecondaryButton;
+  final bool? showIconInSecondaryButton;
 
   /// The text show on the third button on the dialog
-  final String additionalButtonTitle;
+  final String? additionalButtonTitle;
 
   /// Indicates if you should show an icon in the additional button
-  final bool showIconInAdditionalButton;
+  final bool? showIconInAdditionalButton;
 
   /// Indicates if the dialog takes input
-  final bool takesInput;
+  final bool? takesInput;
 
   /// Intended to be used with enums. If you want to create multiple different
   /// dialogs. Pass your enum in here and check the value in the builder
@@ -58,17 +58,17 @@ class OverlayRequest {
 
 class DialogRequest extends OverlayRequest {
   DialogRequest({
-    bool showIconInMainButton,
-    bool showIconInSecondaryButton,
-    bool showIconInAdditionalButton,
-    String title,
-    String description,
-    bool hasImage,
-    String imageUrl,
-    String mainButtonTitle,
-    String secondaryButtonTitle,
-    String additionalButtonTitle,
-    bool takesInput,
+    bool? showIconInMainButton,
+    bool? showIconInSecondaryButton,
+    bool? showIconInAdditionalButton,
+    String? title,
+    String? description,
+    bool? hasImage,
+    String? imageUrl,
+    String? mainButtonTitle,
+    String? secondaryButtonTitle,
+    String? additionalButtonTitle,
+    bool? takesInput,
     dynamic customData,
     dynamic variant,
   }) : super(
@@ -90,17 +90,17 @@ class DialogRequest extends OverlayRequest {
 
 class SheetRequest extends OverlayRequest {
   SheetRequest({
-    bool showIconInMainButton,
-    bool showIconInSecondaryButton,
-    bool showIconInAdditionalButton,
-    String title,
-    String description,
-    bool hasImage,
-    String imageUrl,
-    String mainButtonTitle,
-    String secondaryButtonTitle,
-    String additionalButtonTitle,
-    bool takesInput,
+    bool? showIconInMainButton,
+    bool? showIconInSecondaryButton,
+    bool? showIconInAdditionalButton,
+    String? title,
+    String? description,
+    bool? hasImage,
+    String? imageUrl,
+    String? mainButtonTitle,
+    String? secondaryButtonTitle,
+    String? additionalButtonTitle,
+    bool? takesInput,
     dynamic customData,
     dynamic variant,
   }) : super(
