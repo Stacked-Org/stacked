@@ -126,7 +126,7 @@ class PlatformDialog extends StatelessWidget {
           actions: actions,
         );
       case DialogPlatform.Material:
-      default: // TODO: When custom dialog registrations are implemented it'll be shown here
+      default:
         return AlertDialog(
           titleTextStyle: Theme.of(context).dialogTheme.titleTextStyle,
           contentTextStyle: Theme.of(context).dialogTheme.contentTextStyle,
