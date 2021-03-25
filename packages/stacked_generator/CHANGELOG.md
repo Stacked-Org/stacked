@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.3.0-nullsafety.1
+
+- Migrates to null safety
+
 ## 0.2.6
 
 - Adds the `resolveUsing` code generation for `Singleton` and `LazySingleton` registrations

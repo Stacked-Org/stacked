@@ -41,7 +41,7 @@ class StackedFormContentGenerator extends BaseGenerator {
       "package:stacked/stacked.dart"
     };
 
-    var validImports = imports.where((import) => import != null).toSet();
+    var validImports = imports.toSet();
     var dartImports =
         validImports.where((element) => element.startsWith('dart')).toSet();
     sortAndGenerate(dartImports);

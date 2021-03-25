@@ -48,7 +48,7 @@ FieldConfig _readFieldConfig({
 }) {
   var fieldReader = ConstantReader(fieldConfig);
 
-  final String name = (fieldReader.peek('name')?.stringValue)!;
+  final String name = (fieldReader.peek('name')?.stringValue) ?? '';
   return FieldConfig(
     name: name,
   );

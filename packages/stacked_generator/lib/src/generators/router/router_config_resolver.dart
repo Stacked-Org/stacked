@@ -84,13 +84,12 @@ class RouterConfigResolver {
           stackedApp.peek('transitionsBuilder')?.objectValue?.toFunctionValue();
       if (function != null) {
         final displayName = function.displayName.replaceFirst(RegExp('^_'), '');
-        final functionName = (function.isStatic &&
-                function.enclosingElement?.displayName != null)
+        final functionName = function.isStatic
             ? '${function.enclosingElement.displayName}.$displayName'
             : displayName;
 
         var import;
-        if (function.enclosingElement?.name != 'TransitionsBuilders') {
+        if (function.enclosingElement.name != 'TransitionsBuilders') {
           import = _importResolver.resolve(function);
         }
         globalRouteConfig.transitionBuilder =

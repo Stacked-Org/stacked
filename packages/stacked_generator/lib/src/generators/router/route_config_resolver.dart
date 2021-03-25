@@ -21,9 +21,8 @@ class RouteConfigResolver {
     final classElement = type.element as ClassElement;
 
     final import = _importResolver.resolve(classElement);
-    if (import != null) {
-      routeConfig.imports.add(import);
-    }
+    routeConfig.imports.add(import);
+
     routeConfig.className = toDisplayString(type);
     var path = stackedRoute.peek('path')?.stringValue;
     if (path == null) {
@@ -90,10 +89,10 @@ class RouteConfigResolver {
     });
 
     final returnType = stackedRoute.objectValue.type?.typeArguments.first;
-    routeConfig.returnType = toDisplayString(returnType);
+    routeConfig.returnType = toDisplayString(returnType!);
 
     if (routeConfig.returnType != 'dynamic') {
-      routeConfig.imports.addAll(_importResolver.resolveAll(returnType!));
+      routeConfig.imports.addAll(_importResolver.resolveAll(returnType));
     }
 
     if (stackedRoute.instanceOf(TypeChecker.fromRuntime(MaterialRoute))) {
@@ -120,10 +119,9 @@ class RouteConfigResolver {
           ?.toFunctionValue();
       if (function != null) {
         final displayName = function.displayName.replaceFirst(RegExp('^_'), '');
-        final functionName =
-            (function.isStatic && function.enclosingElement.displayName != null)
-                ? '${function.enclosingElement.displayName}.$displayName'
-                : displayName;
+        final functionName = function.isStatic
+            ? '${function.enclosingElement.displayName}.$displayName'
+            : displayName;
 
         var import;
         if (function.enclosingElement.name != 'TransitionsBuilders') {

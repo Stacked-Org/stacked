@@ -67,9 +67,7 @@ class StackedRouter extends RouterBase {
       );
     },
     DetailsView: (data) {
-      var args = data.getArgs<DetailsViewArguments>(
-        orElse: () => DetailsViewArguments(),
-      );
+      var args = data.getArgs<DetailsViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
         builder: (context) => DetailsView(
           key: args.key,
@@ -102,13 +100,13 @@ class StackedRouter extends RouterBase {
 
 /// DetailsView arguments holder class
 class DetailsViewArguments {
-  final Key key;
+  final Key? key;
   final String name;
-  DetailsViewArguments({this.key, this.name});
+  DetailsViewArguments({this.key, required this.name});
 }
 
 /// ExampleFormView arguments holder class
 class ExampleFormViewArguments {
-  final Key key;
+  final Key? key;
   ExampleFormViewArguments({this.key});
 }

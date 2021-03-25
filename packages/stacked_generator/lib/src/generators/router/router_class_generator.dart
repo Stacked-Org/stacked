@@ -48,12 +48,11 @@ class RouterClassGenerator extends BaseGenerator {
           imports.addAll(param.imports!);
         });
       }
-      if (route.guards != null) {
-        route.guards.forEach((g) => imports.add(g.import!));
-      }
+
+      route.guards.forEach((g) => imports.add(g.import!));
     });
 
-    var validImports = imports.where((import) => import != null).toSet();
+    var validImports = imports.toSet();
     var dartImports =
         validImports.where((element) => element.startsWith('dart')).toSet();
     sortAndGenerate(dartImports);
@@ -75,7 +74,7 @@ class RouterClassGenerator extends BaseGenerator {
       final routeName = r.name;
       final path = r.pathName;
 
-      if (path!.contains(':')) {
+      if (path.contains(':')) {
         // handle template paths
         writeLine("static const String _$routeName = '$path';");
         allNames.add('_$routeName');
@@ -97,7 +96,7 @@ class RouterClassGenerator extends BaseGenerator {
           })}';",
         );
       } else {
-        allNames.add(routeName!);
+        allNames.add(routeName);
         writeLine("static const String $routeName = '$path';");
       }
     });
@@ -112,7 +111,7 @@ class RouterClassGenerator extends BaseGenerator {
     routerConfig.routes?.forEach((r) {
       writeLine("RouteDef(${routerConfig.routesClassName}.${r.templateName}");
       writeLine(",page: ${r.className}");
-      if (r.guards?.isNotEmpty == true) {
+      if (r.guards.isNotEmpty == true) {
         writeLine(",guards:${r.guards.map((e) => e.type).toList().toString()}");
       }
       if (r.routerConfig != null) {
@@ -143,7 +142,7 @@ class RouterClassGenerator extends BaseGenerator {
 
     if (r.parameters?.isNotEmpty == true) {
       // if router has any required or positional params the argument class holder becomes required.
-      final nullOk = !r.argParams.any((p) => p.isRequired! || p.isPositional!);
+      final nullOk = !r.argParams.any((p) => p.isRequired || p.isPositional);
       // show an error page  if passed args are not the same as declared args
 
       if (r.argParams.isNotEmpty) {
@@ -167,7 +166,7 @@ class RouterClassGenerator extends BaseGenerator {
         } else {
           getterName = "args.${param.name}";
         }
-        if (param.isPositional ?? false) {
+        if (param.isPositional) {
           return getterName;
         } else {
           return '${param.name}:$getterName';
@@ -203,13 +202,13 @@ class RouterClassGenerator extends BaseGenerator {
     }
   }
 
-  void _generateArgsHolder(RouteConfig r) {
-    writeLine('/// ${r.className} arguments holder class');
-    final argsClassName = '${r.argumentsHolderClassName}';
+  void _generateArgsHolder(RouteConfig routeConfig) {
+    writeLine('/// ${routeConfig.className} arguments holder class');
+    final argsClassName = '${routeConfig.argumentsHolderClassName}';
 
     // generate fields
     writeLine('class $argsClassName{');
-    final params = r.argParams;
+    final params = routeConfig.argParams;
     params.forEach((param) {
       writeLine('final ${param.type} ${param.name};');
     });
@@ -342,7 +341,7 @@ class RouterClassGenerator extends BaseGenerator {
         }
         write(',');
       });
-      if (route.guards?.isNotEmpty == true) {
+      if (route.guards.isNotEmpty == true) {
         write('OnNavigationRejected onReject');
       }
       write('}');
@@ -356,7 +355,7 @@ class RouterClassGenerator extends BaseGenerator {
           route.parameters?.map((p) => '${p.name}: ${p.name}').join(',') ?? '');
       write('),');
 
-      if (route.guards?.isNotEmpty == true) {
+      if (route.guards.isNotEmpty == true) {
         write('onReject:onReject,');
       }
     }

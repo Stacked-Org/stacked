@@ -59,8 +59,6 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
     );
 
     final classElement = dependencyClassType!.element as ClassElement?;
-    final abstractedClassElement =
-        dependencyAbstractedClassType?.element as ClassElement?;
 
     throwIf(
       classElement == null,
@@ -69,7 +67,11 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
 
     // Get the import of the class type that's defined for the service
     final import = importResolver.resolve(classElement!);
-    final abstractedImport = importResolver.resolve(abstractedClassElement!);
+
+    final abstractedClassElement =
+        dependencyAbstractedClassType?.element as ClassElement?;
+
+    final abstractedImport = importResolver.resolve(abstractedClassElement);
 
     final className = toDisplayString(dependencyClassType);
 
@@ -102,7 +104,7 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
     return DependencyConfig(
       className: className,
       abstractedTypeClassName: abstractedTypeClassName,
-      import: import!,
+      import: import,
       abstractedImport: abstractedImport,
       type: serviceType,
       presolveFunction: presolveFunction,

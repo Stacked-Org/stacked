@@ -78,11 +78,11 @@ class RouteParameterResolver {
     }
 
     return RouteParamConfig(
-        type: toDisplayString(paramType),
+        type: toDisplayString(paramType, withNullability: true),
         name: parameterElement.name.replaceFirst("_", ''),
         alias: paramAlias,
         isPositional: parameterElement.isPositional,
-        isRequired: parameterElement.hasRequired,
+        isRequired: !parameterElement.isOptional,
         isPathParam: pathParam,
         isQueryParam: isQuery,
         defaultValueCode: parameterElement.defaultValueCode,
