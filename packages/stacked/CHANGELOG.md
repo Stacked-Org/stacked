@@ -1,3 +1,7 @@
+## 1.9.8
+
+- Exposes `RouteGuard` through stacked as well
+
 ## 1.9.7
 
 - Adds `resolveUsing` function that can be used for singleton type dependency registrations. 
