@@ -21,7 +21,7 @@ abstract class FormViewModel extends ReactiveViewModel {
     _showValidation = _validationMessage?.isNotEmpty ?? false;
   }
 
-  void setData(Map<String, String> data) {
+  void setData(Map<String, dynamic> data) {
     // Save the data from the controllers
     formValueMap = data;
 
