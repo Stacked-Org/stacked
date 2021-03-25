@@ -9,7 +9,7 @@ class DependencyConfig {
   final String? abstractedImport;
 
   /// The actual name of the class to be registered
-  final String? className;
+  final String className;
 
   /// The abstracted class name of the class to be registered
   final String? abstractedTypeClassName;
@@ -25,8 +25,8 @@ class DependencyConfig {
 
   DependencyConfig({
     required this.import,
+    required this.className,
     this.abstractedImport,
-    this.className,
     this.abstractedTypeClassName,
     this.type,
     this.presolveFunction,

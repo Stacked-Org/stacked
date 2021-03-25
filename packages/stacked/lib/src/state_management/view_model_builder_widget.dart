@@ -14,7 +14,7 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
   Widget builder(
     BuildContext context,
     T model,
-    Widget child,
+    Widget? child,
   );
 
   /// A builder that builds the ViewModel for this UI - Required
@@ -64,8 +64,7 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
       return ViewModelBuilder<T>.reactive(
         builder: builder,
         viewModelBuilder: () => viewModelBuilder(context),
-        staticChild:
-            staticChildBuilder(context) ,
+        staticChild: staticChildBuilder(context),
         onModelReady: onViewModelReady,
         disposeViewModel: disposeViewModel,
         createNewModelOnInsert: createNewModelOnInsert,

@@ -7,7 +7,7 @@ class BuilderWidgetExampleView extends ViewModelBuilderWidget<HomeViewModel> {
   Widget builder(
     BuildContext context,
     HomeViewModel model,
-    Widget child,
+    Widget? child,
   ) {
     return Scaffold(
       body: Center(

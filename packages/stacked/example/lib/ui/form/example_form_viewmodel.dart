@@ -14,7 +14,7 @@ class ExampleFormViewModel extends FormViewModel {
   @override
   void setFormStatus() {
     log.i('Set form Status with data: $formValueMap');
-    if (passwordValue?.isEmpty ?? true) {
+    if (passwordValue.isEmpty) {
       setValidationMessage('You need to give a password');
     }
   }
