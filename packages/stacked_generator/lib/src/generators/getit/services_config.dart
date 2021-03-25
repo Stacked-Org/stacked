@@ -5,5 +5,5 @@ class ServicesConfig {
   /// A list of services to be registered with the get_it locator
   final List<DependencyConfig> services;
 
-  ServicesConfig({this.services});
+  ServicesConfig({required this.services});
 }

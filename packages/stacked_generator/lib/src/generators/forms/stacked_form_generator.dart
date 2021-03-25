@@ -9,7 +9,6 @@ import 'package:stacked_generator/src/generators/forms/stacked_form_content_gene
 import 'package:stacked_generator/src/generators/forms/form_view_config.dart';
 
 class StackedFormGenerator extends GeneratorForAnnotation<FormView> {
-
   @override
   dynamic generateForAnnotatedElement(
     Element classForAnnotation,
@@ -18,12 +17,12 @@ class StackedFormGenerator extends GeneratorForAnnotation<FormView> {
   ) async {
     var libs = await buildStep.resolver.libraries.toList();
     var importResolver =
-        ImportResolver(libs, classForAnnotation.source.uri.path);
+        ImportResolver(libs, classForAnnotation.source?.uri.path ?? '');
 
     final viewName = classForAnnotation.displayName;
 
     final fieldsConfig = formView.peek('fields')?.listValue;
-    List<FieldConfig> fields = List<FieldConfig>();
+    List<FieldConfig> fields = <FieldConfig>[];
 
     if (fieldsConfig != null) {
       for (final fieldConfig in fieldsConfig) {
@@ -44,14 +43,13 @@ class StackedFormGenerator extends GeneratorForAnnotation<FormView> {
 }
 
 FieldConfig _readFieldConfig({
-  DartObject fieldConfig,
-  ImportResolver importResolver,
+  required DartObject fieldConfig,
+  required ImportResolver importResolver,
 }) {
   var fieldReader = ConstantReader(fieldConfig);
-  final bool isPassword = fieldReader.peek('isPassword')?.boolValue;
-  final String name = fieldReader.peek('name')?.stringValue;
+
+  final String name = (fieldReader.peek('name')?.stringValue)!;
   return FieldConfig(
-    isPassword: isPassword,
     name: name,
   );
 }
