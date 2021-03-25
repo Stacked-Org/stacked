@@ -6,16 +6,17 @@ import '../stacked_themes.dart';
 
 /// A widget that rebuilds itself with a new theme
 class ThemeBuilder extends StatefulWidget {
-  final Widget Function(BuildContext, ThemeData, ThemeData, ThemeMode) builder;
-  final List<ThemeData> themes;
-  final ThemeData lightTheme;
-  final ThemeData darkTheme;
-  final Color Function(ThemeData) statusBarColorBuilder;
+  final Widget Function(BuildContext, ThemeData?, ThemeData?, ThemeMode?)
+      builder;
+  final List<ThemeData>? themes;
+  final ThemeData? lightTheme;
+  final ThemeData? darkTheme;
+  final Color? Function(ThemeData?)? statusBarColorBuilder;
   final ThemeMode defaultThemeMode;
 
   ThemeBuilder({
-    Key key,
-    @required this.builder,
+    Key? key,
+    required this.builder,
     this.themes,
     this.lightTheme,
     this.darkTheme,
@@ -47,14 +48,15 @@ class _ThemeBuilderState extends State<ThemeBuilder>
       value: themeManager,
       builder: (context, child) => StreamProvider<ThemeModel>(
         lazy: false,
+        initialData: themeManager.initalTheme,
         create: (context) => themeManager.themesStream,
         builder: (context, child) => Consumer<ThemeModel>(
           child: child,
           builder: (context, themeModel, child) => widget.builder(
             context,
-            themeModel?.selectedTheme,
-            themeModel?.darkTheme,
-            themeModel?.themeMode,
+            themeModel.selectedTheme,
+            themeModel.darkTheme,
+            themeModel.themeMode,
           ),
         ),
       ),
@@ -71,13 +73,13 @@ class _ThemeBuilderState extends State<ThemeBuilder>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
   }
 
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance!.removeObserver(this);
   }
 
   @override

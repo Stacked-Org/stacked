@@ -25,7 +25,7 @@ class TestFutureViewModel extends FutureViewModel<int> {
   }
 
   @override
-  void onData(int data) {
+  void onData(int? data) {
     dataCalled = true;
   }
 }
@@ -143,8 +143,8 @@ void main() {
       var futureViewModel = TestMultipleFutureViewModel();
       await futureViewModel.initialise();
 
-      expect(futureViewModel.dataMap[NumberDelayFuture], 5);
-      expect(futureViewModel.dataMap[StringDelayFuture], 'String data');
+      expect(futureViewModel.dataMap![NumberDelayFuture], 5);
+      expect(futureViewModel.dataMap![StringDelayFuture], 'String data');
     });
 
     test(
@@ -163,8 +163,8 @@ void main() {
       var futureViewModel = TestMultipleFutureViewModel(failOne: true);
       await futureViewModel.initialise();
 
-      expect(futureViewModel.dataMap[NumberDelayFuture], null);
-      expect(futureViewModel.dataMap[StringDelayFuture], 'String data');
+      expect(futureViewModel.dataMap![NumberDelayFuture], null);
+      expect(futureViewModel.dataMap![StringDelayFuture], 'String data');
     });
 
     test('When multiple futures run the key should be set to indicate busy',
@@ -222,11 +222,11 @@ void main() {
       test('notifySourceChanged - When called should re-run Future', () async {
         var futureViewModel = TestMultipleFutureViewModel();
         await futureViewModel.initialise();
-        expect(futureViewModel.dataMap[NumberDelayFuture], 5);
+        expect(futureViewModel.dataMap![NumberDelayFuture], 5);
         futureViewModel.numberToReturn = 10;
         futureViewModel.notifySourceChanged();
         await futureViewModel.initialise();
-        expect(futureViewModel.dataMap[NumberDelayFuture], 10);
+        expect(futureViewModel.dataMap![NumberDelayFuture], 10);
       });
     });
   });

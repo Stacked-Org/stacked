@@ -10,13 +10,13 @@ abstract class FormViewModel extends ReactiveViewModel {
   bool _showValidation = false;
   bool get showValidation => _showValidation;
 
-  String _validationMessage;
-  String get validationMessage => _validationMessage;
+  String? _validationMessage;
+  String? get validationMessage => _validationMessage;
 
   /// Stores the mapping of the form key to the value entered by the user
   Map<String, dynamic> formValueMap = Map<String, dynamic>();
 
-  void setValidationMessage(String value) {
+  void setValidationMessage(String? value) {
     _validationMessage = value;
     _showValidation = _validationMessage?.isNotEmpty ?? false;
   }

@@ -4,7 +4,7 @@ import 'package:stacked/src/state_management/reactive_service_mixin.dart';
 
 class CounterService with ReactiveServiceMixin {
   RxValue<int> _counter = RxValue<int>(initial: 0);
-  int get counter => _counter.value;
+  int? get counter => _counter.value;
 
   RxList<int> _counters = RxList<int>();
   RxList get counters => _counters;
@@ -16,7 +16,7 @@ class CounterService with ReactiveServiceMixin {
   }
 
   void updateCounter() {
-    _counter.value++;
+    _counter.value = _counter.value! +1 ;
   }
 
   void addCounterToList() {

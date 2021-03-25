@@ -82,13 +82,13 @@ void main() {
         );
         await tester.pumpWidget(widget);
 
-        stateKey.currentState.dispose();
+        stateKey.currentState!.dispose();
         await tester.pumpWidget(widget);
 
-        stateKey.currentState.reassemble();
+        stateKey.currentState!.reassemble();
         await tester.pumpWidget(widget);
 
-        stateKey.currentState.initState();
+        stateKey.currentState!.initState();
         await tester.pumpWidget(widget);
 
         expect(buildCounter, 2);
