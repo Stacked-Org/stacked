@@ -174,10 +174,10 @@ class StackedFormContentGenerator extends BaseGenerator {
       final caseName = ReCase(field.name);
       writeLine('''
           Future<void> select${caseName.pascalCase}(
-              {@required BuildContext context,
-              @required DateTime initialDate,
-              @required DateTime firstDate,
-              @required DateTime lastDate}) async {
+              {required BuildContext context,
+              required DateTime initialDate,
+              required DateTime firstDate,
+              required DateTime lastDate}) async {
             final selectedDate = await showDatePicker(
                 context: context,
                 initialDate: initialDate,
