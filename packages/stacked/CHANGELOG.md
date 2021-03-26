@@ -1,3 +1,7 @@
+## 2.0.0-nullsafety.3
+
+- Fixes annotation to allow for date selection
+
 ## 2.0.0-nullsafety.2
 
 - Adds back `resolveUsing` function to the annotations

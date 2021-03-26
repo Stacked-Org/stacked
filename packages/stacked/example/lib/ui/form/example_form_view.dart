@@ -65,7 +65,7 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                 ),
                 if (model.showValidation)
                   Text(
-                    '${model.validationMessage}',
+                    model.validationMessage!,
                     style: TextStyle(color: Colors.red),
                   ),
                 SizedBox(height: 15),
