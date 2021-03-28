@@ -52,12 +52,17 @@ FieldConfig _readFieldConfig({
       fieldReader.instanceOf(TypeChecker.fromRuntime(FormTextField));
   bool isDateField =
       fieldReader.instanceOf(TypeChecker.fromRuntime(FormDateField));
+  bool isDropdownField =
+      fieldReader.instanceOf(TypeChecker.fromRuntime(FormDropdownField));
 
   if (isTextField) {
     return _readTextFieldConfig(
         fieldReader: fieldReader, importResolver: importResolver);
   } else if (isDateField) {
     return _readDateFieldConfig(
+        fieldReader: fieldReader, importResolver: importResolver);
+  } else if (isDropdownField) {
+    return _readDropdownFieldConfig(
         fieldReader: fieldReader, importResolver: importResolver);
   } else {
     throw ArgumentError('Unknown form field $fieldConfig');
@@ -81,5 +86,21 @@ FieldConfig _readDateFieldConfig({
   final String name = (fieldReader.peek('name')?.stringValue) ?? '';
   return DateFieldConfig(
     name: name,
+  );
+}
+
+FieldConfig _readDropdownFieldConfig({
+  required ConstantReader fieldReader,
+  required ImportResolver importResolver,
+}) {
+  final String name = (fieldReader.peek('name')?.stringValue) ?? '';
+  final List<String> items =
+      (fieldReader.peek('items')?.listValue.map((dartObject) {
+            return ConstantReader(dartObject).stringValue;
+          }).toList()) ??
+          <String>[];
+  return DropdownFieldConfig(
+    name: name,
+    items: items,
   );
 }

@@ -17,6 +17,12 @@ class DateFieldConfig extends FieldConfig {
   DateFieldConfig({required String name}) : super(name: name);
 }
 
+class DropdownFieldConfig extends FieldConfig {
+  final List<String> items;
+  const DropdownFieldConfig({required String name, required this.items})
+      : super(name: name);
+}
+
 extension ListOfFieldConfigs on List<FieldConfig> {
   List<TextFieldConfig> get onlyTextFieldConfigs => this
       .where((fieldConfig) => fieldConfig is TextFieldConfig)
@@ -26,5 +32,10 @@ extension ListOfFieldConfigs on List<FieldConfig> {
   List<DateFieldConfig> get onlyDateFieldConfigs => this
       .where((fieldConfig) => fieldConfig is DateFieldConfig)
       .map((t) => t as DateFieldConfig)
+      .toList();
+
+  List<DropdownFieldConfig> get onlyDropdownFieldConfigs => this
+      .where((fieldConfig) => fieldConfig is DropdownFieldConfig)
+      .map((t) => t as DropdownFieldConfig)
       .toList();
 }

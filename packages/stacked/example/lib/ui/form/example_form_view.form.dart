@@ -12,6 +12,15 @@ import 'package:stacked/stacked.dart';
 const String EmailValueKey = 'email';
 const String PasswordValueKey = 'password';
 const String BirthDateValueKey = 'birthDate';
+const String OrderSizeValueKey = 'orderSize';
+
+const List<String> OrderSizeValues = [
+  'Extra Large',
+  'Large',
+  'Medium',
+  'Small',
+  'Extra Small',
+];
 
 mixin $ExampleFormView on StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -52,6 +61,7 @@ extension ValueProperties on FormViewModel {
   bool get hasEmail => this.formValueMap.containsKey(EmailValueKey);
   bool get hasPassword => this.formValueMap.containsKey(PasswordValueKey);
   bool get hasBirthDate => this.formValueMap.containsKey(BirthDateValueKey);
+  bool get hasOrderSize => this.formValueMap.containsKey(OrderSizeValueKey);
 }
 
 extension Methods on FormViewModel {
@@ -69,5 +79,9 @@ extension Methods on FormViewModel {
       this.setData(
           this.formValueMap..addAll({BirthDateValueKey: selectedDate}));
     }
+  }
+
+  void setOrderSize(String orderSize) {
+    this.setData(this.formValueMap..addAll({OrderSizeValueKey: orderSize}));
   }
 }
