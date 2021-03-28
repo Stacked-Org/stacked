@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.3.1-nullsafety.3
+
+- Generate nulllable formView property getters
+
 ## 0.3.1-nullsafety.2
 
 - fixes DatePicker changes bugs

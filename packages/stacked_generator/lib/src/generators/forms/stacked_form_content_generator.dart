@@ -150,11 +150,10 @@ class StackedFormContentGenerator extends BaseGenerator {
       final caseName = ReCase(field.name);
       final type = _getFormFieldValueType(field);
       writeLine(
-          '$type get ${caseName.camelCase}Value => this.formValueMap[${_getFormKeyName(caseName)}];');
+          '$type? get ${caseName.camelCase}Value => this.formValueMap[${_getFormKeyName(caseName)}];');
     }
 
     // Generate the getters that check whether a field is set or not
-    newLine();
     newLine();
     for (final field in fields) {
       final caseName = ReCase(field.name);
