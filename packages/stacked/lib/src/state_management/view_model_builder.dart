@@ -82,7 +82,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
 }
 
 class _ViewModelBuilderState<T extends ChangeNotifier>
-    extends State<ViewModelBuilder> {
+    extends State<ViewModelBuilder<T>> {
   T? _model;
 
   @override
@@ -99,7 +99,7 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
   }
 
   void _createViewModel() {
-    _model = widget.viewModelBuilder() as T;
+    _model = widget.viewModelBuilder();
 
     if (widget.initialiseSpecialViewModelsOnce &&
         !(_model as BaseViewModel).initialised) {
@@ -139,13 +139,13 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
       if (!widget.disposeViewModel) {
         return ChangeNotifierProvider<T>.value(
           value: _model!,
-          child: widget.builder(context, _model!, widget.staticChild!),
+          child: widget.builder(context, _model!, widget.staticChild),
         );
       }
 
       return ChangeNotifierProvider<T>(
         create: (context) => _model!,
-        child: widget.builder(context, _model!, widget.staticChild!),
+        child: widget.builder(context, _model!, widget.staticChild),
       );
     }
 
@@ -176,7 +176,7 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
       }
     }
 
-    return widget.builder(context, model as BaseViewModel, child);
+    return widget.builder(context, model!, child);
   }
 }
 
