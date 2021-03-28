@@ -1,3 +1,7 @@
+## 2.0.0
+
+- Null safety migration complete and ready to be used!
+
 ## 2.0.0-nullsafety.3
 
 - Fixes annotation to allow for date selection
@@ -12,7 +16,7 @@
 
 ## 1.9.7
 
-- Adds `resolveUsing` function that can be used for singleton type dependency registrations. 
+- Adds `resolveUsing` function that can be used for singleton type dependency registrations.
 
 ## 1.9.6
 
