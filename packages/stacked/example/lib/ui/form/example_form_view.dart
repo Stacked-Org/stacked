@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -9,10 +10,11 @@ import 'example_form_viewmodel.dart';
 @FormView(fields: [
   FormTextField(name: 'email'),
   FormTextField(name: 'password', isPassword: true),
+  FormTextField(name: 'shortBio'),
   FormDateField(name: 'birthDate'),
   FormDropdownField(
-    name: 'orderSize',
-    items: ['Extra Large', 'Large', 'Medium', 'Small', 'Extra Small'],
+    name: 'doYouLoveFood',
+    items: ['Yes', 'No'],
   )
 ])
 // #2: with $ExampleFormView
@@ -25,6 +27,7 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
       onModelReady: (model) {
         // #3: Listen to text updates by calling listenToFormUpdated(model);
         listenToFormUpdated(model);
+        model.setDoYouLoveFood(DoYouLoveFoodValues.first);
       },
       builder: (context, model, child) => Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -59,6 +62,8 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                     //#5: Set password passwordController and focus node
                     controller: passwordController,
                     decoration: InputDecoration(hintText: 'password'),
+                    keyboardType: TextInputType.visiblePassword,
+                    obscureText: true,
                     focusNode: passwordFocusNode,
                     onFieldSubmitted: (_) => model.saveData(),
                   ),
@@ -68,6 +73,22 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                     model.validationMessage!,
                     style: TextStyle(color: Colors.red),
                   ),
+                SizedBox(height: 15),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: 300,
+                  ),
+                  child: TextField(
+                    //#6: Set shortBio shortBioController and focus node
+                    maxLines: null,
+                    keyboardType: TextInputType.multiline,
+                    controller: shortBioController,
+                    decoration: InputDecoration(
+                      hintText: 'Tell us a bit more about yourself',
+                    ),
+                    focusNode: shortBioFocusNode,
+                  ),
+                ),
                 SizedBox(height: 15),
                 ElevatedButton(
                   onPressed: () => model.selectBirthDate(
@@ -82,18 +103,23 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                   ),
                 ),
                 SizedBox(height: 15),
-                DropdownButton<String>(
-                  value: model.hasOrderSize
-                      ? model.orderSizeValue
-                      : OrderSizeValues.first,
-                  onChanged: (orderSize) {
-                    model.setOrderSize(orderSize!);
-                  },
-                  items: OrderSizeValues.map(
-                    (e) => DropdownMenuItem<String>(
-                      child: Text(e),
-                    ),
-                  ).toList(),
+                Row(
+                  children: [
+                    Text('Do you love food?'),
+                    SizedBox(width: 15),
+                    DropdownButton<String>(
+                      value: model.doYouLoveFoodValue,
+                      onChanged: (value) {
+                        model.setDoYouLoveFood(value!);
+                      },
+                      items: DoYouLoveFoodValues.map(
+                        (e) => DropdownMenuItem<String>(
+                          value: e,
+                          child: Text(e),
+                        ),
+                      ).toList(),
+                    )
+                  ],
                 )
               ],
             ),
