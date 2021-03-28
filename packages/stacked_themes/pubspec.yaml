@@ -1,10 +1,10 @@
 name: stacked_themes
 description: A set of classes to help you better manage Themes in flutter
-version: 0.2.4
+version: 0.3.0
 homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_themes
 
 environment:
-  sdk: ">=2.12.0-0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:

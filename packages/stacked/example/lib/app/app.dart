@@ -14,13 +14,13 @@ import 'package:stacked_themes/stacked_themes.dart';
 
 @StackedApp(
   routes: [
-    MaterialRoute(page: HomeView),
+    MaterialRoute(page: HomeView, initial: true),
     MaterialRoute(page: BottomNavExample),
     MaterialRoute(page: StreamCounterView),
     CupertinoRoute(page: DetailsView),
     // TODO: Change the name of the FormView to avoid type clashing
     MaterialRoute(page: ExampleFormView),
-    MaterialRoute(page: NonReactiveView, initial: true),
+    MaterialRoute(page: NonReactiveView),
   ],
   dependencies: [
     // Lazy singletons

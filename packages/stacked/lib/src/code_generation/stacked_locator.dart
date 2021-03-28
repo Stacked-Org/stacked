@@ -57,7 +57,7 @@ class StackedLocator {
   T call<T extends Object>(
           {String? instanceName, dynamic param1, dynamic param2}) =>
       locator<T>(
-        instanceName: instanceName!,
+        instanceName: instanceName,
         param1: param1,
         param2: param2,
       );

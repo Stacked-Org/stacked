@@ -45,9 +45,9 @@ mixin $ExampleFormView on StatelessWidget {
 }
 
 extension ValueProperties on FormViewModel {
-  String get emailValue => this.formValueMap[EmailValueKey];
-  String get passwordValue => this.formValueMap[PasswordValueKey];
-  DateTime get birthDateValue => this.formValueMap[BirthDateValueKey];
+  String? get emailValue => this.formValueMap[EmailValueKey];
+  String? get passwordValue => this.formValueMap[PasswordValueKey];
+  DateTime? get birthDateValue => this.formValueMap[BirthDateValueKey];
 
   bool get hasEmail => this.formValueMap.containsKey(EmailValueKey);
   bool get hasPassword => this.formValueMap.containsKey(PasswordValueKey);
