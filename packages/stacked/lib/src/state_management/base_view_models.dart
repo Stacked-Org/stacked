@@ -89,6 +89,7 @@ class BaseViewModel extends ChangeNotifier {
   Future runErrorFuture(Future future,
       {Object key, bool throwException = false}) async {
     try {
+      _setErrorForModelOrObject(null, key: key);
       return await future;
     } catch (e) {
       _setErrorForModelOrObject(e, key: key);
