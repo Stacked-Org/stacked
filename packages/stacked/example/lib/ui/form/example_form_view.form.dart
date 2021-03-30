@@ -15,10 +15,10 @@ const String ShortBioValueKey = 'shortBio';
 const String BirthDateValueKey = 'birthDate';
 const String DoYouLoveFoodValueKey = 'doYouLoveFood';
 
-const List<String> DoYouLoveFoodValues = [
-  'Yes',
-  'No',
-];
+const Map<String, String> DoYouLoveFoodValueToTitleMap = {
+  'YesDr': 'Yes',
+  'NoDr': 'No',
+};
 
 mixin $ExampleFormView on StatelessWidget {
   final TextEditingController emailController = TextEditingController();

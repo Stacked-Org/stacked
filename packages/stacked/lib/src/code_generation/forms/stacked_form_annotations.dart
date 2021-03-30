@@ -28,7 +28,13 @@ class FormDateField extends FormField {
 }
 
 class FormDropdownField extends FormField {
-  final List<String> items;
+  final List<StaticDropdownItem> items;
   const FormDropdownField({String? name, required this.items})
       : super(name: name);
+}
+
+class StaticDropdownItem {
+  final String title;
+  final String value;
+  const StaticDropdownItem({required this.title, required this.value});
 }

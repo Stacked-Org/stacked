@@ -94,11 +94,15 @@ FieldConfig _readDropdownFieldConfig({
   required ImportResolver importResolver,
 }) {
   final String name = (fieldReader.peek('name')?.stringValue) ?? '';
-  final List<String> items =
+  final List<DropdownFieldItem> items =
       (fieldReader.peek('items')?.listValue.map((dartObject) {
-            return ConstantReader(dartObject).stringValue;
+            final itemReader = ConstantReader(dartObject);
+            final title = itemReader.peek('title')?.stringValue ?? '';
+            final value = itemReader.peek('value')?.stringValue ?? '';
+
+            return DropdownFieldItem(title: title, value: value);
           }).toList()) ??
-          <String>[];
+          <DropdownFieldItem>[];
   return DropdownFieldConfig(
     name: name,
     items: items,

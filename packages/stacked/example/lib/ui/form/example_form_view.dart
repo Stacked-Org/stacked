@@ -14,7 +14,16 @@ import 'example_form_viewmodel.dart';
   FormDateField(name: 'birthDate'),
   FormDropdownField(
     name: 'doYouLoveFood',
-    items: ['Yes', 'No'],
+    items: [
+      StaticDropdownItem(
+        title: 'Yes',
+        value: 'YesDr',
+      ),
+      StaticDropdownItem(
+        title: 'No',
+        value: 'NoDr',
+      ),
+    ],
   )
 ])
 // #2: with $ExampleFormView
@@ -27,7 +36,7 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
       onModelReady: (model) {
         // #3: Listen to text updates by calling listenToFormUpdated(model);
         listenToFormUpdated(model);
-        model.setDoYouLoveFood(DoYouLoveFoodValues.first);
+        model.setDoYouLoveFood(DoYouLoveFoodValueToTitleMap.keys.first);
       },
       builder: (context, model, child) => Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -112,12 +121,14 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                       onChanged: (value) {
                         model.setDoYouLoveFood(value!);
                       },
-                      items: DoYouLoveFoodValues.map(
-                        (e) => DropdownMenuItem<String>(
-                          value: e,
-                          child: Text(e),
-                        ),
-                      ).toList(),
+                      items: DoYouLoveFoodValueToTitleMap.keys
+                          .map(
+                            (value) => DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(DoYouLoveFoodValueToTitleMap[value]!),
+                            ),
+                          )
+                          .toList(),
                     )
                   ],
                 )

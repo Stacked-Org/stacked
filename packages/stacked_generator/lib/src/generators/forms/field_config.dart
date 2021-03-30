@@ -18,9 +18,16 @@ class DateFieldConfig extends FieldConfig {
 }
 
 class DropdownFieldConfig extends FieldConfig {
-  final List<String> items;
+  final List<DropdownFieldItem> items;
   const DropdownFieldConfig({required String name, required this.items})
       : super(name: name);
+}
+
+class DropdownFieldItem {
+  final String title;
+  final String value;
+
+  DropdownFieldItem({required this.title, required this.value});
 }
 
 extension ListOfFieldConfigs on List<FieldConfig> {

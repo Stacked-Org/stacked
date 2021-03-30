@@ -18,7 +18,7 @@ class StackedFormContentGenerator extends BaseGenerator {
     // and can then be unit tested to avoid simple mistakes. BUT, that's for later.
     _generateImports();
     _generateValueMapKeys(fields);
-    _generateDropdownItemsList(fields.onlyDropdownFieldConfigs);
+    _generateDropdownItemsMap(fields.onlyDropdownFieldConfigs);
     _generateFormMixin();
     _generateFormViewModelExtensions(fields);
 
@@ -35,16 +35,17 @@ class StackedFormContentGenerator extends BaseGenerator {
     newLine();
   }
 
-  void _generateDropdownItemsList(List<DropdownFieldConfig> fields) {
+  void _generateDropdownItemsMap(List<DropdownFieldConfig> fields) {
     newLine();
     for (var field in fields) {
       final caseName = ReCase(field.name);
-      writeLine("const List<String> ${caseName.pascalCase}Values = [");
+      writeLine(
+          "const Map<String, String> ${caseName.pascalCase}ValueToTitleMap = {");
       for (final item in field.items) {
-        writeLine("'$item',");
+        writeLine("'${item.value}': '${item.title}',");
       }
     }
-    writeLine('];');
+    if (fields.isNotEmpty) writeLine('};');
     newLine();
   }
 
