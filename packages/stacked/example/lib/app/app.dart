@@ -1,3 +1,4 @@
+import 'package:new_architecture/services/cloud_logging_service.dart';
 import 'package:new_architecture/services/epoch_service.dart';
 import 'package:new_architecture/services/information_service.dart';
 import 'package:new_architecture/ui/bottom_nav/bottom_nav_example.dart';
@@ -29,6 +30,7 @@ import 'package:stacked_themes/stacked_themes.dart';
     LazySingleton(classType: InformationService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: EpochService),
+    LazySingleton(classType: CloudLoggingService),
     LazySingleton(
       classType: ThemeService,
       resolveUsing: ThemeService.getInstance,

@@ -39,6 +39,8 @@ dependencies:
 
   # logging
   logger:
+  googleapis: ^2.0.0
+  googleapis_auth: ^1.1.0
 
 dev_dependencies:
   flutter_test:

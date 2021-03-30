@@ -11,6 +11,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
 import '';
+import '../services/cloud_logging_service.dart';
 import '../services/epoch_service.dart';
 import '../services/information_service.dart';
 import '../ui/bottom_nav/favorites/favorites_viewmodel.dart';
@@ -24,6 +25,7 @@ void setupLocator() {
   locator.registerLazySingleton(() => InformationService());
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => EpochService());
+  locator.registerLazySingleton(() => CloudLoggingService());
   locator.registerLazySingleton(() => ThemeService.getInstance());
   locator.registerSingleton(HistoryViewModel());
   locator.registerSingleton(FavoritesViewModel());
