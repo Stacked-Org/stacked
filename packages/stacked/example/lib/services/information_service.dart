@@ -1,16 +1,14 @@
 import 'package:stacked/stacked.dart';
 
 class InformationService with ReactiveServiceMixin {
-  int _postCount = 0;
-  int get postCount => _postCount;
+  final _postCount = ReactiveValue<int>(0);
+  int get postCount => _postCount.value;
 
-  void updatePostCount() {
-    _postCount++;
-    notifyListeners();
-  }
+  void updatePostCount() => _postCount.value++;
 
-  void resetCount() {
-    _postCount = 0;
-    notifyListeners();
+  void resetCount() => _postCount.value = 0;
+
+  InformationService() {
+    listenToReactiveValues([_postCount]);
   }
 }
