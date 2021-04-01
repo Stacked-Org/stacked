@@ -1,13 +1,14 @@
 import 'dart:async';
 
-import 'package:stacked/src/reactive/type_def.dart';
-import 'package:stacked/stacked.dart';
-
-export 'stored_value.dart';
+import '../type_def.dart';
+import 'proxy_value.dart';
+import 'stored_value.dart';
 
 /// Interface of an Reactive value of type [T]
 abstract class ReactiveValue<T> {
   factory ReactiveValue(T initial) => StoredValue<T>(initial);
+  factory ReactiveValue.proxy(ValueGetter<T> getterProxy) =>
+      ProxyValue<T>(getterProxy);
 
   /// Get current value
   T get value;
