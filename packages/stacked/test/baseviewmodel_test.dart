@@ -99,7 +99,7 @@ void main() {
       });
 
       test(
-          'When busy future is complete should have called notifyListeners twice, 1 for busy 1 for not busy',
+          'When busy future is complete should have called notifyListeners three time, 1 for busy 1 for not busy 1 for restting errorMessage',
           () async {
         var called = 0;
         var viewModel = TestViewModel();
@@ -107,11 +107,11 @@ void main() {
           ++called;
         });
         await viewModel.runFuture();
-        expect(called, 2);
+        expect(called, 3);
       });
 
       test(
-          'When busy future fails should have called notifyListeners three times, 1 for busy 1 for not busy and 1 for error',
+          'When busy future fails should have called notifyListeners three times, 1 for busy 1 for not busy and 1 for resetting error, 1 for setting error',
           () async {
         var called = 0;
         var viewModel = TestViewModel();
@@ -119,7 +119,7 @@ void main() {
           ++called;
         });
         await viewModel.runFuture(fail: true);
-        expect(called, 3);
+        expect(called, 4);
       });
 
       test(
