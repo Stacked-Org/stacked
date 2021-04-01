@@ -140,7 +140,7 @@ void main() async {
         var streamViewModel = TestStreamViewModel(delay: 10);
         streamViewModel.initialise();
 
-        await Future.delayed(const Duration(milliseconds: 20));
+        await Future.delayed(const Duration(milliseconds: 30));
         streamViewModel.notifySourceChanged();
 
         expect(streamViewModel.data, 1);
