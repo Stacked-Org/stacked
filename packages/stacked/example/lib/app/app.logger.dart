@@ -6,7 +6,7 @@ import 'package:logger/logger.dart';
 // import 'dart:developer' as logger;
 
 List<String> exludeLogs = [];
-String showOnlyClass;
+String? showOnlyClass;
 
 class SimpleLogPrinter extends LogPrinter {
   final String className;
@@ -40,9 +40,9 @@ class SimpleLogPrinter extends LogPrinter {
     for (var line in output.split('\n')) {
       result.addAll(pattern.allMatches(line).map((match) {
         if (kReleaseMode) {
-          return match.group(0);
+          return match.group(0)!;
         } else {
-          return color(match.group(0));
+          return color!(match.group(0)!);
         }
       }));
     }
@@ -50,15 +50,15 @@ class SimpleLogPrinter extends LogPrinter {
     return result;
   }
 
-  String _getMethodName() {
+  String? _getMethodName() {
     try {
       var currentStack = StackTrace.current;
       var formattedStacktrace = formatStackTrace(currentStack, 3);
 
       var realFirstLine =
-          formattedStacktrace.firstWhere((line) => line.contains(className));
+          formattedStacktrace?.firstWhere((line) => line.contains(className));
 
-      var methodName = realFirstLine.replaceAll('$className.', '');
+      var methodName = realFirstLine?.replaceAll('$className.', '');
       return methodName;
     } catch (e) {
       // There's no deliberate function call from our code so we return null;
@@ -69,7 +69,7 @@ class SimpleLogPrinter extends LogPrinter {
 
 final stackTraceRegex = RegExp(r'#[0-9]+[\s]+(.+) \(([^\s]+)\)');
 
-List<String> formatStackTrace(StackTrace stackTrace, int methodCount) {
+List<String>? formatStackTrace(StackTrace stackTrace, int methodCount) {
   var lines = stackTrace.toString().split("\n");
 
   var formatted = <String>[];
@@ -77,7 +77,7 @@ List<String> formatStackTrace(StackTrace stackTrace, int methodCount) {
   for (var line in lines) {
     var match = stackTraceRegex.matchAsPrefix(line);
     if (match != null) {
-      if (match.group(2).startsWith('package:logger')) {
+      if (match.group(2)!.startsWith('package:logger')) {
         continue;
       }
       var newLine = ("${match.group(1)}");

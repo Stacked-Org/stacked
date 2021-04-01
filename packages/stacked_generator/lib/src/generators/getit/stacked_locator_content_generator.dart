@@ -67,12 +67,13 @@ class StackedLocatorContentGenerator extends BaseGenerator {
 
   void _generateImports(List<DependencyConfig> services) {
     // write route imports
-    final imports = <String>{"package:stacked/stacked.dart"};
+    final imports = <String?>{"package:stacked/stacked.dart"};
 
-    imports.addAll(services.map((e) => e.import));
-    imports.addAll(services.map((e) => e.abstractedImport));
+    imports.addAll(services.map((service) => service.import));
+    imports.addAll(services.map((service) => service.abstractedImport));
 
-    var validImports = imports.where((import) => import != null).toSet();
+    var validImports =
+        imports.where((import) => import != null).toSet().cast<String>();
     var dartImports =
         validImports.where((element) => element.startsWith('dart')).toSet();
     sortAndGenerate(dartImports);

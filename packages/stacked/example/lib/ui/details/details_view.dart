@@ -5,7 +5,7 @@ import 'package:stacked_services/stacked_services.dart';
 class DetailsView extends StatelessWidget {
   final String name;
 
-  const DetailsView({Key key, this.name}) : super(key: key);
+  const DetailsView({Key? key, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

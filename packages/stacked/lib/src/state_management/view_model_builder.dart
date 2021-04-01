@@ -6,15 +6,15 @@ enum _ViewModelBuilderType { NonReactive, Reactive }
 
 /// A widget that provides base functionality for the Mvvm style provider architecture by FilledStacks.
 class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
-  final Widget staticChild;
+  final Widget? staticChild;
 
   /// Fires once when the viewmodel is created or set for the first time
   ///
   /// If you want this to fire everytime the widget is inserted set [createNewModelOnInsert] to true
-  final Function(T) onModelReady;
+  final Function(T)? onModelReady;
 
   /// Builder function with access to the model to build UI form
-  final Widget Function(BuildContext, T, Widget) builder;
+  final Widget Function(BuildContext, T, Widget?) builder;
 
   /// A builder function that returns the viewmodel for this widget
   final T Function() viewModelBuilder;
@@ -43,29 +43,29 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
 
   /// Fires when the widget has been removed from the widget tree and allows you to dispose
   /// of any controllers or state values that need disposing
-  final Function onDispose;
+  final Function()? onDispose;
 
   /// Constructs a viewmodel provider that will not rebuild the provided widget when notifyListeners is called.
   ///
   /// Widget from [builder] will be used as a staic child and won't rebuild when notifyListeners is called
   const ViewModelBuilder.nonReactive({
-    @required this.builder,
-    @required this.viewModelBuilder,
+    required this.builder,
+    required this.viewModelBuilder,
     this.onModelReady,
     this.onDispose,
     this.disposeViewModel = true,
     this.createNewModelOnInsert = false,
     this.fireOnModelReadyOnce = false,
     this.initialiseSpecialViewModelsOnce = false,
-    Key key,
+    Key? key,
   })  : providerType = _ViewModelBuilderType.NonReactive,
         staticChild = null,
         super(key: key);
 
   /// Constructs a viewmodel provider that fires the [builder] function when notifyListeners is called in the viewmodel.
   const ViewModelBuilder.reactive({
-    @required this.builder,
-    @required this.viewModelBuilder,
+    required this.builder,
+    required this.viewModelBuilder,
     this.staticChild,
     this.onModelReady,
     this.onDispose,
@@ -73,7 +73,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
     this.createNewModelOnInsert = false,
     this.fireOnModelReadyOnce = false,
     this.initialiseSpecialViewModelsOnce = false,
-    Key key,
+    Key? key,
   })  : providerType = _ViewModelBuilderType.Reactive,
         super(key: key);
 
@@ -83,7 +83,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
 
 class _ViewModelBuilderState<T extends ChangeNotifier>
     extends State<ViewModelBuilder<T>> {
-  T _model;
+  T? _model;
 
   @override
   void initState() {
@@ -99,14 +99,12 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
   }
 
   void _createViewModel() {
-    if (widget.viewModelBuilder != null) {
-      _model = widget.viewModelBuilder();
-    }
+    _model = widget.viewModelBuilder();
 
     if (widget.initialiseSpecialViewModelsOnce &&
         !(_model as BaseViewModel).initialised) {
       _initialiseSpecialViewModels();
-      (_model as BaseViewModel)?.setInitialised(true);
+      (_model as BaseViewModel?)?.setInitialised(true);
     } else if (!widget.initialiseSpecialViewModelsOnce) {
       _initialiseSpecialViewModels();
     }
@@ -115,10 +113,10 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
     if (widget.onModelReady != null) {
       if (widget.fireOnModelReadyOnce &&
           !(_model as BaseViewModel).onModelReadyCalled) {
-        widget.onModelReady(_model);
-        (_model as BaseViewModel)?.setOnModelReadyCalled(true);
+        widget.onModelReady!(_model!);
+        (_model as BaseViewModel?)?.setOnModelReadyCalled(true);
       } else if (!widget.fireOnModelReadyOnce) {
-        widget.onModelReady(_model);
+        widget.onModelReady!(_model!);
       }
     }
   }
@@ -132,38 +130,38 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
   @override
   void dispose() {
     super.dispose();
-    widget?.onDispose?.call();
+    widget.onDispose?.call();
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.providerType == _ViewModelBuilderType.NonReactive) {
       if (!widget.disposeViewModel) {
-        return ChangeNotifierProvider.value(
-          value: _model,
-          child: widget.builder(context, _model, widget.staticChild),
+        return ChangeNotifierProvider<T>.value(
+          value: _model!,
+          child: widget.builder(context, _model!, widget.staticChild),
         );
       }
 
-      return ChangeNotifierProvider(
-        create: (context) => _model,
-        child: widget.builder(context, _model, widget.staticChild),
+      return ChangeNotifierProvider<T>(
+        create: (context) => _model!,
+        child: widget.builder(context, _model!, widget.staticChild),
       );
     }
 
     if (!widget.disposeViewModel) {
-      return ChangeNotifierProvider.value(
-        value: _model,
-        child: Consumer(
+      return ChangeNotifierProvider<T>.value(
+        value: _model!,
+        child: Consumer<T>(
           builder: builderWithDynamicSourceInitialise,
           child: widget.staticChild,
         ),
       );
     }
 
-    return ChangeNotifierProvider(
-      create: (context) => _model,
-      child: Consumer(
+    return ChangeNotifierProvider<T>(
+      create: (context) => _model!,
+      child: Consumer<T>(
         builder: builderWithDynamicSourceInitialise,
         child: widget.staticChild,
       ),
@@ -171,13 +169,14 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
   }
 
   Widget builderWithDynamicSourceInitialise(
-      BuildContext context, T model, Widget child) {
+      BuildContext context, T? model, Widget? child) {
     if (model is DynamicSourceViewModel) {
-      if (model.changeSource ?? false) {
+      if (model.changeSource) {
         _initialiseSpecialViewModels();
       }
     }
-    return widget.builder(context, model, child);
+
+    return widget.builder(context, model!, child);
   }
 }
 

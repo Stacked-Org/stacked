@@ -1,21 +1,20 @@
-import 'package:flutter/cupertino.dart';
-import 'package:observable_ish/observable_ish.dart';
+import 'package:flutter/foundation.dart';
+
+import '../../stacked.dart';
 
 /// Adds functionality to easily listen to all reactive values in a service
 mixin ReactiveServiceMixin {
-  List<Function> _listeners = List<Function>();
+  List<Function> _listeners = List<Function>.empty(growable: true);
 
   /// List to the values and react when there are any changes
   void listenToReactiveValues(List<dynamic> reactiveValues) {
     for (var reactiveValue in reactiveValues) {
-      if (reactiveValue is RxValue) {
+      if (reactiveValue is ReactiveValue) {
         reactiveValue.values.listen((value) => notifyListeners());
-      } else if (reactiveValue is RxList) {
-        reactiveValue.onChange.listen((event) => notifyListeners());
-      } else if (reactiveValue is RxSet) {
+      } else if (reactiveValue is ReactiveList) {
         reactiveValue.onChange.listen((event) => notifyListeners());
       } else if (reactiveValue is ChangeNotifier) {
-        (reactiveValue as ChangeNotifier).notifyListeners();
+        reactiveValue.notifyListeners();
       }
     }
   }

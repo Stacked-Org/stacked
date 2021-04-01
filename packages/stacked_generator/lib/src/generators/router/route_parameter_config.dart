@@ -10,22 +10,22 @@ final queryParamChecker = TypeChecker.fromRuntime(QueryParam);
 /// holds constructor parameter info to be used
 /// in generating route parameters.
 class RouteParamConfig {
-  final String type;
-  final String name;
-  final String alias;
+  final String? type;
+  final String? name;
+  final String? alias;
   final bool isPositional;
   final bool isRequired;
-  final bool isPathParam;
-  final bool isQueryParam;
-  final String defaultValueCode;
-  final Set<String> imports;
+  final bool? isPathParam;
+  final bool? isQueryParam;
+  final String? defaultValueCode;
+  final Set<String>? imports;
 
   RouteParamConfig({
     this.type,
     this.name,
     this.alias,
-    this.isPositional,
-    this.isRequired,
+    this.isPositional = false,
+    this.isRequired = false,
     this.isPathParam,
     this.isQueryParam,
     this.defaultValueCode,
@@ -49,7 +49,7 @@ class RouteParamConfig {
     }
   }
 
-  String get paramName => alias ?? name;
+  String? get paramName => alias ?? name;
 }
 
 class RouteParameterResolver {
@@ -66,23 +66,23 @@ class RouteParameterResolver {
     if (pathParam) {
       paramAlias = pathParamChecker
           .firstAnnotationOf(parameterElement)
-          .getField('name')
+          ?.getField('name')
           ?.toStringValue();
     }
     var isQuery = queryParamChecker.hasAnnotationOfExact(parameterElement);
     if (isQuery) {
       paramAlias = queryParamChecker
           .firstAnnotationOf(parameterElement)
-          .getField('name')
+          ?.getField('name')
           ?.toStringValue();
     }
 
     return RouteParamConfig(
-        type: toDisplayString(paramType),
+        type: toDisplayString(paramType, withNullability: true),
         name: parameterElement.name.replaceFirst("_", ''),
         alias: paramAlias,
         isPositional: parameterElement.isPositional,
-        isRequired: parameterElement.hasRequired,
+        isRequired: !parameterElement.isOptional,
         isPathParam: pathParam,
         isQueryParam: isQuery,
         defaultValueCode: parameterElement.defaultValueCode,

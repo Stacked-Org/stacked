@@ -14,7 +14,7 @@ import 'constants.dart';
 /// Wraps the firebase auth functionality into a service
 class FirebaseAuthenticationService {
   /// An Instance of Logger that can be used to log out what's happening in the service
-  final Logger log;
+  final Logger? log;
 
   /// The URI to which the authorization redirects. It must include a domain name, and can’t be an IP address or localhost.
   ///
@@ -37,8 +37,8 @@ class FirebaseAuthenticationService {
     this.log,
   });
 
-  String _pendingEmail;
-  AuthCredential _pendingCredential;
+  String? _pendingEmail;
+  AuthCredential? _pendingCredential;
 
   Future<UserCredential> _signInWithCredential(
     AuthCredential credential,
@@ -58,7 +58,7 @@ class FirebaseAuthenticationService {
 
   Future<FirebaseAuthenticationResult> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount googleSignInAccount =
+      final GoogleSignInAccount? googleSignInAccount =
           await _googleSignIn.signIn();
       if (googleSignInAccount == null) {
         log?.i('Process is canceled by the user');
@@ -77,7 +77,7 @@ class FirebaseAuthenticationService {
 
       // Link the pending credential with the existing account
       if (_pendingCredential != null) {
-        await result.user.linkWithCredential(_pendingCredential);
+        await result.user?.linkWithCredential(_pendingCredential!);
         _clearPendingData();
       }
 
@@ -143,7 +143,7 @@ class FirebaseAuthenticationService {
 
       // Link the pending credential with the existing account
       if (_pendingCredential != null) {
-        await result.user.linkWithCredential(_pendingCredential);
+        await result.user?.linkWithCredential(_pendingCredential!);
         _clearPendingData();
       }
 
@@ -161,17 +161,19 @@ class FirebaseAuthenticationService {
 
   Future<FirebaseAuthenticationResult> signInWithFacebook() async {
     try {
-      AccessToken accessToken = await _facebookLogin.login();
-      log?.v('Facebook Sign In complete. \naccessToken:${accessToken.token}');
+      LoginResult loginResult = await _facebookLogin.login();
+      if (loginResult.status == LoginStatus.success) {}
+      log?.v(
+          'Facebook Sign In complete. \naccessToken:${loginResult.accessToken}');
 
-      final FacebookAuthCredential facebookCredentials =
-          FacebookAuthProvider.credential(accessToken.token);
+      final facebookCredentials =
+          FacebookAuthProvider.credential(loginResult.accessToken?.token ?? '');
 
       final result = await _signInWithCredential(facebookCredentials);
 
       // Link the pending credential with the existing account
       if (_pendingCredential != null) {
-        await result.user.linkWithCredential(_pendingCredential);
+        await result.user?.linkWithCredential(_pendingCredential!);
         _clearPendingData();
       }
 
@@ -179,31 +181,34 @@ class FirebaseAuthenticationService {
     } on FirebaseAuthException catch (e) {
       log?.e(e);
       return await _handleAccountExists(e);
-    } on FacebookAuthException catch (e) {
-      log?.e(e);
-      switch (e.errorCode) {
-        case FacebookAuthErrorCode.OPERATION_IN_PROGRESS:
-          return FirebaseAuthenticationResult.error(
-              errorMessage:
-                  'You have a previous Facebook login operation in progress');
-        case FacebookAuthErrorCode.CANCELLED:
-          return FirebaseAuthenticationResult.error(
-              errorMessage: 'Facebook login has been cancelled by the user');
-        case FacebookAuthErrorCode.FAILED:
-          return FirebaseAuthenticationResult.error(
-              errorMessage: 'Facebook login has failed');
-        default:
-          return FirebaseAuthenticationResult.error(errorMessage: e.toString());
-      }
-    } catch (e) {
+      // ignore: nullable_type_in_catch_clause
+    }
+    //  on FacebookAuthException catch (e) {
+    //   log?.e(e);
+    //   switch (e.errorCode) {
+    //     case FacebookAuthErrorCode.OPERATION_IN_PROGRESS:
+    //       return FirebaseAuthenticationResult.error(
+    //           errorMessage:
+    //               'You have a previous Facebook login operation in progress');
+    //     case FacebookAuthErrorCode.CANCELLED:
+    //       return FirebaseAuthenticationResult.error(
+    //           errorMessage: 'Facebook login has been cancelled by the user');
+    //     case FacebookAuthErrorCode.FAILED:
+    //       return FirebaseAuthenticationResult.error(
+    //           errorMessage: 'Facebook login has failed');
+    //     default:
+    //       return FirebaseAuthenticationResult.error(errorMessage: e.toString());
+    //   }
+    // }
+    catch (e) {
       log?.e(e);
       return FirebaseAuthenticationResult.error(errorMessage: e.toString());
     }
   }
 
   Future<FirebaseAuthenticationResult> loginWithEmail({
-    @required String email,
-    @required String password,
+    required String email,
+    required String password,
   }) async {
     try {
       log?.d('email:$email');
@@ -216,7 +221,7 @@ class FirebaseAuthenticationService {
 
       // Link the pending credential with the existing account
       if (_pendingCredential != null) {
-        await result.user.linkWithCredential(_pendingCredential);
+        await result.user?.linkWithCredential(_pendingCredential!);
         _clearPendingData();
       }
 
@@ -234,8 +239,10 @@ class FirebaseAuthenticationService {
   }
 
   /// Uses `createUserWithEmailAndPassword` to sign up to the Firebase application
-  Future<FirebaseAuthenticationResult> createAccountWithEmail(
-      {String email, String password}) async {
+  Future<FirebaseAuthenticationResult> createAccountWithEmail({
+    required String email,
+    required String password,
+  }) async {
     try {
       log?.d('email:$email');
       final result = await firebaseAuth.createUserWithEmailAndPassword(
@@ -359,7 +366,7 @@ class FirebaseAuthenticationService {
       final authResult = await firebaseAuth.currentUser
           .reauthenticateWithCredential(authCredentials);
 
-      return authResult.user != null;
+      return authResult?.user != null;
     } catch (e) {
       log?.e('Could not validate the user password. $e');
       return FirebaseAuthenticationResult.error(
@@ -395,14 +402,14 @@ class FirebaseAuthenticationResult {
   final User user;
 
   /// Contains the error message for the request
-  final String errorMessage;
+  final String? errorMessage;
 
   FirebaseAuthenticationResult({this.user}) : errorMessage = null;
 
   FirebaseAuthenticationResult.error({this.errorMessage}) : user = null;
 
   /// Returns true if the response has an error associated with it
-  bool get hasError => errorMessage != null && errorMessage.isNotEmpty;
+  bool get hasError => errorMessage != null && errorMessage!.isNotEmpty;
 }
 
 String getErrorMessageFromFirebaseException(FirebaseAuthException exception) {

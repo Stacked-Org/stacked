@@ -6,19 +6,19 @@ const TextStyle _defaultTextStyle = TextStyle(color: Colors.black);
 const TextStyle _cancelTextStyle = TextStyle(color: Colors.red);
 
 class PlatformButton extends StatelessWidget {
-  final DialogPlatform dialogPlatform;
+  final DialogPlatform? dialogPlatform;
   final String text;
-  final Function onPressed;
+  final void Function() onPressed;
   final bool isCancelButton;
-  final Color confirmationBtnColor;
-  final Color cancelBtnColor;
+  final Color? confirmationBtnColor;
+  final Color? cancelBtnColor;
 
   const PlatformButton({
-    Key key,
+    Key? key,
     this.dialogPlatform,
     this.isCancelButton = false,
-    @required this.text,
-    @required this.onPressed,
+    required this.text,
+    required this.onPressed,
     this.confirmationBtnColor,
     this.cancelBtnColor,
   }) : super(key: key);
@@ -59,7 +59,7 @@ class PlatformButton extends StatelessWidget {
 
 class PlatformDialog extends StatelessWidget {
   /// The title of the dialog is displayed in a large font at the top
-  final String title;
+  final String? title;
 
   /// Padding around the title.
   ///
@@ -71,13 +71,13 @@ class PlatformDialog extends StatelessWidget {
   /// provided (but see [contentPadding]). If it _is_ null, then an extra 20
   /// pixels of bottom padding is added to separate the [title] from the
   /// [actions].
-  final EdgeInsetsGeometry titlePadding;
+  final EdgeInsetsGeometry? titlePadding;
 
   /// Style for the text in the [title] of this [AlertDialog].
   final TextStyle titleTextStyle;
 
   /// The content of the dialog is displayed in the center of the dialog
-  final String content;
+  final String? content;
 
   /// Padding around the content.
 
@@ -88,14 +88,14 @@ class PlatformDialog extends StatelessWidget {
 
   /// The set of actions that are displayed at the bottom of the
   /// dialog.
-  final List<Widget> actions;
+  final List<Widget>? actions;
 
   final DialogPlatform dialogPlatform;
 
-  final String cancelText;
+  final String? cancelText;
 
   const PlatformDialog({
-    Key key,
+    Key? key,
     this.title,
     this.titlePadding,
     this.titleTextStyle = _defaultTextStyle,
@@ -115,29 +115,29 @@ class PlatformDialog extends StatelessWidget {
         return CupertinoAlertDialog(
           title: title != null
               ? Text(
-                  title,
+                  title!,
                 )
               : null,
           content: content != null
               ? Text(
-                  content,
+                  content!,
                 )
               : null,
-          actions: actions,
+          actions: actions ?? [],
         );
       case DialogPlatform.Material:
-      default: // TODO: When custom dialog registrations are implemented it'll be shown here
+      default:
         return AlertDialog(
           titleTextStyle: Theme.of(context).dialogTheme.titleTextStyle,
           contentTextStyle: Theme.of(context).dialogTheme.contentTextStyle,
           title: title != null
               ? Text(
-                  title,
+                  title!,
                 )
               : null,
           content: content != null
               ? Text(
-                  content,
+                  content!,
                 )
               : null,
           actions: actions,

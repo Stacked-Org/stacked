@@ -5,8 +5,8 @@ import 'widget_two_viewmodel.dart';
 class WidgetTwo extends StatelessWidget {
   final int id;
   const WidgetTwo({
-    Key key,
-    this.id,
+    Key? key,
+    required this.id,
   }) : super(key: key);
 
   @override

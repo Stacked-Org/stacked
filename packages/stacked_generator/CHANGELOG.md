@@ -1,5 +1,21 @@
 # ChangeLog
 
+## 0.3.1-nullsafety.3
+
+- Generate nulllable formView property getters
+
+## 0.3.1-nullsafety.2
+
+- fixes DatePicker changes bugs
+
+## 0.3.1-nullsafety.1
+
+- Adds DatePicker form field option to the Form Generation functionality
+
+## 0.3.0-nullsafety.1
+
+- Migrates to null safety
+
 ## 0.2.7
 
 - Bumps build and source gen

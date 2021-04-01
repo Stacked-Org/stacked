@@ -4,8 +4,8 @@ const String _NumberDelayFuture = 'delayedNumber';
 const String _StringDelayFuture = 'delayedString';
 
 class MultipleFuturesExampleViewModel extends MultipleFutureViewModel {
-  int get fetchedNumber => dataMap[_NumberDelayFuture];
-  String get fetchedString => dataMap[_StringDelayFuture];
+  int get fetchedNumber => dataMap![_NumberDelayFuture];
+  String get fetchedString => dataMap![_StringDelayFuture];
 
   bool get fetchingNumber => busy(_NumberDelayFuture);
   bool get fetchingString => busy(_StringDelayFuture);

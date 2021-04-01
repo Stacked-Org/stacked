@@ -8,5 +8,5 @@ class FormViewConfig {
   /// Contains a list of configs to use when generating the form data
   final List<FieldConfig> fields;
 
-  FormViewConfig({this.viewName, this.fields});
+  FormViewConfig({required this.viewName, required this.fields});
 }

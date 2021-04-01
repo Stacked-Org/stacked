@@ -7,10 +7,10 @@ class StackedApp {
   final List<StackedRoute> routes;
 
   /// Defines a list of services to be registered on the locator for use in the app
-  final List<DependencyRegistration> dependencies;
+  final List<DependencyRegistration>? dependencies;
 
   const StackedApp({
-    this.routes,
+    required this.routes,
     this.dependencies,
   }) : assert(routes != null);
 }
@@ -18,15 +18,15 @@ class StackedApp {
 class StackedRouterAnnotation {
   // if true a Navigator extension will be generated with
   // helper push methods of all routes
-  final bool generateNavigationHelperExtension;
+  final bool? generateNavigationHelperExtension;
 
   // defaults to 'Routes'
-  final String routesClassName;
+  final String? routesClassName;
 
   //This is the prefix for each Route String that is generated
   // initial routes will always be named '/'
   // defaults to '/'
-  final String routePrefix;
+  final String? routePrefix;
 
   final List<StackedRoute> routes;
 
@@ -42,10 +42,10 @@ class StackedRouterAnnotation {
 // overridden by AutoRoute annotation
 class MaterialRouter extends StackedRouterAnnotation {
   const MaterialRouter({
-    bool generateNavigationHelperExtension,
-    String routesClassName,
-    String pathPrefix,
-    @required List<StackedRoute> routes,
+    bool? generateNavigationHelperExtension,
+    String? routesClassName,
+    String? pathPrefix,
+    required List<StackedRoute> routes,
   }) : super._(generateNavigationHelperExtension, routesClassName, pathPrefix,
             routes);
 }
@@ -54,10 +54,10 @@ class MaterialRouter extends StackedRouterAnnotation {
 // overridden by AutoRoute annotation
 class CupertinoRouter extends StackedRouterAnnotation {
   const CupertinoRouter({
-    bool generateNavigationHelperExtension,
-    String routesClassName,
-    String pathPrefix,
-    @required List<StackedRoute> routes,
+    bool? generateNavigationHelperExtension,
+    String? routesClassName,
+    String? pathPrefix,
+    required List<StackedRoute> routes,
   }) : super._(
           generateNavigationHelperExtension,
           routesClassName,
@@ -68,10 +68,10 @@ class CupertinoRouter extends StackedRouterAnnotation {
 
 class AdaptiveRouter extends StackedRouterAnnotation {
   const AdaptiveRouter({
-    bool generateNavigationHelperExtension,
-    String routesClassName,
-    String pathPrefix,
-    @required List<StackedRoute> routes,
+    bool? generateNavigationHelperExtension,
+    String? routesClassName,
+    String? pathPrefix,
+    required List<StackedRoute> routes,
   }) : super._(
           generateNavigationHelperExtension,
           routesClassName,
@@ -92,28 +92,28 @@ class CustomRouter extends StackedRouterAnnotation {
   ///
   /// you should only reference the function so
   /// the generator can import it into router_base.dart
-  final Function transitionsBuilder;
+  final Function? transitionsBuilder;
 
   /// route transition duration in milliseconds
   /// is passed to [PageRouteBuilder]
   /// this property is ignored unless a [transitionBuilder] is provided
-  final int durationInMilliseconds;
+  final int? durationInMilliseconds;
 
   /// passed to the opaque property in [PageRouteBuilder]
-  final bool opaque;
+  final bool? opaque;
 
   /// passed to the barrierDismissible property in [PageRouteBuilder]
-  final bool barrierDismissible;
+  final bool? barrierDismissible;
 
   const CustomRouter(
       {this.transitionsBuilder,
       this.barrierDismissible,
       this.durationInMilliseconds,
       this.opaque,
-      bool generateNavigationHelperExtension,
-      String routesClassName,
-      String pathPrefix,
-      @required List<StackedRoute> routes})
+      bool? generateNavigationHelperExtension,
+      String? routesClassName,
+      String? pathPrefix,
+      required List<StackedRoute> routes})
       : super._(
           generateNavigationHelperExtension,
           routesClassName,
@@ -129,14 +129,14 @@ class CustomRouter extends StackedRouterAnnotation {
 class StackedRoute<T> {
   // initial route will have an explicit name of "/"
   // there could be only one initial route per navigator.
-  final bool initial;
+  final bool? initial;
 
   /// passed to the fullscreenDialog property in [MaterialPageRoute]
-  final bool fullscreenDialog;
+  final bool? fullscreenDialog;
 
   /// passed to the maintainState property in [MaterialPageRoute]
-  final bool maintainState;
-  final List<StackedRoute> children;
+  final bool? maintainState;
+  final List<StackedRoute>? children;
 
   /// route path name which will be assigned to the given variable name
   /// const homeScreen = '[path]';
@@ -144,15 +144,15 @@ class StackedRoute<T> {
   /// prefixed with '/' will be used;
   /// homeScreen -> home-screen
 
-  final String path;
-  final String name;
+  final String? path;
+  final String? name;
 
   final Type page;
 
-  final List<Type> guards;
+  final List<Type>? guards;
 
   const StackedRoute(
-      {@required this.page,
+      {required this.page,
       this.initial,
       this.guards,
       this.fullscreenDialog,
@@ -164,14 +164,14 @@ class StackedRoute<T> {
 
 class MaterialRoute<T> extends StackedRoute<T> {
   const MaterialRoute(
-      {String path,
-      @required Type page,
-      bool initial,
-      bool fullscreenDialog,
-      bool maintainState,
-      String name,
-      List<Type> guards,
-      List<StackedRoute> children})
+      {String? path,
+      required Type page,
+      bool? initial,
+      bool? fullscreenDialog,
+      bool? maintainState,
+      String? name,
+      List<Type>? guards,
+      List<StackedRoute>? children})
       : super(
           page: page,
           guards: guards,
@@ -187,18 +187,18 @@ class MaterialRoute<T> extends StackedRoute<T> {
 // forces usage of CupertinoPageRoute instead of MaterialPageRoute
 class CupertinoRoute<T> extends StackedRoute<T> {
   /// passed to the title property in [CupertinoPageRoute]
-  final String title;
+  final String? title;
 
   const CupertinoRoute(
-      {bool initial,
-      bool fullscreenDialog,
-      bool maintainState,
-      String path,
+      {bool? initial,
+      bool? fullscreenDialog,
+      bool? maintainState,
+      String? path,
       this.title,
-      String name,
-      @required Type page,
-      List<Type> guards,
-      List<StackedRoute> children})
+      String? name,
+      required Type page,
+      List<Type>? guards,
+      List<StackedRoute>? children})
       : super(
             initial: initial,
             fullscreenDialog: fullscreenDialog,
@@ -212,16 +212,16 @@ class CupertinoRoute<T> extends StackedRoute<T> {
 
 class AdaptiveRoute<T> extends StackedRoute<T> {
   const AdaptiveRoute(
-      {bool initial,
-      bool fullscreenDialog,
-      bool maintainState,
-      String name,
-      String path,
-      Type returnType,
+      {bool? initial,
+      bool? fullscreenDialog,
+      bool? maintainState,
+      String? name,
+      String? path,
+      Type? returnType,
       this.cupertinoPageTitle,
-      @required Type page,
-      List<Type> guards,
-      List<StackedRoute> children})
+      required Type page,
+      List<Type>? guards,
+      List<StackedRoute>? children})
       : super(
             initial: initial,
             fullscreenDialog: fullscreenDialog,
@@ -233,7 +233,7 @@ class AdaptiveRoute<T> extends StackedRoute<T> {
             children: children);
 
   /// passed to the title property in [CupertinoPageRoute]
-  final String cupertinoPageTitle;
+  final String? cupertinoPageTitle;
 }
 
 class CustomRoute<T> extends StackedRoute<T> {
@@ -246,28 +246,28 @@ class CustomRoute<T> extends StackedRoute<T> {
   ///
   /// you should only reference the function so
   /// the generator can import it into router_base.dart
-  final Function transitionsBuilder;
+  final Function? transitionsBuilder;
 
   /// route transition duration in milliseconds
   /// is passed to [PageRouteBuilder]
   /// this property is ignored unless a [transitionBuilder] is provided
-  final int durationInMilliseconds;
+  final int? durationInMilliseconds;
 
   /// passed to the opaque property in [PageRouteBuilder]
-  final bool opaque;
+  final bool? opaque;
 
   /// passed to the barrierDismissible property in [PageRouteBuilder]
-  final bool barrierDismissible;
+  final bool? barrierDismissible;
 
   const CustomRoute({
-    bool initial,
-    bool fullscreenDialog,
-    bool maintainState,
-    String name,
-    String path,
-    @required Type page,
-    List<Type> guards,
-    List<StackedRoute> children,
+    bool? initial,
+    bool? fullscreenDialog,
+    bool? maintainState,
+    String? name,
+    String? path,
+    required Type page,
+    List<Type>? guards,
+    List<StackedRoute>? children,
     this.transitionsBuilder,
     this.durationInMilliseconds,
     this.opaque,
@@ -284,7 +284,7 @@ class CustomRoute<T> extends StackedRoute<T> {
 }
 
 class PathParam {
-  final String name;
+  final String? name;
 
   const PathParam([this.name]);
 }
@@ -292,7 +292,7 @@ class PathParam {
 const pathParam = PathParam();
 
 class QueryParam {
-  final String name;
+  final String? name;
 
   const QueryParam([this.name]);
 }

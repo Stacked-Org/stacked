@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -21,11 +22,11 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
     BuildStep buildStep,
   ) async {
     var libs = await buildStep.resolver.libraries.toList();
-    var importResolver = ImportResolver(libs, element.source.uri.path);
+    var importResolver = ImportResolver(libs, element.source?.uri.path ?? '');
 
     final servicesConfig = stackedApplication.peek('dependencies')?.listValue;
     if (servicesConfig != null) {
-      List<DependencyConfig> services = List<DependencyConfig>();
+      List<DependencyConfig> services = <DependencyConfig>[];
       // Convert the services config into Services configuration
       for (final serviceConfig in servicesConfig) {
         final serialisedServiceConfig = _readDependencyConfig(
@@ -41,13 +42,15 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
   }
 
   DependencyConfig _readDependencyConfig({
-    DartObject dependencyConfig,
-    ImportResolver importResolver,
+    required DartObject dependencyConfig,
+    required ImportResolver importResolver,
   }) {
     var dependencyReader = ConstantReader(dependencyConfig);
     // Get the type of the service that we want to register
-    final dependencyClassType = dependencyReader.read('classType').typeValue;
-    final dependencyAbstractedClassType =
+    final DartType? dependencyClassType =
+        dependencyReader.read('classType').typeValue;
+
+    final DartType? dependencyAbstractedClassType =
         dependencyReader.peek('asType')?.typeValue;
 
     throwIf(
@@ -55,9 +58,7 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
       '🛑 No dependency class Type defined for ${dependencyConfig.toString()}. Please make sure that any of the services provided to the services list in the StackedApp annotation has a service provided. Please see the documentation for stacked_generator if you don\'t know what this means.',
     );
 
-    final classElement = dependencyClassType.element as ClassElement;
-    final abstractedClassElement =
-        dependencyAbstractedClassType?.element as ClassElement;
+    final classElement = dependencyClassType!.element as ClassElement?;
 
     throwIf(
       classElement == null,
@@ -65,7 +66,11 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
     );
 
     // Get the import of the class type that's defined for the service
-    final import = importResolver.resolve(classElement);
+    final import = importResolver.resolve(classElement!);
+
+    final abstractedClassElement =
+        dependencyAbstractedClassType?.element as ClassElement?;
+
     final abstractedImport = importResolver.resolve(abstractedClassElement);
 
     final className = toDisplayString(dependencyClassType);
@@ -79,18 +84,20 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
 
     final serviceType = _getDependencyType(dependencyReader);
 
-    String presolveFunction;
+    String? presolveFunction;
     if (serviceType == DependencyType.PresolvedSingleton) {
-      final presolveUsing = dependencyReader.peek('presolveUsing');
-      final presolveObject = presolveUsing?.objectValue?.toFunctionValue();
+      final ConstantReader? presolveUsing =
+          dependencyReader.peek('presolveUsing');
+      final presolveObject = presolveUsing?.objectValue.toFunctionValue();
       presolveFunction = presolveObject?.displayName;
     }
 
-    String resolveFunction;
+    String? resolveFunction;
     if (serviceType == DependencyType.LazySingleton ||
         serviceType == DependencyType.Singleton) {
-      final resolveUsing = dependencyReader.peek('resolveUsing');
-      final resolveObject = resolveUsing?.objectValue?.toFunctionValue();
+      final ConstantReader? resolveUsing =
+          dependencyReader.peek('resolveUsing');
+      final resolveObject = resolveUsing?.objectValue.toFunctionValue();
       resolveFunction = resolveObject?.displayName;
     }
 

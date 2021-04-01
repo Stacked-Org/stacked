@@ -7,16 +7,16 @@ import 'uri_extension.dart';
 
 class RouteMatcher {
   final Uri _uri;
-  final RouteSettings _settings;
+  final RouteSettings? _settings;
 
-  RouteMatcher(this._settings) : _uri = Uri.parse(_settings.name);
+  RouteMatcher(RouteSettings this._settings) : _uri = Uri.parse(_settings.name!);
 
   RouteMatcher.fromUri(this._uri) : _settings = null;
 
-  RouteMatch match(RouteDef route, {bool fullMatch = false}) {
+  RouteMatch? match(RouteDef route, {bool fullMatch = false}) {
     var pattern = fullMatch ? '${route.pattern}\$' : route.pattern;
-    var match = RegExp(pattern).stringMatch(_uri.path);
-    RouteMatch matchResult;
+    var match = RegExp(pattern as String).stringMatch(_uri.path);
+    RouteMatch? matchResult;
     if (match != null) {
       // strip trailing forward slash
       if (match.endsWith("/") && match.length > 1) {
@@ -29,7 +29,7 @@ class RouteMatcher {
       // any of the nested routes
       if (!rest.hasEmptyPath) {
         if (route.isParent) {
-          if (!route.generator.hasMatch(rest.path)) {
+          if (!route.generator!.hasMatch(rest.path)) {
             return null;
           }
         } else {
@@ -55,14 +55,14 @@ class RouteMatcher {
           uri: segment,
           routeDef: route,
           rest: rest,
-          pathParamsMap: _extractPathParams(route.pattern, match));
+          pathParamsMap: _extractPathParams(route.pattern as String, match));
     }
     return matchResult;
   }
 
-  Map<String, String> _extractPathParams(String pathPattern, String path) {
+  Map<String, String?> _extractPathParams(String pathPattern, String path) {
     var pathMatch = RegExp(pathPattern).firstMatch(path);
-    var params = <String, String>{};
+    var params = <String, String?>{};
     if (pathMatch != null) {
       for (var name in pathMatch.groupNames) {
         params[name] = pathMatch.namedGroup(name);
@@ -77,17 +77,17 @@ class RouteMatch extends RouteSettings {
   final Uri uri;
   final RouteDef routeDef;
   final Uri rest;
-  final Map<String, String> pathParamsMap;
-  final Object initialArgsToPass;
+  final Map<String, String?> pathParamsMap;
+  final Object? initialArgsToPass;
 
   RouteMatch({
-    @required this.uri,
-    @required this.routeDef,
-    @required this.rest,
-    @required this.pathParamsMap,
+    required this.uri,
+    required this.routeDef,
+    required this.rest,
+    required this.pathParamsMap,
     this.initialArgsToPass,
-    @required String name,
-    @required Object arguments,
+    required String? name,
+    required Object? arguments,
   }) : super(name: name, arguments: arguments);
 
   bool get hasRest => !rest.hasEmptyPath;
@@ -106,8 +106,8 @@ class RouteMatch extends RouteSettings {
 
   @override
   RouteSettings copyWith({
-    String name,
-    Object arguments,
+    String? name,
+    Object? arguments,
   }) {
     return RouteMatch(
         name: name ?? this.name,

@@ -6,7 +6,7 @@ import 'package:stacked/src/state_management/view_model_builder.dart';
 /// Default [reactive] value is true. Can be overriden and set to false
 abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
     extends StatelessWidget {
-  const ViewModelBuilderWidget({Key key}) : super(key: key);
+  const ViewModelBuilderWidget({Key? key}) : super(key: key);
 
   /// A function that builds the UI to be shown from the ViewModel - Required
   ///
@@ -14,7 +14,7 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
   Widget builder(
     BuildContext context,
     T model,
-    Widget child,
+    Widget? child,
   );
 
   /// A builder that builds the ViewModel for this UI - Required
@@ -56,7 +56,7 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
   ///
   /// When [reactive] is set to false the builder is used as the static child
   /// and is only ever built once.
-  Widget staticChildBuilder(BuildContext context) => null;
+  Widget? staticChildBuilder(BuildContext context) => null;
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +64,7 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
       return ViewModelBuilder<T>.reactive(
         builder: builder,
         viewModelBuilder: () => viewModelBuilder(context),
-        staticChild:
-            staticChildBuilder != null ? staticChildBuilder(context) : null,
+        staticChild: staticChildBuilder(context),
         onModelReady: onViewModelReady,
         disposeViewModel: disposeViewModel,
         createNewModelOnInsert: createNewModelOnInsert,

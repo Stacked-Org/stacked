@@ -8,16 +8,15 @@ class ImportResolver {
 
   ImportResolver(this.libs, this.targetFilePath);
 
-  String resolve(Element element) {
+  String resolve(Element? element) {
     // return early if source is null or element is a core type
     if (element?.source == null || _isCoreDartType(element)) {
-      return null;
+      return '';
     }
 
     for (var lib in libs) {
-      if (lib.source != null &&
-          !_isCoreDartType(lib) &&
-          lib.exportNamespace.definedNames.keys.contains(element.name)) {
+      if (!_isCoreDartType(lib) &&
+          lib.exportNamespace.definedNames.keys.contains(element?.name)) {
         var package = lib.source.uri.pathSegments.first;
         if (targetFilePath.startsWith(package)) {
           return p.posix
@@ -28,18 +27,18 @@ class ImportResolver {
         }
       }
     }
-    return null;
+    return '';
   }
 
-  bool _isCoreDartType(Element element) {
-    return element.source.fullName == 'dart:core';
+  bool _isCoreDartType(Element? element) {
+    return element?.source?.fullName == 'dart:core';
   }
 
   Set<String> resolveAll(DartType type) {
     final imports = <String>{};
     imports.add(resolve(type.element));
     imports.addAll(_checkForParameterizedTypes(type));
-    return imports..removeWhere((element) => element == null);
+    return imports..removeWhere((element) => element == '');
   }
 
   Set<String> _checkForParameterizedTypes(DartType typeToCheck) {

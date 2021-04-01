@@ -6,7 +6,7 @@ import 'package:new_architecture/ui/smart_widgets/widget_two/widget_two.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({Key key}) : super(key: key);
+  const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

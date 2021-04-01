@@ -1,10 +1,30 @@
+## 2.0.1
+
+- Adds ReactiveValue and ReactiveList for reactive functionality
+
+## 2.0.0
+
+- Null safety migration complete and ready to be used!
+
+## 2.0.0-nullsafety.3
+
+- Fixes annotation to allow for date selection
+
+## 2.0.0-nullsafety.2
+
+- Adds back `resolveUsing` function to the annotations
+
+## 2.0.0-nullsafety.1
+
+- Migrate to null-safety. We will remove null safety when we iron out all the issues
+
 ## 1.9.8
 
 - Exposes `RouteGuard` through stacked as well
 
 ## 1.9.7
 
-- Adds `resolveUsing` function that can be used for singleton type dependency registrations. 
+- Adds `resolveUsing` function that can be used for singleton type dependency registrations.
 
 ## 1.9.6
 

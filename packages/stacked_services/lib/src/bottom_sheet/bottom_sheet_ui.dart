@@ -5,19 +5,19 @@ import 'package:stacked_services/src/bottom_sheet/responsive_reducers.dart';
 
 class GeneralBottomSheet extends StatelessWidget {
   final String title;
-  final String description;
+  final String? description;
   final String confirmButtonTitle;
-  final String cancelButtonTitle;
-  final Function onConfirmTapped;
-  final Function onCancelTapped;
+  final String? cancelButtonTitle;
+  final void Function() onConfirmTapped;
+  final void Function()? onCancelTapped;
   final double sidePadding;
   const GeneralBottomSheet({
-    Key key,
-    this.title,
+    Key? key,
+    required this.title,
+    required this.confirmButtonTitle,
+    required this.onConfirmTapped,
     this.description,
-    this.confirmButtonTitle,
     this.cancelButtonTitle,
-    this.onConfirmTapped,
     this.onCancelTapped,
     this.sidePadding = 25,
   }) : super(key: key);
@@ -34,11 +34,12 @@ class GeneralBottomSheet extends StatelessWidget {
             title,
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          verticalSpaceSmall,
-          Text(
-            description,
-            style: TextStyle(fontSize: 15, color: Colors.grey),
-          ),
+          if (description != null) verticalSpaceSmall,
+          if (description != null)
+            Text(
+              description!,
+              style: TextStyle(fontSize: 15, color: Colors.grey),
+            ),
           verticalSpaceMedium,
           FullScreenButton(
             title: confirmButtonTitle,
@@ -47,7 +48,7 @@ class GeneralBottomSheet extends StatelessWidget {
           verticalSpaceTiny,
           if (cancelButtonTitle != null)
             FullScreenButton(
-              title: cancelButtonTitle,
+              title: cancelButtonTitle!,
               onPressed: onCancelTapped,
               color: Colors.white,
               textColor: Theme.of(context).primaryColor,
@@ -60,24 +61,24 @@ class GeneralBottomSheet extends StatelessWidget {
 
 class FullScreenButton extends StatelessWidget {
   final double horizontalPadding;
-  final Color color;
+  final Color? color;
   final Color textColor;
   final bool busy;
   final String title;
   final bool outline;
-  final Function onPressed;
+  final void Function()? onPressed;
   final bool enabled;
   final bool hasDropShadow;
 
   /// Height of the button. Default value is [screenHeightFraction(context, dividedBy: 18)]
-  final double height;
+  final double? height;
 
   static BorderRadius _borderRadius = BorderRadius.circular(8);
 
   FullScreenButton({
-    Key key,
-    @required this.title,
-    @required this.onPressed,
+    Key? key,
+    required this.title,
+    required this.onPressed,
     this.horizontalPadding = 25,
     this.height,
     this.color,
@@ -102,7 +103,7 @@ class FullScreenButton extends StatelessWidget {
                 border: Border.all(
                   color: enabled
                       ? (color ?? Theme.of(context).primaryColor)
-                      : Colors.grey[350],
+                      : Colors.grey[350]!,
                   width: 1,
                 ),
                 borderRadius: _borderRadius,

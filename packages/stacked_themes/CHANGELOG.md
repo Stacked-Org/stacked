@@ -1,3 +1,7 @@
+## 0.3.0
+
+- Updates the package to null-safety
+
 ## 0.2.4
 
 - provider: ^4.3.3 -> ^5.0.0

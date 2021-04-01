@@ -4,7 +4,7 @@ import 'package:stacked/stacked.dart';
 class TestViewModel extends BaseViewModel {
   bool onErrorCalled = false;
   Future runFuture(
-      {String busyKey, bool fail = false, bool throwException = false}) {
+      {String? busyKey, bool fail = false, bool throwException = false}) {
     return runBusyFuture(
       _futureToRun(fail),
       busyObject: busyKey,
@@ -13,7 +13,7 @@ class TestViewModel extends BaseViewModel {
   }
 
   Future runTestErrorFuture(
-      {String key, bool fail = false, bool throwException = false}) {
+      {String? key, bool fail = false, bool throwException = false}) {
     return runErrorFuture(
       _futureToRun(fail),
       key: key,

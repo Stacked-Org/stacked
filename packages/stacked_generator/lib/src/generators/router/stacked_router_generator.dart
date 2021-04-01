@@ -16,7 +16,7 @@ class StackedRouterGenerator extends GeneratorForAnnotation<StackedApp> {
     BuildStep buildStep,
   ) async {
     var libs = await buildStep.resolver.libraries.toList();
-    var importResolver = ImportResolver(libs, element.source.uri.path);
+    var importResolver = ImportResolver(libs, element.source?.uri.path ?? '');
 
     var routerResolver = RouterConfigResolver(importResolver);
     final routerConfig = await routerResolver.resolve(
