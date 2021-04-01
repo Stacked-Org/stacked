@@ -27,7 +27,7 @@ class FirebaseAuthenticationService {
   /// Usually a reverse domain notation like com.example.app.service
   final appleClientId;
 
-  final _firebaseAuth = FirebaseAuth.instance;
+  final firebaseAuth = FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn();
   final _facebookLogin = FacebookAuth.instance;
 
@@ -43,17 +43,17 @@ class FirebaseAuthenticationService {
   Future<UserCredential> _signInWithCredential(
     AuthCredential credential,
   ) async {
-    return _firebaseAuth.signInWithCredential(credential);
+    return firebaseAuth.signInWithCredential(credential);
   }
 
   /// Returns the latest userToken stored in the Firebase Auth lib
   Future<String> get userToken {
-    return _firebaseAuth.currentUser?.getIdToken();
+    return firebaseAuth.currentUser?.getIdToken();
   }
 
   /// Returns true when a user has logged in or signed on this device
   bool get hasUser {
-    return _firebaseAuth?.currentUser != null;
+    return firebaseAuth?.currentUser != null;
   }
 
   Future<FirebaseAuthenticationResult> signInWithGoogle() async {
@@ -81,10 +81,7 @@ class FirebaseAuthenticationService {
         _clearPendingData();
       }
 
-      return FirebaseAuthenticationResult(
-        uid: result.user.uid,
-        userToken: result.user.refreshToken,
-      );
+      return FirebaseAuthenticationResult(user: result.user);
     } on FirebaseAuthException catch (e) {
       log?.e(e);
       return await _handleAccountExists(e);
@@ -150,10 +147,7 @@ class FirebaseAuthenticationService {
         _clearPendingData();
       }
 
-      return FirebaseAuthenticationResult(
-        uid: result.user.uid,
-        userToken: result.user.refreshToken,
-      );
+      return FirebaseAuthenticationResult(user: result.user);
     } on FirebaseAuthException catch (e) {
       log?.e(e);
       return await _handleAccountExists(e);
@@ -181,10 +175,7 @@ class FirebaseAuthenticationService {
         _clearPendingData();
       }
 
-      return FirebaseAuthenticationResult(
-        uid: result.user.uid,
-        userToken: result.user.refreshToken,
-      );
+      return FirebaseAuthenticationResult(user: result.user);
     } on FirebaseAuthException catch (e) {
       log?.e(e);
       return await _handleAccountExists(e);
@@ -216,7 +207,7 @@ class FirebaseAuthenticationService {
   }) async {
     try {
       log?.d('email:$email');
-      final result = await _firebaseAuth.signInWithEmailAndPassword(
+      final result = await firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -229,10 +220,7 @@ class FirebaseAuthenticationService {
         _clearPendingData();
       }
 
-      return FirebaseAuthenticationResult(
-        uid: result.user.uid,
-        userToken: result.user.refreshToken,
-      );
+      return FirebaseAuthenticationResult(user: result.user);
     } on FirebaseAuthException catch (e) {
       log?.e('A firebase exception has occured. $e');
       return FirebaseAuthenticationResult.error(
@@ -250,7 +238,7 @@ class FirebaseAuthenticationService {
       {String email, String password}) async {
     try {
       log?.d('email:$email');
-      final result = await _firebaseAuth.createUserWithEmailAndPassword(
+      final result = await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -258,10 +246,7 @@ class FirebaseAuthenticationService {
       log?.d(
           'Create user with email result: ${result.credential} ${result.user}');
 
-      return FirebaseAuthenticationResult(
-        uid: result.user.uid,
-        userToken: result.user.refreshToken,
-      );
+      return FirebaseAuthenticationResult(user: result.user);
     } on FirebaseAuthException catch (e) {
       log?.e('A firebase exception has occured. $e');
       return FirebaseAuthenticationResult.error(
@@ -286,7 +271,7 @@ class FirebaseAuthenticationService {
 
     // Fetch a list of what sign-in methods exist for the conflicting user
     List<String> userSignInMethods =
-        await _firebaseAuth.fetchSignInMethodsForEmail(_pendingEmail);
+        await firebaseAuth.fetchSignInMethodsForEmail(_pendingEmail);
 
     // If the user has several sign-in methods,
     // the first method in the list will be the "recommended" method to use.
@@ -336,7 +321,7 @@ class FirebaseAuthenticationService {
     log?.i('');
 
     try {
-      await _firebaseAuth.signOut();
+      await firebaseAuth.signOut();
       await _googleSignIn.signOut();
       await _facebookLogin.logOut();
       _clearPendingData();
@@ -355,7 +340,7 @@ class FirebaseAuthenticationService {
     log?.i('email:$email');
 
     try {
-      await _firebaseAuth.sendPasswordResetEmail(email: email);
+      await firebaseAuth.sendPasswordResetEmail(email: email);
       return true;
     } catch (e) {
       log?.e('Could not send email with reset password link. $e');
@@ -366,12 +351,12 @@ class FirebaseAuthenticationService {
   /// Validate the current [password] of the Firebase User
   Future validatePassword(String password) async {
     try {
-      var authCredentials = EmailAuthProvider.credential(
-        email: _firebaseAuth.currentUser.email,
+      final authCredentials = EmailAuthProvider.credential(
+        email: firebaseAuth.currentUser.email,
         password: password,
       );
 
-      var authResult = await _firebaseAuth.currentUser
+      final authResult = await firebaseAuth.currentUser
           .reauthenticateWithCredential(authCredentials);
 
       return authResult.user != null;
@@ -384,7 +369,7 @@ class FirebaseAuthenticationService {
 
   /// Update the [password] of the Firebase User
   Future updatePassword(String password) async {
-    await _firebaseAuth.currentUser.updatePassword(password);
+    await firebaseAuth.currentUser.updatePassword(password);
   }
 
   /// Generates a cryptographically secure random nonce, to be included in a
@@ -406,21 +391,15 @@ class FirebaseAuthenticationService {
 }
 
 class FirebaseAuthenticationResult {
-  /// The users unique id
-  final String uid;
-
-  /// The authentication token associated with the user
-  final String userToken;
+  /// Firebase user
+  final User user;
 
   /// Contains the error message for the request
   final String errorMessage;
 
-  FirebaseAuthenticationResult({this.uid, this.userToken})
-      : errorMessage = null;
+  FirebaseAuthenticationResult({this.user}) : errorMessage = null;
 
-  FirebaseAuthenticationResult.error({this.errorMessage})
-      : uid = null,
-        userToken = null;
+  FirebaseAuthenticationResult.error({this.errorMessage}) : user = null;
 
   /// Returns true if the response has an error associated with it
   bool get hasError => errorMessage != null && errorMessage.isNotEmpty;
