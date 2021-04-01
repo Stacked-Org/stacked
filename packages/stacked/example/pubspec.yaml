@@ -32,6 +32,7 @@ dependencies:
   stacked_hooks:
   flutter_hooks:
   stacked_themes:
+    path: ../../stacked_themes/
 
   # navigation
   get:
