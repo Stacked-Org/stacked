@@ -1,3 +1,7 @@
+## 2.0.1
+
+- Adds ReactiveValue and ReactiveList for reactive functionality
+
 ## 2.0.0
 
 - Null safety migration complete and ready to be used!
