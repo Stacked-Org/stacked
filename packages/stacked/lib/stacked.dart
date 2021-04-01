@@ -12,3 +12,6 @@ export 'src/code_generation/router/extended_navigator.dart';
 export 'src/code_generation/router/router_base.dart';
 export 'src/code_generation/router/route_def.dart';
 export 'src/code_generation/stacked_locator.dart';
+
+export 'src/reactive/reactive_value/reactive_value.dart';
+export 'src/reactive/reactive_list/reactive_list.dart';
