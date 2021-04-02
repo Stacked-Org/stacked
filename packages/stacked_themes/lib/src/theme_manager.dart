@@ -62,7 +62,7 @@ class ThemeManager {
 
   /// Get currently selected theme
   int? get selectedThemeIndex {
-    if (themes != null && themes!.length > 1) {
+    if (themes != null && themes!.isNotEmpty) {
       int? themeIndex = _sharedPreferences!.themeIndex;
       return themeIndex == null ? 0 : themeIndex;
     }
@@ -138,6 +138,11 @@ You can supply either a list of ThemeData objects to the themes property or a li
   /// Sets the theme for the application equal to the theme at the index
   /// in the list of [themes] supplied to the [ThemeBuilder]
   Future selectThemeAtIndex(int themeIndex) async {
+    if (themes == null || themes!.isEmpty) {
+      throw Exception(
+          'You cannot select the theme if you have no themes supplied. Supply a list of themes to the constructor of the ThemeManager if you want to use this function.');
+    }
+
     var theme = themes![themeIndex];
     await _applyStatusBarColor(theme);
 
