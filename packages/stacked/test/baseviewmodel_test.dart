@@ -145,16 +145,16 @@ void main() {
 
     group('runErrorFuture -', () {
       test('When called and error is thrown should set error', () async {
-        var model = TestViewModel();
-        await model.runTestErrorFuture(fail: true);
-        expect(model.hasError, true);
+        var viewModel = TestViewModel();
+        await viewModel.runTestErrorFuture(fail: true);
+        expect(viewModel.hasError, true);
       });
       test(
           'When called and error is thrown should call onErrorForFuture override',
           () async {
-        var model = TestViewModel();
-        await model.runTestErrorFuture(fail: true, throwException: false);
-        expect(model.onErrorCalled, true);
+        var viewModel = TestViewModel();
+        await viewModel.runTestErrorFuture(fail: true, throwException: false);
+        expect(viewModel.onErrorCalled, true);
       });
     });
   });

@@ -9,8 +9,8 @@ class FutureExampleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<FutureExampleViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        body: model.hasError
+      builder: (context, viewModel, child) => Scaffold(
+        body: viewModel.hasError
             ? Container(
                 color: Colors.red,
                 alignment: Alignment.center,
@@ -20,9 +20,9 @@ class FutureExampleView extends StatelessWidget {
                 ),
               )
             : Center(
-                child: model.isBusy
+                child: viewModel.isBusy
                     ? CircularProgressIndicator()
-                    : Text(model.data!),
+                    : Text(viewModel.data!),
               ),
       ),
       viewModelBuilder: () => FutureExampleViewModel(),

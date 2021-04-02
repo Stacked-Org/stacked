@@ -11,11 +11,11 @@ class HomeViewTraditional extends StatelessWidget {
     // when the model does not have to be consumed by multiple different UI's.
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
-      onModelReady: (model) => model.initialise(),
-      builder: (context, model, child) => Scaffold(
+      onModelReady: (viewModel) => viewModel.initialise(),
+      builder: (context, viewModel, child) => Scaffold(
         floatingActionButton: UpdateTitleButton(),
         body: Center(
-          child: Text(model.title),
+          child: Text(viewModel.title),
         ),
       ),
     );
@@ -28,10 +28,10 @@ class UpdateTitleButton extends ViewModelWidget<HomeViewModel> {
   }) : super(key: key, reactive: false);
 
   @override
-  Widget build(BuildContext context, model) {
+  Widget build(BuildContext context, viewModel) {
     return FloatingActionButton(
       onPressed: () {
-        model.updateTitle();
+        viewModel.updateTitle();
       },
     );
   }

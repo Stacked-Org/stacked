@@ -12,13 +12,13 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
-      onModelReady: (model) => model.initialise(),
-      builder: (context, model, child) => Scaffold(
+      onModelReady: (viewModel) => viewModel.initialise(),
+      builder: (context, viewModel, child) => Scaffold(
         body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(model.title),
+              Text(viewModel.title),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[

@@ -33,15 +33,15 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ExampleFormViewModel>.reactive(
-      onModelReady: (model) {
+      onModelReady: (viewModel) {
         // #3: Listen to text updates by calling listenToFormUpdated(model);
-        listenToFormUpdated(model);
-        model.setDoYouLoveFood(DoYouLoveFoodValueToTitleMap.keys.first);
+        listenToFormUpdated(viewModel);
+        viewModel.setDoYouLoveFood(DoYouLoveFoodValueToTitleMap.keys.first);
       },
-      builder: (context, model, child) => Scaffold(
+      builder: (context, viewModel, child) => Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            model.navigateSomewhere();
+            viewModel.navigateSomewhere();
           },
         ),
         body: SizedBox(
@@ -74,12 +74,12 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
                     focusNode: passwordFocusNode,
-                    onFieldSubmitted: (_) => model.saveData(),
+                    onFieldSubmitted: (_) => viewModel.saveData(),
                   ),
                 ),
-                if (model.showValidation)
+                if (viewModel.showValidation)
                   Text(
-                    model.validationMessage!,
+                    viewModel.validationMessage!,
                     style: TextStyle(color: Colors.red),
                   ),
                 SizedBox(height: 15),
@@ -100,14 +100,14 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                 ),
                 SizedBox(height: 15),
                 ElevatedButton(
-                  onPressed: () => model.selectBirthDate(
+                  onPressed: () => viewModel.selectBirthDate(
                       context: context,
                       firstDate: DateTime(1950),
                       initialDate: DateTime.now(),
                       lastDate: DateTime(2023)),
                   child: Text(
-                    model.hasBirthDate
-                        ? model.birthDateValue.toString()
+                    viewModel.hasBirthDate
+                        ? viewModel.birthDateValue.toString()
                         : 'Select your Date of birth',
                   ),
                 ),
@@ -117,9 +117,9 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                     Text('Do you love food?'),
                     SizedBox(width: 15),
                     DropdownButton<String>(
-                      value: model.doYouLoveFoodValue,
+                      value: viewModel.doYouLoveFoodValue,
                       onChanged: (value) {
-                        model.setDoYouLoveFood(value!);
+                        viewModel.setDoYouLoveFood(value!);
                       },
                       items: DoYouLoveFoodValueToTitleMap.keys
                           .map(
