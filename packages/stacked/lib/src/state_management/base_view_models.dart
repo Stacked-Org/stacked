@@ -34,7 +34,7 @@ class BaseViewModel extends ChangeNotifier {
   // Returns true if any objects still have a busy status that is true.
   bool get anyObjectsBusy => _busyStates.values.any((busy) => busy);
 
-  /// Marks the viewmodel as busy and calls notify listeners
+  /// Marks the ViewModel as busy and calls notify listeners
   void setBusy(bool value) {
     setBusyForObject(this, value);
   }
@@ -44,7 +44,7 @@ class BaseViewModel extends ChangeNotifier {
     setErrorForObject(this, error);
   }
 
-  /// Returns a boolean that indicates if the viewmodel has an error for the key
+  /// Returns a boolean that indicates if the ViewModel has an error for the key
   bool hasErrorForKey(Object key) => error(key) != null;
 
   /// Clears all the errors
@@ -99,8 +99,8 @@ class BaseViewModel extends ChangeNotifier {
     }
   }
 
-  /// Sets the initialised value for the model to true. This is called after
-  /// the first initialise special viewModel call
+  /// Sets the initialised value for the ViewModel to true. This is called after
+  /// the first initialise special ViewModel call
   void setInitialised(bool value) {
     _initialised = value;
   }
@@ -504,7 +504,7 @@ abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T>
 
   void onCancel() {}
 
-  /// Called before the data is set for the viewmodel
+  /// Called before the data is set for the ViewModel
   T transformData(T data) {
     return data;
   }
@@ -536,7 +536,7 @@ class StreamData<T> extends _SingleDataSourceViewModel<T> {
   /// Called when the stream is cancelled
   Function? onCancel;
 
-  /// Allows you to modify the data before it's set as the new data for the model
+  /// Allows you to modify the data before it's set as the new data for the ViewModel
   ///
   /// This can be used to modify the data if required. If nothhing is returned the data
   /// won't be set.

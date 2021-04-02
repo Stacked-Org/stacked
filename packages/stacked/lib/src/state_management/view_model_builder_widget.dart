@@ -10,10 +10,10 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
 
   /// A function that builds the UI to be shown from the ViewModel - Required
   ///
-  /// [model] is the ViewModel passed in and [child] is the [staticChildBuilder] result
+  /// [viewModel] is the ViewModel passed in and [child] is the [staticChildBuilder] result
   Widget builder(
     BuildContext context,
-    T model,
+    T viewModel,
     Widget? child,
   );
 
@@ -29,12 +29,12 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
   /// When set to true a new ViewModel will be constructed everytime the widget is inserted.
   ///
   /// When setting this to true make sure to handle all disposing of streams if subscribed
-  /// to any in the ViewModel. [onModelReady] will fire once the viewmodel has been created/set.
-  /// This will be used when on re-insert of the widget the viewmodel has to be constructed with
+  /// to any in the ViewModel. [onModelReady] will fire once the ViewModel has been created/set.
+  /// This will be used when on re-insert of the widget the ViewModel has to be constructed with
   /// a new value.
   bool get createNewModelOnInsert => false;
 
-  /// Indicates if you want Provider to dispose the viewmodel when it's removed from the widget tree.
+  /// Indicates if you want Provider to dispose the ViewModel when it's removed from the widget tree.
   ///
   /// default's to true
   bool get disposeViewModel => true;
@@ -47,10 +47,10 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
   /// the widget tree.
   bool get fireOnModelReadyOnce => false;
 
-  /// Fires when the viewmodel is first created or re-created
+  /// Fires when the ViewModel is first created or re-created
   ///
   /// This will fire multiple times when [createNewModelOnInsert] is set to true
-  void onViewModelReady(T model) {}
+  void onViewModelReady(T viewModel) {}
 
   /// A Function that builds UI for the static child that builds only once
   ///

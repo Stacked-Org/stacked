@@ -43,36 +43,36 @@ void main() {
     test(
         'Given a reactive service should notifyListeners when an RX value in it changes',
         () async {
-      var model = TestReactiveViewModel();
+      var viewModel = TestReactiveViewModel();
       var called = false;
-      model.addListener(() {
+      viewModel.addListener(() {
         called = true;
       });
-      model.updateCounter();
+      viewModel.updateCounter();
       await Future.delayed(Duration(milliseconds: 5));
       expect(called, true);
     });
     test(
         'Given a reactive service on FutureViewmodel should notifyListeners when an RX value in it changes',
         () async {
-      var model = TestFutureReactiveViewModel();
+      var viewModel = TestFutureReactiveViewModel();
       var called = false;
-      model.addListener(() {
+      viewModel.addListener(() {
         called = true;
       });
-      model.updateCounter();
+      viewModel.updateCounter();
       await Future.delayed(Duration(milliseconds: 5));
       expect(called, true);
     });
     test('Given a reactive service should not notifyListeners after disposed',
         () async {
-      var model = TestReactiveViewModel();
+      var viewModel = TestReactiveViewModel();
       var called = false;
-      model.addListener(() {
+      viewModel.addListener(() {
         called = true;
       });
-      model.dispose();
-      model.updateCounter();
+      viewModel.dispose();
+      viewModel.updateCounter();
       await Future.delayed(Duration(milliseconds: 5));
       expect(called, false);
     });

@@ -9,14 +9,14 @@ class NonReactiveView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<NonReactiveViewModel>.nonReactive(
-      builder: (context, model, child) => Scaffold(
+      builder: (context, viewModel, child) => Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            model.updateTitle();
+            viewModel.updateTitle();
           },
         ),
         body: Center(
-          child: Text(model.title),
+          child: Text(viewModel.title),
         ),
       ),
       viewModelBuilder: () => NonReactiveViewModel(),

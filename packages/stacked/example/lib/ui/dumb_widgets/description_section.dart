@@ -4,7 +4,7 @@ import 'package:stacked/stacked.dart';
 
 class DescriptionSection extends ViewModelWidget<HomeViewModel> {
   @override
-  Widget build(BuildContext context, HomeViewModel model) {
+  Widget build(BuildContext context, HomeViewModel viewModel) {
     return Row(
       children: <Widget>[
         Text(
@@ -12,7 +12,7 @@ class DescriptionSection extends ViewModelWidget<HomeViewModel> {
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
         ),
         Container(
-          child: Text(model.title),
+          child: Text(viewModel.title),
         ),
       ],
     );

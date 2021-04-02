@@ -9,7 +9,7 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileViewModel>.reactive(
-      builder: (context, model, child) =>
+      builder: (context, viewModel, child) =>
           Scaffold(body: Center(child: Text('History'))),
       viewModelBuilder: () => ProfileViewModel(),
     );

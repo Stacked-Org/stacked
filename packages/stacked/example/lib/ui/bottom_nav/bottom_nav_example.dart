@@ -19,13 +19,13 @@ class _BottomNavExampleState extends State<BottomNavExample> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BottomNavExampleViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        body: getViewForIndex(model.currentTabIndex),
+      builder: (context, viewModel, child) => Scaffold(
+        body: getViewForIndex(viewModel.currentTabIndex),
         bottomNavigationBar: BottomNavigationBar(
           elevation: 6,
           backgroundColor: Colors.white,
-          currentIndex: model.currentTabIndex,
-          onTap: model.setTabIndex,
+          currentIndex: viewModel.currentTabIndex,
+          onTap: viewModel.setTabIndex,
           items: [
             BottomNavigationBarItem(
               title: SizedBox(),
