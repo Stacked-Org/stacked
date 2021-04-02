@@ -45,13 +45,13 @@ class FirebaseAuthenticationService {
   }
 
   /// Returns the latest userToken stored in the Firebase Auth lib
-  Future<String> get userToken {
+  Future<String>? get userToken {
     return firebaseAuth.currentUser?.getIdToken();
   }
 
   /// Returns true when a user has logged in or signed on this device
   bool get hasUser {
-    return firebaseAuth?.currentUser != null;
+    return firebaseAuth.currentUser != null;
   }
 
   Future<FirebaseAuthenticationResult> signInWithGoogle() async {
@@ -229,7 +229,7 @@ class FirebaseAuthenticationService {
 
     // Fetch a list of what sign-in methods exist for the conflicting user
     List<String> userSignInMethods =
-        await firebaseAuth.fetchSignInMethodsForEmail(_pendingEmail);
+        await firebaseAuth.fetchSignInMethodsForEmail(_pendingEmail ?? '');
 
     // If the user has several sign-in methods,
     // the first method in the list will be the "recommended" method to use.
@@ -300,12 +300,12 @@ class FirebaseAuthenticationService {
   Future validatePassword(String password) async {
     try {
       final authCredentials = EmailAuthProvider.credential(
-        email: firebaseAuth.currentUser.email,
+        email: firebaseAuth.currentUser?.email ?? '',
         password: password,
       );
 
       final authResult = await firebaseAuth.currentUser
-          .reauthenticateWithCredential(authCredentials);
+          ?.reauthenticateWithCredential(authCredentials);
 
       return authResult?.user != null;
     } catch (e) {
@@ -317,7 +317,7 @@ class FirebaseAuthenticationService {
 
   /// Update the [password] of the Firebase User
   Future updatePassword(String password) async {
-    await firebaseAuth.currentUser.updatePassword(password);
+    await firebaseAuth.currentUser?.updatePassword(password);
   }
 
   /// Generates a cryptographically secure random nonce, to be included in a
@@ -340,7 +340,7 @@ class FirebaseAuthenticationService {
 
 class FirebaseAuthenticationResult {
   /// Firebase user
-  final User user;
+  final User? user;
 
   /// Contains the error message for the request
   final String? errorMessage;

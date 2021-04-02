@@ -19,3 +19,7 @@ It wraps the functionality for those three auth providers. Examples to come soon
 - [ ] Add examples into the readme
 - [ ] Add mobile authentication option (implementation already exists, it just needs to be moved in here)
 - [ ] Add other authentication providers
+
+### Breaking Change
+
+Removed `flutter_facebook_auth` dependency and its implementation since it was causing a `MissingPluginException` if the app isn't setup for Facebook Auth
