@@ -1,3 +1,7 @@
+## 0.3.2
+
+- Makes `ThemeService.getInstance` non-nullable since we'll always construct a theme service in there if null
+
 ## 0.3.1
 
 - Adds a `selectedThemeIndex` property to ThemeManager for getting currently enabled theme.

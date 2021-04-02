@@ -123,7 +123,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
     _themesController = BehaviorSubject<ThemeModel>.seeded(_currTheme);
     _initialTheme = _currTheme;
 
-    ThemeService.getInstance()!.setThemeManager(this);
+    ThemeService.getInstance().setThemeManager(this);
   }
 
   ThemeModel getSelectedTheme() {
