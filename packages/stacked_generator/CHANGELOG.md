@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.3.1-nullsafety.4
+
+- Fixed unexpected empty string import
+
 ## 0.3.1-nullsafety.3
 
 - Generate nulllable formView property getters
