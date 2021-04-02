@@ -60,6 +60,15 @@ class ThemeManager {
   /// Returns true if the ThemeMode is dark. This does not apply when you're using system as ThemeMode
   bool get isDarkMode => _selectedThemeMode == ThemeMode.dark;
 
+  /// Get currently selected theme
+  int? get selectedThemeIndex {
+    if (themes != null && themes!.length > 1) {
+      int? themeIndex = _sharedPreferences!.themeIndex;
+      return themeIndex == null ? 0 : themeIndex;
+    }
+    return null;
+  }
+
   ThemeManager({
     this.themes,
     this.statusBarColorBuilder,
