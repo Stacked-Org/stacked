@@ -88,6 +88,14 @@ getThemeManager(context)
   .selectThemeAtIndex(1);
 ```
 
+You can get the currently selected theme index by using the `selectedThemeIndex` property of `ThemeManager`.
+
+```
+getThemeManager(context).selectedThemeIndex;
+```
+
+This will return the index of the currently enabled theme.
+
 ### Light and Dark
 
 If you only want to use Light and Dark themes then you can supply that to the `ThemeBuilder` instead of supplying multiple themes. When supplying Light and Dark themes you can also supply a defaultThemeMode, which is `ThemeMode.system` by default. When you leave it as `system` you're telling the `ThemeManager` that you want the system to determine if you're using light or dark mode. This is how you would supply your dark and light theme.

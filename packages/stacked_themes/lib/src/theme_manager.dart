@@ -61,7 +61,7 @@ class ThemeManager {
   bool get isDarkMode => _selectedThemeMode == ThemeMode.dark;
 
   /// Get currently selected theme
-  int? get selectedTheme {
+  int? get selectedThemeIndex {
     if (themes != null && themes!.length > 1) {
       int? themeIndex = _sharedPreferences!.themeIndex;
       return themeIndex == null ? 0 : themeIndex;
