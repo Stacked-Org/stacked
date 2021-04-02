@@ -1,6 +1,6 @@
 # ChangeLog
 
-## 0.3.1-nullsafety.4
+## 0.3.2
 
 - Fixed unexpected empty string import
 
