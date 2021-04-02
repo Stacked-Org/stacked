@@ -21,7 +21,9 @@ class RouteConfigResolver {
     final classElement = type.element as ClassElement;
 
     final import = _importResolver.resolve(classElement);
-    routeConfig.imports.add(import);
+    if (import != null) {
+      routeConfig.imports.add(import);
+    }
 
     routeConfig.className = toDisplayString(type);
     var path = stackedRoute.peek('path')?.stringValue;

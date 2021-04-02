@@ -8,10 +8,10 @@ class ImportResolver {
 
   ImportResolver(this.libs, this.targetFilePath);
 
-  String resolve(Element? element) {
+  String? resolve(Element? element) {
     // return early if source is null or element is a core type
     if (element?.source == null || _isCoreDartType(element)) {
-      return '';
+      return null;
     }
 
     for (var lib in libs) {
@@ -27,7 +27,6 @@ class ImportResolver {
         }
       }
     }
-    return '';
   }
 
   bool _isCoreDartType(Element? element) {
@@ -36,7 +35,10 @@ class ImportResolver {
 
   Set<String> resolveAll(DartType type) {
     final imports = <String>{};
-    imports.add(resolve(type.element));
+    final resolvedValue = resolve(type.element);
+    if (resolvedValue != null) {
+      imports.add(resolvedValue);
+    }
     imports.addAll(_checkForParameterizedTypes(type));
     return imports..removeWhere((element) => element == '');
   }
@@ -45,7 +47,10 @@ class ImportResolver {
     final imports = <String>{};
     if (typeToCheck is ParameterizedType) {
       for (DartType type in typeToCheck.typeArguments) {
-        imports.add(resolve(type.element));
+        final resolvedValue = resolve(type.element);
+        if (resolvedValue != null) {
+          imports.add(resolvedValue);
+        }
         imports.addAll(_checkForParameterizedTypes(type));
       }
     }

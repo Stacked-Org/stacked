@@ -3,7 +3,7 @@ import 'package:recase/recase.dart';
 
 class DependencyConfig {
   /// The import to use for the type of the service
-  final String import;
+  final String? import;
 
   /// The import to use for the abstracted service type
   final String? abstractedImport;
