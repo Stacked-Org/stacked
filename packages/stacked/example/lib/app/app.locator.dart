@@ -23,7 +23,7 @@ void setupLocator() {
   locator.registerLazySingleton(() => InformationService());
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => EpochService());
-  locator.registerLazySingleton(() => ThemeService.getInstance()!);
+  locator.registerLazySingleton(() => ThemeService.getInstance());
   locator.registerSingleton(HistoryViewModel());
   locator.registerSingleton(FavoritesViewModel());
 }
