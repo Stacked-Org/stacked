@@ -1,3 +1,7 @@
+## 2.0.2
+
+- Made ViewModel variable naming scheme consistent. `ViewModel viewmodel` is now preferred.
+
 ## 2.0.1
 
 - Adds ReactiveValue and ReactiveList for reactive functionality
