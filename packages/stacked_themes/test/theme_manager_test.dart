@@ -8,6 +8,7 @@ import 'test_setup.dart';
 void main() {
   group('ThemeManagerTest -', () {
     setUp(() => registerServices());
+  
     tearDown(() => unregisterServices());
 
     group('Construction -', () {

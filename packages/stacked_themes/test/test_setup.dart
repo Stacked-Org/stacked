@@ -30,9 +30,9 @@ StatusBarService getAndRegisterStatusBarServiceMock() {
 
 // Call this before any service registration helper. This is to ensure that if there
 // is a service registered we remove it first. We register all services to remove boiler plate from tests
-void _removeRegistrationIfExists<T>() {
-  if (locator.isRegistered()) {
-    locator.unregister();
+void _removeRegistrationIfExists<T extends Object>() {
+  if (locator.isRegistered<T>()) {
+    locator.unregister<T>();
   }
 }
 

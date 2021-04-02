@@ -4,7 +4,7 @@ import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 
 /// A service dedicated to changing the color of the status bar
 class StatusBarService {
-  Future updateStatusBarColor(Color statusBarColor) async {
+  Future? updateStatusBarColor(Color statusBarColor) async {
     // Set status bar color
     await FlutterStatusbarcolor.setStatusBarColor(statusBarColor);
 
