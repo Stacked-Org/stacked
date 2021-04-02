@@ -1,3 +1,8 @@
+## 0.2.1
+
+- Removed `flutter_facebook_auth` dependency
+- Removed implementation for Facebook Authentication
+
 ## 0.1.3
 
 - Replaced `flutter_facebook_login` with `flutter_facebook_auth`
