@@ -1,3 +1,7 @@
+## 0.3.1
+
+- Adds a `selectedThemeIndex` property to ThemeManager for getting currently enabled theme.
+
 ## 0.3.0
 
 - Updates the package to null-safety
