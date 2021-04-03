@@ -1,6 +1,6 @@
 ## 2.0.2
 
-- Made ViewModel variable naming scheme consistent. `ViewModel viewmodel` is now preferred.
+- Made ViewModel variable naming scheme consistent. `ViewModel viewModel` is now preferred.
 
 ## 2.0.1
 
