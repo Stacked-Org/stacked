@@ -26,6 +26,8 @@ class BottomSheetService {
     bool enableDrag = true,
     bool barrierDismissible = true,
     bool isScrollControlled = false,
+    Duration? exitBottomSheetDuration,
+    Duration? enterBottomSheetDuration,
   }) {
     return Get.bottomSheet<SheetResponse?>(
       Material(
@@ -51,6 +53,8 @@ class BottomSheetService {
       isDismissible: barrierDismissible,
       isScrollControlled: isScrollControlled,
       enableDrag: barrierDismissible && enableDrag,
+      exitBottomSheetDuration: exitBottomSheetDuration,
+      enterBottomSheetDuration: enterBottomSheetDuration,
     );
   }
 
@@ -74,6 +78,8 @@ class BottomSheetService {
     String barrierLabel = '',
     dynamic customData,
     bool enableDrag = true,
+    Duration? exitBottomSheetDuration,
+    Duration? enterBottomSheetDuration,
   }) {
     assert(
       _sheetBuilders != null,
@@ -115,6 +121,8 @@ class BottomSheetService {
       isDismissible: barrierDismissible,
       isScrollControlled: isScrollControlled,
       enableDrag: barrierDismissible && enableDrag,
+      exitBottomSheetDuration: exitBottomSheetDuration,
+      enterBottomSheetDuration: enterBottomSheetDuration,
     );
   }
 
