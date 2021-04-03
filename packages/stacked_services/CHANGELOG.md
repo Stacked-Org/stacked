@@ -1,4 +1,4 @@
-## 0.8.0-nullsafety.2
+## 0.8.2
 
 - Fixed barrierDismissible issue on BottomSheetService
 
