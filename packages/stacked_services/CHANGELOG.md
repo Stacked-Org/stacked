@@ -1,3 +1,7 @@
+## 0.8.0-nullsafety.2
+
+- Fixed barrierDismissible issue on BottomSheetService
+
 ## 0.8.0-nullsafety.1
 
 - Migrates to null safety
