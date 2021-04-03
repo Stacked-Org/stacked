@@ -21,7 +21,7 @@ class BottomSheetView extends StatelessWidget {
               fontSize: 14,
             ),
           ),
-          OutlineButton(
+          OutlinedButton(
             onPressed: () async {
               await _bottomSheetService.showBottomSheet(
                 title: 'This is my Sheets Title',
@@ -40,7 +40,7 @@ class BottomSheetView extends StatelessWidget {
               fontSize: 14,
             ),
           ),
-          OutlineButton(
+          OutlinedButton(
             onPressed: () async {
               var confirmationResponse =
                   await _bottomSheetService.showBottomSheet(
@@ -65,7 +65,7 @@ class BottomSheetView extends StatelessWidget {
               fontSize: 14,
             ),
           ),
-          OutlineButton(
+          OutlinedButton(
             onPressed: () async {
               var confirmationResponse =
                   await _bottomSheetService.showCustomSheet(

@@ -30,7 +30,7 @@ class FirstScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 30),
-            OutlineButton(
+            OutlinedButton(
               child: Text("Use Fade Transition"),
               onPressed: () async {
                 await _navigationService.navigateWithTransition(
@@ -39,7 +39,7 @@ class FirstScreen extends StatelessWidget {
                 );
               },
             ),
-            OutlineButton(
+            OutlinedButton(
               child: Text("Use Right to Left Transition"),
               onPressed: () async {
                 await _navigationService.navigateWithTransition(
@@ -48,7 +48,7 @@ class FirstScreen extends StatelessWidget {
                 );
               },
             ),
-            OutlineButton(
+            OutlinedButton(
               child: Text("Use Left to Right Transition"),
               onPressed: () async {
                 await _navigationService.navigateWithTransition(
@@ -57,7 +57,7 @@ class FirstScreen extends StatelessWidget {
                 );
               },
             ),
-            OutlineButton(
+            OutlinedButton(
               child: Text("Use Cupertino Transition"),
               onPressed: () async {
                 await _navigationService.navigateWithTransition(
@@ -66,7 +66,7 @@ class FirstScreen extends StatelessWidget {
                 );
               },
             ),
-            OutlineButton(
+            OutlinedButton(
               child: Text("Clear Till First and Show"),
               onPressed: () async {
                 await _navigationService.clearTillFirstAndShowView(

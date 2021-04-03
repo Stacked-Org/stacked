@@ -7,6 +7,9 @@ import 'package:stacked_services/src/dialog/platform_dialog.dart';
 import 'package:stacked_services/src/models/overlay_request.dart';
 import 'package:stacked_services/src/models/overlay_response.dart';
 
+typedef DialogBuilder = Widget Function(
+    BuildContext, DialogRequest, void Function(DialogResponse));
+
 enum DialogPlatform {
   Cupertino,
   Material,
@@ -15,26 +18,14 @@ enum DialogPlatform {
 
 /// A DialogService that uses the Get package to show dialogs from the business logic
 class DialogService {
-  Map<
-          dynamic,
-          Widget Function(
-              BuildContext, DialogRequest, Function(DialogResponse))>?
-      _dialogBuilders;
+  Map<dynamic, DialogBuilder>? _dialogBuilders;
 
-  void registerCustomDialogBuilders(
-      Map<
-              dynamic,
-              Widget Function(
-                  BuildContext, DialogRequest, Function(DialogResponse))>
-          builders) {
+  void registerCustomDialogBuilders(Map<dynamic, DialogBuilder> builders) {
     _dialogBuilders = builders;
   }
 
-  Map<
-      dynamic,
-      Widget Function(BuildContext, DialogRequest,
-          Function(DialogResponse))> _customDialogBuilders = Map<dynamic,
-      Widget Function(BuildContext, DialogRequest, Function(DialogResponse))>();
+  Map<dynamic, DialogBuilder> _customDialogBuilders =
+      Map<dynamic, DialogBuilder>();
 
   @Deprecated(
       'Prefer to use the StackedServices.navigatorKey instead of using this key. This will be removed in the next major version update for stacked.')
