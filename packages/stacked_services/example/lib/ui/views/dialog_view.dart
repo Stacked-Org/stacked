@@ -24,7 +24,7 @@ class DialogView extends StatelessWidget {
                   fontSize: 14,
                 ),
               ),
-              OutlineButton(
+              OutlinedButton(
                 onPressed: () async {
                   await _dialogService.showDialog(
                     title: 'Test Dialog Title',
@@ -45,7 +45,7 @@ class DialogView extends StatelessWidget {
                   ),
                 ),
               ),
-              OutlineButton(
+              OutlinedButton(
                 onPressed: () async {
                   await _dialogService.showDialog(
                     title: 'Test Dialog Title',
@@ -66,7 +66,7 @@ class DialogView extends StatelessWidget {
                   ),
                 ),
               ),
-              OutlineButton(
+              OutlinedButton(
                 onPressed: () async {
                   await _dialogService.showDialog(
                     // title: 'Test Dialog Title',
@@ -84,7 +84,7 @@ class DialogView extends StatelessWidget {
                   fontSize: 14,
                 ),
               ),
-              OutlineButton(
+              OutlinedButton(
                 onPressed: () async {
                   await _dialogService.showCustomDialog(
                       variant: DialogType.Basic,
@@ -99,7 +99,7 @@ class DialogView extends StatelessWidget {
                   'Show Custom Text Dialog',
                 ),
               ),
-              OutlineButton(
+              OutlinedButton(
                 onPressed: () async {
                   await _dialogService.showCustomDialog(
                     variant: DialogType.Basic,
@@ -120,7 +120,7 @@ class DialogView extends StatelessWidget {
                   fontSize: 14,
                 ),
               ),
-              OutlineButton(
+              OutlinedButton(
                 onPressed: () async {
                   await _dialogService.showConfirmationDialog(
                     title: 'Test Confirmation Dialog Title',
@@ -139,7 +139,7 @@ class DialogView extends StatelessWidget {
                   fontSize: 14,
                 ),
               ),
-              OutlineButton(
+              OutlinedButton(
                 onPressed: () async {
                   await _dialogService.showDialog(
                     dialogPlatform: DialogPlatform.Cupertino,
@@ -161,7 +161,7 @@ class DialogView extends StatelessWidget {
                   ),
                 ),
               ),
-              OutlineButton(
+              OutlinedButton(
                 onPressed: () async {
                   await _dialogService.showConfirmationDialog(
                     dialogPlatform: DialogPlatform.Cupertino,
