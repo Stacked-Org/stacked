@@ -1,3 +1,7 @@
+## 2.0.3
+
+- Fixed where anyObjectsBusy was always true in MultipleFutureViewModel.
+
 ## 2.0.2
 
 - Made ViewModel variable naming scheme consistent. `ViewModel viewmodel` is now preferred.

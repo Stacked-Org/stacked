@@ -313,7 +313,7 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel
         _incrementAndCheckFuturesCompleted();
       });
     }
-
+    setBusy(false);
     changeSource = false;
 
     return _futuresCompleter.future;
@@ -468,8 +468,7 @@ abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T>
         _error = null;
         notifyListeners();
         // Extra security in case transformData isnt sent
-        var interceptedData =
-             transformData(incomingData);
+        var interceptedData = transformData(incomingData);
 
         if (interceptedData != null) {
           _data = interceptedData;
