@@ -42,7 +42,7 @@ class PlatformButton extends StatelessWidget {
 
       case DialogPlatform.Material:
       default:
-        return FlatButton(
+        return TextButton(
           child: Text(text,
               style: isCancelButton
                   ? cancelBtnColor != null

@@ -7,18 +7,14 @@ import 'package:stacked_services/src/models/overlay_response.dart';
 
 import 'bottom_sheet_ui.dart';
 
+typedef SheetBuilder = Widget Function(
+    BuildContext, SheetRequest, void Function(SheetResponse));
+
 /// A service that allows you to show a bottom sheet
 class BottomSheetService {
-  Map<dynamic,
-          Widget Function(BuildContext, SheetRequest, Function(SheetResponse))>?
-      _sheetBuilders;
+  Map<dynamic, SheetBuilder>? _sheetBuilders;
 
-  void setCustomSheetBuilders(
-      Map<
-              dynamic,
-              Widget Function(
-                  BuildContext, SheetRequest, Function(SheetResponse))>
-          builders) {
+  void setCustomSheetBuilders(Map<dynamic, SheetBuilder> builders) {
     _sheetBuilders = builders;
   }
 
@@ -27,6 +23,11 @@ class BottomSheetService {
     String? description,
     String confirmButtonTitle = 'Ok',
     String? cancelButtonTitle,
+    bool enableDrag = true,
+    bool barrierDismissible = true,
+    bool isScrollControlled = false,
+    Duration? exitBottomSheetDuration,
+    Duration? enterBottomSheetDuration,
   }) {
     return Get.bottomSheet<SheetResponse?>(
       Material(
@@ -49,6 +50,11 @@ class BottomSheetService {
           topRight: Radius.circular(15),
         ),
       ),
+      isDismissible: barrierDismissible,
+      isScrollControlled: isScrollControlled,
+      enableDrag: barrierDismissible && enableDrag,
+      exitBottomSheetDuration: exitBottomSheetDuration,
+      enterBottomSheetDuration: enterBottomSheetDuration,
     );
   }
 
@@ -67,10 +73,13 @@ class BottomSheetService {
     String? additionalButtonTitle,
     bool takesInput = false,
     Color barrierColor = Colors.black54,
-    bool barrierDismissible = false,
+    bool barrierDismissible = true,
     bool isScrollControlled = false,
     String barrierLabel = '',
     dynamic customData,
+    bool enableDrag = true,
+    Duration? exitBottomSheetDuration,
+    Duration? enterBottomSheetDuration,
   }) {
     assert(
       _sheetBuilders != null,
@@ -111,6 +120,9 @@ class BottomSheetService {
       ),
       isDismissible: barrierDismissible,
       isScrollControlled: isScrollControlled,
+      enableDrag: barrierDismissible && enableDrag,
+      exitBottomSheetDuration: exitBottomSheetDuration,
+      enterBottomSheetDuration: enterBottomSheetDuration,
     );
   }
 
