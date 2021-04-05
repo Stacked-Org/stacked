@@ -54,6 +54,9 @@ class FirebaseAuthenticationService {
     return firebaseAuth.currentUser != null;
   }
 
+  /// Returns user data when a user has logged in or signed on this device
+  User? get getUser => firebaseAuth.currentUser;
+
   Future<FirebaseAuthenticationResult> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount =
