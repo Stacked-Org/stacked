@@ -132,12 +132,12 @@ class NavigationService {
   /// Pops the current scope and indicates if you can pop again
   bool back({dynamic result, int? id}) {
     Get.back(result: result, id: id);
-    return Get.key?.currentState?.canPop() ?? false;
+    return Get.key.currentState?.canPop() ?? false;
   }
 
   /// Pops the back stack until the predicate is satisfied
   void popUntil(RoutePredicate predicate) {
-    Get.key?.currentState?.popUntil(predicate);
+    Get.key.currentState?.popUntil(predicate);
   }
 
   /// Pops the back stack the number of times you indicate with [popTimes]
