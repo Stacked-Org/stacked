@@ -21,7 +21,7 @@ class SnackbarView extends StatelessWidget {
               fontSize: 14,
             ),
           ),
-          OutlineButton(
+          OutlinedButton(
             onPressed: () async {
               _snackbarService.showSnackbar(
                 message: 'This is a snack bar',
@@ -45,7 +45,7 @@ class SnackbarView extends StatelessWidget {
               fontSize: 14,
             ),
           ),
-          OutlineButton(
+          OutlinedButton(
             onPressed: () async {
               _snackbarService.showCustomSnackBar(
                 variant: SnackbarType.blueAndYellow,
@@ -70,7 +70,7 @@ class SnackbarView extends StatelessWidget {
               fontSize: 14,
             ),
           ),
-          OutlineButton(
+          OutlinedButton(
             onPressed: () async {
               _snackbarService.showCustomSnackBar(
                 variant: SnackbarType.greenAndRed,

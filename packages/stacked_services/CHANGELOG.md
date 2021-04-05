@@ -1,3 +1,7 @@
+## 0.8.2
+
+- Fixed barrierDismissible issue on BottomSheetService
+
 ## 0.8.1
 
  Updates to latest version of get
