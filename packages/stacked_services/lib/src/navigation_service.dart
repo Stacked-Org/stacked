@@ -120,7 +120,7 @@ class NavigationService {
       bool? popGesture,
       int? id}) {
     return Get.off(
-      page,
+      ()=>page,
       transition: _getTransitionOrDefault(transition),
       duration: duration ?? Get.defaultTransitionDuration,
       popGesture: popGesture ?? Get.isPopGestureEnable,
