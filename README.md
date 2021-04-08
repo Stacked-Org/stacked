@@ -2,9 +2,9 @@
 
 An architecture developed and revised by the [FilledStacks](https://www.youtube.com/filledstacks) community. This architecture was initially a version of MVVM as [described in this video](https://youtu.be/kDEflMYTFlk). Since then Filledstacks app development team has built 6 production applications with various requirements. This experience along with countless requests for improvements and common functionality is what sparked the creation of this architecture package. It aims to provide **common functionalities to make app development easier** as well as code principles to use during development to ensure your code stays maintainable.
 
-**If you're Reading this disclaimer the series that does a deep-dive on this architecture has not been published yet.**
+**If you're reading this disclaimer, the series that does a deep-dive on this architecture has not been published yet.**
 
-## How Does it work
+## How it works
 
 The architecture is very simple. It consists of 3 major pieces, everything else is up to your implementation style. These pieces are:
 
@@ -15,21 +15,21 @@ The architecture is very simple. It consists of 3 major pieces, everything else 
 Let's go over some of those principles to follow during development.
 
 - Views should never MAKE USE of a service directly.
-- Views should contain zero to (preferred) no logic. If the logic is from UI only items then we do the least amount of required logic and pass the rest to the ViewModel.
+- Views should only contain logic if necessary. If the logic is from UI only items then we do the least amount of required logic and pass the rest to the ViewModel.
 - Views should ONLY render the state in its ViewModel.
 - ViewModels for widgets that represent page views are bound to a single View only.
-- ViewModels may be re-used if the UI require the same functionality.
-- ViewModels should not know about other ViewModels
+- ViewModels may be re-used if the UI requires the same functionality.
+- ViewModels should not know about other ViewModels.
 
-That's quite a bit of "rules" but they help during production. Trust me.
+That's quite a bit of "rules", but they help during production. Trust me.
 
 ## Stacked's place in your architecture
 
-Stacked provides you with classes and functionalities to make it easy to implement that base architecture that this package is built for. There are additional things that you can add to your application that will make the user of this architecture much more pleasant. This will be discussed in full on the architecture series that will come out soon. Everything from navigation, dependency injection, service location, error handling, etc.
+Stacked provides you with classes and functionalities to make it easy to implement that base architecture that this package is built for. There are additional things that you can add to your application that will make the usage of this architecture much more pleasant. This will be discussed in full on the architecture series that will come out soon. Everything from navigation, dependency injection, service location, error handling, etc.
 
 ## Packages
 
-In the efforts of providing as much value with the stacked package as possible, the repo contains all of the other packages that extend the stacked functionality further and implements some of the base functionalities for you. It also contains third-party extensions that can be used with stacked.
+In the effort of providing as much value with the stacked package as possible, the repo contains all of the other packages that extend the stacked functionality further and implements some of the base functionalities for you. It also contains third-party extensions that can be used with stacked.
 
 | Package                                                                                                                                            | Pub                                                                                                                                        |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
