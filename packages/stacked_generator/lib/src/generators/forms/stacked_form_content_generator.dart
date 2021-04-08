@@ -37,15 +37,17 @@ class StackedFormContentGenerator extends BaseGenerator {
 
   void _generateDropdownItemsMap(List<DropdownFieldConfig> fields) {
     newLine();
-    for (var field in fields) {
+    for (final field in fields) {
       final caseName = ReCase(field.name);
       writeLine(
-          "const Map<String, String> ${caseName.pascalCase}ValueToTitleMap = {");
+        "const Map<String, String> ${caseName.pascalCase}ValueToTitleMap = {",
+      );
       for (final item in field.items) {
         writeLine("'${item.value}': '${item.title}',");
       }
+      if (field.items.isNotEmpty) writeLine('};');
     }
-    if (fields.isNotEmpty) writeLine('};');
+    // if (fields.isNotEmpty) writeLine('};');
     newLine();
   }
 
