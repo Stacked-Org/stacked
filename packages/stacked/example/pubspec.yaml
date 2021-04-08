@@ -25,8 +25,8 @@ dependencies:
   cupertino_icons: ^0.1.2
 
   # state management
-  stacked: ^2.0.2
-    # path: ../
+  stacked: 
+    path: ../
   stacked_services:
     # path: ../../stacked_services/
   stacked_hooks:
@@ -47,7 +47,7 @@ dev_dependencies:
   # dependency injection
   build_runner:
   stacked_generator:
-    # path: ../../stacked_generator
+    path: ../../stacked_generator
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
