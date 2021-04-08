@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.3.3
+
+- Fixed Static dropdown list generation
+
 ## 0.3.2
 
 - Fixed unexpected empty string import
