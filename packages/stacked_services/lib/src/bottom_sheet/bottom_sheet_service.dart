@@ -126,6 +126,9 @@ class BottomSheetService {
     );
   }
 
+  /// Check if bottomsheet is open
+  bool? get isBottomSheetOpen => Get.isBottomSheetOpen;
+
   /// Completes the dialog and passes the [response] to the caller
   void completeSheet(SheetResponse response) {
     Get.back(result: response);

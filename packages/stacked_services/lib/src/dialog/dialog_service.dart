@@ -52,6 +52,9 @@ class DialogService {
     _customDialogBuilders[variant] = builder;
   }
 
+  /// Check if dialog is open
+  bool? get isDialogOpen => Get.isDialogOpen;
+
   /// Shows a dialog to the user
   ///
   /// It will show a platform specific dialog by default. This can be changed by setting [dialogPlatform]

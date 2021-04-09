@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      navigatorObservers: [StackedService.routeObserver],
       navigatorKey: StackedService.navigatorKey,
       initialRoute: auto_router.Routes.homeScreenRoute,
       onGenerateRoute: auto_router.Router().onGenerateRoute,

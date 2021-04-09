@@ -1,10 +1,15 @@
+## 0.8.3
+
+- Fixed where currentRoute in NavigationService was always null
+  `routeObserver` from `StackedServices` needs to passed on `navigatorObservers` in `MaterialApp`
+
 ## 0.8.2
 
 - Fixed barrierDismissible issue on BottomSheetService
 
 ## 0.8.1
 
- Updates to latest version of get
+Updates to latest version of get
 
 ## 0.8.0-nullsafety.1
 
