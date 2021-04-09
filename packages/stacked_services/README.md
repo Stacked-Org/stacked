@@ -253,6 +253,29 @@ The `NavigationService` will allow you to navigate your app easily from the `Vie
 | `clearTillFirstAndShow`     | `Future<dynamic>` | Pops the navigation stack until there's 1 view left then pushes `routeName` onto the stack                        |
 | `clearTillFirstAndShowView` | `Future<dynamic>` | Pops the navigation stack until there's 1 view left then pushes `view` onto the stack                             |
 | `pushNamedAndRemoveUntil`   | `Future<dynamic>` | Push route and clear stack until predicate is satisfied                                                           |
+|  |
+
+## Route observation
+
+If you want the current route to be set during navigations then you have to add a route observer.
+
+```dart
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Stacked Services Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      navigatorObservers: [StackedService.routeObserver], ///<- Here
+      navigatorKey: StackedService.navigatorKey,
+      initialRoute: auto_router.Routes.homeScreenRoute,
+      onGenerateRoute: auto_router.Router().onGenerateRoute,
+    );
+  }
+}
+```
 
 ## Snackbar Service
 
