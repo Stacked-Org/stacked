@@ -18,22 +18,25 @@ class FirebaseAuthenticationService {
   /// The URI to which the authorization redirects. It must include a domain name, and can’t be an IP address or localhost.
   ///
   /// Must be configured at https://developer.apple.com/account/resources/identifiers/list/serviceId
-  final appleRedirectUri;
+  final String? _appleRedirectUri;
 
   /// The developer’s client identifier, as provided by WWDR.
   ///
   /// This is the Identifier value shown on the detail view of the service after opening it from https://developer.apple.com/account/resources/identifiers/list/serviceId
   /// Usually a reverse domain notation like com.example.app.service
-  final appleClientId;
+  final String? _appleClientId;
 
   final firebaseAuth = FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn();
 
   FirebaseAuthenticationService({
-    this.appleRedirectUri,
-    this.appleClientId,
+    @Deprecated('Pass in the appleRedirectUri through the signInWithApple function')
+        String? appleRedirectUri,
+    @Deprecated('Pass in the appleClientId through the signInWithApple function')
+        String? appleClientId,
     this.log,
-  });
+  })  : _appleRedirectUri = appleRedirectUri,
+        _appleClientId = appleClientId;
 
   String? _pendingEmail;
   AuthCredential? _pendingCredential;
@@ -93,7 +96,10 @@ class FirebaseAuthenticationService {
     return await SignInWithApple.isAvailable();
   }
 
-  Future<FirebaseAuthenticationResult> signInWithApple() async {
+  Future<FirebaseAuthenticationResult> signInWithApple({
+    required String? appleRedirectUri,
+    required String? appleClientId,
+  }) async {
     try {
       if (appleClientId == null) {
         throw FirebaseAuthException(

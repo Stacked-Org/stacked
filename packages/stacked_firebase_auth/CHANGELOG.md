@@ -1,3 +1,11 @@
+## 0.2.2+1
+
+- Deprecates constructor values for `FirebaseAuthenticationService` and prefers parameters through sign in method
+
+## 0.2.2
+
+- Adds the required apple parameters to `signInWithApple` function
+
 ## 0.2.1
 
 - Removed `flutter_facebook_auth` dependency
