@@ -1,3 +1,8 @@
+## 2.0.3+1
+
+- Exposed `buildAdaptivePageRoute`, `misTypedArgsRoute` and `defaultUnknownRoutePage` functions to outer world
+- Changed `OutlineButton` to `OutlinedButton` (removed deprecated code)
+
 ## 2.0.3
 
 - Fixed where anyObjectsBusy was always true in MultipleFutureViewModel.
