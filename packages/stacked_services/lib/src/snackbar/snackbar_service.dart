@@ -64,6 +64,9 @@ class SnackbarService {
     _customSnackbarConfigBuilders[variant] = configBuilder;
   }
 
+  /// Check if snackbar is open
+  bool? get isSnackbarOpen => Get.isSnackbarOpen;
+
   /// Shows a snack bar with the details passed in
   void showSnackbar({
     String title = '',
