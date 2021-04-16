@@ -536,7 +536,7 @@ In this case the error can be retrieved using `viewModel.error(BusyObjectKey)` o
 
 ## Reactivity
 
-One thing that was common in a scenario with the first implementation of this architecture is reacting to values changed by different ViewModels. I don't have the exact implementation that I would hope for but without reflection, some things will have to be a bit more verbose. The stacked architecture makes provision for ViewModels to react to changes to values in service by making use of RxValue from the [Observable-Ish](https://pub.dev/packages/observable_ish) package.
+One thing that was common in a scenario with the first implementation of this architecture is reacting to values changed by different ViewModels. I don't have the exact implementation that I would hope for but without reflection, some things will have to be a bit more verbose. The stacked architecture makes provision for ViewModels to react to changes to values in service by making use of ReactiveValue and ReactiveList.
 
 ### Reactive Service Mixin
 
@@ -545,7 +545,7 @@ In the stacked library, we have a `ReactiveServiceMixin` which can be used to re
 There are three things you need to make a service reactive.
 
 1. Use the `ReactiveServiceMixin` with the service you want to make reactive
-2. Wrap your values in an RxValue. The value provided by Observable-ish
+2. Wrap your values in an ReactiveValue.
 3. Register your reactive values by calling `listenToReactiveValues`. A function provided by the mixin.
 
 Below is some source code for the non-theory coders out there like myself.
@@ -558,7 +558,7 @@ class InformationService with ReactiveServiceMixin { //1
   }
 
   //2
-  RxValue<int> _postCount = RxValue<int>(initial: 0);
+  ReactiveValue<int> _postCount = ReactiveValue<int>(initial: 0);
   int get postCount => _postCount.value;
 
   void updatePostCount() {
@@ -1018,6 +1018,7 @@ class OtherNavigator extends StatelessWidget {
 }
 
 ```
+
 Now we can navigate to the nested route using the `NavigationService`, making sure to match the `id` to the `nestedNavigationKey` supplied when creating the `ExtendedNavigator()`.
 
 ```dart
