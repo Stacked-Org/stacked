@@ -1,3 +1,7 @@
+## -0.2.4
+
+- Anonymous Login Added
+
 ## 0.2.3
 
 - Added a getter for the current logged in Firebase User
