@@ -1,7 +1,6 @@
 ## 0.8.3
 
-- Fixed where currentRoute in NavigationService was always null
-  `routeObserver` from `StackedServices` needs to passed on `navigatorObservers` in `MaterialApp`
+- Fixed where currentRoute in NavigationService was always null `routeObserver` from `StackedServices` needs to passed on `navigatorObservers` in `MaterialApp`
 
 ## 0.8.2
 
