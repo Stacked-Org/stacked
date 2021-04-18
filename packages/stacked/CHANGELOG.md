@@ -1,3 +1,6 @@
+## 2.0.4
+
+- Updates the extended router functionality to use non null routes
 ## 2.0.3+1
 
 - Exposed `buildAdaptivePageRoute`, `misTypedArgsRoute` and `defaultUnknownRoutePage` functions to outer world

@@ -84,12 +84,12 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
         ),
       );
 
-  static List<Route<dynamic>?> _generateInitialRoutes(
+  static List<Route<dynamic>> _generateInitialRoutes(
     ExtendedNavigatorState router,
     Uri initialUri,
     Object? initialRouteArgs,
   ) {
-    var initialRoutes = <Route?>[];
+    var initialRoutes = <Route>[];
     var navigator = router._navigator!;
 
     var initialRouteName = initialUri.path;
@@ -126,10 +126,11 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
       }
     } else {
       var unknownRoute = navigator.widget.onUnknownRoute!(settings);
-      initialRoutes.add(unknownRoute);
+      if (unknownRoute != null) {
+        initialRoutes.add(unknownRoute);
+      }
     }
 
-    initialRoutes.removeWhere((route) => route == null);
     return initialRoutes;
   }
 
@@ -174,7 +175,8 @@ class ExtendedNavigatorState<T extends RouterBase?>
   ExtendedNavigatorState? get parent => _parent;
 
   ExtendedNavigatorState? _parent;
-  final List<ExtendedNavigatorState<RouterBase?>> children = <ExtendedNavigatorState>[];
+  final List<ExtendedNavigatorState<RouterBase?>> children =
+      <ExtendedNavigatorState>[];
   GlobalKey<NavigatorState>? _navigatorKey;
 
   NavigatorState? get _navigator => _navigatorKey!.currentState;
@@ -206,8 +208,8 @@ class ExtendedNavigatorState<T extends RouterBase?>
       var data = (route.settings as RouteData);
       if (await _canNavigate(data.template)) {
         if (data.template == Navigator.defaultRouteName) {
-          _navigator!.pushAndRemoveUntil(
-              route, RouteData.withPath(data.template));
+          _navigator!
+              .pushAndRemoveUntil(route, RouteData.withPath(data.template));
         } else {
           _navigator!.push(route);
         }
@@ -275,8 +277,8 @@ class ExtendedNavigatorState<T extends RouterBase?>
           this,
           initialUri,
           initialRouteArgs,
-        ) as List<Route<dynamic>>;
-      } as List<Route<dynamic>> Function(NavigatorState, String),
+        );
+      },
     );
   }
 
@@ -433,7 +435,8 @@ class ExtendedNavigatorState<T extends RouterBase?>
     }
 
     for (Type guardType in match.routeDef.guards!) {
-      if (!await _getGuard(guardType)!.canNavigate(this, routeName, arguments)) {
+      if (!await _getGuard(guardType)!
+          .canNavigate(this, routeName, arguments)) {
         if (onReject != null) {
           onReject(_getGuard(guardType));
         }
