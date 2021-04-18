@@ -71,7 +71,7 @@ class SimpleLogPrinter extends LogPrinter {
   }
 }
 
-final stackTraceRegex = RegExp(r'#[0-9]+[\\s]+(.+) \(([^\\s]+)\)');
+final stackTraceRegex = RegExp(r'#[0-9]+[\\s]+(.+) \\(([^\\s]+)\\)');
 
 List<String>? _formatStackTrace(StackTrace stackTrace, int methodCount) {
   var lines = stackTrace.toString().split('\\n');
