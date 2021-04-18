@@ -1,3 +1,7 @@
+## 0.2.3
+
+- Added a getter for the current logged in Firebase User
+
 ## 0.2.2+1
 
 - Deprecates constructor values for `FirebaseAuthenticationService` and prefers parameters through sign in method
