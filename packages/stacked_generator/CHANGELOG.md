@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.4.0
+
+- Adds option to generate a logger with formatting and automatic function name printing
+
 ## 0.3.3
 
 - Fixed Static dropdown list generation
