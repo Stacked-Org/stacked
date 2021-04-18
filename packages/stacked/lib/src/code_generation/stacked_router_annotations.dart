@@ -1,20 +1,3 @@
-import 'package:meta/meta.dart';
-import 'package:stacked/stacked_annotations.dart';
-
-/// The annotation that defines a stacked application
-class StackedApp {
-  /// Defines all the routes that has to be generated for the onGenerateRoute function
-  final List<StackedRoute> routes;
-
-  /// Defines a list of services to be registered on the locator for use in the app
-  final List<DependencyRegistration>? dependencies;
-
-  const StackedApp({
-    required this.routes,
-    this.dependencies,
-  }) : assert(routes != null);
-}
-
 class StackedRouterAnnotation {
   // if true a Navigator extension will be generated with
   // helper push methods of all routes
