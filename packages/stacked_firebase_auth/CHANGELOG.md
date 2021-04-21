@@ -1,3 +1,6 @@
+## 0.2.4
+
+- Added a method `emailExists` to check if email is registered in Firebase Auth
 ## 0.2.3
 
 - Added a getter for the current logged in Firebase User
