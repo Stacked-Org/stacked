@@ -12,9 +12,11 @@ class PlatformButton extends StatelessWidget {
   final bool isCancelButton;
   final Color? confirmationBtnColor;
   final Color? cancelBtnColor;
+  final Key? textChildKey;
 
   const PlatformButton({
     Key? key,
+    this.textChildKey,
     this.dialogPlatform,
     this.isCancelButton = false,
     required this.text,
@@ -30,6 +32,7 @@ class PlatformButton extends StatelessWidget {
       case DialogPlatform.Cupertino:
         return CupertinoDialogAction(
           child: Text(text,
+              key: textChildKey,
               style: isCancelButton
                   ? cancelBtnColor != null
                       ? TextStyle(color: cancelBtnColor)
@@ -44,6 +47,7 @@ class PlatformButton extends StatelessWidget {
       default:
         return TextButton(
           child: Text(text,
+              key: textChildKey,
               style: isCancelButton
                   ? cancelBtnColor != null
                       ? TextStyle(color: cancelBtnColor)
@@ -116,11 +120,13 @@ class PlatformDialog extends StatelessWidget {
           title: title != null
               ? Text(
                   title!,
+                  key: Key('dialog_text_title'),
                 )
               : null,
           content: content != null
               ? Text(
                   content!,
+                  key: Key('dialog_text_content'),
                 )
               : null,
           actions: actions ?? [],
@@ -133,11 +139,13 @@ class PlatformDialog extends StatelessWidget {
           title: title != null
               ? Text(
                   title!,
+                  key: Key('dialog_text_title'),
                 )
               : null,
           content: content != null
               ? Text(
                   content!,
+                  key: Key('dialog_text_content'),
                 )
               : null,
           actions: actions,
