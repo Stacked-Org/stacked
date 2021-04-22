@@ -1,3 +1,7 @@
+## 0.8.4
+
+- Adds support for TestSweets automation by providing keys
+
 ## 0.8.3
 
 - Fixed where currentRoute in NavigationService was always null `routeObserver` from `StackedServices` needs to passed on `navigatorObservers` in `MaterialApp`
