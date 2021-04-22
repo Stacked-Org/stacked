@@ -113,7 +113,7 @@ class FirebaseAuthenticationService {
   ///
   /// [permissions] for getting a users profile details. Example: ['public_profile', 'email']
   Future<FirebaseAuthenticationResult> signInWithFacebook({
-    required List<String> permissions,
+    List<String> permissions = const ['email', 'public_profile'],
   }) async {
     try {
       // Trigger the sign-in flow
