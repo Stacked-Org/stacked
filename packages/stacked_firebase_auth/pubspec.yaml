@@ -18,6 +18,7 @@ dependencies:
   # Firebase Authentications
   google_sign_in: ^5.0.1
   sign_in_with_apple: ^3.0.0
+  flutter_facebook_auth: ^3.3.2+2
 
   # logging
   logger: ^1.0.0

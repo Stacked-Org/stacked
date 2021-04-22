@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:logger/logger.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -90,6 +91,41 @@ class FirebaseAuthenticationService {
         idToken: googleSignInAuthentication.idToken,
       );
 
+      final result = await _signInWithCredential(credential);
+
+      // Link the pending credential with the existing account
+      if (_pendingCredential != null) {
+        await result.user?.linkWithCredential(_pendingCredential!);
+        _clearPendingData();
+      }
+
+      return FirebaseAuthenticationResult(user: result.user);
+    } on FirebaseAuthException catch (e) {
+      log?.e(e);
+      return await _handleAccountExists(e);
+    } catch (e) {
+      log?.e(e);
+      return FirebaseAuthenticationResult.error(errorMessage: e.toString());
+    }
+  }
+
+  /// Signs user in with Facebook
+  ///
+  /// [permissions] for getting a users profile details. Example: ['public_profile', 'email']
+  Future<FirebaseAuthenticationResult> signInWithFacebook({
+    required List<String> permissions,
+  }) async {
+    try {
+      // Trigger the sign-in flow
+      final LoginResult loginResult = await FacebookAuth.instance.login(
+        permissions: permissions,
+      );
+      // Create a credential from the access token
+      final FacebookAuthCredential credential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.token)
+              as FacebookAuthCredential;
+
+      // Once signed in, return the UserCredential
       final result = await _signInWithCredential(credential);
 
       // Link the pending credential with the existing account
@@ -294,6 +330,7 @@ class FirebaseAuthenticationService {
     try {
       await firebaseAuth.signOut();
       await _googleSignIn.signOut();
+      await FacebookAuth.instance.logOut();
       _clearPendingData();
     } catch (e) {
       log?.e('Could not sign out of social account. $e');
