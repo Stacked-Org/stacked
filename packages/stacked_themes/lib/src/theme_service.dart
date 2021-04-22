@@ -9,16 +9,16 @@ enum ThemeManagerMode { light, dark, system }
 
 /// A service accessible outside of the UI to allow the control of the [ThemeManager]
 class ThemeService {
-  static ThemeService _instance;
+  static ThemeService? _instance;
   static ThemeService getInstance() {
     if (_instance == null) {
       _instance = ThemeService();
     }
 
-    return _instance;
+    return _instance!;
   }
 
-  ThemeManager _themeManager;
+  late ThemeManager _themeManager;
 
   /// Sets the theme manager instance that will be used from the service
   void setThemeManager(ThemeManager manager) => _themeManager = manager;
@@ -55,18 +55,18 @@ class ThemeService {
       case ThemeManagerMode.system:
         return ThemeMode.system;
     }
-    return ThemeMode.system;
   }
 
-  ThemeManagerMode _getThemeManagerMode(ThemeMode mode) {
-    switch (mode) {
-      case ThemeMode.dark:
-        return ThemeManagerMode.dark;
-      case ThemeMode.light:
-        return ThemeManagerMode.light;
-      case ThemeMode.system:
-        return ThemeManagerMode.system;
-    }
+  ThemeManagerMode _getThemeManagerMode(ThemeMode? mode) {
+    if (mode != null)
+      switch (mode) {
+        case ThemeMode.dark:
+          return ThemeManagerMode.dark;
+        case ThemeMode.light:
+          return ThemeManagerMode.light;
+        case ThemeMode.system:
+          return ThemeManagerMode.system;
+      }
     return ThemeManagerMode.system;
   }
 }

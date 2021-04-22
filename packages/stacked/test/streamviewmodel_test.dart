@@ -1,13 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:stacked/stacked.dart';
 
-Stream<int> numberStream(int dataBack, {bool fail, int delay}) async* {
+Stream<int> numberStream(int dataBack, {required bool fail, int? delay}) async* {
   if (fail) throw Exception('numberStream failed');
   if (delay != null) await Future.delayed(Duration(milliseconds: delay));
   yield dataBack;
 }
 
-Stream<String> textStream(String dataBack, {bool fail, int delay}) async* {
+Stream<String> textStream(String dataBack, {required bool fail, int? delay}) async* {
   if (fail) throw Exception('textStream failed');
   if (delay != null) await Future.delayed(Duration(milliseconds: delay));
   yield dataBack;
@@ -17,13 +17,13 @@ class TestStreamViewModel extends StreamViewModel<int> {
   final bool fail;
   final int delay;
   TestStreamViewModel({this.fail = false, this.delay = 0});
-  int loadedData;
+  int? loadedData;
 
   @override
   get stream => numberStream(1, fail: fail, delay: delay);
 
   @override
-  void onData(int data) {
+  void onData(int? data) {
     loadedData = data;
   }
 }
@@ -35,7 +35,7 @@ class TestMultipleStreamViewModel extends MultipleStreamViewModel {
   final bool failOne;
   final int delay;
   TestMultipleStreamViewModel({this.failOne = false, this.delay = 0});
-  int loadedData;
+  int? loadedData;
   int cancelledCalls = 0;
   int getStreamsMapCalls = 0;
   @override
@@ -63,7 +63,7 @@ class TestMultipleStreamViewModel extends MultipleStreamViewModel {
 
 class TestMultipleStreamViewModelWithOverrides extends MultipleStreamViewModel {
   TestMultipleStreamViewModelWithOverrides();
-  int loadedData;
+  int? loadedData;
   @override
   Map<String, StreamData> get streamsMap => {
         _NumberStream: StreamData(
@@ -135,16 +135,17 @@ void main() async {
       });
 
       test(
-          'notifySourceChanged - When called and clearOldData is false should leave old data',
-          () async {
-        var streamViewModel = TestStreamViewModel(delay: 10);
-        streamViewModel.initialise();
+        'notifySourceChanged - When called and clearOldData is false should leave old data',
+        () async {
+          var streamViewModel = TestStreamViewModel(delay: 10);
+          streamViewModel.initialise();
 
-        await Future.delayed(const Duration(milliseconds: 20));
+        await Future.delayed(const Duration(milliseconds: 30));
         streamViewModel.notifySourceChanged();
 
-        expect(streamViewModel.data, 1);
-      });
+          expect(streamViewModel.data, 1);
+        },
+      );
 
       test(
           'notifySourceChanged - When called and clearOldData is true should remove old data',
@@ -167,8 +168,8 @@ void main() async {
       var streamViewModel = TestMultipleStreamViewModel();
       streamViewModel.initialise();
       await Future.delayed(Duration(milliseconds: 4));
-      expect(streamViewModel.dataMap[_NumberStream], 5);
-      expect(streamViewModel.dataMap[_StringStream], 'five');
+      expect(streamViewModel.dataMap![_NumberStream], 5);
+      expect(streamViewModel.dataMap![_StringStream], 'five');
     });
 
     test(
@@ -248,7 +249,7 @@ void main() async {
       streamViewModel.initialise();
       streamViewModel.notifySourceChanged();
 
-      expect(streamViewModel.streamsSubscriptions.length, 0);
+      expect(streamViewModel.streamsSubscriptions!.length, 0);
     });
 
     test(
@@ -260,7 +261,7 @@ void main() async {
       await Future.delayed(const Duration(milliseconds: 20));
       streamViewModel.notifySourceChanged();
 
-      expect(streamViewModel.dataMap[_NumberStream], 5);
+      expect(streamViewModel.dataMap![_NumberStream], 5);
     });
 
     test(
@@ -272,7 +273,7 @@ void main() async {
       await Future.delayed(const Duration(milliseconds: 20));
       streamViewModel.notifySourceChanged(clearOldData: true);
 
-      expect(streamViewModel.dataMap[_NumberStream], null);
+      expect(streamViewModel.dataMap![_NumberStream], null);
     });
   });
 }

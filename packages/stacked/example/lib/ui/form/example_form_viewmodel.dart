@@ -14,7 +14,7 @@ class ExampleFormViewModel extends FormViewModel {
   @override
   void setFormStatus() {
     log.i('Set form Status with data: $formValueMap');
-    if (passwordValue?.isEmpty ?? true) {
+    if (passwordValue?.isEmpty ?? false) {
       setValidationMessage('You need to give a password');
     }
   }
@@ -23,10 +23,10 @@ class ExampleFormViewModel extends FormViewModel {
   // simply validate in the function that they'll use to submit the
   // data to the backend or db.
 
-  Future saveData() {
+  Future? saveData() {
     // here we can run custom functionality to save to our api
   }
 
-  Future navigateSomewhere() =>
+  Future? navigateSomewhere() =>
       _navigationService.navigateTo(Routes.streamCounterView);
 }

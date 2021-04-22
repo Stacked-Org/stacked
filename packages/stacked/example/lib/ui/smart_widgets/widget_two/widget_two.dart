@@ -5,16 +5,16 @@ import 'widget_two_viewmodel.dart';
 class WidgetTwo extends StatelessWidget {
   final int id;
   const WidgetTwo({
-    Key key,
-    this.id,
+    Key? key,
+    required this.id,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<WidgetTwoViewModel>.reactive(
       viewModelBuilder: () => WidgetTwoViewModel(id),
-      builder: (context, model, child) => GestureDetector(
-        onTap: () => model.reset(),
+      builder: (context, viewModel, child) => GestureDetector(
+        onTap: () => viewModel.reset(),
         child: Container(
           width: 100,
           height: 100,
@@ -28,7 +28,7 @@ class WidgetTwo extends StatelessWidget {
                 style: TextStyle(fontSize: 10),
               ),
               Text(
-                model.postCount.toString(),
+                viewModel.postCount.toString(),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 40,

@@ -5,18 +5,18 @@ import 'package:stacked/stacked.dart';
 import 'history_viewmodel.dart';
 
 class HistoryView extends StatelessWidget {
-  const HistoryView({Key key}) : super(key: key);
+  const HistoryView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HistoryViewModel>.reactive(
       initialiseSpecialViewModelsOnce: true,
       disposeViewModel: false,
-      builder: (context, model, child) => Scaffold(
+      builder: (context, viewModel, child) => Scaffold(
           body: Center(
-              child: model.isBusy
+              child: viewModel.isBusy
                   ? CircularProgressIndicator()
-                  : Text(model.data.toString()))),
+                  : Text(viewModel.data.toString()))),
       viewModelBuilder: () => locator<HistoryViewModel>(),
     );
   }

@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(),
       initialRoute: Routes.homeView,
       navigatorKey: locator<NavigationService>().navigatorKey,
-      onGenerateRoute: Router().onGenerateRoute,
+      // onGenerateRoute: Router().onGenerateRoute,
     );
   }
 }

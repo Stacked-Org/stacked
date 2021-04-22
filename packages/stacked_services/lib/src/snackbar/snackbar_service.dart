@@ -14,19 +14,19 @@ class SnackbarService {
     return Get.key;
   }
 
-  Map<dynamic, SnackbarConfig> _customSnackbarConfigs =
-      Map<dynamic, SnackbarConfig>();
+  Map<dynamic, SnackbarConfig?> _customSnackbarConfigs =
+      Map<dynamic, SnackbarConfig?>();
 
-  Map<dynamic, SnackbarConfig Function()> _customSnackbarConfigBuilders =
-      Map<dynamic, SnackbarConfig Function()>();
+  Map<dynamic, SnackbarConfig Function()?> _customSnackbarConfigBuilders =
+      Map<dynamic, SnackbarConfig Function()?>();
 
-  Map<dynamic, Widget Function(String, Function)> _mainButtonBuilder =
-      Map<dynamic, Widget Function(String, Function)>();
+  Map<dynamic, Widget Function(String?, Function?)?> _mainButtonBuilder =
+      Map<dynamic, Widget Function(String?, Function?)?>();
 
-  SnackbarConfig _snackbarConfig;
+  SnackbarConfig? _snackbarConfig;
 
   /// Checks if there is a snackbar open
-  bool get isOpen => Get.isSnackbarOpen;
+  bool? get isOpen => Get.isSnackbarOpen;
 
   /// Saves the [config] to be used for the [showSnackbar] function
   void registerSnackbarConfig(SnackbarConfig config) =>
@@ -37,7 +37,7 @@ class SnackbarService {
       'Prefer to use the registerCustomSnackbarConfig() method. Will be removed in future release')
   void registerCustomSnackbarconfig({
     @required dynamic customData,
-    @required SnackbarConfig config,
+    @required SnackbarConfig? config,
   }) =>
       registerCustomSnackbarConfig(
         variant: customData,
@@ -49,29 +49,32 @@ class SnackbarService {
   /// onTap callback
   void registerCustomMainButtonBuilder({
     @required dynamic variant,
-    @required Widget Function(String, Function) builder,
+    @required Widget Function(String?, Function?)? builder,
   }) =>
       _mainButtonBuilder[variant] = builder;
 
   /// Saves the [config] against the value of [variant]. A [configBuilder] can also be
   /// supplied which will be chosen over the config for the same variant when requested.
   void registerCustomSnackbarConfig({
-    @required dynamic variant,
-    SnackbarConfig config,
-    SnackbarConfig Function() configBuilder,
+    required dynamic variant,
+    SnackbarConfig? config,
+    SnackbarConfig Function()? configBuilder,
   }) {
     _customSnackbarConfigs[variant] = config;
     _customSnackbarConfigBuilders[variant] = configBuilder;
   }
 
+  /// Check if snackbar is open
+  bool? get isSnackbarOpen => Get.isSnackbarOpen;
+
   /// Shows a snack bar with the details passed in
   void showSnackbar({
-    String title,
-    @required String message,
-    Function(dynamic) onTap,
+    String title = '',
+    required String message,
+    Function(dynamic)? onTap,
     Duration duration = const Duration(seconds: 3),
-    String mainButtonTitle,
-    Function onMainButtonTapped,
+    String? mainButtonTitle,
+    void Function()? onMainButtonTapped,
   }) {
     final mainButtonWidget = _getMainButtonWidget(
       mainButtonTitle: mainButtonTitle,
@@ -86,22 +89,22 @@ class SnackbarService {
           ? Text(
               title,
               style: TextStyle(
-                color: _snackbarConfig.titleColor,
+                color: _snackbarConfig?.titleColor,
                 fontWeight: FontWeight.w800,
                 fontSize: 16,
               ),
-              textAlign: _snackbarConfig.titleTextAlign ?? TextAlign.left,
+              textAlign: _snackbarConfig?.titleTextAlign ?? TextAlign.left,
             )
           : null,
       messageText: _snackbarConfig?.messageColor != null
           ? Text(
               message,
               style: TextStyle(
-                color: _snackbarConfig.messageColor,
+                color: _snackbarConfig?.messageColor,
                 fontWeight: FontWeight.w300,
                 fontSize: 14,
               ),
-              textAlign: _snackbarConfig.messageTextAlign ?? TextAlign.left,
+              textAlign: _snackbarConfig?.messageTextAlign ?? TextAlign.left,
             )
           : null,
       colorText: _snackbarConfig?.textColor ?? Colors.white,
@@ -118,14 +121,14 @@ class SnackbarService {
     );
   }
 
-  Future showCustomSnackBar({
-    @required String message,
+  Future? showCustomSnackBar({
+    required String message,
     @deprecated dynamic customData,
     dynamic variant,
-    String title,
-    String mainButtonTitle,
-    Function onMainButtonTapped,
-    Function onTap,
+    String? title,
+    String? mainButtonTitle,
+    void Function()? onMainButtonTapped,
+    Function? onTap,
     Duration duration = const Duration(seconds: 1),
   }) {
     // TODO: Remove customData in the future release and set variant as required
@@ -153,7 +156,7 @@ class SnackbarService {
     final hasMainButtonBuilder = mainButtonBuilder != null;
 
     final mainButtonWidget = hasMainButtonBuilder
-        ? mainButtonBuilder(mainButtonTitle, onMainButtonTapped)
+        ? mainButtonBuilder!(mainButtonTitle, onMainButtonTapped)
         : _getMainButtonWidget(
             mainButtonTitle: mainButtonTitle,
             onMainButtonTapped: onMainButtonTapped,
@@ -165,30 +168,26 @@ class SnackbarService {
           ? Text(
               title,
               style: TextStyle(
-                color: snackbarConfig?.titleColor ??
-                    snackbarConfig?.textColor ??
-                    Colors.white,
+                color: snackbarConfig.titleColor ?? snackbarConfig.textColor,
                 fontWeight: FontWeight.w800,
                 fontSize: 16,
               ),
-              textAlign: snackbarConfig?.titleTextAlign ?? TextAlign.left,
+              textAlign: snackbarConfig.titleTextAlign,
             )
           : null,
       messageText: Text(
         message,
         style: TextStyle(
-          color: snackbarConfig?.messageColor ??
-              snackbarConfig?.textColor ??
-              Colors.white,
+          color: snackbarConfig.messageColor ?? snackbarConfig.textColor,
           fontWeight: FontWeight.w300,
           fontSize: 14,
         ),
-        textAlign: snackbarConfig?.messageTextAlign ?? TextAlign.left,
+        textAlign: snackbarConfig.messageTextAlign,
       ),
       icon: snackbarConfig.icon,
       shouldIconPulse: snackbarConfig.shouldIconPulse,
       maxWidth: snackbarConfig.maxWidth,
-      margin: snackbarConfig.margin,
+      margin: snackbarConfig.margin ?? EdgeInsets.zero,
       padding: snackbarConfig.padding,
       borderRadius: snackbarConfig.borderRadius,
       borderColor: snackbarConfig.borderColor,
@@ -198,7 +197,7 @@ class SnackbarService {
       boxShadows: snackbarConfig.boxShadows,
       backgroundGradient: snackbarConfig.backgroundGradient,
       mainButton: mainButtonWidget,
-      onTap: (object) => onTap(),
+      onTap: (object) => onTap!(),
       duration: duration,
       isDismissible: snackbarConfig.isDismissible,
       dismissDirection: snackbarConfig.dismissDirection,
@@ -222,7 +221,7 @@ class SnackbarService {
       return getBar.show();
     } else {
       Completer completer = new Completer();
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
+      WidgetsBinding.instance?.addPostFrameCallback((_) async {
         final result = await getBar.show();
         completer.complete(result);
       });
@@ -230,10 +229,10 @@ class SnackbarService {
     }
   }
 
-  Widget _getMainButtonWidget({
-    String mainButtonTitle,
-    Function onMainButtonTapped,
-    SnackbarConfig config,
+  TextButton? _getMainButtonWidget({
+    String? mainButtonTitle,
+    void Function()? onMainButtonTapped,
+    SnackbarConfig? config,
   }) {
     if (mainButtonTitle == null) {
       return null;

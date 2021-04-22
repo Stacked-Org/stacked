@@ -4,13 +4,13 @@ import 'package:stacked/stacked.dart';
 import 'future_example_viewmodel.dart';
 
 class FutureExampleView extends StatelessWidget {
-  const FutureExampleView({Key key}) : super(key: key);
+  const FutureExampleView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<FutureExampleViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        body: model.hasError
+      builder: (context, viewModel, child) => Scaffold(
+        body: viewModel.hasError
             ? Container(
                 color: Colors.red,
                 alignment: Alignment.center,
@@ -20,9 +20,9 @@ class FutureExampleView extends StatelessWidget {
                 ),
               )
             : Center(
-                child: model.isBusy
+                child: viewModel.isBusy
                     ? CircularProgressIndicator()
-                    : Text(model.data),
+                    : Text(viewModel.data!),
               ),
       ),
       viewModelBuilder: () => FutureExampleViewModel(),

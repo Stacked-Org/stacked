@@ -4,12 +4,12 @@ import 'package:stacked/stacked.dart';
 import 'multiple_streams_example_viewmodel.dart';
 
 class MultipleStreamsExampleView extends StatelessWidget {
-  const MultipleStreamsExampleView({Key key}) : super(key: key);
+  const MultipleStreamsExampleView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<MultipleStreamsExampleViewModel>.reactive(
-        builder: (context, model, child) => Scaffold(
+        builder: (context, viewModel, child) => Scaffold(
               body: Center(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -19,12 +19,12 @@ class MultipleStreamsExampleView extends StatelessWidget {
                       height: 50,
                       alignment: Alignment.center,
                       color: Colors.yellow,
-                      child: !model.hasNumberData
+                      child: !viewModel.hasNumberData
                           ? CircularProgressIndicator()
                           : Column(
                               children: <Widget>[
-                                Text(model.stringStreamDelay.toString() + 'ms'),
-                                Text(model.number.toString()),
+                                Text(viewModel.stringStreamDelay.toString() + 'ms'),
+                                Text(viewModel.number.toString()),
                               ],
                             ),
                     ),
@@ -36,13 +36,13 @@ class MultipleStreamsExampleView extends StatelessWidget {
                       height: 90,
                       alignment: Alignment.center,
                       color: Colors.red,
-                      child: !model.hasRandomString
+                      child: !viewModel.hasRandomString
                           ? CircularProgressIndicator()
                           : Column(
                               children: <Widget>[
                                 Text(
-                                    model.numbersStreamDelay.toString() + 'ms'),
-                                Text(model.randomString),
+                                    viewModel.numbersStreamDelay.toString() + 'ms'),
+                                Text(viewModel.randomString),
                               ],
                             ),
                     ),
@@ -51,7 +51,7 @@ class MultipleStreamsExampleView extends StatelessWidget {
               ),
               floatingActionButton: MaterialButton(
                 child: Text('Change Stream Source Faster'),
-                onPressed: model.swapStreams,
+                onPressed: viewModel.swapStreams,
               ),
             ),
         viewModelBuilder: () => MultipleStreamsExampleViewModel());

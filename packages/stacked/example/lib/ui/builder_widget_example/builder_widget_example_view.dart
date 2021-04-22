@@ -6,15 +6,15 @@ class BuilderWidgetExampleView extends ViewModelBuilderWidget<HomeViewModel> {
   @override
   Widget builder(
     BuildContext context,
-    HomeViewModel model,
-    Widget child,
+    HomeViewModel viewModel,
+    Widget? child,
   ) {
     return Scaffold(
       body: Center(
-        child: Text(model.title),
+        child: Text(viewModel.title),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => model.updateTitle(),
+        onPressed: () => viewModel.updateTitle(),
       ),
     );
   }

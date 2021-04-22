@@ -5,37 +5,37 @@ void main() {
   group('IndexTrackingViewmodelTest -', () {
     group('setIndex -', () {
       test('When called with 1, should set currentIndex to 1', () {
-        var model = IndexTrackingViewModel();
-        model.setIndex(1);
-        expect(model.currentIndex, 1);
+        var viewModel = IndexTrackingViewModel();
+        viewModel.setIndex(1);
+        expect(viewModel.currentIndex, 1);
       });
 
       test('When called with 1, should notifyListeners about update', () {
-        var model = IndexTrackingViewModel();
+        var viewModel = IndexTrackingViewModel();
         var called = false;
-        model.addListener(() {
+        viewModel.addListener(() {
           called = true;
         });
-        model.setIndex(1);
+        viewModel.setIndex(1);
         expect(called, true);
       });
 
       test(
           'When called with 1 and currentIndex was 0, reverse should return false',
           () {
-        var model = IndexTrackingViewModel();
-        model.setIndex(1);
-        expect(model.reverse, false);
+        var viewModel = IndexTrackingViewModel();
+        viewModel.setIndex(1);
+        expect(viewModel.reverse, false);
       });
 
       test(
           'When called with 0 and currentIndex was 1, reverse should return true',
           () {
-        var model = IndexTrackingViewModel();
-        model.setIndex(1);
+        var viewModel = IndexTrackingViewModel();
+        viewModel.setIndex(1);
 
-        model.setIndex(0);
-        expect(model.reverse, true);
+        viewModel.setIndex(0);
+        expect(viewModel.reverse, true);
       });
 
       test('When called with 1 isIndexSelected should return false for 0', () {
@@ -45,9 +45,9 @@ void main() {
       });
 
       test('When called with 1 isIndexSelected should return true for 1', () {
-        var model = IndexTrackingViewModel();
-        model.setIndex(1);
-        expect(model.isIndexSelected(1), true);
+        var viewModel = IndexTrackingViewModel();
+        viewModel.setIndex(1);
+        expect(viewModel.isIndexSelected(1), true);
       });
     });
   });

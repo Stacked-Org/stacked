@@ -4,8 +4,8 @@ This package provides a `FirebaseAuthenticationService` that provides the follow
 
 - Email
 - Google
-- Facebook
 - Apple
+- Facebook (Removed `flutter_facebook_auth` dependency and its implementation since it was causing a `MissingPluginException` if the app isn't setup for Facebook Auth)
 
 It wraps the functionality for those three auth providers. Examples to come soon. This package is being published to improve the [BoxtOut tutorial](https://youtube.com/playlist?list=PLdTodMosi-BzqMe7fU9Bin3z14_hqNHRA) for setting up Firebase Auth. So it's barebones for now. The functionality works great, at the moment I just don't have the time to write a full readme tutorial along with the examples. that will come soon.
 
@@ -19,3 +19,7 @@ It wraps the functionality for those three auth providers. Examples to come soon
 - [ ] Add examples into the readme
 - [ ] Add mobile authentication option (implementation already exists, it just needs to be moved in here)
 - [ ] Add other authentication providers
+
+### Breaking Change
+
+Removed `flutter_facebook_auth` dependency and its implementation since it was causing a `MissingPluginException` if the app isn't setup for Facebook Auth

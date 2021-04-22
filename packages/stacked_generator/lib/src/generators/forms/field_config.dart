@@ -6,18 +6,28 @@ abstract class FieldConfig {
   /// The name of the form field. This will be used to generate the Key mapping
   final String name;
 
-  const FieldConfig({this.name});
+  const FieldConfig({required this.name});
 }
 
 class TextFieldConfig extends FieldConfig {
-  /// Indicates if the field is a password field or not
-  final bool isPassword;
-
-  const TextFieldConfig({String name, this.isPassword}) : super(name: name);
+  const TextFieldConfig({required String name}) : super(name: name);
 }
 
 class DateFieldConfig extends FieldConfig {
-  DateFieldConfig({String name}) : super(name: name);
+  DateFieldConfig({required String name}) : super(name: name);
+}
+
+class DropdownFieldConfig extends FieldConfig {
+  final List<DropdownFieldItem> items;
+  const DropdownFieldConfig({required String name, required this.items})
+      : super(name: name);
+}
+
+class DropdownFieldItem {
+  final String title;
+  final String value;
+
+  DropdownFieldItem({required this.title, required this.value});
 }
 
 extension ListOfFieldConfigs on List<FieldConfig> {
@@ -29,5 +39,10 @@ extension ListOfFieldConfigs on List<FieldConfig> {
   List<DateFieldConfig> get onlyDateFieldConfigs => this
       .where((fieldConfig) => fieldConfig is DateFieldConfig)
       .map((t) => t as DateFieldConfig)
+      .toList();
+
+  List<DropdownFieldConfig> get onlyDropdownFieldConfigs => this
+      .where((fieldConfig) => fieldConfig is DropdownFieldConfig)
+      .map((t) => t as DropdownFieldConfig)
       .toList();
 }

@@ -26,7 +26,7 @@ Widget spacedDivider = Column(
   ],
 );
 
-Widget responsiveVerticalSpace(BuildContext context, {int dividedBy}) =>
+Widget responsiveVerticalSpace(BuildContext context, {int dividedBy = 1}) =>
     verticalSpace(screenHeightFraction(
       context,
       dividedBy: dividedBy,
@@ -71,7 +71,7 @@ double getResponsiveRegularFontSize(BuildContext context) =>
     getResponsiveFontSize(context, fontSize: 14, max: 16);
 
 double getResponsiveFontSize(BuildContext context,
-    {double fontSize, double max}) {
+    {double fontSize = 14, double? max}) {
   if (max == null) {
     max = 100;
   }

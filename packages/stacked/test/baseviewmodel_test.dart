@@ -4,7 +4,7 @@ import 'package:stacked/stacked.dart';
 class TestViewModel extends BaseViewModel {
   bool onErrorCalled = false;
   Future runFuture(
-      {String busyKey, bool fail = false, bool throwException = false}) {
+      {String? busyKey, bool fail = false, bool throwException = false}) {
     return runBusyFuture(
       _futureToRun(fail),
       busyObject: busyKey,
@@ -13,7 +13,7 @@ class TestViewModel extends BaseViewModel {
   }
 
   Future runTestErrorFuture(
-      {String key, bool fail = false, bool throwException = false}) {
+      {String? key, bool fail = false, bool throwException = false}) {
     return runErrorFuture(
       _futureToRun(fail),
       key: key,
@@ -99,7 +99,7 @@ void main() {
       });
 
       test(
-          'When busy future is complete should have called notifyListeners twice, 1 for busy 1 for not busy',
+          'When busy future is complete should have called notifyListeners three time, 1 for busy 1 for not busy 1 for restting errorMessage',
           () async {
         var called = 0;
         var viewModel = TestViewModel();
@@ -107,11 +107,11 @@ void main() {
           ++called;
         });
         await viewModel.runFuture();
-        expect(called, 2);
+        expect(called, 3);
       });
 
       test(
-          'When busy future fails should have called notifyListeners three times, 1 for busy 1 for not busy and 1 for error',
+          'When busy future fails should have called notifyListeners three times, 1 for busy 1 for not busy and 1 for resetting error, 1 for setting error',
           () async {
         var called = 0;
         var viewModel = TestViewModel();
@@ -119,7 +119,7 @@ void main() {
           ++called;
         });
         await viewModel.runFuture(fail: true);
-        expect(called, 3);
+        expect(called, 4);
       });
 
       test(
@@ -145,16 +145,16 @@ void main() {
 
     group('runErrorFuture -', () {
       test('When called and error is thrown should set error', () async {
-        var model = TestViewModel();
-        await model.runTestErrorFuture(fail: true);
-        expect(model.hasError, true);
+        var viewModel = TestViewModel();
+        await viewModel.runTestErrorFuture(fail: true);
+        expect(viewModel.hasError, true);
       });
       test(
           'When called and error is thrown should call onErrorForFuture override',
           () async {
-        var model = TestViewModel();
-        await model.runTestErrorFuture(fail: true, throwException: false);
-        expect(model.onErrorCalled, true);
+        var viewModel = TestViewModel();
+        await viewModel.runTestErrorFuture(fail: true, throwException: false);
+        expect(viewModel.onErrorCalled, true);
       });
     });
   });

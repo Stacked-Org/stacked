@@ -1,5 +1,42 @@
 # ChangeLog
 
+## 0.4.1
+
+- Fixes regular expression bug causing function name not to show up in logs
+
+## 0.4.0
+
+- Adds option to generate a logger with formatting and automatic function name printing
+- Bumps stacked to `2.1.0`
+
+## 0.3.3
+
+- Fixed Static dropdown list generation
+
+## 0.3.2
+
+- Fixed unexpected empty string import
+
+## 0.3.1-nullsafety.3
+
+- Generate nulllable formView property getters
+
+## 0.3.1-nullsafety.2
+
+- fixes DatePicker changes bugs
+
+## 0.3.1-nullsafety.1
+
+- Adds DatePicker form field option to the Form Generation functionality
+
+## 0.3.0-nullsafety.1
+
+- Migrates to null safety
+
+## 0.2.7
+
+- Bumps build and source gen
+
 ## 0.2.6
 
 - Adds the `resolveUsing` code generation for `Singleton` and `LazySingleton` registrations

@@ -17,7 +17,7 @@ class StackedFormGenerator extends GeneratorForAnnotation<FormView> {
   ) async {
     var libs = await buildStep.resolver.libraries.toList();
     var importResolver =
-        ImportResolver(libs, classForAnnotation.source.uri.path);
+        ImportResolver(libs, classForAnnotation.source?.uri.path ?? '');
 
     final viewName = classForAnnotation.displayName;
 
@@ -43,8 +43,8 @@ class StackedFormGenerator extends GeneratorForAnnotation<FormView> {
 }
 
 FieldConfig _readFieldConfig({
-  DartObject fieldConfig,
-  ImportResolver importResolver,
+  required DartObject fieldConfig,
+  required ImportResolver importResolver,
 }) {
   var fieldReader = ConstantReader(fieldConfig);
 
@@ -52,6 +52,8 @@ FieldConfig _readFieldConfig({
       fieldReader.instanceOf(TypeChecker.fromRuntime(FormTextField));
   bool isDateField =
       fieldReader.instanceOf(TypeChecker.fromRuntime(FormDateField));
+  bool isDropdownField =
+      fieldReader.instanceOf(TypeChecker.fromRuntime(FormDropdownField));
 
   if (isTextField) {
     return _readTextFieldConfig(
@@ -59,29 +61,50 @@ FieldConfig _readFieldConfig({
   } else if (isDateField) {
     return _readDateFieldConfig(
         fieldReader: fieldReader, importResolver: importResolver);
+  } else if (isDropdownField) {
+    return _readDropdownFieldConfig(
+        fieldReader: fieldReader, importResolver: importResolver);
   } else {
     throw ArgumentError('Unknown form field $fieldConfig');
   }
 }
 
 FieldConfig _readTextFieldConfig({
-  ConstantReader fieldReader,
-  ImportResolver importResolver,
+  required ConstantReader fieldReader,
+  required ImportResolver importResolver,
 }) {
-  final bool isPassword = fieldReader.peek('isPassword')?.boolValue;
-  final String name = fieldReader.peek('name')?.stringValue;
+  final String name = (fieldReader.peek('name')?.stringValue) ?? '';
   return TextFieldConfig(
-    isPassword: isPassword,
     name: name,
   );
 }
 
 FieldConfig _readDateFieldConfig({
-  ConstantReader fieldReader,
-  ImportResolver importResolver,
+  required ConstantReader fieldReader,
+  required ImportResolver importResolver,
 }) {
-  final String name = fieldReader.peek('name')?.stringValue;
+  final String name = (fieldReader.peek('name')?.stringValue) ?? '';
   return DateFieldConfig(
     name: name,
+  );
+}
+
+FieldConfig _readDropdownFieldConfig({
+  required ConstantReader fieldReader,
+  required ImportResolver importResolver,
+}) {
+  final String name = (fieldReader.peek('name')?.stringValue) ?? '';
+  final List<DropdownFieldItem> items =
+      (fieldReader.peek('items')?.listValue.map((dartObject) {
+            final itemReader = ConstantReader(dartObject);
+            final title = itemReader.peek('title')?.stringValue ?? '';
+            final value = itemReader.peek('value')?.stringValue ?? '';
+
+            return DropdownFieldItem(title: title, value: value);
+          }).toList()) ??
+          <DropdownFieldItem>[];
+  return DropdownFieldConfig(
+    name: name,
+    items: items,
   );
 }

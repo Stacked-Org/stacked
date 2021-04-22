@@ -8,6 +8,7 @@ import 'test_setup.dart';
 void main() {
   group('ThemeManagerTest -', () {
     setUp(() => registerServices());
+
     tearDown(() => unregisterServices());
 
     group('Construction -', () {
@@ -88,6 +89,16 @@ void main() {
     });
 
     group('selectThemeAtIndex -', () {
+      test('When called and no no themes were supplied should throw exception',
+          () {
+        var themeManager = ThemeManager(
+          lightTheme: ThemeData(),
+          darkTheme: ThemeData(),
+        );
+
+        expect(() => themeManager.selectThemeAtIndex(1), throwsException);
+      });
+
       test(
           'When called with index 1, should broadcast the theme at 1 over the themesStream',
           () {
@@ -136,11 +147,53 @@ void main() {
         ];
         var themeManager = ThemeManager(
           themes: themes,
-          statusBarColorBuilder: (theme) => theme.primaryColor,
+          statusBarColorBuilder: (theme) => theme!.primaryColor,
         );
 
         await themeManager.selectThemeAtIndex(1);
         verify(statusBar.updateStatusBarColor(themes.first.primaryColor));
+      });
+    });
+
+    group('selectedThemeIndex -', () {
+      test('When called should and we do not have multiple themes return null',
+          () {
+        var themeManager = ThemeManager(
+          lightTheme: ThemeData(),
+          darkTheme: ThemeData(),
+          statusBarColorBuilder: (theme) => theme!.primaryColor,
+        );
+
+        expect(themeManager.selectedThemeIndex, null);
+      });
+
+      test(
+          'When sharedPreferences theme index returns 5, selectedThemeIndex should return 5',
+          () async {
+        getAndRegisterSharedPreferencesServiceMock(themeIndex: 5);
+        var themeManager = ThemeManager(
+          themes: [
+            ThemeData(),
+            ThemeData(),
+          ],
+          statusBarColorBuilder: (theme) => theme!.primaryColor,
+        );
+
+        expect(themeManager.selectedThemeIndex, 5);
+      });
+
+      test(
+          'When themeIndex from sharedPreferences returns null, theme index should default to 0',
+          () {
+        var themeManager = ThemeManager(
+          themes: [
+            ThemeData(),
+            ThemeData(),
+          ],
+          statusBarColorBuilder: (theme) => theme!.primaryColor,
+        );
+
+        expect(themeManager.selectedThemeIndex, 0);
       });
     });
 

@@ -1,22 +1,28 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+// **************************************************************************
+// StackedLoggerGenerator
+// **************************************************************************
+
 /// Maybe this should be generated for the user as well?
 ///
 /// import 'package:customer_app/services/stackdriver/stackdriver_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
-// import 'dart:developer' as logger;
-
-List<String> exludeLogs = [];
-String showOnlyClass;
 
 class SimpleLogPrinter extends LogPrinter {
   final String className;
   final bool printCallingFunctionName;
   final bool printCallStack;
+  final List<String> exludeLogsFromClasses;
+  final String? showOnlyClass;
 
   SimpleLogPrinter(
     this.className, {
     this.printCallingFunctionName = true,
     this.printCallStack = false,
+    this.exludeLogsFromClasses = const [],
+    this.showOnlyClass,
   });
 
   @override
@@ -31,7 +37,8 @@ class SimpleLogPrinter extends LogPrinter {
     var output =
         '$emoji $className$methodNameSection - ${event.message}${printCallStack ? '\nSTACKTRACE:\n$stackLog' : ''}';
 
-    if (exludeLogs.any((excludeClass) => className == excludeClass) ||
+    if (exludeLogsFromClasses
+            .any((excludeClass) => className == excludeClass) ||
         (showOnlyClass != null && className != showOnlyClass)) return [];
 
     final pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
@@ -40,9 +47,9 @@ class SimpleLogPrinter extends LogPrinter {
     for (var line in output.split('\n')) {
       result.addAll(pattern.allMatches(line).map((match) {
         if (kReleaseMode) {
-          return match.group(0);
+          return match.group(0)!;
         } else {
-          return color(match.group(0));
+          return color!(match.group(0)!);
         }
       }));
     }
@@ -50,15 +57,15 @@ class SimpleLogPrinter extends LogPrinter {
     return result;
   }
 
-  String _getMethodName() {
+  String? _getMethodName() {
     try {
       var currentStack = StackTrace.current;
-      var formattedStacktrace = formatStackTrace(currentStack, 3);
+      var formattedStacktrace = _formatStackTrace(currentStack, 3);
 
       var realFirstLine =
-          formattedStacktrace.firstWhere((line) => line.contains(className));
+          formattedStacktrace?.firstWhere((line) => line.contains(className));
 
-      var methodName = realFirstLine.replaceAll('$className.', '');
+      var methodName = realFirstLine?.replaceAll('$className.', '');
       return methodName;
     } catch (e) {
       // There's no deliberate function call from our code so we return null;
@@ -69,15 +76,15 @@ class SimpleLogPrinter extends LogPrinter {
 
 final stackTraceRegex = RegExp(r'#[0-9]+[\s]+(.+) \(([^\s]+)\)');
 
-List<String> formatStackTrace(StackTrace stackTrace, int methodCount) {
-  var lines = stackTrace.toString().split("\n");
+List<String>? _formatStackTrace(StackTrace stackTrace, int methodCount) {
+  var lines = stackTrace.toString().split('\n');
 
   var formatted = <String>[];
   var count = 0;
   for (var line in lines) {
     var match = stackTraceRegex.matchAsPrefix(line);
     if (match != null) {
-      if (match.group(2).startsWith('package:logger')) {
+      if (match.group(2)!.startsWith('package:logger')) {
         continue;
       }
       var newLine = ("${match.group(1)}");
@@ -113,21 +120,6 @@ class MultipleLoggerOutput extends LogOutput {
   }
 }
 
-// class StackDriverOutput extends LogOutput {
-//   @override
-//   void output(OutputEvent event) {
-//     try {
-//       if (event.level != Level.debug) {
-//         if (locator.isRegistered<StackDriverService>()) {
-//           locator<StackDriverService>().writeEntry(event.level, event.lines);
-//         }
-//       }
-//     } catch (e) {
-//       print('STACKDRIVER FAILED: $e');
-//     }
-//   }
-// }
-
 class LogAllTheTimeFilter extends LogFilter {
   @override
   bool shouldLog(LogEvent event) {
@@ -135,19 +127,24 @@ class LogAllTheTimeFilter extends LogFilter {
   }
 }
 
-Logger getLogger(String className,
-    {bool printCallingFunctionName = true, bool printCallstack = false}) {
+Logger getLogger(
+  String className, {
+  bool printCallingFunctionName = true,
+  bool printCallstack = false,
+  List<String> exludeLogsFromClasses = const [],
+  String? showOnlyClass,
+}) {
   return Logger(
     filter: LogAllTheTimeFilter(),
-    // printer: SimplePrinter(colors: false),
     printer: SimpleLogPrinter(
       className,
       printCallingFunctionName: printCallingFunctionName,
       printCallStack: printCallstack,
+      showOnlyClass: showOnlyClass,
+      exludeLogsFromClasses: exludeLogsFromClasses,
     ),
     output: MultipleLoggerOutput([
       ConsoleOutput(),
-      // StackDriverOutput(),
     ]),
   );
 }

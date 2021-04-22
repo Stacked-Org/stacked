@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -26,11 +26,14 @@ dependencies:
 
   # state management
   stacked:
-    # path: ../
+    path: ../
   stacked_services:
+    # path: ../../stacked_services/
   stacked_hooks:
   flutter_hooks:
   stacked_themes:
+    ^0.3.2
+    # path: ../../stacked_themes/
 
   # navigation
   get:
@@ -44,8 +47,8 @@ dev_dependencies:
 
   # dependency injection
   build_runner:
-  stacked_generator: ^0.2.6
-    # path: ../../stacked_generator
+  stacked_generator:
+    path: ../../stacked_generator
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

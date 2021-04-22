@@ -3,30 +3,30 @@ import 'package:recase/recase.dart';
 
 class DependencyConfig {
   /// The import to use for the type of the service
-  final String import;
+  final String? import;
 
   /// The import to use for the abstracted service type
-  final String abstractedImport;
+  final String? abstractedImport;
 
   /// The actual name of the class to be registered
   final String className;
 
   /// The abstracted class name of the class to be registered
-  final String abstractedTypeClassName;
+  final String? abstractedTypeClassName;
 
   /// The type of the service to register
-  final DependencyType type;
+  final DependencyType? type;
 
   /// The static function to use for presolving the service
-  final String presolveFunction;
+  final String? presolveFunction;
 
   /// The static function to use for resolving a singleton instance
-  final String resolveFunction;
+  final String? resolveFunction;
 
   DependencyConfig({
-    this.import,
+    required this.import,
+    required this.className,
     this.abstractedImport,
-    this.className,
     this.abstractedTypeClassName,
     this.type,
     this.presolveFunction,

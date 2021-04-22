@@ -5,10 +5,10 @@ const String _NumbersStreamKey = 'numbers-stream';
 const String _StringStreamKey = 'string-stream';
 
 class MultipleStreamsExampleViewModel extends MultipleStreamViewModel {
-  int get number => dataMap[_NumbersStreamKey];
+  int get number => dataMap![_NumbersStreamKey];
   bool get hasNumberData => dataReady(_NumbersStreamKey);
 
-  String get randomString => dataMap[_StringStreamKey];
+  String get randomString => dataMap![_StringStreamKey];
   bool get hasRandomString => dataReady(_StringStreamKey);
 
   Stream<int> numbersStream([int delay = 500]) async* {

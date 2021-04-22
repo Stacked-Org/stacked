@@ -3,12 +3,12 @@ import 'package:new_architecture/ui/multiple_futures_example/multiple_futures_ex
 import 'package:stacked/stacked.dart';
 
 class MultipleFuturesExampleView extends StatelessWidget {
-  const MultipleFuturesExampleView({Key key}) : super(key: key);
+  const MultipleFuturesExampleView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<MultipleFuturesExampleViewModel>.reactive(
-        builder: (context, model, child) => Scaffold(
+        builder: (context, viewModel, child) => Scaffold(
               body: Center(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -18,9 +18,9 @@ class MultipleFuturesExampleView extends StatelessWidget {
                       height: 50,
                       alignment: Alignment.center,
                       color: Colors.yellow,
-                      child: model.fetchingNumber
+                      child: viewModel.fetchingNumber
                           ? CircularProgressIndicator()
-                          : Text(model.fetchedNumber.toString()),
+                          : Text(viewModel.fetchedNumber.toString()),
                     ),
                     SizedBox(
                       width: 20,
@@ -30,9 +30,9 @@ class MultipleFuturesExampleView extends StatelessWidget {
                       height: 50,
                       alignment: Alignment.center,
                       color: Colors.red,
-                      child: model.fetchingString
+                      child: viewModel.fetchingString
                           ? CircularProgressIndicator()
-                          : Text(model.fetchedString),
+                          : Text(viewModel.fetchedString),
                     ),
                   ],
                 ),

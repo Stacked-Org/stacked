@@ -7,40 +7,38 @@ import 'custom_transition_builder.dart';
 
 class RouteConfig {
   List<String> imports = [];
-  String name;
-  String pathName;
-  bool initial;
-  bool fullscreenDialog;
-  bool customRouteOpaque;
-  bool customRouteBarrierDismissible;
-  bool maintainState;
-  String className;
-  String returnType;
-  List<RouteParamConfig> parameters;
-  CustomTransitionBuilder transitionBuilder;
-  int durationInMilliseconds;
+  late String name;
+  late String pathName;
+  bool? initial;
+  bool? fullscreenDialog;
+  bool? customRouteOpaque;
+  bool? customRouteBarrierDismissible;
+  bool? maintainState;
+  String? className;
+  String? returnType;
+  List<RouteParamConfig>? parameters;
+  CustomTransitionBuilder? transitionBuilder;
+  int? durationInMilliseconds;
   int routeType = RouteType.material;
   List<RouteGuardConfig> guards = [];
-  String cupertinoNavTitle;
-  bool hasWrapper;
-  RouterConfig routerConfig;
+  String? cupertinoNavTitle;
+  bool? hasWrapper;
+  RouterConfig? routerConfig;
 
-  bool hasConstConstructor;
-
-  RouteConfig();
+  bool? hasConstConstructor;
 
   String get argumentsHolderClassName {
     return '${className}Arguments';
   }
 
-  String get templateName {
+  String? get templateName {
     return pathName.contains(":") ? '_$name' : name;
   }
 
   List<RouteParamConfig> get argParams {
     return parameters
-            ?.where((p) => !p.isPathParam && !p.isQueryParam)
-            ?.toList() ??
+            ?.where((p) => !p.isPathParam! && !p.isQueryParam!)
+            .toList() ??
         [];
   }
 }

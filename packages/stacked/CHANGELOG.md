@@ -1,6 +1,51 @@
+## 2.1.0
+
+- Adds annotations to allow the user to generate a logger for their app
+
+## 2.0.4
+
+- Updates the extended router functionality to use non null routes
+
+## 2.0.3+1
+
+- Exposed `buildAdaptivePageRoute`, `misTypedArgsRoute` and `defaultUnknownRoutePage` functions to outer world
+- Changed `OutlineButton` to `OutlinedButton` (removed deprecated code)
+
+## 2.0.3
+
+- Fixed where anyObjectsBusy was always true in MultipleFutureViewModel.
+
+## 2.0.2
+
+- Made ViewModel variable naming scheme consistent. `ViewModel viewModel` is now preferred.
+
+## 2.0.1
+
+- Adds ReactiveValue and ReactiveList for reactive functionality
+
+## 2.0.0
+
+- Null safety migration complete and ready to be used!
+
+## 2.0.0-nullsafety.3
+
+- Fixes annotation to allow for date selection
+
+## 2.0.0-nullsafety.2
+
+- Adds back `resolveUsing` function to the annotations
+
+## 2.0.0-nullsafety.1
+
+- Migrate to null-safety. We will remove null safety when we iron out all the issues
+
+## 1.9.8
+
+- Exposes `RouteGuard` through stacked as well
+
 ## 1.9.7
 
-- Adds `resolveUsing` function that can be used for singleton type dependency registrations. 
+- Adds `resolveUsing` function that can be used for singleton type dependency registrations.
 
 ## 1.9.6
 

@@ -18,6 +18,7 @@ class StackedFormContentGenerator extends BaseGenerator {
     // and can then be unit tested to avoid simple mistakes. BUT, that's for later.
     _generateImports();
     _generateValueMapKeys(fields);
+    _generateDropdownItemsMap(fields.onlyDropdownFieldConfigs);
     _generateFormMixin();
     _generateFormViewModelExtensions(fields);
 
@@ -34,6 +35,22 @@ class StackedFormContentGenerator extends BaseGenerator {
     newLine();
   }
 
+  void _generateDropdownItemsMap(List<DropdownFieldConfig> fields) {
+    newLine();
+    for (final field in fields) {
+      final caseName = ReCase(field.name);
+      writeLine(
+        "const Map<String, String> ${caseName.pascalCase}ValueToTitleMap = {",
+      );
+      for (final item in field.items) {
+        writeLine("'${item.value}': '${item.title}',");
+      }
+      if (field.items.isNotEmpty) writeLine('};');
+    }
+    // if (fields.isNotEmpty) writeLine('};');
+    newLine();
+  }
+
   void _generateImports() {
     // write route imports
     final imports = <String>{
@@ -41,7 +58,7 @@ class StackedFormContentGenerator extends BaseGenerator {
       "package:stacked/stacked.dart"
     };
 
-    var validImports = imports.where((import) => import != null).toSet();
+    var validImports = imports.toSet();
     var dartImports =
         validImports.where((element) => element.startsWith('dart')).toSet();
     sortAndGenerate(dartImports);
@@ -150,11 +167,10 @@ class StackedFormContentGenerator extends BaseGenerator {
       final caseName = ReCase(field.name);
       final type = _getFormFieldValueType(field);
       writeLine(
-          '$type get ${caseName.camelCase}Value => this.formValueMap[${_getFormKeyName(caseName)}];');
+          '$type? get ${caseName.camelCase}Value => this.formValueMap[${_getFormKeyName(caseName)}];');
     }
 
     // Generate the getters that check whether a field is set or not
-    newLine();
     newLine();
     for (final field in fields) {
       final caseName = ReCase(field.name);
@@ -174,10 +190,10 @@ class StackedFormContentGenerator extends BaseGenerator {
       final caseName = ReCase(field.name);
       writeLine('''
           Future<void> select${caseName.pascalCase}(
-              {@required BuildContext context,
-              @required DateTime initialDate,
-              @required DateTime firstDate,
-              @required DateTime lastDate}) async {
+              {required BuildContext context,
+              required DateTime initialDate,
+              required DateTime firstDate,
+              required DateTime lastDate}) async {
             final selectedDate = await showDatePicker(
                 context: context,
                 initialDate: initialDate,
@@ -192,11 +208,24 @@ class StackedFormContentGenerator extends BaseGenerator {
       newLine();
     }
 
+    // Generate the drop down selected item setter
+    for (final field in fields.onlyDropdownFieldConfigs) {
+      final caseName = ReCase(field.name);
+      writeLine('''
+          void set${caseName.pascalCase}(String ${caseName.camelCase}) {
+            this.setData(this.formValueMap..addAll({${_getFormKeyName(caseName)}: ${caseName.camelCase}}));
+          }
+    ''');
+      newLine();
+    }
+
     writeLine('}');
   }
 
   String _getFormFieldValueType(FieldConfig field) {
-    return field is TextFieldConfig ? 'String' : 'DateTime';
+    return field is TextFieldConfig || field is DropdownFieldConfig
+        ? 'String'
+        : 'DateTime';
   }
 
   String _getControllerName(FieldConfig field) => '${field.name}Controller';

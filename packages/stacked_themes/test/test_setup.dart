@@ -10,7 +10,7 @@ class SharedPreferencesServiceMock extends Mock
 class StatusBarServiceMock extends Mock implements StatusBarService {}
 
 SharedPreferencesService getAndRegisterSharedPreferencesServiceMock(
-    {int themeIndex, ThemeMode userThemeMode}) {
+    {int? themeIndex, ThemeMode? userThemeMode}) {
   _removeRegistrationIfExists<SharedPreferencesService>();
   var service = SharedPreferencesServiceMock();
 
@@ -30,7 +30,7 @@ StatusBarService getAndRegisterStatusBarServiceMock() {
 
 // Call this before any service registration helper. This is to ensure that if there
 // is a service registered we remove it first. We register all services to remove boiler plate from tests
-void _removeRegistrationIfExists<T>() {
+void _removeRegistrationIfExists<T extends Object>() {
   if (locator.isRegistered<T>()) {
     locator.unregister<T>();
   }

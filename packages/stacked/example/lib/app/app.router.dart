@@ -18,12 +18,12 @@ import '../ui/nonreactive/nonreactive_view.dart';
 import '../ui/stream_view/stream_counter_view.dart';
 
 class Routes {
-  static const String homeView = '/home-view';
+  static const String homeView = '/';
   static const String bottomNavExample = '/bottom-nav-example';
   static const String streamCounterView = '/stream-counter-view';
   static const String detailsView = '/details-view';
   static const String exampleFormView = '/example-form-view';
-  static const String nonReactiveView = '/';
+  static const String nonReactiveView = '/non-reactive-view';
   static const all = <String>{
     homeView,
     bottomNavExample,
@@ -67,9 +67,7 @@ class StackedRouter extends RouterBase {
       );
     },
     DetailsView: (data) {
-      var args = data.getArgs<DetailsViewArguments>(
-        orElse: () => DetailsViewArguments(),
-      );
+      var args = data.getArgs<DetailsViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
         builder: (context) => DetailsView(
           key: args.key,
@@ -102,13 +100,13 @@ class StackedRouter extends RouterBase {
 
 /// DetailsView arguments holder class
 class DetailsViewArguments {
-  final Key key;
+  final Key? key;
   final String name;
-  DetailsViewArguments({this.key, this.name});
+  DetailsViewArguments({this.key, required this.name});
 }
 
 /// ExampleFormView arguments holder class
 class ExampleFormViewArguments {
-  final Key key;
+  final Key? key;
   ExampleFormViewArguments({this.key});
 }

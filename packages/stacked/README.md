@@ -7,7 +7,7 @@ An architecture developed and revised by the [FilledStacks](https://www.youtube.
 ### Migrate from 1.6.1 -> 1.7
 
 - hasError(key) -> error(key) for multiple ViewModel
-- model.error -> model.modelError for multiple ViewModel
+- viewModel.error -> viewModel.modelError for multiple ViewModel
 
 ## How Does it work
 
@@ -48,19 +48,19 @@ This is the default implementation of "binding" your view to your ViewModel.
 class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Using the reactive constructor gives you the traditional viewmodel
-    // binding which will excute the builder again when notifyListeners is called.
+    // Using the reactive constructor gives you the traditional ViewModel
+    // binding which will execute the builder again when notifyListeners is called.
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
-      onModelReady: (model) => model.initialise(),
-      builder: (context, model, child) => Scaffold(
+      onModelReady: (viewModel) => viewModel.initialise(),
+      builder: (context, viewModel, child) => Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            model.updateTitle();
+            viewModel.updateTitle();
           },
         ),
         body: Center(
-          child: Text(model.title),
+          child: Text(viewModel.title),
         ),
       ),
     );
@@ -101,11 +101,11 @@ class HomeViewMultipleWidgets extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.nonReactive(
       viewModelBuilder: () => HomeViewModel(),
-      onModelReady: (model) => model.initialise(),
-      builder: (context, model, _) => Scaffold(
+      onModelReady: (viewModel) => viewModel.initialise(),
+      builder: (context, viewModel, _) => Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            model.updateTitle();
+            viewModel.updateTitle();
           },
         ),
         body: Column(
@@ -119,7 +119,7 @@ class HomeViewMultipleWidgets extends StatelessWidget {
 
 class TitleSection extends ViewModelWidget<HomeViewModel> {
   @override
-  Widget build(BuildContext context, HomeViewModel model) {
+  Widget build(BuildContext context, HomeViewModel viewModel) {
     return Row(
       children: <Widget>[
         Text(
@@ -127,7 +127,7 @@ class TitleSection extends ViewModelWidget<HomeViewModel> {
           style: TextStyle(fontSize: 20),
         ),
         Container(
-          child: Text(model.title),
+          child: Text(viewModel.title),
         ),
       ],
     );
@@ -136,7 +136,7 @@ class TitleSection extends ViewModelWidget<HomeViewModel> {
 
 class DescriptionSection extends ViewModelWidget<HomeViewModel> {
   @override
-  Widget build(BuildContext context, HomeViewModel model) {
+  Widget build(BuildContext context, HomeViewModel viewModel) {
     return Row(
       children: <Widget>[
         Text(
@@ -144,7 +144,7 @@ class DescriptionSection extends ViewModelWidget<HomeViewModel> {
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
         ),
         Container(
-          child: Text(model.title),
+          child: Text(viewModel.title),
         ),
       ],
     );
@@ -174,15 +174,15 @@ class BuilderWidgetExampleView extends ViewModelBuilderWidget<HomeViewModel> {
   @override
   Widget builder(
     BuildContext context,
-    HomeViewModel model,
+    HomeViewModel viewModel,
     Widget child,
   ) {
     return Scaffold(
       body: Center(
-        child: Text(model.title),
+        child: Text(viewModel.title),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => model.updateTitle(),
+        onPressed: () => viewModel.updateTitle(),
       ),
     );
   }
@@ -205,18 +205,18 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
-      onModelReady: (model) => model.initialise(),
-      // When the disposeViewModel is set to false the viewmodel will
+      onModelReady: (viewModel) => viewModel.initialise(),
+      // When the disposeViewModel is set to false the ViewModel will
       // not be disposed during the normal life cycle of a widget.
       disposeViewModel: false,
-      builder: (context, model, child) => Scaffold(
+      builder: (context, viewModel, child) => Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            model.updateTitle();
+            viewModel.updateTitle();
           },
         ),
         body: Center(
-          child: Text(model.title),
+          child: Text(viewModel.title),
         ),
       ),
     );
@@ -229,7 +229,7 @@ Note that the `ViewModelBuilder` constructor is called with parameter `disposeVi
 
 ### Call onModelReady only once
 
-In some cases, specifically using a `BottomNavigationBar` you don't want the `onModelReady` function to fire every time the widget that the model is associated with comes into view. To toggle this you can set `fireOnModelReadyOnce` to true. This will fire the onModelReady call only once during the lifecycle of the `ViewModel`. When it's recreated it will fire again. Checkout the [BottomNavigation example](https://github.com/FilledStacks/stacked/blob/master/packages/stacked/example/lib/ui/bottom_nav/bottom_nav_example.dart) in the examples folder.
+In some cases, specifically using a `BottomNavigationBar` you don't want the `onModelReady` function to fire every time the widget that the `ViewModel` is associated with comes into view. To toggle this you can set `fireOnModelReadyOnce` to true. This will fire the onModelReady call only once during the lifecycle of the `ViewModel`. When it's recreated it will fire again. Checkout the [BottomNavigation example](https://github.com/FilledStacks/stacked/blob/master/packages/stacked/example/lib/ui/bottom_nav/bottom_nav_example.dart) in the examples folder.
 
 ```dart
 class FavoritesView extends StatelessWidget {
@@ -238,17 +238,17 @@ class FavoritesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<FavoritesViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
+      builder: (context, viewModel, child) => Scaffold(
           floatingActionButton: FloatingActionButton(
-            onPressed: () => model.incrementCounter(),
+            onPressed: () => viewModel.incrementCounter(),
           ),
           body: Center(
               child: Text(
-            model.counter.toString(),
+            viewModel.counter.toString(),
             style: TextStyle(fontSize: 30),
           ))),
       viewModelBuilder: () => locator<FavoritesViewModel>(),
-      onModelReady: (model) => model.setCounterTo999(),
+      onModelReady: (viewModel) => viewModel.setCounterTo999(),
       disposeViewModel: false,
       // Tell the ViewModelBuilder to only fire this once
       fireOnModelReadyOnce: true,
@@ -268,13 +268,13 @@ class FavoritesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<FavoritesViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
+      builder: (context, viewModel, child) => Scaffold(
           floatingActionButton: FloatingActionButton(
-            onPressed: () => model.incrementCounter(),
+            onPressed: () => viewModel.incrementCounter(),
           ),
           body: Center(
               child: Text(
-            model.counter.toString(),
+            viewModel.counter.toString(),
             style: TextStyle(fontSize: 30),
           ))),
       viewModelBuilder: () => locator<FavoritesViewModel>(),
@@ -286,11 +286,11 @@ class FavoritesView extends StatelessWidget {
 }
 ```
 
-This in cases that you have a Future viewmodel that you'd like to fire only once. To ensure this works correctly you should also make sure you're using a singleton ViewModel so that you always use the same instance and also set disposeViewModel to false. This can be seen in the bottom_nav folder under ui in the example. Look at the bottom_nav_example.dart file for more details.
+This in cases that you have a Future ViewModel that you'd like to fire only once. To ensure this works correctly you should also make sure you're using a singleton ViewModel so that you always use the same instance and also set disposeViewModel to false. This can be seen in the bottom_nav folder under ui in the example. Look at the bottom_nav_example.dart file for more details.
 
 ## ViewModel Widget
 
-The `ViewModelWidget` is an implementation of a widget class that returns a value provided by the Provider as a parameter in the build function of the widget. Let's say for instance you have a data model you want to use in multiple widgets. We can use the `Provider.value` call to supply that value, then inside the multiple widgets, we inherit from the `ViewModelWidget` and make use of the data directly from the build method.
+The `ViewModelWidget` is an implementation of a widget class that returns a value provided by the Provider as a parameter in the build function of the widget. Let's say for instance you have a DataModel you want to use in multiple widgets. We can use the `Provider.value` call to supply that value, then inside the multiple widgets, we inherit from the `ViewModelWidget` and make use of the data directly from the build method.
 
 ```dart
 
@@ -310,7 +310,7 @@ class HomeView extends StatelessWidget {
   }
 }
 
-// Model
+// DataModel
 class Human {
   final String name;
   final String surname;
@@ -321,12 +321,12 @@ class Human {
 // consuming widget 1
 class FullNameWidget extends ViewModelWidget<Human> {
   @override
-  Widget build(BuildContext context, Human model) {
+  Widget build(BuildContext context, Human dataModel) {
     return Row(
       children: <Widget>[
         Container(
           child: Text(
-            model.name,
+            dataModel.name,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
           ),
         ),
@@ -335,7 +335,7 @@ class FullNameWidget extends ViewModelWidget<Human> {
         ),
         Container(
           child: Text(
-            model.surname,
+            dataModel.surname,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
           ),
         ),
@@ -347,17 +347,17 @@ class FullNameWidget extends ViewModelWidget<Human> {
 // consuming widget 2
 class DuplicateNameWidget extends ViewModelWidget<Human> {
   @override
-  Widget build(BuildContext context, Human model) {
+  Widget build(BuildContext context, Human dataModel) {
     return Row(
       children: <Widget>[
         Container(
-          child: Text(model.name),
+          child: Text(dataModel.name),
         ),
         SizedBox(
           width: 50,
         ),
         Container(
-          child: Text(model.name),
+          child: Text(dataModel.name),
         ),
       ],
     );
@@ -367,7 +367,7 @@ class DuplicateNameWidget extends ViewModelWidget<Human> {
 
 ### Non reactive ViewModelWidget
 
-Sometimes you want a widget to have access to the ViewModel but you don't want it to rebuild when `notifyListeners()` is called. In this case, you can set the reactive value to false for the super constructor of the `ViewModelWidget`. This is commonly used in widgets that don't make use of the model's state and only it's functionality.
+Sometimes you want a widget to have access to the ViewModel but you don't want it to rebuild when `notifyListeners()` is called. In this case, you can set the reactive value to false for the super constructor of the `ViewModelWidget`. This is commonly used in widgets that don't make use of the ViewModel's state and only it's functionality.
 
 ```dart
 class UpdateTitleButton extends ViewModelWidget<HomeViewModel> {
@@ -376,10 +376,10 @@ class UpdateTitleButton extends ViewModelWidget<HomeViewModel> {
   }) : super(key: key, reactive: false);
 
   @override
-  Widget build(BuildContext context, model) {
+  Widget build(BuildContext context, HomeViewModel viewModel) {
     return FloatingActionButton(
       onPressed: () {
-        model.updateTitle();
+        viewModel.updateTitle();
       },
     );
   }
@@ -412,7 +412,7 @@ class WidgetOneViewModel extends BaseViewModel {
 
   Future longUpdateStuff() async {
     // Sets busy to true before starting future and sets it to false after executing
-    // You can also pass in an object as the busy object. Otherwise it'll use the model
+    // You can also pass in an object as the busy object. Otherwise it'll use the ViewModel
     var result = await runBusyFuture(updateStuff());
   }
 
@@ -432,17 +432,17 @@ class WidgetOne extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<WidgetOneViewModel>.reactive(
       viewModelBuilder: () => WidgetOneViewModel(),
-      builder: (context, model, child) => GestureDetector(
-        onTap: () => model.longUpdateStuff(),
+      builder: (context, viewModel, child) => GestureDetector(
+        onTap: () => viewModel.longUpdateStuff(),
         child: Container(
           width: 100,
           height: 100,
-          // Use isBusy to check if the model is set to busy
-          color: model.isBusy ? Colors.green : Colors.red,
+          // Use isBusy to check if the ViewModel is set to busy
+          color: viewModel.isBusy ? Colors.green : Colors.red,
           alignment: Alignment.center,
-          // A bit silly to pass the same property back into the viewmodel
+          // A bit silly to pass the same property back into the ViewModel
           // but here it makes sense
-          child: model.busy(model.currentHuman)
+          child: viewModel.busy(viewModel.currentHuman)
               ? Center(
                   child: CircularProgressIndicator(),
                 )
@@ -459,13 +459,13 @@ All the major functionality for the BaseViewModel is shown above
 
 ### Busy handling
 
-Stacked makes it easier for you to indicate to the UI if your model is busy or not through by providing some utility functions. Lets look at an example. When you run a future and you want to indicate to the UI the model is busy you would use the `runBusyFuture`.
+Stacked makes it easier for you to indicate to the UI if your ViewModel is busy or not through by providing some utility functions. Lets look at an example. When you run a future and you want to indicate to the UI the ViewModel is busy you would use the `runBusyFuture`.
 
 ```dart
 class BusyExampleViewModel extends BaseViewModel {
  Future longUpdateStuff() async {
     // Sets busy to true before starting future and sets it to false after executing
-    // You can also pass in an object as the busy object. Otherwise it'll use the model
+    // You can also pass in an object as the busy object. Otherwise it'll use the ViewModel
     var result = await runBusyFuture(updateStuff());
   }
 
@@ -475,7 +475,7 @@ class BusyExampleViewModel extends BaseViewModel {
 }
 ```
 
-This will set the busy property using `this` as the key so you can check if the future is still running by calling `isBusy` on the model. If you want to assign it a different key, in the example of a `CartView` where you have multiple items listed. When increasing the quantity of an item you want only that item to show a busy indicator. For that you can also supply a key to the `runBusyFuture` function.
+This will set the busy property using `this` as the key so you can check if the future is still running by calling `isBusy` on the ViewModel. If you want to assign it a different key, in the example of a `CartView` where you have multiple items listed. When increasing the quantity of an item you want only that item to show a busy indicator. For that you can also supply a key to the `runBusyFuture` function.
 
 ```dart
 const String BusyObjectKey = 'my-busy-key';
@@ -483,7 +483,7 @@ const String BusyObjectKey = 'my-busy-key';
 class BusyExampleViewModel extends BaseViewModel {
   Future longUpdateStuff() async {
     // Sets busy to true before starting future and sets it to false after executing
-    // You can also pass in an object as the busy object. Otherwise it'll use the model
+    // You can also pass in an object as the busy object. Otherwise it'll use the ViewModel
     var result = await runBusyFuture(updateStuff(), busyObject: BusyObjectKey);
   }
 
@@ -493,7 +493,7 @@ class BusyExampleViewModel extends BaseViewModel {
 }
 ```
 
-Then you can check the busy state using that busy key and calling `model.busy(BusyObjectKey)`. The key should be any unique value that won't change with the busy state of the object. In the example mentioned above you can use the id of each of the cart products to indicate if it's busy or not. This way you can show a busy state for each of them individually.
+Then you can check the busy state using that busy key and calling `viewModel.busy(BusyObjectKey)`. The key should be any unique value that won't change with the busy state of the object. In the example mentioned above you can use the id of each of the cart products to indicate if it's busy or not. This way you can show a busy state for each of them individually.
 
 ### Error Handling
 
@@ -503,7 +503,7 @@ The same way that the busy state is set you also get an error state. When you us
 class ErrorExampleViewModel extends BaseViewModel {
  Future longUpdateStuff() async {
     // Sets busy to true before starting future and sets it to false after executing
-    // You can also pass in an object as the busy object. Otherwise it'll use the model
+    // You can also pass in an object as the busy object. Otherwise it'll use the ViewModel
     var result = await runBusyFuture(updateStuff());
   }
 
@@ -522,7 +522,7 @@ const String BusyObjectKey = 'my-busy-key';
 class BusyExampleViewModel extends BaseViewModel {
   Future longUpdateStuff() async {
     // Sets busy to true before starting future and sets it to false after executing
-    // You can also pass in an object as the busy object. Otherwise it'll use the model
+    // You can also pass in an object as the busy object. Otherwise it'll use the ViewModel
     var result = await runBusyFuture(updateStuff(), busyObject: BusyObjectKey);
   }
 
@@ -532,7 +532,7 @@ class BusyExampleViewModel extends BaseViewModel {
 }
 ```
 
-In this case the error can be retrieved using `model.error(BusyObjectKey)` or you can simply check if there is an error for the key using `mode.hasErrorForKey(BusyObjectKey)`. If you want to react to an error from your future you can override `onFutureError` which will return the exception and the key you used for that future. The Specialty `ViewModels` have their own onError override but this one can be used in there as well if needed.
+In this case the error can be retrieved using `viewModel.error(BusyObjectKey)` or you can simply check if there is an error for the key using `mode.hasErrorForKey(BusyObjectKey)`. If you want to react to an error from your future you can override `onFutureError` which will return the exception and the key you used for that future. The Specialty `ViewModels` have their own onError override but this one can be used in there as well if needed.
 
 ## Reactivity
 
@@ -573,9 +573,9 @@ class InformationService with ReactiveServiceMixin { //1
 
 Easy peasy. This service can now be listened to when any of the properties passed into the `listenToReactiveValues` is changed. So how do you listen to these values? I'm glad you asked. Let's move onto the `ReactiveViewModel`.
 
-### Reactive View Model
+### ReactiveViewModel
 
-This ViewModel extends the `BaseViewModel` and adds a function that allows you to listen to services that are being used in the model. There are two things you have to do to make a ViewModel react to changes in a service.
+This ViewModel extends the `BaseViewModel` and adds a function that allows you to listen to services that are being used in the ViewModel. There are two things you have to do to make a ViewModel react to changes in a service.
 
 1. Extend from `ReactiveViewModel`.
 2. Implement `reactiveServices` getter that returns a list of reactive services.
@@ -617,9 +617,9 @@ class StreamCounterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<StreamCounterViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
+      builder: (context, viewModel, child) => Scaffold(
             body: Center(
-              child: Text(model.title),
+              child: Text(viewModel.title),
             ),
           ),
       viewModelBuilder: () => StreamCounterViewModel(),
@@ -654,7 +654,7 @@ Besides having the onError function you can override the `ViewModel` will also s
 
 This `ViewModel` extends the `BaseViewModel` to provide functionality to easily listen to a Future that fetches data. This requirement came off a Details view that has to fetch additional data to show to the user after selecting an item. When you extend the `FutureViewModel` you can provide a type which will then require you to override the future getter where you can set the future you want to run.
 
-The future will run after the model has been created automatically.
+The future will run after the ViewModel has been created automatically.
 
 ```dart
 class FutureExampleViewModel extends FutureViewModel<String> {
@@ -675,10 +675,10 @@ class FutureExampleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<FutureExampleViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
+      builder: (context, viewModel, child) => Scaffold(
         body: Center(
-          // model will indicate busy until the future is fetched
-          child: model.isBusy ? CircularProgressIndicator() : Text(model.data),
+          // viewModel will indicate busy until the future is fetched
+          child: viewModel.isBusy ? CircularProgressIndicator() : Text(viewModel.data),
         ),
       ),
       viewModelBuilder: () => FutureExampleViewModel(),
@@ -712,8 +712,8 @@ class FutureExampleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<FutureExampleViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        body: model.hasError
+      builder: (context, viewModel, child) => Scaffold(
+        body: viewModel.hasError
             ? Container(
                 color: Colors.red,
                 alignment: Alignment.center,
@@ -723,9 +723,9 @@ class FutureExampleView extends StatelessWidget {
                 ),
               )
             : Center(
-                child: model.isBusy
+                child: viewModel.isBusy
                     ? CircularProgressIndicator()
-                    : Text(model.data),
+                    : Text(viewModel.data),
               ),
       ),
       viewModelBuilder: () => FutureExampleViewModel(),
@@ -777,7 +777,7 @@ class MultipleFuturesExampleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<MultipleFuturesExampleViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
+      builder: (context, viewModel, child) => Scaffold(
             body: Center(
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -788,9 +788,9 @@ class MultipleFuturesExampleView extends StatelessWidget {
                     alignment: Alignment.center,
                     color: Colors.yellow,
                     // Show busy for number future until the data is back or has failed
-                    child: model.fetchingNumber
+                    child: viewModel.fetchingNumber
                         ? CircularProgressIndicator()
-                        : Text(model.fetchedNumber.toString()),
+                        : Text(viewModel.fetchedNumber.toString()),
                   ),
                   SizedBox(
                     width: 20,
@@ -801,9 +801,9 @@ class MultipleFuturesExampleView extends StatelessWidget {
                     alignment: Alignment.center,
                     color: Colors.red,
                     // Show busy for string future until the data is back or has failed
-                    child: model.fetchingString
+                    child: viewModel.fetchingString
                         ? CircularProgressIndicator()
-                        : Text(model.fetchedString),
+                        : Text(viewModel.fetchedString),
                   ),
                 ],
               ),
@@ -856,7 +856,7 @@ class MultipleStreamsExampleViewModel extends MultipleStreamViewModel {
 }
 ```
 
-Similarly to the single-stream model. When your stream has changed you should call `notifySourceChanged` to let the ViewModel know that it should stop listening to the old stream and subscribe to the new one. If you want to check if the stream had an error you can use the `hasError` function with the key for the stream, you can also get the error using `getError` with the key for the Stream.
+Similarly to the single-stream ViewModel. When your stream has changed you should call `notifySourceChanged` to let the ViewModel know that it should stop listening to the old stream and subscribe to the new one. If you want to check if the stream had an error you can use the `hasError` function with the key for the stream, you can also get the error using `getError` with the key for the Stream.
 
 ### IndexTrackingViewModel
 
@@ -869,13 +869,13 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        body: getViewForIndex(model.currentIndex),
+      builder: (context, viewModel, child) => Scaffold(
+        body: getViewForIndex(viewModel.currentIndex),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.grey[800],
-          currentIndex: model.currentTabIndex,
-          onTap: model.setTabIndex,
+          currentIndex: viewModel.currentTabIndex,
+          onTap: viewModel.setTabIndex,
           items: [
             BottomNavigationBarItem(
               title: Text('Posts'),
@@ -915,6 +915,7 @@ In addition to providing state management it's been clear that every stacked app
 
 - Navigation setup to make it accessible from the `ViewModels`
 - Dependency registration for service location
+- A Logger formatted to improve code maintenance and awareness of application inner workings
 
 From v 1.9.0 and onward we have the functionality to generate this code for the user. This will remove the reliance on auto_route as well as injectable. To use this functionality it's quite simple. Add the [stacked_generator] package to your application and if you don't have `build_runner` add that in as well.
 
@@ -1018,6 +1019,7 @@ class OtherNavigator extends StatelessWidget {
 }
 
 ```
+
 Now we can navigate to the nested route using the `NavigationService`, making sure to match the `id` to the `nestedNavigationKey` supplied when creating the `ExtendedNavigator()`.
 
 ```dart
@@ -1144,6 +1146,62 @@ final navigationService = locator<NavigationService>;
 
 To learn more about using get_it as a service locator you can [watch this video](https://youtu.be/vBT-FhgMaWM?t=321). That's all the functionality that the stacked_generator will generate for now. Over time we'll add more functionality that can help us reduce the amount of boilerplate required to build a stacked application.
 
+### Logger
+
+If you want to add a Logger to your app, all you have to do is supply a logger config.
+
+```dart
+@StackedApp(
+logger: StackedLogger()
+)
+```
+
+In addition to that you have to add the `logger` package into your project's pubspec file.
+
+```yaml
+dependencies:
+  ...
+  logger:
+```
+
+When you run the build_runner it will create a new file called app.logger.dart in the same folder as your app folder. In that file you will see some code for the logger. The most important part of that file for you is the `getLogger` function. This function is what you'll use for logging in your app. There's a few things about how this logger is setup.
+
+**When using the logger provide the exact class name it's being used in**
+
+To make use of a logger you'll do the following
+
+```dart
+class MyViewModel {
+  final log = getLogger('MyViewModel');
+
+  void doStuff() {
+    log.i('');
+  }
+}
+```
+
+The code above will print out the following.
+
+```
+💡 MyViewModel | doStuff
+```
+
+It will automatically print out the name of the function that it's in. This can only be done if we know the exact class name that the logger is for. Which is why that's so important.
+
+**Clash with getLogger**
+
+If you already have `getLogger` function in your code base and you want to use a different name you can supply that to the logger config.
+
+```dart
+@StackedApp(
+logger: StackedLogger(
+    logHelperName: 'getStackedLogger'
+  )
+)
+```
+
+Now the function to get your logger will be called `getStackedLogger`. If you want a more detailed guide on how to effectively log in your application read [this guide](https://www.filledstacks.com/post/flutter-logging-a-guide-to-use-it-effectively/) that we use for our production apps.
+
 ## Migrating from provider_architecture to Stacked
 
 Let's start with a statement to ease your migration panic 😅 stacked is the same code from `provider_architecture` with name changes and removal of some old deprecated properties. If you don't believe me, open the repo's side by side and look at the lib folders. Well, up till yesterday (22 April 2020) I guess when I updated the BaseViewModel. I wanted to do this to show that stacked is production-ready from the go. It's a new package but it's been used by all of you and the FilledStacks development team for months in the form of provider_architecture. With that out of the way, let's start the migrate.
@@ -1168,12 +1226,12 @@ class HomeViewMultipleWidgets extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelProvider<HomeViewModel>.withoutConsumer(
       viewModel: HomeViewModel(),
-      onModelReady: (model) => model.initialise(),
+      onModelReady: (viewModel) => viewModel.initialise(),
       reuseExisting: true,
-      builder: (context, model, _) => Scaffold(
+      builder: (context, viewModel, _) => Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            model.updateTitle();
+            viewModel.updateTitle();
           },
         ),
         body: Column(
@@ -1195,11 +1253,11 @@ class HomeViewMultipleWidgets extends StatelessWidget {
     return ViewModelBuilder<HomeViewModel>.nonReactive( // Take note here
       viewModelBuilder: () => HomeViewModel(), // Take note here
       disposeViewModel: false, // Take note here
-      onModelReady: (model) => model.initialise(),
-      builder: (context, model, _) => Scaffold(
+      onModelReady: (viewModel) => viewModel.initialise(),
+      builder: (context, viewModel, _) => Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            model.updateTitle();
+            viewModel.updateTitle();
           },
         ),
         body: Column(
