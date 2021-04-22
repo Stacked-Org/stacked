@@ -111,12 +111,15 @@ class DialogService {
     var isConfirmationDialog = cancelTitle != null;
     return Get.dialog<DialogResponse>(
       PlatformDialog(
+        key: Key('dialog_view'),
         dialogPlatform: dialogPlatform,
         title: title,
         content: description,
         actions: <Widget>[
           if (isConfirmationDialog)
             PlatformButton(
+              key: Key('dialog_touchable_cancel'),
+              textChildKey: Key('dialog_text_cancelButtonText'),
               dialogPlatform: dialogPlatform,
               text: cancelTitle!,
               cancelBtnColor: cancelTitleColor,
@@ -130,6 +133,8 @@ class DialogService {
               },
             ),
           PlatformButton(
+            key: Key('dialog_touchable_confirm'),
+            textChildKey: Key('dialog_text_confirmButtonText'),
             dialogPlatform: dialogPlatform,
             text: buttonTitle!,
             confirmationBtnColor: buttonTitleColor,
@@ -185,6 +190,7 @@ class DialogService {
       barrierLabel: barrierLabel,
       useRootNavigator: true,
       pageBuilder: (BuildContext buildContext, _, __) => SafeArea(
+        key: Key('dialog_view'),
         child: Builder(
           builder: (BuildContext context) => customDialogUI!(
             context,
