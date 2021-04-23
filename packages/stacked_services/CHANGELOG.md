@@ -1,3 +1,7 @@
+## 0.8.5
+
+- Adds prevent duplicates and parameters to `NavigationService`
+
 ## 0.8.4
 
 - Adds support for TestSweets automation by providing keys
