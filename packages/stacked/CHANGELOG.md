@@ -1,3 +1,7 @@
+## 2.1.1
+
+- Exports Transition builders
+
 ## 2.1.0
 
 - Adds annotations to allow the user to generate a logger for their app

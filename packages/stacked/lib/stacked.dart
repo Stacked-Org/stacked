@@ -13,6 +13,7 @@ export 'src/code_generation/router/router_base.dart';
 export 'src/code_generation/router/route_guard.dart';
 export 'src/code_generation/router/route_def.dart';
 export 'src/code_generation/router/router_utils.dart';
+export 'src/code_generation/router/transitions_builders.dart';
 export 'src/code_generation/stacked_locator.dart';
 
 export 'src/reactive/reactive_value/reactive_value.dart';
