@@ -1,6 +1,10 @@
-## 2.1.1
+## 2.1.2
 
 - Added return type for `runBusyFuture` and `runErrorFuture`
+
+## 2.1.1
+
+- Exports Transition builders
 
 ## 2.1.0
 

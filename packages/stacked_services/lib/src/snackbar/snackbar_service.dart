@@ -88,6 +88,7 @@ class SnackbarService {
       titleText: _snackbarConfig?.titleColor != null
           ? Text(
               title,
+              key: Key('snackbar_text_title'),
               style: TextStyle(
                 color: _snackbarConfig?.titleColor,
                 fontWeight: FontWeight.w800,
@@ -99,6 +100,7 @@ class SnackbarService {
       messageText: _snackbarConfig?.messageColor != null
           ? Text(
               message,
+              key: Key('snackbar_text_message'),
               style: TextStyle(
                 color: _snackbarConfig?.messageColor,
                 fontWeight: FontWeight.w300,
@@ -164,9 +166,11 @@ class SnackbarService {
           );
 
     final getBar = GetBar(
+      key: Key('snackbar_view'),
       titleText: title != null
           ? Text(
               title,
+              key: Key('snackbar_text_title'),
               style: TextStyle(
                 color: snackbarConfig.titleColor ?? snackbarConfig.textColor,
                 fontWeight: FontWeight.w800,
@@ -177,6 +181,7 @@ class SnackbarService {
           : null,
       messageText: Text(
         message,
+        key: Key('snackbar_text_message'),
         style: TextStyle(
           color: snackbarConfig.messageColor ?? snackbarConfig.textColor,
           fontWeight: FontWeight.w300,
@@ -239,8 +244,10 @@ class SnackbarService {
     }
 
     return TextButton(
+      key: Key('snackbar_touchable_mainButton'),
       child: Text(
         mainButtonTitle,
+        key: Key('snackbar_text_mainButtonTitle'),
         style: TextStyle(
           color:
               config?.mainButtonTextColor ?? config?.textColor ?? Colors.white,
