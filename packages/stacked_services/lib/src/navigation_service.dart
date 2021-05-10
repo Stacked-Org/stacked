@@ -120,7 +120,7 @@ class NavigationService {
       bool? popGesture,
       int? id}) {
     return Get.off(
-      ()=>page,
+      () => page,
       transition: _getTransitionOrDefault(transition),
       duration: duration ?? Get.defaultTransitionDuration,
       popGesture: popGesture ?? Get.isPopGestureEnable,
@@ -146,32 +146,86 @@ class NavigationService {
   }
 
   /// Pushes [routeName] onto the navigation stack
-  Future<dynamic>? navigateTo(String routeName, {dynamic arguments, int? id}) {
-    return Get.toNamed(routeName, arguments: arguments, id: id);
+  Future<dynamic>? navigateTo(
+    String routeName, {
+    dynamic arguments,
+    int? id,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+  }) {
+    return Get.toNamed(
+      routeName,
+      arguments: arguments,
+      id: id,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+    );
   }
 
   /// Pushes [view] onto the navigation stack
-  Future<dynamic>? navigateToView(Widget view, {dynamic arguments, int? id}) {
-    return Get.to(() => view, arguments: arguments, id: id);
+  Future<dynamic>? navigateToView(
+    Widget view, {
+    dynamic arguments,
+    int? id,
+    bool preventDuplicates = true,
+  }) {
+    return Get.to(
+      () => view,
+      arguments: arguments,
+      id: id,
+      preventDuplicates: preventDuplicates,
+    );
   }
 
   /// Replaces the current route with the [routeName]
-  Future<dynamic>? replaceWith(String routeName, {dynamic arguments, int? id}) {
-    return Get.offNamed(routeName, arguments: arguments, id: id);
+  Future<dynamic>? replaceWith(
+    String routeName, {
+    dynamic arguments,
+    int? id,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+  }) {
+    return Get.offNamed(
+      routeName,
+      arguments: arguments,
+      id: id,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+    );
   }
 
   /// Clears the entire back stack and shows [routeName]
-  Future<dynamic>? clearStackAndShow(String routeName,
-      {dynamic arguments, int? id}) {
-    return Get.offAllNamed(routeName, arguments: arguments, id: id);
+  Future<dynamic>? clearStackAndShow(
+    String routeName, {
+    dynamic arguments,
+    int? id,
+    Map<String, String>? parameters,
+  }) {
+    return Get.offAllNamed(
+      routeName,
+      arguments: arguments,
+      id: id,
+      parameters: parameters,
+    );
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [routeName] onto the stack
-  Future<dynamic>? clearTillFirstAndShow(String routeName,
-      {dynamic arguments, int? id}) {
+  Future<dynamic>? clearTillFirstAndShow(
+    String routeName, {
+    dynamic arguments,
+    int? id,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+  }) {
     _clearBackstackTillFirst();
 
-    return navigateTo(routeName, arguments: arguments, id: id);
+    return navigateTo(
+      routeName,
+      arguments: arguments,
+      id: id,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+    );
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [view] onto the stack

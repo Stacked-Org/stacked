@@ -1,9 +1,6 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
+const String LogHelperNameKey = 'logHelperName';
 
-// **************************************************************************
-// StackedLoggerGenerator
-// **************************************************************************
-
+const String loggerClassContent = '''
 /// Maybe this should be generated for the user as well?
 ///
 /// import 'package:customer_app/services/stackdriver/stackdriver_service.dart';
@@ -32,10 +29,10 @@ class SimpleLogPrinter extends LogPrinter {
     var methodName = _getMethodName();
 
     var methodNameSection =
-        printCallingFunctionName && methodName != null ? ' | $methodName ' : '';
+        printCallingFunctionName && methodName != null ? ' | \$methodName ' : '';
     var stackLog = event.stackTrace.toString();
     var output =
-        '$emoji $className$methodNameSection - ${event.message}${printCallStack ? '\nSTACKTRACE:\n$stackLog' : ''}';
+        '\$emoji \$className\$methodNameSection - \${event.message}\${printCallStack ? '\\nSTACKTRACE:\\n\$stackLog' : ''}';
 
     if (exludeLogsFromClasses
             .any((excludeClass) => className == excludeClass) ||
@@ -44,7 +41,7 @@ class SimpleLogPrinter extends LogPrinter {
     final pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
     List<String> result = [];
 
-    for (var line in output.split('\n')) {
+    for (var line in output.split('\\n')) {
       result.addAll(pattern.allMatches(line).map((match) {
         if (kReleaseMode) {
           return match.group(0)!;
@@ -65,7 +62,7 @@ class SimpleLogPrinter extends LogPrinter {
       var realFirstLine =
           formattedStacktrace?.firstWhere((line) => line.contains(className));
 
-      var methodName = realFirstLine?.replaceAll('$className.', '');
+      var methodName = realFirstLine?.replaceAll('\$className.', '');
       return methodName;
     } catch (e) {
       // There's no deliberate function call from our code so we return null;
@@ -74,10 +71,10 @@ class SimpleLogPrinter extends LogPrinter {
   }
 }
 
-final stackTraceRegex = RegExp(r'#[0-9]+[\s]+(.+) \(([^\s]+)\)');
+final stackTraceRegex = RegExp(r'#[0-9]+[\\s]+(.+) \\(([^\\s]+)\\)');
 
 List<String>? _formatStackTrace(StackTrace stackTrace, int methodCount) {
-  var lines = stackTrace.toString().split('\n');
+  var lines = stackTrace.toString().split('\\n');
 
   var formatted = <String>[];
   var count = 0;
@@ -87,7 +84,7 @@ List<String>? _formatStackTrace(StackTrace stackTrace, int methodCount) {
       if (match.group(2)!.startsWith('package:logger')) {
         continue;
       }
-      var newLine = ("${match.group(1)}");
+      var newLine = ("\${match.group(1)}");
       formatted.add(newLine.replaceAll('<anonymous closure>', '()'));
       if (++count == methodCount) {
         break;
@@ -127,7 +124,7 @@ class LogAllTheTimeFilter extends LogFilter {
   }
 }
 
-Logger getLogger(
+Logger $LogHelperNameKey(
   String className, {
   bool printCallingFunctionName = true,
   bool printCallstack = false,
@@ -148,3 +145,4 @@ Logger getLogger(
     ]),
   );
 }
+''';

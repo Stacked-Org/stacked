@@ -25,13 +25,14 @@ dependencies:
   cupertino_icons: ^0.1.2
 
   # state management
-  stacked: 
+  stacked:
     path: ../
   stacked_services:
     # path: ../../stacked_services/
   stacked_hooks:
   flutter_hooks:
-  stacked_themes: ^0.3.2
+  stacked_themes:
+    ^0.3.2
     # path: ../../stacked_themes/
 
   # navigation

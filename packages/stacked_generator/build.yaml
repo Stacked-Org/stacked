@@ -22,3 +22,11 @@ builders:
     build_extensions: { ".dart": [".form.dart"] }
     auto_apply: dependents
     build_to: source
+
+  # Generator the logger
+  stackedLoggerGenerator:
+    import: "package:stacked_generator/builder.dart"
+    builder_factories: ["stackedLoggerGenerator"]
+    build_extensions: { ".dart": [".logger.dart"] }
+    auto_apply: dependents
+    build_to: source

@@ -1,14 +1,16 @@
+import 'package:new_architecture/app/app.logger.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeViewModel extends BaseViewModel {
+  final log = getLogger('HomeViewModel');
   HomeViewModel() {
-    print('HomeViewModel created');
+    log.d('created');
   }
 
   String title = 'default';
 
   void initialise() {
-    print('HomeViewModel initialise');
+    log.i('initialise');
     title = 'initialised';
     notifyListeners();
   }

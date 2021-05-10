@@ -1,5 +1,14 @@
 # ChangeLog
 
+## 0.4.1
+
+- Fixes regular expression bug causing function name not to show up in logs
+
+## 0.4.0
+
+- Adds option to generate a logger with formatting and automatic function name printing
+- Bumps stacked to `2.1.0`
+
 ## 0.3.3
 
 - Fixed Static dropdown list generation

@@ -61,6 +61,18 @@ class FirebaseAuthenticationService {
     return firebaseAuth.currentUser != null;
   }
 
+  /// Returns `true` when email has a user registered
+  Future<bool> emailExists(String email) async {
+    try {
+      final signInMethods =
+          await firebaseAuth.fetchSignInMethodsForEmail(email);
+
+      return signInMethods.length > 0;
+    } on FirebaseAuthException catch (e) {
+      return e.code.toLowerCase() == 'invalid-email';
+    }
+  }
+
   Future<FirebaseAuthenticationResult> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount =
