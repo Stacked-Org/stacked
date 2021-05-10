@@ -9,7 +9,7 @@ A service accompanied with a LogOutput that tracks all warnings as non-fatal cra
     ```
 
 * Register the service on to the locator 
-    * If you are using a third party service module you can add it inside the file like so
+    * If you want to register the service
     ```dart 
   @StackedApp(
         dependencies: [
@@ -20,7 +20,7 @@ A service accompanied with a LogOutput that tracks all warnings as non-fatal cra
         ],
     )
     ```
-    * If you are presolving into an async instance, you can add it inside the file like so
+    * If you are presolving into an async instance, you can use
     ```dart 
     @StackedApp(
         dependencies: [
