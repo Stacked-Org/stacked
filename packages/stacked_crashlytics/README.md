@@ -11,14 +11,26 @@ A service accompanied with a LogOutput that tracks all warnings as non-fatal cra
 * Register the service on to the locator 
     * If you are using a third party service module you can add it inside the file like so
     ```dart 
-    @lazySingleton
-  CrashlyticsService get crashlyticsService;
+  @StackedApp(
+        dependencies: [
+            ...
+            LazySingleton(classType: CrashlyticsService),
+            ...
+            ),
+        ],
+    )
     ```
     * If you are presolving into an async instance, you can add it inside the file like so
     ```dart 
-    @preResolve
-  Future<CrashlyticsService> get crashlyticsService =>
-      CrashlyticsService.getInstance();
+    @StackedApp(
+        dependencies: [
+            ...
+            Presolve(
+            classType: CrashlyticsService,
+            presolveUsing: CrashlyticsService.getInstance,
+            ),
+          ],
+        )
     ```
     Note: Don't forget to run 
 
