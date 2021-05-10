@@ -179,6 +179,25 @@ class FirebaseAuthenticationService {
     }
   }
 
+  /// Anonymous Login
+  Future<FirebaseAuthenticationResult> loginAnonymously() async {
+    try {
+      log?.d('Anonymoys Login');
+      final result = await firebaseAuth.signInAnonymously();
+
+      return FirebaseAuthenticationResult(user: result.user);
+    } on FirebaseAuthException catch (e) {
+      log?.e('A firebase exception has occured. $e');
+      return FirebaseAuthenticationResult.error(
+          errorMessage: getErrorMessageFromFirebaseException(e));
+    } on Exception catch (e) {
+      log?.e('A general exception has occured. $e');
+      return FirebaseAuthenticationResult.error(
+          errorMessage:
+              'We could not log into your account at this time. Please try again.');
+    }
+  }
+
   Future<FirebaseAuthenticationResult> loginWithEmail({
     required String email,
     required String password,
