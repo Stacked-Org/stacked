@@ -1,3 +1,7 @@
+## 0.8.6
+
+- The `title` is now a required parameter on `showSnackbar` to avoid the empty space
+
 ## 0.8.5
 
 - Adds prevent duplicates and parameters to `NavigationService`
