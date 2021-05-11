@@ -86,9 +86,11 @@ class StackedRouter extends RouterBase {
       );
     },
     NonReactiveView: (data) {
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => const NonReactiveView(),
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const NonReactiveView(),
         settings: data,
+        transitionsBuilder: TransitionsBuilders.slideBottom,
       );
     },
   };

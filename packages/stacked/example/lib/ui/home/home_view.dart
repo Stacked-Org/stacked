@@ -34,11 +34,7 @@ class HomeView extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => StartupView(),
-            ));
-          },
+          onPressed: viewModel.navigate,
         ),
       ),
     );
