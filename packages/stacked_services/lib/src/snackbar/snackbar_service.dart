@@ -69,7 +69,7 @@ class SnackbarService {
 
   /// Shows a snack bar with the details passed in
   void showSnackbar({
-    String title = '',
+    required String title,
     required String message,
     Function(dynamic)? onTap,
     Duration duration = const Duration(seconds: 3),
