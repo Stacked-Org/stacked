@@ -65,6 +65,12 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
       '🛑 ${toDisplayString(dependencyClassType)} is not a class element. All services should be classes. We don\'t register individual values for global access through the locator. Make sure the value provided as your service type is a class.',
     );
 
+    final Set<String>? environments = dependencyReader
+        .peek('environments')
+        ?.setValue
+        .map((e) => e.toStringValue()!)
+        .toSet();
+
     // Get the import of the class type that's defined for the service
     final import = importResolver.resolve(classElement!);
 
@@ -109,6 +115,7 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
       type: serviceType,
       presolveFunction: presolveFunction,
       resolveFunction: resolveFunction,
+      environments: environments,
     );
   }
 

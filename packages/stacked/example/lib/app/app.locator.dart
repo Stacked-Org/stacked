@@ -7,6 +7,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
@@ -17,13 +18,15 @@ import '../ui/bottom_nav/history/history_viewmodel.dart';
 
 final locator = StackedLocator.instance;
 
-void setupLocator() {
-  locator.registerLazySingleton(() => DialogService());
-  locator.registerLazySingleton(() => BottomSheetService());
-  locator.registerLazySingleton(() => InformationService());
-  locator.registerLazySingleton(() => NavigationService());
-  locator.registerLazySingleton(() => EpochService());
-  locator.registerLazySingleton(() => ThemeService.getInstance());
-  locator.registerSingleton(HistoryViewModel());
-  locator.registerSingleton(FavoritesViewModel());
+void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
+  final stacked = StackedLocator(
+      environment: environment, environmentFilter: environmentFilter);
+  stacked.registerLazySingleton(() => DialogService(), registerFor: {"dev"});
+  stacked.registerLazySingleton(() => BottomSheetService());
+  stacked.registerLazySingleton(() => InformationService());
+  stacked.registerLazySingleton(() => NavigationService());
+  stacked.registerLazySingleton(() => EpochService());
+  stacked.registerLazySingleton(() => ThemeService.getInstance());
+  stacked.registerSingleton(HistoryViewModel());
+  stacked.registerSingleton(FavoritesViewModel());
 }

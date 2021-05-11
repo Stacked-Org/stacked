@@ -1,28 +1,54 @@
 import 'package:get_it/get_it.dart';
 
+import '../../stacked_annotations.dart';
+
 /// A thin wrapper around get_it to reduce the number of direct dependencies the user has to depend on.
 class StackedLocator {
   static StackedLocator? _instance;
 
   GetIt locator;
 
-  StackedLocator._(GetIt instance) : locator = instance;
+  EnvironmentFilter _environmentFilter;
+
+  StackedLocator({
+    GetIt? instance,
+    String? environment,
+    EnvironmentFilter? environmentFilter,
+  })  : assert(environmentFilter == null || environment == null),
+        locator = instance ?? GetIt.instance,
+        _environmentFilter = environmentFilter ?? NoEnvOrContains(environment) {
+    if (!locator.isRegistered<Set<String?>>(instanceName: kEnvironmentsName)) {
+      locator.registerLazySingleton<Set<String?>>(
+        () => _environmentFilter.environments,
+        instanceName: kEnvironmentsName,
+      );
+    }
+  }
+
+  bool _canRegister(Set<String>? registerFor) {
+    return _environmentFilter.canRegister(registerFor ?? {});
+  }
 
   /// access to the Singleton instance of GetIt
   static StackedLocator get instance {
     // ignore: join_return_with_assignment
     if (_instance == null) {
       // TODO: Add new instance ability here
-      _instance = StackedLocator._(GetIt.instance);
+      _instance = StackedLocator(instance: GetIt.instance);
     }
+
     return _instance!;
+  }
+
+  factory StackedLocator.asNewInstance() {
+    return StackedLocator(instance: GetIt.asNewInstance());
   }
 
   /// If you need more than one instance of GetIt you can use [asNewInstance()]
   /// You should prefer to use the `instance()` method to access the global instance of [GetIt].
-  factory StackedLocator.asNewInstance() {
-    return StackedLocator._(GetIt.asNewInstance());
-  }
+  // factory StackedLocator.asNewInstance() {
+  //   return StackedLocator(GetIt.asNewInstance());
+  // }
 
   /// By default it's not allowed to register a type a second time.
   /// If you really need to you can disable the asserts by setting[allowReassignment]= true
@@ -68,12 +94,18 @@ class StackedLocator {
   /// [instanceName] if you provide a value here your factory gets registered with that
   /// name instead of a type. This should only be necessary if you need to register more
   /// than one instance of one type. Its highly not recommended
-  void registerFactory<T extends Object>(FactoryFunc<T> factoryfunc,
-          {String? instanceName}) =>
+  void registerFactory<T extends Object>(
+    FactoryFunc<T> factoryfunc, {
+    String? instanceName,
+    Set<String>? registerFor,
+  }) {
+    if (_canRegister(registerFor)) {
       locator.registerFactory<T>(
         factoryfunc,
         instanceName: instanceName,
       );
+    }
+  }
 
   /// registers a type so that a new instance will be created on each call of [get] on that type based on
   /// up to two parameters provided to [get()]
@@ -95,10 +127,17 @@ class StackedLocator {
   ///    getIt.registerFactoryParam<TestClassParam,String,void>((s,_)
   ///        => TestClassParam(param1:s);
   void registerFactoryParam<T extends Object, P1, P2>(
-          FactoryFuncParam<T, P1?, P2?> factoryfunc,
-          {String? instanceName}) =>
-      locator.registerFactoryParam<T, P1, P2>(factoryfunc,
-          instanceName: instanceName);
+    FactoryFuncParam<T, P1?, P2?> factoryfunc, {
+    String? instanceName,
+    Set<String>? registerFor,
+  }) {
+    if (_canRegister(registerFor)) {
+      locator.registerFactoryParam<T, P1, P2>(
+        factoryfunc,
+        instanceName: instanceName,
+      );
+    }
+  }
 
   /// Registers a type so that a new instance will be created on each call of [getAsync] on that type
   /// the creation function is executed asynchronously and has to be accessed  with [getAsync]
@@ -107,9 +146,18 @@ class StackedLocator {
   /// [instanceName] if you provide a value here your factory gets registered with that
   /// name instead of a type. This should only be necessary if you need to register more
   /// than one instance of one type. Its highly not recommended
-  void registerFactoryAsync<T extends Object>(FactoryFuncAsync<T> factoryfunc,
-          {String? instanceName}) =>
-      locator.registerFactoryAsync<T>(factoryfunc, instanceName: instanceName);
+  void registerFactoryAsync<T extends Object>(
+    FactoryFuncAsync<T> factoryfunc, {
+    String? instanceName,
+    Set<String>? registerFor,
+  }) {
+    if (_canRegister(registerFor)) {
+      locator.registerFactoryAsync<T>(
+        factoryfunc,
+        instanceName: instanceName,
+      );
+    }
+  }
 
   /// registers a type so that a new instance will be created on each call of [getAsync]
   /// on that type based on up to two parameters provided to [getAsync()]
@@ -132,10 +180,17 @@ class StackedLocator {
   ///    getIt.registerFactoryParam<TestClassParam,String,void>((s,_) async
   ///        => TestClassParam(param1:s);
   void registerFactoryParamAsync<T extends Object, P1, P2>(
-          FactoryFuncParamAsync<T, P1?, P2?> factoryfunc,
-          {String? instanceName}) =>
-      locator.registerFactoryParamAsync<T, P1, P2>(factoryfunc,
-          instanceName: instanceName);
+    FactoryFuncParamAsync<T, P1?, P2?> factoryfunc, {
+    String? instanceName,
+    Set<String>? registerFor,
+  }) {
+    if (_canRegister(registerFor)) {
+      locator.registerFactoryParamAsync<T, P1, P2>(
+        factoryfunc,
+        instanceName: instanceName,
+      );
+    }
+  }
 
   /// registers a type as Singleton by passing an [instance] of that type
   /// that will be returned on each call of [get] on that type
@@ -145,16 +200,22 @@ class StackedLocator {
   /// than one instance of one type. Its highly not recommended
   /// If [signalsReady] is set to `true` it means that the future you can get from `allReady()`
   /// cannot complete until this this instance was signalled ready by calling [signalsReady(instance)].
-  void registerSingleton<T extends Object>(T instance,
-          {String? instanceName,
-          bool? signalsReady,
-          DisposingFunc<T>? dispose}) =>
+  void registerSingleton<T extends Object>(
+    T instance, {
+    String? instanceName,
+    bool? signalsReady,
+    DisposingFunc<T>? dispose,
+    Set<String>? registerFor,
+  }) {
+    if (_canRegister(registerFor)) {
       locator.registerSingleton<T>(
         instance,
         instanceName: instanceName,
         signalsReady: signalsReady,
         dispose: dispose,
       );
+    }
+  }
 
   /// registers a type as Singleton by passing an factory function of that type
   /// that will be called on each call of [get] on that type
@@ -169,11 +230,14 @@ class StackedLocator {
   /// If [signalsReady] is set to `true` it means that the future you can get from `allReady()`
   /// cannot complete until this this instance was signalled ready by calling [signalsReady(instance)].
   void registerSingletonWithDependencies<T extends Object>(
-          FactoryFunc<T> factoryFunc,
-          {String? instanceName,
-          Iterable<Type>? dependsOn,
-          bool? signalsReady,
-          DisposingFunc<T>? dispose}) =>
+    FactoryFunc<T> factoryFunc, {
+    String? instanceName,
+    Iterable<Type>? dependsOn,
+    bool? signalsReady,
+    DisposingFunc<T>? dispose,
+    Set<String>? registerFor,
+  }) {
+    if (_canRegister(registerFor)) {
       locator.registerSingletonWithDependencies<T>(
         factoryFunc,
         instanceName: instanceName,
@@ -181,6 +245,8 @@ class StackedLocator {
         signalsReady: signalsReady,
         dispose: dispose,
       );
+    }
+  }
 
   /// registers a type as Singleton by passing an asynchronous factory function which has to return the instance
   /// that will be returned on each call of [get] on that type.
@@ -198,11 +264,15 @@ class StackedLocator {
   /// If [signalsReady] is set to `true` it means that the future you can get from `allReady()`  cannot complete until this
   /// this instance was signalled ready by calling [signalsReady(instance)]. In that case no automatic ready signal
   /// is made after completion of [factoryfunc]
-  void registerSingletonAsync<T extends Object>(FactoryFuncAsync<T> factoryfunc,
-          {String? instanceName,
-          Iterable<Type>? dependsOn,
-          bool? signalsReady,
-          DisposingFunc<T>? dispose}) =>
+  void registerSingletonAsync<T extends Object>(
+    FactoryFuncAsync<T> factoryfunc, {
+    String? instanceName,
+    Iterable<Type>? dependsOn,
+    bool? signalsReady,
+    DisposingFunc<T>? dispose,
+    Set<String>? registerFor,
+  }) {
+    if (_canRegister(registerFor)) {
       locator.registerSingletonAsync<T>(
         factoryfunc,
         instanceName: instanceName,
@@ -210,6 +280,8 @@ class StackedLocator {
         signalsReady: signalsReady,
         dispose: dispose,
       );
+    }
+  }
 
   /// registers a type as Singleton by passing a factory function that will be called
   /// on the first call of [get] on that type
@@ -220,13 +292,20 @@ class StackedLocator {
   /// than one instance of one type. Its highly not recommended
   /// [registerLazySingleton] does not influence [allReady] however you can wait
   /// for and be dependent on a LazySingleton.
-  void registerLazySingleton<T extends Object>(FactoryFunc<T> factoryfunc,
-          {String? instanceName, DisposingFunc<T>? dispose}) =>
+  void registerLazySingleton<T extends Object>(
+    FactoryFunc<T> factoryfunc, {
+    String? instanceName,
+    DisposingFunc<T>? dispose,
+    Set<String>? registerFor,
+  }) {
+    if (_canRegister(registerFor)) {
       locator.registerLazySingleton<T>(
         factoryfunc,
         instanceName: instanceName,
         dispose: dispose,
       );
+    }
+  }
 
   /// registers a type as Singleton by passing a async factory function that will be called
   /// on the first call of [getAsnc] on that type
@@ -244,14 +323,19 @@ class StackedLocator {
   /// [registerLazySingletonAsync] does not influence [allReady] however you can wait
   /// for and be dependent on a LazySingleton.
   void registerLazySingletonAsync<T extends Object>(
-          FactoryFuncAsync<T> factoryFunc,
-          {String? instanceName,
-          DisposingFunc<T>? dispose}) =>
+    FactoryFuncAsync<T> factoryFunc, {
+    String? instanceName,
+    DisposingFunc<T>? dispose,
+    Set<String>? registerFor,
+  }) {
+    if (_canRegister(registerFor)) {
       locator.registerLazySingletonAsync<T>(
         factoryFunc,
         instanceName: instanceName,
         dispose: dispose,
       );
+    }
+  }
 
   /// Tests if an [instance] of an object or aType [T] or a name [instanceName]
   /// is registered inside GetIt
