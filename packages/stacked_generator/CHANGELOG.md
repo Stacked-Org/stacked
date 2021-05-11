@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.4.2
+
+- Added `Environment` on Dependency Injection
+
 ## 0.4.1
 
 - Fixes regular expression bug causing function name not to show up in logs

@@ -1,3 +1,7 @@
+## 2.1.3
+
+- Added `Environment` on Dependency Injection
+
 ## 2.1.2
 
 - Added return type for `runBusyFuture` and `runErrorFuture`
