@@ -8,7 +8,7 @@ import 'example_form_viewmodel.dart';
 
 // #1: Add the annotation
 @FormView(fields: [
-  FormTextField(name: 'email'),
+  FormTextField(name: 'email', initialValue: "Lorem"),
   FormTextField(name: 'password', isPassword: true),
   FormTextField(name: 'shortBio'),
   FormDateField(name: 'birthDate'),

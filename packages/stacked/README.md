@@ -1202,6 +1202,42 @@ logger: StackedLogger(
 
 Now the function to get your logger will be called `getStackedLogger`. If you want a more detailed guide on how to effectively log in your application read [this guide](https://www.filledstacks.com/post/flutter-logging-a-guide-to-use-it-effectively/) that we use for our production apps.
 
+## Form Generation
+
+Now we can generate the form fields with `stacked_generator` package. To do this add the decoration `@FormView` in top of the View.
+
+```dart
+@FormView(fields: [
+  FormTextField(name: 'email', initialValue: "Lorem"),
+  FormTextField(name: 'password', isPassword: true),
+  FormTextField(name: 'shortBio'),
+  FormDateField(name: 'birthDate'),
+  FormDropdownField(
+    name: 'doYouLoveFood',
+    items: [
+      StaticDropdownItem(
+        title: 'Yes',
+        value: 'YesDr',
+      ),
+      StaticDropdownItem(
+        title: 'No',
+        value: 'NoDr',
+      ),
+    ],
+  )
+])
+class ExampleFormView extends StatelessWidget with $ExampleFormView {
+  ExampleFormView({Key? key}) : super(key: key);
+```
+
+And then run `flutter pub run build_runner build --delete-conflicting-outputs` to generate `mixin` that will be used in the view. After the code generation is successful and the necessary imports is done, we need to listen to the form changes in `onModelReady` callback.
+
+```dart
+onModelReady: (viewModel) => listenToFormUpdated(viewModel);
+```
+
+This will listen to the changes to the form and update the form value map. To get the form values, you need to import the generated file in the viewmodel and you can access the values with `emailValue`,`passwordValue` and so on.
+
 ## Migrating from provider_architecture to Stacked
 
 Let's start with a statement to ease your migration panic 😅 stacked is the same code from `provider_architecture` with name changes and removal of some old deprecated properties. If you don't believe me, open the repo's side by side and look at the lib folders. Well, up till yesterday (22 April 2020) I guess when I updated the BaseViewModel. I wanted to do this to show that stacked is production-ready from the go. It's a new package but it's been used by all of you and the FilledStacks development team for months in the form of provider_architecture. With that out of the way, let's start the migrate.

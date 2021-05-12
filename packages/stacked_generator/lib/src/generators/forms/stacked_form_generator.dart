@@ -74,8 +74,10 @@ FieldConfig _readTextFieldConfig({
   required ImportResolver importResolver,
 }) {
   final String name = (fieldReader.peek('name')?.stringValue) ?? '';
+  final String? initialValue = (fieldReader.peek('initialValue')?.stringValue);
   return TextFieldConfig(
     name: name,
+    initialValue: initialValue,
   );
 }
 

@@ -93,7 +93,7 @@ class StackedFormContentGenerator extends BaseGenerator {
       List<TextFieldConfig> fields) {
     for (final field in fields) {
       writeLine(
-          'final TextEditingController ${_getControllerName(field)} = TextEditingController();');
+          'final TextEditingController ${_getControllerName(field)} = TextEditingController(${_getControllerInitialValue(field)});');
     }
   }
 
@@ -229,6 +229,8 @@ class StackedFormContentGenerator extends BaseGenerator {
   }
 
   String _getControllerName(FieldConfig field) => '${field.name}Controller';
+  String _getControllerInitialValue(TextFieldConfig field) =>
+      field.initialValue != null ? "text:'${field.initialValue!}'" : "";
 
   String _getFormKeyName(ReCase caseName) => '${caseName.pascalCase}ValueKey';
 }
