@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.4.2
+
+- Adds `initialValue` parameter for `FormTextField` to support initial value in the `TextEditingController`
+
 ## 0.4.1
 
 - Fixes regular expression bug causing function name not to show up in logs

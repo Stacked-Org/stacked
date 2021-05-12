@@ -18,6 +18,8 @@ class FormField {
 class FormTextField extends FormField {
   /// Indicates if the [FormField] is a password field or not
   final bool? isPassword;
+
+  /// Assigns initial value, `text` parameter in `TextEditingController`
   final String? initialValue;
 
   const FormTextField({
