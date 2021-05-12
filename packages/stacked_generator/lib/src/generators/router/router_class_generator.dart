@@ -30,7 +30,7 @@ class RouterClassGenerator extends BaseGenerator {
 
   void _generateImports(List<RouteConfig> routes) {
     // write route imports
-    final imports = <String>{
+    final imports = <String?>{
       "package:stacked/stacked.dart",
       if (routes.any((e) =>
           e.routeType == RouteType.material || e.routeType == RouteType.custom))
@@ -52,7 +52,8 @@ class RouterClassGenerator extends BaseGenerator {
       route.guards.forEach((g) => imports.add(g.import!));
     });
 
-    var validImports = imports.toSet();
+    var validImports =
+        imports.where((import) => import != null).toSet() as Set<String>;
     var dartImports =
         validImports.where((element) => element.startsWith('dart')).toSet();
     sortAndGenerate(dartImports);
