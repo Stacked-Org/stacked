@@ -25,7 +25,6 @@ class SnackbarView extends StatelessWidget {
             onPressed: () async {
               _snackbarService.showSnackbar(
                 message: 'This is a snack bar',
-                title: 'The title',
                 duration: Duration(seconds: 2),
                 onTap: (_) {
                   print('snackbar tapped');

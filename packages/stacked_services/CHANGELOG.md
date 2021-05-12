@@ -1,3 +1,7 @@
+## 0.8.6
+
+- Fixes empty space on showSnackbar if title is not given
+
 ## 0.8.5
 
 - Adds prevent duplicates and parameters to `NavigationService`
