@@ -18,8 +18,13 @@ class FormField {
 class FormTextField extends FormField {
   /// Indicates if the [FormField] is a password field or not
   final bool? isPassword;
+  final String? initialValue;
 
-  const FormTextField({String? name, this.isPassword}) : super(name: name);
+  const FormTextField({
+    String? name,
+    this.isPassword,
+    this.initialValue,
+  }) : super(name: name);
 }
 
 /// Describes a date form field.

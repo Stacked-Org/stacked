@@ -10,7 +10,11 @@ abstract class FieldConfig {
 }
 
 class TextFieldConfig extends FieldConfig {
-  const TextFieldConfig({required String name}) : super(name: name);
+  final String? initialValue;
+  const TextFieldConfig({
+    required String name,
+    this.initialValue,
+  }) : super(name: name);
 }
 
 class DateFieldConfig extends FieldConfig {
