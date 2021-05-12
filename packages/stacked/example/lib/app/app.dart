@@ -28,10 +28,11 @@ import 'package:stacked_themes/stacked_themes.dart';
   ],
   dependencies: [
     // Lazy singletons
-    LazySingleton(classType: DialogService, environments: {Environment.dev}),
+    LazySingleton(classType: DialogService),
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: InformationService),
-    LazySingleton(classType: NavigationService),
+    LazySingleton(
+        classType: NavigationService, environments: {Environment.dev}),
     LazySingleton(classType: EpochService),
     LazySingleton(
       classType: ThemeService,

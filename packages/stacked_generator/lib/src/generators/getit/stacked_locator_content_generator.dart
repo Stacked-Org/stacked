@@ -23,8 +23,16 @@ class StackedLocatorContentGenerator extends BaseGenerator {
 
     writeLine(
         '${hasPresolve ? 'Future' : 'void'} setupLocator({String? environment , EnvironmentFilter? environmentFilter}) ${hasPresolve ? 'async' : ''} {');
+
+    newLine();
+    writeLine('// Register environments');
+
     writeLine(
-        'final stacked = StackedLocator(environment: environment, environmentFilter: environmentFilter);');
+        'locator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);');
+
+    newLine();
+    writeLine('// Register dependencies');
+
     // Loop through all service definitions and generate the code for it
     for (final serviceDefinition in services) {
       final registrationCodeForType =
@@ -55,17 +63,17 @@ class StackedLocatorContentGenerator extends BaseGenerator {
 
     switch (dependencyDefinition.type) {
       case DependencyType.LazySingleton:
-        return 'stacked.registerLazySingleton$abstractionType(() => $singletonInstanceToReturn $_formattedEnvs);';
+        return 'locator.registerLazySingleton$abstractionType(() => $singletonInstanceToReturn $_formattedEnvs);';
       case DependencyType.PresolvedSingleton:
         return '''
         final ${dependencyDefinition.camelCaseClassName} = await ${dependencyDefinition.className}.${dependencyDefinition.presolveFunction}();
-        stacked.registerSingleton$abstractionType(${dependencyDefinition.camelCaseClassName}  $_formattedEnvs);
+        locator.registerSingleton$abstractionType(${dependencyDefinition.camelCaseClassName}  $_formattedEnvs);
         ''';
       case DependencyType.Factory:
-        return 'stacked.registerFactory$abstractionType(() => ${dependencyDefinition.className}()  $_formattedEnvs);';
+        return 'locator.registerFactory$abstractionType(() => ${dependencyDefinition.className}()  $_formattedEnvs);';
       case DependencyType.Singleton:
       default:
-        return 'stacked.registerSingleton$abstractionType($singletonInstanceToReturn  $_formattedEnvs);';
+        return 'locator.registerSingleton$abstractionType($singletonInstanceToReturn  $_formattedEnvs);';
     }
   }
 

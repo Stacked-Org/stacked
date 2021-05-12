@@ -8,40 +8,41 @@ class StackedLocator {
 
   GetIt locator;
 
-  EnvironmentFilter _environmentFilter;
+  EnvironmentFilter? _environmentFilter;
 
-  StackedLocator({
-    GetIt? instance,
-    String? environment,
-    EnvironmentFilter? environmentFilter,
-  })  : assert(environmentFilter == null || environment == null),
-        locator = instance ?? GetIt.instance,
-        _environmentFilter = environmentFilter ?? NoEnvOrContains(environment) {
-    if (!locator.isRegistered<Set<String?>>(instanceName: kEnvironmentsName)) {
-      locator.registerLazySingleton<Set<String?>>(
-        () => _environmentFilter.environments,
-        instanceName: kEnvironmentsName,
-      );
-    }
-  }
-
-  bool _canRegister(Set<String>? registerFor) {
-    return _environmentFilter.canRegister(registerFor ?? {});
-  }
+  StackedLocator._(GetIt instance) : locator = instance;
 
   /// access to the Singleton instance of GetIt
   static StackedLocator get instance {
     // ignore: join_return_with_assignment
     if (_instance == null) {
       // TODO: Add new instance ability here
-      _instance = StackedLocator(instance: GetIt.instance);
+      _instance = StackedLocator._(GetIt.instance);
     }
 
     return _instance!;
   }
 
   factory StackedLocator.asNewInstance() {
-    return StackedLocator(instance: GetIt.asNewInstance());
+    return StackedLocator._(GetIt.asNewInstance());
+  }
+
+  void registerEnvironment({
+    String? environment,
+    EnvironmentFilter? environmentFilter,
+  }) {
+    assert(environmentFilter == null || environment == null);
+    _environmentFilter = environmentFilter ?? NoEnvOrContains(environment);
+    if (!locator.isRegistered<Set<String?>>(instanceName: kEnvironmentsName)) {
+      locator.registerLazySingleton<Set<String?>>(
+        () => _environmentFilter!.environments,
+        instanceName: kEnvironmentsName,
+      );
+    }
+  }
+
+  bool _canRegister(Set<String>? registerFor) {
+    return _environmentFilter!.canRegister(registerFor ?? {});
   }
 
   /// If you need more than one instance of GetIt you can use [asNewInstance()]

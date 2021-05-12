@@ -19,14 +19,18 @@ import '../ui/bottom_nav/history/history_viewmodel.dart';
 final locator = StackedLocator.instance;
 
 void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
-  final stacked = StackedLocator(
+// Register environments
+  locator.registerEnvironment(
       environment: environment, environmentFilter: environmentFilter);
-  stacked.registerLazySingleton(() => DialogService(), registerFor: {"dev"});
-  stacked.registerLazySingleton(() => BottomSheetService());
-  stacked.registerLazySingleton(() => InformationService());
-  stacked.registerLazySingleton(() => NavigationService());
-  stacked.registerLazySingleton(() => EpochService());
-  stacked.registerLazySingleton(() => ThemeService.getInstance());
-  stacked.registerSingleton(HistoryViewModel());
-  stacked.registerSingleton(FavoritesViewModel());
+
+// Register dependencies
+  locator.registerLazySingleton(() => DialogService());
+  locator.registerLazySingleton(() => BottomSheetService());
+  locator.registerLazySingleton(() => InformationService());
+  locator
+      .registerLazySingleton(() => NavigationService(), registerFor: {"dev"});
+  locator.registerLazySingleton(() => EpochService());
+  locator.registerLazySingleton(() => ThemeService.getInstance());
+  locator.registerSingleton(HistoryViewModel());
+  locator.registerSingleton(FavoritesViewModel());
 }
