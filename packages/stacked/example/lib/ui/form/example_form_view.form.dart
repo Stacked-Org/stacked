@@ -21,7 +21,8 @@ const Map<String, String> DoYouLoveFoodValueToTitleMap = {
 };
 
 mixin $ExampleFormView on StatelessWidget {
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController emailController =
+      TextEditingController(text: 'Lorem');
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController shortBioController = TextEditingController();
   final FocusNode emailFocusNode = FocusNode();
