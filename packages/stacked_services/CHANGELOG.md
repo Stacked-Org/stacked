@@ -1,6 +1,6 @@
 ## 0.8.6
 
-- The `title` is now a required parameter on `showSnackbar` to avoid the empty space
+- Fixes empty space on showSnackbar if title is not given
 
 ## 0.8.5
 

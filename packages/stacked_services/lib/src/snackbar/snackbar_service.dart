@@ -69,7 +69,7 @@ class SnackbarService {
 
   /// Shows a snack bar with the details passed in
   void showSnackbar({
-    required String title,
+    String title = '',
     required String message,
     Function(dynamic)? onTap,
     Duration duration = const Duration(seconds: 3),
@@ -85,7 +85,7 @@ class SnackbarService {
     Get.snackbar(
       title,
       message,
-      titleText: _snackbarConfig?.titleColor != null
+      titleText: _snackbarConfig?.titleColor != null || title.isNotEmpty
           ? Text(
               title,
               key: Key('snackbar_text_title'),
@@ -96,8 +96,8 @@ class SnackbarService {
               ),
               textAlign: _snackbarConfig?.titleTextAlign ?? TextAlign.left,
             )
-          : null,
-      messageText: _snackbarConfig?.messageColor != null
+          : SizedBox.shrink(),
+      messageText: _snackbarConfig?.messageColor != null || message.isNotEmpty
           ? Text(
               message,
               key: Key('snackbar_text_message'),
@@ -108,7 +108,7 @@ class SnackbarService {
               ),
               textAlign: _snackbarConfig?.messageTextAlign ?? TextAlign.left,
             )
-          : null,
+          : SizedBox.shrink(),
       colorText: _snackbarConfig?.textColor ?? Colors.white,
       shouldIconPulse: _snackbarConfig?.shouldIconPulse,
       onTap: onTap,
