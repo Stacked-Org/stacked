@@ -1,6 +1,11 @@
 # ChangeLog
 
+## 0.4.3
+
+- Added `Environment` on Dependency Injection
+
 ## 0.4.2
+
 - Adds `initialValue` parameter for `FormTextField` to support initial value in the `TextEditingController`
 - Fixes `Route TransitionsBuilders` generation
 

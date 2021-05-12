@@ -22,7 +22,16 @@ class StackedLocatorContentGenerator extends BaseGenerator {
         .any((service) => service.type == DependencyType.PresolvedSingleton);
 
     writeLine(
-        '${hasPresolve ? 'Future' : 'void'} setupLocator() ${hasPresolve ? 'async' : ''} {');
+        '${hasPresolve ? 'Future' : 'void'} setupLocator({String? environment , EnvironmentFilter? environmentFilter}) ${hasPresolve ? 'async' : ''} {');
+
+    newLine();
+    writeLine('// Register environments');
+
+    writeLine(
+        'locator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);');
+
+    newLine();
+    writeLine('// Register dependencies');
 
     // Loop through all service definitions and generate the code for it
     for (final serviceDefinition in services) {
@@ -49,25 +58,50 @@ class StackedLocatorContentGenerator extends BaseGenerator {
         ? '${dependencyDefinition.className}.${dependencyDefinition.resolveFunction}()'
         : '${dependencyDefinition.className}()';
 
+    final String _formattedEnvs =
+        _getFromatedEnvs(dependencyDefinition.environments ?? {});
+
     switch (dependencyDefinition.type) {
       case DependencyType.LazySingleton:
-        return 'locator.registerLazySingleton$abstractionType(() => $singletonInstanceToReturn);';
+        return 'locator.registerLazySingleton$abstractionType(() => $singletonInstanceToReturn $_formattedEnvs);';
       case DependencyType.PresolvedSingleton:
         return '''
         final ${dependencyDefinition.camelCaseClassName} = await ${dependencyDefinition.className}.${dependencyDefinition.presolveFunction}();
-        locator.registerSingleton$abstractionType(${dependencyDefinition.camelCaseClassName});
+        locator.registerSingleton$abstractionType(${dependencyDefinition.camelCaseClassName}  $_formattedEnvs);
         ''';
       case DependencyType.Factory:
-        return 'locator.registerFactory$abstractionType(() => ${dependencyDefinition.className}());';
+        return 'locator.registerFactory$abstractionType(() => ${dependencyDefinition.className}()  $_formattedEnvs);';
       case DependencyType.Singleton:
       default:
-        return 'locator.registerSingleton$abstractionType($singletonInstanceToReturn);';
+        return 'locator.registerSingleton$abstractionType($singletonInstanceToReturn  $_formattedEnvs);';
     }
+  }
+
+  String _getFromatedEnvs(Set<String> envs) {
+    final _envString = StringBuffer();
+    if (envs.isEmpty) {
+      return _envString.toString();
+    }
+    if (_envString.isEmpty) {
+      _envString.write(',registerFor:{');
+    }
+    envs.forEach((element) {
+      if (envs.first == element) {
+        _envString.write('"$element"');
+      } else {
+        _envString.write(',"$element"');
+      }
+    });
+    _envString.write('}');
+    return _envString.toString();
   }
 
   void _generateImports(List<DependencyConfig> services) {
     // write route imports
-    final imports = <String?>{"package:stacked/stacked.dart"};
+    final imports = <String?>{
+      "package:stacked/stacked.dart",
+      "package:stacked/stacked_annotations.dart"
+    };
 
     imports.addAll(services.map((service) => service.import));
     imports.addAll(services.map((service) => service.abstractedImport));

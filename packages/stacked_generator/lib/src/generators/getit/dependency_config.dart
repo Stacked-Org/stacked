@@ -23,7 +23,10 @@ class DependencyConfig {
   /// The static function to use for resolving a singleton instance
   final String? resolveFunction;
 
+  final Set<String>? environments;
+
   DependencyConfig({
+    this.environments,
     required this.import,
     required this.className,
     this.abstractedImport,
