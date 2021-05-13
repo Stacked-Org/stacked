@@ -69,7 +69,6 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
         .peek('environments')
         ?.setValue
         .map((e) => e.toStringValue())
-        .where((element) => element != null)
         .toSet()
         .cast<String>();
 
