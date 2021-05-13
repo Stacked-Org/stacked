@@ -1,5 +1,13 @@
 # ChangeLog
 
+## 0.4.5
+
+- Fixed code generation issue from last release
+
+## 0.4.4
+
+- Fixes stacked version
+
 ## 0.4.3
 
 - Added `Environment` on Dependency Injection
