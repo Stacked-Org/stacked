@@ -53,7 +53,7 @@ class RouterClassGenerator extends BaseGenerator {
     });
 
     var validImports =
-        imports.where((import) => import != null).toSet().cast<String>();
+        imports.where((import) => import != null).toSet() as Set<String>;
     var dartImports =
         validImports.where((element) => element.startsWith('dart')).toSet();
     sortAndGenerate(dartImports);
