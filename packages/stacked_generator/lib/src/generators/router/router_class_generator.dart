@@ -41,7 +41,9 @@ class RouterClassGenerator extends BaseGenerator {
     routes.forEach((route) {
       imports.addAll(route.imports);
       if (route.transitionBuilder != null) {
-        imports.add(route.transitionBuilder!.import);
+        if (route.transitionBuilder!.import != null) {
+          imports.add(route.transitionBuilder!.import);
+        }
       }
       if (route.parameters != null) {
         route.parameters!.where((p) => p.imports != null).forEach((param) {
