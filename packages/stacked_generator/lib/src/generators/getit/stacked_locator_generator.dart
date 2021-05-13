@@ -68,8 +68,10 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
     final Set<String>? environments = dependencyReader
         .peek('environments')
         ?.setValue
-        .map((e) => e.toStringValue()!)
-        .toSet() as Set<String>;
+        .map((e) => e.toStringValue())
+        .where((element) => element != null)
+        .toSet()
+        .cast<String>();
 
     // Get the import of the class type that's defined for the service
     final import = importResolver.resolve(classElement!);
