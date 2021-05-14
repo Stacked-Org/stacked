@@ -1,3 +1,7 @@
+## 2.1.4
+
+- Removes forced nullable type
+
 ## 2.1.3
 
 - Added `Environment` on Dependency Injection

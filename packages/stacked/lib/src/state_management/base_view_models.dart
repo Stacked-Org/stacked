@@ -72,7 +72,7 @@ class BaseViewModel extends ChangeNotifier {
   /// Sets the ViewModel to busy, runs the future and then sets it to not busy when complete.
   ///
   /// rethrows [Exception] after setting busy to false for object or class
-  Future<T?> runBusyFuture<T>(Future<T> busyFuture,
+  Future<T> runBusyFuture<T>(Future<T> busyFuture,
       {Object? busyObject, bool throwException = false}) async {
     _setBusyForModelOrObject(true, busyObject: busyObject);
     try {
@@ -87,7 +87,7 @@ class BaseViewModel extends ChangeNotifier {
     }
   }
 
-  Future<T?> runErrorFuture<T>(Future<T> future,
+  Future<T> runErrorFuture<T>(Future<T> future,
       {Object? key, bool throwException = false}) async {
     try {
       _setErrorForModelOrObject(null, key: key);
