@@ -2,7 +2,7 @@
 // transition builder function
 class CustomTransitionBuilder {
   String name;
-  String import;
+  String? import;
 
   CustomTransitionBuilder(this.name, this.import);
 }

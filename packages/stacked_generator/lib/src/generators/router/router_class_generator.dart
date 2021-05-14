@@ -41,7 +41,9 @@ class RouterClassGenerator extends BaseGenerator {
     routes.forEach((route) {
       imports.addAll(route.imports);
       if (route.transitionBuilder != null) {
-        imports.add(route.transitionBuilder!.import);
+        if (route.transitionBuilder!.import != null) {
+          imports.add(route.transitionBuilder!.import);
+        }
       }
       if (route.parameters != null) {
         route.parameters!.where((p) => p.imports != null).forEach((param) {
@@ -53,7 +55,7 @@ class RouterClassGenerator extends BaseGenerator {
     });
 
     var validImports =
-        imports.where((import) => import != null).toSet() as Set<String>;
+        imports.where((import) => import != null).toSet().cast<String>();
     var dartImports =
         validImports.where((element) => element.startsWith('dart')).toSet();
     sortAndGenerate(dartImports);
