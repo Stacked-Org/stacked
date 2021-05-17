@@ -4,39 +4,47 @@ import 'package:stacked_generator/src/generators/getit/dependency_config.dart';
 import 'package:stacked_generator/src/generators/getit/services_config.dart';
 
 class StackedLocatorContentGenerator extends BaseGenerator {
-  final ServicesConfig _servicesConfig;
+  final String locatorName;
+  final String locatorSetupName;
+  final ServicesConfig servicesConfig;
 
-  StackedLocatorContentGenerator(this._servicesConfig);
+  StackedLocatorContentGenerator({
+    required this.servicesConfig,
+    required this.locatorName,
+    required this.locatorSetupName,
+  });
 
   String generate() {
-    final services = _servicesConfig.services;
+    final services = servicesConfig.services;
     writeLine("// ignore_for_file: public_member_api_docs");
 
     _generateImports(services);
 
     newLine();
-    writeLine('final locator = StackedLocator.instance;');
+    writeLine('final $locatorName = StackedLocator.instance;');
     newLine();
 
     final hasPresolve = services
         .any((service) => service.type == DependencyType.PresolvedSingleton);
 
     writeLine(
-        '${hasPresolve ? 'Future' : 'void'} setupLocator({String? environment , EnvironmentFilter? environmentFilter}) ${hasPresolve ? 'async' : ''} {');
+        '${hasPresolve ? 'Future' : 'void'} $locatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) ${hasPresolve ? 'async' : ''} {');
 
     newLine();
     writeLine('// Register environments');
 
     writeLine(
-        'locator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);');
+        '$locatorName.registerEnvironment(environment: environment, environmentFilter: environmentFilter);');
 
     newLine();
     writeLine('// Register dependencies');
 
     // Loop through all service definitions and generate the code for it
     for (final serviceDefinition in services) {
-      final registrationCodeForType =
-          _getLocatorRegistrationStringForType(serviceDefinition);
+      final registrationCodeForType = _getLocatorRegistrationStringForType(
+        locatorName: locatorName,
+        dependencyDefinition: serviceDefinition,
+      );
       writeLine(registrationCodeForType);
     }
 
@@ -45,8 +53,10 @@ class StackedLocatorContentGenerator extends BaseGenerator {
     return stringBuffer.toString();
   }
 
-  String _getLocatorRegistrationStringForType(
-      DependencyConfig dependencyDefinition) {
+  String _getLocatorRegistrationStringForType({
+    required String locatorName,
+    required DependencyConfig dependencyDefinition,
+  }) {
     final hasAbstratedType =
         dependencyDefinition.abstractedTypeClassName != null;
     final abstractionType = hasAbstratedType
@@ -63,17 +73,17 @@ class StackedLocatorContentGenerator extends BaseGenerator {
 
     switch (dependencyDefinition.type) {
       case DependencyType.LazySingleton:
-        return 'locator.registerLazySingleton$abstractionType(() => $singletonInstanceToReturn $_formattedEnvs);';
+        return '$locatorName.registerLazySingleton$abstractionType(() => $singletonInstanceToReturn $_formattedEnvs);';
       case DependencyType.PresolvedSingleton:
         return '''
         final ${dependencyDefinition.camelCaseClassName} = await ${dependencyDefinition.className}.${dependencyDefinition.presolveFunction}();
-        locator.registerSingleton$abstractionType(${dependencyDefinition.camelCaseClassName}  $_formattedEnvs);
+        $locatorName.registerSingleton$abstractionType(${dependencyDefinition.camelCaseClassName}  $_formattedEnvs);
         ''';
       case DependencyType.Factory:
-        return 'locator.registerFactory$abstractionType(() => ${dependencyDefinition.className}()  $_formattedEnvs);';
+        return '$locatorName.registerFactory$abstractionType(() => ${dependencyDefinition.className}()  $_formattedEnvs);';
       case DependencyType.Singleton:
       default:
-        return 'locator.registerSingleton$abstractionType($singletonInstanceToReturn  $_formattedEnvs);';
+        return '$locatorName.registerSingleton$abstractionType($singletonInstanceToReturn  $_formattedEnvs);';
     }
   }
 
