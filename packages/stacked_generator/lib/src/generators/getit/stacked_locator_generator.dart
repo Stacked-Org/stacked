@@ -24,6 +24,17 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
     var libs = await buildStep.resolver.libraries.toList();
     var importResolver = ImportResolver(libs, element.source?.uri.path ?? '');
 
+    final String locatorName =
+        stackedApplication.peek('locatorName')!.stringValue;
+
+    final String locatorSetupName =
+        stackedApplication.peek('locatorSetupName')!.stringValue;
+
+    throwIf(
+      locatorName.isEmpty || locatorSetupName.isEmpty,
+      "Error: locatorName or locatorSetupName can not be a null or empty string",
+    );
+
     final servicesConfig = stackedApplication.peek('dependencies')?.listValue;
     if (servicesConfig != null) {
       List<DependencyConfig> services = <DependencyConfig>[];
@@ -36,8 +47,11 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
         services.add(serialisedServiceConfig);
       }
 
-      return StackedLocatorContentGenerator(ServicesConfig(services: services))
-          .generate();
+      return StackedLocatorContentGenerator(
+        servicesConfig: ServicesConfig(services: services),
+        locatorName: toLowerCamelCase(locatorName),
+        locatorSetupName: toLowerCamelCase(locatorSetupName),
+      ).generate();
     }
   }
 

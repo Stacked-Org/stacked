@@ -1,3 +1,7 @@
+## 2.1.5
+
+- Added functionality to supply custom `locator` and `setupLocator` names.
+
 ## 2.1.4
 
 - Removes forced nullable type
