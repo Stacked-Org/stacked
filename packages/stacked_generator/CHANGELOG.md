@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.4.6
+
+- Added functionality to supply custom `locator` and `setupLocator` names.
+
 ## 0.4.5
 
 - Fixed code generation issue from last release
