@@ -117,13 +117,6 @@ class MultipleLoggerOutput extends LogOutput {
   }
 }
 
-class LogAllTheTimeFilter extends LogFilter {
-  @override
-  bool shouldLog(LogEvent event) {
-    return true;
-  }
-}
-
 Logger $LogHelperNameKey(
   String className, {
   bool printCallingFunctionName = true,
@@ -132,7 +125,6 @@ Logger $LogHelperNameKey(
   String? showOnlyClass,
 }) {
   return Logger(
-    filter: LogAllTheTimeFilter(),
     printer: SimpleLogPrinter(
       className,
       printCallingFunctionName: printCallingFunctionName,
