@@ -1146,6 +1146,24 @@ final navigationService = locator<NavigationService>;
 
 To learn more about using get_it as a service locator you can [watch this video](https://youtu.be/vBT-FhgMaWM?t=321). That's all the functionality that the stacked_generator will generate for now. Over time we'll add more functionality that can help us reduce the amount of boilerplate required to build a stacked application.
 
+### Environments
+
+It is possible to register different dependencies for different environments by using `environments: {Environment.dev}` in the below example `NavigationService` is now only registered if we pass the environment name to `setupLocator(environment: Environment.dev);`
+
+```dart
+LazySingleton(
+    classType: NavigationService,
+    environments: {Environment.dev},
+ ),
+```
+
+Now passing your environment to `setupLocator` function will create a simple environment filter that will only validate dependencies that have no environments or one of their environments matches the given environment.
+Alternatively, you can pass your own EnvironmentFilter to decide what dependencies to register based on their environment keys, or use one of the shipped ones
+
+- NoEnvOrContainsAll
+- NoEnvOrContainsAny
+- SimpleEnvironmentFilter
+
 ### Logger
 
 If you want to add a Logger to your app, all you have to do is supply a logger config.

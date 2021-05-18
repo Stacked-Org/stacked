@@ -10,7 +10,9 @@ class StackedLocator {
 
   EnvironmentFilter? _environmentFilter;
 
-  StackedLocator._(GetIt instance) : locator = instance;
+  StackedLocator._(GetIt instance) : locator = instance {
+    registerEnvironment();
+  }
 
   /// access to the Singleton instance of GetIt
   static StackedLocator get instance {
@@ -33,12 +35,13 @@ class StackedLocator {
   }) {
     assert(environmentFilter == null || environment == null);
     _environmentFilter = environmentFilter ?? NoEnvOrContains(environment);
-    if (!locator.isRegistered<Set<String?>>(instanceName: kEnvironmentsName)) {
-      locator.registerLazySingleton<Set<String?>>(
-        () => _environmentFilter!.environments,
-        instanceName: kEnvironmentsName,
-      );
-    }
+
+    removeRegistrationIfExists<Set<String?>>(instanceName: kEnvironmentsName);
+
+    locator.registerLazySingleton<Set<String?>>(
+      () => _environmentFilter!.environments,
+      instanceName: kEnvironmentsName,
+    );
   }
 
   bool _canRegister(Set<String>? registerFor) {
@@ -493,4 +496,10 @@ class StackedLocator {
   /// Or use async registrations methods or let individual instances signal their ready
   /// state on their own.
   void signalReady(Object instance) => locator.signalReady(instance);
+
+  void removeRegistrationIfExists<T extends Object>({String? instanceName}) {
+    if (locator.isRegistered<T>(instanceName: instanceName)) {
+      locator.unregister<T>(instanceName: instanceName);
+    }
+  }
 }
