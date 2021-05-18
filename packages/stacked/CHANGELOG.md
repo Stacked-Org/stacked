@@ -1,6 +1,6 @@
 ## 2.1.6
 
-- `Environments` now will be automatically regiter which eleminated the need to call `registerEnvironment` manually if generated `setupLocator` wasn't used
+- `Environments` now will be automatically registered which eliminates the need to call `registerEnvironment` manually if generated `setupLocator` wasn't used
 
 ## 2.1.5
 
