@@ -17,7 +17,7 @@ dependencies:
   # logger: ^0.9.0
   recase: ^4.0.0-nullsafety.0
   stacked:
-    ^2.1.4
+    ^2.1.5
     # path: ../stacked
 
 dev_dependencies:
