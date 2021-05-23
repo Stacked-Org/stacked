@@ -1,6 +1,6 @@
 name: stacked_firebase_auth
 description: A service class that provides Firebase Authentication Functionality on a single api
-version: 0.2.4
+version: 0.2.5
 homepage: https://github.com/FilledStacks/stacked
 
 environment:
@@ -13,7 +13,11 @@ dependencies:
 
   # Firebase
   firebase_core: ^1.0.2
-  firebase_auth: ^1.0.1
+  firebase_auth:
+    git:
+      url: https://github.com/FirebaseExtended/flutterfire.git
+      path: packages/firebase_auth/firebase_auth
+      ref: '@ehesp/auth-tenantId-ns'
 
   # Firebase Authentications
   google_sign_in: ^5.0.1
