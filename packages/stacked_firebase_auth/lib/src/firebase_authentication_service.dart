@@ -73,6 +73,11 @@ class FirebaseAuthenticationService {
     }
   }
 
+  /// Sets the tenantId on the [FirebaseAuth.instance]
+  void setTenantId(String tenantId) {
+    firebaseAuth.tenantId = tenantId;
+  }
+
   Future<FirebaseAuthenticationResult> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount =

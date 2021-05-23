@@ -13,6 +13,7 @@ dependencies:
 
   # Firebase
   firebase_core: ^1.0.2
+
   firebase_auth:
     git:
       url: https://github.com/FirebaseExtended/flutterfire.git
@@ -31,6 +32,14 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+dependency_overrides:
+  firebase_auth_platform_interface: 
+    git: 
+      url: https://github.com/FirebaseExtended/flutterfire.git
+      path: packages/firebase_auth/firebase_auth_platform_interface
+      ref: '@ehesp/auth-tenantId-ns'
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
