@@ -44,6 +44,8 @@ import 'package:stacked_themes/stacked_themes.dart';
     Singleton(classType: FavoritesViewModel),
   ],
   logger: StackedLogger(),
+  locatorName: 'exampleLocator',
+  locatorSetupName: 'setupExampleLocator',
 )
 class App {
   /** This class has no puporse besides housing the annotation that generates the required functionality **/

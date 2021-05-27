@@ -16,21 +16,22 @@ import '../services/information_service.dart';
 import '../ui/bottom_nav/favorites/favorites_viewmodel.dart';
 import '../ui/bottom_nav/history/history_viewmodel.dart';
 
-final locator = StackedLocator.instance;
+final exampleLocator = StackedLocator.instance;
 
-void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
+void setupExampleLocator(
+    {String? environment, EnvironmentFilter? environmentFilter}) {
 // Register environments
-  locator.registerEnvironment(
+  exampleLocator.registerEnvironment(
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-  locator.registerLazySingleton(() => DialogService());
-  locator.registerLazySingleton(() => BottomSheetService());
-  locator.registerLazySingleton(() => InformationService());
-  locator
+  exampleLocator.registerLazySingleton(() => DialogService());
+  exampleLocator.registerLazySingleton(() => BottomSheetService());
+  exampleLocator.registerLazySingleton(() => InformationService());
+  exampleLocator
       .registerLazySingleton(() => NavigationService(), registerFor: {"dev"});
-  locator.registerLazySingleton(() => EpochService());
-  locator.registerLazySingleton(() => ThemeService.getInstance());
-  locator.registerSingleton(HistoryViewModel());
-  locator.registerSingleton(FavoritesViewModel());
+  exampleLocator.registerLazySingleton(() => EpochService());
+  exampleLocator.registerLazySingleton(() => ThemeService.getInstance());
+  exampleLocator.registerSingleton(HistoryViewModel());
+  exampleLocator.registerSingleton(FavoritesViewModel());
 }

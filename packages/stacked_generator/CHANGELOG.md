@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.4.7
+
+- Use the default filter for the logger
+
 ## 0.4.6
 
 - Added functionality to supply custom `locator` and `setupLocator` names.

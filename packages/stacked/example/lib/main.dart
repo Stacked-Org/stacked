@@ -8,7 +8,7 @@ import 'app/app.locator.dart';
 import 'app/app.router.dart';
 
 void main() {
-  setupLocator(environment: Environment.dev);
+  setupExampleLocator(environment: Environment.dev);
   runApp(MyApp());
 }
 

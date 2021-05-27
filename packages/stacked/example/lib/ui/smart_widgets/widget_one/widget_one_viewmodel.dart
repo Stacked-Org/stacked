@@ -3,7 +3,7 @@ import 'package:new_architecture/services/information_service.dart';
 import 'package:stacked/stacked.dart';
 
 class WidgetOneViewModel extends ReactiveViewModel {
-  final InformationService _informationService = locator<InformationService>();
+  final InformationService _informationService = exampleLocator<InformationService>();
   int get postCount => _informationService.postCount;
 
   void updatePostCount() {

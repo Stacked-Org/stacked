@@ -248,7 +248,7 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
     setBusy(true);
     notifyListeners();
 
-    _data = await (runBusyFuture(futureToRun(), throwException: true)
+    _data = await (runBusyFuture<T>(futureToRun(), throwException: true)
         .catchError((error) {
       setError(error);
       _error = error;

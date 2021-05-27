@@ -14,8 +14,8 @@ class StreamCounterViewModel extends StreamViewModel<int> {
 
   void _setSource() {
     _currentSource = isSlowEpochNumbers
-        ? locator<EpochService>().epochUpdatesNumbers()
-        : locator<EpochService>().epochUpdateNumbersQuickly();
+        ? exampleLocator<EpochService>().epochUpdatesNumbers()
+        : exampleLocator<EpochService>().epochUpdateNumbersQuickly();
   }
 
   @override

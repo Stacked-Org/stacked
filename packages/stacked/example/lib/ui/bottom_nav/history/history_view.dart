@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:new_architecture/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../app/app.locator.dart';
 import 'history_viewmodel.dart';
 
 class HistoryView extends StatelessWidget {
@@ -17,7 +18,7 @@ class HistoryView extends StatelessWidget {
               child: viewModel.isBusy
                   ? CircularProgressIndicator()
                   : Text(viewModel.data.toString()))),
-      viewModelBuilder: () => locator<HistoryViewModel>(),
+      viewModelBuilder: () => exampleLocator<HistoryViewModel>(),
     );
   }
 }
