@@ -1,3 +1,7 @@
+## 2.1.6+1
+
+- Fixed `ReactiveServiceMixin` in Services to handle `ChangeNotifier` updates
+
 ## 2.1.6
 
 - `Environments` now will be automatically registered which eliminates the need to call `registerEnvironment` manually if generated `setupLocator` wasn't used
