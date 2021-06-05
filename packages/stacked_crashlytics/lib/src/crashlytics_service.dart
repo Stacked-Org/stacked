@@ -23,12 +23,13 @@ class CrashlyticsService {
     _crashlyticsService.recordFlutterError(details);
   }
 
-  Future setUserIdToCrashlytics({required String id}) async {
-    await _crashlyticsService.setUserIdentifier(id);
+  Future setUserIdToCrashlytics({String? id}) async {
+    if (id != null) await _crashlyticsService.setUserIdentifier(id);
   }
 
   Future logToCrashlytics(
-      Level level, List<String> lines, StackTrace stacktrace) async {
+      Level level, List<String> lines, StackTrace stacktrace,
+      {bool logwarnings = false}) async {
     if (level == Level.error || level == Level.wtf) {
       await _crashlyticsService.recordError(
         lines.join('\n'),
@@ -37,7 +38,7 @@ class CrashlyticsService {
         fatal: true,
       );
     }
-    if (level == Level.warning) {
+    if (level == Level.warning && logwarnings) {
       await _crashlyticsService.recordError(
         lines.join('\n'),
         stacktrace,
