@@ -29,7 +29,7 @@ class CrashlyticsService {
 
   Future logToCrashlytics(
       Level level, List<String> lines, StackTrace stacktrace,
-      {bool logwarnings = false}) async {
+      {required bool logwarnings}) async {
     if (level == Level.error || level == Level.wtf) {
       await _crashlyticsService.recordError(
         lines.join('\n'),
@@ -62,11 +62,15 @@ class CrashlyticsService {
 }
 
 class CrashlyticsOutput extends LogOutput {
+  final bool logWarnings;
+  CrashlyticsOutput({this.logWarnings = false});
+
   @override
   void output(OutputEvent event) {
     try {
       CrashlyticsService.getInstance().then((instance) => instance
-          .logToCrashlytics(event.level, event.lines, StackTrace.current));
+          .logToCrashlytics(event.level, event.lines, StackTrace.current,
+              logwarnings: logWarnings));
     } catch (e) {
       print('CRASHLYTICS FAILED: $e');
     }
