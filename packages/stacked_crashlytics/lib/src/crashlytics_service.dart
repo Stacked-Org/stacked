@@ -23,12 +23,13 @@ class CrashlyticsService {
     _crashlyticsService.recordFlutterError(details);
   }
 
-  Future setUserIdToCrashlytics({required String id}) async {
-    await _crashlyticsService.setUserIdentifier(id);
+  Future setUserIdToCrashlytics({String? id}) async {
+    if (id != null) await _crashlyticsService.setUserIdentifier(id);
   }
 
   Future logToCrashlytics(
-      Level level, List<String> lines, StackTrace stacktrace) async {
+      Level level, List<String> lines, StackTrace stacktrace,
+      {required bool logwarnings}) async {
     if (level == Level.error || level == Level.wtf) {
       await _crashlyticsService.recordError(
         lines.join('\n'),
@@ -37,7 +38,7 @@ class CrashlyticsService {
         fatal: true,
       );
     }
-    if (level == Level.warning) {
+    if (level == Level.warning && logwarnings) {
       await _crashlyticsService.recordError(
         lines.join('\n'),
         stacktrace,
@@ -61,11 +62,15 @@ class CrashlyticsService {
 }
 
 class CrashlyticsOutput extends LogOutput {
+  final bool logWarnings;
+  CrashlyticsOutput({this.logWarnings = false});
+
   @override
   void output(OutputEvent event) {
     try {
       CrashlyticsService.getInstance().then((instance) => instance
-          .logToCrashlytics(event.level, event.lines, StackTrace.current));
+          .logToCrashlytics(event.level, event.lines, StackTrace.current,
+              logwarnings: logWarnings));
     } catch (e) {
       print('CRASHLYTICS FAILED: $e');
     }
