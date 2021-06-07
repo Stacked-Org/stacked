@@ -5,7 +5,7 @@ A service accompanied with a LogOutput that tracks all warnings as non-fatal cra
 
 * In the pubspec.yaml file under dependencies add 
   ```dart
-   stacked_crashlytics: ^0.1.0
+   stacked_crashlytics: ^0.1.1
     ```
 
 * Register the service on to the locator 
