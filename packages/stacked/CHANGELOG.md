@@ -1,3 +1,7 @@
+## 2.1.7
+
+- updates `get_it` to the latest
+
 ## 2.1.6
 
 - `Environments` now will be automatically registered which eliminates the need to call `registerEnvironment` manually if generated `setupLocator` wasn't used
