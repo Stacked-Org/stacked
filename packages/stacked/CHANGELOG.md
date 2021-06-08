@@ -1,6 +1,10 @@
-## 2.1.6+1
+## 2.1.8
 
-- Fixed `ReactiveServiceMixin` in Services to handle `ChangeNotifier` updates
+- Fixes `ReactiveServiceMixin` in Services to handle `ChangeNotifier` updates
+
+## 2.1.7
+
+- updates `get_it` to the latest
 
 ## 2.1.6
 

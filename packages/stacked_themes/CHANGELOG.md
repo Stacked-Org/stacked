@@ -1,3 +1,12 @@
+## 0.3.3
+
+- Updated dependencies:
+
+  - rxdart: ^0.26.0 -> ^0.27.1
+  - shared_preferences: ^2.0.4 -> ^2.0.6
+  - get_it: ^6.0.0 -> ^7.1.3
+  - mockito: ^5.0.0-nullsafety.7 -> ^5.0.9
+
 ## 0.3.2
 
 - Makes `ThemeService.getInstance` non-nullable since we'll always construct a theme service in there if null
