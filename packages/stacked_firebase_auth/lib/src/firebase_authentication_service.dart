@@ -61,6 +61,11 @@ class FirebaseAuthenticationService {
     return firebaseAuth.currentUser != null;
   }
 
+  /// Exposes the authStateChanges functionality.
+  Stream<User?> get authStateChanges {
+    return firebaseAuth.authStateChanges();
+  }
+
   /// Returns `true` when email has a user registered
   Future<bool> emailExists(String email) async {
     try {
