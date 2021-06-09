@@ -14,7 +14,7 @@ mixin ReactiveServiceMixin {
       } else if (reactiveValue is ReactiveList) {
         reactiveValue.onChange.listen((event) => notifyListeners());
       } else if (reactiveValue is ChangeNotifier) {
-        reactiveValue.notifyListeners();
+        reactiveValue.addListener(notifyListeners);
       }
     }
   }
