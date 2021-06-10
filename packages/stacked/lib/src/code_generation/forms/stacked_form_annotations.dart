@@ -43,5 +43,5 @@ class FormDropdownField extends FormField {
 class StaticDropdownItem {
   final String title;
   final String value;
-  const StaticDropdownItem({required this.title, required this.value});
+  StaticDropdownItem({required this.title, required this.value});
 }
