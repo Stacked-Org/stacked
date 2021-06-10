@@ -5,3 +5,8 @@ launch.json
 
 **/*.lock
 *.lock
+.DS_Store
+packages/.DS_Store
+packages/stacked_localisation/stacked_localisation/example/ios/Flutter/Debug.xcconfig
+packages/stacked_localisation/stacked_localisation/example/ios/Flutter/Release.xcconfig
+packages/stacked_localisation/stacked_localisation/example/ios/Podfile
