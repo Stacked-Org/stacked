@@ -18,7 +18,7 @@ dependencies:
     git:
       url: https://github.com/FirebaseExtended/flutterfire.git
       path: packages/firebase_auth/firebase_auth
-      ref: '@ehesp/auth-tenantId-ns'
+      ref: master
 
   # Firebase Authentications
   google_sign_in: ^5.0.1
