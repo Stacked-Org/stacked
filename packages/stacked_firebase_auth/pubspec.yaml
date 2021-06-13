@@ -38,7 +38,7 @@ dependency_overrides:
     git: 
       url: https://github.com/FirebaseExtended/flutterfire.git
       path: packages/firebase_auth/firebase_auth_platform_interface
-      ref: '@ehesp/auth-tenantId-ns'
+      ref: master
 
 
 # For information on the generic Dart part of this file, see the
