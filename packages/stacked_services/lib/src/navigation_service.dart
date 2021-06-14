@@ -38,6 +38,9 @@ class NavigationService {
   /// Returns the current route
   String get currentRoute => Get.currentRoute;
 
+  /// Returns the current arguments
+  dynamic get currentArguments => Get.arguments;
+
   /// Creates and/or returns a new navigator key based on the index passed in
   @Deprecated(
       'Prefer to use the StackedServices.nestedNavigationKey instead of using this property. This will be removed in the next major version update for stacked.')
