@@ -1,3 +1,7 @@
+## 0.3.4
+
+- Fixed Expception being thrown for non-Android and non-iOS platform
+
 ## 0.3.3
 
 - Updated dependencies:
