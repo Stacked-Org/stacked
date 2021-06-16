@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -156,9 +157,11 @@ You can supply either a list of ThemeData objects to the themes property or a li
   }
 
   Future _applyStatusBarColor(ThemeData? theme) async {
-    var statusBarColor = statusBarColorBuilder?.call(theme);
-    if (statusBarColor != null) {
-      await _statusBarService!.updateStatusBarColor(statusBarColor);
+    if (Platform.isAndroid && Platform.isIOS) {
+      var statusBarColor = statusBarColorBuilder?.call(theme);
+      if (statusBarColor != null) {
+        await _statusBarService!.updateStatusBarColor(statusBarColor);
+      }
     }
   }
 
