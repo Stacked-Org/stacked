@@ -1,3 +1,7 @@
+## 0.8.7
+
+- Added `currentArguments` in NavigationService
+
 ## 0.8.6
 
 - Fixes empty space on showSnackbar if title is not given
