@@ -7,6 +7,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:stacked_themes/src/locator_setup.dart';
+import 'package:stacked_themes/src/services/platform_service.dart';
 import 'package:stacked_themes/src/services/shared_preferences_service.dart';
 import 'package:stacked_themes/src/services/statusbar_service.dart';
 import 'package:stacked_themes/src/theme_service.dart';
@@ -17,9 +18,11 @@ const String DarkTheme = 'dark-theme';
 
 /// Provides functionality to manage the current theme for the application
 class ThemeManager {
-  final SharedPreferencesService? _sharedPreferences =
+  final SharedPreferencesService _sharedPreferences =
       locator<SharedPreferencesService>();
-  final StatusBarService? _statusBarService = locator<StatusBarService>();
+
+  final StatusBarService _statusBarService = locator<StatusBarService>();
+  final PlatformService _platformService = locator<PlatformService>();
 
   /// Has to be called before  we make use of the theme manager
   static Future initialise() async {
@@ -64,7 +67,7 @@ class ThemeManager {
   /// Get currently selected theme
   int? get selectedThemeIndex {
     if (themes != null && themes!.isNotEmpty) {
-      int? themeIndex = _sharedPreferences!.themeIndex;
+      int? themeIndex = _sharedPreferences.themeIndex;
       return themeIndex == null ? 0 : themeIndex;
     }
     return null;
@@ -84,7 +87,7 @@ class ThemeManager {
 You can supply either a list of ThemeData objects to the themes property or a lightTheme and a darkTheme to be swapped between.
         ''');
 
-    var storedThemeIndex = _sharedPreferences!.themeIndex;
+    var storedThemeIndex = _sharedPreferences.themeIndex;
 
     ThemeData? selectedTheme;
 
@@ -96,7 +99,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
           print(
               '''WARNING: You have changed your number of themes. Because of this we will clear your previously selected
         theme and broadcast the first theme in your list of themes.''');
-          _sharedPreferences!.themeIndex = null;
+          _sharedPreferences.themeIndex = null;
           selectedTheme = themes!.first;
         }
       } else {
@@ -106,7 +109,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
     } else {
       _selectedThemeMode = defaultTheme;
 
-      var savedUserThemeMode = _sharedPreferences!.userThemeMode;
+      var savedUserThemeMode = _sharedPreferences.userThemeMode;
       if (savedUserThemeMode != null) {
         _selectedThemeMode = savedUserThemeMode;
       }
@@ -153,14 +156,14 @@ You can supply either a list of ThemeData objects to the themes property or a li
       themeMode: _selectedThemeMode,
     ));
 
-    _sharedPreferences!.themeIndex = themeIndex;
+    _sharedPreferences.themeIndex = themeIndex;
   }
 
   Future _applyStatusBarColor(ThemeData? theme) async {
-    if (Platform.isAndroid && Platform.isIOS) {
+    if (_platformService.isMobilePlatform) {
       var statusBarColor = statusBarColorBuilder?.call(theme);
       if (statusBarColor != null) {
-        await _statusBarService!.updateStatusBarColor(statusBarColor);
+        await _statusBarService.updateStatusBarColor(statusBarColor);
       }
     }
   }
@@ -182,7 +185,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
   void setThemeMode(ThemeMode themeMode) {
     _selectedThemeMode = themeMode;
 
-    _sharedPreferences!.userThemeMode = themeMode;
+    _sharedPreferences.userThemeMode = themeMode;
 
     if (themeMode != ThemeMode.system) {
       _applyStatusBarColor(
