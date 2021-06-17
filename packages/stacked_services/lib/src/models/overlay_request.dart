@@ -1,4 +1,4 @@
-class OverlayRequest {
+class OverlayRequest<T> {
   /// The title for the dialog
   final String? title;
 
@@ -37,7 +37,11 @@ class OverlayRequest {
   final dynamic variant;
 
   /// Extra data to be passed to the UI
+  @Deprecated('Use `data` and pass in a generic type.')
   final dynamic customData;
+
+  /// Extra data to be passed to the UI
+  final T? data;
 
   OverlayRequest({
     this.showIconInMainButton,
@@ -52,11 +56,12 @@ class OverlayRequest {
     this.additionalButtonTitle,
     this.takesInput,
     this.customData,
+    this.data,
     this.variant,
   });
 }
 
-class DialogRequest extends OverlayRequest {
+class DialogRequest<T> extends OverlayRequest<T> {
   DialogRequest({
     bool? showIconInMainButton,
     bool? showIconInSecondaryButton,
@@ -70,6 +75,7 @@ class DialogRequest extends OverlayRequest {
     String? additionalButtonTitle,
     bool? takesInput,
     dynamic customData,
+    T? data,
     dynamic variant,
   }) : super(
           additionalButtonTitle: additionalButtonTitle,
@@ -84,11 +90,12 @@ class DialogRequest extends OverlayRequest {
           showIconInSecondaryButton: showIconInSecondaryButton,
           takesInput: takesInput,
           title: title,
+          data: data,
           variant: variant,
         );
 }
 
-class SheetRequest extends OverlayRequest {
+class SheetRequest<T> extends OverlayRequest<T> {
   SheetRequest({
     bool? showIconInMainButton,
     bool? showIconInSecondaryButton,
@@ -102,6 +109,7 @@ class SheetRequest extends OverlayRequest {
     String? additionalButtonTitle,
     bool? takesInput,
     dynamic customData,
+    T? data,
     dynamic variant,
   }) : super(
           additionalButtonTitle: additionalButtonTitle,
@@ -117,5 +125,6 @@ class SheetRequest extends OverlayRequest {
           takesInput: takesInput,
           title: title,
           variant: variant,
+          data: data,
         );
 }
