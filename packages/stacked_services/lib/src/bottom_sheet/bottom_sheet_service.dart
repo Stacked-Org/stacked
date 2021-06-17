@@ -59,7 +59,7 @@ class BottomSheetService {
   }
 
   // Creates a popup with the given widget, a scale animation, and faded background.
-  Future<SheetResponse?> showCustomSheet({
+  Future<SheetResponse<T>?> showCustomSheet<T>({
     dynamic variant,
     String? title,
     String? description,
@@ -76,7 +76,8 @@ class BottomSheetService {
     bool barrierDismissible = true,
     bool isScrollControlled = false,
     String barrierLabel = '',
-    dynamic customData,
+    @Deprecated('Use `data` and pass in a generic type.') dynamic customData,
+    T? data,
     bool enableDrag = true,
     Duration? exitBottomSheetDuration,
     Duration? enterBottomSheetDuration,
@@ -95,7 +96,7 @@ class BottomSheetService {
 
     final sheetBuilder = _sheetBuilders![variant];
 
-    return Get.bottomSheet<SheetResponse>(
+    return Get.bottomSheet<SheetResponse<T>>(
       Material(
         type: MaterialType.transparency,
         child: sheetBuilder!(
@@ -114,6 +115,7 @@ class BottomSheetService {
             takesInput: takesInput,
             customData: customData,
             variant: variant,
+            data: data,
           ),
           completeSheet,
         ),

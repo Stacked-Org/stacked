@@ -37,7 +37,6 @@ class OverlayRequest<T> {
   final dynamic variant;
 
   /// Extra data to be passed to the UI
-  @Deprecated('Use `data` and pass in a generic type.')
   final dynamic customData;
 
   /// Extra data to be passed to the UI
@@ -55,7 +54,8 @@ class OverlayRequest<T> {
     this.secondaryButtonTitle,
     this.additionalButtonTitle,
     this.takesInput,
-    this.customData,
+    @Deprecated('Prefer to use `data` and pass in a generic type.')
+        this.customData,
     this.data,
     this.variant,
   });
@@ -74,7 +74,8 @@ class DialogRequest<T> extends OverlayRequest<T> {
     String? secondaryButtonTitle,
     String? additionalButtonTitle,
     bool? takesInput,
-    dynamic customData,
+    @Deprecated('Prefer to use `data` and pass in a generic type.')
+        dynamic customData,
     T? data,
     dynamic variant,
   }) : super(
@@ -108,7 +109,8 @@ class SheetRequest<T> extends OverlayRequest<T> {
     String? secondaryButtonTitle,
     String? additionalButtonTitle,
     bool? takesInput,
-    dynamic customData,
+    @Deprecated('Prefer to use `data` and pass in a generic type.')
+        dynamic customData,
     T? data,
     dynamic variant,
   }) : super(

@@ -153,7 +153,7 @@ class DialogService {
   }
 
   // Creates a popup with the given widget, a scale animation, and faded background.
-  Future<DialogResponse?> showCustomDialog({
+  Future<DialogResponse<T>?> showCustomDialog<T>({
     dynamic variant,
     String? title,
     String? description,
@@ -169,7 +169,9 @@ class DialogService {
     Color barrierColor = Colors.black54,
     bool barrierDismissible = false,
     String barrierLabel = '',
-    dynamic customData,
+    @Deprecated('Prefer to use `data` and pass in a generic type.')
+        dynamic customData,
+    T? data,
   }) {
     assert(
       _dialogBuilders != null,
@@ -183,7 +185,7 @@ class DialogService {
       'You have to call registerCustomDialogBuilder to use this function. Look at the custom dialog UI section in the stacked_services readme.',
     );
 
-    return Get.generalDialog<DialogResponse>(
+    return Get.generalDialog<DialogResponse<T>>(
       barrierColor: barrierColor,
       transitionDuration: const Duration(milliseconds: 200),
       barrierDismissible: barrierDismissible,
@@ -207,6 +209,7 @@ class DialogService {
               additionalButtonTitle: additionalButtonTitle,
               takesInput: takesInput,
               customData: customData,
+              data: data,
               variant: variant,
             ),
             completeDialog,

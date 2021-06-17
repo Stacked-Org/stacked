@@ -5,7 +5,6 @@ class OverlayResponse<T> {
 
   /// A place to put any response data from dialogs that may contain text fields
   /// or multi selection options
-  @Deprecated('Use `data` and pass in a generic type.')
   final dynamic responseData;
 
   /// A place to put any response data from dialogs that may contain text fields
@@ -14,7 +13,8 @@ class OverlayResponse<T> {
 
   OverlayResponse({
     this.confirmed = false,
-    this.responseData,
+    @Deprecated('Prefer to use `data` and pass in a generic type.')
+        this.responseData,
     this.data,
   });
 }
@@ -23,7 +23,8 @@ class OverlayResponse<T> {
 class DialogResponse<T> extends OverlayResponse<T> {
   DialogResponse({
     bool confirmed = false,
-    dynamic responseData,
+    @Deprecated('Prefer to use `data` and pass in a generic type.')
+        dynamic responseData,
     T? data,
   }) : super(
           confirmed: confirmed,
@@ -36,7 +37,8 @@ class DialogResponse<T> extends OverlayResponse<T> {
 class SheetResponse<T> extends OverlayResponse<T> {
   SheetResponse({
     bool confirmed = false,
-    dynamic responseData,
+    @Deprecated('Prefer to use `data` and pass in a generic type.')
+        dynamic responseData,
     T? data,
   }) : super(
           confirmed: confirmed,
