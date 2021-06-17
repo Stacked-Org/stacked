@@ -11,5 +11,5 @@ Future setupLocator() async {
   locator.registerSingleton(sharedPreferences);
 
   locator.registerLazySingleton(() => StatusBarService());
-  locator.registerSingleton(() => PlatformService());
+  locator.registerLazySingleton(() => PlatformService());
 }

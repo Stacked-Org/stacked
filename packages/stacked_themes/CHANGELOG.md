@@ -1,3 +1,7 @@
+## 0.3.5
+
+- Fixed `PlatformService` registration issue
+
 ## 0.3.4
 
 - Fixed Expception being thrown for non-Android and non-iOS platform
