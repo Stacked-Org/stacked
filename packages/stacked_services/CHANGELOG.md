@@ -1,3 +1,8 @@
+## 0.8.8
+
+- Added generic type arguments for `OverlayResponse` and `OverlayRequest` for dialogs and bottom sheets
+- Deprecated `responseData` and added new property `data` that corresponds to that type provided
+
 ## 0.8.7
 
 - Added `currentArguments` in NavigationService
