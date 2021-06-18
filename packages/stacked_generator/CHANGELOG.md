@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.4.8
+
+- Added ability to pass `LoggerOutput` to MultiLoggerOutput
+
 ## 0.4.7
 
 - Use the default filter for the logger
