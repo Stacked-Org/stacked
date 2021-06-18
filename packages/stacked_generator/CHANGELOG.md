@@ -2,7 +2,7 @@
 
 ## 0.4.8
 
-- Added ability to pass `LoggerOutput` to MultiLoggerOutput
+- Added ability to pass custom logger outputs to MultiLoggerOutput
 
 ## 0.4.7
 
