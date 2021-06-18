@@ -29,15 +29,11 @@ class LoggerConfigResolver {
 
   List<String> _resolveMultiLogger(List<DartObject>? multiLogger) {
     if (multiLogger != null) {
-      print(multiLogger);
-      final res = multiLogger
+      return multiLogger
           .map((e) => e.toTypeValue()?.getDisplayString(withNullability: false))
           .where((element) => element != null)
           .toList()
           .cast<String>();
-
-      print(res);
-      return res;
     } else {
       return [];
     }
