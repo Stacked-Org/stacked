@@ -13,7 +13,7 @@ class LoggerClassGenerator extends BaseGenerator {
   Future<String> generate() async {
     final _logHelperNameKey = _loggerConfig.logHelperName;
     final _imports = _generateImports(_loggerConfig.imports);
-    final _multiLogger = _generateMultiLoggers(_loggerConfig.mutliloggers);
+    final _multiLogger = _generateMultiLoggers(_loggerConfig.loggerOutputs);
 
     final _replacedHelperName =
         loggerClassContent.replaceFirst(LogHelperNameKey, _logHelperNameKey);

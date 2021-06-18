@@ -9,7 +9,7 @@ class LoggerConfigResolver {
   Future<LoggerConfig?> resolve(
       ConstantReader stackedApp, ImportResolver importResolver) async {
     final _loggerReader = stackedApp.peek('logger');
-    final _multiLogger = _loggerReader?.peek('multiLogger')?.listValue;
+    final _multiLogger = _loggerReader?.peek('loggerOutputs')?.listValue;
     final _logHelperName =
         _loggerReader?.peek('logHelperName')?.stringValue ?? 'getLogger';
 
@@ -20,7 +20,7 @@ class LoggerConfigResolver {
           importResolver: importResolver,
           multiLogger: _multiLogger,
         ),
-        mutliloggers: _resolveMultiLogger(_multiLogger),
+        loggerOutputs: _resolveMultiLogger(_multiLogger),
       );
     }
 
