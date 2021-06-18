@@ -1,6 +1,6 @@
 ## 2.1.9
 
-- Added ability to pass `LoggerOutput` to MultiLoggerOutput
+- Added ability to pass custom logger outputs to MultiLoggerOutput
 
 ## 2.1.8
 
