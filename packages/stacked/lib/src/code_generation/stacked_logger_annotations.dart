@@ -2,7 +2,7 @@
 class StackedLogger {
   final String logHelperName;
 
-  /// Pass loggerOutputs types here.[logger: StackedLogger(loggerOutputs: [CrashlyticsOutput])]
+  /// Pass loggerOutputs types here.[StackedLogger(loggerOutputs: [CrashlyticsOutput])]
   ///
   /// loggerOutputs must extends [LogOutput]
   final List<Type> loggerOutputs;
