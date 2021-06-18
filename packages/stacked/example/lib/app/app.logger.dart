@@ -10,6 +10,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
+import 'package:stacked_crashlytics/stacked_crashlytics.dart';
+
 class SimpleLogPrinter extends LogPrinter {
   final String className;
   final bool printCallingFunctionName;
@@ -120,13 +122,6 @@ class MultipleLoggerOutput extends LogOutput {
   }
 }
 
-class LogAllTheTimeFilter extends LogFilter {
-  @override
-  bool shouldLog(LogEvent event) {
-    return true;
-  }
-}
-
 Logger getLogger(
   String className, {
   bool printCallingFunctionName = true,
@@ -135,7 +130,6 @@ Logger getLogger(
   String? showOnlyClass,
 }) {
   return Logger(
-    filter: LogAllTheTimeFilter(),
     printer: SimpleLogPrinter(
       className,
       printCallingFunctionName: printCallingFunctionName,
@@ -145,6 +139,7 @@ Logger getLogger(
     ),
     output: MultipleLoggerOutput([
       ConsoleOutput(),
+      CrashlyticsOutput(),
     ]),
   );
 }
