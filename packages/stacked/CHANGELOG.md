@@ -1,3 +1,7 @@
+## 2.1.9
+
+- Added ability to pass custom logger outputs to MultiLoggerOutput
+
 ## 2.1.8
 
 - Fixes `ReactiveServiceMixin` in Services to handle `ChangeNotifier` updates
