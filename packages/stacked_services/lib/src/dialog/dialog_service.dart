@@ -152,8 +152,19 @@ class DialogService {
     );
   }
 
-  // Creates a popup with the given widget, a scale animation, and faded background.
-  Future<DialogResponse<T>?> showCustomDialog<T>({
+  /// Creates a popup with the given widget, a scale animation, and faded background.
+  ///
+  /// The first generic type argument will be the [DialogResponse]
+  /// while the second generic type argument is the [DialogRequest]
+  ///
+  /// e.g.
+  /// ```dart
+  /// await _dialogService.showCustomDialog<GenericDialogResponse, GenericDialogRequest>();
+  /// ```
+  ///
+  /// Where [GenericDialogResponse] is a defined model response,
+  /// and [GenericDialogRequest] is the request model.
+  Future<DialogResponse<T>?> showCustomDialog<T, R>({
     dynamic variant,
     String? title,
     String? description,
@@ -171,7 +182,7 @@ class DialogService {
     String barrierLabel = '',
     @Deprecated('Prefer to use `data` and pass in a generic type.')
         dynamic customData,
-    T? data,
+    R? data,
   }) {
     assert(
       _dialogBuilders != null,
@@ -196,7 +207,7 @@ class DialogService {
         child: Builder(
           builder: (BuildContext context) => customDialogUI!(
             context,
-            DialogRequest(
+            DialogRequest<R>(
               title: title,
               description: description,
               hasImage: hasImage,
