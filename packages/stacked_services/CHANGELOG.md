@@ -2,6 +2,8 @@
 
 - Added generic type arguments for `OverlayResponse` and `OverlayRequest` for dialogs and bottom sheets
 - Deprecated `responseData` and added new property `data` that corresponds to that type provided
+- Added 2 generic type arguments for `showCustomDialog` and `showCustomSheet` 
+- The first generic type argument for `showCustomDialog` from `DialogService` is intended for the response `data` and the second generic type argument for `showCustomSheet` from `BottomSheetService` is intended for the request payload `data`
 
 ## 0.8.7
 
