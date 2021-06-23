@@ -152,8 +152,19 @@ class DialogService {
     );
   }
 
-  // Creates a popup with the given widget, a scale animation, and faded background.
-  Future<DialogResponse?> showCustomDialog({
+  /// Creates a popup with the given widget, a scale animation, and faded background.
+  ///
+  /// The first generic type argument will be the [DialogResponse]
+  /// while the second generic type argument is the [DialogRequest]
+  ///
+  /// e.g.
+  /// ```dart
+  /// await _dialogService.showCustomDialog<GenericDialogResponse, GenericDialogRequest>();
+  /// ```
+  ///
+  /// Where [GenericDialogResponse] is a defined model response,
+  /// and [GenericDialogRequest] is the request model.
+  Future<DialogResponse<T>?> showCustomDialog<T, R>({
     dynamic variant,
     String? title,
     String? description,
@@ -169,7 +180,9 @@ class DialogService {
     Color barrierColor = Colors.black54,
     bool barrierDismissible = false,
     String barrierLabel = '',
-    dynamic customData,
+    @Deprecated('Prefer to use `data` and pass in a generic type.')
+        dynamic customData,
+    R? data,
   }) {
     assert(
       _dialogBuilders != null,
@@ -183,7 +196,7 @@ class DialogService {
       'You have to call registerCustomDialogBuilder to use this function. Look at the custom dialog UI section in the stacked_services readme.',
     );
 
-    return Get.generalDialog<DialogResponse>(
+    return Get.generalDialog<DialogResponse<T>>(
       barrierColor: barrierColor,
       transitionDuration: const Duration(milliseconds: 200),
       barrierDismissible: barrierDismissible,
@@ -194,7 +207,7 @@ class DialogService {
         child: Builder(
           builder: (BuildContext context) => customDialogUI!(
             context,
-            DialogRequest(
+            DialogRequest<R>(
               title: title,
               description: description,
               hasImage: hasImage,
@@ -207,6 +220,7 @@ class DialogService {
               additionalButtonTitle: additionalButtonTitle,
               takesInput: takesInput,
               customData: customData,
+              data: data,
               variant: variant,
             ),
             completeDialog,
