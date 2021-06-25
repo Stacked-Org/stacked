@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 
 /// A service dedicated to changing the color of the status bar
@@ -13,6 +12,17 @@ class StatusBarService {
       FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
     } else {
       FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+    }
+  }
+
+  Future? updateNavigationBarColor(Color navigationBarColor) async {
+
+    await FlutterStatusbarcolor.setNavigationBarColor(navigationBarColor);
+
+    if (useWhiteForeground(navigationBarColor)) {
+      FlutterStatusbarcolor.setNavigationBarWhiteForeground(true);
+    } else {
+      FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
     }
   }
 }

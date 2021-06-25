@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -57,12 +56,22 @@ class ThemeManager {
   /// return a color for the status bar.
   final Color? Function(ThemeData?)? statusBarColorBuilder;
 
+  /// A builder function that provides you with the new selected theme that expects you to
+  /// return a color for the navigation bar.
+  final Color? Function(ThemeData?)? navigationBarColorBuilder;
+
   late BehaviorSubject<ThemeModel> _themesController;
 
   Stream<ThemeModel> get themesStream => _themesController.stream;
 
   /// Returns true if the ThemeMode is dark. This does not apply when you're using system as ThemeMode
   bool get isDarkMode => _selectedThemeMode == ThemeMode.dark;
+
+  // Keeps track of the current theme. Helpful when overlay colors nedd to be updated. 
+  ThemeData? _selectedTheme;
+  
+  // Keeps track of the current theme. Helpful when overlay colors nedd to be updated. 
+  ThemeData? get selectedTheme => _selectedTheme;
 
   /// Get currently selected theme
   int? get selectedThemeIndex {
@@ -76,6 +85,7 @@ class ThemeManager {
   ThemeManager({
     this.themes,
     this.statusBarColorBuilder,
+    this.navigationBarColorBuilder,
     this.darkTheme,
     this.lightTheme,
     this.defaultTheme = ThemeMode.system,
@@ -89,23 +99,24 @@ You can supply either a list of ThemeData objects to the themes property or a li
 
     var storedThemeIndex = _sharedPreferences.themeIndex;
 
-    ThemeData? selectedTheme;
+    // ThemeData? selectedTheme;
 
     if (hasMultipleThemes) {
       if (storedThemeIndex != null) {
         try {
-          selectedTheme = themes![storedThemeIndex];
+          _selectedTheme = themes![storedThemeIndex];
         } catch (e) {
           print(
               '''WARNING: You have changed your number of themes. Because of this we will clear your previously selected
         theme and broadcast the first theme in your list of themes.''');
           _sharedPreferences.themeIndex = null;
-          selectedTheme = themes!.first;
+          _selectedTheme = themes!.first;
         }
       } else {
-        selectedTheme = themes!.first;
+        _selectedTheme = themes!.first;
       }
-      _applyStatusBarColor(selectedTheme);
+
+      updateOverlayColors(_selectedTheme);
     } else {
       _selectedThemeMode = defaultTheme;
 
@@ -114,13 +125,14 @@ You can supply either a list of ThemeData objects to the themes property or a li
         _selectedThemeMode = savedUserThemeMode;
       }
 
-      selectedTheme =
+      _selectedTheme =
           _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme;
-      _applyStatusBarColor(selectedTheme);
+
+      updateOverlayColors(_selectedTheme);
     }
 
     ThemeModel _currTheme = ThemeModel(
-        selectedTheme: selectedTheme,
+        selectedTheme: _selectedTheme,
         darkTheme: darkTheme,
         themeMode: _selectedThemeMode);
 
@@ -131,10 +143,13 @@ You can supply either a list of ThemeData objects to the themes property or a li
   }
 
   ThemeModel getSelectedTheme() {
-    var selectedTheme =
+    // var selectedTheme =
+    //     _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme;
+
+    _selectedTheme =
         _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme;
     return ThemeModel(
-        selectedTheme: selectedTheme,
+        selectedTheme: _selectedTheme,
         darkTheme: darkTheme,
         themeMode: _selectedThemeMode);
   }
@@ -147,11 +162,16 @@ You can supply either a list of ThemeData objects to the themes property or a li
           'You cannot select the theme if you have no themes supplied. Supply a list of themes to the constructor of the ThemeManager if you want to use this function.');
     }
 
-    var theme = themes![themeIndex];
-    await _applyStatusBarColor(theme);
+    // var theme = themes![themeIndex];
+
+    _selectedTheme = themes![themeIndex];
+
+    // await _applyStatusBarColor(theme);
+    await updateOverlayColors(_selectedTheme);
 
     _themesController.add(ThemeModel(
-      selectedTheme: theme,
+      // selectedTheme: theme,
+      selectedTheme: _selectedTheme,
       darkTheme: darkTheme,
       themeMode: _selectedThemeMode,
     ));
@@ -160,12 +180,32 @@ You can supply either a list of ThemeData objects to the themes property or a li
   }
 
   Future _applyStatusBarColor(ThemeData? theme) async {
-    if (_platformService.isMobilePlatform) {
-      var statusBarColor = statusBarColorBuilder?.call(theme);
-      if (statusBarColor != null) {
-        await _statusBarService.updateStatusBarColor(statusBarColor);
+    // Change color only when not on web
+    if (!_platformService.isWeb) {
+      if (_platformService.isMobilePlatform) {
+        var statusBarColor = statusBarColorBuilder?.call(theme);
+        if (statusBarColor != null) {
+          await _statusBarService.updateStatusBarColor(statusBarColor);
+        }
       }
     }
+  }
+
+  Future _applyNavigationBarColor(ThemeData? theme) async {
+    // Change color only when not on web
+    if (!_platformService.isWeb) {
+      if (_platformService.isMobilePlatform) {
+        var navigationBarColor = navigationBarColorBuilder?.call(theme);
+        if (navigationBarColor != null) {
+          await _statusBarService.updateNavigationBarColor(navigationBarColor);
+        }
+      }
+    }
+  }
+
+  Future<void> updateOverlayColors(ThemeData? theme) async {
+    _applyStatusBarColor(theme);
+    _applyNavigationBarColor(theme);
   }
 
   /// Swaps between the light and dark ThemeMode
@@ -173,8 +213,9 @@ You can supply either a list of ThemeData objects to the themes property or a li
     _selectedThemeMode =
         _selectedThemeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
 
-    _applyStatusBarColor(
+    updateOverlayColors(
         _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme);
+
     _themesController.add(ThemeModel(
       selectedTheme: lightTheme,
       darkTheme: darkTheme,
@@ -188,13 +229,16 @@ You can supply either a list of ThemeData objects to the themes property or a li
     _sharedPreferences.userThemeMode = themeMode;
 
     if (themeMode != ThemeMode.system) {
-      _applyStatusBarColor(
-          _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme);
+      _selectedTheme =
+          _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme;
+      updateOverlayColors(_selectedTheme);
     } else {
       var currentBrightness =
           SchedulerBinding.instance!.window.platformBrightness;
-      _applyStatusBarColor(
-          currentBrightness == Brightness.dark ? darkTheme : lightTheme);
+
+      _selectedTheme =
+          currentBrightness == Brightness.dark ? darkTheme : lightTheme;
+      updateOverlayColors(_selectedTheme);
     }
 
     _themesController.add(ThemeModel(

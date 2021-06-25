@@ -6,6 +6,7 @@ import 'package:stacked_themes/src/services/statusbar_service.dart';
 final locator = GetIt.asNewInstance();
 
 Future setupLocator() async {
+  
   SharedPreferencesService sharedPreferences =
       await SharedPreferencesService.getInstance();
   locator.registerSingleton(sharedPreferences);
