@@ -35,15 +35,25 @@ class RouteParamConfig {
   String get getterName {
     switch (type) {
       case 'String':
-        return 'stringValue';
+        return 'getString';
       case 'int':
-        return 'intValue';
+        return 'getInt';
       case 'double':
-        return 'doubleValue';
+        return 'getDouble';
       case 'num':
-        return 'numValue';
+        return 'getNum';
       case 'bool':
-        return 'boolValue';
+        return 'getBool';
+      case 'String?':
+        return 'optString';
+      case 'int?':
+        return 'optInt';
+      case 'double?':
+        return 'optDouble';
+      case 'num?':
+        return 'optNum';
+      case 'bool?':
+        return 'optBool';
       default:
         return 'value';
     }
