@@ -16,7 +16,7 @@ import 'package:stacked_themes/stacked_themes.dart';
 
 @StackedApp(
   routes: [
-    MaterialRoute(page: HomeView, initial: true),
+    MaterialRoute(page: HomeView, initial: true, path: "/home"),
     MaterialRoute(page: BottomNavExample),
     MaterialRoute(page: StreamCounterView),
     CupertinoRoute(page: DetailsView),

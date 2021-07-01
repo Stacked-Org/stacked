@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 
 import '../smart_widgets/widget_one/widget_one.dart';
 import '../smart_widgets/widget_two/widget_two.dart';
@@ -7,9 +8,12 @@ import '../startup/startup_view.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({Key? key, this.defaultValue = "Default"}) : super(key: key);
+  const HomeView({
+    Key? key,
+    @PathParam('defaultValue') this.defaultValue,
+  }) : super(key: key);
 
-  final String defaultValue;
+  final String? defaultValue;
 
   @override
   Widget build(BuildContext context) {
