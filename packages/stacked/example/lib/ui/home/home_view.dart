@@ -7,7 +7,9 @@ import '../startup/startup_view.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({Key? key, this.defaultValue = "Default"}) : super(key: key);
+
+  final String defaultValue;
 
   @override
   Widget build(BuildContext context) {

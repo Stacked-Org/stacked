@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 0.4.9
+
+- Fixes Default parameter value generation bug on stacked router
+  [issue #411](https://github.com/FilledStacks/stacked/issues/411)
+
 ## 0.4.8
 
 - Added ability to pass custom logger outputs to MultiLoggerOutput
