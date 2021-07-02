@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:universal_io/io.dart';
 
 /// An abstraction over the Platform information so that we can have pure unit tests
 class PlatformService {

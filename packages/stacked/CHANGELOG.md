@@ -1,3 +1,12 @@
+
+## 2.2.1
+
+- Replaced `dart:io` with `universal_io`
+
+## 2.2.0
+
+- Fixes nullable type generation issue on `@PathParam` and `@QueryParam`
+
 ## 2.1.9
 
 - Added ability to pass custom logger outputs to MultiLoggerOutput

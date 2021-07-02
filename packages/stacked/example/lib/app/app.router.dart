@@ -18,7 +18,7 @@ import '../ui/nonreactive/nonreactive_view.dart';
 import '../ui/stream_view/stream_counter_view.dart';
 
 class Routes {
-  static const String homeView = '/';
+  static const String homeView = '/home';
   static const String bottomNavExample = '/bottom-nav-example';
   static const String streamCounterView = '/stream-counter-view';
   static const String detailsView = '/details-view';
@@ -55,7 +55,7 @@ class StackedRouter extends RouterBase {
       return MaterialPageRoute<dynamic>(
         builder: (context) => HomeView(
           key: args.key,
-          defaultValue: args.defaultValue,
+          defaultValue: data.pathParams['defaultValue'].optString(),
         ),
         settings: data,
       );
@@ -109,8 +109,7 @@ class StackedRouter extends RouterBase {
 /// HomeView arguments holder class
 class HomeViewArguments {
   final Key? key;
-  final String defaultValue;
-  HomeViewArguments({this.key, this.defaultValue = "Default"});
+  HomeViewArguments({this.key});
 }
 
 /// DetailsView arguments holder class
