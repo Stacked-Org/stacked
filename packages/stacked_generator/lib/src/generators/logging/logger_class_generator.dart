@@ -1,6 +1,6 @@
+import 'package:stacked_generator/src/generators/base_generator.dart';
 import 'package:stacked_generator/src/generators/logging/logger_config.dart';
 
-import '../base_generator.dart';
 import 'logger_class_content.dart';
 
 /// Generates the app.logger.dart file in the users code base.
