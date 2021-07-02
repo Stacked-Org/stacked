@@ -1,3 +1,7 @@
+## 0.8.9
+
+- Exports `get` package
+
 ## 0.8.8
 
 - Added generic type arguments for `OverlayResponse` and `OverlayRequest` for dialogs and bottom sheets
