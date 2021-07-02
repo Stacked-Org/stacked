@@ -162,10 +162,10 @@ class RouterClassGenerator extends BaseGenerator {
         String getterName;
         if (param.isPathParam ?? false) {
           getterName =
-              "data.pathParams['${param.paramName}'].${param.getterName}${param.defaultValueCode != null ? '?? ${param.defaultValueCode}' : ''}";
+              "data.pathParams['${param.paramName}'].${param.getterName}(${param.defaultValueCode != null ? '${param.defaultValueCode}' : ''})";
         } else if (param.isQueryParam ?? false) {
           getterName =
-              "data.queryParams['${param.paramName}'].${param.getterName}${param.defaultValueCode != null ? '?? ${param.defaultValueCode}' : ''}";
+              "data.queryParams['${param.paramName}'].${param.getterName}(${param.defaultValueCode != null ? '${param.defaultValueCode}' : ''})";
         } else {
           getterName = "args.${param.name}";
         }
