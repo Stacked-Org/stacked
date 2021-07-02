@@ -1,3 +1,8 @@
+
+## 2.2.1
+
+- Replaced `dart:io` with `universal_io`
+
 ## 2.2.0
 
 - Fixes nullable type generation issue on `@PathParam` and `@QueryParam`

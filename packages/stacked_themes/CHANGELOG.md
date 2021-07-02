@@ -1,3 +1,7 @@
+## 0.3.6
+
+- Replaced `dart:io` with `universal_io`
+
 ## 0.3.5
 
 - Fixed `PlatformService` registration issue
