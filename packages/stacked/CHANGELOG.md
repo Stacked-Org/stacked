@@ -1,3 +1,7 @@
+## 2.2.2
+
+- Added ability to pass parameter to factories
+  Add service to `FactoryWithParam` in `StackedApp` and annotate paramaters with `@factoryParam` which needed to be passed in the Factory constructor
 
 ## 2.2.1
 
