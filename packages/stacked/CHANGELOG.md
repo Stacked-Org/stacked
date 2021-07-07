@@ -1,3 +1,6 @@
+## 2.2.2
+
+- Added view model argument to `ViewModelBuilder` on method `onDispose` callback
 
 ## 2.2.1
 
