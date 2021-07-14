@@ -1,0 +1,28 @@
+### Fire initialisation only once
+
+Special `ViewModels` like `FutureViewModel` or `StreamViewModel` runs it's logic through an initialise call by the ViewModelBuilder. If you want to fire the initialisation logic only once you can set `initialiseSpecialViewModelsOnce: true`
+
+```dart
+class FavoritesView extends StatelessWidget {
+  const FavoritesView({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<FavoritesViewModel>.reactive(
+      builder: (context, model, child) => Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => model.incrementCounter(),
+          ),
+          body: Center(
+              child: Text(
+            model.counter.toString(),
+            style: TextStyle(fontSize: 30),
+          ))),
+      viewModelBuilder: () => locator<FavoritesViewModel>(),
+      disposeViewModel: false,
+      // Tell the ViewModelBuilder to only fire the initialse function once
+      initialiseSpecialViewModelsOnce: true
+    );
+  }
+}
+```

@@ -12,6 +12,19 @@
         [
             "Reactivity",
             "/reactivity"
+        ],
+        [
+            "Examples",
+            [
+                [
+                    "Initialisaiton",
+                    "/example-initialisation"
+                ],
+                [
+                    "ViewModel Widget",
+                    "/example-viewmodel"
+                ]
+            ]
         ]
     ]
 }

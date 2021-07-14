@@ -1,0 +1,75 @@
+## ViewModel Widget
+
+The `ViewModelWidget` is an implementation of a widget class that returns a value provided by the Provider as a parameter in the build function of the widget. Let's say for instance you have a data model you want to use in multiple widgets. We can use the `Provider.value` call to supply that value, then inside the multiple widgets, we inherit from the `ViewModelWidget` and make use of the data directly from the build method.
+
+```dart
+
+// View
+class HomeView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Provider.value(
+        value: Human(name: 'Dane', surname: 'Mackier'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[FullNameWidget(), DuplicateNameWidget()],
+        ),
+      ),
+    );
+  }
+}
+
+// Model
+class Human {
+  final String name;
+  final String surname;
+
+  Human({this.name, this.surname});
+}
+
+// consuming widget 1
+class FullNameWidget extends ViewModelWidget<Human> {
+  @override
+  Widget build(BuildContext context, Human model) {
+    return Row(
+      children: <Widget>[
+        Container(
+          child: Text(
+            model.name,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+          ),
+        ),
+        SizedBox(
+          width: 50,
+        ),
+        Container(
+          child: Text(
+            model.surname,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// consuming widget 2
+class DuplicateNameWidget extends ViewModelWidget<Human> {
+  @override
+  Widget build(BuildContext context, Human model) {
+    return Row(
+      children: <Widget>[
+        Container(
+          child: Text(model.name),
+        ),
+        SizedBox(
+          width: 50,
+        ),
+        Container(
+          child: Text(model.name),
+        ),
+      ],
+    );
+  }
+}
