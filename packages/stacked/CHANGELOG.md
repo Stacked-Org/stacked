@@ -1,5 +1,6 @@
 ## 2.2.2
-
+- Added ability to pass parameter to factories
+  Add service to `FactoryWithParam` in `StackedApp` and annotate paramaters with `@factoryParam` which needed to be passed in the Factory constructor
 - Added view model argument to `ViewModelBuilder` on method `onDispose` callback
 
 ## 2.2.1

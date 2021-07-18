@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.5.1
+
+- Added ability to pass parameter to factories with `FactoryWithParam`
+
 ## 0.5.0
 
 - Fixes nullable type generation issue on `@PathParam` and `@QueryParam`

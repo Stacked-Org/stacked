@@ -10,9 +10,8 @@ import 'package:stacked_generator/src/generators/enums/dependency_type.dart';
 import 'package:stacked_generator/src/generators/getit/dependency_config.dart';
 import 'package:stacked_generator/src/generators/getit/stacked_locator_content_generator.dart';
 import 'package:stacked_generator/src/generators/getit/services_config.dart';
+import 'package:stacked_generator/src/generators/getit/stacked_locator_parameter_resolver.dart';
 import 'package:stacked_generator/utils.dart';
-
-const stackedRouteChecker = TypeChecker.fromRuntime(StackedRoute);
 
 class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
   @override
@@ -104,6 +103,15 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
     // NOTE: This can be used for actual dependency inject. We do service location instead.
     final constructor = classElement.unnamedConstructor;
 
+    final Set<DependencyParamConfig> clazzParams = {};
+    var params = constructor?.parameters;
+    if (params?.isNotEmpty == true && constructor != null) {
+      final paramResolver = DependencyParameterResolver(importResolver);
+      for (ParameterElement p in constructor.parameters) {
+        clazzParams.add(paramResolver.resolve(p));
+      }
+    }
+
     final serviceType = _getDependencyType(dependencyReader);
 
     String? presolveFunction;
@@ -129,6 +137,7 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
       import: import,
       abstractedImport: abstractedImport,
       type: serviceType,
+      params: clazzParams,
       presolveFunction: presolveFunction,
       resolveFunction: resolveFunction,
       environments: environments,
@@ -147,6 +156,9 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
     }
     if (serviceReader.instanceOf(TypeChecker.fromRuntime(Presolve))) {
       return DependencyType.PresolvedSingleton;
+    }
+    if (serviceReader.instanceOf(TypeChecker.fromRuntime(FactoryWithParam))) {
+      return DependencyType.FactoryWithParam;
     }
 
     return DependencyType.Singleton;
