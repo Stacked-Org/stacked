@@ -1,0 +1,30 @@
+{
+    "name": "Stacked",
+    "logo": "/assets/logo.png",
+    "logoDark": "/assets/logo.png",
+    "twitter": "filledstacks",
+    "theme": "#7754f6",
+    "sidebar": [
+        [
+            "Overview",
+            "/"
+        ],
+        [
+            "Reactivity",
+            "/reactivity"
+        ],
+        [
+            "Examples",
+            [
+                [
+                    "Initialisaiton",
+                    "/example-initialisation"
+                ],
+                [
+                    "ViewModel Widget",
+                    "/example-viewmodel"
+                ]
+            ]
+        ]
+    ]
+}
