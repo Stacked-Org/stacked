@@ -10,8 +10,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
-import 'package:stacked_crashlytics/stacked_crashlytics.dart';
-
 class SimpleLogPrinter extends LogPrinter {
   final String className;
   final bool printCallingFunctionName;
@@ -139,7 +137,6 @@ Logger getLogger(
     ),
     output: MultipleLoggerOutput([
       ConsoleOutput(),
-      CrashlyticsOutput(),
     ]),
   );
 }
