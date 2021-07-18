@@ -11,10 +11,10 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   /// Fires once when the ViewModel is created or set for the first time
   ///
   /// If you want this to fire everytime the widget is inserted set [createNewModelOnInsert] to true
-  final Function(T)? onModelReady;
+  final Function(T model)? onModelReady;
 
   /// Builder function with access to the ViewModel to build UI form
-  final Widget Function(BuildContext, T, Widget?) builder;
+  final Widget Function(BuildContext context, T model, Widget? child) builder;
 
   /// A builder function that returns the ViewModel for this widget
   final T Function() viewModelBuilder;

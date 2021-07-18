@@ -78,12 +78,12 @@ class BaseViewModel extends ChangeNotifier {
     try {
       var value = await runErrorFuture<T>(busyFuture,
           key: busyObject, throwException: throwException);
-      _setBusyForModelOrObject(false, busyObject: busyObject);
       return value;
     } catch (e) {
-      _setBusyForModelOrObject(false, busyObject: busyObject);
       if (throwException) rethrow;
       return Future.value();
+    }finally{
+      _setBusyForModelOrObject(false, busyObject: busyObject);
     }
   }
 

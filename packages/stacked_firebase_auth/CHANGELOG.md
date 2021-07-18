@@ -1,3 +1,7 @@
+## 0.2.6
+
+- Expose authStateChanges from FirebaseAuth
+
 ## 0.2.5
 
 - Anonymous Login Added

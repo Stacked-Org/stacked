@@ -1,3 +1,7 @@
+## 0.8.11
+
+- Add `ignoreSafeArea` parameter to `showBottomSheet` and `showCustomSheet`, pass down to `get` bottomSheet method
+
 ## 0.8.10
 
 - Pass down generic types to `NavigationService` methods along with the properties relevant to `get` router
