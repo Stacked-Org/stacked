@@ -1,4 +1,4 @@
-## 0.2.5
+## 0.2.7
 
 - Added a method `updateEmail` to update firebase user email address.
 
