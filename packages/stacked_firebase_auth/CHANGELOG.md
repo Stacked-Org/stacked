@@ -1,3 +1,7 @@
+## 0.2.5
+
+- Added a method `updateEmail` to update firebase user email address.
+
 ## 0.2.4
 
 - Added a method `emailExists` to check if email is registered in Firebase Auth
