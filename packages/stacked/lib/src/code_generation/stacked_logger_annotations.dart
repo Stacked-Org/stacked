@@ -2,5 +2,13 @@
 class StackedLogger {
   final String logHelperName;
 
-  const StackedLogger({this.logHelperName = 'getLogger'});
+  /// Pass loggerOutputs types here.[StackedLogger(loggerOutputs: [CrashlyticsOutput])]
+  ///
+  /// loggerOutputs must extends [LogOutput]
+  final List<Type> loggerOutputs;
+
+  const StackedLogger({
+    this.loggerOutputs = const [],
+    this.logHelperName = 'getLogger',
+  });
 }

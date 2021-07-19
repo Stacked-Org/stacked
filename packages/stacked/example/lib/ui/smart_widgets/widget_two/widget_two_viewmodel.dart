@@ -3,7 +3,7 @@ import 'package:new_architecture/services/information_service.dart';
 import 'package:stacked/stacked.dart';
 
 class WidgetTwoViewModel extends ReactiveViewModel {
-  final InformationService _informationService = locator<InformationService>();
+  final _informationService = exampleLocator<InformationService>();
   int get postCount => _informationService.postCount;
 
   final int id;

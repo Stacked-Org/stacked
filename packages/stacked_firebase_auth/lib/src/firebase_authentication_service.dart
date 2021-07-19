@@ -61,6 +61,11 @@ class FirebaseAuthenticationService {
     return firebaseAuth.currentUser != null;
   }
 
+  /// Exposes the authStateChanges functionality.
+  Stream<User?> get authStateChanges {
+    return firebaseAuth.authStateChanges();
+  }
+
   /// Returns `true` when email has a user registered
   Future<bool> emailExists(String email) async {
     try {
@@ -176,6 +181,25 @@ class FirebaseAuthenticationService {
     } catch (e) {
       log?.e(e);
       return FirebaseAuthenticationResult.error(errorMessage: e.toString());
+    }
+  }
+
+  /// Anonymous Login
+  Future<FirebaseAuthenticationResult> loginAnonymously() async {
+    try {
+      log?.d('Anonymoys Login');
+      final result = await firebaseAuth.signInAnonymously();
+
+      return FirebaseAuthenticationResult(user: result.user);
+    } on FirebaseAuthException catch (e) {
+      log?.e('A firebase exception has occured. $e');
+      return FirebaseAuthenticationResult.error(
+          errorMessage: getErrorMessageFromFirebaseException(e));
+    } on Exception catch (e) {
+      log?.e('A general exception has occured. $e');
+      return FirebaseAuthenticationResult.error(
+          errorMessage:
+              'We could not log into your account at this time. Please try again.');
     }
   }
 

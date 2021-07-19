@@ -536,7 +536,7 @@ In this case the error can be retrieved using `viewModel.error(BusyObjectKey)` o
 
 ## Reactivity
 
-One thing that was common in a scenario with the first implementation of this architecture is reacting to values changed by different ViewModels. I don't have the exact implementation that I would hope for but without reflection, some things will have to be a bit more verbose. The stacked architecture makes provision for ViewModels to react to changes to values in service by making use of RxValue from the [Observable-Ish](https://pub.dev/packages/observable_ish) package.
+One thing that was common in a scenario with the first implementation of this architecture is reacting to values changed by different ViewModels. I don't have the exact implementation that I would hope for but without reflection, some things will have to be a bit more verbose. The stacked architecture makes provision for ViewModels to react to changes to values in service by making use of ReactiveValue and ReactiveList.
 
 ### Reactive Service Mixin
 
@@ -545,7 +545,7 @@ In the stacked library, we have a `ReactiveServiceMixin` which can be used to re
 There are three things you need to make a service reactive.
 
 1. Use the `ReactiveServiceMixin` with the service you want to make reactive
-2. Wrap your values in an RxValue. The value provided by Observable-ish
+2. Wrap your values in an ReactiveValue.
 3. Register your reactive values by calling `listenToReactiveValues`. A function provided by the mixin.
 
 Below is some source code for the non-theory coders out there like myself.
@@ -558,7 +558,7 @@ class InformationService with ReactiveServiceMixin { //1
   }
 
   //2
-  RxValue<int> _postCount = RxValue<int>(initial: 0);
+  ReactiveValue<int> _postCount = ReactiveValue<int>(initial: 0);
   int get postCount => _postCount.value;
 
   void updatePostCount() {
@@ -1108,6 +1108,39 @@ static Future<SharedPreferencesService> getInstance() async {
 }
 ```
 
+You can also pass in a parameters for to Factories through locator using `FactoryWithParam` and annotate paramaters with `@factoryParam`
+
+```dart
+FactoryWithParam(classType: FactoryService),
+```
+
+Annotate paramaters with `@factoryParam`
+
+```dart
+class FactoryService {
+  final String? key;
+  final double? value;
+
+  FactoryService({
+    @factoryParam this.key,
+    @factoryParam this.value,
+  });
+}
+
+```
+
+Then those parameters can be accessed with locator from any where as `param1` and `param2`
+
+```dart
+final _factoryService = exampleLocator<FactoryService>(param1: "Key", param2: "Value");
+```
+
+The generated code will look like this
+
+```dart
+exampleLocator.registerFactoryParam<FactoryService, String?, double?>((param1, param2) => FactoryService(key: param1, value: param2));
+```
+
 You can also pass in a `resolveFunction` for singleton registrations which takes a static `Function`. This would produce something like this
 
 ```dart
@@ -1145,6 +1178,24 @@ final navigationService = locator<NavigationService>;
 ```
 
 To learn more about using get_it as a service locator you can [watch this video](https://youtu.be/vBT-FhgMaWM?t=321). That's all the functionality that the stacked_generator will generate for now. Over time we'll add more functionality that can help us reduce the amount of boilerplate required to build a stacked application.
+
+### Environments
+
+It is possible to register different dependencies for different environments by using `environments: {Environment.dev}` in the below example `NavigationService` is now only registered if we pass the environment name to `setupLocator(environment: Environment.dev);`
+
+```dart
+LazySingleton(
+    classType: NavigationService,
+    environments: {Environment.dev},
+ ),
+```
+
+Now passing your environment to `setupLocator` function will create a simple environment filter that will only validate dependencies that have no environments or one of their environments matches the given environment.
+Alternatively, you can pass your own EnvironmentFilter to decide what dependencies to register based on their environment keys, or use one of the shipped ones
+
+- NoEnvOrContainsAll
+- NoEnvOrContainsAny
+- SimpleEnvironmentFilter
 
 ### Logger
 
@@ -1201,6 +1252,42 @@ logger: StackedLogger(
 ```
 
 Now the function to get your logger will be called `getStackedLogger`. If you want a more detailed guide on how to effectively log in your application read [this guide](https://www.filledstacks.com/post/flutter-logging-a-guide-to-use-it-effectively/) that we use for our production apps.
+
+## Form Generation
+
+Now we can generate the form fields with `stacked_generator` package. To do this add the decoration `@FormView` in top of the View.
+
+```dart
+@FormView(fields: [
+  FormTextField(name: 'email', initialValue: "Lorem"),
+  FormTextField(name: 'password', isPassword: true),
+  FormTextField(name: 'shortBio'),
+  FormDateField(name: 'birthDate'),
+  FormDropdownField(
+    name: 'doYouLoveFood',
+    items: [
+      StaticDropdownItem(
+        title: 'Yes',
+        value: 'YesDr',
+      ),
+      StaticDropdownItem(
+        title: 'No',
+        value: 'NoDr',
+      ),
+    ],
+  )
+])
+class ExampleFormView extends StatelessWidget with $ExampleFormView {
+  ExampleFormView({Key? key}) : super(key: key);
+```
+
+And then run `flutter pub run build_runner build --delete-conflicting-outputs` to generate `mixin` that will be used in the view. After the code generation is successful and the necessary imports is done, we need to listen to the form changes in `onModelReady` callback.
+
+```dart
+onModelReady: (viewModel) => listenToFormUpdated(viewModel);
+```
+
+This will listen to the changes to the form and update the form value map. To get the form values, you need to import the generated file in the viewmodel and you can access the values with `emailValue`,`passwordValue` and so on.
 
 ## Migrating from provider_architecture to Stacked
 

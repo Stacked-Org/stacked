@@ -3,11 +3,12 @@ import 'package:stacked/stacked.dart';
 
 import '../smart_widgets/widget_one/widget_one.dart';
 import '../smart_widgets/widget_two/widget_two.dart';
-import '../startup/startup_view.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +35,7 @@ class HomeView extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => StartupView(),
-            ));
-          },
+          onPressed: viewModel.navigate,
         ),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:new_architecture/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../app/app.locator.dart';
 import 'favorites_viewmodel.dart';
 
 class FavoritesView extends StatelessWidget {
@@ -19,7 +20,7 @@ class FavoritesView extends StatelessWidget {
             viewModel.counter.toString(),
             style: TextStyle(fontSize: 30),
           ))),
-      viewModelBuilder: () => locator<FavoritesViewModel>(),
+      viewModelBuilder: () => exampleLocator<FavoritesViewModel>(),
       onModelReady: (viewModel) => viewModel.setCounterTo999(),
       disposeViewModel: false,
       fireOnModelReadyOnce: true,

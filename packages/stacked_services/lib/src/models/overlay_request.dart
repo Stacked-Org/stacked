@@ -1,4 +1,4 @@
-class OverlayRequest {
+class OverlayRequest<T> {
   /// The title for the dialog
   final String? title;
 
@@ -39,6 +39,9 @@ class OverlayRequest {
   /// Extra data to be passed to the UI
   final dynamic customData;
 
+  /// Extra data to be passed to the UI
+  final T? data;
+
   OverlayRequest({
     this.showIconInMainButton,
     this.showIconInSecondaryButton,
@@ -51,12 +54,14 @@ class OverlayRequest {
     this.secondaryButtonTitle,
     this.additionalButtonTitle,
     this.takesInput,
-    this.customData,
+    @Deprecated('Prefer to use `data` and pass in a generic type.')
+        this.customData,
+    this.data,
     this.variant,
   });
 }
 
-class DialogRequest extends OverlayRequest {
+class DialogRequest<T> extends OverlayRequest<T> {
   DialogRequest({
     bool? showIconInMainButton,
     bool? showIconInSecondaryButton,
@@ -69,7 +74,9 @@ class DialogRequest extends OverlayRequest {
     String? secondaryButtonTitle,
     String? additionalButtonTitle,
     bool? takesInput,
-    dynamic customData,
+    @Deprecated('Prefer to use `data` and pass in a generic type.')
+        dynamic customData,
+    T? data,
     dynamic variant,
   }) : super(
           additionalButtonTitle: additionalButtonTitle,
@@ -84,11 +91,12 @@ class DialogRequest extends OverlayRequest {
           showIconInSecondaryButton: showIconInSecondaryButton,
           takesInput: takesInput,
           title: title,
+          data: data,
           variant: variant,
         );
 }
 
-class SheetRequest extends OverlayRequest {
+class SheetRequest<T> extends OverlayRequest<T> {
   SheetRequest({
     bool? showIconInMainButton,
     bool? showIconInSecondaryButton,
@@ -101,7 +109,9 @@ class SheetRequest extends OverlayRequest {
     String? secondaryButtonTitle,
     String? additionalButtonTitle,
     bool? takesInput,
-    dynamic customData,
+    @Deprecated('Prefer to use `data` and pass in a generic type.')
+        dynamic customData,
+    T? data,
     dynamic variant,
   }) : super(
           additionalButtonTitle: additionalButtonTitle,
@@ -117,5 +127,6 @@ class SheetRequest extends OverlayRequest {
           takesInput: takesInput,
           title: title,
           variant: variant,
+          data: data,
         );
 }

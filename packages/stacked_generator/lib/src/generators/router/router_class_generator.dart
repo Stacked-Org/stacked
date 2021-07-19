@@ -30,7 +30,7 @@ class RouterClassGenerator extends BaseGenerator {
 
   void _generateImports(List<RouteConfig> routes) {
     // write route imports
-    final imports = <String>{
+    final imports = <String?>{
       "package:stacked/stacked.dart",
       if (routes.any((e) =>
           e.routeType == RouteType.material || e.routeType == RouteType.custom))
@@ -41,7 +41,9 @@ class RouterClassGenerator extends BaseGenerator {
     routes.forEach((route) {
       imports.addAll(route.imports);
       if (route.transitionBuilder != null) {
-        imports.add(route.transitionBuilder!.import);
+        if (route.transitionBuilder!.import != null) {
+          imports.add(route.transitionBuilder!.import);
+        }
       }
       if (route.parameters != null) {
         route.parameters!.where((p) => p.imports != null).forEach((param) {
@@ -52,7 +54,8 @@ class RouterClassGenerator extends BaseGenerator {
       route.guards.forEach((g) => imports.add(g.import!));
     });
 
-    var validImports = imports.toSet();
+    var validImports =
+        imports.where((import) => import != null).toSet().cast<String>();
     var dartImports =
         validImports.where((element) => element.startsWith('dart')).toSet();
     sortAndGenerate(dartImports);
@@ -159,10 +162,10 @@ class RouterClassGenerator extends BaseGenerator {
         String getterName;
         if (param.isPathParam ?? false) {
           getterName =
-              "data.pathParams['${param.paramName}'].${param.getterName}${param.defaultValueCode != null ? '?? ${param.defaultValueCode}' : ''}";
+              "data.pathParams['${param.paramName}'].${param.getterName}(${param.defaultValueCode != null ? '${param.defaultValueCode}' : ''})";
         } else if (param.isQueryParam ?? false) {
           getterName =
-              "data.queryParams['${param.paramName}'].${param.getterName}${param.defaultValueCode != null ? '?? ${param.defaultValueCode}' : ''}";
+              "data.queryParams['${param.paramName}'].${param.getterName}(${param.defaultValueCode != null ? '${param.defaultValueCode}' : ''})";
         } else {
           getterName = "args.${param.name}";
         }

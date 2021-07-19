@@ -1,5 +1,47 @@
 # ChangeLog
 
+## 0.5.1
+
+- Added ability to pass parameter to factories with `FactoryWithParam`
+
+## 0.5.0
+
+- Fixes nullable type generation issue on `@PathParam` and `@QueryParam`
+
+## 0.4.9
+
+- Fixes Default parameter value generation bug on stacked router
+  [issue #411](https://github.com/FilledStacks/stacked/issues/411)
+
+## 0.4.8
+
+- Added ability to pass custom logger outputs to MultiLoggerOutput
+
+## 0.4.7
+
+- Use the default filter for the logger
+
+## 0.4.6
+
+- Added functionality to supply custom `locator` and `setupLocator` names.
+
+## 0.4.5
+
+- Fixed code generation issue from last release
+
+## 0.4.4
+
+- Fixes stacked version
+
+## 0.4.3
+
+- Added `Environment` on Dependency Injection
+
+## 0.4.2
+
+- Adds `initialValue` parameter for `FormTextField` to support initial value in the `TextEditingController`
+- Fixes `Route TransitionsBuilders` generation
+
 ## 0.4.1
 
 - Fixes regular expression bug causing function name not to show up in logs

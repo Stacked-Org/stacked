@@ -1,3 +1,30 @@
+## 0.8.11
+
+- Add `ignoreSafeArea` parameter to `showBottomSheet` and `showCustomSheet`, pass down to `get` bottomSheet method
+
+## 0.8.10
+
+- Pass down generic types to `NavigationService` methods along with the properties relevant to `get` router
+
+## 0.8.9
+
+- Exports `get` package
+
+## 0.8.8
+
+- Added generic type arguments for `OverlayResponse` and `OverlayRequest` for dialogs and bottom sheets
+- Deprecated `responseData` and added new property `data` that corresponds to that type provided
+- Added 2 generic type arguments for `showCustomDialog` and `showCustomSheet` 
+- The first generic type argument for `showCustomDialog` from `DialogService` is intended for the response `data` and the second generic type argument for `showCustomSheet` from `BottomSheetService` is intended for the request payload `data`
+
+## 0.8.7
+
+- Added `currentArguments` in NavigationService
+
+## 0.8.6
+
+- Fixes empty space on showSnackbar if title is not given
+
 ## 0.8.5
 
 - Adds prevent duplicates and parameters to `NavigationService`

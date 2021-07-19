@@ -19,7 +19,14 @@ class FormTextField extends FormField {
   /// Indicates if the [FormField] is a password field or not
   final bool? isPassword;
 
-  const FormTextField({String? name, this.isPassword}) : super(name: name);
+  /// Assigns initial value, `text` parameter in `TextEditingController`
+  final String? initialValue;
+
+  const FormTextField({
+    String? name,
+    this.isPassword,
+    this.initialValue,
+  }) : super(name: name);
 }
 
 /// Describes a date form field.

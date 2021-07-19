@@ -72,21 +72,22 @@ class BaseViewModel extends ChangeNotifier {
   /// Sets the ViewModel to busy, runs the future and then sets it to not busy when complete.
   ///
   /// rethrows [Exception] after setting busy to false for object or class
-  Future runBusyFuture(Future busyFuture,
+  Future<T> runBusyFuture<T>(Future<T> busyFuture,
       {Object? busyObject, bool throwException = false}) async {
     _setBusyForModelOrObject(true, busyObject: busyObject);
     try {
-      var value = await runErrorFuture(busyFuture,
+      var value = await runErrorFuture<T>(busyFuture,
           key: busyObject, throwException: throwException);
-      _setBusyForModelOrObject(false, busyObject: busyObject);
       return value;
     } catch (e) {
-      _setBusyForModelOrObject(false, busyObject: busyObject);
       if (throwException) rethrow;
+      return Future.value();
+    }finally{
+      _setBusyForModelOrObject(false, busyObject: busyObject);
     }
   }
 
-  Future runErrorFuture(Future future,
+  Future<T> runErrorFuture<T>(Future<T> future,
       {Object? key, bool throwException = false}) async {
     try {
       _setErrorForModelOrObject(null, key: key);
@@ -247,7 +248,7 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
     setBusy(true);
     notifyListeners();
 
-    _data = await (runBusyFuture(futureToRun(), throwException: true)
+    _data = await (runBusyFuture<T>(futureToRun(), throwException: true)
         .catchError((error) {
       setError(error);
       _error = error;

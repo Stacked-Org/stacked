@@ -6,8 +6,6 @@ import 'package:stacked_generator/src/generators/router/router_class_generator.d
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 
-const stackedRouteChecker = TypeChecker.fromRuntime(StackedRoute);
-
 class StackedRouterGenerator extends GeneratorForAnnotation<StackedApp> {
   @override
   dynamic generateForAnnotatedElement(

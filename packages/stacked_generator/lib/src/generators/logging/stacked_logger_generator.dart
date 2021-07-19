@@ -4,6 +4,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
+import 'package:stacked_generator/import_resolver.dart';
 
 import 'logger_class_generator.dart';
 import 'logger_config_resolver.dart';
@@ -16,8 +17,12 @@ class StackedLoggerGenerator extends GeneratorForAnnotation<StackedApp> {
     BuildStep buildStep,
   ) async {
     var loggerResolver = LoggerConfigResolver();
+    var libs = await buildStep.resolver.libraries.toList();
+    var importResolver = ImportResolver(libs, element.source?.uri.path ?? '');
+
     final loggerConfig = await loggerResolver.resolve(
       annotation,
+      importResolver,
     );
 
     if (loggerConfig != null) {

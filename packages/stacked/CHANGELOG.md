@@ -1,3 +1,53 @@
+## 2.2.3
+
+- Added ability to pass parameter to factories
+  Add service to `FactoryWithParam` in `StackedApp` and annotate paramaters with `@factoryParam` which needed to be passed in the Factory constructor
+- Improved error setting base functionality
+
+## 2.2.2
+
+- Added view model argument to `ViewModelBuilder` on method `onDispose` callback
+
+## 2.2.1
+
+- Replaced `dart:io` with `universal_io`
+
+## 2.2.0
+
+- Fixes nullable type generation issue on `@PathParam` and `@QueryParam`
+
+## 2.1.9
+
+- Added ability to pass custom logger outputs to MultiLoggerOutput
+
+## 2.1.8
+
+- Fixes `ReactiveServiceMixin` in Services to handle `ChangeNotifier` updates
+
+## 2.1.7
+
+- updates `get_it` to the latest
+
+## 2.1.6
+
+- `Environments` now will be automatically registered which eliminates the need to call `registerEnvironment` manually if generated `setupLocator` wasn't used
+
+## 2.1.5
+
+- Added functionality to supply custom `locator` and `setupLocator` names.
+
+## 2.1.4
+
+- Removes forced nullable type
+
+## 2.1.3
+
+- Added `Environment` on Dependency Injection
+
+## 2.1.2
+
+- Added return type for `runBusyFuture` and `runErrorFuture`
+
 ## 2.1.1
 
 - Exports Transition builders

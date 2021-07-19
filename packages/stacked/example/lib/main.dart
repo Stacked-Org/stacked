@@ -1,13 +1,14 @@
 // @dart=2.9
 
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'app/app.locator.dart';
 import 'app/app.router.dart';
 
 void main() {
-  setupLocator();
+  setupExampleLocator(environment: Environment.dev);
   runApp(MyApp());
 }
 

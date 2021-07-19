@@ -1,4 +1,6 @@
 const String LogHelperNameKey = 'logHelperName';
+const String MultiLoggerImports = 'MultiLoggerImport';
+const String MultipleLoggerOutput = 'MultiLoggerList';
 
 const String loggerClassContent = '''
 /// Maybe this should be generated for the user as well?
@@ -6,6 +8,9 @@ const String loggerClassContent = '''
 /// import 'package:customer_app/services/stackdriver/stackdriver_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
+
+$MultiLoggerImports
+
 
 class SimpleLogPrinter extends LogPrinter {
   final String className;
@@ -117,13 +122,6 @@ class MultipleLoggerOutput extends LogOutput {
   }
 }
 
-class LogAllTheTimeFilter extends LogFilter {
-  @override
-  bool shouldLog(LogEvent event) {
-    return true;
-  }
-}
-
 Logger $LogHelperNameKey(
   String className, {
   bool printCallingFunctionName = true,
@@ -132,7 +130,6 @@ Logger $LogHelperNameKey(
   String? showOnlyClass,
 }) {
   return Logger(
-    filter: LogAllTheTimeFilter(),
     printer: SimpleLogPrinter(
       className,
       printCallingFunctionName: printCallingFunctionName,
@@ -142,6 +139,7 @@ Logger $LogHelperNameKey(
     ),
     output: MultipleLoggerOutput([
       ConsoleOutput(),
+      $MultipleLoggerOutput
     ]),
   );
 }

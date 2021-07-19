@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -25,7 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   get_it: 
   injectable:
-  auto_route:
+  auto_route: ^0.6.9
 
   stacked_services:
     path: ../

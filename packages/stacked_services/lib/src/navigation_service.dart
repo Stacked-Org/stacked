@@ -38,6 +38,9 @@ class NavigationService {
   /// Returns the current route
   String get currentRoute => Get.currentRoute;
 
+  /// Returns the current arguments
+  dynamic get currentArguments => Get.arguments;
+
   /// Creates and/or returns a new navigator key based on the index passed in
   @Deprecated(
       'Prefer to use the StackedServices.nestedNavigationKey instead of using this property. This will be removed in the next major version update for stacked.')
@@ -93,19 +96,30 @@ class NavigationService {
   /// - rightToLeftWithFade
   /// - leftToRightWithFade
   /// - cupertino
-  Future<dynamic>? navigateWithTransition(Widget page,
-      {bool? opaque,
-      String transition = '',
-      Duration? duration,
-      bool? popGesture,
-      int? id}) {
-    return Get.to(
+  Future<T?>? navigateWithTransition<T>(
+    Widget page, {
+    bool? opaque,
+    String transition = '',
+    Duration? duration,
+    bool? popGesture,
+    int? id,
+    Curve? curve,
+    Bindings? binding,
+    bool fullscreenDialog = false,
+    bool preventDuplicates = true,
+    Transition? transitionClass,
+  }) {
+    return Get.to<T?>(
       () => page,
-      transition: _getTransitionOrDefault(transition),
+      transition: transitionClass ?? _getTransitionOrDefault(transition),
       duration: duration ?? Get.defaultTransitionDuration,
       popGesture: popGesture ?? Get.isPopGestureEnable,
       opaque: opaque ?? Get.isOpaqueRouteDefault,
       id: id,
+      preventDuplicates: preventDuplicates,
+      curve: curve,
+      binding: binding,
+      fullscreenDialog: fullscreenDialog,
     );
   }
 
@@ -113,25 +127,49 @@ class NavigationService {
   /// of routeName (String).
   ///
   /// Defined [transition] values can be accessed as static memebers of [NavigationTransition]
-  Future<dynamic>? replaceWithTransition(Widget page,
-      {bool? opaque,
-      String transition = '',
-      Duration? duration,
-      bool? popGesture,
-      int? id}) {
-    return Get.off(
+  ///
+  /// If you want to use the string directly. Defined [transition] values are
+  /// - fade
+  /// - rightToLeft
+  /// - leftToRight
+  /// - upToDown
+  /// - downToUp
+  /// - scale
+  /// - rotate
+  /// - size
+  /// - rightToLeftWithFade
+  /// - leftToRightWithFade
+  /// - cupertino
+  Future<T?>? replaceWithTransition<T>(
+    Widget page, {
+    bool? opaque,
+    String transition = '',
+    Duration? duration,
+    bool? popGesture,
+    int? id,
+    Curve? curve,
+    Bindings? binding,
+    bool fullscreenDialog = false,
+    bool preventDuplicates = true,
+    Transition? transitionClass,
+  }) {
+    return Get.off<T?>(
       () => page,
-      transition: _getTransitionOrDefault(transition),
+      transition: transitionClass ?? _getTransitionOrDefault(transition),
       duration: duration ?? Get.defaultTransitionDuration,
       popGesture: popGesture ?? Get.isPopGestureEnable,
       opaque: opaque ?? Get.isOpaqueRouteDefault,
       id: id,
+      preventDuplicates: preventDuplicates,
+      curve: curve,
+      binding: binding,
+      fullscreenDialog: fullscreenDialog,
     );
   }
 
   /// Pops the current scope and indicates if you can pop again
-  bool back({dynamic result, int? id}) {
-    Get.back(result: result, id: id);
+  bool back<T>({T? result, int? id}) {
+    Get.back<T>(result: result, id: id);
     return Get.key.currentState?.canPop() ?? false;
   }
 
@@ -146,14 +184,14 @@ class NavigationService {
   }
 
   /// Pushes [routeName] onto the navigation stack
-  Future<dynamic>? navigateTo(
+  Future<T?>? navigateTo<T>(
     String routeName, {
     dynamic arguments,
     int? id,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
   }) {
-    return Get.toNamed(
+    return Get.toNamed<T?>(
       routeName,
       arguments: arguments,
       id: id,
@@ -163,29 +201,43 @@ class NavigationService {
   }
 
   /// Pushes [view] onto the navigation stack
-  Future<dynamic>? navigateToView(
+  Future<T?>? navigateToView<T>(
     Widget view, {
     dynamic arguments,
     int? id,
+    bool? opaque,
+    Curve? curve,
+    Bindings? binding,
+    Duration? duration,
+    bool fullscreenDialog = false,
+    bool? popGesture,
     bool preventDuplicates = true,
+    Transition? transition,
   }) {
-    return Get.to(
+    return Get.to<T?>(
       () => view,
       arguments: arguments,
       id: id,
+      opaque: opaque,
       preventDuplicates: preventDuplicates,
+      curve: curve,
+      binding: binding,
+      duration: duration,
+      fullscreenDialog: fullscreenDialog,
+      popGesture: popGesture,
+      transition: transition,
     );
   }
 
   /// Replaces the current route with the [routeName]
-  Future<dynamic>? replaceWith(
+  Future<T?>? replaceWith<T>(
     String routeName, {
     dynamic arguments,
     int? id,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
   }) {
-    return Get.offNamed(
+    return Get.offNamed<T?>(
       routeName,
       arguments: arguments,
       id: id,
@@ -195,13 +247,13 @@ class NavigationService {
   }
 
   /// Clears the entire back stack and shows [routeName]
-  Future<dynamic>? clearStackAndShow(
+  Future<T?>? clearStackAndShow<T>(
     String routeName, {
     dynamic arguments,
     int? id,
     Map<String, String>? parameters,
   }) {
-    return Get.offAllNamed(
+    return Get.offAllNamed<T?>(
       routeName,
       arguments: arguments,
       id: id,
@@ -210,7 +262,7 @@ class NavigationService {
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [routeName] onto the stack
-  Future<dynamic>? clearTillFirstAndShow(
+  Future<T?>? clearTillFirstAndShow<T>(
     String routeName, {
     dynamic arguments,
     int? id,
@@ -219,7 +271,7 @@ class NavigationService {
   }) {
     _clearBackstackTillFirst();
 
-    return navigateTo(
+    return navigateTo<T?>(
       routeName,
       arguments: arguments,
       id: id,
@@ -229,17 +281,17 @@ class NavigationService {
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [view] onto the stack
-  Future<dynamic>? clearTillFirstAndShowView(Widget view,
+  Future<T?>? clearTillFirstAndShowView<T>(Widget view,
       {dynamic arguments, int? id}) {
     _clearBackstackTillFirst();
 
-    return navigateToView(view, arguments: arguments, id: id);
+    return navigateToView<T?>(view, arguments: arguments, id: id);
   }
 
   /// Push route and clear stack until predicate is satisfied
-  Future<dynamic>? pushNamedAndRemoveUntil(String routeName,
+  Future<T?>? pushNamedAndRemoveUntil<T>(String routeName,
       {RoutePredicate? predicate, dynamic arguments, int? id}) {
-    return Get.offAllNamed(
+    return Get.offAllNamed<T?>(
       routeName,
       predicate: predicate,
       arguments: arguments,

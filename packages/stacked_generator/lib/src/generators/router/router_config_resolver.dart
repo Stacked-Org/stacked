@@ -2,9 +2,8 @@ import 'package:analyzer/dart/constant/value.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
+import 'package:stacked_generator/utils.dart';
 import 'package:source_gen/source_gen.dart';
-
-import '../../../utils.dart';
 
 /// Extracts and holds router configs
 /// to be used in [RouterClassGenerator]

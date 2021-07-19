@@ -1,5 +1,6 @@
 name: new_architecture
 description: A new Flutter project.
+publish_to: none
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -26,7 +27,7 @@ dependencies:
 
   # state management
   stacked:
-    path: ../
+    # path: ../
   stacked_services:
     # path: ../../stacked_services/
   stacked_hooks:
@@ -34,7 +35,8 @@ dependencies:
   stacked_themes:
     ^0.3.2
     # path: ../../stacked_themes/
-
+  stacked_crashlytics:
+    # path: ../../stacked_crashlytics/
   # navigation
   get:
 
@@ -48,7 +50,7 @@ dev_dependencies:
   # dependency injection
   build_runner:
   stacked_generator:
-    path: ../../stacked_generator
+    # path: ../../stacked_generator
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
