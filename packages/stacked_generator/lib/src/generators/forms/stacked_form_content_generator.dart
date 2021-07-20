@@ -150,6 +150,7 @@ class StackedFormContentGenerator extends BaseGenerator {
 
     for (final field in fields) {
       writeLine('${_getControllerName(field)}.dispose();');
+      writeLine('${_getFocusNodeName(field)}.dispose();');
     }
 
     writeLine('}');
@@ -229,6 +230,7 @@ class StackedFormContentGenerator extends BaseGenerator {
   }
 
   String _getControllerName(FieldConfig field) => '${field.name}Controller';
+  String _getFocusNodeName(FieldConfig field) => '${field.name}FocusNode';
   String _getControllerInitialValue(TextFieldConfig field) =>
       field.initialValue != null ? "text:'${field.initialValue!}'" : "";
 
