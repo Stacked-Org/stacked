@@ -1,4 +1,5 @@
 import 'package:new_architecture/services/epoch_service.dart';
+import 'package:new_architecture/services/factory_service.dart';
 import 'package:new_architecture/services/information_service.dart';
 import 'package:new_architecture/ui/bottom_nav/bottom_nav_example.dart';
 import 'package:new_architecture/ui/bottom_nav/favorites/favorites_viewmodel.dart';
@@ -10,6 +11,7 @@ import 'package:new_architecture/ui/nonreactive/nonreactive_view.dart';
 import 'package:new_architecture/ui/stream_view/stream_counter_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
+import 'package:stacked_crashlytics/stacked_crashlytics.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
@@ -30,7 +32,10 @@ import 'package:stacked_themes/stacked_themes.dart';
     // Lazy singletons
     LazySingleton(classType: DialogService),
     LazySingleton(classType: BottomSheetService),
-    LazySingleton(classType: InformationService),
+    // LazySingleton(
+    //   classType: InformationService,
+    //   dispose: disposeInformationService,
+    // ),
     LazySingleton(
         classType: NavigationService, environments: {Environment.dev}),
     LazySingleton(classType: EpochService),
@@ -38,7 +43,8 @@ import 'package:stacked_themes/stacked_themes.dart';
       classType: ThemeService,
       resolveUsing: ThemeService.getInstance,
     ),
-
+    LazySingleton(classType: InformationService),
+    FactoryWithParam(classType: FactoryService),
     // singletons
     Singleton(classType: HistoryViewModel),
     Singleton(classType: FavoritesViewModel),

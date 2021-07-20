@@ -1,6 +1,6 @@
 name: stacked_crashlytics
 description: A package that provides a Crashlytics Service as well as a LogOuput.
-version: 0.1.0
+version: 0.1.2
 homepage: https://github.com/FilledStacks/stacked
 
 environment:

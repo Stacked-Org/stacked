@@ -1,4 +1,5 @@
 import 'package:example/app/locator.dart';
+import 'package:example/ui/setup_dialog_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -97,6 +98,34 @@ class DialogView extends StatelessWidget {
                 },
                 child: Text(
                   'Show Custom Text Dialog',
+                ),
+              ),
+              Text(
+                'Press the button below to show a Custom Generic dialog',
+                softWrap: true,
+                style: TextStyle(
+                  fontSize: 14,
+                ),
+              ),
+              OutlinedButton(
+                onPressed: () async {
+                  final response = await _dialogService.showCustomDialog<
+                      GenericDialogResponse, GenericDialogRequest>(
+                    variant: DialogType.Generic,
+                    title:
+                        'This is a custom Generic UI with Text as main button',
+                    description:
+                        'Sheck out the builder in the dialog_ui_register.dart file',
+                    mainButtonTitle: 'Ok',
+                    showIconInMainButton: false,
+                    barrierDismissible: true,
+                    data: GenericDialogRequest(),
+                  );
+
+                  print(response.data.message);
+                },
+                child: Text(
+                  'Show Generic Dialog',
                 ),
               ),
               OutlinedButton(

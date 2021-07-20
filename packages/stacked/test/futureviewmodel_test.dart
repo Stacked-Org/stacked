@@ -3,7 +3,7 @@ import 'package:stacked/stacked.dart';
 
 const _SingleFutureExceptionFailMessage = 'Future to Run failed';
 
-class TestFutureViewModel extends FutureViewModel<int> {
+class TestFutureViewModel extends FutureViewModel<int?> {
   final bool fail;
   final bool shouldRethrow;
   TestFutureViewModel({
@@ -18,7 +18,7 @@ class TestFutureViewModel extends FutureViewModel<int> {
   bool get rethrowException => shouldRethrow;
 
   @override
-  Future<int> futureToRun() async {
+  Future<int?> futureToRun() async {
     if (fail) throw Exception(_SingleFutureExceptionFailMessage);
     await Future.delayed(Duration(milliseconds: 20));
     return numberToReturn;

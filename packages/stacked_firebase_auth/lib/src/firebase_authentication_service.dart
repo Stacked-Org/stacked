@@ -61,6 +61,11 @@ class FirebaseAuthenticationService {
     return firebaseAuth.currentUser != null;
   }
 
+  /// Exposes the authStateChanges functionality.
+  Stream<User?> get authStateChanges {
+    return firebaseAuth.authStateChanges();
+  }
+
   /// Returns `true` when email has a user registered
   Future<bool> emailExists(String email) async {
     try {
@@ -364,6 +369,11 @@ class FirebaseAuthenticationService {
   /// Update the [password] of the Firebase User
   Future updatePassword(String password) async {
     await firebaseAuth.currentUser?.updatePassword(password);
+  }
+
+  /// Update the [email] of the Firebase User
+  Future updateEmail(String email) async {
+    await firebaseAuth.currentUser?.updateEmail(email);
   }
 
   /// Generates a cryptographically secure random nonce, to be included in a

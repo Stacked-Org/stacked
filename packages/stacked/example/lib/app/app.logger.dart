@@ -120,13 +120,6 @@ class MultipleLoggerOutput extends LogOutput {
   }
 }
 
-class LogAllTheTimeFilter extends LogFilter {
-  @override
-  bool shouldLog(LogEvent event) {
-    return true;
-  }
-}
-
 Logger getLogger(
   String className, {
   bool printCallingFunctionName = true,
@@ -135,7 +128,6 @@ Logger getLogger(
   String? showOnlyClass,
 }) {
   return Logger(
-    filter: LogAllTheTimeFilter(),
     printer: SimpleLogPrinter(
       className,
       printCallingFunctionName: printCallingFunctionName,

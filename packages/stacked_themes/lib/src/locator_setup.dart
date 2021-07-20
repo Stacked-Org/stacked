@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:stacked_themes/src/services/platform_service.dart';
 import 'package:stacked_themes/src/services/shared_preferences_service.dart';
 import 'package:stacked_themes/src/services/statusbar_service.dart';
 
@@ -10,4 +11,5 @@ Future setupLocator() async {
   locator.registerSingleton(sharedPreferences);
 
   locator.registerLazySingleton(() => StatusBarService());
+  locator.registerLazySingleton(() => PlatformService());
 }

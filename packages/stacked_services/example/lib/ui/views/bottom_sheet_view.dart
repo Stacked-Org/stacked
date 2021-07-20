@@ -3,6 +3,8 @@ import 'package:example/enums/bottomsheet_type.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../setup_bottom_sheet_ui.dart';
+
 class BottomSheetView extends StatelessWidget {
   BottomSheetView({Key key}) : super(key: key);
 
@@ -82,6 +84,33 @@ class BottomSheetView extends StatelessWidget {
             },
             child: Text(
               'Show Custom Bottom Sheet',
+            ),
+          ),
+          Text(
+            'Press the button below to show one of the generic custom sheets',
+            softWrap: true,
+            style: TextStyle(
+              fontSize: 14,
+            ),
+          ),
+          OutlinedButton(
+            onPressed: () async {
+              final response = await _bottomSheetService.showCustomSheet<
+                  GenericBottomSheetResponse, GenericBottomSheetRequest>(
+                variant: BottomSheetType.Generic,
+                title: 'This is a generic bottom sheet',
+                description:
+                    'This sheet is a custom built bottom sheet UI that allows you to show it from any service or viewmodel.',
+                mainButtonTitle: 'Awesome!',
+                secondaryButtonTitle: 'This is cool',
+              );
+
+              print('confirmationResponse confirmed: ${response?.confirmed}');
+
+              print('response ${response.data.message}');
+            },
+            child: Text(
+              'Show Generic Custom Bottom Sheet',
             ),
           ),
         ],

@@ -28,6 +28,7 @@ class BottomSheetService {
     bool isScrollControlled = false,
     Duration? exitBottomSheetDuration,
     Duration? enterBottomSheetDuration,
+    bool? ignoreSafeArea,
   }) {
     return Get.bottomSheet<SheetResponse?>(
       Material(
@@ -55,11 +56,23 @@ class BottomSheetService {
       enableDrag: barrierDismissible && enableDrag,
       exitBottomSheetDuration: exitBottomSheetDuration,
       enterBottomSheetDuration: enterBottomSheetDuration,
+      ignoreSafeArea: ignoreSafeArea,
     );
   }
 
-  // Creates a popup with the given widget, a scale animation, and faded background.
-  Future<SheetResponse?> showCustomSheet({
+  /// Creates a popup with the given widget, a scale animation, and faded background.
+  ///
+  /// The first generic type argument will be the [BottomSheetResponse]
+  /// while the second generic type argument is the [BottomSheetRequest]
+  ///
+  /// e.g.
+  /// ```dart
+  /// await _bottomSheetService.showCustomSheet<GenericBottomSheetResponse, GenericBottomSheetRequest>();
+  /// ```
+  ///
+  /// Where [GenericBottomSheetResponse] is a defined model response,
+  /// and [GenericBottomSheetRequest] is the request model.
+  Future<SheetResponse<T>?> showCustomSheet<T, R>({
     dynamic variant,
     String? title,
     String? description,
@@ -76,10 +89,12 @@ class BottomSheetService {
     bool barrierDismissible = true,
     bool isScrollControlled = false,
     String barrierLabel = '',
-    dynamic customData,
+    @Deprecated('Use `data` and pass in a generic type.') dynamic customData,
+    R? data,
     bool enableDrag = true,
     Duration? exitBottomSheetDuration,
     Duration? enterBottomSheetDuration,
+    bool? ignoreSafeArea,
   }) {
     assert(
       _sheetBuilders != null,
@@ -95,12 +110,12 @@ class BottomSheetService {
 
     final sheetBuilder = _sheetBuilders![variant];
 
-    return Get.bottomSheet<SheetResponse>(
+    return Get.bottomSheet<SheetResponse<T>>(
       Material(
         type: MaterialType.transparency,
         child: sheetBuilder!(
           Get.context!,
-          SheetRequest(
+          SheetRequest<R>(
             title: title,
             description: description,
             hasImage: hasImage,
@@ -114,6 +129,7 @@ class BottomSheetService {
             takesInput: takesInput,
             customData: customData,
             variant: variant,
+            data: data,
           ),
           completeSheet,
         ),
@@ -123,6 +139,7 @@ class BottomSheetService {
       enableDrag: barrierDismissible && enableDrag,
       exitBottomSheetDuration: exitBottomSheetDuration,
       enterBottomSheetDuration: enterBottomSheetDuration,
+      ignoreSafeArea: ignoreSafeArea,
     );
   }
 
