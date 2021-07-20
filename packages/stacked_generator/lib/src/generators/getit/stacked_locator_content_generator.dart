@@ -2,6 +2,7 @@ import 'package:stacked_generator/src/generators/base_generator.dart';
 import 'package:stacked_generator/src/generators/enums/dependency_type.dart';
 import 'package:stacked_generator/src/generators/getit/dependency_config.dart';
 import 'package:stacked_generator/src/generators/getit/services_config.dart';
+import 'package:stacked_generator/utils.dart';
 
 class StackedLocatorContentGenerator extends BaseGenerator {
   final String locatorName;
@@ -71,6 +72,8 @@ class StackedLocatorContentGenerator extends BaseGenerator {
     final String _formattedEnvs =
         _getFromatedEnvs(dependencyDefinition.environments ?? {});
 
+    final _params = _getParameters(dependencyDefinition);
+
     switch (dependencyDefinition.type) {
       case DependencyType.LazySingleton:
         return '$locatorName.registerLazySingleton$abstractionType(() => $singletonInstanceToReturn $_formattedEnvs);';
@@ -81,6 +84,12 @@ class StackedLocatorContentGenerator extends BaseGenerator {
         ''';
       case DependencyType.Factory:
         return '$locatorName.registerFactory$abstractionType(() => ${dependencyDefinition.className}()  $_formattedEnvs);';
+      case DependencyType.FactoryWithParam:
+        throwIf(
+          _params["params"]?.isEmpty ?? true,
+          "At least one paramter is requerd for FactoryWithParam registration ",
+        );
+        return '$locatorName.registerFactoryParam<${dependencyDefinition.className},${_params["paramTypes"]}>$abstractionType((param1, param2) => ${dependencyDefinition.className}(${_params["params"]})  $_formattedEnvs);';
       case DependencyType.Singleton:
       default:
         return '$locatorName.registerSingleton$abstractionType($singletonInstanceToReturn  $_formattedEnvs);';
@@ -106,6 +115,52 @@ class StackedLocatorContentGenerator extends BaseGenerator {
     return _envString.toString();
   }
 
+  Map<String, String> _getParameters(DependencyConfig dependencyConfig) {
+    final factoryParamList =
+        dependencyConfig.params?.where((element) => element.isFactoryParam);
+    final int paramLength = factoryParamList?.length ?? 0;
+
+    throwIf(
+      paramLength > 2,
+      "Max number of factory params supported by get_it is 2",
+    );
+
+    final Set<String> constructorParams = {};
+    final List<String> constructorParamTypes = [];
+    factoryParamList!.toList().asMap().forEach((index, param) {
+      String getterName;
+
+      throwIf(
+        !param.type!.contains("?"),
+        "Factory params must be nullable. Parameter ${param.name} is not nullable",
+      );
+
+      getterName =
+          "param${index + 1}${param.defaultValueCode != null ? ' ?? ${param.defaultValueCode}' : ''}";
+
+      if (param.isPositional) {
+        constructorParams.add(getterName);
+      } else {
+        constructorParams.add('${param.name}:$getterName');
+      }
+
+      constructorParamTypes.add('${param.type}');
+    });
+
+    if (paramLength == 1) {
+      constructorParamTypes.add('dynamic');
+    }
+
+    final params = constructorParams.toString().replaceAll(RegExp('[{}]'), '');
+    final paramtypes =
+        constructorParamTypes.toString().replaceAll(RegExp(r'[\[\]]'), '');
+
+    return {
+      "params": params,
+      "paramTypes": paramtypes,
+    };
+  }
+
   void _generateImports(List<DependencyConfig> services) {
     // write route imports
     final imports = <String?>{
@@ -115,6 +170,16 @@ class StackedLocatorContentGenerator extends BaseGenerator {
 
     imports.addAll(services.map((service) => service.import));
     imports.addAll(services.map((service) => service.abstractedImport));
+
+    services.forEach((element) {
+      if (element.params != null) {
+        element.params!.forEach((im) {
+          if (im.imports != null) {
+            imports.addAll(im.imports!);
+          }
+        });
+      }
+    });
 
     var validImports =
         imports.where((import) => import != null).toSet().cast<String>();

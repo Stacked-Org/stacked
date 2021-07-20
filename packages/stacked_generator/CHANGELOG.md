@@ -4,6 +4,8 @@
 
 - Adds `orElse` handler in the logger `realFirstLine` variable to fix [issue #455](https://github.com/FilledStacks/stacked/issues/455)
 - Disposes the focusNodes while calling `disposeForm`
+- Added ability to pass parameter to factories with `FactoryWithParam`
+
 ## 0.5.0
 
 - Fixes nullable type generation issue on `@PathParam` and `@QueryParam`

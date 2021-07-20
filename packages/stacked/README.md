@@ -1108,6 +1108,39 @@ static Future<SharedPreferencesService> getInstance() async {
 }
 ```
 
+You can also pass in a parameters for to Factories through locator using `FactoryWithParam` and annotate paramaters with `@factoryParam`
+
+```dart
+FactoryWithParam(classType: FactoryService),
+```
+
+Annotate paramaters with `@factoryParam`
+
+```dart
+class FactoryService {
+  final String? key;
+  final double? value;
+
+  FactoryService({
+    @factoryParam this.key,
+    @factoryParam this.value,
+  });
+}
+
+```
+
+Then those parameters can be accessed with locator from any where as `param1` and `param2`
+
+```dart
+final _factoryService = exampleLocator<FactoryService>(param1: "Key", param2: "Value");
+```
+
+The generated code will look like this
+
+```dart
+exampleLocator.registerFactoryParam<FactoryService, String?, double?>((param1, param2) => FactoryService(key: param1, value: param2));
+```
+
 You can also pass in a `resolveFunction` for singleton registrations which takes a static `Function`. This would produce something like this
 
 ```dart

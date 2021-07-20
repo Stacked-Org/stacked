@@ -3,4 +3,5 @@ enum DependencyType {
   LazySingleton,
   Singleton,
   PresolvedSingleton,
+  FactoryWithParam,
 }
