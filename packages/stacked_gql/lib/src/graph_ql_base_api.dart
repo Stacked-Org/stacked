@@ -17,12 +17,14 @@ abstract class GraphQlBaseApi {
     required String query,
     String? actionName,
     bool logResponseData = false,
+    Function(QueryResult response)? onRowResponse,
   }) async {
     return _runGQLRequest<RT>(
       query: query,
       parseData: (data) => responseParser.parseSingleResponse<RT>(data),
       actionName: actionName,
       logResponseData: logResponseData,
+      onRowResponse: onRowResponse,
     );
   }
 
@@ -38,12 +40,14 @@ abstract class GraphQlBaseApi {
     required String query,
     String? actionName,
     bool logResponseData = false,
+    Function(QueryResult response)? onRowResponse,
   }) async {
     return _runGQLRequest<List<RT>>(
       query: query,
       parseData: (data) => responseParser.parseListResponse<RT>(data),
       actionName: actionName,
       logResponseData: logResponseData,
+      onRowResponse: onRowResponse,
     );
   }
 
@@ -52,6 +56,7 @@ abstract class GraphQlBaseApi {
     required T Function(Map<String, dynamic>?) parseData,
     String? actionName,
     bool logResponseData = false,
+    Function(QueryResult response)? onRowResponse,
   }) async {
     final functionIdentity = actionName ?? query;
     if (await (ensureAuthCookieIsSet())) {
@@ -60,7 +65,7 @@ abstract class GraphQlBaseApi {
           document: gql(query),
           fetchPolicy: FetchPolicy.networkOnly,
           cacheRereadPolicy: CacheRereadPolicy.ignoreAll));
-
+      onRowResponse?.call(response);
       baseLogger?.v(
           'RESPONSE:$actionName - hasData: ${response.data != null} ${logResponseData ? "data:${response.data}" : ''}');
 
@@ -101,6 +106,7 @@ abstract class GraphQlBaseApi {
     Map<String, dynamic> variables = const {},
     String? actionName,
     bool logResponseData = false,
+    Function(QueryResult response)? onRowResponse,
   }) async {
     final functionIdentity = actionName ?? mutation;
     if (await (ensureAuthCookieIsSet())) {
@@ -111,6 +117,7 @@ abstract class GraphQlBaseApi {
       );
 
       final QueryResult response = await client.mutate(options);
+      onRowResponse?.call(response);
 
       baseLogger?.v(
           'RESPONSE:$actionName - hasData: ${response.data != null} ${logResponseData ? "data:${response.data}" : ''}');
