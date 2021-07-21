@@ -1,3 +1,7 @@
+## 0.8.12
+
+- Remove useRootNavigator from Dialog Service
+
 ## 0.8.11
 
 - Add `ignoreSafeArea` parameter to `showBottomSheet` and `showCustomSheet`, pass down to `get` bottomSheet method
