@@ -17,14 +17,16 @@ abstract class GraphQlBaseApi {
     required String query,
     String? actionName,
     bool logResponseData = false,
-    Function(QueryResult response)? onRowResponse,
+    Map<String, dynamic> variables = const {},
+    Function(QueryResult response)? onRawResponse,
   }) async {
     return _runGQLRequest<RT>(
       query: query,
       parseData: (data) => responseParser.parseSingleResponse<RT>(data),
       actionName: actionName,
+      variables: variables,
       logResponseData: logResponseData,
-      onRowResponse: onRowResponse,
+      onRawResponse: onRawResponse,
     );
   }
 
@@ -40,14 +42,16 @@ abstract class GraphQlBaseApi {
     required String query,
     String? actionName,
     bool logResponseData = false,
-    Function(QueryResult response)? onRowResponse,
+    Map<String, dynamic> variables = const {},
+    Function(QueryResult response)? onRawResponse,
   }) async {
     return _runGQLRequest<List<RT>>(
       query: query,
       parseData: (data) => responseParser.parseListResponse<RT>(data),
       actionName: actionName,
       logResponseData: logResponseData,
-      onRowResponse: onRowResponse,
+      variables: variables,
+      onRawResponse: onRawResponse,
     );
   }
 
@@ -56,16 +60,21 @@ abstract class GraphQlBaseApi {
     required T Function(Map<String, dynamic>?) parseData,
     String? actionName,
     bool logResponseData = false,
-    Function(QueryResult response)? onRowResponse,
+    Map<String, dynamic> variables = const {},
+    Function(QueryResult response)? onRawResponse,
   }) async {
     final functionIdentity = actionName ?? query;
     if (await (ensureAuthCookieIsSet())) {
       baseLogger?.v('REQUEST:$actionName - query:$query');
-      var response = await client.query(QueryOptions(
+      var response = await client.query(
+        QueryOptions(
           document: gql(query),
+          variables: variables,
           fetchPolicy: FetchPolicy.networkOnly,
-          cacheRereadPolicy: CacheRereadPolicy.ignoreAll));
-      onRowResponse?.call(response);
+          cacheRereadPolicy: CacheRereadPolicy.ignoreAll,
+        ),
+      );
+      onRawResponse?.call(response);
       baseLogger?.v(
           'RESPONSE:$actionName - hasData: ${response.data != null} ${logResponseData ? "data:${response.data}" : ''}');
 
