@@ -1,9 +1,12 @@
 # ChangeLog
 
-## 0.5.1
+## 0.5.2
 
 - Adds `orElse` handler in the logger `realFirstLine` variable to fix [issue #455](https://github.com/FilledStacks/stacked/issues/455)
 - Disposes the focusNodes while calling `disposeForm`
+## 0.5.1
+
+
 - Added ability to pass parameter to factories with `FactoryWithParam`
 
 ## 0.5.0
