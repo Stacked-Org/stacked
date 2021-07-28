@@ -1,5 +1,8 @@
 ## 0.2.5
 
+- Bump dependencies to latest
+## 0.2.5
+
 - Anonymous Login Added
 
 ## 0.2.4
