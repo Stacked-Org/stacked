@@ -1,6 +1,7 @@
-## 0.2.5
+## 0.2.8
 
 - Bump dependencies to latest
+## 0.2.7
 - Anonymous Login Added
 
 ## 0.2.4
