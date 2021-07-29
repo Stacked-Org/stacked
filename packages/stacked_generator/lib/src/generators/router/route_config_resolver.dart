@@ -90,7 +90,6 @@ class RouteConfigResolver {
       }
     });
 
-    // final returnType = stackedRoute.objectValue.type?.typeArguments.first;
     final returnType = stackedRoute.objectValue.type;
     routeConfig.returnType =
         returnType!.getDisplayString(withNullability: true);
