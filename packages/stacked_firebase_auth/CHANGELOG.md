@@ -1,6 +1,11 @@
+## 0.2.8
+
+- Bump dependencies to latest
+
 ## 0.2.7
 
 - Added a method `updateEmail` to update firebase user email address.
+
 ## 0.2.6
 
 - Expose authStateChanges from FirebaseAuth
