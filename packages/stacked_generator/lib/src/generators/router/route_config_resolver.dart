@@ -91,8 +91,8 @@ class RouteConfigResolver {
     });
 
     final returnType = stackedRoute.objectValue.type;
-    routeConfig.returnType =
-        returnType!.getDisplayString(withNullability: true);
+    routeConfig.returnType = toDisplayString(returnType!);
+
 
     if (routeConfig.returnType != 'dynamic') {
       routeConfig.imports.addAll(_importResolver.resolveAll(returnType));
