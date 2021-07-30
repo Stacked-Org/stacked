@@ -366,6 +366,11 @@ class FirebaseAuthenticationService {
     await firebaseAuth.currentUser?.updatePassword(password);
   }
 
+  /// Update the [email] of the Firebase User
+  Future updateEmail(String email) async {
+    await firebaseAuth.currentUser?.updateEmail(email);
+  }
+
   /// Generates a cryptographically secure random nonce, to be included in a
   /// credential request.
   String generateNonce([int length = 32]) {
