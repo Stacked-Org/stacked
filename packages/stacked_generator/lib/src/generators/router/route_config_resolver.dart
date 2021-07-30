@@ -90,8 +90,9 @@ class RouteConfigResolver {
       }
     });
 
-    final returnType = stackedRoute.objectValue.type?.typeArguments.first;
-    routeConfig.returnType = toDisplayString(returnType!);
+    final returnType = stackedRoute.objectValue.type;
+    routeConfig.returnType =
+        returnType!.getDisplayString(withNullability: true);
 
     if (routeConfig.returnType != 'dynamic') {
       routeConfig.imports.addAll(_importResolver.resolveAll(returnType));
