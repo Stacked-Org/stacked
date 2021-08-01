@@ -1,3 +1,8 @@
+## 0.8.13
+
+- Updated `get` to latest package version
+- Fixed bug on unknown `Get.reference` and `route.name`
+
 ## 0.8.12
 
 - Remove useRootNavigator from Dialog Service
