@@ -36,6 +36,53 @@ class TestViewModel extends BaseViewModel {
 
 void main() {
   group('BaseViewModel Tests -', () {
+    group('Skeleton data functionality -', () {
+      test(
+          'when skeletonData is called with realData null should return busyData',
+          () {
+        var viewModel = TestViewModel();
+        var data = viewModel.skeletonData(realData: null, busyData: 'Test');
+        expect(data, 'Test');
+      });
+      test(
+          'when skeletonData is called and model is busy should return busyData',
+          () {
+        var viewModel = TestViewModel();
+        viewModel.setBusy(true);
+        var data =
+            viewModel.skeletonData(realData: 'Real Data', busyData: 'Test');
+        expect(data, 'Test');
+      });
+      test(
+          'when skeletonData is called and Key passed is busy should return busyData',
+          () {
+        var viewModel = TestViewModel();
+        const String TEST_KEY = 'test-key';
+        viewModel.setBusyForObject(TEST_KEY, true);
+        var data = viewModel.skeletonData(
+            realData: 'Real Data', busyData: 'Test', busyKey: TEST_KEY);
+        expect(data, 'Test');
+      });
+      test(
+          'when skeletonData is called and Key passed is not busy but model is busy should return realData',
+          () {
+        var viewModel = TestViewModel();
+        const String TEST_KEY = 'test-key';
+        viewModel.setBusyForObject(TEST_KEY, false);
+        viewModel.setBusy(true);
+        var data = viewModel.skeletonData(
+            realData: 'Real Data', busyData: 'Test', busyKey: TEST_KEY);
+        expect(data, 'Real Data');
+      });
+      test(
+          'when skeletonData is called and model is not busy and real data is not null should return realData',
+          () {
+        var viewModel = TestViewModel();
+        var data =
+            viewModel.skeletonData(realData: 'Real Data', busyData: 'Test');
+        expect(data, 'Real Data');
+      });
+    });
     group('Busy functionality -', () {
       test('When setBusy is called with true isBusy should be true', () {
         var viewModel = TestViewModel();
