@@ -115,7 +115,7 @@ abstract class GraphQlBaseApi {
     Map<String, dynamic> variables = const {},
     String? actionName,
     bool logResponseData = false,
-    Function(QueryResult response)? onRowResponse,
+    Function(QueryResult response)? onRawResponse,
   }) async {
     final functionIdentity = actionName ?? mutation;
     if (await (ensureAuthCookieIsSet())) {
@@ -126,7 +126,7 @@ abstract class GraphQlBaseApi {
       );
 
       final QueryResult response = await client.mutate(options);
-      onRowResponse?.call(response);
+      onRawResponse?.call(response);
 
       baseLogger?.v(
           'RESPONSE:$actionName - hasData: ${response.data != null} ${logResponseData ? "data:${response.data}" : ''}');
@@ -210,6 +210,7 @@ abstract class GraphQlBaseApi {
       message: finalErrorMessage,
       query: mutation,
       queryName: functionIdentity,
+      response: response.data,
       stackTrace: StackTrace.current,
     );
   }
@@ -220,15 +221,18 @@ class GraphQlException implements Exception {
   final String? query;
   final String? queryName;
   final StackTrace? stackTrace;
+  final Map<String, dynamic>? response;
+
   GraphQlException({
     required this.message,
     this.stackTrace,
     this.query,
     this.queryName,
+    this.response,
   });
 
   @override
   String toString() {
-    return 'GraphQlException: $message\nqueryName:$queryName\nquery:$query\stackTrace:$stackTrace';
+    return 'GraphQlException: $message\nqueryName:$queryName\nquery:$query\stackTrace:$stackTrace\nresponse:$response';
   }
 }
