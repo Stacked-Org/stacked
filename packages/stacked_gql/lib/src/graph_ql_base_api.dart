@@ -84,28 +84,28 @@ abstract class GraphQlBaseApi {
         } catch (e, stacktrace) {
           baseLogger?.e('$functionIdentity failed: $e');
 
-          return Future.error(GraphQlException(
+          throw GraphQlException(
             message: e.toString(),
             query: query,
             queryName: functionIdentity,
             stackTrace: stacktrace,
-          ));
+          );
         }
       } else {
-        return Future.error(_getErrorExceptionFromResponse(
+        throw _getErrorExceptionFromResponse(
           functionIdentity: functionIdentity,
           mutation: query,
           response: response,
-        ));
+        );
       }
     } else {
       var error = 'Cookies are invalid';
       baseLogger?.e(error);
-      return Future.error(GraphQlException(
+      throw GraphQlException(
         message: error,
         query: query,
         queryName: functionIdentity,
-      ));
+      );
     }
   }
 
@@ -139,39 +139,37 @@ abstract class GraphQlBaseApi {
         } catch (e, stackTrack) {
           baseLogger?.e('$functionIdentity failed: $e');
 
-          return Future.error(GraphQlException(
+          throw GraphQlException(
             message: e.toString(),
             query: mutation,
             queryName: functionIdentity,
             stackTrace: stackTrack,
-          ));
+          );
         }
       } else {
         if (response.exception != null) {
-          return Future.error(_getErrorExceptionFromResponse(
+          throw _getErrorExceptionFromResponse(
             functionIdentity: functionIdentity,
             mutation: mutation,
             response: response,
-          ));
+          );
         }
 
-        return Future.error(
-          GraphQlException(
-            message: 'Unkown error has occured',
-            query: mutation,
-            queryName: functionIdentity,
-            stackTrace: StackTrace.current,
-          ),
+        throw GraphQlException(
+          message: 'Unkown error has occured',
+          query: mutation,
+          queryName: functionIdentity,
+          stackTrace: StackTrace.current,
         );
       }
     } else {
       var error = 'Cookies are invalid';
       baseLogger?.e(error);
-      return Future.error(GraphQlException(
+      throw GraphQlException(
         message: error,
         query: mutation,
         queryName: functionIdentity,
-      ));
+      );
     }
   }
 
@@ -210,7 +208,6 @@ abstract class GraphQlBaseApi {
       message: finalErrorMessage,
       query: mutation,
       queryName: functionIdentity,
-      response: response.data,
       stackTrace: StackTrace.current,
     );
   }
@@ -221,18 +218,15 @@ class GraphQlException implements Exception {
   final String? query;
   final String? queryName;
   final StackTrace? stackTrace;
-  final Map<String, dynamic>? response;
-
   GraphQlException({
     required this.message,
     this.stackTrace,
     this.query,
     this.queryName,
-    this.response,
   });
 
   @override
   String toString() {
-    return 'GraphQlException: $message\nqueryName:$queryName\nquery:$query\stackTrace:$stackTrace\nresponse:$response';
+    return 'GraphQlException: $message\nqueryName:$queryName\nquery:$query\stackTrace:$stackTrace';
   }
 }
