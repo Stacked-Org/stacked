@@ -403,7 +403,9 @@ class FirebaseAuthenticationResult {
   final String? errorMessage;
   final String? exceptionCode;
 
-  FirebaseAuthenticationResult({this.user}) : errorMessage = null;
+  FirebaseAuthenticationResult({this.user})
+      : errorMessage = null,
+        exceptionCode = null;
 
   FirebaseAuthenticationResult.error({this.errorMessage, this.exceptionCode})
       : user = null;
