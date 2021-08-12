@@ -7,6 +7,7 @@ export 'src/state_management/reactive_service_mixin.dart';
 export 'src/state_management/view_model_builder.dart';
 export 'src/state_management/view_model_builder_widget.dart';
 export 'src/state_management/view_model_widget.dart';
+export 'src/state_management/skeleton_loader.dart';
 
 export 'src/code_generation/router/extended_navigator.dart';
 export 'src/code_generation/router/router_base.dart';

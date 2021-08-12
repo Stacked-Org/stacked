@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/dialog/dialog_route.dart';
+import 'package:get/get_navigation/src/router_report.dart';
 
 String? _extractRouteName(Route? route) {
   if (route?.settings.name != null) {
@@ -12,11 +13,11 @@ String? _extractRouteName(Route? route) {
   }
 
   if (route is GetDialogRoute) {
-    return route.name;
+    return 'DIALOG ${route.hashCode}';
   }
 
   if (route is GetModalBottomSheetRoute) {
-    return route.name;
+    return 'BOTTOMSHEET ${route.hashCode}';
   }
 
   return null;
@@ -58,7 +59,7 @@ class StackObserver extends NavigatorObserver {
     super.didPush(route, previousRoute);
     final newRoute = _RouteData.ofRoute(route);
 
-    Get.reference = newRoute.name;
+    RouterReportManager.reportCurrentRoute(route);
     _routeSend?.update((value) {
       if (route is PageRoute) {
         value.current = newRoute.name ?? '';
@@ -81,7 +82,7 @@ class StackObserver extends NavigatorObserver {
     super.didPop(route, previousRoute);
     final newRoute = _RouteData.ofRoute(previousRoute);
 
-    Get.reference = newRoute.name;
+    RouterReportManager.reportCurrentRoute(route);
     _routeSend?.update((value) {
       if (previousRoute is PageRoute) {
         value.current = _extractRouteName(previousRoute) ?? '';
@@ -105,7 +106,7 @@ class StackObserver extends NavigatorObserver {
     final oldName = _extractRouteName(oldRoute);
     final currentRoute = _RouteData.ofRoute(oldRoute);
 
-    Get.reference = newName;
+    if (newRoute != null) RouterReportManager.reportCurrentRoute(newRoute);
     _routeSend?.update((value) {
       if (newRoute is PageRoute) {
         value.current = newName ?? '';

@@ -201,7 +201,6 @@ class DialogService {
       transitionDuration: const Duration(milliseconds: 200),
       barrierDismissible: barrierDismissible,
       barrierLabel: barrierLabel,
-      useRootNavigator: true,
       pageBuilder: (BuildContext buildContext, _, __) => SafeArea(
         key: Key('dialog_view'),
         child: Builder(

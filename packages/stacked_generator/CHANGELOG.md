@@ -1,6 +1,13 @@
 # ChangeLog
 
+## 0.5.2
+
+- Adds `orElse` handler in the logger `realFirstLine` variable to fix [issue #455](https://github.com/FilledStacks/stacked/issues/455)
+- Disposes the focusNodes while calling `disposeForm`
+- Update analyzer dependency to `analyzer: ^2.0` (you can upgrade json_serialization to 5.0 without dependency conflicts)
+
 ## 0.5.1
+
 
 - Added ability to pass parameter to factories with `FactoryWithParam`
 
