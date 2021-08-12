@@ -1,4 +1,4 @@
-## 0.3.0
+## 0.2.10
  - Initailized Firebase Auth Exceptions error code.
 ## 0.2.9
  - Added Firebase Auth Exceptions error code to FirebaseAuthenticationResult
