@@ -1,3 +1,6 @@
+## 0.2.9
+ - Added Firebase Auth Exceptions error code to FirebaseAuthenticationResult
+
 ## 0.2.8
 
 - Bump dependencies to latest
