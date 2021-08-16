@@ -100,4 +100,25 @@ class TransitionsBuilders {
       Animation<double> secondaryAnimation, Widget child) {
     return ScaleTransition(scale: animation, child: child);
   }
+
+  static const RouteTransitionsBuilder moveInLeft = _moveInLeft;
+  static Widget _moveInLeft(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    Tween<Offset> t1 = Tween<Offset>(
+      begin: const Offset(1.0, 0.0),
+      end: const Offset(0.0, 0.0),
+    );
+    Tween<Offset> t5 = Tween<Offset>(
+      begin: const Offset(0.0, 0.0),
+      end: const Offset(-1.0, 0.0),
+    );
+    return SlideTransition(
+      position: t1.animate(animation),
+      child: SlideTransition(
+        position: t5.animate(secondaryAnimation),
+        child: child,
+      ),
+    );
+  }
+
 }
