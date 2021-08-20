@@ -18,6 +18,7 @@ class SkeletonLoader extends StatefulWidget {
   final double? width;
   final double? height;
   final double? widthFactor;
+  final bool ignorePointer;
   const SkeletonLoader({
     Key? key,
     required this.loading,
@@ -29,6 +30,7 @@ class SkeletonLoader extends StatefulWidget {
     this.width,
     this.height,
     this.widthFactor,
+    this.ignorePointer = false,
   }) : super(key: key);
 
   @override
@@ -98,39 +100,42 @@ class _SkeletonLoaderState<T> extends State<SkeletonLoader>
       });
     }
 
-    return AnimatedCrossFade(
-      duration: const Duration(milliseconds: 500),
-      alignment: Alignment.centerLeft,
-      crossFadeState: widget.loading || _transitionToNewWidget
-          ? CrossFadeState.showFirst
-          : CrossFadeState.showSecond,
-      firstChild: ShaderMask(
-        child: SizedBox(
-          width: widget.width,
-          height: widget.height,
-          child: FractionallySizedBox(
-            widthFactor: widget.widthFactor,
-            child: CustomPaint(
-              // child: widget.child,
-              foregroundPainter: RectangleFillPainter(widget.borderRadius),
+    return IgnorePointer(
+      ignoring: widget.ignorePointer,
+      child: AnimatedCrossFade(
+        duration: const Duration(milliseconds: 500),
+        alignment: Alignment.centerLeft,
+        crossFadeState: widget.loading || _transitionToNewWidget
+            ? CrossFadeState.showFirst
+            : CrossFadeState.showSecond,
+        firstChild: ShaderMask(
+          child: SizedBox(
+            width: widget.width,
+            height: widget.height,
+            child: FractionallySizedBox(
+              widthFactor: widget.widthFactor,
+              child: CustomPaint(
+                // child: widget.child,
+                foregroundPainter: RectangleFillPainter(widget.borderRadius),
+              ),
             ),
           ),
+          blendMode: BlendMode.srcATop,
+          shaderCallback: (rect) {
+            return LinearGradient(
+              colors: [
+                animationOne.value!,
+                animationTwo.value!,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ).createShader(rect);
+          },
         ),
-        blendMode: BlendMode.srcATop,
-        shaderCallback: (rect) {
-          return LinearGradient(
-            colors: [
-              animationOne.value!,
-              animationTwo.value!,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ).createShader(rect);
-        },
-      ),
-      secondChild: Container(
-        constraints: BoxConstraints(minWidth: 50),
-        child: widget.child,
+        secondChild: Container(
+          constraints: BoxConstraints(minWidth: 50),
+          child: widget.child,
+        ),
       ),
     );
   }
