@@ -1,3 +1,5 @@
+## 2.2.5
+- Added IgnorePointer to Skeleton Loader Widget
 ## 2.2.4
 - Added Skeleton Loader Widget to show a shimmer when data is loading
 - Added skeletonData on viewmodels for busy data values
