@@ -1,3 +1,8 @@
+## 0.3.7
+
+- Added `navigationBarColorBuilder` to change navigationbar color. 
+- Fixed `statusBarColorBuilder` and `navigationBarColorBuilder` won't execute if user changes theme from notification panel.
+
 ## 0.3.6
 
 - Replaced `dart:io` with `universal_io`

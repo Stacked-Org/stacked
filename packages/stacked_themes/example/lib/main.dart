@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 import 'package:themes_example/app/locator.dart';
 import 'package:themes_example/ui/dark_light/dark_light_view.dart';
-import 'package:themes_example/ui/multiple_themes/multiple_themes_view.dart';
 import 'package:themes_example/ui/theme_setup.dart';
 
 Future main() async {
@@ -27,7 +25,8 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.blue[300],
         accentColor: Colors.yellow[300],
       ),
-      statusBarColorBuilder: (theme) => theme.accentColor,
+      statusBarColorBuilder: (theme) => theme?.accentColor,
+      navigationBarColorBuilder: (theme) => theme?.accentColor,
       themes: getThemes(),
       builder: (context, regularTheme, darkTheme, themeMode) => MaterialApp(
         title: 'Flutter Demo',

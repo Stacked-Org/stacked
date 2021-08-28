@@ -90,16 +90,23 @@ class _ThemeBuilderState extends State<ThemeBuilder>
     super.didChangeAppLifecycleState(state);
 
     switch (state) {
-      case AppLifecycleState.inactive:
-        break;
       case AppLifecycleState.resumed:
         adjustSystemThemeIfNecessary();
         break;
+      case AppLifecycleState.inactive:
       case AppLifecycleState.paused:
-        break;
       case AppLifecycleState.detached:
         break;
     }
+  }
+
+  // We need to override this in order to detect brighteness changes
+  // from notigication bar. This will be triggered whenever user changes
+  // platform brighteness.
+  @override
+  void didChangePlatformBrightness() {
+    super.didChangePlatformBrightness();
+    adjustSystemThemeIfNecessary();
   }
 
   //NOTE: re-apply the appropriate theme when the application gets back into the foreground
