@@ -1,3 +1,5 @@
+import 'dart:async';
+
 /// The class to describe a service registration on the get_it locator
 
 class Environment {
@@ -23,12 +25,18 @@ class DependencyRegistration {
   final Function? resolveUsing;
 
   final Set<String>? environments;
+  final Function? dispose;
+  final Type? param1;
+  final Type? param2;
 
   const DependencyRegistration({
     this.environments,
     this.classType,
     this.asType,
     this.resolveUsing,
+    this.dispose,
+    this.param1,
+    this.param2,
   });
 }
 
@@ -48,12 +56,13 @@ class Singleton extends DependencyRegistration {
 }
 
 /// Registers the type passed in as a LazySingleton instance in the get_it locator
-class LazySingleton extends DependencyRegistration {
+class LazySingleton<T> extends DependencyRegistration {
   const LazySingleton({
     Type? classType,
     Type? asType,
     Function? resolveUsing,
     Set<String>? environments,
+    FutureOr Function(T)? dispose,
   }) : super(
           classType: classType,
           asType: asType,
@@ -74,6 +83,30 @@ class Factory extends DependencyRegistration {
           environments: environments,
         );
 }
+
+/// Registers the type passed in as a Factory in the get_it locator
+class FactoryWithParam extends DependencyRegistration {
+  const FactoryWithParam({
+    Type? asType,
+    Type? classType,
+    Set<String>? environments,
+  }) : super(
+          asType: asType,
+          classType: classType,
+          environments: environments,
+        );
+}
+
+/// Marks a constructor param as
+/// factoryParam so it can be passed
+/// to the resolver function
+class FactoryParam {
+  const FactoryParam._();
+}
+
+/// const instance of [FactoryParam]
+/// with default arguments
+const factoryParam = FactoryParam._();
 
 /// Registers the type passed in to be presolved using the function passed in
 class Presolve extends DependencyRegistration {

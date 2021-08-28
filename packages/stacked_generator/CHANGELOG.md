@@ -1,5 +1,25 @@
 # ChangeLog
 
+## 0.5.2
+
+- Adds `orElse` handler in the logger `realFirstLine` variable to fix [issue #455](https://github.com/FilledStacks/stacked/issues/455)
+- Disposes the focusNodes while calling `disposeForm`
+- Update analyzer dependency to `analyzer: ^2.0` (you can upgrade json_serialization to 5.0 without dependency conflicts)
+
+## 0.5.1
+
+
+- Added ability to pass parameter to factories with `FactoryWithParam`
+
+## 0.5.0
+
+- Fixes nullable type generation issue on `@PathParam` and `@QueryParam`
+
+## 0.4.9
+
+- Fixes Default parameter value generation bug on stacked router
+  [issue #411](https://github.com/FilledStacks/stacked/issues/411)
+
 ## 0.4.8
 
 - Added ability to pass custom logger outputs to MultiLoggerOutput

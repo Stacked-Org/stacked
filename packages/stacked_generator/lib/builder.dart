@@ -1,10 +1,9 @@
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
+import 'package:stacked_generator/src/generators/forms/stacked_form_generator.dart';
 import 'package:stacked_generator/src/generators/getit/stacked_locator_generator.dart';
 import 'package:stacked_generator/src/generators/logging/stacked_logger_generator.dart';
-
-import 'src/generators/forms/stacked_form_generator.dart';
-import 'src/generators/router/stacked_router_generator.dart';
+import 'package:stacked_generator/src/generators/router/stacked_router_generator.dart';
 
 Builder stackedRouterGenerator(BuilderOptions options) {
   return LibraryBuilder(

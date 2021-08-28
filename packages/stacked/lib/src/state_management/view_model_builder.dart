@@ -11,10 +11,10 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   /// Fires once when the ViewModel is created or set for the first time
   ///
   /// If you want this to fire everytime the widget is inserted set [createNewModelOnInsert] to true
-  final Function(T)? onModelReady;
+  final Function(T model)? onModelReady;
 
   /// Builder function with access to the ViewModel to build UI form
-  final Widget Function(BuildContext, T, Widget?) builder;
+  final Widget Function(BuildContext context, T model, Widget? child) builder;
 
   /// A builder function that returns the ViewModel for this widget
   final T Function() viewModelBuilder;
@@ -43,14 +43,14 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
 
   /// Fires when the widget has been removed from the widget tree and allows you to dispose
   /// of any controllers or state values that need disposing
-  final Function()? onDispose;
+  final Function(T model)? onDispose;
 
   /// Constructs a ViewModel provider that will not rebuild the provided widget when notifyListeners is called.
   ///
   /// Widget from [builder] will be used as a static child and won't rebuild when notifyListeners is called
   const ViewModelBuilder.nonReactive({
-    required this.builder,
     required this.viewModelBuilder,
+    required this.builder,
     this.onModelReady,
     this.onDispose,
     this.disposeViewModel = true,
@@ -64,8 +64,8 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
 
   /// Constructs a ViewModel provider that fires the [builder] function when notifyListeners is called in the ViewModel.
   const ViewModelBuilder.reactive({
-    required this.builder,
     required this.viewModelBuilder,
+    required this.builder,
     this.staticChild,
     this.onModelReady,
     this.onDispose,
@@ -130,7 +130,7 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
   @override
   void dispose() {
     super.dispose();
-    widget.onDispose?.call();
+    widget.onDispose?.call(_viewModel!);
   }
 
   @override

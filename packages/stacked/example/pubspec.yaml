@@ -27,7 +27,7 @@ dependencies:
 
   # state management
   stacked:
-    path: ../
+    # path: ../
   stacked_services:
     # path: ../../stacked_services/
   stacked_hooks:
@@ -35,8 +35,8 @@ dependencies:
   stacked_themes:
     ^0.3.2
     # path: ../../stacked_themes/
-  stacked_crashlytics: 
-    path: ../../stacked_crashlytics/
+  stacked_crashlytics:
+    # path: ../../stacked_crashlytics/
   # navigation
   get:
 
@@ -50,7 +50,7 @@ dev_dependencies:
   # dependency injection
   build_runner:
   stacked_generator:
-    path: ../../stacked_generator
+    # path: ../../stacked_generator
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

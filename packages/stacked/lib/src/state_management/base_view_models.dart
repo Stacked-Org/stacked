@@ -44,6 +44,19 @@ class BaseViewModel extends ChangeNotifier {
     setErrorForObject(this, error);
   }
 
+  /// returns real data passed if neither the model is busy nor the object passed is busy
+  T skeletonData<T>(
+      {required T? realData, required T busyData, Object? busyKey}) {
+    /// If busyKey is supplied we check busy(busyKey) to see if that property is busy
+    /// If it is we return busyData, else realData
+    bool isBusyKeySupplied = busyKey != null;
+    if ((isBusyKeySupplied && busy(busyKey)) || realData == null)
+      return busyData;
+    else if (!isBusyKeySupplied && isBusy) return busyData;
+
+    return realData;
+  }
+
   /// Returns a boolean that indicates if the ViewModel has an error for the key
   bool hasErrorForKey(Object key) => error(key) != null;
 
@@ -78,12 +91,12 @@ class BaseViewModel extends ChangeNotifier {
     try {
       var value = await runErrorFuture<T>(busyFuture,
           key: busyObject, throwException: throwException);
-      _setBusyForModelOrObject(false, busyObject: busyObject);
       return value;
     } catch (e) {
-      _setBusyForModelOrObject(false, busyObject: busyObject);
       if (throwException) rethrow;
       return Future.value();
+    } finally {
+      _setBusyForModelOrObject(false, busyObject: busyObject);
     }
   }
 

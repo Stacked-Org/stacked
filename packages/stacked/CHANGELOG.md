@@ -1,3 +1,26 @@
+## 2.2.5
+- Added IgnorePointer to Skeleton Loader Widget
+## 2.2.4
+- Added Skeleton Loader Widget to show a shimmer when data is loading
+- Added skeletonData on viewmodels for busy data values
+## 2.2.3
+
+- Added ability to pass parameter to factories
+  Add service to `FactoryWithParam` in `StackedApp` and annotate paramaters with `@factoryParam` which needed to be passed in the Factory constructor
+- Improved error setting base functionality
+
+## 2.2.2
+
+- Added view model argument to `ViewModelBuilder` on method `onDispose` callback
+
+## 2.2.1
+
+- Replaced `dart:io` with `universal_io`
+
+## 2.2.0
+
+- Fixes nullable type generation issue on `@PathParam` and `@QueryParam`
+
 ## 2.1.9
 
 - Added ability to pass custom logger outputs to MultiLoggerOutput

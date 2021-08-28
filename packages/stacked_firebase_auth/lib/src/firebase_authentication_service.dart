@@ -61,6 +61,11 @@ class FirebaseAuthenticationService {
     return firebaseAuth.currentUser != null;
   }
 
+  /// Exposes the authStateChanges functionality.
+  Stream<User?> get authStateChanges {
+    return firebaseAuth.authStateChanges();
+  }
+
   /// Returns `true` when email has a user registered
   Future<bool> emailExists(String email) async {
     try {
@@ -189,6 +194,7 @@ class FirebaseAuthenticationService {
     } on FirebaseAuthException catch (e) {
       log?.e('A firebase exception has occured. $e');
       return FirebaseAuthenticationResult.error(
+          exceptionCode: e.code.toLowerCase(),
           errorMessage: getErrorMessageFromFirebaseException(e));
     } on Exception catch (e) {
       log?.e('A general exception has occured. $e');
@@ -221,6 +227,7 @@ class FirebaseAuthenticationService {
     } on FirebaseAuthException catch (e) {
       log?.e('A firebase exception has occured. $e');
       return FirebaseAuthenticationResult.error(
+          exceptionCode: e.code.toLowerCase(),
           errorMessage: getErrorMessageFromFirebaseException(e));
     } on Exception catch (e) {
       log?.e('A general exception has occured. $e');
@@ -249,6 +256,7 @@ class FirebaseAuthenticationService {
     } on FirebaseAuthException catch (e) {
       log?.e('A firebase exception has occured. $e');
       return FirebaseAuthenticationResult.error(
+          exceptionCode: e.code.toLowerCase(),
           errorMessage: getErrorMessageFromFirebaseException(e));
     } on Exception catch (e) {
       log?.e('A general exception has occured. $e');
@@ -261,7 +269,10 @@ class FirebaseAuthenticationService {
   Future<FirebaseAuthenticationResult> _handleAccountExists(
       FirebaseAuthException e) async {
     if (e.code != 'account-exists-with-different-credential') {
-      return FirebaseAuthenticationResult.error(errorMessage: e.toString());
+      return FirebaseAuthenticationResult.error(
+        exceptionCode: e.code.toLowerCase(),
+        errorMessage: e.toString(),
+      );
     }
 
     // The account already exists with a different credential
@@ -361,6 +372,11 @@ class FirebaseAuthenticationService {
     await firebaseAuth.currentUser?.updatePassword(password);
   }
 
+  /// Update the [email] of the Firebase User
+  Future updateEmail(String email) async {
+    await firebaseAuth.currentUser?.updateEmail(email);
+  }
+
   /// Generates a cryptographically secure random nonce, to be included in a
   /// credential request.
   String generateNonce([int length = 32]) {
@@ -385,10 +401,14 @@ class FirebaseAuthenticationResult {
 
   /// Contains the error message for the request
   final String? errorMessage;
+  final String? exceptionCode;
 
-  FirebaseAuthenticationResult({this.user}) : errorMessage = null;
+  FirebaseAuthenticationResult({this.user})
+      : errorMessage = null,
+        exceptionCode = null;
 
-  FirebaseAuthenticationResult.error({this.errorMessage}) : user = null;
+  FirebaseAuthenticationResult.error({this.errorMessage, this.exceptionCode})
+      : user = null;
 
   /// Returns true if the response has an error associated with it
   bool get hasError => errorMessage != null && errorMessage!.isNotEmpty;
