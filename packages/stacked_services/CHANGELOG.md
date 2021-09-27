@@ -1,3 +1,6 @@
+## 0.8.14
+
+- Updated `get` to latest package version
 ## 0.8.13
 
 - Updated `get` to latest package version
