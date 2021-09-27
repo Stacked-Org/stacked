@@ -14,35 +14,22 @@ class SkeletonLoader extends StatefulWidget {
   final Color startColor;
   final Color endColor;
   final Duration duration;
-  final double borderRadius;
-  final double? width;
-  final double? height;
-  final double? widthFactor;
-  final bool ignorePointer;
   const SkeletonLoader({
     Key? key,
-    required this.loading,
     required this.child,
+    required this.loading,
     this.duration = const Duration(seconds: 1),
     this.startColor = _veryLightGrey,
     this.endColor = _lightGrey,
-    this.borderRadius = 5.0,
-    this.width,
-    this.height,
-    this.widthFactor,
-    this.ignorePointer = false,
   }) : super(key: key);
 
   @override
   _SkeletonLoaderState createState() => _SkeletonLoaderState();
 }
 
-class _SkeletonLoaderState<T> extends State<SkeletonLoader>
+class _SkeletonLoaderState extends State<SkeletonLoader>
     with TickerProviderStateMixin {
-  late AnimationController _controller = AnimationController(
-    duration: widget.duration,
-    vsync: this,
-  );
+  late AnimationController _controller;
   late Animation<Color?> animationOne;
   late Animation<Color?> animationTwo;
 
@@ -53,6 +40,10 @@ class _SkeletonLoaderState<T> extends State<SkeletonLoader>
   @override
   void initState() {
     super.initState();
+    _controller = AnimationController(
+      duration: widget.duration,
+      vsync: this,
+    );
 
     // Store the loading widget we first constructed with
     if (_initialWidget == null) {
@@ -81,7 +72,9 @@ class _SkeletonLoaderState<T> extends State<SkeletonLoader>
   Widget build(BuildContext context) {
     // Check if it's updated
     if (widget.child != _initialWidget && widget.loading) {
+      // print('&^&^&^&^&   -     Widget UPDATED!!');
       // Indicate that we want to transition to a new widget
+
       _transitionToNewWidget = true;
 
       _initialWidget = widget.child;
@@ -101,42 +94,30 @@ class _SkeletonLoaderState<T> extends State<SkeletonLoader>
     }
 
     return IgnorePointer(
-      ignoring: widget.ignorePointer,
-      child: AnimatedCrossFade(
-        duration: const Duration(milliseconds: 500),
-        alignment: Alignment.centerLeft,
-        crossFadeState: widget.loading || _transitionToNewWidget
-            ? CrossFadeState.showFirst
-            : CrossFadeState.showSecond,
-        firstChild: ShaderMask(
-          child: SizedBox(
-            width: widget.width,
-            height: widget.height,
-            child: FractionallySizedBox(
-              widthFactor: widget.widthFactor,
-              child: CustomPaint(
-                // child: widget.child,
-                foregroundPainter: RectangleFillPainter(widget.borderRadius),
-              ),
-            ),
-          ),
-          blendMode: BlendMode.srcATop,
-          shaderCallback: (rect) {
-            return LinearGradient(
-              colors: [
-                animationOne.value!,
-                animationTwo.value!,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ).createShader(rect);
-          },
-        ),
-        secondChild: Container(
-          constraints: BoxConstraints(minWidth: 50),
-          child: widget.child,
-        ),
-      ),
+      ignoring: widget.loading,
+      child: AnimatedSize(
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeOut,
+          // We only want to show this if the widget is loading OR if the widget is busy with the transition.
+          child: widget.loading || _transitionToNewWidget
+              ? AnimatedSize(
+                  duration: Duration(milliseconds: 450),
+                  curve: Curves.easeOut,
+                  child: ShaderMask(
+                    child: CustomPaint(
+                      child: widget.child,
+                      foregroundPainter: RectangleFillPainter(),
+                    ),
+                    blendMode: BlendMode.srcATop,
+                    shaderCallback: (rect) {
+                      return LinearGradient(colors: [
+                        animationOne.value!,
+                        animationTwo.value!,
+                      ]).createShader(rect);
+                    },
+                  ),
+                )
+              : widget.child),
     );
   }
 
@@ -149,17 +130,13 @@ class _SkeletonLoaderState<T> extends State<SkeletonLoader>
 }
 
 class RectangleFillPainter extends CustomPainter {
-  final double borderRadius;
-  RectangleFillPainter(this.borderRadius);
-
   bool hasPainted = true;
-
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(0, 0, size.width, size.height),
-          Radius.circular(borderRadius),
+          Radius.circular(15.0),
         ),
         Paint()..color = Colors.grey);
   }
