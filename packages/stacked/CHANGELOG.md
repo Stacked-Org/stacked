@@ -1,8 +1,20 @@
+## 2.2.7
+
+- Fixes non-reactive `ViewModelBuilderWidget`
+
+## 2.2.6
+
+- Optimized skeleton loader to be dynamic
+
 ## 2.2.5
-- Add 'moveInLeft' page transition builder
+
+- Added IgnorePointer to Skeleton Loader Widget
+
 ## 2.2.4
+
 - Added Skeleton Loader Widget to show a shimmer when data is loading
 - Added skeletonData on viewmodels for busy data values
+
 ## 2.2.3
 
 - Added ability to pass parameter to factories

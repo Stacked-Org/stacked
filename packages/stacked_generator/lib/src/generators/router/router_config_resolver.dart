@@ -75,6 +75,8 @@ class RouterConfigResolver {
       globalRouteConfig.routeType = RouteType.custom;
       globalRouteConfig.durationInMilliseconds =
           stackedApp.peek('durationInMilliseconds')?.intValue;
+      globalRouteConfig.reverseDurationInMilliseconds =
+          stackedApp.peek('reverseDurationInMilliseconds')?.intValue;
       globalRouteConfig.customRouteOpaque =
           stackedApp.peek('opaque')?.boolValue;
       globalRouteConfig.customRouteBarrierDismissible =

@@ -266,6 +266,17 @@ class RouterClassGenerator extends BaseGenerator {
   }
 
   void _generateRouteBuilder(RouteConfig r, String constructor) {
+    if (r.returnType != null && r.returnType!.contains('<')) {
+      if (r.returnType!.contains('CustomRoute') ||
+          r.returnType!.contains('MaterialRoute') ||
+          r.returnType!.contains('CupertinoRoute') ||
+          r.returnType!.contains('AdaptiveRoute')) {
+        // get the correct return type
+        final type = r.returnType!.substring(
+            r.returnType!.indexOf('<') + 1, r.returnType!.indexOf('>'));
+        r.returnType = type;
+      }
+    }
     final returnType = r.returnType ?? 'dynamic';
     if (r.routeType == RouteType.cupertino) {
       write(
@@ -299,6 +310,10 @@ class RouterClassGenerator extends BaseGenerator {
       if (r.durationInMilliseconds != null) {
         write(
             'transitionDuration: const Duration(milliseconds: ${r.durationInMilliseconds}),');
+      }
+      if (r.reverseDurationInMilliseconds != null) {
+        write(
+            'reverseTransitionDuration: const Duration(milliseconds: ${r.reverseDurationInMilliseconds}),');
       }
     }
     // generated shared props
