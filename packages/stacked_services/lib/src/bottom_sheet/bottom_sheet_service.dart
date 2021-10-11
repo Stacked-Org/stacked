@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stacked_services/src/models/overlay_request.dart';
 import 'package:stacked_services/src/models/overlay_response.dart';
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 
 import 'bottom_sheet_ui.dart';
 
@@ -57,6 +59,11 @@ class BottomSheetService {
       exitBottomSheetDuration: exitBottomSheetDuration,
       enterBottomSheetDuration: enterBottomSheetDuration,
       ignoreSafeArea: ignoreSafeArea,
+      settings: RouteSettings(
+          name: 'general_${_hashConcateator([
+            title,
+            description,
+          ])}'),
     );
   }
 
@@ -111,36 +118,42 @@ class BottomSheetService {
     final sheetBuilder = _sheetBuilders![variant];
 
     return Get.bottomSheet<SheetResponse<T>>(
-      Material(
-        type: MaterialType.transparency,
-        child: sheetBuilder!(
-          Get.context!,
-          SheetRequest<R>(
-            title: title,
-            description: description,
-            hasImage: hasImage,
-            imageUrl: imageUrl,
-            showIconInMainButton: showIconInMainButton,
-            mainButtonTitle: mainButtonTitle,
-            showIconInSecondaryButton: showIconInSecondaryButton,
-            secondaryButtonTitle: secondaryButtonTitle,
-            showIconInAdditionalButton: showIconInAdditionalButton,
-            additionalButtonTitle: additionalButtonTitle,
-            takesInput: takesInput,
-            customData: customData,
-            variant: variant,
-            data: data,
+        Material(
+          type: MaterialType.transparency,
+          child: sheetBuilder!(
+            Get.context!,
+            SheetRequest<R>(
+              title: title,
+              description: description,
+              hasImage: hasImage,
+              imageUrl: imageUrl,
+              showIconInMainButton: showIconInMainButton,
+              mainButtonTitle: mainButtonTitle,
+              showIconInSecondaryButton: showIconInSecondaryButton,
+              secondaryButtonTitle: secondaryButtonTitle,
+              showIconInAdditionalButton: showIconInAdditionalButton,
+              additionalButtonTitle: additionalButtonTitle,
+              takesInput: takesInput,
+              customData: customData,
+              variant: variant,
+              data: data,
+            ),
+            completeSheet,
           ),
-          completeSheet,
         ),
-      ),
-      isDismissible: barrierDismissible,
-      isScrollControlled: isScrollControlled,
-      enableDrag: barrierDismissible && enableDrag,
-      exitBottomSheetDuration: exitBottomSheetDuration,
-      enterBottomSheetDuration: enterBottomSheetDuration,
-      ignoreSafeArea: ignoreSafeArea,
-    );
+        isDismissible: barrierDismissible,
+        isScrollControlled: isScrollControlled,
+        enableDrag: barrierDismissible && enableDrag,
+        exitBottomSheetDuration: exitBottomSheetDuration,
+        enterBottomSheetDuration: enterBottomSheetDuration,
+        ignoreSafeArea: ignoreSafeArea,
+        settings: RouteSettings(
+            name: '$variant\_${_hashConcateator([
+              title,
+              description,
+              mainButtonTitle,
+              secondaryButtonTitle,
+            ])}'));
   }
 
   /// Check if bottomsheet is open
@@ -150,4 +163,12 @@ class BottomSheetService {
   void completeSheet(SheetResponse response) {
     Get.back(result: response);
   }
+}
+
+String _hashConcateator(List<String?> objects) {
+  return _generateMd5(objects.join(''));
+}
+
+String _generateMd5(String input) {
+  return md5.convert(utf8.encode(input)).toString();
 }
