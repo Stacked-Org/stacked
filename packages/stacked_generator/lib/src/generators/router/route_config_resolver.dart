@@ -93,7 +93,6 @@ class RouteConfigResolver {
     final returnType = stackedRoute.objectValue.type;
     routeConfig.returnType = toDisplayString(returnType!);
 
-
     if (routeConfig.returnType != 'dynamic') {
       routeConfig.imports.addAll(_importResolver.resolveAll(returnType));
     }
@@ -113,6 +112,8 @@ class RouteConfigResolver {
       routeConfig.routeType = RouteType.custom;
       routeConfig.durationInMilliseconds =
           stackedRoute.peek('durationInMilliseconds')?.intValue;
+      routeConfig.reverseDurationInMilliseconds =
+          stackedRoute.peek('reverseDurationInMilliseconds')?.intValue;
       routeConfig.customRouteOpaque = stackedRoute.peek('opaque')?.boolValue;
       routeConfig.customRouteBarrierDismissible =
           stackedRoute.peek('barrierDismissible')?.boolValue;
@@ -139,6 +140,8 @@ class RouteConfigResolver {
       if (globConfig?.routeType == RouteType.custom) {
         routeConfig.transitionBuilder = globConfig?.transitionBuilder;
         routeConfig.durationInMilliseconds = globConfig?.durationInMilliseconds;
+        routeConfig.reverseDurationInMilliseconds =
+            globConfig?.reverseDurationInMilliseconds;
         routeConfig.customRouteBarrierDismissible =
             globConfig?.customRouteBarrierDismissible;
         routeConfig.customRouteOpaque = globConfig?.customRouteOpaque;

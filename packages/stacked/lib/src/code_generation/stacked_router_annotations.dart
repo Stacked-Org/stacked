@@ -82,6 +82,10 @@ class CustomRouter extends StackedRouterAnnotation {
   /// this property is ignored unless a [transitionBuilder] is provided
   final int? durationInMilliseconds;
 
+  /// route transition reverse duration in milliseconds
+  /// is passed to [PageRouteBuilder]
+  final int? reverseDurationInMilliseconds;
+
   /// passed to the opaque property in [PageRouteBuilder]
   final bool? opaque;
 
@@ -92,6 +96,7 @@ class CustomRouter extends StackedRouterAnnotation {
       {this.transitionsBuilder,
       this.barrierDismissible,
       this.durationInMilliseconds,
+      this.reverseDurationInMilliseconds,
       this.opaque,
       bool? generateNavigationHelperExtension,
       String? routesClassName,
@@ -236,6 +241,10 @@ class CustomRoute<T> extends StackedRoute<T> {
   /// this property is ignored unless a [transitionBuilder] is provided
   final int? durationInMilliseconds;
 
+  /// route transition reverse duration in milliseconds
+  /// is passed to [PageRouteBuilder]
+  final int? reverseDurationInMilliseconds;
+
   /// passed to the opaque property in [PageRouteBuilder]
   final bool? opaque;
 
@@ -253,6 +262,7 @@ class CustomRoute<T> extends StackedRoute<T> {
     List<StackedRoute>? children,
     this.transitionsBuilder,
     this.durationInMilliseconds,
+    this.reverseDurationInMilliseconds,
     this.opaque,
     this.barrierDismissible,
   }) : super(
