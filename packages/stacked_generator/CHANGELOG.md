@@ -1,4 +1,6 @@
-# ChangeLog
+## 0.5.3
+
+- Generate correct return type for returning a route to pop
 
 ## 0.5.2
 
