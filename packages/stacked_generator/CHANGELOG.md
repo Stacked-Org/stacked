@@ -1,3 +1,7 @@
+## 0.5.4
+
+- Reverts update from 0.5.3
+
 ## 0.5.3
 
 - Generate correct return type for returning a route to pop
@@ -9,7 +13,6 @@
 - Update analyzer dependency to `analyzer: ^2.0` (you can upgrade json_serialization to 5.0 without dependency conflicts)
 
 ## 0.5.1
-
 
 - Added ability to pass parameter to factories with `FactoryWithParam`
 
