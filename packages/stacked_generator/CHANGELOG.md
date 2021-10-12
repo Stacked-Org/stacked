@@ -1,3 +1,7 @@
+## 0.5.5
+
+- Reverts update from 0.5.4 lol. (sorry, some confusion with a different bug)
+
 ## 0.5.4
 
 - Reverts update from 0.5.3
