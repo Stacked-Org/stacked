@@ -1,3 +1,7 @@
+## 0.3.7
+
+- Fixed `flutter_statusbarcolor_ns` deprecated Android embedding warning
+
 ## 0.3.6
 
 - Replaced `dart:io` with `universal_io`
