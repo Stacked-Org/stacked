@@ -78,6 +78,8 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
         onModelReady: onViewModelReady,
         disposeViewModel: disposeViewModel,
         createNewModelOnInsert: createNewModelOnInsert,
+        initialiseSpecialViewModelsOnce: initialiseSpecialViewModelsOnce,
+        fireOnModelReadyOnce: fireOnModelReadyOnce,
       );
     }
   }

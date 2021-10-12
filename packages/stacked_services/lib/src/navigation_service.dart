@@ -168,7 +168,7 @@ class NavigationService {
   }
 
   /// Pops the current scope and indicates if you can pop again
-  bool back<T>({T? result, int? id}) {
+  bool back<T>({dynamic result, int? id}) {
     Get.back<T>(result: result, id: id);
     return Get.key.currentState?.canPop() ?? false;
   }
