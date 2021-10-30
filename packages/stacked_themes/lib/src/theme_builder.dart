@@ -113,11 +113,15 @@ class _ThemeBuilderState extends State<ThemeBuilder>
   //NOTE: re-apply the appropriate theme when the application gets back into the foreground
   void adjustSystemThemeIfNecessary() {
     switch (themeManager.selectedThemeMode) {
-      //do nothing
+      // When app becomes inactive the overlay colors might change.
+      // Therefore when the app is resumed we also need to update
+      // overlay colors back to their original state. In case
+      // selected theme mode is system the overlay colors will be
+      // automatically updated.
       case ThemeMode.light:
-        break;
-      //do nothing
       case ThemeMode.dark:
+        final selectedTheme = themeManager.getSelectedTheme().selectedTheme;
+        themeManager.updateOverlayColors(selectedTheme);
         break;
       //reapply theme
       case ThemeMode.system:
