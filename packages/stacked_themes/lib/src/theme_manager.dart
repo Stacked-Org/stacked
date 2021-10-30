@@ -109,7 +109,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
       } else {
         selectedTheme = themes!.first;
       }
-      _updateOverlayColors(selectedTheme);
+      updateOverlayColors(selectedTheme);
     } else {
       _selectedThemeMode = defaultTheme;
 
@@ -120,7 +120,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
 
       selectedTheme =
           _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme;
-      _updateOverlayColors(selectedTheme);
+      updateOverlayColors(selectedTheme);
     }
 
     ThemeModel _currTheme = ThemeModel(
@@ -152,7 +152,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
     }
 
     var theme = themes![themeIndex];
-    await _updateOverlayColors(theme);
+    await updateOverlayColors(theme);
 
     _themesController.add(ThemeModel(
       selectedTheme: theme,
@@ -182,7 +182,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
     }
   }
 
-  Future<void> _updateOverlayColors(ThemeData? theme) async {
+  Future<void> updateOverlayColors(ThemeData? theme) async {
     _applyStatusBarColor(theme);
     _applyNavigationBarColor(theme);
   }
@@ -192,7 +192,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
     _selectedThemeMode =
         _selectedThemeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
 
-    _updateOverlayColors(
+    updateOverlayColors(
         _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme);
     _themesController.add(ThemeModel(
       selectedTheme: lightTheme,
@@ -207,12 +207,12 @@ You can supply either a list of ThemeData objects to the themes property or a li
     _sharedPreferences.userThemeMode = themeMode;
 
     if (themeMode != ThemeMode.system) {
-      _updateOverlayColors(
+      updateOverlayColors(
           _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme);
     } else {
       var currentBrightness =
           SchedulerBinding.instance!.window.platformBrightness;
-      _updateOverlayColors(
+      updateOverlayColors(
           currentBrightness == Brightness.dark ? darkTheme : lightTheme);
     }
 
