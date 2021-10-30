@@ -12,6 +12,7 @@ class ThemeBuilder extends StatefulWidget {
   final ThemeData? lightTheme;
   final ThemeData? darkTheme;
   final Color? Function(ThemeData?)? statusBarColorBuilder;
+  final Color? Function(ThemeData?)? navigationBarColorBuilder;
   final ThemeMode defaultThemeMode;
 
   ThemeBuilder({
@@ -21,6 +22,7 @@ class ThemeBuilder extends StatefulWidget {
     this.lightTheme,
     this.darkTheme,
     this.statusBarColorBuilder,
+    this.navigationBarColorBuilder,
     this.defaultThemeMode = ThemeMode.system,
   }) : super(key: key);
 
@@ -29,6 +31,7 @@ class ThemeBuilder extends StatefulWidget {
         ThemeManager(
           themes: themes,
           statusBarColorBuilder: statusBarColorBuilder,
+          navigationBarColorBuilder: navigationBarColorBuilder,
           darkTheme: darkTheme,
           lightTheme: lightTheme,
           defaultTheme: defaultThemeMode,

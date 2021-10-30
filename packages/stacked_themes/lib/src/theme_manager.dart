@@ -56,6 +56,10 @@ class ThemeManager {
   /// return a color for the status bar.
   final Color? Function(ThemeData?)? statusBarColorBuilder;
 
+  /// A builder function that provides you with the new selected theme that expects you to
+  /// return a color for the navigation bar.
+  final Color? Function(ThemeData?)? navigationBarColorBuilder;
+
   late BehaviorSubject<ThemeModel> _themesController;
 
   Stream<ThemeModel> get themesStream => _themesController.stream;
@@ -75,6 +79,7 @@ class ThemeManager {
   ThemeManager({
     this.themes,
     this.statusBarColorBuilder,
+    this.navigationBarColorBuilder,
     this.darkTheme,
     this.lightTheme,
     this.defaultTheme = ThemeMode.system,
@@ -104,7 +109,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
       } else {
         selectedTheme = themes!.first;
       }
-      _applyStatusBarColor(selectedTheme);
+      _updateOverlayColors(selectedTheme);
     } else {
       _selectedThemeMode = defaultTheme;
 
@@ -115,7 +120,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
 
       selectedTheme =
           _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme;
-      _applyStatusBarColor(selectedTheme);
+      _updateOverlayColors(selectedTheme);
     }
 
     ThemeModel _currTheme = ThemeModel(
@@ -147,7 +152,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
     }
 
     var theme = themes![themeIndex];
-    await _applyStatusBarColor(theme);
+    await _updateOverlayColors(theme);
 
     _themesController.add(ThemeModel(
       selectedTheme: theme,
@@ -167,12 +172,27 @@ You can supply either a list of ThemeData objects to the themes property or a li
     }
   }
 
+  Future _applyNavigationBarColor(ThemeData? theme) async {
+    // Change color only when not on web
+    if (_platformService.isMobilePlatform) {
+      var navigationBarColor = navigationBarColorBuilder?.call(theme);
+      if (navigationBarColor != null) {
+        await _statusBarService.updateNavigationBarColor(navigationBarColor);
+      }
+    }
+  }
+
+  Future<void> _updateOverlayColors(ThemeData? theme) async {
+    _applyStatusBarColor(theme);
+    _applyNavigationBarColor(theme);
+  }
+
   /// Swaps between the light and dark ThemeMode
   void toggleDarkLightTheme() {
     _selectedThemeMode =
         _selectedThemeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
 
-    _applyStatusBarColor(
+    _updateOverlayColors(
         _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme);
     _themesController.add(ThemeModel(
       selectedTheme: lightTheme,
@@ -187,12 +207,12 @@ You can supply either a list of ThemeData objects to the themes property or a li
     _sharedPreferences.userThemeMode = themeMode;
 
     if (themeMode != ThemeMode.system) {
-      _applyStatusBarColor(
+      _updateOverlayColors(
           _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme);
     } else {
       var currentBrightness =
           SchedulerBinding.instance!.window.platformBrightness;
-      _applyStatusBarColor(
+      _updateOverlayColors(
           currentBrightness == Brightness.dark ? darkTheme : lightTheme);
     }
 
