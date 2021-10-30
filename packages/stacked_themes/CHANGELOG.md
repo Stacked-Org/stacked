@@ -1,4 +1,4 @@
-## 0.3.7
+## 0.3.8
 
 - Adds `navigationBarColorBuilder` to change navigation bar color
 
