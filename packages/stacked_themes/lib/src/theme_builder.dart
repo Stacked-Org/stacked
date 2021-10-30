@@ -99,6 +99,14 @@ class _ThemeBuilderState extends State<ThemeBuilder>
     }
   }
 
+  // Should update theme whenever platform brighteness changes.
+  // This makes sure that theme changes even if the brighteness changes from notification bar.
+  @override
+  void didChangePlatformBrightness() {
+    super.didChangePlatformBrightness();
+    adjustSystemThemeIfNecessary();
+  }
+
   //NOTE: re-apply the appropriate theme when the application gets back into the foreground
   void adjustSystemThemeIfNecessary() {
     switch (themeManager.selectedThemeMode) {
