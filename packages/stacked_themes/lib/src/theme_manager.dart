@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
@@ -120,7 +121,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
 
       if (_selectedThemeMode == ThemeMode.system) {
         final brighteness =
-            SchedulerBinding.instance!.window.platformBrightness;
+            SchedulerBinding.instance?.window.platformBrightness;
         selectedTheme = brighteness == Brightness.dark ? darkTheme : lightTheme;
       } else {
         selectedTheme =
