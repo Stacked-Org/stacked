@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       ),
       statusBarColorBuilder: (theme) => theme.accentColor,
       navigationBarColorBuilder: (theme) => theme.accentColor,
-      themes: getThemes(),
+      // themes: getThemes(),
       builder: (context, regularTheme, darkTheme, themeMode) => MaterialApp(
         title: 'Flutter Demo',
         theme: regularTheme,

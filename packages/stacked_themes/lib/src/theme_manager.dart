@@ -118,8 +118,15 @@ You can supply either a list of ThemeData objects to the themes property or a li
         _selectedThemeMode = savedUserThemeMode;
       }
 
-      selectedTheme =
-          _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme;
+      if (_selectedThemeMode == ThemeMode.system) {
+        final brighteness =
+            SchedulerBinding.instance!.window.platformBrightness;
+        selectedTheme = brighteness == Brightness.dark ? darkTheme : lightTheme;
+      } else {
+        selectedTheme =
+            _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme;
+      }
+
       updateOverlayColors(selectedTheme);
     }
 
