@@ -9,6 +9,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 
 import '../ui/bottom_nav/bottom_nav_example.dart';
 import '../ui/details/details_view.dart';
@@ -68,7 +69,7 @@ class StackedRouter extends RouterBase {
     },
     DetailsView: (data) {
       var args = data.getArgs<DetailsViewArguments>(nullOk: false);
-      return CupertinoPageRoute<dynamic>(
+      return CupertinoPageRoute<Map<String, List<String>>>(
         builder: (context) => DetailsView(
           key: args.key,
           name: args.name,
