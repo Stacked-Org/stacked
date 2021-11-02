@@ -1,3 +1,7 @@
+## 0.5.6
+
+- Fixed Route generation with generic return types
+
 ## 0.5.5
 
 - Reverts update from 0.5.4 lol. (sorry, some confusion with a different bug)

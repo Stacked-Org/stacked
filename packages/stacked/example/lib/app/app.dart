@@ -11,7 +11,6 @@ import 'package:new_architecture/ui/nonreactive/nonreactive_view.dart';
 import 'package:new_architecture/ui/stream_view/stream_counter_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
-import 'package:stacked_crashlytics/stacked_crashlytics.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
@@ -20,7 +19,7 @@ import 'package:stacked_themes/stacked_themes.dart';
     MaterialRoute(page: HomeView, initial: true),
     MaterialRoute(page: BottomNavExample),
     MaterialRoute(page: StreamCounterView),
-    CupertinoRoute(page: DetailsView),
+    CupertinoRoute<Map<String, List<String>>>(page: DetailsView),
     // TODO: Change the name of the FormView to avoid type clashing
     MaterialRoute(page: ExampleFormView),
     CustomRoute(

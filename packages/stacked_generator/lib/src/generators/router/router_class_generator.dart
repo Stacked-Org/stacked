@@ -273,7 +273,7 @@ class RouterClassGenerator extends BaseGenerator {
           r.returnType!.contains('AdaptiveRoute')) {
         // get the correct return type
         final type = r.returnType!.substring(
-            r.returnType!.indexOf('<') + 1, r.returnType!.indexOf('>'));
+            r.returnType!.indexOf('<') + 1, r.returnType!.lastIndexOf('>'));
         r.returnType = type;
       }
     }
