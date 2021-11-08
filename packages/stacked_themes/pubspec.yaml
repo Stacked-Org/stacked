@@ -2,7 +2,6 @@ name: stacked_themes
 description: A set of classes to help you better manage Themes in flutter
 version: 0.3.8
 homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_themes
-publish_to: none
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -20,7 +19,7 @@ dependencies:
       url: https://github.com/hurbes/flutter_statusbarcolor.git
       ref: feature/android-embedding-v2
 
-  #universal_io 
+  #universal_io
   universal_io: ^2.0.4
 
 dev_dependencies:
