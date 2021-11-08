@@ -1,3 +1,7 @@
+## 0.3.8
+
+- Adds `navigationBarColorBuilder` to change navigation bar color
+
 ## 0.3.7
 
 - Fixed `flutter_statusbarcolor_ns` deprecated Android embedding warning
