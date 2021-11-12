@@ -17,12 +17,16 @@ abstract class GraphQlBaseApi {
     required String query,
     String? actionName,
     bool logResponseData = false,
+    Map<String, dynamic> variables = const {},
+    Function(QueryResult response)? onRawResponse,
   }) async {
     return _runGQLRequest<RT>(
       query: query,
       parseData: (data) => responseParser.parseSingleResponse<RT>(data),
       actionName: actionName,
+      variables: variables,
       logResponseData: logResponseData,
+      onRawResponse: onRawResponse,
     );
   }
 
@@ -38,12 +42,16 @@ abstract class GraphQlBaseApi {
     required String query,
     String? actionName,
     bool logResponseData = false,
+    Map<String, dynamic> variables = const {},
+    Function(QueryResult response)? onRawResponse,
   }) async {
     return _runGQLRequest<List<RT>>(
       query: query,
       parseData: (data) => responseParser.parseListResponse<RT>(data),
       actionName: actionName,
       logResponseData: logResponseData,
+      variables: variables,
+      onRawResponse: onRawResponse,
     );
   }
 
@@ -52,15 +60,21 @@ abstract class GraphQlBaseApi {
     required T Function(Map<String, dynamic>?) parseData,
     String? actionName,
     bool logResponseData = false,
+    Map<String, dynamic> variables = const {},
+    Function(QueryResult response)? onRawResponse,
   }) async {
     final functionIdentity = actionName ?? query;
     if (await (ensureAuthCookieIsSet())) {
       baseLogger?.v('REQUEST:$actionName - query:$query');
-      var response = await client.query(QueryOptions(
+      var response = await client.query(
+        QueryOptions(
           document: gql(query),
+          variables: variables,
           fetchPolicy: FetchPolicy.networkOnly,
-          cacheRereadPolicy: CacheRereadPolicy.ignoreAll));
-
+          cacheRereadPolicy: CacheRereadPolicy.ignoreAll,
+        ),
+      );
+      onRawResponse?.call(response);
       baseLogger?.v(
           'RESPONSE:$actionName - hasData: ${response.data != null} ${logResponseData ? "data:${response.data}" : ''}');
 
@@ -70,28 +84,28 @@ abstract class GraphQlBaseApi {
         } catch (e, stacktrace) {
           baseLogger?.e('$functionIdentity failed: $e');
 
-          return Future.error(GraphQlException(
+          throw GraphQlException(
             message: e.toString(),
             query: query,
             queryName: functionIdentity,
             stackTrace: stacktrace,
-          ));
+          );
         }
       } else {
-        return Future.error(_getErrorExceptionFromResponse(
+        throw _getErrorExceptionFromResponse(
           functionIdentity: functionIdentity,
           mutation: query,
           response: response,
-        ));
+        );
       }
     } else {
       var error = 'Cookies are invalid';
       baseLogger?.e(error);
-      return Future.error(GraphQlException(
+      throw GraphQlException(
         message: error,
         query: query,
         queryName: functionIdentity,
-      ));
+      );
     }
   }
 
@@ -101,6 +115,7 @@ abstract class GraphQlBaseApi {
     Map<String, dynamic> variables = const {},
     String? actionName,
     bool logResponseData = false,
+    Function(QueryResult response)? onRawResponse,
   }) async {
     final functionIdentity = actionName ?? mutation;
     if (await (ensureAuthCookieIsSet())) {
@@ -111,6 +126,7 @@ abstract class GraphQlBaseApi {
       );
 
       final QueryResult response = await client.mutate(options);
+      onRawResponse?.call(response);
 
       baseLogger?.v(
           'RESPONSE:$actionName - hasData: ${response.data != null} ${logResponseData ? "data:${response.data}" : ''}');
@@ -123,39 +139,37 @@ abstract class GraphQlBaseApi {
         } catch (e, stackTrack) {
           baseLogger?.e('$functionIdentity failed: $e');
 
-          return Future.error(GraphQlException(
+          throw GraphQlException(
             message: e.toString(),
             query: mutation,
             queryName: functionIdentity,
             stackTrace: stackTrack,
-          ));
+          );
         }
       } else {
         if (response.exception != null) {
-          return Future.error(_getErrorExceptionFromResponse(
+          throw _getErrorExceptionFromResponse(
             functionIdentity: functionIdentity,
             mutation: mutation,
             response: response,
-          ));
+          );
         }
 
-        return Future.error(
-          GraphQlException(
-            message: 'Unkown error has occured',
-            query: mutation,
-            queryName: functionIdentity,
-            stackTrace: StackTrace.current,
-          ),
+        throw GraphQlException(
+          message: 'Unkown error has occured',
+          query: mutation,
+          queryName: functionIdentity,
+          stackTrace: StackTrace.current,
         );
       }
     } else {
       var error = 'Cookies are invalid';
       baseLogger?.e(error);
-      return Future.error(GraphQlException(
+      throw GraphQlException(
         message: error,
         query: mutation,
         queryName: functionIdentity,
-      ));
+      );
     }
   }
 

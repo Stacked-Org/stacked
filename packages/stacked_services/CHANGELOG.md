@@ -1,3 +1,21 @@
+## 0.8.15
+
+### Bottom Sheet Unique Name
+When showing a bottom sheet we'll now give it a uique route name based on the properties passed in. The format of this will differ between the general and custom.
+- general: `general_{md5hashOfTitleAndDescription}
+- custom: `variant_{md5HashOfTitleDescriptionMainButtonTitleSecondaryButtonTitle}
+
+The expected output of a bottom sheet will look like this
+
+```dart
+general_82fda55933c6a64eb961dfb6e13bdd4f // General and confirmation bottom sheet
+BottomSheetType.FloatingBox_33557de8784ebb01ebd64b71926b5933 // Custom Bottom sheet with variant
+```
+
+## 0.8.14
+
+- Updated `get` to latest package version
+
 ## 0.8.13
 
 - Updated `get` to latest package version

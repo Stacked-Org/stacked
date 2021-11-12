@@ -15,4 +15,16 @@ class StatusBarService {
       FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
     }
   }
+
+  Future? updateNavigationBarColor(Color navigationBarColor) async {
+    // Set navigation bar color
+    await FlutterStatusbarcolor.setNavigationBarColor(navigationBarColor);
+
+    // Check the constrast between the colors and set the navigation bar icons colors to white or dark
+    if (useWhiteForeground(navigationBarColor)) {
+      FlutterStatusbarcolor.setNavigationBarWhiteForeground(true);
+    } else {
+      FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
+    }
+  }
 }
