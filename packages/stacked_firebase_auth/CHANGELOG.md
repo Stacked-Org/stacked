@@ -1,3 +1,7 @@
+## 0.2.10+2
+
+- Updates 'google_sign_in' to 5.2.1
+
 ## 0.2.10+1
 
 - Updates firebase core to 1.10.0
