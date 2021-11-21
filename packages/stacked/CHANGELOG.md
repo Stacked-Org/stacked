@@ -1,3 +1,7 @@
+## 2.2.7+1
+
+- Upgraded the dependency on `provider` to 6.0.0
+
 ## 2.2.7
 
 - Fixes non-reactive `ViewModelBuilderWidget`
