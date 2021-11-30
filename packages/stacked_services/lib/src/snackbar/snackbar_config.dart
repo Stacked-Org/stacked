@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stacked_services/stacked_services.dart';
+import '../../stacked_services.dart';
 
 /// Stores the configuration for the visual appearance of a snackbar
 class SnackbarConfig {
@@ -34,7 +36,6 @@ class SnackbarConfig {
   List<BoxShadow>? boxShadows;
   Gradient? backgroundGradient;
   bool isDismissible;
-  SnackDismissDirection dismissDirection;
   bool showProgressIndicator;
   AnimationController? progressIndicatorController;
   Color? progressIndicatorBackgroundColor;

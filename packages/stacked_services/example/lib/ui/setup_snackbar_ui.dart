@@ -2,7 +2,6 @@ import 'package:example/app/locator.dart';
 import 'package:example/enums/snackbar_type.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:get/get.dart';
 
 void setupSnackbarUi() {
   final service = locator<SnackbarService>();

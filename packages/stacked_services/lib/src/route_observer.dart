@@ -25,7 +25,7 @@ String? _extractRouteName(Route? route) {
 
 class _RouteData {
   final bool isGetPageRoute;
-  final bool isSnackbar;
+
   final bool isBottomSheet;
   final bool isDialog;
   final String? name;
@@ -33,7 +33,6 @@ class _RouteData {
   _RouteData({
     required this.name,
     required this.isGetPageRoute,
-    required this.isSnackbar,
     required this.isBottomSheet,
     required this.isDialog,
   });
@@ -42,7 +41,6 @@ class _RouteData {
     return _RouteData(
       name: _extractRouteName(route),
       isGetPageRoute: route is GetPageRoute,
-      isSnackbar: route is SnackRoute,
       isDialog: route is GetDialogRoute,
       isBottomSheet: route is GetModalBottomSheetRoute,
     );
@@ -70,7 +68,6 @@ class StackObserver extends NavigatorObserver {
       value.isBack = false;
       value.removed = '';
       value.previous = _extractRouteName(previousRoute) ?? '';
-      value.isSnackbar = newRoute.isSnackbar ? true : value.isSnackbar ?? false;
       value.isBottomSheet =
           newRoute.isBottomSheet ? true : value.isBottomSheet ?? false;
       value.isDialog = newRoute.isDialog ? true : value.isDialog ?? false;
@@ -93,7 +90,7 @@ class StackObserver extends NavigatorObserver {
       value.isBack = true;
       value.removed = '';
       value.previous = newRoute.name ?? '';
-      value.isSnackbar = newRoute.isSnackbar;
+
       value.isBottomSheet = newRoute.isBottomSheet;
       value.isDialog = newRoute.isDialog;
     });
@@ -117,7 +114,7 @@ class StackObserver extends NavigatorObserver {
       value.isBack = false;
       value.removed = '';
       value.previous = '$oldName';
-      value.isSnackbar = currentRoute.isSnackbar ? false : value.isSnackbar;
+
       value.isBottomSheet =
           currentRoute.isBottomSheet ? false : value.isBottomSheet;
       value.isDialog = currentRoute.isDialog ? false : value.isDialog;
@@ -135,7 +132,7 @@ class StackObserver extends NavigatorObserver {
       value.isBack = false;
       value.removed = routeName ?? '';
       value.previous = routeName ?? '';
-      value.isSnackbar = currentRoute.isSnackbar ? false : value.isSnackbar;
+
       value.isBottomSheet =
           currentRoute.isBottomSheet ? false : value.isBottomSheet;
       value.isDialog = currentRoute.isDialog ? false : value.isDialog;
