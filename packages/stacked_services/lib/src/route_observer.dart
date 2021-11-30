@@ -25,7 +25,6 @@ String? _extractRouteName(Route? route) {
 
 class _RouteData {
   final bool isGetPageRoute;
-
   final bool isBottomSheet;
   final bool isDialog;
   final String? name;
