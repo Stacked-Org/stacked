@@ -132,7 +132,7 @@ class SnackbarService {
     void Function()? onMainButtonTapped,
     Function? onTap,
     Duration duration = const Duration(seconds: 1),
-  }) {
+  }) async {
     // TODO: Remove customData in the future release and set variant as required
     final snackbarVariant = variant ?? customData;
     assert(
@@ -165,7 +165,7 @@ class SnackbarService {
             config: snackbarConfig,
           );
 
-    final getBar = GetBar(
+    final getBar = GetSnackBar(
       key: Key('snackbar_view'),
       titleText: title != null
           ? Text(
