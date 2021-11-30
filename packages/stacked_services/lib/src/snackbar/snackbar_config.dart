@@ -51,6 +51,7 @@ class SnackbarConfig {
   Form? userInputForm;
   TextAlign titleTextAlign;
   TextAlign messageTextAlign;
+  DismissDirection dismissDirection;
 
   SnackbarConfig({
     this.titleText,
@@ -73,7 +74,7 @@ class SnackbarConfig {
     this.boxShadows,
     this.backgroundGradient,
     this.isDismissible = true,
-    this.dismissDirection = SnackDismissDirection.VERTICAL,
+    this.dismissDirection = DismissDirection.vertical,
     this.showProgressIndicator = false,
     this.progressIndicatorController,
     this.progressIndicatorBackgroundColor,

@@ -19,7 +19,7 @@ void setupSnackbarUi() {
       backgroundColor: Colors.blueAccent,
       textColor: Colors.yellow,
       borderRadius: 1,
-      dismissDirection: SnackDismissDirection.HORIZONTAL,
+      dismissDirection: DismissDirection.horizontal,
     ),
   );
 
