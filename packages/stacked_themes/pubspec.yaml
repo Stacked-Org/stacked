@@ -10,14 +10,11 @@ dependencies:
   flutter:
     sdk: flutter
 
-  provider: ^5.0.0
+  provider: ^6.0.0
   rxdart: ^0.27.1
   shared_preferences: ^2.0.6
   get_it: ^7.1.3
-  flutter_statusbarcolor_ns:
-    git:
-      url: https://github.com/hurbes/flutter_statusbarcolor.git
-      ref: feature/android-embedding-v2
+  flutter_statusbarcolor_ns: ^0.4.0
 
   #universal_io
   universal_io: ^2.0.4
