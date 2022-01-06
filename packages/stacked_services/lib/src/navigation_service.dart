@@ -261,6 +261,19 @@ class NavigationService {
     );
   }
 
+  /// Clears the entire back stack and shows [view]
+  Future<T?>? clearStackAndShowView<T>(
+    Widget view, {
+    dynamic arguments,
+    int? id,
+  }) {
+    return Get.offAll<T?>(
+      view,
+      arguments: arguments,
+      id: id,
+    );
+  }
+
   /// Pops the navigation stack until there's 1 view left then pushes [routeName] onto the stack
   Future<T?>? clearTillFirstAndShow<T>(
     String routeName, {
