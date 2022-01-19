@@ -1,3 +1,7 @@
+## 2.2.8
+
+- Adds `disableReleaseConsoleOutput` to the logger annotation to disable console output in release mode
+
 ## 2.2.7+1
 
 - Upgraded the dependency on `provider` to 6.0.0
@@ -7,9 +11,11 @@
 - Fixes non-reactive `ViewModelBuilderWidget`
 
 ## 2.2.6
+
 - Optimized skeleton loader to be dynamic
 
 ## 2.2.5
+
 - Added IgnorePointer to Skeleton Loader Widget
 
 ## 2.2.4
