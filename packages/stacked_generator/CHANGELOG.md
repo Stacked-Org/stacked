@@ -1,3 +1,7 @@
+## 0.5.7
+
+- Adds functionality to disable generated logger in release mode
+
 ## 0.5.6
 
 - Fixed Route generation with generic return types

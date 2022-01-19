@@ -1,6 +1,7 @@
 const String LogHelperNameKey = 'logHelperName';
 const String MultiLoggerImports = 'MultiLoggerImport';
 const String MultipleLoggerOutput = 'MultiLoggerList';
+const String DisableConsoleOutputInRelease = 'MultiLoggerList';
 
 const String loggerClassContent = '''
 /// Maybe this should be generated for the user as well?
@@ -138,6 +139,7 @@ Logger $LogHelperNameKey(
       exludeLogsFromClasses: exludeLogsFromClasses,
     ),
     output: MultipleLoggerOutput([
+      $DisableConsoleOutputInRelease
       ConsoleOutput(),
       $MultipleLoggerOutput
     ]),
