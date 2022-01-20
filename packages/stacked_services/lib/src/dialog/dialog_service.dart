@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stacked_services/src/dialog/platform_dialog.dart';
@@ -31,6 +30,11 @@ class DialogService {
       'Prefer to use the StackedServices.navigatorKey instead of using this key. This will be removed in the next major version update for stacked.')
   get navigatorKey {
     return Get.key;
+  }
+
+  GlobalKey<NavigatorState>? _overrideNavKey;
+  void setNavigatorKey(GlobalKey<NavigatorState> key) {
+    _overrideNavKey = key;
   }
 
   /// Registers a custom dialog builder. The builder function has been updated to include the function to call
@@ -149,6 +153,7 @@ class DialogService {
         ],
       ),
       barrierDismissible: barrierDismissible,
+      navigatorKey: _overrideNavKey,
     );
   }
 
@@ -201,6 +206,7 @@ class DialogService {
       transitionDuration: const Duration(milliseconds: 200),
       barrierDismissible: barrierDismissible,
       barrierLabel: barrierLabel,
+      navigatorKey: _overrideNavKey,
       pageBuilder: (BuildContext buildContext, _, __) => SafeArea(
         key: Key('dialog_view'),
         child: Builder(
