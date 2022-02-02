@@ -1,5 +1,10 @@
-import 'package:stacked_cli/stacked_cli.dart' as stacked_cli;
-
 void main(List<String> arguments) {
-  print('Hello world: ${stacked_cli.calculate()}!');
+// Command runner
+// Add the top level create command
+// The create command will have 2 sub commands
+// view
+// services
+
+
+
 }
