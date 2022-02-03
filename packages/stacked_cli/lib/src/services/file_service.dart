@@ -18,6 +18,16 @@ class FileService {
     log('File write complete: $file', verbose: verbose);
   }
 
+  /// Check if the file at [filePath] exists
+  Future<bool> fileExists({required String filePath}) {
+    return File(filePath).exists();
+  }
+
+  /// Reads the file at [filePath] on disk and returns as String
+  Future<String> readFile({required String filePath}) {
+    return File(filePath).readAsString();
+  }
+
   void log(String message, {bool verbose = false}) {
     if (verbose) {
       print(message);
