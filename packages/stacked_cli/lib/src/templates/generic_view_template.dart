@@ -1,3 +1,4 @@
+const String GenericViewTemplate = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import '{{viewModelFileName}}.dart';
@@ -16,3 +17,4 @@ class {{viewName}} extends StatelessWidget {
     );
   }
 }
+''';
