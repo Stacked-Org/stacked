@@ -8,5 +8,6 @@ void main(List<String> arguments) {
   TemplateService().renderTemplate(
     templateName: 'view',
     viewName: 'details',
+    verbose: true,
   );
 }
