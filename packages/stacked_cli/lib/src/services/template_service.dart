@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:mustache_template/mustache_template.dart';
+import 'package:pubspec_yaml/pubspec_yaml.dart';
 import 'package:recase/recase.dart';
 import 'package:stacked_cli/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
@@ -178,13 +179,15 @@ class TemplateService {
       lenient: true,
     );
 
+    final pubspecYaml = File('pubspec.yaml').readAsStringSync().toPubspecYaml();
+
     // TODO: Remove duplicate code below
     final viewNameRecase = ReCase(viewName ?? '');
     final renderedTemplate = template.renderString(
       {
         'viewName': '${viewNameRecase.pascalCase}View',
         // TODO: Read the pubspec.yaml file and get the package name
-        'packageName': '',
+        'packageName': pubspecYaml.name,
         'viewFolderName': '$viewName',
         'viewFileName': '${viewName}_view',
       },
