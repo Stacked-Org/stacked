@@ -14,8 +14,9 @@ import 'package:stacked_cli/src/templates/template.dart';
 const String InvalidStackedStructureAppFile =
     'The structure of your stacked application is invalid. The app.dart file should be located in lib/app/';
 
-const String ModificationIdentifierAppRoutes =
-    '// Do not replace. Used for route scaffolding';
+const String ModificationIdentifierAppRoutes = '// @stacked-route-scaffolding';
+const String ModificationIdentifierAppImports =
+    '// @stacked-import-scaffolding';
 
 Map<String, StackedTemplate> stackdTemplates = {
   'view': StackedTemplate(templateFiles: [
@@ -38,7 +39,15 @@ Map<String, StackedTemplate> stackdTemplates = {
       // TODO: add an option to create Cupertino or custom routes
       modificationTemplate: 'MaterialRoute(page: {{viewName}}),',
       modificationProblemError: InvalidStackedStructureAppFile,
-    )
+    ),
+    ModificationFile(
+      relativeModificationPath: 'lib/app/app.dart',
+      modificationIdentifier: ModificationIdentifierAppImports,
+      // TODO: add an option to create Cupertino or custom routes
+      modificationTemplate:
+          'import \'package:{{packageName}}/ui/views/{{viewFolderName}}/{{viewFileName}}.dart\';',
+      modificationProblemError: InvalidStackedStructureAppFile,
+    ),
   ])
 };
 
@@ -164,12 +173,21 @@ class TemplateService {
     required String modificationIdentifier,
     String? viewName,
   }) {
-    final template = Template(modificationTemplate);
+    final template = Template(
+      modificationTemplate,
+      lenient: true,
+    );
 
     // TODO: Remove duplicate code below
     final viewNameRecase = ReCase(viewName ?? '');
     final renderedTemplate = template.renderString(
-      {'viewName': '${viewNameRecase.pascalCase}View'},
+      {
+        'viewName': '${viewNameRecase.pascalCase}View',
+        // TODO: Read the pubspec.yaml file and get the package name
+        'packageName': '',
+        'viewFolderName': '$viewName',
+        'viewFileName': '${viewName}_view',
+      },
     );
 
     // Take the content, replace the identifier in the file with the new code
