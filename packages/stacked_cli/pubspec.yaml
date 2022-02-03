@@ -8,7 +8,8 @@ environment:
 
 dependencies:
   args: ^2.3.0
-  mustache: ^1.1.1
+  mustache_template: ^2.0.0
+  recase: ^4.0.0
 
 dev_dependencies:
   lints: ^1.0.0
