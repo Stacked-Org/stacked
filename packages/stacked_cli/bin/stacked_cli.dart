@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:args/command_runner.dart';
 import 'package:stacked_cli/src/commands/create/create_command.dart';
 import 'package:stacked_cli/src/locator.dart';
+import 'package:stacked_cli/src/message_constants.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
 
 Future<void> main(List<String> arguments) async {
@@ -9,11 +12,13 @@ Future<void> main(List<String> arguments) async {
 
   // Check if we are at the root of the project. If not, exit gracefully
   if (!(await locator<FileService>().isProjectRoot())) {
-    print(
-        '''
-    No pubspec.yaml detected. It seems that you are not running the cli from the root of a flutter project. 
-    Please ensure that you are in the root of a flutter project when using stackedcli.
-    ''');
+    print(kInvalidRootDirectory);
+    exit(2);
+  }
+
+  if (!(await locator<FileService>().isStakedApplication())) {
+    print(kInvalidStackedStructure);
+    exit(2);
   }
 
   // TODO: When adding the command add accepted values to ensure we can never pass in random values.
