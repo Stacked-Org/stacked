@@ -6,19 +6,13 @@ import 'package:pubspec_yaml/pubspec_yaml.dart';
 import 'package:recase/recase.dart';
 import 'package:stacked_cli/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
+import 'package:stacked_cli/src/message_constants.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
 import 'package:stacked_cli/src/templates/generic_view_template.dart';
 import 'package:stacked_cli/src/templates/generic_viewmodel_template.dart';
 import 'package:stacked_cli/src/templates/generic_viewmodel_test_template.dart';
 import 'package:stacked_cli/src/templates/template.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
-
-const String InvalidStackedStructureAppFile =
-    'The structure of your stacked application is invalid. The app.dart file should be located in lib/app/';
-
-const String ModificationIdentifierAppRoutes = '// @stacked-route-scaffolding';
-const String ModificationIdentifierAppImports =
-    '// @stacked-import-scaffolding';
 
 Map<String, StackedTemplate> stackdTemplates = {
   'view': StackedTemplate(templateFiles: [
@@ -37,18 +31,18 @@ Map<String, StackedTemplate> stackdTemplates = {
   ], modificationFiles: [
     ModificationFile(
       relativeModificationPath: 'lib/app/app.dart',
-      modificationIdentifier: ModificationIdentifierAppRoutes,
+      modificationIdentifier: kModificationIdentifierAppRoutes,
       // TODO: add an option to create Cupertino or custom routes
       modificationTemplate: 'MaterialRoute(page: {{viewName}}),',
-      modificationProblemError: InvalidStackedStructureAppFile,
+      modificationProblemError: kInvalidStackedStructureAppFile,
     ),
     ModificationFile(
       relativeModificationPath: 'lib/app/app.dart',
-      modificationIdentifier: ModificationIdentifierAppImports,
+      modificationIdentifier: kModificationIdentifierAppImports,
       // TODO: add an option to create Cupertino or custom routes
       modificationTemplate:
           'import \'package:{{packageName}}/ui/views/{{viewFolderName}}/{{viewFileName}}\';',
-      modificationProblemError: InvalidStackedStructureAppFile,
+      modificationProblemError: kInvalidStackedStructureAppFile,
     ),
   ])
 };
@@ -127,7 +121,6 @@ class TemplateService {
     final viewNameRecase = ReCase(viewName ?? '');
     // TODO: Refactor this to get different render data depending on the template
     final renderData = {
-      // TODO: Convert the property names into constants to use in the template content and here
       kTemplatePropertyViewName: '${viewNameRecase.pascalCase}View',
       kTemplatePropertyViewModelName: '${viewNameRecase.pascalCase}ViewModel',
       kTemplatePropertyViewModelFileName: '${viewName}_viewmodel.dart',
@@ -147,7 +140,7 @@ class TemplateService {
       );
 
       if (!fileExists) {
-        throw InvalidStackedStructureException(InvalidStackedStructureAppFile);
+        throw InvalidStackedStructureException(kInvalidStackedStructureAppFile);
       }
 
       final fileContent = await _fileService.readFile(

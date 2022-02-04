@@ -2,6 +2,14 @@
 /// Given a name 'details' expects viewName to equal DetailsView
 const String kTemplatePropertyViewName = 'viewName';
 
+// ------- File Modification identifiers --------
+
+const String kModificationIdentifierAppRoutes = '// @stacked-route-scaffolding';
+const String kModificationIdentifierAppImports =
+    '// @stacked-import-scaffolding';
+
+// ------- Property names for Rendering replacement -------
+
 /// The name of the viewmodel class in dart.
 /// Given a name 'details' expects viewModelName to equal DetailsViewModel
 const String kTemplatePropertyViewModelName = 'viewModelName';
