@@ -4,6 +4,7 @@ import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/message_constants.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
 import 'package:stacked_cli/src/templates/template.dart';
+import 'package:stacked_cli/src/templates/template_constants.dart';
 import 'package:test/test.dart';
 
 import '../helpers/test_helper.dart';
@@ -39,6 +40,22 @@ void main() {
 
         expect(result, expected);
       });
+
+      test(
+          'When given content with string that has viewName as orderDetails should return order_details_viewmodel.dart for viewModel',
+          () {
+        final content = '{{viewModelFileName}}';
+        final expected = 'order_details_viewmodel.dart';
+
+        final templateService = _getService();
+        final result = templateService.renderContentForTemplate(
+          content: content,
+          templateName: 'view',
+          viewName: 'orderDetails',
+        );
+
+        expect(result, expected);
+      });
     });
 
     group('performFileModification -', () {
@@ -47,14 +64,60 @@ void main() {
           () {
         final service = _getService();
         final result = service.templateModificationFileContent(
-            fileContent: 'STACKED',
-            modificationTemplate: 'MaterialRoute(page: {{viewName}}),',
-            modificationIdentifier: 'STACKED',
-            viewName: 'details');
+          fileContent: 'STACKED',
+          modificationTemplate: 'MaterialRoute(page: {{viewName}}),',
+          modificationIdentifier: 'STACKED',
+          viewName: 'details',
+        );
 
         final expectedOutput = 'MaterialRoute(page: DetailsView),\nSTACKED';
 
         expect(result, expectedOutput);
+      });
+
+      test(
+          'Given modificationTemplate with $kTemplateViewFolderName and name orderDetails, Should return snake_case order_details',
+          () {
+        final service = _getService();
+        final result = service.templateModificationFileContent(
+          fileContent: 'STACKED',
+          modificationTemplate: '{{$kTemplateViewFolderName}}',
+          modificationIdentifier: 'STACKED',
+          viewName: 'orderDetails',
+        );
+
+        final expectedOutput = 'order_details\nSTACKED';
+
+        expect(result, expectedOutput);
+      });
+
+      test(
+          'Given modificationTemplate with $kTemplateViewFileName and name orderDetails, Should return snake_case order_details_view.dart',
+          () {
+        final service = _getService();
+        final result = service.templateModificationFileContent(
+          fileContent: 'STACKED',
+          modificationTemplate: '{{$kTemplateViewFileName}}',
+          modificationIdentifier: 'STACKED',
+          viewName: 'orderDetails',
+        );
+
+        final expectedOutput = 'order_details_view.dart\nSTACKED';
+
+        expect(result, expectedOutput);
+      });
+    });
+
+    group('getTemplateOutputPath -', () {
+      test(
+          'When given a path generic/generic.dart with viewName orderDetails, should return order_details/order_details.dart',
+          () {
+        final service = _getService();
+        final result = service.getTemplateOutputPath(
+          inputTemplatePath: 'generic/generic.dart',
+          viewName: 'orderDetails',
+        );
+        expect(result, 'order_details/order_details.dart');
       });
     });
 
