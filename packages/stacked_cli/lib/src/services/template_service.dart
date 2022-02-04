@@ -11,6 +11,7 @@ import 'package:stacked_cli/src/templates/generic_view_template.dart';
 import 'package:stacked_cli/src/templates/generic_viewmodel_template.dart';
 import 'package:stacked_cli/src/templates/generic_viewmodel_test_template.dart';
 import 'package:stacked_cli/src/templates/template.dart';
+import 'package:stacked_cli/src/templates/template_constants.dart';
 
 const String InvalidStackedStructureAppFile =
     'The structure of your stacked application is invalid. The app.dart file should be located in lib/app/';
@@ -46,7 +47,7 @@ Map<String, StackedTemplate> stackdTemplates = {
       modificationIdentifier: ModificationIdentifierAppImports,
       // TODO: add an option to create Cupertino or custom routes
       modificationTemplate:
-          'import \'package:{{packageName}}/ui/views/{{viewFolderName}}/{{viewFileName}}.dart\';',
+          'import \'package:{{packageName}}/ui/views/{{viewFolderName}}/{{viewFileName}}\';',
       modificationProblemError: InvalidStackedStructureAppFile,
     ),
   ])
@@ -127,9 +128,9 @@ class TemplateService {
     // TODO: Refactor this to get different render data depending on the template
     final renderData = {
       // TODO: Convert the property names into constants to use in the template content and here
-      'viewName': '${viewNameRecase.pascalCase}View',
-      'viewModelName': '${viewNameRecase.pascalCase}ViewModel',
-      'viewModelFileName': '${viewName}_viewmodel',
+      kTemplatePropertyViewName: '${viewNameRecase.pascalCase}View',
+      kTemplatePropertyViewModelName: '${viewNameRecase.pascalCase}ViewModel',
+      kTemplatePropertyViewModelFileName: '${viewName}_viewmodel.dart',
     };
 
     return viewTemplate.renderString(renderData);
@@ -179,17 +180,18 @@ class TemplateService {
       lenient: true,
     );
 
+    // TODO: We need to be able to unit test this (will become important if it ever breaks somethings)
     final pubspecYaml = File('pubspec.yaml').readAsStringSync().toPubspecYaml();
 
     // TODO: Remove duplicate code below
     final viewNameRecase = ReCase(viewName ?? '');
     final renderedTemplate = template.renderString(
       {
-        'viewName': '${viewNameRecase.pascalCase}View',
-        // TODO: Read the pubspec.yaml file and get the package name
-        'packageName': pubspecYaml.name,
-        'viewFolderName': '$viewName',
-        'viewFileName': '${viewName}_view',
+        // TODO: Create helper extensions for modifying the viewName passed in
+        kTemplatePropertyViewName: '${viewNameRecase.pascalCase}View',
+        kTemplatePropertyPackageName: pubspecYaml.name,
+        kTemplateViewFolderName: '$viewName',
+        kTemplateViewFileName: '${viewName}_view.dart',
       },
     );
 
