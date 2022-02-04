@@ -22,3 +22,6 @@ that do not make use of the app.dart file for route generation and dependency in
 We have plans to support this in the future. If you want to help build it, check out the project
 for the stacked-cli roadmap.
 ''';
+
+const String kCommandHelpExcludeRoute =
+    'When a route is excluded it will not be added to your app.dart routes collection.';
