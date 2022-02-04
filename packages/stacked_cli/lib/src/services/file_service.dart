@@ -33,4 +33,8 @@ class FileService {
       print(message);
     }
   }
+
+  /// Returns true if the cli is running from the root of a flutter
+  /// or dart project
+  Future<bool> isProjectRoot() => File('pubspec.yaml').exists();
 }
