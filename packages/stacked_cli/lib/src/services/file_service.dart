@@ -37,4 +37,8 @@ class FileService {
   /// Returns true if the cli is running from the root of a flutter
   /// or dart project
   Future<bool> isProjectRoot() => File('pubspec.yaml').exists();
+
+  /// Checks if the current project aligns with the stacked application structure
+  /// to allow for scaffolding to work properly
+  Future<bool> isStakedApplication() => File('lib/app/app.dart').exists();
 }
