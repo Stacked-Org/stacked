@@ -58,6 +58,9 @@ class TemplateService {
     /// The name to use for the views when generating the view template
     String? viewName,
     bool verbose = false,
+
+    /// When set to true the newly generated view will not be added to the app.dart file
+    bool excludeRoute = false,
   }) async {
     if (templateName == 'view') {
       if (viewName == null) {
@@ -76,11 +79,13 @@ class TemplateService {
       viewName: viewName,
     );
 
-    await modifyExistingFiles(
-      template: template,
-      templateName: templateName,
-      viewName: viewName,
-    );
+    if (templateName == 'view' && !excludeRoute) {
+      await modifyExistingFiles(
+        template: template,
+        templateName: templateName,
+        viewName: viewName,
+      );
+    }
   }
 
   Future<void> writeOutTemplateFiles({
