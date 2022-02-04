@@ -41,4 +41,8 @@ class MockFileService extends _i1.Mock implements _i2.FileService {
   void log(String? message, {bool? verbose = false}) => super.noSuchMethod(
       Invocation.method(#log, [message], {#verbose: verbose}),
       returnValueForMissingStub: null);
+  @override
+  _i3.Future<bool> isProjectRoot() =>
+      (super.noSuchMethod(Invocation.method(#isProjectRoot, []),
+          returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
 }

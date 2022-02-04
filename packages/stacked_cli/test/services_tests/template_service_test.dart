@@ -27,7 +27,7 @@ void main() {
         final expected = '''
         NewView
         NewViewModel
-        new_viewmodel
+        new_viewmodel.dart
     ''';
 
         final templateService = _getService();
