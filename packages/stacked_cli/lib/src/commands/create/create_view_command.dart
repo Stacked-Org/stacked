@@ -1,0 +1,26 @@
+import 'package:args/command_runner.dart';
+import 'package:stacked_cli/src/locator.dart';
+import 'package:stacked_cli/src/services/template_service.dart';
+
+class CreateViewCommand extends Command {
+  final _templateService = locator<TemplateService>();
+
+  @override
+  String get description =>
+      'Creates a view with all associated files and makes necessary code changes for adding a view.';
+
+  @override
+  String get name => 'view';
+
+  @override
+  void run() {
+    // TODO: We need to add command structure validation if possible
+    print('The view to generate is: ${argResults!.rest.first}');
+
+    final viewName = _templateService.renderTemplate(
+      templateName: 'view',
+      viewName: argResults!.rest.first,
+      verbose: true,
+    );
+  }
+}
