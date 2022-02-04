@@ -220,6 +220,19 @@ void main() {
     });
 
     group('renderTemplate -', () {
+      test(
+          'When called with excludeRoutes true, should not check if any file exists',
+          () async {
+        final fileService = getAndRegisterMockFileService();
+        final service = _getService();
+        await service.renderTemplate(
+          templateName: 'view',
+          excludeRoute: true,
+          viewName: 'noRouteView',
+        );
+        
+        verifyNever(fileService.fileExists(filePath: anyNamed('filePath')));
+      });
       test('Given templateName view with no name, should throw an exception',
           () async {
         final service = _getService();
