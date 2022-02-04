@@ -1,5 +1,6 @@
 import 'package:args/command_runner.dart';
 import 'package:stacked_cli/src/locator.dart';
+import 'package:stacked_cli/src/message_constants.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
 
 class CreateViewCommand extends Command {
@@ -12,15 +13,23 @@ class CreateViewCommand extends Command {
   @override
   String get name => 'view';
 
-  @override
-  void run() {
-    // TODO: We need to add command structure validation if possible
-    print('The view to generate is: ${argResults!.rest.first}');
+  CreateViewCommand() {
+    // TODO: Move the command names and flags into a constants file to make it easier to work with
+    argParser.addFlag(
+      'exclude-route',
+      defaultsTo: false,
+      help: kCommandHelpExcludeRoute,
+    );
+  }
 
-    final viewName = _templateService.renderTemplate(
+  @override
+  Future<void> run() async {
+    // TODO: We need to add command structure validation if possible
+    await _templateService.renderTemplate(
       templateName: 'view',
       viewName: argResults!.rest.first,
       verbose: true,
+      excludeRoute: argResults!['exclude-route'],
     );
   }
 }

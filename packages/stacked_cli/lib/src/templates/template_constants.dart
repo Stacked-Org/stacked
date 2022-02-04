@@ -4,9 +4,8 @@ const String kTemplatePropertyViewName = 'viewName';
 
 // ------- File Modification identifiers --------
 
-const String kModificationIdentifierAppRoutes = '// @stacked-route-scaffolding';
-const String kModificationIdentifierAppImports =
-    '// @stacked-import-scaffolding';
+const String kModificationIdentifierAppRoutes = '// @stacked-routes';
+const String kModificationIdentifierAppImports = '// @stacked-imports';
 
 // ------- Property names for Rendering replacement -------
 
