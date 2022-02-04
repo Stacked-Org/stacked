@@ -67,8 +67,7 @@ void main() {
           templateName: 'view',
           viewName: 'Details',
         );
-        // TODO: Failing because of the additional file modification write. We need
-        // to break this unit of work out to its own function as well
+        
         verify(fileService.writeFile(
           file: anyNamed('file'),
           fileContent: anyNamed('fileContent'),
