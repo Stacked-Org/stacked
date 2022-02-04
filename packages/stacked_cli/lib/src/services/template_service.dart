@@ -95,9 +95,9 @@ class TemplateService {
         viewName: viewName,
       );
 
-      final templateFileOutputPath = templateFile.relativeOutputPath.replaceAll(
-        'generic',
-        viewName ?? '',
+      final templateFileOutputPath = getTemplateOutputPath(
+        inputTemplatePath: templateFile.relativeOutputPath,
+        viewName: viewName,
       );
 
       await _fileService.writeFile(
@@ -105,6 +105,19 @@ class TemplateService {
         fileContent: templateContent,
       );
     }
+  }
+
+  /// Returns the output path for the file given the input path of the template
+  String getTemplateOutputPath({
+    required String inputTemplatePath,
+    String? viewName,
+  }) {
+    // TODO: Remove the duplicate code
+    final recaseViewName = ReCase(viewName ?? '');
+    return inputTemplatePath.replaceAll(
+      'generic',
+      recaseViewName.snakeCase,
+    );
   }
 
   /// Takes in a templated string [content] and builds the template data
@@ -123,7 +136,8 @@ class TemplateService {
     final renderData = {
       kTemplatePropertyViewName: '${viewNameRecase.pascalCase}View',
       kTemplatePropertyViewModelName: '${viewNameRecase.pascalCase}ViewModel',
-      kTemplatePropertyViewModelFileName: '${viewName}_viewmodel.dart',
+      kTemplatePropertyViewModelFileName:
+          '${viewNameRecase.snakeCase}_viewmodel.dart',
     };
 
     return viewTemplate.renderString(renderData);
@@ -183,8 +197,8 @@ class TemplateService {
         // TODO: Create helper extensions for modifying the viewName passed in
         kTemplatePropertyViewName: '${viewNameRecase.pascalCase}View',
         kTemplatePropertyPackageName: pubspecYaml.name,
-        kTemplateViewFolderName: '$viewName',
-        kTemplateViewFileName: '${viewName}_view.dart',
+        kTemplateViewFolderName: viewNameRecase.snakeCase,
+        kTemplateViewFileName: '${viewNameRecase.snakeCase}_view.dart',
       },
     );
 
