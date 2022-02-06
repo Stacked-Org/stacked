@@ -30,4 +30,6 @@ class PathService {
         part7,
         part8,
       );
+
+  String basename(String path) => p.basename(path);
 }

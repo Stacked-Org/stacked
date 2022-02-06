@@ -4,8 +4,8 @@ const String kTemplatePropertyViewName = 'viewName';
 
 // ------- File Modification identifiers --------
 
-const String kModificationIdentifierAppRoutes = '// @stacked-routes';
-const String kModificationIdentifierAppImports = '// @stacked-imports';
+const String kModificationIdentifierAppRoutes = '// @stacked-route';
+const String kModificationIdentifierAppImports = '// @stacked-import';
 
 // ------- Property names for Rendering replacement -------
 
@@ -49,4 +49,35 @@ const String k{{templateName}}Template{{templateFileName}}Content = \'''
 // --------------------------------------------------
 
 {{/templateItems}}
+''';
+
+// TODO: add an option to create Cupertino or custom routes
+const String kTemplateMapDataStructure = '''
+import 'package:stacked_cli/src/message_constants.dart';
+import 'package:stacked_cli/src/models/template_models.dart';
+import 'package:stacked_cli/src/templates/compiled_templates.dart';
+import 'package:stacked_cli/src/templates/template_constants.dart';
+
+Map<String, StackedTemplate> kCompiledStackedTemplates = {
+  '{{templateName}}': StackedTemplate(
+    templateFiles: [
+    {{#templateFiles}}
+      TemplateFile(
+        relativeOutputPath: {{templateFilePath}},
+        content: {{templateFileContent}},
+      ),
+    {{/templateFiles}}
+    ],
+    modificationFiles: [
+      {{#modificationFiles}}
+      ModificationFile(
+        relativeModificationPath: {{modificationPath}},
+        modificationIdentifier: {{modificationIndentifier}},
+        modificationTemplate: {{modificationTemplate}},
+        modificationProblemError: {{modificationErrorMessage}},
+      ),
+      {{/modificationFiles}}
+    ],
+  )
+};
 ''';
