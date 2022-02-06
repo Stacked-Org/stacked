@@ -3,7 +3,7 @@ import 'package:stacked_cli/src/exceptions/invalid_stacked_structure_exception.d
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/message_constants.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
-import 'package:stacked_cli/src/templates/template.dart';
+import 'package:stacked_cli/src/models/template_models.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 import 'package:test/test.dart';
 
@@ -127,7 +127,7 @@ void main() {
         final fileService = getAndRegisterMockFileService();
         final service = _getService();
         await service.writeOutTemplateFiles(
-          template: stackdTemplates['view']!,
+          template: stackedTemplates['view']!,
           templateName: 'view',
           viewName: 'Details',
         );
@@ -146,7 +146,7 @@ void main() {
         final fileService = getAndRegisterMockFileService();
         final service = _getService();
         await service.modifyExistingFiles(
-          template: stackdTemplates['view']!,
+          template: stackedTemplates['view']!,
           templateName: 'view',
         );
         verify(fileService.fileExists(filePath: 'lib/app/app.dart'));
@@ -158,7 +158,7 @@ void main() {
         final fileService = getAndRegisterMockFileService();
         final service = _getService();
         await service.modifyExistingFiles(
-          template: stackdTemplates['view']!,
+          template: stackedTemplates['view']!,
           templateName: 'view',
         );
         verify(fileService.readFile(filePath: 'lib/app/app.dart'));
@@ -174,7 +174,7 @@ void main() {
 
         expect(
             () async => await service.modifyExistingFiles(
-                  template: stackdTemplates['view']!,
+                  template: stackedTemplates['view']!,
                   templateName: 'view',
                 ),
             throwsA(

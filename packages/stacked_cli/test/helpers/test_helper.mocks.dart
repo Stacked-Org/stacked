@@ -6,10 +6,10 @@ import 'dart:async' as _i3;
 import 'dart:io' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:stacked_cli/src/models/template_models.dart' as _i7;
 import 'package:stacked_cli/src/services/file_service.dart' as _i2;
 import 'package:stacked_cli/src/services/path_service.dart' as _i5;
 import 'package:stacked_cli/src/services/template_service.dart' as _i6;
-import 'package:stacked_cli/src/templates/template.dart' as _i7;
 import 'package:stacked_cli/src/templates/template_helper.dart' as _i8;
 
 // ignore_for_file: avoid_redundant_argument_values
@@ -92,6 +92,10 @@ class MockPathService extends _i1.Mock implements _i5.PathService {
           Invocation.method(
               #join, [part1, part2, part3, part4, part5, part6, part7, part8]),
           returnValue: '') as String);
+  @override
+  String basename(String? path) =>
+      (super.noSuchMethod(Invocation.method(#basename, [path]), returnValue: '')
+          as String);
 }
 
 /// A class which mocks [TemplateService].
@@ -199,6 +203,18 @@ class MockTemplateHelper extends _i1.Mock implements _i8.TemplateHelper {
               {#files: files, #section: section}),
           returnValue: <_i4.FileSystemEntity>[]) as List<_i4.FileSystemEntity>);
   @override
+  String getTemplateFileNameOnly({_i4.FileSystemEntity? templateFilePath}) =>
+      (super.noSuchMethod(
+          Invocation.method(#getTemplateFileNameOnly, [],
+              {#templateFilePath: templateFilePath}),
+          returnValue: '') as String);
+  @override
+  String getTemplateFolderName({String? templateFilePath}) =>
+      (super.noSuchMethod(
+          Invocation.method(#getTemplateFolderName, [],
+              {#templateFilePath: templateFilePath}),
+          returnValue: '') as String);
+  @override
   _i3.Future<List<_i4.FileSystemEntity>> getFilesForTemplate(
           {String? templateName}) =>
       (super.noSuchMethod(
@@ -207,4 +223,13 @@ class MockTemplateHelper extends _i1.Mock implements _i8.TemplateHelper {
               returnValue: Future<List<_i4.FileSystemEntity>>.value(
                   <_i4.FileSystemEntity>[]))
           as _i3.Future<List<_i4.FileSystemEntity>>);
+  @override
+  _i3.Future<List<_i7.CompliledTemplateFile>> getTemplateItemsToRender(
+          {List<String>? templateNames}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #getTemplateItemsToRender, [], {#templateNames: templateNames}),
+          returnValue: Future<List<_i7.CompliledTemplateFile>>.value(
+              <_i7.CompliledTemplateFile>[])) as _i3
+          .Future<List<_i7.CompliledTemplateFile>>);
 }
