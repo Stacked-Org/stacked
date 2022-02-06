@@ -55,49 +55,16 @@ Map<String, StackedTemplate> stackdTemplates = {
 /// using the same file paths
 class TemplateService {
   final _fileService = locator<FileService>();
+  final _templateHelper = locator<TemplateHelper>();
 
   /// Reads the template folder and creates the dart code that will be used to generate
   /// the templates
   Future<void> compileTemplateInformation() async {
-    print('********' + Directory.current.path);
-    final templatesPath = p.joinAll([
-      Directory.current.path,
-      'lib',
-      'src',
-      'templates',
-    ]);
-    final allFilesInTemplateDirectory = await _fileService.getFilesInDirectory(
-      directoryPath: templatesPath,
-    );
+    final templatesPath = _templateHelper.templatesPath;
+
     final stackedTemplatePaths = await _fileService.getFoldersInDirectory(
       directoryPath: templatesPath,
     );
-
-    final templateHelper = TemplateHelper();
-    // Get the template files only
-    final allTemplateFiles = templateHelper.getTemplatesFilesOnly(
-      filePaths: allFilesInTemplateDirectory,
-    );
-
-    const String templateDataStructure = '''
-/// NOTE: This is generated code from the compileTemplates command. Do not modify by hand
-///       This file should be checked into source control.
-
-{{#templateItems}}
-
-// -------- {{templateFileName}} Template Data ----------
-
-const String k{{templateName}}Template{{templateFileName}}Path =
-    '{{templateFilePath}}';
-
-const String k{{templateName}}Template{{templateFileName}}Content = \'''
-{{{templateFileContent}}}
-\''';
-
-// --------------------------------------------------
-
-{{/templateItems}}
-''';
 
     final templateItemsToRender = <TemplateItem>[];
 
@@ -107,8 +74,7 @@ const String k{{templateName}}Template{{templateFileName}}Content = \'''
       final stackedTemplate = p.basename(stackedTemplatePath);
 
       // Get the files for that template from all files
-      final templateFiles = templateHelper.getFilesForTemplate(
-        filePaths: allTemplateFiles,
+      final templateFiles = await _templateHelper.getFilesForTemplate(
         templateName: stackedTemplate,
       );
 
@@ -138,7 +104,7 @@ const String k{{templateName}}Template{{templateFileName}}Content = \'''
       }
 
       // All items collected, time to render and write them to disk
-      final outputTemplate = Template(templateDataStructure);
+      final outputTemplate = Template(kTemplateDataStructure);
       final allTemplateItemsContent = outputTemplate.renderString({
         'templateItems': templateItemsToRender.map((e) => e.toJson()),
       });

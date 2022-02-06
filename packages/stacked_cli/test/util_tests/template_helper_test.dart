@@ -1,42 +1,103 @@
 import 'dart:io';
 
+import 'package:mockito/mockito.dart';
 import 'package:path/path.dart' as p;
+import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/templates/template_helper.dart';
 import 'package:test/test.dart';
 
+import '../helpers/test_helper.dart';
+
+TemplateHelper _getHelper() => TemplateHelper();
+
 void main() {
   group('TemplateHelperTest -', () {
+    setUp(registerServices);
+    tearDown(locator.reset);
+
     group('getTemplatesFilesOnly -', () {
       test(
           'When given list of files where 1 ends in .stk, should return that file only',
           () {
-        final helper = TemplateHelper();
-        final templateFiles = helper.getTemplatesFilesOnly(filePaths: [
-          File('non-template.dart'),
-          File('non-template.text'),
-          File('non-template.string'),
-          File('non-template.dart.stk'),
-          File('non-template.dart.as'),
-        ]);
+        final helper = _getHelper();
+        final templateFiles = helper.getFilesWithExtension(
+          filePaths: [
+            File('non-template.dart'),
+            File('non-template.text'),
+            File('non-template.string'),
+            File('non-template.dart.stk'),
+            File('non-template.dart.as'),
+          ],
+          extension: '.stk',
+        );
 
         expect(templateFiles.first.path, 'non-template.dart.stk');
       });
     });
 
+    group('getFilesThatContainSection -', () {
+      test(
+          'When called with files where 2 has templates\\section in it and secion "templates\\section", should return those two files',
+          () {
+        final helper = _getHelper();
+        final result = helper.getFilesThatContainSection(
+          files: [
+            File('my\\file\\not\\in\\section'),
+            File('my\\file\\not\\in2\\section'),
+            File('my\\file\\templates\\section'),
+            File('my\\file\\not\\in3\\section'),
+            File('templates\\section\\'),
+            File('my\\file\\not\\in\\section4'),
+          ],
+          section: 'templates\\section',
+        );
+        expect(result.map((e) => e.path), [
+          'my\\file\\templates\\section',
+          'templates\\section\\',
+        ]);
+      });
+    });
+
     group('getFilesForTemplate -', () {
       test(
+          'When called with any templateName, should get the templates path from the pathService',
+          () async {
+        final pathService = getAndRegisterPathService();
+        final helper = _getHelper();
+        await helper.getFilesForTemplate(templateName: 'view');
+        verify(pathService.templatesPath);
+      });
+
+      test(
+          'When called with any templateName, should get the files in directory with path from pathService',
+          () async {
+        final fileService = getAndRegisterMockFileService();
+        final helper = _getHelper();
+        await helper.getFilesForTemplate(templateName: 'view');
+        verify(fileService.getFilesInDirectory(directoryPath: 'template_path'));
+      });
+
+      test('When called with view, should join templates and view', () async {
+        final pathService = getAndRegisterPathService();
+        final helper = _getHelper();
+        await helper.getFilesForTemplate(templateName: 'view');
+        verify(pathService.join('templates', 'view'));
+      });
+
+      test(
           'When given list of files where 2 contains templates\\view , should return those 2 files only',
-          () {
-        final helper = TemplateHelper();
+          () async {
         final templateDirectory = p.join('templates', 'view');
-        final templateFiles = helper.getFilesForTemplate(
-          filePaths: [
-            File('non-template.dart'),
-            File('non-template.text'),
-            File('${templateDirectory}non-template.string'),
-            File('non-template.dart.stk'),
-            File('${templateDirectory}non-template.dart.as'),
-          ],
+        getAndRegisterMockFileService(getFilesInDirectoryResult: [
+          File('non-template.dart'),
+          File('non-template.text'),
+          File('${templateDirectory}non-template.string'),
+          File('non-template.dart.stk'),
+          File('${templateDirectory}non-template.dart.as'),
+        ]);
+
+        final helper = _getHelper();
+        final templateFiles = await helper.getFilesForTemplate(
           templateName: 'view',
         );
 

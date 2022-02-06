@@ -28,3 +28,25 @@ const String kTemplateViewFileName = 'viewFileName';
 /// The name of the package that the cli tool is running in. This is read from the
 /// pubspec.yaml file in the root folder.
 const String kTemplatePropertyPackageName = 'packageName';
+
+// -------- Compiled Template Structure ---------
+
+const String kTemplateDataStructure = '''
+/// NOTE: This is generated code from the compileTemplates command. Do not modify by hand
+///       This file should be checked into source control.
+
+{{#templateItems}}
+
+// -------- {{templateFileName}} Template Data ----------
+
+const String k{{templateName}}Template{{templateFileName}}Path =
+    '{{templateFilePath}}';
+
+const String k{{templateName}}Template{{templateFileName}}Content = \'''
+{{{templateFileContent}}}
+\''';
+
+// --------------------------------------------------
+
+{{/templateItems}}
+''';
