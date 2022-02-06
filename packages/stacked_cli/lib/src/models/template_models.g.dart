@@ -9,29 +9,29 @@ part of 'template_models.dart';
 _$_CompliledTemplateFile _$$_CompliledTemplateFileFromJson(
         Map<String, dynamic> json) =>
     _$_CompliledTemplateFile(
-      templateName: json['templateName'] as String,
-      templateFileName: json['templateFileName'] as String,
-      templateFilePath: json['templateFilePath'] as String,
-      templateFileContent: json['templateFileContent'] as String,
+      name: json['name'] as String,
+      fileName: json['fileName'] as String,
+      path: json['path'] as String,
+      content: json['content'] as String,
     );
 
 Map<String, dynamic> _$$_CompliledTemplateFileToJson(
         _$_CompliledTemplateFile instance) =>
     <String, dynamic>{
-      'templateName': instance.templateName,
-      'templateFileName': instance.templateFileName,
-      'templateFilePath': instance.templateFilePath,
-      'templateFileContent': instance.templateFileContent,
+      'name': instance.name,
+      'fileName': instance.fileName,
+      'path': instance.path,
+      'content': instance.content,
     };
 
 _$_CompiledStackedTemplate _$$_CompiledStackedTemplateFromJson(
         Map<String, dynamic> json) =>
     _$_CompiledStackedTemplate(
-      templateName: json['templateName'] as String,
+      name: json['name'] as String,
       templateFiles: (json['templateFiles'] as List<dynamic>)
           .map((e) => CompliledTemplateFile.fromJson(e as Map<String, dynamic>))
           .toList(),
-      fileModifications: (json['fileModifications'] as List<dynamic>?)
+      modificationFiles: (json['modificationFiles'] as List<dynamic>?)
               ?.map((e) =>
                   CompiledFileModification.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -41,25 +41,28 @@ _$_CompiledStackedTemplate _$$_CompiledStackedTemplateFromJson(
 Map<String, dynamic> _$$_CompiledStackedTemplateToJson(
         _$_CompiledStackedTemplate instance) =>
     <String, dynamic>{
-      'templateName': instance.templateName,
-      'templateFiles': instance.templateFiles,
-      'fileModifications': instance.fileModifications,
+      'name': instance.name,
+      'templateFiles': instance.templateFiles.map((e) => e.toJson()).toList(),
+      'modificationFiles':
+          instance.modificationFiles.map((e) => e.toJson()).toList(),
     };
 
 _$_CompiledFileModification _$$_CompiledFileModificationFromJson(
         Map<String, dynamic> json) =>
     _$_CompiledFileModification(
-      modificationPath: json['modificationPath'] as String,
-      modificationIndentifier: json['modificationIndentifier'] as String,
-      modificationTemplate: json['modificationTemplate'] as String,
-      modificationErrorMessage: json['modificationErrorMessage'] as String,
+      description: json['description'] as String,
+      path: json['path'] as String,
+      identifier: json['identifier'] as String,
+      template: json['template'] as String,
+      error: json['error'] as String,
     );
 
 Map<String, dynamic> _$$_CompiledFileModificationToJson(
         _$_CompiledFileModification instance) =>
     <String, dynamic>{
-      'modificationPath': instance.modificationPath,
-      'modificationIndentifier': instance.modificationIndentifier,
-      'modificationTemplate': instance.modificationTemplate,
-      'modificationErrorMessage': instance.modificationErrorMessage,
+      'description': instance.description,
+      'path': instance.path,
+      'identifier': instance.identifier,
+      'template': instance.template,
+      'error': instance.error,
     };

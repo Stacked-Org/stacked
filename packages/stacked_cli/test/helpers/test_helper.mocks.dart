@@ -216,20 +216,29 @@ class MockTemplateHelper extends _i1.Mock implements _i8.TemplateHelper {
           returnValue: '') as String);
   @override
   _i3.Future<List<_i4.FileSystemEntity>> getFilesForTemplate(
-          {String? templateName}) =>
+          {String? templateName, String? extension = r'.stk'}) =>
       (super.noSuchMethod(
-              Invocation.method(
-                  #getFilesForTemplate, [], {#templateName: templateName}),
+              Invocation.method(#getFilesForTemplate, [],
+                  {#templateName: templateName, #extension: extension}),
               returnValue: Future<List<_i4.FileSystemEntity>>.value(
                   <_i4.FileSystemEntity>[]))
           as _i3.Future<List<_i4.FileSystemEntity>>);
   @override
+  _i3.Future<List<_i7.CompiledFileModification>>
+      getTemplateModificationsToApply({String? templateName}) =>
+          (super.noSuchMethod(
+                  Invocation.method(#getTemplateModificationsToApply, [],
+                      {#templateName: templateName}),
+                  returnValue: Future<List<_i7.CompiledFileModification>>.value(
+                      <_i7.CompiledFileModification>[]))
+              as _i3.Future<List<_i7.CompiledFileModification>>);
+  @override
   _i3.Future<List<_i7.CompliledTemplateFile>> getTemplateItemsToRender(
-          {List<String>? templateNames}) =>
+          {String? templateName}) =>
       (super.noSuchMethod(
-          Invocation.method(
-              #getTemplateItemsToRender, [], {#templateNames: templateNames}),
-          returnValue: Future<List<_i7.CompliledTemplateFile>>.value(
-              <_i7.CompliledTemplateFile>[])) as _i3
-          .Future<List<_i7.CompliledTemplateFile>>);
+              Invocation.method(
+                  #getTemplateItemsToRender, [], {#templateName: templateName}),
+              returnValue: Future<List<_i7.CompliledTemplateFile>>.value(
+                  <_i7.CompliledTemplateFile>[]))
+          as _i3.Future<List<_i7.CompliledTemplateFile>>);
 }

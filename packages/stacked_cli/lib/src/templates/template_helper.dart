@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:recase/recase.dart';
@@ -41,9 +42,10 @@ class TemplateHelper {
   String getTemplateFolderName({required String templateFilePath}) =>
       _pathService.basename(templateFilePath);
 
-  /// Returns the list of files that have .stk endings in the templates/[templateName] folder
+  /// Returns the list of files with [extension] endings in the templates/[templateName] folder
   Future<List<FileSystemEntity>> getFilesForTemplate({
     required String templateName,
+    String extension = '.stk',
   }) async {
     final allFilesInTemplateDirectory = await _fileService.getFilesInDirectory(
       directoryPath: templatesPath,
@@ -51,7 +53,7 @@ class TemplateHelper {
 
     final allTemplateFiles = getFilesWithExtension(
       filePaths: allFilesInTemplateDirectory,
-      extension: '.stk',
+      extension: extension,
     );
 
     final templateFolder = _pathService.join('templates', templateName);
@@ -62,43 +64,60 @@ class TemplateHelper {
     );
   }
 
+  /// Return all the compiled file modifications to apply to the template
+  Future<List<CompiledFileModification>> getTemplateModificationsToApply({
+    required String templateName,
+  }) async {
+    final templateModificationItems = <CompiledFileModification>[];
+    final modificationFiles = await getFilesForTemplate(
+      templateName: templateName,
+      extension: '.json',
+    );
+
+    for (final modificationFile in modificationFiles) {
+      final fileContent = await File(modificationFile.path).readAsString();
+
+      final compiledModificationItem =
+          CompiledFileModification.fromJson(json.decode(fileContent));
+
+      templateModificationItems.add(compiledModificationItem);
+    }
+    return templateModificationItems;
+  }
+
+  /// Returns all the compiled template files to write out to disk
   Future<List<CompliledTemplateFile>> getTemplateItemsToRender({
-    required List<String> templateNames,
+    required String templateName,
   }) async {
     final templateItemsToRender = <CompliledTemplateFile>[];
 
-    for (final stackedTemplateName in templateNames) {
-      final stackedTemplate = getTemplateFolderName(
-        templateFilePath: stackedTemplateName,
+
+    final templateFiles = await getFilesForTemplate(
+      templateName: templateName,
+    );
+
+    final templateNameRecase = ReCase(templateName);
+    final templateFolderName = _pathService.join('templates', 'view');
+
+    for (final templateFile in templateFiles) {
+      final templateFileNameOnly = getTemplateFileNameOnly(
+        templateFilePath: templateFile,
       );
 
-      final templateFiles = await getFilesForTemplate(
-        templateName: stackedTemplate,
-      );
+      final templateFileNameRecase = ReCase(templateFileNameOnly);
 
-      final templateNameRecase = ReCase(stackedTemplate);
-      final templateFolderName = _pathService.join('templates', 'view');
+      final relativeTemplateFilePath =
+          templateFile.path.split(templateFolderName).last;
 
-      for (final templateFile in templateFiles) {
-        final templateFileNameOnly = getTemplateFileNameOnly(
-          templateFilePath: templateFile,
-        );
+      final templateFileContent =
+          await _fileService.readFile(filePath: templateFile.path);
 
-        final templateFileNameRecase = ReCase(templateFileNameOnly);
-
-        final relativeTemplateFilePath =
-            templateFile.path.split(templateFolderName).last;
-
-        final templateFileContent =
-            await _fileService.readFile(filePath: templateFile.path);
-
-        templateItemsToRender.add(CompliledTemplateFile(
-          templateName: templateNameRecase.pascalCase,
-          templateFileName: templateFileNameRecase.pascalCase,
-          templateFilePath: relativeTemplateFilePath.replaceAll('\\', '\\\\'),
-          templateFileContent: templateFileContent,
-        ));
-      }
+      templateItemsToRender.add(CompliledTemplateFile(
+        name: templateNameRecase.pascalCase,
+        fileName: templateFileNameRecase.pascalCase,
+        path: relativeTemplateFilePath.replaceAll('\\', '\\\\'),
+        content: templateFileContent,
+      ));
     }
 
     return templateItemsToRender;

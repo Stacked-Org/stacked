@@ -9,11 +9,9 @@ import 'package:recase/recase.dart';
 import 'package:stacked_cli/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/message_constants.dart';
-// import 'package:stacked_cli/src/templates/generic_view_template.dart';
-// import 'package:stacked_cli/src/templates/generic_viewmodel_template.dart';
-// import 'package:stacked_cli/src/templates/generic_viewmodel_test_template.dart';
 import 'package:stacked_cli/src/models/template_models.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
+import 'package:stacked_cli/src/templates/compiled_template_map.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 import 'package:stacked_cli/src/templates/template_helper.dart';
 
@@ -28,19 +26,41 @@ class TemplateService {
   Future<void> compileTemplateInformation() async {
     final templatesPath = _templateHelper.templatesPath;
 
-    final stackedTemplateNames = await _fileService.getFoldersInDirectory(
+    final stackedTemplateFolderPaths = await _fileService.getFoldersInDirectory(
       directoryPath: templatesPath,
     );
 
-    final templateItemsToRender =
-        await _templateHelper.getTemplateItemsToRender(
-      templateNames: stackedTemplateNames,
-    );
+    final stackedTemplates = <CompiledStackedTemplate>[];
+    final allTemplateItems = <CompliledTemplateFile>[];
+    for (final stackedTemplateFolderPath in stackedTemplateFolderPaths) {
+      final templateName = _templateHelper.getTemplateFolderName(
+        templateFilePath: stackedTemplateFolderPath,
+      );
+
+      final templateItemsToRender =
+          await _templateHelper.getTemplateItemsToRender(
+        templateName: templateName,
+      );
+
+      allTemplateItems.addAll(templateItemsToRender);
+
+      final templateModificationsToApply = await _templateHelper
+          .getTemplateModificationsToApply(templateName: templateName);
+
+      stackedTemplates.add(CompiledStackedTemplate(
+        name: templateName,
+        templateFiles: templateItemsToRender,
+        modificationFiles: templateModificationsToApply,
+      ));
+    }
 
     final outputTemplate = Template(kTemplateDataStructure);
-    final allTemplateItemsContent = outputTemplate.renderString({
-      'templateItems': templateItemsToRender.map((e) => e.toJson()),
-    });
+    final templateItemsData = {
+      'templateItems': allTemplateItems.map((e) => e.toJson()).toList(),
+    };
+
+    final allTemplateItemsContent =
+        outputTemplate.renderString(templateItemsData);
 
     await _fileService.writeFile(
       file: File(p.join(templatesPath, 'compiled_templates.dart')),
@@ -48,6 +68,16 @@ class TemplateService {
     );
 
     // Creat the template map
+    final templateMap = Template(kTemplateMapDataStructure);
+    final templateMapData = {
+      'stackedTemplates': stackedTemplates.map((e) => e.toJson()).toList(),
+    };
+
+    final templateMapContent = templateMap.renderString(templateMapData);
+    await _fileService.writeFile(
+      file: File(p.join(templatesPath, 'compiled_template_map.dart')),
+      fileContent: templateMapContent,
+    );
   }
 
   /// Using the [templateName] this function will write out the template

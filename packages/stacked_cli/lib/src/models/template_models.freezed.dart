@@ -24,15 +24,15 @@ class _$CompliledTemplateFileTearOff {
   const _$CompliledTemplateFileTearOff();
 
   _CompliledTemplateFile call(
-      {required String templateName,
-      required String templateFileName,
-      required String templateFilePath,
-      required String templateFileContent}) {
+      {required String name,
+      required String fileName,
+      required String path,
+      required String content}) {
     return _CompliledTemplateFile(
-      templateName: templateName,
-      templateFileName: templateFileName,
-      templateFilePath: templateFilePath,
-      templateFileContent: templateFileContent,
+      name: name,
+      fileName: fileName,
+      path: path,
+      content: content,
     );
   }
 
@@ -47,17 +47,17 @@ const $CompliledTemplateFile = _$CompliledTemplateFileTearOff();
 /// @nodoc
 mixin _$CompliledTemplateFile {
   /// Pascal case name of the template this file belongs too
-  String get templateName => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
 
   /// Pascal case name of the file without the extension
-  String get templateFileName => throw _privateConstructorUsedError;
+  String get fileName => throw _privateConstructorUsedError;
 
   /// Relative file path from the template in the templates folder
   /// .i.e. from we don't include template/view/
-  String get templateFilePath => throw _privateConstructorUsedError;
+  String get path => throw _privateConstructorUsedError;
 
   /// The content as is from the file that was read
-  String get templateFileContent => throw _privateConstructorUsedError;
+  String get content => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -70,11 +70,7 @@ abstract class $CompliledTemplateFileCopyWith<$Res> {
   factory $CompliledTemplateFileCopyWith(CompliledTemplateFile value,
           $Res Function(CompliledTemplateFile) then) =
       _$CompliledTemplateFileCopyWithImpl<$Res>;
-  $Res call(
-      {String templateName,
-      String templateFileName,
-      String templateFilePath,
-      String templateFileContent});
+  $Res call({String name, String fileName, String path, String content});
 }
 
 /// @nodoc
@@ -88,27 +84,27 @@ class _$CompliledTemplateFileCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? templateName = freezed,
-    Object? templateFileName = freezed,
-    Object? templateFilePath = freezed,
-    Object? templateFileContent = freezed,
+    Object? name = freezed,
+    Object? fileName = freezed,
+    Object? path = freezed,
+    Object? content = freezed,
   }) {
     return _then(_value.copyWith(
-      templateName: templateName == freezed
-          ? _value.templateName
-          : templateName // ignore: cast_nullable_to_non_nullable
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      templateFileName: templateFileName == freezed
-          ? _value.templateFileName
-          : templateFileName // ignore: cast_nullable_to_non_nullable
+      fileName: fileName == freezed
+          ? _value.fileName
+          : fileName // ignore: cast_nullable_to_non_nullable
               as String,
-      templateFilePath: templateFilePath == freezed
-          ? _value.templateFilePath
-          : templateFilePath // ignore: cast_nullable_to_non_nullable
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
               as String,
-      templateFileContent: templateFileContent == freezed
-          ? _value.templateFileContent
-          : templateFileContent // ignore: cast_nullable_to_non_nullable
+      content: content == freezed
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -121,11 +117,7 @@ abstract class _$CompliledTemplateFileCopyWith<$Res>
           $Res Function(_CompliledTemplateFile) then) =
       __$CompliledTemplateFileCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {String templateName,
-      String templateFileName,
-      String templateFilePath,
-      String templateFileContent});
+  $Res call({String name, String fileName, String path, String content});
 }
 
 /// @nodoc
@@ -141,27 +133,27 @@ class __$CompliledTemplateFileCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? templateName = freezed,
-    Object? templateFileName = freezed,
-    Object? templateFilePath = freezed,
-    Object? templateFileContent = freezed,
+    Object? name = freezed,
+    Object? fileName = freezed,
+    Object? path = freezed,
+    Object? content = freezed,
   }) {
     return _then(_CompliledTemplateFile(
-      templateName: templateName == freezed
-          ? _value.templateName
-          : templateName // ignore: cast_nullable_to_non_nullable
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      templateFileName: templateFileName == freezed
-          ? _value.templateFileName
-          : templateFileName // ignore: cast_nullable_to_non_nullable
+      fileName: fileName == freezed
+          ? _value.fileName
+          : fileName // ignore: cast_nullable_to_non_nullable
               as String,
-      templateFilePath: templateFilePath == freezed
-          ? _value.templateFilePath
-          : templateFilePath // ignore: cast_nullable_to_non_nullable
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
               as String,
-      templateFileContent: templateFileContent == freezed
-          ? _value.templateFileContent
-          : templateFileContent // ignore: cast_nullable_to_non_nullable
+      content: content == freezed
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -171,10 +163,10 @@ class __$CompliledTemplateFileCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CompliledTemplateFile implements _CompliledTemplateFile {
   _$_CompliledTemplateFile(
-      {required this.templateName,
-      required this.templateFileName,
-      required this.templateFilePath,
-      required this.templateFileContent});
+      {required this.name,
+      required this.fileName,
+      required this.path,
+      required this.content});
 
   factory _$_CompliledTemplateFile.fromJson(Map<String, dynamic> json) =>
       _$$_CompliledTemplateFileFromJson(json);
@@ -182,24 +174,24 @@ class _$_CompliledTemplateFile implements _CompliledTemplateFile {
   @override
 
   /// Pascal case name of the template this file belongs too
-  final String templateName;
+  final String name;
   @override
 
   /// Pascal case name of the file without the extension
-  final String templateFileName;
+  final String fileName;
   @override
 
   /// Relative file path from the template in the templates folder
   /// .i.e. from we don't include template/view/
-  final String templateFilePath;
+  final String path;
   @override
 
   /// The content as is from the file that was read
-  final String templateFileContent;
+  final String content;
 
   @override
   String toString() {
-    return 'CompliledTemplateFile(templateName: $templateName, templateFileName: $templateFileName, templateFilePath: $templateFilePath, templateFileContent: $templateFileContent)';
+    return 'CompliledTemplateFile(name: $name, fileName: $fileName, path: $path, content: $content)';
   }
 
   @override
@@ -207,23 +199,19 @@ class _$_CompliledTemplateFile implements _CompliledTemplateFile {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _CompliledTemplateFile &&
-            const DeepCollectionEquality()
-                .equals(other.templateName, templateName) &&
-            const DeepCollectionEquality()
-                .equals(other.templateFileName, templateFileName) &&
-            const DeepCollectionEquality()
-                .equals(other.templateFilePath, templateFilePath) &&
-            const DeepCollectionEquality()
-                .equals(other.templateFileContent, templateFileContent));
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.fileName, fileName) &&
+            const DeepCollectionEquality().equals(other.path, path) &&
+            const DeepCollectionEquality().equals(other.content, content));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(templateName),
-      const DeepCollectionEquality().hash(templateFileName),
-      const DeepCollectionEquality().hash(templateFilePath),
-      const DeepCollectionEquality().hash(templateFileContent));
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(fileName),
+      const DeepCollectionEquality().hash(path),
+      const DeepCollectionEquality().hash(content));
 
   @JsonKey(ignore: true)
   @override
@@ -239,10 +227,10 @@ class _$_CompliledTemplateFile implements _CompliledTemplateFile {
 
 abstract class _CompliledTemplateFile implements CompliledTemplateFile {
   factory _CompliledTemplateFile(
-      {required String templateName,
-      required String templateFileName,
-      required String templateFilePath,
-      required String templateFileContent}) = _$_CompliledTemplateFile;
+      {required String name,
+      required String fileName,
+      required String path,
+      required String content}) = _$_CompliledTemplateFile;
 
   factory _CompliledTemplateFile.fromJson(Map<String, dynamic> json) =
       _$_CompliledTemplateFile.fromJson;
@@ -250,20 +238,20 @@ abstract class _CompliledTemplateFile implements CompliledTemplateFile {
   @override
 
   /// Pascal case name of the template this file belongs too
-  String get templateName;
+  String get name;
   @override
 
   /// Pascal case name of the file without the extension
-  String get templateFileName;
+  String get fileName;
   @override
 
   /// Relative file path from the template in the templates folder
   /// .i.e. from we don't include template/view/
-  String get templateFilePath;
+  String get path;
   @override
 
   /// The content as is from the file that was read
-  String get templateFileContent;
+  String get content;
   @override
   @JsonKey(ignore: true)
   _$CompliledTemplateFileCopyWith<_CompliledTemplateFile> get copyWith =>
@@ -280,13 +268,13 @@ class _$CompiledStackedTemplateTearOff {
   const _$CompiledStackedTemplateTearOff();
 
   _CompiledStackedTemplate call(
-      {required String templateName,
+      {required String name,
       required List<CompliledTemplateFile> templateFiles,
-      List<CompiledFileModification> fileModifications = const []}) {
+      List<CompiledFileModification> modificationFiles = const []}) {
     return _CompiledStackedTemplate(
-      templateName: templateName,
+      name: name,
       templateFiles: templateFiles,
-      fileModifications: fileModifications,
+      modificationFiles: modificationFiles,
     );
   }
 
@@ -300,10 +288,10 @@ const $CompiledStackedTemplate = _$CompiledStackedTemplateTearOff();
 
 /// @nodoc
 mixin _$CompiledStackedTemplate {
-  String get templateName => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   List<CompliledTemplateFile> get templateFiles =>
       throw _privateConstructorUsedError;
-  List<CompiledFileModification> get fileModifications =>
+  List<CompiledFileModification> get modificationFiles =>
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -318,9 +306,9 @@ abstract class $CompiledStackedTemplateCopyWith<$Res> {
           $Res Function(CompiledStackedTemplate) then) =
       _$CompiledStackedTemplateCopyWithImpl<$Res>;
   $Res call(
-      {String templateName,
+      {String name,
       List<CompliledTemplateFile> templateFiles,
-      List<CompiledFileModification> fileModifications});
+      List<CompiledFileModification> modificationFiles});
 }
 
 /// @nodoc
@@ -334,22 +322,22 @@ class _$CompiledStackedTemplateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? templateName = freezed,
+    Object? name = freezed,
     Object? templateFiles = freezed,
-    Object? fileModifications = freezed,
+    Object? modificationFiles = freezed,
   }) {
     return _then(_value.copyWith(
-      templateName: templateName == freezed
-          ? _value.templateName
-          : templateName // ignore: cast_nullable_to_non_nullable
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       templateFiles: templateFiles == freezed
           ? _value.templateFiles
           : templateFiles // ignore: cast_nullable_to_non_nullable
               as List<CompliledTemplateFile>,
-      fileModifications: fileModifications == freezed
-          ? _value.fileModifications
-          : fileModifications // ignore: cast_nullable_to_non_nullable
+      modificationFiles: modificationFiles == freezed
+          ? _value.modificationFiles
+          : modificationFiles // ignore: cast_nullable_to_non_nullable
               as List<CompiledFileModification>,
     ));
   }
@@ -363,9 +351,9 @@ abstract class _$CompiledStackedTemplateCopyWith<$Res>
       __$CompiledStackedTemplateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String templateName,
+      {String name,
       List<CompliledTemplateFile> templateFiles,
-      List<CompiledFileModification> fileModifications});
+      List<CompiledFileModification> modificationFiles});
 }
 
 /// @nodoc
@@ -382,22 +370,22 @@ class __$CompiledStackedTemplateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? templateName = freezed,
+    Object? name = freezed,
     Object? templateFiles = freezed,
-    Object? fileModifications = freezed,
+    Object? modificationFiles = freezed,
   }) {
     return _then(_CompiledStackedTemplate(
-      templateName: templateName == freezed
-          ? _value.templateName
-          : templateName // ignore: cast_nullable_to_non_nullable
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       templateFiles: templateFiles == freezed
           ? _value.templateFiles
           : templateFiles // ignore: cast_nullable_to_non_nullable
               as List<CompliledTemplateFile>,
-      fileModifications: fileModifications == freezed
-          ? _value.fileModifications
-          : fileModifications // ignore: cast_nullable_to_non_nullable
+      modificationFiles: modificationFiles == freezed
+          ? _value.modificationFiles
+          : modificationFiles // ignore: cast_nullable_to_non_nullable
               as List<CompiledFileModification>,
     ));
   }
@@ -407,24 +395,24 @@ class __$CompiledStackedTemplateCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CompiledStackedTemplate implements _CompiledStackedTemplate {
   _$_CompiledStackedTemplate(
-      {required this.templateName,
+      {required this.name,
       required this.templateFiles,
-      this.fileModifications = const []});
+      this.modificationFiles = const []});
 
   factory _$_CompiledStackedTemplate.fromJson(Map<String, dynamic> json) =>
       _$$_CompiledStackedTemplateFromJson(json);
 
   @override
-  final String templateName;
+  final String name;
   @override
   final List<CompliledTemplateFile> templateFiles;
   @JsonKey()
   @override
-  final List<CompiledFileModification> fileModifications;
+  final List<CompiledFileModification> modificationFiles;
 
   @override
   String toString() {
-    return 'CompiledStackedTemplate(templateName: $templateName, templateFiles: $templateFiles, fileModifications: $fileModifications)';
+    return 'CompiledStackedTemplate(name: $name, templateFiles: $templateFiles, modificationFiles: $modificationFiles)';
   }
 
   @override
@@ -432,20 +420,19 @@ class _$_CompiledStackedTemplate implements _CompiledStackedTemplate {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _CompiledStackedTemplate &&
-            const DeepCollectionEquality()
-                .equals(other.templateName, templateName) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.templateFiles, templateFiles) &&
             const DeepCollectionEquality()
-                .equals(other.fileModifications, fileModifications));
+                .equals(other.modificationFiles, modificationFiles));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(templateName),
+      const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(templateFiles),
-      const DeepCollectionEquality().hash(fileModifications));
+      const DeepCollectionEquality().hash(modificationFiles));
 
   @JsonKey(ignore: true)
   @override
@@ -461,20 +448,20 @@ class _$_CompiledStackedTemplate implements _CompiledStackedTemplate {
 
 abstract class _CompiledStackedTemplate implements CompiledStackedTemplate {
   factory _CompiledStackedTemplate(
-          {required String templateName,
+          {required String name,
           required List<CompliledTemplateFile> templateFiles,
-          List<CompiledFileModification> fileModifications}) =
+          List<CompiledFileModification> modificationFiles}) =
       _$_CompiledStackedTemplate;
 
   factory _CompiledStackedTemplate.fromJson(Map<String, dynamic> json) =
       _$_CompiledStackedTemplate.fromJson;
 
   @override
-  String get templateName;
+  String get name;
   @override
   List<CompliledTemplateFile> get templateFiles;
   @override
-  List<CompiledFileModification> get fileModifications;
+  List<CompiledFileModification> get modificationFiles;
   @override
   @JsonKey(ignore: true)
   _$CompiledStackedTemplateCopyWith<_CompiledStackedTemplate> get copyWith =>
@@ -491,15 +478,17 @@ class _$CompiledFileModificationTearOff {
   const _$CompiledFileModificationTearOff();
 
   _CompiledFileModification call(
-      {required String modificationPath,
-      required String modificationIndentifier,
-      required String modificationTemplate,
-      required String modificationErrorMessage}) {
+      {required String description,
+      required String path,
+      required String identifier,
+      required String template,
+      required String error}) {
     return _CompiledFileModification(
-      modificationPath: modificationPath,
-      modificationIndentifier: modificationIndentifier,
-      modificationTemplate: modificationTemplate,
-      modificationErrorMessage: modificationErrorMessage,
+      description: description,
+      path: path,
+      identifier: identifier,
+      template: template,
+      error: error,
     );
   }
 
@@ -513,17 +502,20 @@ const $CompiledFileModification = _$CompiledFileModificationTearOff();
 
 /// @nodoc
 mixin _$CompiledFileModification {
+  /// A short description for what this modiciation does
+  String get description => throw _privateConstructorUsedError;
+
   /// The relative path to the file that needs to be modified
-  String get modificationPath => throw _privateConstructorUsedError;
+  String get path => throw _privateConstructorUsedError;
 
   /// The identifier to use to determine location of modifications
-  String get modificationIndentifier => throw _privateConstructorUsedError;
+  String get identifier => throw _privateConstructorUsedError;
 
   /// The mustache template to use when rendering the modification
-  String get modificationTemplate => throw _privateConstructorUsedError;
+  String get template => throw _privateConstructorUsedError;
 
   /// The message to show the user of the cli if the modification fails
-  String get modificationErrorMessage => throw _privateConstructorUsedError;
+  String get error => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -537,10 +529,11 @@ abstract class $CompiledFileModificationCopyWith<$Res> {
           $Res Function(CompiledFileModification) then) =
       _$CompiledFileModificationCopyWithImpl<$Res>;
   $Res call(
-      {String modificationPath,
-      String modificationIndentifier,
-      String modificationTemplate,
-      String modificationErrorMessage});
+      {String description,
+      String path,
+      String identifier,
+      String template,
+      String error});
 }
 
 /// @nodoc
@@ -554,27 +547,32 @@ class _$CompiledFileModificationCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? modificationPath = freezed,
-    Object? modificationIndentifier = freezed,
-    Object? modificationTemplate = freezed,
-    Object? modificationErrorMessage = freezed,
+    Object? description = freezed,
+    Object? path = freezed,
+    Object? identifier = freezed,
+    Object? template = freezed,
+    Object? error = freezed,
   }) {
     return _then(_value.copyWith(
-      modificationPath: modificationPath == freezed
-          ? _value.modificationPath
-          : modificationPath // ignore: cast_nullable_to_non_nullable
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
-      modificationIndentifier: modificationIndentifier == freezed
-          ? _value.modificationIndentifier
-          : modificationIndentifier // ignore: cast_nullable_to_non_nullable
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
               as String,
-      modificationTemplate: modificationTemplate == freezed
-          ? _value.modificationTemplate
-          : modificationTemplate // ignore: cast_nullable_to_non_nullable
+      identifier: identifier == freezed
+          ? _value.identifier
+          : identifier // ignore: cast_nullable_to_non_nullable
               as String,
-      modificationErrorMessage: modificationErrorMessage == freezed
-          ? _value.modificationErrorMessage
-          : modificationErrorMessage // ignore: cast_nullable_to_non_nullable
+      template: template == freezed
+          ? _value.template
+          : template // ignore: cast_nullable_to_non_nullable
+              as String,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -588,10 +586,11 @@ abstract class _$CompiledFileModificationCopyWith<$Res>
       __$CompiledFileModificationCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String modificationPath,
-      String modificationIndentifier,
-      String modificationTemplate,
-      String modificationErrorMessage});
+      {String description,
+      String path,
+      String identifier,
+      String template,
+      String error});
 }
 
 /// @nodoc
@@ -608,27 +607,32 @@ class __$CompiledFileModificationCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? modificationPath = freezed,
-    Object? modificationIndentifier = freezed,
-    Object? modificationTemplate = freezed,
-    Object? modificationErrorMessage = freezed,
+    Object? description = freezed,
+    Object? path = freezed,
+    Object? identifier = freezed,
+    Object? template = freezed,
+    Object? error = freezed,
   }) {
     return _then(_CompiledFileModification(
-      modificationPath: modificationPath == freezed
-          ? _value.modificationPath
-          : modificationPath // ignore: cast_nullable_to_non_nullable
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
-      modificationIndentifier: modificationIndentifier == freezed
-          ? _value.modificationIndentifier
-          : modificationIndentifier // ignore: cast_nullable_to_non_nullable
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
               as String,
-      modificationTemplate: modificationTemplate == freezed
-          ? _value.modificationTemplate
-          : modificationTemplate // ignore: cast_nullable_to_non_nullable
+      identifier: identifier == freezed
+          ? _value.identifier
+          : identifier // ignore: cast_nullable_to_non_nullable
               as String,
-      modificationErrorMessage: modificationErrorMessage == freezed
-          ? _value.modificationErrorMessage
-          : modificationErrorMessage // ignore: cast_nullable_to_non_nullable
+      template: template == freezed
+          ? _value.template
+          : template // ignore: cast_nullable_to_non_nullable
+              as String,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -638,34 +642,39 @@ class __$CompiledFileModificationCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CompiledFileModification implements _CompiledFileModification {
   _$_CompiledFileModification(
-      {required this.modificationPath,
-      required this.modificationIndentifier,
-      required this.modificationTemplate,
-      required this.modificationErrorMessage});
+      {required this.description,
+      required this.path,
+      required this.identifier,
+      required this.template,
+      required this.error});
 
   factory _$_CompiledFileModification.fromJson(Map<String, dynamic> json) =>
       _$$_CompiledFileModificationFromJson(json);
 
   @override
 
+  /// A short description for what this modiciation does
+  final String description;
+  @override
+
   /// The relative path to the file that needs to be modified
-  final String modificationPath;
+  final String path;
   @override
 
   /// The identifier to use to determine location of modifications
-  final String modificationIndentifier;
+  final String identifier;
   @override
 
   /// The mustache template to use when rendering the modification
-  final String modificationTemplate;
+  final String template;
   @override
 
   /// The message to show the user of the cli if the modification fails
-  final String modificationErrorMessage;
+  final String error;
 
   @override
   String toString() {
-    return 'CompiledFileModification(modificationPath: $modificationPath, modificationIndentifier: $modificationIndentifier, modificationTemplate: $modificationTemplate, modificationErrorMessage: $modificationErrorMessage)';
+    return 'CompiledFileModification(description: $description, path: $path, identifier: $identifier, template: $template, error: $error)';
   }
 
   @override
@@ -674,22 +683,22 @@ class _$_CompiledFileModification implements _CompiledFileModification {
         (other.runtimeType == runtimeType &&
             other is _CompiledFileModification &&
             const DeepCollectionEquality()
-                .equals(other.modificationPath, modificationPath) &&
-            const DeepCollectionEquality().equals(
-                other.modificationIndentifier, modificationIndentifier) &&
+                .equals(other.description, description) &&
+            const DeepCollectionEquality().equals(other.path, path) &&
             const DeepCollectionEquality()
-                .equals(other.modificationTemplate, modificationTemplate) &&
-            const DeepCollectionEquality().equals(
-                other.modificationErrorMessage, modificationErrorMessage));
+                .equals(other.identifier, identifier) &&
+            const DeepCollectionEquality().equals(other.template, template) &&
+            const DeepCollectionEquality().equals(other.error, error));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(modificationPath),
-      const DeepCollectionEquality().hash(modificationIndentifier),
-      const DeepCollectionEquality().hash(modificationTemplate),
-      const DeepCollectionEquality().hash(modificationErrorMessage));
+      const DeepCollectionEquality().hash(description),
+      const DeepCollectionEquality().hash(path),
+      const DeepCollectionEquality().hash(identifier),
+      const DeepCollectionEquality().hash(template),
+      const DeepCollectionEquality().hash(error));
 
   @JsonKey(ignore: true)
   @override
@@ -705,30 +714,35 @@ class _$_CompiledFileModification implements _CompiledFileModification {
 
 abstract class _CompiledFileModification implements CompiledFileModification {
   factory _CompiledFileModification(
-      {required String modificationPath,
-      required String modificationIndentifier,
-      required String modificationTemplate,
-      required String modificationErrorMessage}) = _$_CompiledFileModification;
+      {required String description,
+      required String path,
+      required String identifier,
+      required String template,
+      required String error}) = _$_CompiledFileModification;
 
   factory _CompiledFileModification.fromJson(Map<String, dynamic> json) =
       _$_CompiledFileModification.fromJson;
 
   @override
 
+  /// A short description for what this modiciation does
+  String get description;
+  @override
+
   /// The relative path to the file that needs to be modified
-  String get modificationPath;
+  String get path;
   @override
 
   /// The identifier to use to determine location of modifications
-  String get modificationIndentifier;
+  String get identifier;
   @override
 
   /// The mustache template to use when rendering the modification
-  String get modificationTemplate;
+  String get template;
   @override
 
   /// The message to show the user of the cli if the modification fails
-  String get modificationErrorMessage;
+  String get error;
   @override
   @JsonKey(ignore: true)
   _$CompiledFileModificationCopyWith<_CompiledFileModification> get copyWith =>

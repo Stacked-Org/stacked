@@ -37,13 +37,13 @@ const String kTemplateDataStructure = '''
 
 {{#templateItems}}
 
-// -------- {{templateFileName}} Template Data ----------
+// -------- {{fileName}} Template Data ----------
 
-const String k{{templateName}}Template{{templateFileName}}Path =
-    '{{templateFilePath}}';
+const String k{{name}}Template{{fileName}}Path =
+    '{{path}}';
 
-const String k{{templateName}}Template{{templateFileName}}Content = \'''
-{{{templateFileContent}}}
+const String k{{name}}Template{{fileName}}Content = \'''
+{{{content}}}
 \''';
 
 // --------------------------------------------------
@@ -59,25 +59,28 @@ import 'package:stacked_cli/src/templates/compiled_templates.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
 Map<String, StackedTemplate> kCompiledStackedTemplates = {
-  '{{templateName}}': StackedTemplate(
+  {{#stackedTemplates}}
+  '{{name}}': StackedTemplate(
     templateFiles: [
     {{#templateFiles}}
       TemplateFile(
-        relativeOutputPath: {{templateFilePath}},
-        content: {{templateFileContent}},
+        relativeOutputPath: k{{name}}Template{{fileName}}Path,
+        content: k{{name}}Template{{fileName}}Content,
       ),
     {{/templateFiles}}
     ],
     modificationFiles: [
       {{#modificationFiles}}
       ModificationFile(
-        relativeModificationPath: {{modificationPath}},
-        modificationIdentifier: {{modificationIndentifier}},
-        modificationTemplate: {{modificationTemplate}},
-        modificationProblemError: {{modificationErrorMessage}},
+        relativeModificationPath: '{{{path}}}',
+        modificationIdentifier: '{{{identifier}}}',
+        modificationTemplate: '{{{template}}}',
+        modificationProblemError: '{{error}}',
       ),
       {{/modificationFiles}}
     ],
-  )
+  ),
+  
+  {{/stackedTemplates}}
 };
 ''';

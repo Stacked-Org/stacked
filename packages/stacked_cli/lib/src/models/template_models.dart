@@ -7,17 +7,17 @@ part 'template_models.g.dart';
 class CompliledTemplateFile with _$CompliledTemplateFile {
   factory CompliledTemplateFile({
     /// Pascal case name of the template this file belongs too
-    required String templateName,
+    required String name,
 
     /// Pascal case name of the file without the extension
-    required String templateFileName,
+    required String fileName,
 
     /// Relative file path from the template in the templates folder
     /// .i.e. from we don't include template/view/
-    required String templateFilePath,
+    required String path,
 
     /// The content as is from the file that was read
-    required String templateFileContent,
+    required String content,
   }) = _CompliledTemplateFile;
 
   factory CompliledTemplateFile.fromJson(Map<String, dynamic> json) =>
@@ -27,9 +27,9 @@ class CompliledTemplateFile with _$CompliledTemplateFile {
 @freezed
 class CompiledStackedTemplate with _$CompiledStackedTemplate {
   factory CompiledStackedTemplate({
-    required String templateName,
+    required String name,
     required List<CompliledTemplateFile> templateFiles,
-    @Default([]) List<CompiledFileModification> fileModifications,
+    @Default([]) List<CompiledFileModification> modificationFiles,
   }) = _CompiledStackedTemplate;
 
   factory CompiledStackedTemplate.fromJson(Map<String, dynamic> json) =>
@@ -39,23 +39,27 @@ class CompiledStackedTemplate with _$CompiledStackedTemplate {
 @freezed
 class CompiledFileModification with _$CompiledFileModification {
   factory CompiledFileModification({
+    /// A short description for what this modiciation does
+    required String description,
+
     /// The relative path to the file that needs to be modified
-    required String modificationPath,
+    required String path,
 
     /// The identifier to use to determine location of modifications
-    required String modificationIndentifier,
+    required String identifier,
 
     /// The mustache template to use when rendering the modification
-    required String modificationTemplate,
+    required String template,
 
     /// The message to show the user of the cli if the modification fails
-    required String modificationErrorMessage,
+    required String error,
   }) = _CompiledFileModification;
 
   factory CompiledFileModification.fromJson(Map<String, dynamic> json) =>
       _$CompiledFileModificationFromJson(json);
 }
 
+// TODO: Move this out into its own file and give it a better name
 /// This model contains all the the information for us to generate
 /// a stacked template
 class StackedTemplate {
