@@ -88,12 +88,15 @@ void main() {
           'When given list of files where 2 contains templates\\view , should return those 2 files only',
           () async {
         final templateDirectory = p.join('templates', 'view');
+
+        getAndRegisterPathService(joinResult: templateDirectory);
+
         getAndRegisterMockFileService(getFilesInDirectoryResult: [
           File('non-template.dart'),
           File('non-template.text'),
-          File('${templateDirectory}non-template.string'),
+          File('$templateDirectory\\generic.string.stk'),
           File('non-template.dart.stk'),
-          File('${templateDirectory}non-template.dart.as'),
+          File('$templateDirectory\\open.dart.as.stk'),
         ]);
 
         final helper = _getHelper();
@@ -103,10 +106,13 @@ void main() {
 
         // NOTE: We cannot compare 2 dart:io:File objects with the same path, they are not
         // equal. Therefore this unit test maps the file path to a list before comparison
-        expect(templateFiles.map((e) => e.path), [
-          '${templateDirectory}non-template.string',
-          '${templateDirectory}non-template.dart.as',
-        ]);
+        expect(
+          templateFiles.map((e) => e.path).toList(),
+          [
+            '$templateDirectory\\generic.string.stk',
+            '$templateDirectory\\open.dart.as.stk',
+          ],
+        );
       });
     });
   });

@@ -62,6 +62,13 @@ MockPathService getAndRegisterPathService({
   return service;
 }
 
+MockTemplateHelper getAndRegisterTemplateHelper() {
+  _removeRegistrationIfExists<TemplateHelper>();
+  final service = MockTemplateHelper();
+  locator.registerSingleton<TemplateHelper>(service);
+  return service;
+}
+
 // Call this before any service registration helper. This is to ensure that if there
 // is a service registered we remove it first. We register all services to remove boiler plate from tests
 void _removeRegistrationIfExists<T extends Object>() {
@@ -73,4 +80,5 @@ void _removeRegistrationIfExists<T extends Object>() {
 void registerServices() {
   getAndRegisterMockFileService();
   getAndRegisterPathService();
+  getAndRegisterTemplateHelper();
 }
