@@ -38,11 +38,31 @@ class MockFileService extends _i1.Mock implements _i2.FileService {
       Invocation.method(#readFile, [], {#filePath: filePath}),
       returnValue: Future<String>.value('')) as _i3.Future<String>);
   @override
+  _i3.Future<List<_i4.FileSystemEntity>> getFilesInDirectory(
+          {String? directoryPath}) =>
+      (super.noSuchMethod(
+              Invocation.method(
+                  #getFilesInDirectory, [], {#directoryPath: directoryPath}),
+              returnValue: Future<List<_i4.FileSystemEntity>>.value(
+                  <_i4.FileSystemEntity>[]))
+          as _i3.Future<List<_i4.FileSystemEntity>>);
+  @override
+  _i3.Future<List<String>> getFoldersInDirectory({String? directoryPath}) =>
+      (super.noSuchMethod(
+              Invocation.method(
+                  #getFoldersInDirectory, [], {#directoryPath: directoryPath}),
+              returnValue: Future<List<String>>.value(<String>[]))
+          as _i3.Future<List<String>>);
+  @override
   void log(String? message, {bool? verbose = false}) => super.noSuchMethod(
       Invocation.method(#log, [message], {#verbose: verbose}),
       returnValueForMissingStub: null);
   @override
   _i3.Future<bool> isProjectRoot() =>
       (super.noSuchMethod(Invocation.method(#isProjectRoot, []),
+          returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
+  @override
+  _i3.Future<bool> isStakedApplication() =>
+      (super.noSuchMethod(Invocation.method(#isStakedApplication, []),
           returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
 }

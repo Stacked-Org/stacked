@@ -2,31 +2,35 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:mustache_template/mustache_template.dart';
+// TODO: Refactor into a service so we can mock out the return value
+import 'package:path/path.dart' as p;
 import 'package:pubspec_yaml/pubspec_yaml.dart';
 import 'package:recase/recase.dart';
 import 'package:stacked_cli/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/message_constants.dart';
+import 'package:stacked_cli/src/models/template_item.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
-import 'package:stacked_cli/src/templates/generic_view_template.dart';
-import 'package:stacked_cli/src/templates/generic_viewmodel_template.dart';
-import 'package:stacked_cli/src/templates/generic_viewmodel_test_template.dart';
+// import 'package:stacked_cli/src/templates/generic_view_template.dart';
+// import 'package:stacked_cli/src/templates/generic_viewmodel_template.dart';
+// import 'package:stacked_cli/src/templates/generic_viewmodel_test_template.dart';
 import 'package:stacked_cli/src/templates/template.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
+import 'package:stacked_cli/src/templates/template_helper.dart';
 
 Map<String, StackedTemplate> stackdTemplates = {
   'view': StackedTemplate(templateFiles: [
     TemplateFile(
       relativeOutputPath: 'lib/ui/views/generic/generic_view.dart',
-      content: GenericViewTemplate,
+      content: 'GenericViewTemplate',
     ),
     TemplateFile(
       relativeOutputPath: 'lib/ui/views/generic/generic_viewmodel.dart',
-      content: GenericViewModelTemplate,
+      content: 'GenericViewModelTemplate',
     ),
     TemplateFile(
       relativeOutputPath: 'test/viewmodel_tests/generic_viewmodel_test.dart',
-      content: GenericViewModelTestTemplate,
+      content: 'GenericViewModelTestTemplate',
     )
   ], modificationFiles: [
     ModificationFile(
@@ -52,6 +56,102 @@ Map<String, StackedTemplate> stackdTemplates = {
 class TemplateService {
   final _fileService = locator<FileService>();
 
+  /// Reads the template folder and creates the dart code that will be used to generate
+  /// the templates
+  Future<void> compileTemplateInformation() async {
+    print('********' + Directory.current.path);
+    final templatesPath = p.joinAll([
+      Directory.current.path,
+      'lib',
+      'src',
+      'templates',
+    ]);
+    final allFilesInTemplateDirectory = await _fileService.getFilesInDirectory(
+      directoryPath: templatesPath,
+    );
+    final stackedTemplatePaths = await _fileService.getFoldersInDirectory(
+      directoryPath: templatesPath,
+    );
+
+    final templateHelper = TemplateHelper();
+    // Get the template files only
+    final allTemplateFiles = templateHelper.getTemplatesFilesOnly(
+      filePaths: allFilesInTemplateDirectory,
+    );
+
+    const String templateDataStructure = '''
+/// NOTE: This is generated code from the compileTemplates command. Do not modify by hand
+///       This file should be checked into source control.
+
+{{#templateItems}}
+
+// -------- {{templateFileName}} Template Data ----------
+
+const String k{{templateName}}Template{{templateFileName}}Path =
+    '{{templateFilePath}}';
+
+const String k{{templateName}}Template{{templateFileName}}Content = \'''
+{{{templateFileContent}}}
+\''';
+
+// --------------------------------------------------
+
+{{/templateItems}}
+''';
+
+    final templateItemsToRender = <TemplateItem>[];
+
+    // Loop through each template
+    for (final stackedTemplatePath in stackedTemplatePaths) {
+      // the actual name of the stacked template
+      final stackedTemplate = p.basename(stackedTemplatePath);
+
+      // Get the files for that template from all files
+      final templateFiles = templateHelper.getFilesForTemplate(
+        filePaths: allTemplateFiles,
+        templateName: stackedTemplate,
+      );
+
+      final templateNameRecase = ReCase(stackedTemplate);
+      final templateFolderName = p.join('templates', 'view');
+
+      for (final templateFile in templateFiles) {
+        // TODO: Move into template helper and unit test
+        final templateFileNameOnly =
+            p.basename(templateFile.path).replaceFirst('.dart.stk', '');
+
+        final templateFileNameRecase = ReCase(templateFileNameOnly);
+
+        // TODO: Move into template helper and unit test
+        final relativeTemplateFilePath =
+            templateFile.path.split(templateFolderName).last;
+
+        final templateFileContent =
+            await _fileService.readFile(filePath: templateFile.path);
+
+        templateItemsToRender.add(TemplateItem(
+          templateName: templateNameRecase.pascalCase,
+          templateFileName: templateFileNameRecase.pascalCase,
+          templateFilePath: relativeTemplateFilePath.replaceAll('\\', '\\\\'),
+          templateFileContent: templateFileContent,
+        ));
+      }
+
+      // All items collected, time to render and write them to disk
+      final outputTemplate = Template(templateDataStructure);
+      final allTemplateItemsContent = outputTemplate.renderString({
+        'templateItems': templateItemsToRender.map((e) => e.toJson()),
+      });
+
+      await _fileService.writeFile(
+        file: File(p.join(templatesPath, 'compiled_templates.dart')),
+        fileContent: allTemplateItemsContent,
+      );
+    }
+  }
+
+  /// Using the [templateName] this function will write out the template
+  /// files in the directory the cli is currently running.
   Future<void> renderTemplate({
     required String templateName,
 
