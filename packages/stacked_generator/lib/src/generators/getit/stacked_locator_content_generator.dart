@@ -89,7 +89,8 @@ class StackedLocatorContentGenerator extends BaseGenerator {
           _params["params"]?.isEmpty ?? true,
           "At least one paramter is requerd for FactoryWithParam registration ",
         );
-        return '$locatorName.registerFactoryParam<${dependencyDefinition.className},${_params["paramTypes"]}>$abstractionType((param1, param2) => ${dependencyDefinition.className}(${_params["params"]})  $_formattedEnvs);';
+        final typeOfService = hasAbstratedType ? dependencyDefinition.abstractedTypeClassName : dependencyDefinition.className;
+        return '$locatorName.registerFactoryParam<${typeOfService},${_params["paramTypes"]}>((param1, param2) => ${dependencyDefinition.className}(${_params["params"]})  $_formattedEnvs);';
       case DependencyType.Singleton:
       default:
         return '$locatorName.registerSingleton$abstractionType($singletonInstanceToReturn  $_formattedEnvs);';
