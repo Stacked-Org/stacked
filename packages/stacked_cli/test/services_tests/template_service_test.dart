@@ -2,8 +2,9 @@ import 'package:mockito/mockito.dart';
 import 'package:stacked_cli/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/message_constants.dart';
-import 'package:stacked_cli/src/services/template_service.dart';
 import 'package:stacked_cli/src/models/template_models.dart';
+import 'package:stacked_cli/src/services/template_service.dart';
+import 'package:stacked_cli/src/templates/compiled_template_map.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 import 'package:test/test.dart';
 
@@ -127,7 +128,7 @@ void main() {
         final fileService = getAndRegisterMockFileService();
         final service = _getService();
         await service.writeOutTemplateFiles(
-          template: stackedTemplates['view']!,
+          template: kCompiledStackedTemplates['view']!,
           templateName: 'view',
           viewName: 'Details',
         );
@@ -146,7 +147,7 @@ void main() {
         final fileService = getAndRegisterMockFileService();
         final service = _getService();
         await service.modifyExistingFiles(
-          template: stackedTemplates['view']!,
+          template: kCompiledStackedTemplates['view']!,
           templateName: 'view',
         );
         verify(fileService.fileExists(filePath: 'lib/app/app.dart'));
@@ -158,7 +159,7 @@ void main() {
         final fileService = getAndRegisterMockFileService();
         final service = _getService();
         await service.modifyExistingFiles(
-          template: stackedTemplates['view']!,
+          template: kCompiledStackedTemplates['view']!,
           templateName: 'view',
         );
         verify(fileService.readFile(filePath: 'lib/app/app.dart'));
@@ -174,7 +175,7 @@ void main() {
 
         expect(
             () async => await service.modifyExistingFiles(
-                  template: stackedTemplates['view']!,
+                  template: kCompiledStackedTemplates['view']!,
                   templateName: 'view',
                 ),
             throwsA(
@@ -230,7 +231,7 @@ void main() {
           excludeRoute: true,
           viewName: 'noRouteView',
         );
-        
+
         verifyNever(fileService.fileExists(filePath: anyNamed('filePath')));
       });
       test('Given templateName view with no name, should throw an exception',
