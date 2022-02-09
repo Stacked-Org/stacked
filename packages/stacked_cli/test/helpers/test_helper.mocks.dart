@@ -10,7 +10,9 @@ import 'package:stacked_cli/src/models/template_models.dart' as _i7;
 import 'package:stacked_cli/src/services/file_service.dart' as _i2;
 import 'package:stacked_cli/src/services/path_service.dart' as _i5;
 import 'package:stacked_cli/src/services/template_service.dart' as _i6;
-import 'package:stacked_cli/src/templates/template_helper.dart' as _i8;
+import 'package:stacked_cli/src/templates/template_helper.dart' as _i9;
+import 'package:stacked_cli/src/templates/template_render_functions.dart'
+    as _i8;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -110,13 +112,13 @@ class MockTemplateService extends _i1.Mock implements _i6.TemplateService {
   @override
   _i3.Future<void> renderTemplate(
           {String? templateName,
-          String? viewName,
+          String? name,
           bool? verbose = false,
           bool? excludeRoute = false}) =>
       (super.noSuchMethod(
           Invocation.method(#renderTemplate, [], {
             #templateName: templateName,
-            #viewName: viewName,
+            #name: name,
             #verbose: verbose,
             #excludeRoute: excludeRoute
           }),
@@ -126,42 +128,45 @@ class MockTemplateService extends _i1.Mock implements _i6.TemplateService {
   _i3.Future<void> writeOutTemplateFiles(
           {_i7.StackedTemplate? template,
           String? templateName,
-          String? viewName}) =>
+          String? name}) =>
       (super.noSuchMethod(
-          Invocation.method(#writeOutTemplateFiles, [], {
-            #template: template,
-            #templateName: templateName,
-            #viewName: viewName
-          }),
+          Invocation.method(#writeOutTemplateFiles, [],
+              {#template: template, #templateName: templateName, #name: name}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
-  String getTemplateOutputPath({String? inputTemplatePath, String? viewName}) =>
+  String getTemplateOutputPath({String? inputTemplatePath, String? name}) =>
       (super.noSuchMethod(
           Invocation.method(#getTemplateOutputPath, [],
-              {#inputTemplatePath: inputTemplatePath, #viewName: viewName}),
+              {#inputTemplatePath: inputTemplatePath, #name: name}),
           returnValue: '') as String);
   @override
   String renderContentForTemplate(
-          {String? content, String? templateName, String? viewName}) =>
+          {String? content, String? templateName, String? name}) =>
       (super.noSuchMethod(
-          Invocation.method(#renderContentForTemplate, [], {
-            #content: content,
-            #templateName: templateName,
-            #viewName: viewName
-          }),
+          Invocation.method(#renderContentForTemplate, [],
+              {#content: content, #templateName: templateName, #name: name}),
           returnValue: '') as String);
+  @override
+  Map<String, String> getTemplateRenderData(
+          {String? templateName,
+          String? name,
+          Map<String, _i8.RenderFunction>? testRenderFunctions}) =>
+      (super.noSuchMethod(
+          Invocation.method(#getTemplateRenderData, [], {
+            #templateName: templateName,
+            #name: name,
+            #testRenderFunctions: testRenderFunctions
+          }),
+          returnValue: <String, String>{}) as Map<String, String>);
   @override
   _i3.Future<void> modifyExistingFiles(
           {_i7.StackedTemplate? template,
           String? templateName,
-          String? viewName}) =>
+          String? name}) =>
       (super.noSuchMethod(
-          Invocation.method(#modifyExistingFiles, [], {
-            #template: template,
-            #templateName: templateName,
-            #viewName: viewName
-          }),
+          Invocation.method(#modifyExistingFiles, [],
+              {#template: template, #templateName: templateName, #name: name}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
@@ -183,7 +188,7 @@ class MockTemplateService extends _i1.Mock implements _i6.TemplateService {
 /// A class which mocks [TemplateHelper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTemplateHelper extends _i1.Mock implements _i8.TemplateHelper {
+class MockTemplateHelper extends _i1.Mock implements _i9.TemplateHelper {
   @override
   String get templatesPath =>
       (super.noSuchMethod(Invocation.getter(#templatesPath), returnValue: '')

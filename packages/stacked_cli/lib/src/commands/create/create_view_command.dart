@@ -27,7 +27,7 @@ class CreateViewCommand extends Command {
     // TODO: We need to add command structure validation if possible
     await _templateService.renderTemplate(
       templateName: 'view',
-      viewName: argResults!.rest.first,
+      name: argResults!.rest.first,
       verbose: true,
       excludeRoute: argResults!['exclude-route'],
     );
