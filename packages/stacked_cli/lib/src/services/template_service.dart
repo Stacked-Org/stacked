@@ -32,6 +32,7 @@ class TemplateService {
 
     final stackedTemplates = <CompiledStackedTemplate>[];
     final allTemplateItems = <CompliledTemplateFile>[];
+    
     for (final stackedTemplateFolderPath in stackedTemplateFolderPaths) {
       final templateName = _templateHelper.getTemplateFolderName(
         templateFilePath: stackedTemplateFolderPath,
