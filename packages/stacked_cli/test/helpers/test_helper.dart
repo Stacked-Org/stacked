@@ -16,6 +16,7 @@ import 'test_helper.mocks.dart';
   MockSpec<PathService>(returnNullOnMissingStub: true),
   MockSpec<TemplateService>(returnNullOnMissingStub: true),
   MockSpec<TemplateHelper>(returnNullOnMissingStub: true),
+  // @stacked-service-mock
 ])
 MockFileService getAndRegisterMockFileService({
   bool fileExistsResult = true,

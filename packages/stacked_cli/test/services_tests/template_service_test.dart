@@ -36,7 +36,7 @@ void main() {
         final result = templateService.renderContentForTemplate(
           content: content,
           templateName: 'view',
-          viewName: 'new',
+          name: 'new',
         );
 
         expect(result, expected);
@@ -52,7 +52,7 @@ void main() {
         final result = templateService.renderContentForTemplate(
           content: content,
           templateName: 'view',
-          viewName: 'orderDetails',
+          name: 'orderDetails',
         );
 
         expect(result, expected);
@@ -116,7 +116,7 @@ void main() {
         final service = _getService();
         final result = service.getTemplateOutputPath(
           inputTemplatePath: 'generic/generic.dart',
-          viewName: 'orderDetails',
+          name: 'orderDetails',
         );
         expect(result, 'order_details/order_details.dart');
       });
@@ -130,7 +130,7 @@ void main() {
         await service.writeOutTemplateFiles(
           template: kCompiledStackedTemplates['view']!,
           templateName: 'view',
-          viewName: 'Details',
+          name: 'Details',
         );
 
         verify(fileService.writeFile(
@@ -229,18 +229,40 @@ void main() {
         await service.renderTemplate(
           templateName: 'view',
           excludeRoute: true,
-          viewName: 'noRouteView',
+          name: 'noRouteView',
         );
 
         verifyNever(fileService.fileExists(filePath: anyNamed('filePath')));
       });
-      test('Given templateName view with no name, should throw an exception',
-          () async {
+    });
+
+    group('getTemplateRenderData -', () {
+      test(
+          'When given renderTemplates with no values and templateName stacked, should throw exception',
+          () {
         final service = _getService();
         expect(
-          () async => await service.renderTemplate(templateName: 'view'),
-          throwsA(TypeMatcher<Exception>()),
+          () => service.getTemplateRenderData(
+              templateName: 'stacked', testRenderFunctions: {}, name: ''),
+          throwsA(
+            predicate((e) => e is Exception),
+          ),
         );
+      });
+      test(
+          'When given renderTemplate snakeCase and templateName snakeCase, should convert the property to snake_case',
+          () {
+        final service = _getService();
+        final result = service.getTemplateRenderData(
+            templateName: 'snakeCase',
+            name: 'stackedCli',
+            testRenderFunctions: {
+              'snakeCase': (recaseValue) => {
+                    'name': recaseValue.snakeCase,
+                  }
+            });
+
+        expect(result['name'], 'stacked_cli');
       });
     });
   });

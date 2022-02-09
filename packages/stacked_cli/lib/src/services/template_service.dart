@@ -14,6 +14,7 @@ import 'package:stacked_cli/src/services/file_service.dart';
 import 'package:stacked_cli/src/templates/compiled_template_map.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 import 'package:stacked_cli/src/templates/template_helper.dart';
+import 'package:stacked_cli/src/templates/template_render_functions.dart';
 
 /// Given the data that points to templates it writes out those templates
 /// using the same file paths
@@ -32,7 +33,7 @@ class TemplateService {
 
     final stackedTemplates = <CompiledStackedTemplate>[];
     final allTemplateItems = <CompliledTemplateFile>[];
-    
+
     for (final stackedTemplateFolderPath in stackedTemplateFolderPaths) {
       final templateName = _templateHelper.getTemplateFolderName(
         templateFilePath: stackedTemplateFolderPath,
@@ -87,19 +88,12 @@ class TemplateService {
     required String templateName,
 
     /// The name to use for the views when generating the view template
-    String? viewName,
+    required String name,
     bool verbose = false,
 
     /// When set to true the newly generated view will not be added to the app.dart file
     bool excludeRoute = false,
   }) async {
-    if (templateName == 'view') {
-      if (viewName == null) {
-        throw Exception(
-            'When using the view template supplying the viewName parameter is required');
-      }
-    }
-
     // Get the template that we want to render
     final template = kCompiledStackedTemplates[templateName] ??
         StackedTemplate(templateFiles: []);
@@ -107,14 +101,14 @@ class TemplateService {
     await writeOutTemplateFiles(
       template: template,
       templateName: templateName,
-      viewName: viewName,
+      name: name,
     );
 
     if (templateName == 'view' && !excludeRoute) {
       await modifyExistingFiles(
         template: template,
         templateName: templateName,
-        viewName: viewName,
+        name: name,
       );
     }
   }
@@ -122,18 +116,18 @@ class TemplateService {
   Future<void> writeOutTemplateFiles({
     required StackedTemplate template,
     required String templateName,
-    String? viewName,
+    required String name,
   }) async {
     for (final templateFile in template.templateFiles) {
       final templateContent = renderContentForTemplate(
         content: templateFile.content,
         templateName: templateName,
-        viewName: viewName,
+        name: name,
       );
 
       final templateFileOutputPath = getTemplateOutputPath(
         inputTemplatePath: templateFile.relativeOutputPath,
-        viewName: viewName,
+        name: name,
       );
 
       await _fileService.writeFile(
@@ -146,13 +140,12 @@ class TemplateService {
   /// Returns the output path for the file given the input path of the template
   String getTemplateOutputPath({
     required String inputTemplatePath,
-    String? viewName,
+    String? name,
   }) {
-    // TODO: Remove the duplicate code
-    final recaseViewName = ReCase(viewName ?? '');
+    final recaseName = ReCase(name ?? '');
     return inputTemplatePath.replaceAll(
       'generic',
-      recaseViewName.snakeCase,
+      recaseName.snakeCase,
     );
   }
 
@@ -161,28 +154,44 @@ class TemplateService {
   String renderContentForTemplate({
     required String content,
     required String templateName,
-    String? viewName,
+    required String name,
   }) {
     var viewTemplate = Template(content, lenient: true);
 
-    // This functionality is separate and will have to move into its own place
-    // It WILL become a lot more complicated.
-    final viewNameRecase = ReCase(viewName ?? '');
-    // TODO: Refactor this to get different render data depending on the template
-    final renderData = {
-      kTemplatePropertyViewName: '${viewNameRecase.pascalCase}View',
-      kTemplatePropertyViewModelName: '${viewNameRecase.pascalCase}ViewModel',
-      kTemplatePropertyViewModelFileName:
-          '${viewNameRecase.snakeCase}_viewmodel.dart',
-    };
+    final renderData = getTemplateRenderData(
+      templateName: templateName,
+      name: name,
+    );
 
     return viewTemplate.renderString(renderData);
+  }
+
+  /// Returns a render data map from the [template_render_functions.dart] file with map
+  Map<String, String> getTemplateRenderData({
+    required String templateName,
+    required String name,
+
+    /// This value is only for testing
+    Map<String, RenderFunction>? testRenderFunctions,
+  }) {
+    final nameRecase = ReCase(name);
+
+    final renderFunction = testRenderFunctions != null
+        ? testRenderFunctions[templateName]
+        : renderFunctions[templateName];
+
+    if (renderFunction == null) {
+      throw Exception(
+          'No render function has been defined for the template $templateName. Please define a render function before running the command again.');
+    }
+
+    return renderFunction(nameRecase);
   }
 
   Future<void> modifyExistingFiles({
     required StackedTemplate template,
     required String templateName,
-    String? viewName,
+    String? name,
   }) async {
     for (final fileToModify in template.modificationFiles) {
       final fileExists = await _fileService.fileExists(
@@ -201,7 +210,7 @@ class TemplateService {
         fileContent: fileContent,
         modificationIdentifier: fileToModify.modificationIdentifier,
         modificationTemplate: fileToModify.modificationTemplate,
-        viewName: viewName,
+        viewName: name,
       );
 
       // Write the file back that was modified

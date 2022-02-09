@@ -6,6 +6,7 @@ const String kTemplatePropertyViewName = 'viewName';
 
 const String kModificationIdentifierAppRoutes = '// @stacked-route';
 const String kModificationIdentifierAppImports = '// @stacked-import';
+const String kModificationIdentifierServiceMock = '// @stacked-service-mock';
 
 // ------- Property names for Rendering replacement -------
 
