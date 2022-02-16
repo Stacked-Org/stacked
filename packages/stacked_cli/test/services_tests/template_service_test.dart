@@ -120,6 +120,17 @@ void main() {
         );
         expect(result, 'order_details/order_details.dart');
       });
+
+      test(
+          'When given a path generic/generic.dart.stk with viewName orderDetails, should return order_details/order_details.dart',
+          () {
+        final service = _getService();
+        final result = service.getTemplateOutputPath(
+          inputTemplatePath: 'generic/generic.dart.stk',
+          name: 'orderDetails',
+        );
+        expect(result, 'order_details/order_details.dart');
+      });
     });
 
     group('writeOutTemplateFiles -', () {
@@ -136,6 +147,7 @@ void main() {
         verify(fileService.writeFile(
           file: anyNamed('file'),
           fileContent: anyNamed('fileContent'),
+          verbose: anyNamed('verbose'),
         )).called(3);
       });
     });
@@ -222,7 +234,7 @@ void main() {
 
     group('renderTemplate -', () {
       test(
-          'When called with excludeRoutes true, should not check if any file exists',
+          'When called with template view and excludeRoutes, should not check if any file exists for file modification',
           () async {
         final fileService = getAndRegisterMockFileService();
         final service = _getService();
@@ -233,6 +245,20 @@ void main() {
         );
 
         verifyNever(fileService.fileExists(filePath: anyNamed('filePath')));
+      });
+
+      test(
+          'When called with template service and excludeRoutes, should check if file exists for file modification',
+          () async {
+        final fileService = getAndRegisterMockFileService();
+        final service = _getService();
+        await service.renderTemplate(
+          templateName: 'service',
+          excludeRoute: true,
+          name: 'noRouteView',
+        );
+
+        verify(fileService.fileExists(filePath: anyNamed('filePath')));
       });
     });
 
