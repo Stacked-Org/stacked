@@ -104,13 +104,17 @@ class TemplateService {
       name: name,
     );
 
-    if (templateName == 'view' && !excludeRoute) {
-      await modifyExistingFiles(
-        template: template,
-        templateName: templateName,
-        name: name,
-      );
+    // TODO: Refactor into an exclusionary rule system where we can
+    // provide new rules to exclude functionality with.
+    if (templateName == 'view' && excludeRoute) {
+      return;
     }
+
+    await modifyExistingFiles(
+      template: template,
+      templateName: templateName,
+      name: name,
+    );
   }
 
   Future<void> writeOutTemplateFiles({
@@ -144,10 +148,12 @@ class TemplateService {
     String? name,
   }) {
     final recaseName = ReCase(name ?? '');
-    return inputTemplatePath.replaceAll(
-      'generic',
-      recaseName.snakeCase,
-    );
+    return inputTemplatePath
+        .replaceAll(
+          'generic',
+          recaseName.snakeCase,
+        )
+        .replaceFirst('.stk', '');
   }
 
   /// Takes in a templated string [content] and builds the template data
