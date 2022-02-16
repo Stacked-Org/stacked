@@ -1,6 +1,6 @@
-/// The name of the view class in dart.
-/// Given a name 'details' expects viewName to equal DetailsView
-const String kTemplatePropertyViewName = 'viewName';
+// ------- Template names --------
+const String kTemplateNameView = 'view';
+const String kTemplateNameService = 'service';
 
 // ------- File Modification identifiers --------
 
@@ -9,6 +9,10 @@ const String kModificationIdentifierAppImports = '// @stacked-import';
 const String kModificationIdentifierServiceMock = '// @stacked-service-mock';
 
 // ------- Property names for Rendering replacement -------
+
+/// The name of the view class in dart.
+/// Given a name 'details' expects viewName to equal DetailsView
+const String kTemplatePropertyViewName = 'viewName';
 
 /// The name of the viewmodel class in dart.
 /// Given a name 'details' expects viewModelName to equal DetailsViewModel

@@ -106,7 +106,7 @@ class TemplateService {
 
     // TODO: Refactor into an exclusionary rule system where we can
     // provide new rules to exclude functionality with.
-    if (templateName == 'view' && excludeRoute) {
+    if (templateName == kTemplateNameView && excludeRoute) {
       return;
     }
 

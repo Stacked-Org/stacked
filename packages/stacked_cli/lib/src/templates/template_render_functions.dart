@@ -5,12 +5,12 @@ import 'package:stacked_cli/src/templates/template_constants.dart';
 typedef RenderFunction = Map<String, String> Function(ReCase value);
 
 Map<String, RenderFunction> renderFunctions = {
-  'view': (ReCase value) => {
+  kTemplateNameView: (ReCase value) => {
         kTemplatePropertyViewName: '${value.pascalCase}View',
         kTemplatePropertyViewModelName: '${value.pascalCase}ViewModel',
         kTemplatePropertyViewModelFileName: '${value.snakeCase}_viewmodel.dart',
       },
-  'service': (ReCase value) => {
+  kTemplateNameService: (ReCase value) => {
         'serviceName': value.pascalCase,
       },
 };

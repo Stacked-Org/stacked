@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:mockito/mockito.dart';
 import 'package:path/path.dart' as p;
 import 'package:stacked_cli/src/locator.dart';
+import 'package:stacked_cli/src/templates/template_constants.dart';
 import 'package:stacked_cli/src/templates/template_helper.dart';
 import 'package:test/test.dart';
 
@@ -64,7 +65,7 @@ void main() {
           () async {
         final pathService = getAndRegisterPathService();
         final helper = _getHelper();
-        await helper.getFilesForTemplate(templateName: 'view');
+        await helper.getFilesForTemplate(templateName: kTemplateNameView);
         verify(pathService.templatesPath);
       });
 
@@ -73,21 +74,21 @@ void main() {
           () async {
         final fileService = getAndRegisterMockFileService();
         final helper = _getHelper();
-        await helper.getFilesForTemplate(templateName: 'view');
+        await helper.getFilesForTemplate(templateName: kTemplateNameView);
         verify(fileService.getFilesInDirectory(directoryPath: 'template_path'));
       });
 
       test('When called with view, should join templates and view', () async {
         final pathService = getAndRegisterPathService();
         final helper = _getHelper();
-        await helper.getFilesForTemplate(templateName: 'view');
-        verify(pathService.join('templates', 'view'));
+        await helper.getFilesForTemplate(templateName: kTemplateNameView);
+        verify(pathService.join('templates', kTemplateNameView));
       });
 
       test(
           'When given list of files where 2 contains templates\\view , should return those 2 files only',
           () async {
-        final templateDirectory = p.join('templates', 'view');
+        final templateDirectory = p.join('templates', kTemplateNameView);
 
         getAndRegisterPathService(joinResult: templateDirectory);
 
@@ -101,7 +102,7 @@ void main() {
 
         final helper = _getHelper();
         final templateFiles = await helper.getFilesForTemplate(
-          templateName: 'view',
+          templateName: kTemplateNameView,
         );
 
         // NOTE: We cannot compare 2 dart:io:File objects with the same path, they are not

@@ -6,12 +6,13 @@ import 'package:stacked_cli/src/commands/create/create_command.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/message_constants.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
+import 'package:stacked_cli/src/templates/template_constants.dart';
 
 Future<void> main(List<String> arguments) async {
   // Is this even right? I'm fine with this for now. Will look for better way to do it.
   setupLocator();
 
-  if (arguments.contains('view')) {
+  if (arguments.contains(kTemplateNameView)) {
     // Check if we are at the root of the project. If not, exit gracefully
     if (!(await locator<FileService>().isProjectRoot())) {
       print(kInvalidRootDirectory);
