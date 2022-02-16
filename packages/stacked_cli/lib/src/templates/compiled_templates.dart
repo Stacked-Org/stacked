@@ -2,10 +2,44 @@
 ///       This file should be checked into source control.
 
 
+// -------- GenericService Template Data ----------
+
+const String kServiceTemplateGenericServicePath =
+    'lib\\services\\generic_service.dart.stk';
+
+const String kServiceTemplateGenericServiceContent = '''
+class {{serviceName}}Service {
+
+}
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericServiceTest Template Data ----------
+
+const String kServiceTemplateGenericServiceTestPath =
+    'test\\services_tests\\generic_service_test.dart.stk';
+
+const String kServiceTemplateGenericServiceTestContent = '''
+import 'package:flutter_test/flutter_test.dart';
+
+void main() {
+  group('{{serviceName}}ServiceTest -', () {
+    setUp(() => registerServices());
+    tearDown(() => locator.reset());
+  });
+}
+
+''';
+
+// --------------------------------------------------
+
+
 // -------- GenericView Template Data ----------
 
 const String kViewTemplateGenericViewPath =
-    '\\lib\\ui\\views\\generic\\generic_view.dart.stk';
+    'lib\\ui\\views\\generic\\generic_view.dart.stk';
 
 const String kViewTemplateGenericViewContent = '''
 import 'package:flutter/material.dart';
@@ -34,7 +68,7 @@ class {{viewName}} extends StatelessWidget {
 // -------- GenericViewmodel Template Data ----------
 
 const String kViewTemplateGenericViewmodelPath =
-    '\\lib\\ui\\views\\generic\\generic_viewmodel.dart.stk';
+    'lib\\ui\\views\\generic\\generic_viewmodel.dart.stk';
 
 const String kViewTemplateGenericViewmodelContent = '''
 import 'package:stacked/stacked.dart';
@@ -49,7 +83,7 @@ class {{viewModelName}} extends BaseViewModel {
 // -------- GenericViewmodelTest Template Data ----------
 
 const String kViewTemplateGenericViewmodelTestPath =
-    '\\test\\viewmodel_tests\\generic_viewmodel_test.dart.stk';
+    'test\\viewmodel_tests\\generic_viewmodel_test.dart.stk';
 
 const String kViewTemplateGenericViewmodelTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
