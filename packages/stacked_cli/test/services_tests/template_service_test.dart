@@ -35,7 +35,7 @@ void main() {
         final templateService = _getService();
         final result = templateService.renderContentForTemplate(
           content: content,
-          templateName: 'view',
+          templateName: kTemplateNameView,
           name: 'new',
         );
 
@@ -51,7 +51,7 @@ void main() {
         final templateService = _getService();
         final result = templateService.renderContentForTemplate(
           content: content,
-          templateName: 'view',
+          templateName: kTemplateNameView,
           name: 'orderDetails',
         );
 
@@ -139,8 +139,8 @@ void main() {
         final fileService = getAndRegisterMockFileService();
         final service = _getService();
         await service.writeOutTemplateFiles(
-          template: kCompiledStackedTemplates['view']!,
-          templateName: 'view',
+          template: kCompiledStackedTemplates[kTemplateNameView]!,
+          templateName: kTemplateNameView,
           name: 'Details',
         );
 
@@ -159,8 +159,8 @@ void main() {
         final fileService = getAndRegisterMockFileService();
         final service = _getService();
         await service.modifyExistingFiles(
-          template: kCompiledStackedTemplates['view']!,
-          templateName: 'view',
+          template: kCompiledStackedTemplates[kTemplateNameView]!,
+          templateName: kTemplateNameView,
         );
         verify(fileService.fileExists(filePath: 'lib/app/app.dart'));
       });
@@ -171,8 +171,8 @@ void main() {
         final fileService = getAndRegisterMockFileService();
         final service = _getService();
         await service.modifyExistingFiles(
-          template: kCompiledStackedTemplates['view']!,
-          templateName: 'view',
+          template: kCompiledStackedTemplates[kTemplateNameView]!,
+          templateName: kTemplateNameView,
         );
         verify(fileService.readFile(filePath: 'lib/app/app.dart'));
       });
@@ -187,8 +187,8 @@ void main() {
 
         expect(
             () async => await service.modifyExistingFiles(
-                  template: kCompiledStackedTemplates['view']!,
-                  templateName: 'view',
+                  template: kCompiledStackedTemplates[kTemplateNameView]!,
+                  templateName: kTemplateNameView,
                 ),
             throwsA(
               predicate(
@@ -225,7 +225,7 @@ void main() {
               modificationProblemError: '',
             ),
           ]),
-          templateName: 'view',
+          templateName: kTemplateNameView,
         );
         verify(fileService.fileExists(filePath: anyNamed('filePath')))
             .called(3);
@@ -239,7 +239,7 @@ void main() {
         final fileService = getAndRegisterMockFileService();
         final service = _getService();
         await service.renderTemplate(
-          templateName: 'view',
+          templateName: kTemplateNameView,
           excludeRoute: true,
           name: 'noRouteView',
         );
@@ -253,7 +253,7 @@ void main() {
         final fileService = getAndRegisterMockFileService();
         final service = _getService();
         await service.renderTemplate(
-          templateName: 'service',
+          templateName: kTemplateNameService,
           excludeRoute: true,
           name: 'noRouteView',
         );

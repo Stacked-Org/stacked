@@ -2,6 +2,7 @@ import 'package:args/command_runner.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/message_constants.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
+import 'package:stacked_cli/src/templates/template_constants.dart';
 
 class CreateServiceCommand extends Command {
   final _templateService = locator<TemplateService>();
@@ -11,7 +12,7 @@ class CreateServiceCommand extends Command {
       'Creates a service with all associated files and makes necessary code changes to include that service.';
 
   @override
-  String get name => 'service';
+  String get name => kTemplateNameService;
 
   CreateServiceCommand() {
     argParser.addFlag(
@@ -25,7 +26,7 @@ class CreateServiceCommand extends Command {
   Future<void> run() async {
     // TODO: We need to add command structure validation if possible
     await _templateService.renderTemplate(
-      templateName: 'service',
+      templateName: kTemplateNameService,
       name: argResults!.rest.first,
       verbose: true,
       excludeRoute: argResults!['exclude-dependency'],
