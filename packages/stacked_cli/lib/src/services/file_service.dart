@@ -11,6 +11,7 @@ class FileService {
     log('Start writing file: $file', verbose: verbose);
 
     if (!(await file.exists())) {
+      log('File does not exist. Write it out');
       await file.create(recursive: true);
     }
 

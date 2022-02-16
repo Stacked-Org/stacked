@@ -1,4 +1,5 @@
 import 'package:args/command_runner.dart';
+import 'package:stacked_cli/src/commands/create/create_service_command.dart';
 import 'package:stacked_cli/src/commands/create/create_view_command.dart';
 
 /// A command with subcommands that allows you to create / scaffold
@@ -13,5 +14,6 @@ class CreateCommand extends Command {
 
   CreateCommand() {
     addSubcommand(CreateViewCommand());
+    addSubcommand(CreateServiceCommand());
   }
 }

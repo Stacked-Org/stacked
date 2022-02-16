@@ -4,6 +4,27 @@ import 'package:stacked_cli/src/templates/compiled_templates.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
 Map<String, StackedTemplate> kCompiledStackedTemplates = {
+  'service': StackedTemplate(
+    templateFiles: [
+      TemplateFile(
+        relativeOutputPath: kServiceTemplateGenericServicePath,
+        content: kServiceTemplateGenericServiceContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kServiceTemplateGenericServiceTestPath,
+        content: kServiceTemplateGenericServiceTestContent,
+      ),
+    ],
+    modificationFiles: [
+      ModificationFile(
+        relativeModificationPath: 'test/helpers/test_helper.dart',
+        modificationIdentifier: '// @stacked-service-mock',
+        modificationTemplate: 'MockSpec<{{serviceName}}Service>(returnNullOnMissingStub: true),',
+        modificationProblemError: 'The test mocks and helpers should be stored in test&#x2F;helpers&#x2F;test_helper.dart',
+      ),
+    ],
+  ),
+  
   'view': StackedTemplate(
     templateFiles: [
       TemplateFile(

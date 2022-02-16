@@ -25,3 +25,6 @@ for the stacked-cli roadmap.
 
 const String kCommandHelpExcludeRoute =
     'When a route is excluded it will not be added to your app.dart routes collection.';
+
+const String kCommandHelpExcludeDependency =
+    'When a service is excluded it will not be added to your app.dart dependencies collection.';

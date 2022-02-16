@@ -133,6 +133,7 @@ class TemplateService {
       await _fileService.writeFile(
         file: File(templateFileOutputPath),
         fileContent: templateContent,
+        verbose: true,
       );
     }
   }

@@ -91,13 +91,13 @@ class TemplateHelper {
   }) async {
     final templateItemsToRender = <CompliledTemplateFile>[];
 
-
     final templateFiles = await getFilesForTemplate(
       templateName: templateName,
     );
 
     final templateNameRecase = ReCase(templateName);
-    final templateFolderName = _pathService.join('templates', 'view');
+    // TODO: Add a test to confirm this functionality
+    final templateFolderName = _pathService.join('templates', templateName);
 
     for (final templateFile in templateFiles) {
       final templateFileNameOnly = getTemplateFileNameOnly(
@@ -107,7 +107,11 @@ class TemplateHelper {
       final templateFileNameRecase = ReCase(templateFileNameOnly);
 
       final relativeTemplateFilePath =
-          templateFile.path.split(templateFolderName).last;
+          // TODO: Fix properly and unit test, this is a hack
+          templateFile.path
+              .split(templateFolderName)
+              .last
+              .replaceFirst('\\', '');
 
       final templateFileContent =
           await _fileService.readFile(filePath: templateFile.path);

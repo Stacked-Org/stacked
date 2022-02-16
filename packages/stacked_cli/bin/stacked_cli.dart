@@ -11,7 +11,7 @@ Future<void> main(List<String> arguments) async {
   // Is this even right? I'm fine with this for now. Will look for better way to do it.
   setupLocator();
 
-  if (arguments.contains('create')) {
+  if (arguments.contains('view')) {
     // Check if we are at the root of the project. If not, exit gracefully
     if (!(await locator<FileService>().isProjectRoot())) {
       print(kInvalidRootDirectory);
