@@ -8,6 +8,9 @@ import 'package:stacked_cli/src/services/path_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
 import 'package:stacked_cli/src/templates/template_helper.dart';
 
+import 'package:stacked_cli/services/firestore_service.dart';
+// @stacked-import
+
 import 'test_helper.mocks.dart';
 
 @GenerateMocks([], customMocks: [
@@ -16,7 +19,8 @@ import 'test_helper.mocks.dart';
   MockSpec<PathService>(returnNullOnMissingStub: true),
   MockSpec<TemplateService>(returnNullOnMissingStub: true),
   MockSpec<TemplateHelper>(returnNullOnMissingStub: true),
-  // @stacked-service-mock
+  MockSpec<FirestoreService>(returnNullOnMissingStub: true),
+// @stacked-service-mock
 ])
 MockFileService getAndRegisterMockFileService({
   bool fileExistsResult = true,

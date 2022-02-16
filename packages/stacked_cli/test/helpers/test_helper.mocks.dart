@@ -174,13 +174,15 @@ class MockTemplateService extends _i1.Mock implements _i6.TemplateService {
           {String? fileContent,
           String? modificationTemplate,
           String? modificationIdentifier,
-          String? viewName}) =>
+          String? name,
+          String? templateName}) =>
       (super.noSuchMethod(
           Invocation.method(#templateModificationFileContent, [], {
             #fileContent: fileContent,
             #modificationTemplate: modificationTemplate,
             #modificationIdentifier: modificationIdentifier,
-            #viewName: viewName
+            #name: name,
+            #templateName: templateName
           }),
           returnValue: '') as String);
 }

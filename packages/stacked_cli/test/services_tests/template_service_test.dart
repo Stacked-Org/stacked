@@ -68,7 +68,7 @@ void main() {
           fileContent: 'STACKED',
           modificationTemplate: 'MaterialRoute(page: {{viewName}}),',
           modificationIdentifier: 'STACKED',
-          viewName: 'details',
+          name: 'details',
         );
 
         final expectedOutput = 'MaterialRoute(page: DetailsView),\nSTACKED';
@@ -84,7 +84,7 @@ void main() {
           fileContent: 'STACKED',
           modificationTemplate: '{{$kTemplateViewFolderName}}',
           modificationIdentifier: 'STACKED',
-          viewName: 'orderDetails',
+          name: 'orderDetails',
         );
 
         final expectedOutput = 'order_details\nSTACKED';
@@ -100,7 +100,7 @@ void main() {
           fileContent: 'STACKED',
           modificationTemplate: '{{$kTemplateViewFileName}}',
           modificationIdentifier: 'STACKED',
-          viewName: 'orderDetails',
+          name: 'orderDetails',
         );
 
         final expectedOutput = 'order_details_view.dart\nSTACKED';

@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:mustache_template/mustache_template.dart';
 // TODO: Refactor into a service so we can mock out the return value
 import 'package:path/path.dart' as p;
-import 'package:pubspec_yaml/pubspec_yaml.dart';
 import 'package:recase/recase.dart';
 import 'package:stacked_cli/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
@@ -198,7 +197,7 @@ class TemplateService {
   Future<void> modifyExistingFiles({
     required StackedTemplate template,
     required String templateName,
-    String? name,
+    required String name,
   }) async {
     for (final fileToModify in template.modificationFiles) {
       final fileExists = await _fileService.fileExists(
@@ -217,7 +216,8 @@ class TemplateService {
         fileContent: fileContent,
         modificationIdentifier: fileToModify.modificationIdentifier,
         modificationTemplate: fileToModify.modificationTemplate,
-        viewName: name,
+        name: name,
+        templateName: templateName,
       );
 
       // Write the file back that was modified
@@ -232,27 +232,20 @@ class TemplateService {
     required String fileContent,
     required String modificationTemplate,
     required String modificationIdentifier,
-    String? viewName,
+    required String name,
+    required String templateName,
   }) {
     final template = Template(
       modificationTemplate,
       lenient: true,
     );
 
-    // TODO: We need to be able to unit test this (will become important if it ever breaks somethings)
-    final pubspecYaml = File('pubspec.yaml').readAsStringSync().toPubspecYaml();
-
-    // TODO: Remove duplicate code below
-    final viewNameRecase = ReCase(viewName ?? '');
-    final renderedTemplate = template.renderString(
-      {
-        // TODO: Create helper extensions for modifying the viewName passed in
-        kTemplatePropertyViewName: '${viewNameRecase.pascalCase}View',
-        kTemplatePropertyPackageName: pubspecYaml.name,
-        kTemplateViewFolderName: viewNameRecase.snakeCase,
-        kTemplateViewFileName: '${viewNameRecase.snakeCase}_view.dart',
-      },
+    final templateRenderData = getTemplateRenderData(
+      templateName: templateName,
+      name: name,
     );
+
+    final renderedTemplate = template.renderString(templateRenderData);
 
     // Take the content, replace the identifier in the file with the new code
     // plus the identifier so we can do the same thing again later.

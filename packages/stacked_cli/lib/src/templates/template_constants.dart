@@ -34,6 +34,11 @@ const String kTemplateViewFileName = 'viewFileName';
 /// pubspec.yaml file in the root folder.
 const String kTemplatePropertyPackageName = 'packageName';
 
+/// The name of the service class in pascal case
+const String kTemplatePropertyServiceName = 'serviceName';
+
+const String kTemplatePropertyServiceFilename = 'serviceFilename';
+
 // -------- Compiled Template Structure ---------
 
 const String kTemplateDataStructure = '''
