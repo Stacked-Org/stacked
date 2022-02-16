@@ -2,13 +2,14 @@ import 'dart:io';
 
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:stacked_cli/services/firestore_service.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
 import 'package:stacked_cli/src/services/path_service.dart';
+import 'package:stacked_cli/src/services/pubspec_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
 import 'package:stacked_cli/src/templates/template_helper.dart';
 
-import 'package:stacked_cli/services/firestore_service.dart';
 // @stacked-import
 
 import 'test_helper.mocks.dart';
@@ -20,6 +21,7 @@ import 'test_helper.mocks.dart';
   MockSpec<TemplateService>(returnNullOnMissingStub: true),
   MockSpec<TemplateHelper>(returnNullOnMissingStub: true),
   MockSpec<FirestoreService>(returnNullOnMissingStub: true),
+  MockSpec<PubspecService>(returnNullOnMissingStub: true),
 // @stacked-service-mock
 ])
 MockFileService getAndRegisterMockFileService({
@@ -40,6 +42,16 @@ MockFileService getAndRegisterMockFileService({
       .thenAnswer((realInvocation) => Future.value(getFilesInDirectoryResult));
 
   locator.registerSingleton<FileService>(service);
+  return service;
+}
+
+MockPubspecService getAndRegisterPubSpecService({
+  String packageName = 'stacked_cli',
+}) {
+  _removeRegistrationIfExists<PubspecService>();
+  final service = MockPubspecService();
+  when(service.getPackageName).thenReturn(packageName);
+  locator.registerSingleton<PubspecService>(service);
   return service;
 }
 
@@ -86,4 +98,5 @@ void registerServices() {
   getAndRegisterMockFileService();
   getAndRegisterPathService();
   getAndRegisterTemplateHelper();
+  getAndRegisterPubSpecService();
 }
