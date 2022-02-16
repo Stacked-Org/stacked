@@ -10,6 +10,7 @@ import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/message_constants.dart';
 import 'package:stacked_cli/src/models/template_models.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
+import 'package:stacked_cli/src/services/pubspec_service.dart';
 import 'package:stacked_cli/src/templates/compiled_template_map.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 import 'package:stacked_cli/src/templates/template_helper.dart';
@@ -20,6 +21,7 @@ import 'package:stacked_cli/src/templates/template_render_functions.dart';
 class TemplateService {
   final _fileService = locator<FileService>();
   final _templateHelper = locator<TemplateHelper>();
+  final _pubspecService = locator<PubspecService>();
 
   /// Reads the template folder and creates the dart code that will be used to generate
   /// the templates
@@ -191,7 +193,18 @@ class TemplateService {
           'No render function has been defined for the template $templateName. Please define a render function before running the command again.');
     }
 
-    return renderFunction(nameRecase);
+    final renderDataForTemplate = renderFunction(nameRecase);
+
+    return applyGlobalTemplateProperties(renderDataForTemplate);
+  }
+
+  Map<String, String> applyGlobalTemplateProperties(
+      Map<String, String> renderTemplate) {
+    return {
+      ...renderTemplate,
+      // All template data will have the values added below
+      kTemplatePropertyPackageName: _pubspecService.getPackageName,
+    };
   }
 
   Future<void> modifyExistingFiles({

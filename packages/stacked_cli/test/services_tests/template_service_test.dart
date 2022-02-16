@@ -69,6 +69,7 @@ void main() {
           modificationTemplate: 'MaterialRoute(page: {{viewName}}),',
           modificationIdentifier: 'STACKED',
           name: 'details',
+          templateName: kTemplateNameView,
         );
 
         final expectedOutput = 'MaterialRoute(page: DetailsView),\nSTACKED';
@@ -77,14 +78,15 @@ void main() {
       });
 
       test(
-          'Given modificationTemplate with $kTemplateViewFolderName and name orderDetails, Should return snake_case order_details',
+          'Given modificationTemplate with $kTemplatePropertyViewFolderName and name orderDetails, Should return snake_case order_details',
           () {
         final service = _getService();
         final result = service.templateModificationFileContent(
           fileContent: 'STACKED',
-          modificationTemplate: '{{$kTemplateViewFolderName}}',
+          modificationTemplate: '{{$kTemplatePropertyViewFolderName}}',
           modificationIdentifier: 'STACKED',
           name: 'orderDetails',
+          templateName: kTemplateNameView,
         );
 
         final expectedOutput = 'order_details\nSTACKED';
@@ -93,14 +95,15 @@ void main() {
       });
 
       test(
-          'Given modificationTemplate with $kTemplateViewFileName and name orderDetails, Should return snake_case order_details_view.dart',
+          'Given modificationTemplate with $kTemplatePropertyViewFileName and name orderDetails, Should return snake_case order_details_view.dart',
           () {
         final service = _getService();
         final result = service.templateModificationFileContent(
           fileContent: 'STACKED',
-          modificationTemplate: '{{$kTemplateViewFileName}}',
+          modificationTemplate: '{{$kTemplatePropertyViewFileName}}',
           modificationIdentifier: 'STACKED',
           name: 'orderDetails',
+          templateName: kTemplateNameView,
         );
 
         final expectedOutput = 'order_details_view.dart\nSTACKED';
@@ -161,6 +164,7 @@ void main() {
         await service.modifyExistingFiles(
           template: kCompiledStackedTemplates[kTemplateNameView]!,
           templateName: kTemplateNameView,
+          name: 'details',
         );
         verify(fileService.fileExists(filePath: 'lib/app/app.dart'));
       });
@@ -173,6 +177,7 @@ void main() {
         await service.modifyExistingFiles(
           template: kCompiledStackedTemplates[kTemplateNameView]!,
           templateName: kTemplateNameView,
+          name: 'details',
         );
         verify(fileService.readFile(filePath: 'lib/app/app.dart'));
       });
@@ -189,6 +194,7 @@ void main() {
             () async => await service.modifyExistingFiles(
                   template: kCompiledStackedTemplates[kTemplateNameView]!,
                   templateName: kTemplateNameView,
+                  name: 'details',
                 ),
             throwsA(
               predicate(
@@ -226,6 +232,7 @@ void main() {
             ),
           ]),
           templateName: kTemplateNameView,
+          name: 'details',
         );
         verify(fileService.fileExists(filePath: anyNamed('filePath')))
             .called(3);

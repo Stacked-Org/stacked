@@ -22,13 +22,13 @@ const String kTemplatePropertyViewModelName = 'viewModelName';
 /// Given a name 'details' expects viewModelFileName to equal details_viewmodel.dart
 const String kTemplatePropertyViewModelFileName = 'viewModelFileName';
 
-/// The name of the folder that the view will be created in. This is the exact name that's
-/// passed to us in the command line for the view.
-const String kTemplateViewFolderName = 'viewFolderName';
+/// The name of the folder that the view will be created in. This is a snake_case version
+/// of the name.
+const String kTemplatePropertyViewFolderName = 'viewFolderName';
 
-/// The name of the file that the view is create in with the dart extension.
+/// The name of the file that the view is creatde in with the dart extension.
 /// Given a name 'details' expects viewFileName to equal `details_view.dart`
-const String kTemplateViewFileName = 'viewFileName';
+const String kTemplatePropertyViewFileName = 'viewFileName';
 
 /// The name of the package that the cli tool is running in. This is read from the
 /// pubspec.yaml file in the root folder.

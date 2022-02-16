@@ -10,7 +10,7 @@ import 'package:stacked_cli/src/templates/template_constants.dart';
 
 Future<void> main(List<String> arguments) async {
   // Is this even right? I'm fine with this for now. Will look for better way to do it.
-  setupLocator();
+  await setupLocator();
 
   if (arguments.contains(kTemplateNameView)) {
     // Check if we are at the root of the project. If not, exit gracefully
