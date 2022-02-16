@@ -7,7 +7,6 @@ import 'dart:io' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:pubspec_yaml/pubspec_yaml.dart' as _i2;
-import 'package:stacked_cli/services/firestore_service.dart' as _i11;
 import 'package:stacked_cli/src/models/template_models.dart' as _i8;
 import 'package:stacked_cli/src/services/file_service.dart' as _i3;
 import 'package:stacked_cli/src/services/path_service.dart' as _i6;
@@ -260,11 +259,6 @@ class MockTemplateHelper extends _i1.Mock implements _i10.TemplateHelper {
                   <_i8.CompliledTemplateFile>[]))
           as _i4.Future<List<_i8.CompliledTemplateFile>>);
 }
-
-/// A class which mocks [FirestoreService].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {}
 
 /// A class which mocks [PubspecService].
 ///

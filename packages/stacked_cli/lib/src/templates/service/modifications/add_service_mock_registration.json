@@ -1,0 +1,7 @@
+{
+  "description": "When generating a mock for services testing, we also need to create the helper mock retrieval function",
+  "path": "test/helpers/test_helper.dart",
+  "identifier": "// @stacked-mock-helper",
+  "template": "Mock{{serviceName}}Service getAndRegister{{serviceName}}Service() { \n_removeRegistrationIfExists<{{serviceName}}Service>(); \nfinal service = Mock{{serviceName}}Service(); \nlocator.registerSingleton<{{serviceName}}Service>(service); \nreturn service; \n}",
+  "error": "The test mocks and helpers should be stored in test/helpers/test_helper.dart"
+}
