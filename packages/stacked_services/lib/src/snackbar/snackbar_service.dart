@@ -129,6 +129,7 @@ class SnackbarService {
     dynamic variant,
     String? title,
     String? mainButtonTitle,
+    ButtonStyle? mainButtonStyle,
     void Function()? onMainButtonTapped,
     Function? onTap,
     Duration duration = const Duration(seconds: 1),
@@ -161,6 +162,7 @@ class SnackbarService {
         ? mainButtonBuilder!(mainButtonTitle, onMainButtonTapped)
         : _getMainButtonWidget(
             mainButtonTitle: mainButtonTitle,
+            mainButtonStyle: mainButtonStyle,
             onMainButtonTapped: onMainButtonTapped,
             config: snackbarConfig,
           );
@@ -236,6 +238,7 @@ class SnackbarService {
 
   TextButton? _getMainButtonWidget({
     String? mainButtonTitle,
+    ButtonStyle? mainButtonStyle,
     void Function()? onMainButtonTapped,
     SnackbarConfig? config,
   }) {
@@ -245,6 +248,7 @@ class SnackbarService {
 
     return TextButton(
       key: Key('snackbar_touchable_mainButton'),
+      style: mainButtonStyle,
       child: Text(
         mainButtonTitle,
         key: Key('snackbar_text_mainButtonTitle'),
