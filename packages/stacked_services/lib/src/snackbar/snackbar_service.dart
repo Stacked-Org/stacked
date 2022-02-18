@@ -178,8 +178,8 @@ class SnackbarService {
               ),
               textAlign: snackbarConfig.titleTextAlign,
             )
-          : null,
-      messageText: Text(
+          : snackbarConfig.titleText ?? null,
+      messageText: snackbarConfig.messageText ?? Text(
         message,
         key: Key('snackbar_text_message'),
         style: snackbarConfig.messageTextStyle ?? TextStyle(
