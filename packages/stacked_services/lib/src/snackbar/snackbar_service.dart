@@ -171,7 +171,7 @@ class SnackbarService {
           ? Text(
               title,
               key: Key('snackbar_text_title'),
-              style: TextStyle(
+              style: snackbarConfig.titleTextStyle ?? TextStyle(
                 color: snackbarConfig.titleColor ?? snackbarConfig.textColor,
                 fontWeight: FontWeight.w800,
                 fontSize: 16,
@@ -182,7 +182,7 @@ class SnackbarService {
       messageText: Text(
         message,
         key: Key('snackbar_text_message'),
-        style: TextStyle(
+        style: snackbarConfig.messageTextStyle ?? TextStyle(
           color: snackbarConfig.messageColor ?? snackbarConfig.textColor,
           fontWeight: FontWeight.w300,
           fontSize: 14,
