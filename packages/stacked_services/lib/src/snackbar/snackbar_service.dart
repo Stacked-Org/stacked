@@ -125,9 +125,11 @@ class SnackbarService {
 
   Future? showCustomSnackBar({
     required String message,
+    TextStyle? messageTextStyle,
     @deprecated dynamic customData,
     dynamic variant,
     String? title,
+    TextStyle? titleTextStyle,
     String? mainButtonTitle,
     ButtonStyle? mainButtonStyle,
     void Function()? onMainButtonTapped,
@@ -173,7 +175,7 @@ class SnackbarService {
           ? Text(
               title,
               key: Key('snackbar_text_title'),
-              style: snackbarConfig.titleTextStyle ?? TextStyle(
+              style: snackbarConfig.titleTextStyle ?? titleTextStyle ?? TextStyle(
                 color: snackbarConfig.titleColor ?? snackbarConfig.textColor,
                 fontWeight: FontWeight.w800,
                 fontSize: 16,
@@ -181,10 +183,10 @@ class SnackbarService {
               textAlign: snackbarConfig.titleTextAlign,
             )
           : snackbarConfig.titleText ?? null,
-      messageText: snackbarConfig.messageText ?? Text(
+      messageText: Text(
         message,
         key: Key('snackbar_text_message'),
-        style: snackbarConfig.messageTextStyle ?? TextStyle(
+        style: snackbarConfig.messageTextStyle ?? messageTextStyle ?? TextStyle(
           color: snackbarConfig.messageColor ?? snackbarConfig.textColor,
           fontWeight: FontWeight.w300,
           fontSize: 14,
