@@ -39,6 +39,7 @@ class SnackbarConfig {
   /// Sets the color of the main button text regardless of [textColor]
   Color? mainButtonTextColor;
 
+  ButtonStyle? mainButtonStyle;
   List<BoxShadow>? boxShadows;
   Gradient? backgroundGradient;
   bool isDismissible;
@@ -69,6 +70,7 @@ class SnackbarConfig {
     this.messageColor,
     this.messageTextStyle,
     this.mainButtonTextColor,
+    this.mainButtonStyle,
     this.instantInit = false,
     this.shouldIconPulse = true,
     this.maxWidth,

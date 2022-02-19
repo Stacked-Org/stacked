@@ -164,7 +164,7 @@ class SnackbarService {
         ? mainButtonBuilder!(mainButtonTitle, onMainButtonTapped)
         : _getMainButtonWidget(
             mainButtonTitle: mainButtonTitle,
-            mainButtonStyle: mainButtonStyle,
+            mainButtonStyle: snackbarConfig.mainButtonStyle ?? mainButtonStyle,
             onMainButtonTapped: onMainButtonTapped,
             config: snackbarConfig,
           );
