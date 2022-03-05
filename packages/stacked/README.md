@@ -4,6 +4,13 @@ An architecture developed and revised by the [FilledStacks](https://www.youtube.
 
 [Here you can watch the full video series](https://www.youtube.com/playlist?list=PLdTodMosi-BwM4XkagNwe4KADOMWQS5X-) for an in depth dive of this architecture.
 
+### Migration from 2.2.8 → 2.3.0
+
+- Breaking changes on `FormViewModel`
+  - `showValidation` → `showFormValidationMessage`
+  - `validationMessage` → `formValidationMessage`
+  - `setValidationMessage` → `setFormValidationMessage`
+
 ### Migrate from 1.6.1 -> 1.7
 
 - hasError(key) -> error(key) for multiple ViewModel
