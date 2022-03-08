@@ -1,3 +1,10 @@
+## 2.3.0
+
+- Breaking changes on `FormViewModel`
+  - `showValidation` → `showFormValidationMessage`
+  - `validationMessage` → `formValidationMessage`
+  - `setValidationMessage` → `setFormValidationMessage`
+
 ## 2.2.8
 
 - Adds `disableReleaseConsoleOutput` to the logger annotation to disable console output in release mode
