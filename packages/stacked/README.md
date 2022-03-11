@@ -9,9 +9,7 @@ An architecture developed and revised by the [FilledStacks](https://www.youtube.
 ### Migrate from 2.2.8 → 2.3.0
 
 - Breaking changes on `FormViewModel`
-  - `showValidation` → `showFormValidationMessage`
-  - `validationMessage` → `formValidationMessage`
-  - `setValidationMessage` → `setFormValidationMessage`
+  - `showValidation` → `showValidationMessage`
 
 ### Migrate from 1.6.1 -> 1.7
 

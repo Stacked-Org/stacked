@@ -7,19 +7,19 @@ abstract class FormViewModel extends ReactiveViewModel {
   @override
   List<ReactiveServiceMixin> get reactiveServices => [];
 
-  bool _showFormValidationMessage = false;
-  bool get showFormValidationMessage => _showFormValidationMessage;
+  bool _showValidationMessage = false;
+  bool get showValidationMessage => _showValidationMessage;
 
-  String? _formValidationMessage;
-  String? get formValidationMessage => _formValidationMessage;
+  String? _validationMessage;
+  String? get validationMessage => _validationMessage;
 
   /// Stores the mapping of the form key to the value entered by the user
   Map<String, dynamic> formValueMap = Map<String, dynamic>();
   Map<String, String?> fieldsValidationMessages = Map<String, String?>();
 
-  void setFormValidationMessage(String? value) {
-    _formValidationMessage = value;
-    _showFormValidationMessage = _formValidationMessage?.isNotEmpty ?? false;
+  void setValidationMessage(String? value) {
+    _validationMessage = value;
+    _showValidationMessage = _validationMessage?.isNotEmpty ?? false;
   }
 
   void setData(Map<String, dynamic> data) {
@@ -27,7 +27,7 @@ abstract class FormViewModel extends ReactiveViewModel {
     formValueMap = data;
 
     // Reset the form status
-    setFormValidationMessage(null);
+    setValidationMessage(null);
 
     // Reset each field status
     for (var fieldName in data.keys) {

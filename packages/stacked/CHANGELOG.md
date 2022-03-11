@@ -1,9 +1,11 @@
 ## 2.3.0
 
+### New Feature: Adds per field validation
+
+- A setValidationMessage will now be generated for each field for you to set and use similar to the global validation message that was used before
+
 - Breaking changes on `FormViewModel`
-  - `showValidation` → `showFormValidationMessage`
-  - `validationMessage` → `formValidationMessage`
-  - `setValidationMessage` → `setFormValidationMessage`
+  - `showValidation` → `showValidationMessage`
 
 ## 2.2.8
 
