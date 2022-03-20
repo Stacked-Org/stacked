@@ -145,10 +145,14 @@ class MockTemplateService extends _i1.Mock implements _i7.TemplateService {
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
-  String getTemplateOutputPath({String? inputTemplatePath, String? name}) =>
+  String getTemplateOutputPath(
+          {String? inputTemplatePath, String? name, String? outputFolder}) =>
       (super.noSuchMethod(
-          Invocation.method(#getTemplateOutputPath, [],
-              {#inputTemplatePath: inputTemplatePath, #name: name}),
+          Invocation.method(#getTemplateOutputPath, [], {
+            #inputTemplatePath: inputTemplatePath,
+            #name: name,
+            #outputFolder: outputFolder
+          }),
           returnValue: '') as String);
   @override
   String renderContentForTemplate(

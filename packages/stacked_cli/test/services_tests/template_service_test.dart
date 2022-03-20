@@ -134,6 +134,17 @@ void main() {
         );
         expect(result, 'order_details/order_details.dart');
       });
+
+      test(
+          'When given a path generic/generic.dart.stk with viewName orderDetails and outputPath playg§round, should return playground/order_details/order_details.dart',
+          () {
+        final service = _getService();
+        final result = service.getTemplateOutputPath(
+            inputTemplatePath: 'generic/generic.dart.stk',
+            name: 'orderDetails',
+            outputFolder: 'playground');
+        expect(result, 'playground/order_details/order_details.dart');
+      });
     });
 
     group('writeOutTemplateFiles -', () {
