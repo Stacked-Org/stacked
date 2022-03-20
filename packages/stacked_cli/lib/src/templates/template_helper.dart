@@ -108,10 +108,10 @@ class TemplateHelper {
 
       final relativeTemplateFilePath =
           // TODO: Fix properly and unit test, this is a hack
-          templateFile.path
-              .split(templateFolderName)
-              .last
-              .replaceFirst('\\', '');
+          templateFile.path.split(templateFolderName).last.replaceFirst(
+                _pathService.separator,
+                '',
+              );
 
       final templateFileContent =
           await _fileService.readFile(filePath: templateFile.path);
@@ -119,7 +119,7 @@ class TemplateHelper {
       templateItemsToRender.add(CompliledTemplateFile(
         name: templateNameRecase.pascalCase,
         fileName: templateFileNameRecase.pascalCase,
-        path: relativeTemplateFilePath.replaceAll('\\', '\\\\'),
+        path: relativeTemplateFilePath,
         content: templateFileContent,
       ));
     }

@@ -69,12 +69,14 @@ class MockFileService extends _i1.Mock implements _i3.FileService {
       Invocation.method(#log, [message], {#verbose: verbose}),
       returnValueForMissingStub: null);
   @override
-  _i4.Future<bool> isProjectRoot() =>
-      (super.noSuchMethod(Invocation.method(#isProjectRoot, []),
-          returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
+  _i4.Future<bool> isProjectRoot({String? outputPath}) => (super.noSuchMethod(
+      Invocation.method(#isProjectRoot, [], {#outputPath: outputPath}),
+      returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
   @override
-  _i4.Future<bool> isStakedApplication() =>
-      (super.noSuchMethod(Invocation.method(#isStakedApplication, []),
+  _i4.Future<bool> isStakedApplication({String? outputPath}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #isStakedApplication, [], {#outputPath: outputPath}),
           returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
 }
 
@@ -119,13 +121,15 @@ class MockTemplateService extends _i1.Mock implements _i7.TemplateService {
           {String? templateName,
           String? name,
           bool? verbose = false,
-          bool? excludeRoute = false}) =>
+          bool? excludeRoute = false,
+          String? outputPath}) =>
       (super.noSuchMethod(
           Invocation.method(#renderTemplate, [], {
             #templateName: templateName,
             #name: name,
             #verbose: verbose,
-            #excludeRoute: excludeRoute
+            #excludeRoute: excludeRoute,
+            #outputPath: outputPath
           }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
@@ -183,10 +187,15 @@ class MockTemplateService extends _i1.Mock implements _i7.TemplateService {
   _i4.Future<void> modifyExistingFiles(
           {_i8.StackedTemplate? template,
           String? templateName,
-          String? name}) =>
+          String? name,
+          String? outputPath}) =>
       (super.noSuchMethod(
-          Invocation.method(#modifyExistingFiles, [],
-              {#template: template, #templateName: templateName, #name: name}),
+          Invocation.method(#modifyExistingFiles, [], {
+            #template: template,
+            #templateName: templateName,
+            #name: name,
+            #outputPath: outputPath
+          }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override

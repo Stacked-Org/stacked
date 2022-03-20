@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:mustache_template/mustache_template.dart';
 // TODO: Refactor into a service so we can mock out the return value
-import 'package:path/path.dart' as p;
+import 'package:path/path.dart' as path;
 import 'package:recase/recase.dart';
 import 'package:stacked_cli/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
@@ -66,7 +66,7 @@ class TemplateService {
         outputTemplate.renderString(templateItemsData);
 
     await _fileService.writeFile(
-      file: File(p.join(templatesPath, 'compiled_templates.dart')),
+      file: File(path.join(templatesPath, 'compiled_templates.dart')),
       fileContent: allTemplateItemsContent,
     );
 
@@ -78,7 +78,7 @@ class TemplateService {
 
     final templateMapContent = templateMap.renderString(templateMapData);
     await _fileService.writeFile(
-      file: File(p.join(templatesPath, 'compiled_template_map.dart')),
+      file: File(path.join(templatesPath, 'compiled_template_map.dart')),
       fileContent: templateMapContent,
     );
   }
@@ -94,6 +94,13 @@ class TemplateService {
 
     /// When set to true the newly generated view will not be added to the app.dart file
     bool excludeRoute = false,
+
+    /// When supplied the templates will be created using the folder supplied here as the
+    /// output location.
+    ///
+    /// i.e. When the template writes too lib/ui/view.dart if output path is playground
+    /// the final output path will be playground/lib/ui/view.dart
+    String? outputPath,
   }) async {
     // Get the template that we want to render
     final template = kCompiledStackedTemplates[templateName] ??
@@ -103,6 +110,7 @@ class TemplateService {
       template: template,
       templateName: templateName,
       name: name,
+      outputFolder: outputPath,
     );
 
     // TODO: Refactor into an exclusionary rule system where we can
@@ -115,6 +123,7 @@ class TemplateService {
       template: template,
       templateName: templateName,
       name: name,
+      outputPath: outputPath,
     );
   }
 
@@ -134,6 +143,7 @@ class TemplateService {
       final templateFileOutputPath = getTemplateOutputPath(
         inputTemplatePath: templateFile.relativeOutputPath,
         name: name,
+        outputFolder: outputFolder,
       );
 
       await _fileService.writeFile(
@@ -160,7 +170,7 @@ class TemplateService {
         )
         .replaceFirst('.stk', '');
     if (hasOutputFolder) {
-      return p.join(outputFolder, modifiedOutputPath);
+      return path.join(outputFolder, modifiedOutputPath);
     }
 
     return modifiedOutputPath;
@@ -220,10 +230,16 @@ class TemplateService {
     required StackedTemplate template,
     required String templateName,
     required String name,
+    String? outputPath,
   }) async {
+    final hasOutputPath = outputPath != null;
     for (final fileToModify in template.modificationFiles) {
+      final modificationPath = hasOutputPath
+          ? path.join(outputPath, fileToModify.relativeModificationPath)
+          : fileToModify.relativeModificationPath;
+
       final fileExists = await _fileService.fileExists(
-        filePath: fileToModify.relativeModificationPath,
+        filePath: modificationPath,
       );
 
       if (!fileExists) {
@@ -231,7 +247,7 @@ class TemplateService {
       }
 
       final fileContent = await _fileService.readFile(
-        filePath: fileToModify.relativeModificationPath,
+        filePath: modificationPath,
       );
 
       final updatedFileContent = templateModificationFileContent(
@@ -244,7 +260,7 @@ class TemplateService {
 
       // Write the file back that was modified
       await _fileService.writeFile(
-        file: File(fileToModify.relativeModificationPath),
+        file: File(modificationPath),
         fileContent: updatedFileContent,
       );
     }

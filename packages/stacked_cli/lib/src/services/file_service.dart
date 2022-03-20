@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:path/path.dart' as path;
+
 /// Handles the writing of files to disk
 class FileService {
   Future<void> writeFile({
@@ -69,9 +71,21 @@ class FileService {
 
   /// Returns true if the cli is running from the root of a flutter
   /// or dart project
-  Future<bool> isProjectRoot() => File('pubspec.yaml').exists();
+  Future<bool> isProjectRoot({String? outputPath}) {
+    final hasOutputPath = outputPath != null;
+    final pubspecPath = 'pubspec.yaml';
+    return File(
+            hasOutputPath ? path.join(outputPath, pubspecPath) : pubspecPath)
+        .exists();
+  }
 
   /// Checks if the current project aligns with the stacked application structure
   /// to allow for scaffolding to work properly
-  Future<bool> isStakedApplication() => File('lib/app/app.dart').exists();
+  Future<bool> isStakedApplication({String? outputPath}) {
+    final hasOutputPath = outputPath != null;
+    final appPath = 'lib/app/app.dart';
+
+    return File(hasOutputPath ? path.join(outputPath, appPath) : appPath)
+        .exists();
+  }
 }
