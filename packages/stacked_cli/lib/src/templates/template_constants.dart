@@ -52,7 +52,7 @@ const String kTemplateDataStructure = '''
 // -------- {{fileName}} Template Data ----------
 
 const String k{{name}}Template{{fileName}}Path =
-    '{{path}}';
+    '{{{path}}}';
 
 const String k{{name}}Template{{fileName}}Content = \'''
 {{{content}}}

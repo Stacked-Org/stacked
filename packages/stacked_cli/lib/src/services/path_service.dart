@@ -12,6 +12,8 @@ class PathService {
         'templates',
       ]);
 
+  String get separator => p.separator;
+
   String join(String part1,
           [String? part2,
           String? part3,

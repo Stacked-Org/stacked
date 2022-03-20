@@ -181,6 +181,20 @@ void main() {
       });
 
       test(
+          'Given the view template with a modification file for lib/app/app.dart and outputPath playground, should check if the file exists in playground',
+          () async {
+        final fileService = getAndRegisterMockFileService();
+        final service = _getService();
+        await service.modifyExistingFiles(
+          template: kCompiledStackedTemplates[kTemplateNameView]!,
+          templateName: kTemplateNameView,
+          name: 'details',
+          outputPath: 'playground',
+        );
+        verify(fileService.fileExists(filePath: 'playground/lib/app/app.dart'));
+      });
+
+      test(
           'Given the view template with a modification file for lib/app/app.dart, should get file data if it exists',
           () async {
         final fileService = getAndRegisterMockFileService();
