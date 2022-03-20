@@ -25,8 +25,7 @@ Future<void> main(List<String> arguments) async {
     }
   }
 
-  // TODO: When adding the command add accepted values to ensure we can never pass in random values.
-  final runner = CommandRunner(
+  CommandRunner(
     'stacked_cli',
     'A command line interface for building and scaffolding stacked apps',
   )

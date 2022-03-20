@@ -122,6 +122,7 @@ class TemplateService {
     required StackedTemplate template,
     required String templateName,
     required String name,
+    String? outputFolder,
   }) async {
     for (final templateFile in template.templateFiles) {
       final templateContent = renderContentForTemplate(
@@ -146,9 +147,9 @@ class TemplateService {
   /// Returns the output path for the file given the input path of the template
   String getTemplateOutputPath({
     required String inputTemplatePath,
-    String? name,
+    required String name,
   }) {
-    final recaseName = ReCase(name ?? '');
+    final recaseName = ReCase(name);
     return inputTemplatePath
         .replaceAll(
           'generic',
