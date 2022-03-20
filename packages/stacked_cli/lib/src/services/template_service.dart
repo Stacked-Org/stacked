@@ -148,14 +148,22 @@ class TemplateService {
   String getTemplateOutputPath({
     required String inputTemplatePath,
     required String name,
+    String? outputFolder,
   }) {
+    final hasOutputFolder = outputFolder != null;
+
     final recaseName = ReCase(name);
-    return inputTemplatePath
+    final modifiedOutputPath = inputTemplatePath
         .replaceAll(
           'generic',
           recaseName.snakeCase,
         )
         .replaceFirst('.stk', '');
+    if (hasOutputFolder) {
+      return p.join(outputFolder, modifiedOutputPath);
+    }
+
+    return modifiedOutputPath;
   }
 
   /// Takes in a templated string [content] and builds the template data

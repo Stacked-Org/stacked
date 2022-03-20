@@ -9,17 +9,17 @@ import 'package:stacked_cli/src/services/file_service.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
 Future<void> main(List<String> arguments) async {
-  // Is this even right? I'm fine with this for now. Will look for better way to do it.
   await setupLocator();
 
   if (arguments.contains(kTemplateNameView)) {
+    final fileService = locator<FileService>();
     // Check if we are at the root of the project. If not, exit gracefully
-    if (!(await locator<FileService>().isProjectRoot())) {
+    if (!(await fileService.isProjectRoot())) {
       print(kInvalidRootDirectory);
       exit(2);
     }
 
-    if (!(await locator<FileService>().isStakedApplication())) {
+    if (!(await fileService.isStakedApplication())) {
       print(kInvalidStackedStructure);
       exit(2);
     }
