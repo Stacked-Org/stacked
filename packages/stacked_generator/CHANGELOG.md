@@ -1,3 +1,16 @@
+## 0.6.1
+
+- Adds type case for extension getters to adhere to 
+
+```yaml
+strong-mode:
+    implicit-casts: false
+``` 
+
+linting rule when generating `ValueProperties` for a form
+
+
+
 ## 0.6.0
 
 - Adds per-field validation message
