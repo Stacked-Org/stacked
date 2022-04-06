@@ -1,3 +1,7 @@
+## 0.2.2
+
+- Updated flutter_hooks to 0.18.2+1
+
 ## 0.2.1+2
 
 - Updates Example's kotlin version to 1.4.10
