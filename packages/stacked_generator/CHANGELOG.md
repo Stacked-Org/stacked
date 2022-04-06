@@ -1,3 +1,7 @@
+## 0.6.2
+
+- Enables multi logger output only in release mode
+
 ## 0.6.1
 
 - Adds type case for extension getters to adhere to 
