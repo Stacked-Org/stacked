@@ -1,7 +1,19 @@
+## 0.2.10+2
+
+- Updates 'google_sign_in' to 5.2.1
+
+## 0.2.10+1
+
+- Updates firebase core to 1.10.0
+- Updates fireabse_auth to 3.2.0
+
 ## 0.2.10
- - Initailized Firebase Auth Exceptions error code.
+
+- Initailized Firebase Auth Exceptions error code.
+
 ## 0.2.9
- - Added Firebase Auth Exceptions error code to FirebaseAuthenticationResult
+
+- Added Firebase Auth Exceptions error code to FirebaseAuthenticationResult
 
 ## 0.2.8
 

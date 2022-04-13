@@ -4,6 +4,13 @@ An architecture developed and revised by the [FilledStacks](https://www.youtube.
 
 [Here you can watch the full video series](https://www.youtube.com/playlist?list=PLdTodMosi-BwM4XkagNwe4KADOMWQS5X-) for an in depth dive of this architecture.
 
+## Breaking changes
+
+### Migrate from 2.2.8 → 2.3.0
+
+- Breaking changes on `FormViewModel`
+  - `showValidation` → `showValidationMessage`
+
 ### Migrate from 1.6.1 -> 1.7
 
 - hasError(key) -> error(key) for multiple ViewModel
@@ -1253,7 +1260,9 @@ logger: StackedLogger(
 
 Now the function to get your logger will be called `getStackedLogger`. If you want a more detailed guide on how to effectively log in your application read [this guide](https://www.filledstacks.com/post/flutter-logging-a-guide-to-use-it-effectively/) that we use for our production apps.
 
-## Form Generation
+## Forms 
+
+### Form Generation
 
 Now we can generate the form fields with `stacked_generator` package. To do this add the decoration `@FormView` in top of the View.
 
@@ -1288,6 +1297,115 @@ onModelReady: (viewModel) => listenToFormUpdated(viewModel);
 ```
 
 This will listen to the changes to the form and update the form value map. To get the form values, you need to import the generated file in the viewmodel and you can access the values with `emailValue`,`passwordValue` and so on.
+
+### Form Validation
+
+Now that your FormView is setup, we can add validation. Validation offers both a security layer to avoid wrong data in forms and a rapid feedback for user to fix the input.
+
+Stacked gives you two ways (that can be combined) to achieve that: global form validation or per-field validation.  
+
+#### Global form validation
+
+By extending FormViewModel, you have access to the following methods that will help you setup the global form validation: 
+- `setFormValidationMessage` (`setValidationMessage` prior v2.3.0): to be called in the `setFormStatus` to set a global validation message in case of error ;
+- `showFormValidationMessage` (`showValidation` prior v2.3.0): to be called from the View to know if any validation message should be displayed ;
+- `formValidationMessage` (`validationMessage` prior v2.3.0): to be called from the view to display the actual validation message for the entire form if any. 
+
+```dart
+class ExampleFormViewModel extends FormViewModel {
+
+  @override
+  void setFormStatus() {
+    
+    // Set a validation message for the entire form
+    if (<any unmet condition>) {
+      setFormValidationMessage('Error in the form, please check again');
+    }
+  }
+
+(...) 
+
+class ExampleFormView extends StatelessWidget with $ExampleFormView {
+  ExampleFormView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<ExampleFormViewModel>.reactive(
+      builder: (context, viewModel, child) => Scaffold(
+        (...) 
+        if (viewModel.showFormValidationMessage)
+          Text(
+            viewModel.formValidationMessage!,
+            style: TextStyle(color: Colors.red),
+          ),
+        (...)
+```
+
+#### Per-field validation
+
+To achieve per-field validation, you can follow the same simple logic. By using the `@FormView` annotation to generate you form, Stacked also generates the following methods for each form field to help you: 
+- `set[FieldName]ValidationMessage`: to be called in the `setFormStatus` to set a validation message for this field only ;
+- `has[FieldName]ValidationMessage`: to be called from the View to know if any validation message should be displayed regarding this field ; 
+- `[fieldName]ValidationMessage`: to be called from the view to display the actual validation message for this field.
+
+```dart
+// Import the validators you want to use or define it in this class
+import 'validators.dart';
+(...)
+
+class ExampleFormViewModel extends FormViewModel {
+
+  @override
+  void setFormStatus() {
+    log.i('Set form Status with data: $formValueMap');
+
+    // Set the validation message per field
+    setPasswordValidationMessage(passwordValidator(value: passwordValue));
+
+    // Set a validation message for the entire form
+    if (hasPasswordValidationMessage) {
+      setFormValidationMessage('Error in the form, please check again');
+    }
+  }
+
+  (...)
+
+  class ExampleFormView extends StatelessWidget with $ExampleFormView {
+  ExampleFormView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<ExampleFormViewModel>.reactive(
+      builder: (context, viewModel, child) => Scaffold(
+        (...) 
+        TextFormField(
+          controller: passwordController,
+          focusNode: passwordFocusNode,
+        ),
+        if (viewModel.hasPasswordValidationMessage)
+          Text(
+            viewModel.passwordValidationMessage!,
+            style: TextStyle(color: Colors.red),
+          ),
+        (...)
+```
+
+**Hint**: in this example `passwordValidator` has been defined to return 
+- a `String` describing the validation message to be shown if any ;
+- `null` if everything is fine, then no error will be shown.  
+
+```dart
+String? passwordValidator({String? value, int minimumLength = 6}) {
+  if (value != null && value.length < minimumLength)
+    return "Password should have min $minimumLength characters";
+  else
+    return null;
+}
+```
+But feel free to implement your own logic and call `set[FieldName]ValidationMessage` when you need it. 
+
+A complete example can be found in [./example/lib/ui/form/example_form_view.dart](./example/lib/ui/form/example_form_view.dart).
+
 
 ## Migrating from provider_architecture to Stacked
 
