@@ -1,3 +1,7 @@
+## 2.3.2
+
+- Reverts 2.3.1
+
 ## 2.3.1
 
 - Handles the futureToRun viewmodels with try/catch and not catchError function
