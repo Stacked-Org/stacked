@@ -1,3 +1,7 @@
+## 2.3.1
+
+- Handles the futureToRun viewmodels with try/catch and not catchError function
+
 ## 2.3.0
 
 ### New Feature: Adds per field validation
