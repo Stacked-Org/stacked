@@ -168,7 +168,7 @@ class StackedFormContentGenerator extends BaseGenerator {
       final caseName = ReCase(field.name);
       final type = _getFormFieldValueType(field);
       writeLine(
-          '$type? get ${caseName.camelCase}Value => this.formValueMap[${_getFormKeyName(caseName)}];');
+          '$type? get ${caseName.camelCase}Value => this.formValueMap[${_getFormKeyName(caseName)}] as $type?;');
     }
 
     // Generate the getters that check whether a field is set or not
@@ -177,6 +177,22 @@ class StackedFormContentGenerator extends BaseGenerator {
       final caseName = ReCase(field.name);
       writeLine(
           'bool get has${caseName.pascalCase} => this.formValueMap.containsKey(${_getFormKeyName(caseName)});');
+    }
+
+    // Generate the getters that check whether a field has validation message or not
+    newLine();
+    for (final field in fields) {
+      final caseName = ReCase(field.name);
+      writeLine(
+          'bool get has${caseName.pascalCase}ValidationMessage => this.fieldsValidationMessages[${_getFormKeyName(caseName)}]?.isNotEmpty ?? false;');
+    }
+
+    // Generate the getters that retrieve validation message
+    newLine();
+    for (final field in fields) {
+      final caseName = ReCase(field.name);
+      writeLine(
+          'String? get ${caseName.camelCase}ValidationMessage => this.fieldsValidationMessages[${_getFormKeyName(caseName)}];');
     }
 
     writeLine('}');
@@ -218,6 +234,14 @@ class StackedFormContentGenerator extends BaseGenerator {
           }
     ''');
       newLine();
+    }
+
+    // Generate the setters for all fields validation message
+    newLine();
+    for (final field in fields) {
+      final caseName = ReCase(field.name);
+      writeLine(
+          'set${caseName.pascalCase}ValidationMessage(String? validationMessage) => this.fieldsValidationMessages[${_getFormKeyName(caseName)}] = validationMessage;');
     }
 
     writeLine('}');

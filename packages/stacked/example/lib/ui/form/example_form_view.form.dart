@@ -73,6 +73,28 @@ extension ValueProperties on FormViewModel {
   bool get hasBirthDate => this.formValueMap.containsKey(BirthDateValueKey);
   bool get hasDoYouLoveFood =>
       this.formValueMap.containsKey(DoYouLoveFoodValueKey);
+
+  bool get hasEmailValidationMessage =>
+      this.fieldsValidationMessages[EmailValueKey]?.isNotEmpty ?? false;
+  bool get hasPasswordValidationMessage =>
+      this.fieldsValidationMessages[PasswordValueKey]?.isNotEmpty ?? false;
+  bool get hasShortBioValidationMessage =>
+      this.fieldsValidationMessages[ShortBioValueKey]?.isNotEmpty ?? false;
+  bool get hasBirthDateValidationMessage =>
+      this.fieldsValidationMessages[BirthDateValueKey]?.isNotEmpty ?? false;
+  bool get hasDoYouLoveFoodValidationMessage =>
+      this.fieldsValidationMessages[DoYouLoveFoodValueKey]?.isNotEmpty ?? false;
+
+  String? get emailValidationMessage =>
+      this.fieldsValidationMessages[EmailValueKey];
+  String? get passwordValidationMessage =>
+      this.fieldsValidationMessages[PasswordValueKey];
+  String? get shortBioValidationMessage =>
+      this.fieldsValidationMessages[ShortBioValueKey];
+  String? get birthDateValidationMessage =>
+      this.fieldsValidationMessages[BirthDateValueKey];
+  String? get doYouLoveFoodValidationMessage =>
+      this.fieldsValidationMessages[DoYouLoveFoodValueKey];
 }
 
 extension Methods on FormViewModel {
@@ -96,4 +118,15 @@ extension Methods on FormViewModel {
     this.setData(
         this.formValueMap..addAll({DoYouLoveFoodValueKey: doYouLoveFood}));
   }
+
+  setEmailValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[EmailValueKey] = validationMessage;
+  setPasswordValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[PasswordValueKey] = validationMessage;
+  setShortBioValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[ShortBioValueKey] = validationMessage;
+  setBirthDateValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[BirthDateValueKey] = validationMessage;
+  setDoYouLoveFoodValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[DoYouLoveFoodValueKey] = validationMessage;
 }

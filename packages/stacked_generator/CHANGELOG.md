@@ -1,3 +1,25 @@
+## 0.6.2
+
+- Enables multi logger output only in release mode
+
+## 0.6.1
+
+- Adds type case for extension getters to adhere to 
+
+```yaml
+strong-mode:
+    implicit-casts: false
+``` 
+
+linting rule when generating `ValueProperties` for a form
+
+
+
+## 0.6.0
+
+- Adds per-field validation message
+- Bumps stacked to `2.3.0`
+
 ## 0.5.7
 
 - Adds functionality to disable generated logger in release mode
