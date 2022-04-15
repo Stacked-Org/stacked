@@ -77,9 +77,9 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                     onFieldSubmitted: (_) => viewModel.saveData(),
                   ),
                 ),
-                if (viewModel.showValidation)
+                if (viewModel.hasPasswordValidationMessage)
                   Text(
-                    viewModel.validationMessage!,
+                    viewModel.passwordValidationMessage!,
                     style: TextStyle(color: Colors.red),
                   ),
                 SizedBox(height: 15),
@@ -131,7 +131,13 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                           .toList(),
                     )
                   ],
-                )
+                ),
+                SizedBox(height: 15),
+                if (viewModel.showFormValidationMessage)
+                  Text(
+                    viewModel.formValidationMessage!,
+                    style: TextStyle(color: Colors.red),
+                  ),
               ],
             ),
           ),

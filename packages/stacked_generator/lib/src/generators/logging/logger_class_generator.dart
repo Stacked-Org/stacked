@@ -37,7 +37,7 @@ class LoggerClassGenerator extends BaseGenerator {
     final _multiLoggers = StringBuffer();
 
     multiLogger.forEach((element) {
-      _multiLoggers.write("$element(),");
+      _multiLoggers.write(" if(kReleaseMode) $element(),");
     });
     return _multiLoggers.toString();
   }

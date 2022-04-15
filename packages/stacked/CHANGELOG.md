@@ -1,3 +1,24 @@
+## 2.3.3
+
+- Returns a null value for catchError handler when using FutureViewModel
+
+## 2.3.2
+
+- Reverts 2.3.1
+
+## 2.3.1
+
+- Handles the futureToRun viewmodels with try/catch and not catchError function
+
+## 2.3.0
+
+### New Feature: Adds per field validation
+
+- A setValidationMessage will now be generated for each field for you to set and use similar to the global validation message that was used before
+
+- Breaking changes on `FormViewModel`
+  - `showValidation` → `showValidationMessage`
+
 ## 2.2.8
 
 - Adds `disableReleaseConsoleOutput` to the logger annotation to disable console output in release mode
