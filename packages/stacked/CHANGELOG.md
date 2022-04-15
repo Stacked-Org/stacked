@@ -1,3 +1,7 @@
+## 2.3.3
+
+- Returns a null value for catchError handler when using FutureViewModel
+
 ## 2.3.2
 
 - Reverts 2.3.1
