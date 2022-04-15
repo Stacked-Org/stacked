@@ -6,7 +6,7 @@ class TestViewModel extends BaseViewModel {
   Future runFuture(
       {String? busyKey, bool fail = false, bool throwException = false}) {
     return runBusyFuture(
-      _futureToRun(fail),
+      !fail ? _futureToRunSuccess : _futureToRunFail,
       busyObject: busyKey,
       throwException: throwException,
     );
@@ -15,17 +15,19 @@ class TestViewModel extends BaseViewModel {
   Future runTestErrorFuture(
       {String? key, bool fail = false, bool throwException = false}) {
     return runErrorFuture(
-      _futureToRun(fail),
+      !fail ? _futureToRunSuccess : _futureToRunFail,
       key: key,
       throwException: throwException,
     );
   }
 
-  Future _futureToRun(bool fail) async {
+  Future _futureToRunSuccess() async {
     await Future.delayed(Duration(milliseconds: 50));
-    if (fail) {
-      throw Exception('Broken Future');
-    }
+  }
+
+  Future _futureToRunFail() async {
+    await Future.delayed(Duration(milliseconds: 50));
+    throw Exception('Broken Future');
   }
 
   @override
@@ -141,7 +143,10 @@ void main() {
 
         expect(
             () async => await viewModel.runFuture(
-                busyKey: busyObjectKey, fail: true, throwException: true),
+                  busyKey: busyObjectKey,
+                  fail: true,
+                  throwException: true,
+                ),
             throwsException);
       });
 

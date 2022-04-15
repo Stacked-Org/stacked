@@ -85,12 +85,18 @@ class BaseViewModel extends ChangeNotifier {
   /// Sets the ViewModel to busy, runs the future and then sets it to not busy when complete.
   ///
   /// rethrows [Exception] after setting busy to false for object or class
-  Future<T> runBusyFuture<T>(Future<T> busyFuture,
-      {Object? busyObject, bool throwException = false}) async {
+  Future<T> runBusyFuture<T>(
+    Future<T> Function() busyFuture, {
+    Object? busyObject,
+    bool throwException = false,
+  }) async {
     _setBusyForModelOrObject(true, busyObject: busyObject);
     try {
-      var value = await runErrorFuture<T>(busyFuture,
-          key: busyObject, throwException: throwException);
+      var value = await runErrorFuture<T>(
+        busyFuture,
+        key: busyObject,
+        throwException: throwException,
+      );
       return value;
     } catch (e) {
       if (throwException) rethrow;
@@ -100,11 +106,14 @@ class BaseViewModel extends ChangeNotifier {
     }
   }
 
-  Future<T> runErrorFuture<T>(Future<T> future,
-      {Object? key, bool throwException = false}) async {
+  Future<T> runErrorFuture<T>(
+    Future<T> Function() future, {
+    Object? key,
+    bool throwException = false,
+  }) async {
     try {
       _setErrorForModelOrObject(null, key: key);
-      return await future;
+      return await future();
     } catch (e) {
       _setErrorForModelOrObject(e, key: key);
       onFutureError(e, key);
@@ -261,8 +270,13 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
     setBusy(true);
     notifyListeners();
 
-    _data = await (runBusyFuture<T>(futureToRun(), throwException: true)
-        .catchError((error) {
+    try {
+      _data = await (runBusyFuture<T>(futureToRun, throwException: true));
+
+      if (_data != null) {
+        onData(_data);
+      }
+    } catch (error) {
       setError(error);
       _error = error;
       setBusy(false);
@@ -271,10 +285,6 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
       if (rethrowException) {
         throw error;
       }
-    }));
-
-    if (_data != null) {
-      onData(_data);
     }
 
     changeSource = false;
@@ -312,7 +322,7 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel
     notifyListeners();
 
     for (var key in futuresMap.keys) {
-      runBusyFuture(futuresMap[key]!(), busyObject: key, throwException: true)
+      runBusyFuture(futuresMap[key]!, busyObject: key, throwException: true)
           .then((futureData) {
         _dataMap![key] = futureData;
         setBusyForObject(key, false);

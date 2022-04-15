@@ -19,8 +19,8 @@ class TestFutureViewModel extends FutureViewModel<int?> {
 
   @override
   Future<int?> futureToRun() async {
-    if (fail) throw Exception(_SingleFutureExceptionFailMessage);
     await Future.delayed(Duration(milliseconds: 20));
+    if (fail) throw Exception(_SingleFutureExceptionFailMessage);
     return numberToReturn;
   }
 
@@ -66,7 +66,7 @@ class TestMultipleFutureViewModel extends MultipleFutureViewModel {
 }
 
 void main() {
-  group('FutureViewModel', () {
+  group('FutureViewModel - ', () {
     test('When future is complete data should be set and ready', () async {
       var futureViewModel = TestFutureViewModel();
       await futureViewModel.initialise();
@@ -74,7 +74,7 @@ void main() {
       expect(futureViewModel.dataReady, true);
     });
 
-    test('When a future fails it should indicate there\'s an error and no data',
+    test('When a future fails it should indicate there is an error and no data',
         () async {
       var futureViewModel = TestFutureViewModel(fail: true);
       await futureViewModel.initialise();
