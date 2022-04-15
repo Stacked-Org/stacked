@@ -1290,10 +1290,11 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
   ExampleFormView({Key? key}) : super(key: key);
 ```
 
-And then run `flutter pub run build_runner build --delete-conflicting-outputs` to generate `mixin` that will be used in the view. After the code generation is successful and the necessary imports is done, we need to listen to the form changes in `onModelReady` callback.
+And then run `flutter pub run build_runner build --delete-conflicting-outputs` to generate `mixin` that will be used in the view. After the code generation is successful and the necessary imports is done, we need to listen to the form changes in `onModelReady` callback (and also cleanup resources properly on disposal).
 
 ```dart
-onModelReady: (viewModel) => listenToFormUpdated(viewModel);
+onModelReady: (viewModel) => listenToFormUpdated(viewModel),
+onDispose: (_) => disposeForm(),
 ```
 
 This will listen to the changes to the form and update the form value map. To get the form values, you need to import the generated file in the viewmodel and you can access the values with `emailValue`,`passwordValue` and so on.
