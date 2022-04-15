@@ -65,9 +65,12 @@ class StackedLocatorContentGenerator extends BaseGenerator {
         : '';
 
     final hasResolveFunction = dependencyDefinition.resolveFunction != null;
+    final hasInstanceName = dependencyDefinition.instanceName != null;
+    final instanceName =
+        '${hasInstanceName ? ', instanceName: ${dependencyDefinition.instanceName}' : ''}';
     final singletonInstanceToReturn = hasResolveFunction
-        ? '${dependencyDefinition.className}.${dependencyDefinition.resolveFunction}()'
-        : '${dependencyDefinition.className}()';
+        ? '${dependencyDefinition.className}.${dependencyDefinition.resolveFunction}()$instanceName'
+        : '${dependencyDefinition.className}()$instanceName';
 
     final String _formattedEnvs =
         _getFromatedEnvs(dependencyDefinition.environments ?? {});
@@ -79,17 +82,17 @@ class StackedLocatorContentGenerator extends BaseGenerator {
         return '$locatorName.registerLazySingleton$abstractionType(() => $singletonInstanceToReturn $_formattedEnvs);';
       case DependencyType.PresolvedSingleton:
         return '''
-        final ${dependencyDefinition.camelCaseClassName} = await ${dependencyDefinition.className}.${dependencyDefinition.presolveFunction}();
+        final ${dependencyDefinition.camelCaseClassName} = await ${dependencyDefinition.className}.${dependencyDefinition.presolveFunction}()$instanceName;
         $locatorName.registerSingleton$abstractionType(${dependencyDefinition.camelCaseClassName}  $_formattedEnvs);
         ''';
       case DependencyType.Factory:
-        return '$locatorName.registerFactory$abstractionType(() => ${dependencyDefinition.className}()  $_formattedEnvs);';
+        return '$locatorName.registerFactory$abstractionType(() => ${dependencyDefinition.className}()$instanceName  $_formattedEnvs);';
       case DependencyType.FactoryWithParam:
         throwIf(
           _params["params"]?.isEmpty ?? true,
           "At least one paramter is requerd for FactoryWithParam registration ",
         );
-        return '$locatorName.registerFactoryParam<${dependencyDefinition.className},${_params["paramTypes"]}>$abstractionType((param1, param2) => ${dependencyDefinition.className}(${_params["params"]})  $_formattedEnvs);';
+        return '$locatorName.registerFactoryParam<${dependencyDefinition.className},${_params["paramTypes"]}>$abstractionType((param1, param2) => ${dependencyDefinition.className}(${_params["params"]})$instanceName  $_formattedEnvs);';
       case DependencyType.Singleton:
       default:
         return '$locatorName.registerSingleton$abstractionType($singletonInstanceToReturn  $_formattedEnvs);';

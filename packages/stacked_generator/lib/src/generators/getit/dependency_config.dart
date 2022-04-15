@@ -25,6 +25,10 @@ class DependencyConfig {
   /// The static function to use for resolving a singleton instance
   final String? resolveFunction;
 
+  /// The instance name allows creating multiple instances of the same class
+  /// see https://pub.dev/packages/get_it#experts-region for more details
+  final String? instanceName;
+
   final Set<String>? environments;
 
   final Set<DependencyParamConfig>? params;
@@ -39,6 +43,7 @@ class DependencyConfig {
     this.abstractedTypeClassName,
     this.presolveFunction,
     this.resolveFunction,
+    this.instanceName,
   });
 
   /// Returns a camel case version o the [className]

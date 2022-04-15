@@ -28,6 +28,7 @@ class DependencyRegistration {
   final Function? dispose;
   final Type? param1;
   final Type? param2;
+  final String? instanceName;
 
   const DependencyRegistration({
     this.environments,
@@ -37,6 +38,7 @@ class DependencyRegistration {
     this.dispose,
     this.param1,
     this.param2,
+    this.instanceName,
   });
 }
 
@@ -47,11 +49,13 @@ class Singleton extends DependencyRegistration {
     Type? asType,
     Function? resolveUsing,
     Set<String>? environments,
+    String? instanceName,
   }) : super(
           classType: classType,
           asType: asType,
           resolveUsing: resolveUsing,
           environments: environments,
+          instanceName: instanceName,
         );
 }
 
@@ -63,11 +67,13 @@ class LazySingleton<T> extends DependencyRegistration {
     Function? resolveUsing,
     Set<String>? environments,
     FutureOr Function(T)? dispose,
+    String? instanceName,
   }) : super(
           classType: classType,
           asType: asType,
           resolveUsing: resolveUsing,
           environments: environments,
+          instanceName: instanceName,
         );
 }
 
@@ -77,10 +83,12 @@ class Factory extends DependencyRegistration {
     Type? classType,
     Type? asType,
     Set<String>? environments,
+    String? instanceName,
   }) : super(
           classType: classType,
           asType: asType,
           environments: environments,
+          instanceName: instanceName,
         );
 }
 
@@ -90,10 +98,12 @@ class FactoryWithParam extends DependencyRegistration {
     Type? asType,
     Type? classType,
     Set<String>? environments,
+    String? instanceName,
   }) : super(
           asType: asType,
           classType: classType,
           environments: environments,
+          instanceName: instanceName,
         );
 }
 
@@ -118,5 +128,11 @@ class Presolve extends DependencyRegistration {
     Type? asType,
     this.presolveUsing,
     Set<String>? environments,
-  }) : super(classType: classType, asType: asType, environments: environments);
+    String? instanceName,
+  }) : super(
+          classType: classType,
+          asType: asType,
+          environments: environments,
+          instanceName: instanceName,
+        );
 }
