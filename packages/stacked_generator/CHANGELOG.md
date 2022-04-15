@@ -1,3 +1,7 @@
+## 0.6.3
+
+- Fixed code generation bug when using `FactoryWithParam` with the `asType` argument set
+
 ## 0.6.2
 
 - Enables multi logger output only in release mode
