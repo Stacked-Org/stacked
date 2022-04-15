@@ -1,3 +1,9 @@
+## 0.8.18
+
+- Adds `titleTextStyle` and `messageTextStyle` to `showCustomSnackbar` to allow custom textstyles for snackbars.
+- Fixes reference to `title` and `message` widget properties in `registerCustomSnackbarConfig` so they may now be optionally used where extra customization is preferrable.
+- Adds `mainButtonStyle` in `showCustomSnackbar` to allow further customization.
+
 ## 0.8.17
 
 - Add `buttonTitleColor` and `cancelTitleColor` to showDialog method when a dialogPlatform is passed.
@@ -50,7 +56,7 @@ BottomSheetType.FloatingBox_33557de8784ebb01ebd64b71926b5933 // Custom Bottom sh
 
 - Added generic type arguments for `OverlayResponse` and `OverlayRequest` for dialogs and bottom sheets
 - Deprecated `responseData` and added new property `data` that corresponds to that type provided
-- Added 2 generic type arguments for `showCustomDialog` and `showCustomSheet` 
+- Added 2 generic type arguments for `showCustomDialog` and `showCustomSheet`
 - The first generic type argument for `showCustomDialog` from `DialogService` is intended for the response `data` and the second generic type argument for `showCustomSheet` from `BottomSheetService` is intended for the request payload `data`
 
 ## 0.8.7
