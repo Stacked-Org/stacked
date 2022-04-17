@@ -1,18 +1,18 @@
 name: stacked_crashlytics
 description: A package that provides a Crashlytics Service as well as a LogOuput.
-version: 0.1.2
+version: 0.1.3
 homepage: https://github.com/FilledStacks/stacked
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.15.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
     
-  firebase_core: ^1.1.0
-  firebase_crashlytics: ^2.0.2
+  firebase_core: ^1.14.0
+  firebase_crashlytics: ^2.6.1
   logger: ^1.0.0
 
 dev_dependencies:

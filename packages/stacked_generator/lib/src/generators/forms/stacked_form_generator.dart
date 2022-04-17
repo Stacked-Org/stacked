@@ -5,8 +5,8 @@ import 'package:source_gen/source_gen.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/src/generators/forms/field_config.dart';
-import 'package:stacked_generator/src/generators/forms/stacked_form_content_generator.dart';
 import 'package:stacked_generator/src/generators/forms/form_view_config.dart';
+import 'package:stacked_generator/src/generators/forms/stacked_form_content_generator.dart';
 
 class StackedFormGenerator extends GeneratorForAnnotation<FormView> {
   @override

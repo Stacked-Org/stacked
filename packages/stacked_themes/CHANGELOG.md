@@ -1,3 +1,7 @@
+## 0.3.8+1
+
+- bumps versions of provider and and status bar package
+
 ## 0.3.8
 
 - Adds `navigationBarColorBuilder` to change navigation bar color

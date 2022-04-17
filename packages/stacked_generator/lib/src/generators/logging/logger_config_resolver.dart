@@ -13,6 +13,9 @@ class LoggerConfigResolver {
     final _logHelperName =
         _loggerReader?.peek('logHelperName')?.stringValue ?? 'getLogger';
 
+    final _disableReleaseConsoleOutput =
+        _loggerReader?.peek('disableReleaseConsoleOutput')?.boolValue ?? true;
+
     if (_loggerReader != null) {
       return LoggerConfig(
         logHelperName: _logHelperName,
@@ -21,6 +24,7 @@ class LoggerConfigResolver {
           multiLogger: _multiLogger,
         ),
         loggerOutputs: _resolveMultiLogger(_multiLogger),
+        disableReleaseConsoleOutput: _disableReleaseConsoleOutput,
       );
     }
 
