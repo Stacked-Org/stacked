@@ -1,10 +1,15 @@
-## 0.8.17
+## 0.8.18
 
 - Added clearStackAndShowView to clear stack and show widget directly
+## 0.8.17
+
+- Add `buttonTitleColor` and `cancelTitleColor` to showDialog method when a dialogPlatform is passed.
+
 ## 0.8.16
 
 - Updated `get` to latest package version
 - Fixed bug on unknown `isSnackbar` and `SnackDismissDirection`
+
 ## 0.8.15
 
 ### Bottom Sheet Unique Name
