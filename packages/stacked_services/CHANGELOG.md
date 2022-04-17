@@ -1,3 +1,6 @@
+## 0.8.17
+
+- Added clearStackAndShowView to clear stack and show widget directly
 ## 0.8.16
 
 - Updated `get` to latest package version
