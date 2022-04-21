@@ -28,15 +28,12 @@ class _BottomNavExampleState extends State<BottomNavExample> {
           onTap: viewModel.setTabIndex,
           items: [
             BottomNavigationBarItem(
-              title: SizedBox(),
               icon: Icon(Icons.ac_unit),
             ),
             BottomNavigationBarItem(
-              title: SizedBox(),
               icon: Icon(Icons.access_alarm),
             ),
             BottomNavigationBarItem(
-              title: SizedBox(),
               icon: Icon(Icons.access_alarms),
             ),
           ],

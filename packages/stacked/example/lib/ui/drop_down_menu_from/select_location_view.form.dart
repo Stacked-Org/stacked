@@ -45,8 +45,8 @@ mixin $SelectLocationView on StatelessWidget {
 }
 
 extension ValueProperties on FormViewModel {
-  String? get countryValue => this.formValueMap[CountryValueKey];
-  String? get provinceValue => this.formValueMap[ProvinceValueKey];
+  String? get countryValue => this.formValueMap[CountryValueKey] as String?;
+  String? get provinceValue => this.formValueMap[ProvinceValueKey] as String?;
 
   bool get hasCountry => this.formValueMap.containsKey(CountryValueKey);
   bool get hasProvince => this.formValueMap.containsKey(ProvinceValueKey);
