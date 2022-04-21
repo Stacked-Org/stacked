@@ -1,3 +1,8 @@
+## 0.2.1+2
+
+- Updates Example's kotlin version to 1.4.10
+- Updates Example's Android Embedding to Version 2
+
 ## 0.2.1+1
 
 - Upgraded the dependency on `provider` to 6.0.0

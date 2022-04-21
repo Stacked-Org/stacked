@@ -1,3 +1,8 @@
+## 0.8.17+1
+
+- Updates Example's kotlin version to 1.4.10
+- Updates Example's Android Embedding to Version 2
+  
 ## 0.8.17
 
 - Add `buttonTitleColor` and `cancelTitleColor` to showDialog method when a dialogPlatform is passed.

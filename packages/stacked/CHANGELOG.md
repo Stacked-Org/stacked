@@ -1,3 +1,9 @@
+## 2.3.3+1
+
+- Updates Example's kotlin version to 1.4.10
+- Updates Example's Android Embedding to Version 2
+- Updates Example's CompileSdk to 31
+
 ## 2.3.3
 
 - Returns a null value for catchError handler when using FutureViewModel
