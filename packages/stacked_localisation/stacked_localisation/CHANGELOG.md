@@ -1,3 +1,7 @@
+## 0.2.2+1
+
+- Updates Example's Android Embedding to Version 2
+
 ## 0.2.2
 
 - Cleaned up the initialisation logic to use the singleton pattern instead of relying on the user to call the function for setup

@@ -1,3 +1,9 @@
+## 0.3.8+2
+
+- Updates Example's kotlin version to 1.4.10
+- Updates Example's Android Embedding to Version 2
+- Updates Example's CompileSdk to 31
+
 ## 0.3.8+1
 
 - bumps versions of provider and and status bar package
