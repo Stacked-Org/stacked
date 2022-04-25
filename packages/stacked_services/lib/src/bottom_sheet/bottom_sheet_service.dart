@@ -1,11 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stacked_services/src/models/overlay_request.dart';
 import 'package:stacked_services/src/models/overlay_response.dart';
-import 'dart:convert';
-import 'package:crypto/crypto.dart';
 
 import 'bottom_sheet_ui.dart';
 
@@ -31,6 +31,7 @@ class BottomSheetService {
     Duration? exitBottomSheetDuration,
     Duration? enterBottomSheetDuration,
     bool? ignoreSafeArea,
+    bool useRootNavigator = false,
   }) {
     return Get.bottomSheet<SheetResponse?>(
       Material(
@@ -64,6 +65,7 @@ class BottomSheetService {
             title,
             description,
           ])}'),
+      useRootNavigator: useRootNavigator,
     );
   }
 
@@ -102,6 +104,7 @@ class BottomSheetService {
     Duration? exitBottomSheetDuration,
     Duration? enterBottomSheetDuration,
     bool? ignoreSafeArea,
+    bool useRootNavigator = false,
   }) {
     assert(
       _sheetBuilders != null,
@@ -118,42 +121,44 @@ class BottomSheetService {
     final sheetBuilder = _sheetBuilders![variant];
 
     return Get.bottomSheet<SheetResponse<T>>(
-        Material(
-          type: MaterialType.transparency,
-          child: sheetBuilder!(
-            Get.context!,
-            SheetRequest<R>(
-              title: title,
-              description: description,
-              hasImage: hasImage,
-              imageUrl: imageUrl,
-              showIconInMainButton: showIconInMainButton,
-              mainButtonTitle: mainButtonTitle,
-              showIconInSecondaryButton: showIconInSecondaryButton,
-              secondaryButtonTitle: secondaryButtonTitle,
-              showIconInAdditionalButton: showIconInAdditionalButton,
-              additionalButtonTitle: additionalButtonTitle,
-              takesInput: takesInput,
-              customData: customData,
-              variant: variant,
-              data: data,
-            ),
-            completeSheet,
+      Material(
+        type: MaterialType.transparency,
+        child: sheetBuilder!(
+          Get.context!,
+          SheetRequest<R>(
+            title: title,
+            description: description,
+            hasImage: hasImage,
+            imageUrl: imageUrl,
+            showIconInMainButton: showIconInMainButton,
+            mainButtonTitle: mainButtonTitle,
+            showIconInSecondaryButton: showIconInSecondaryButton,
+            secondaryButtonTitle: secondaryButtonTitle,
+            showIconInAdditionalButton: showIconInAdditionalButton,
+            additionalButtonTitle: additionalButtonTitle,
+            takesInput: takesInput,
+            customData: customData,
+            variant: variant,
+            data: data,
           ),
+          completeSheet,
         ),
-        isDismissible: barrierDismissible,
-        isScrollControlled: isScrollControlled,
-        enableDrag: barrierDismissible && enableDrag,
-        exitBottomSheetDuration: exitBottomSheetDuration,
-        enterBottomSheetDuration: enterBottomSheetDuration,
-        ignoreSafeArea: ignoreSafeArea,
-        settings: RouteSettings(
-            name: '$variant\_${_hashConcateator([
-              title,
-              description,
-              mainButtonTitle,
-              secondaryButtonTitle,
-            ])}'));
+      ),
+      isDismissible: barrierDismissible,
+      isScrollControlled: isScrollControlled,
+      enableDrag: barrierDismissible && enableDrag,
+      exitBottomSheetDuration: exitBottomSheetDuration,
+      enterBottomSheetDuration: enterBottomSheetDuration,
+      ignoreSafeArea: ignoreSafeArea,
+      settings: RouteSettings(
+          name: '$variant\_${_hashConcateator([
+            title,
+            description,
+            mainButtonTitle,
+            secondaryButtonTitle,
+          ])}'),
+      useRootNavigator: useRootNavigator,
+    );
   }
 
   /// Check if bottomsheet is open
