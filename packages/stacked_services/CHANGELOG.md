@@ -1,3 +1,7 @@
+## 0.8.18
+
+- Adds useRootNavigator to bottomSheet
+
 ## 0.8.17+1
 
 - Updates Example's kotlin version to 1.4.10
