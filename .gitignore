@@ -5,3 +5,4 @@ launch.json
 
 **/*.lock
 *.lock
+.DS_Store
