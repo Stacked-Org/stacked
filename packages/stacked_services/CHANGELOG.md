@@ -1,3 +1,9 @@
+## 0.8.19
+
+- Adds `titleTextStyle` and `messageTextStyle` to `showCustomSnackbar` to allow custom textstyles for snackbars.
+- Fixes reference to `title` and `message` widget properties in `registerCustomSnackbarConfig` so they may now be optionally used where extra customization is preferrable.
+- Adds `mainButtonStyle` in `showCustomSnackbar` to allow further customization.
+
 ## 0.8.18
 
 - Adds useRootNavigator to bottomSheet
