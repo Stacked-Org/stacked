@@ -125,10 +125,13 @@ class SnackbarService {
 
   Future? showCustomSnackBar({
     required String message,
+    TextStyle? messageTextStyle,
     @deprecated dynamic customData,
     dynamic variant,
     String? title,
+    TextStyle? titleTextStyle,
     String? mainButtonTitle,
+    ButtonStyle? mainButtonStyle,
     void Function()? onMainButtonTapped,
     Function? onTap,
     Duration duration = const Duration(seconds: 1),
@@ -161,6 +164,7 @@ class SnackbarService {
         ? mainButtonBuilder!(mainButtonTitle, onMainButtonTapped)
         : _getMainButtonWidget(
             mainButtonTitle: mainButtonTitle,
+            mainButtonStyle: snackbarConfig.mainButtonStyle ?? mainButtonStyle,
             onMainButtonTapped: onMainButtonTapped,
             config: snackbarConfig,
           );
@@ -171,18 +175,18 @@ class SnackbarService {
           ? Text(
               title,
               key: Key('snackbar_text_title'),
-              style: TextStyle(
+              style: snackbarConfig.titleTextStyle ?? titleTextStyle ?? TextStyle(
                 color: snackbarConfig.titleColor ?? snackbarConfig.textColor,
                 fontWeight: FontWeight.w800,
                 fontSize: 16,
               ),
               textAlign: snackbarConfig.titleTextAlign,
             )
-          : null,
+          : snackbarConfig.titleText ?? null,
       messageText: Text(
         message,
         key: Key('snackbar_text_message'),
-        style: TextStyle(
+        style: snackbarConfig.messageTextStyle ?? messageTextStyle ?? TextStyle(
           color: snackbarConfig.messageColor ?? snackbarConfig.textColor,
           fontWeight: FontWeight.w300,
           fontSize: 14,
@@ -236,6 +240,7 @@ class SnackbarService {
 
   TextButton? _getMainButtonWidget({
     String? mainButtonTitle,
+    ButtonStyle? mainButtonStyle,
     void Function()? onMainButtonTapped,
     SnackbarConfig? config,
   }) {
@@ -245,6 +250,7 @@ class SnackbarService {
 
     return TextButton(
       key: Key('snackbar_touchable_mainButton'),
+      style: mainButtonStyle,
       child: Text(
         mainButtonTitle,
         key: Key('snackbar_text_mainButtonTitle'),
