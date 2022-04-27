@@ -1,4 +1,4 @@
-## 2.3.4+0
+## 2.3.4
 - Updates MultipleStreamViewModel to take generic type for key
 
 ## 2.3.3+1
