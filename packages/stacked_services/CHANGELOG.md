@@ -1,9 +1,12 @@
 ## 0.8.18
 
-- Adds `titleTextStyle` and `messageTextStyle` to `showCustomSnackbar` to allow custom textstyles for snackbars.
-- Fixes reference to `title` and `message` widget properties in `registerCustomSnackbarConfig` so they may now be optionally used where extra customization is preferrable.
-- Adds `mainButtonStyle` in `showCustomSnackbar` to allow further customization.
+- Adds useRootNavigator to bottomSheet
 
+## 0.8.17+1
+
+- Updates Example's kotlin version to 1.4.10
+- Updates Example's Android Embedding to Version 2
+  
 ## 0.8.17
 
 - Add `buttonTitleColor` and `cancelTitleColor` to showDialog method when a dialogPlatform is passed.

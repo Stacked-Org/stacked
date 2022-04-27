@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -133,9 +132,9 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                   ],
                 ),
                 SizedBox(height: 15),
-                if (viewModel.showFormValidationMessage)
+                if (viewModel.showValidationMessage)
                   Text(
-                    viewModel.formValidationMessage!,
+                    viewModel.validationMessage!,
                     style: TextStyle(color: Colors.red),
                   ),
               ],

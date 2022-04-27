@@ -230,11 +230,12 @@ class _SingleDataSourceViewModel<T> extends DynamicSourceViewModel {
   bool get dataReady => _data != null && !hasError;
 }
 
-class _MultiDataSourceViewModel extends DynamicSourceViewModel {
-  Map<String, dynamic>? _dataMap;
-  Map<String, dynamic>? get dataMap => _dataMap;
+class _MultiDataSourceViewModel<K extends Object>
+    extends DynamicSourceViewModel {
+  Map<K, dynamic>? _dataMap;
+  Map<K, dynamic>? get dataMap => _dataMap;
 
-  bool dataReady(String key) => _dataMap![key] != null && (error(key) == null);
+  bool dataReady(K key) => _dataMap![key] != null && (error(key) == null);
 }
 
 /// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
@@ -349,34 +350,33 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel
 }
 
 /// Provides functionality for a ViewModel to run and fetch data using multiple streams
-abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel
-    implements Initialisable {
+abstract class MultipleStreamViewModel<K extends Object>
+    extends _MultiDataSourceViewModel<K> implements Initialisable {
   // Every MultipleStreamViewModel must override streamDataMap
   // StreamData requires a stream, but lifecycle events are optional
   // if a lifecyle event isn't defined we use the default ones here
-  Map<String, StreamData> get streamsMap;
+  Map<K, StreamData> get streamsMap;
 
-  Map<String, StreamSubscription>? _streamsSubscriptions;
+  Map<K, StreamSubscription>? _streamsSubscriptions;
 
   @visibleForTesting
-  Map<String, StreamSubscription>? get streamsSubscriptions =>
-      _streamsSubscriptions;
+  Map<K, StreamSubscription>? get streamsSubscriptions => _streamsSubscriptions;
 
   /// Returns the stream subscription associated with the key
-  StreamSubscription? getSubscriptionForKey(String key) =>
+  StreamSubscription? getSubscriptionForKey(K key) =>
       _streamsSubscriptions![key];
 
   void initialise() {
-    _dataMap = Map<String, dynamic>();
+    _dataMap = Map<K, dynamic>();
     clearErrors();
-    _streamsSubscriptions = Map<String, StreamSubscription>();
+    _streamsSubscriptions = Map<K, StreamSubscription>();
 
     if (!changeSource) {
       notifyListeners();
     }
-    var _streamsMapValues = Map<String, StreamData>.from(streamsMap);
+    final _streamsMapValues = Map<K, StreamData>.from(streamsMap);
 
-    for (var key in _streamsMapValues.keys) {
+    for (final key in _streamsMapValues.keys) {
       // If a lifecycle function isn't supplied, we fallback to default
       _streamsSubscriptions![key] = _streamsMapValues[key]!.stream.listen(
         (incomingData) {
@@ -428,11 +428,11 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel
     notifyListeners();
   }
 
-  void onData(String key, dynamic data) {}
-  void onSubscribed(String key) {}
-  void onError(String key, error) {}
-  void onCancel(String key) {}
-  dynamic transformData(String key, data) {
+  void onData(K key, dynamic data) {}
+  void onSubscribed(K key) {}
+  void onError(K key, error) {}
+  void onCancel(K key) {}
+  dynamic transformData(K key, data) {
     return data;
   }
 
