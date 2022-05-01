@@ -64,6 +64,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:stacked_app/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
+// @stacked-import
 
 import 'test_helpers.mocks.dart';
 
@@ -71,11 +72,13 @@ import 'test_helpers.mocks.dart';
   MockSpec<NavigationService>(returnNullOnMissingStub: true),
   MockSpec<BottomSheetService>(returnNullOnMissingStub: true),
   MockSpec<DialogService>(returnNullOnMissingStub: true),
+  // @stacked-service-mock
 ])
 void registerServices() {
   getAndRegisterNavigationService();
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
+  // @stacked-mock-helper-register
 }
 
 MockNavigationService getAndRegisterNavigationService() {
@@ -127,6 +130,8 @@ MockDialogService getAndRegisterDialogService() {
   locator.registerSingleton<DialogService>(service);
   return service;
 }
+
+// @stacked-mock-helper
 
 void _removeRegistrationIfExists<T extends Object>() {
   if (locator.isRegistered<T>()) {
@@ -837,10 +842,12 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:{{packageName}}/ui/views/home/home_view.dart';
 import 'package:{{packageName}}/ui/views/startup/startup_view.dart';
 import 'package:stacked_services/stacked_services.dart';
+// @stacked-import
 
 @StackedApp(routes: [
   MaterialRoute(page: StartupView),
   MaterialRoute(page: HomeView),
+  // @stacked-route
 ], dependencies: [
   LazySingleton(classType: NavigationService),
   LazySingleton(classType: DialogService),

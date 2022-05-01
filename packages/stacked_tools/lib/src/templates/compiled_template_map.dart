@@ -1,7 +1,7 @@
-// ignore_for_file: unnecessary_string_escapes
-
+import 'package:stackedcli/src/message_constants.dart';
 import 'package:stackedcli/src/models/template_models.dart';
 import 'package:stackedcli/src/templates/compiled_templates.dart';
+import 'package:stackedcli/src/templates/template_constants.dart';
 
 Map<String, StackedTemplate> kCompiledStackedTemplates = {
   'app': StackedTemplate(
@@ -91,8 +91,10 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
         content: kAppTemplatePubspecYamlStkContent,
       ),
     ],
-    modificationFiles: [],
+    modificationFiles: [
+    ],
   ),
+  
   'view': StackedTemplate(
     templateFiles: [
       TemplateFile(
@@ -113,19 +115,17 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
         relativeModificationPath: 'lib/app/app.dart',
         modificationIdentifier: '// @stacked-route',
         modificationTemplate: '''MaterialRoute(page: {{viewName}}),''',
-        modificationProblemError:
-            'The structure of your stacked application is invalid. The app.dart file should be located in lib&#x2F;app&#x2F;',
+        modificationProblemError: 'The structure of your stacked application is invalid. The app.dart file should be located in lib&#x2F;app&#x2F;',
       ),
       ModificationFile(
         relativeModificationPath: 'lib/app/app.dart',
         modificationIdentifier: '// @stacked-import',
-        modificationTemplate:
-            '''import \'package:{{packageName}}/ui/views/{{viewFolderName}}/{{viewFileName}}\';''',
-        modificationProblemError:
-            'The structure of your stacked application is invalid. The app.dart file should be located in lib&#x2F;app&#x2F;',
+        modificationTemplate: '''import \'package:{{packageName}}/ui/views/{{viewFolderName}}/{{viewFileName}}\';''',
+        modificationProblemError: 'The structure of your stacked application is invalid. The app.dart file should be located in lib&#x2F;app&#x2F;',
       ),
     ],
   ),
+  
   'service': StackedTemplate(
     templateFiles: [
       TemplateFile(
@@ -142,38 +142,32 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
         relativeModificationPath: 'test/helpers/test_helper.dart',
         modificationIdentifier: '// @stacked-mock-helper-register',
         modificationTemplate: '''getAndRegister{{serviceName}}Service();''',
-        modificationProblemError:
-            'The test mocks and helpers should be stored in test&#x2F;helpers&#x2F;test_helper.dart',
+        modificationProblemError: 'The test mocks and helpers should be stored in test&#x2F;helpers&#x2F;test_helper.dart',
       ),
       ModificationFile(
         relativeModificationPath: 'test/helpers/test_helper.dart',
         modificationIdentifier: '// @stacked-import',
-        modificationTemplate:
-            '''import \'package:{{packageName}}/services/{{serviceFilename}}\';''',
-        modificationProblemError:
-            'The test mocks and helpers should be stored in test&#x2F;helpers&#x2F;test_helper.dart',
+        modificationTemplate: '''import \'package:{{packageName}}/services/{{serviceFilename}}\';''',
+        modificationProblemError: 'The test mocks and helpers should be stored in test&#x2F;helpers&#x2F;test_helper.dart',
       ),
       ModificationFile(
         relativeModificationPath: 'test/helpers/test_helper.dart',
         modificationIdentifier: '// @stacked-mock-helper',
-        modificationTemplate:
-            '''Mock{{serviceName}}Service getAndRegister{{serviceName}}Service() { 
+        modificationTemplate: '''Mock{{serviceName}}Service getAndRegister{{serviceName}}Service() { 
 _removeRegistrationIfExists<{{serviceName}}Service>(); 
 final service = Mock{{serviceName}}Service(); 
 locator.registerSingleton<{{serviceName}}Service>(service); 
 return service; 
 }''',
-        modificationProblemError:
-            'The test mocks and helpers should be stored in test&#x2F;helpers&#x2F;test_helper.dart',
+        modificationProblemError: 'The test mocks and helpers should be stored in test&#x2F;helpers&#x2F;test_helper.dart',
       ),
       ModificationFile(
         relativeModificationPath: 'test/helpers/test_helper.dart',
         modificationIdentifier: '// @stacked-service-mock',
-        modificationTemplate:
-            '''MockSpec<{{serviceName}}Service>(returnNullOnMissingStub: true),''',
-        modificationProblemError:
-            'The test mocks and helpers should be stored in test&#x2F;helpers&#x2F;test_helper.dart',
+        modificationTemplate: '''MockSpec<{{serviceName}}Service>(returnNullOnMissingStub: true),''',
+        modificationProblemError: 'The test mocks and helpers should be stored in test&#x2F;helpers&#x2F;test_helper.dart',
       ),
     ],
   ),
+  
 };
