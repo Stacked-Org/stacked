@@ -1,3 +1,7 @@
+## 0.1.2
+
+- Fixes bug that loads pubspec on project create
+
 ## 0.1.1
 
 - Adds executable to the pubspec for global activation
