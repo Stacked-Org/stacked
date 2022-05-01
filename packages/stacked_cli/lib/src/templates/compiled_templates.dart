@@ -15,7 +15,7 @@ import 'package:stacked_app/enums/bottom_sheet_type.dart';
 import 'package:stacked_app/ui/common/app_strings.dart';
 import 'package:stacked_app/ui/views/home/home_viewmodel.dart';
 
-import '../helpers/test_helpers.dart.stk';
+import '../helpers/test_helpers.dart';
 
 void main() {
   HomeViewModel _getModel() => HomeViewModel();
@@ -370,9 +370,9 @@ const String kAppTemplateAppStringsPath =
     'lib/ui/common/app_strings.dart.stk';
 
 const String kAppTemplateAppStringsContent = '''
-const String ksHomeBottomSheetTitle = 'Build 🚀 Apps';
+const String ksHomeBottomSheetTitle = 'Build Great Apps!';
 const String ksHomeBottomSheetDescription =
-    'Stacked is built to help you build better apps. Give us a chance and we\'ll prove it to you. Check out stacked.filledstacks.com to learn more';
+    'Stacked is built to help you build better apps. Give us a chance and we\\'ll prove it to you. Check out stacked.filledstacks.com to learn more';
 
 ''';
 

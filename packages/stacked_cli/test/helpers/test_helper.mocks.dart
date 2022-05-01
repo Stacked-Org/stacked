@@ -89,6 +89,10 @@ class MockPathService extends _i1.Mock implements _i6.PathService {
       (super.noSuchMethod(Invocation.getter(#templatesPath), returnValue: '')
           as String);
   @override
+  String get separator =>
+      (super.noSuchMethod(Invocation.getter(#separator), returnValue: '')
+          as String);
+  @override
   String join(String? part1,
           [String? part2,
           String? part3,
@@ -179,9 +183,11 @@ class MockTemplateService extends _i1.Mock implements _i7.TemplateService {
           returnValue: <String, String>{}) as Map<String, String>);
   @override
   Map<String, String> applyGlobalTemplateProperties(
-          Map<String, String>? renderTemplate) =>
+          Map<String, String>? renderTemplate,
+          {String? packageName}) =>
       (super.noSuchMethod(
-          Invocation.method(#applyGlobalTemplateProperties, [renderTemplate]),
+          Invocation.method(#applyGlobalTemplateProperties, [renderTemplate],
+              {#packageName: packageName}),
           returnValue: <String, String>{}) as Map<String, String>);
   @override
   _i4.Future<void> modifyExistingFiles(

@@ -20,26 +20,57 @@ class CreateAppCommand extends Command {
   @override
   Future<void> run() async {
     final appName = argResults!.rest.first;
-    final flutterCreateCompleter = Completer();
-    print('Create flutter app');
-    var process = await Process.start('flutter', [
-      'create',
-      appName,
-    ]);
-    process.stdout.transform(utf8.decoder).forEach((output) {
-      print(output);
-      if (output.toLowerCase().contains('done')) {
-        flutterCreateCompleter.complete();
-      }
-    });
 
-    await flutterCreateCompleter.future;
-    print('Flutter create complete.');
+    await _runProcessAndLogOutput(
+      programName: 'flutter',
+      arguments: ['create', appName],
+    );
+
     print('Add Stacked Magic ... ');
     await _templateService.renderTemplate(
       templateName: kTemplateNameApp,
-      name: argResults!.rest.first,
+      name: appName,
       verbose: true,
+      outputPath: appName,
     );
+
+    await _runProcessAndLogOutput(
+      programName: 'flutter',
+      arguments: ['pub', 'get'],
+      workingDirectory: appName,
+    );
+    // flutter pub run build_runner build --delete-conflicting-outputs
+    await _runProcessAndLogOutput(
+      programName: 'flutter',
+      arguments: [
+        'pub',
+        'run',
+        'build_runner',
+        'build',
+        '--delete-conflicting-outputs'
+      ],
+      workingDirectory: appName,
+    );
+  }
+
+  Future<void> _runProcessAndLogOutput({
+    required String programName,
+    List<String> arguments = const [],
+    String? workingDirectory,
+  }) async {
+    final hasWorkingDirectory = workingDirectory != null;
+    print(
+        'Running $workingDirectory${hasWorkingDirectory ? '/' : ''}$programName ${arguments.join(' ')} ... ');
+    var process = await Process.start(
+      programName,
+      arguments,
+      workingDirectory: workingDirectory,
+    );
+    process.stdout.transform(utf8.decoder).forEach((output) {
+      print(output);
+    });
+
+    final exitCode = await process.exitCode;
+    print('Command complete. ExitCode: $exitCode');
   }
 }

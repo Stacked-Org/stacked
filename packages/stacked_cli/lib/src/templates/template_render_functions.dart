@@ -18,4 +18,5 @@ Map<String, RenderFunction> renderFunctions = {
         kTemplatePropertyServiceName: value.pascalCase,
         kTemplatePropertyServiceFilename: '${value.snakeCase}_service.dart',
       },
+  kTemplateNameApp: (ReCase value, [map]) => {},
 };
