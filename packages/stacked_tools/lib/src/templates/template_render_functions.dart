@@ -1,5 +1,5 @@
 import 'package:recase/recase.dart';
-import 'package:stackedcli/src/templates/template_constants.dart';
+import 'package:stacked_tools/src/templates/template_constants.dart';
 
 /// Definition of a function that when executed returns a Map<String, String>
 typedef RenderFunction = Map<String, String> Function(ReCase value);
