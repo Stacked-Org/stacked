@@ -1,9 +1,9 @@
 import 'package:args/command_runner.dart';
-import 'package:stackedcli/src/locator.dart';
-import 'package:stackedcli/src/message_constants.dart';
-import 'package:stackedcli/src/mixins/project_structure_validator_mixin.dart';
-import 'package:stackedcli/src/services/template_service.dart';
-import 'package:stackedcli/src/templates/template_constants.dart';
+import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/message_constants.dart';
+import 'package:stacked_tools/src/mixins/project_structure_validator_mixin.dart';
+import 'package:stacked_tools/src/services/template_service.dart';
+import 'package:stacked_tools/src/templates/template_constants.dart';
 
 class CreateViewCommand extends Command with ProjectStructureValidator {
   final _templateService = locator<TemplateService>();

@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:mockito/mockito.dart';
 import 'package:path/path.dart' as p;
-import 'package:stackedcli/src/locator.dart';
-import 'package:stackedcli/src/templates/template_constants.dart';
-import 'package:stackedcli/src/templates/template_helper.dart';
+import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/templates/template_constants.dart';
+import 'package:stacked_tools/src/templates/template_helper.dart';
 import 'package:test/test.dart';
 
 import '../helpers/test_helper.dart';

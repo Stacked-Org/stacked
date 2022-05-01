@@ -5,16 +5,16 @@ import 'package:mustache_template/mustache_template.dart';
 // TODO: Refactor into a service so we can mock out the return value
 import 'package:path/path.dart' as path;
 import 'package:recase/recase.dart';
-import 'package:stackedcli/src/exceptions/invalid_stacked_structure_exception.dart';
-import 'package:stackedcli/src/locator.dart';
-import 'package:stackedcli/src/message_constants.dart';
-import 'package:stackedcli/src/models/template_models.dart';
-import 'package:stackedcli/src/services/file_service.dart';
-import 'package:stackedcli/src/services/pubspec_service.dart';
-import 'package:stackedcli/src/templates/compiled_template_map.dart';
-import 'package:stackedcli/src/templates/template_constants.dart';
-import 'package:stackedcli/src/templates/template_helper.dart';
-import 'package:stackedcli/src/templates/template_render_functions.dart';
+import 'package:stacked_tools/src/exceptions/invalid_stacked_structure_exception.dart';
+import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/message_constants.dart';
+import 'package:stacked_tools/src/models/template_models.dart';
+import 'package:stacked_tools/src/services/file_service.dart';
+import 'package:stacked_tools/src/services/pubspec_service.dart';
+import 'package:stacked_tools/src/templates/compiled_template_map.dart';
+import 'package:stacked_tools/src/templates/template_constants.dart';
+import 'package:stacked_tools/src/templates/template_helper.dart';
+import 'package:stacked_tools/src/templates/template_render_functions.dart';
 
 /// Given the data that points to templates it writes out those templates
 /// using the same file paths

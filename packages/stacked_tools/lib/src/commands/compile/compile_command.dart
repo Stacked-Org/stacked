@@ -1,6 +1,6 @@
 import 'package:args/command_runner.dart';
-import 'package:stackedcli/src/locator.dart';
-import 'package:stackedcli/src/services/template_service.dart';
+import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/services/template_service.dart';
 
 /// The command to run
 class CompileCommand extends Command {

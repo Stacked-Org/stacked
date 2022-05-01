@@ -1,7 +1,7 @@
-import 'package:stackedcli/src/exceptions/invalid_stacked_structure_exception.dart';
-import 'package:stackedcli/src/locator.dart';
-import 'package:stackedcli/src/message_constants.dart';
-import 'package:stackedcli/src/services/file_service.dart';
+import 'package:stacked_tools/src/exceptions/invalid_stacked_structure_exception.dart';
+import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/message_constants.dart';
+import 'package:stacked_tools/src/services/file_service.dart';
 
 mixin ProjectStructureValidator {
   final _fileService = locator<FileService>();

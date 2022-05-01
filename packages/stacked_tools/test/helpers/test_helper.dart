@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:stackedcli/src/locator.dart';
-import 'package:stackedcli/src/services/file_service.dart';
-import 'package:stackedcli/src/services/path_service.dart';
-import 'package:stackedcli/src/services/pubspec_service.dart';
-import 'package:stackedcli/src/services/template_service.dart';
-import 'package:stackedcli/src/templates/template_helper.dart';
+import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/services/file_service.dart';
+import 'package:stacked_tools/src/services/path_service.dart';
+import 'package:stacked_tools/src/services/pubspec_service.dart';
+import 'package:stacked_tools/src/services/template_service.dart';
+import 'package:stacked_tools/src/templates/template_helper.dart';
 
 // @stacked-import
 
@@ -44,7 +44,7 @@ MockFileService getAndRegisterMockFileService({
 }
 
 MockPubspecService getAndRegisterPubSpecService({
-  String packageName = 'stackedcli',
+  String packageName = 'stacked_tools',
 }) {
   _removeRegistrationIfExists<PubspecService>();
   final service = MockPubspecService();

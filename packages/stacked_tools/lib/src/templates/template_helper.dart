@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:recase/recase.dart';
-import 'package:stackedcli/src/locator.dart';
-import 'package:stackedcli/src/models/template_models.dart';
-import 'package:stackedcli/src/services/file_service.dart';
-import 'package:stackedcli/src/services/path_service.dart';
+import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/models/template_models.dart';
+import 'package:stacked_tools/src/services/file_service.dart';
+import 'package:stacked_tools/src/services/path_service.dart';
 
 /// This class contains functions that helps with the population of the templates
 // TODO: Reasses if this should just be in the template service and not on its own
