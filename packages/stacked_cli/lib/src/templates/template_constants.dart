@@ -1,6 +1,7 @@
 // ------- Template names --------
 const String kTemplateNameView = 'view';
 const String kTemplateNameService = 'service';
+const String kTemplateNameApp = 'app';
 
 // ------- File Modification identifiers --------
 
