@@ -5,7 +5,7 @@ import 'package:stacked_app/enums/dialog_type.dart';
 import 'package:stacked_app/ui/common/app_strings.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class GenericViewModel extends BaseViewModel {
+class HomeViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
   final _bottomSheetService = locator<BottomSheetService>();
 
@@ -28,8 +28,8 @@ class GenericViewModel extends BaseViewModel {
   void showBottomSheet() {
     _bottomSheetService.showCustomSheet(
       variant: BottomSheetType.notice,
-      title: ksGenericBottomSheetTitle,
-      description: ksGenericBottomSheetDescription,
+      title: ksHomeBottomSheetTitle,
+      description: ksHomeBottomSheetDescription,
     );
   }
 }
