@@ -18,7 +18,7 @@ Future<void> main(List<String> arguments) async {
       ..addCommand(CompileCommand())
       ..run(arguments);
   } on InvalidStackedStructureException catch (e) {
-    print(e.message);
+    stdout.writeln(e.message);
     exit(2);
   }
 }
