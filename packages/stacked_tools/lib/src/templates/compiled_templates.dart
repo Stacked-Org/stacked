@@ -10,10 +10,10 @@ const String kAppTemplateHomeViewmodelTestPath =
 const String kAppTemplateHomeViewmodelTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:stacked_app/app/app.locator.dart';
-import 'package:stacked_app/enums/bottom_sheet_type.dart';
-import 'package:stacked_app/ui/common/app_strings.dart';
-import 'package:stacked_app/ui/views/home/home_viewmodel.dart';
+import 'package:{{packageName}}/app/app.locator.dart';
+import 'package:{{packageName}}/enums/bottom_sheet_type.dart';
+import 'package:{{packageName}}/ui/common/app_strings.dart';
+import 'package:{{packageName}}/ui/views/home/home_viewmodel.dart';
 
 import '../helpers/test_helpers.dart';
 
@@ -62,7 +62,7 @@ const String kAppTemplateTestHelpersPath =
 const String kAppTemplateTestHelpersContent = '''
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:stacked_app/app/app.locator.dart';
+import 'package:{{packageName}}/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 // @stacked-import
 

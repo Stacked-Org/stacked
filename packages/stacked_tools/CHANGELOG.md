@@ -1,3 +1,8 @@
+## 0.1.1
+
+- Adds executable to the pubspec for global activation
+- Fixes template bugs for app generate
+
 ## 0.1.0
 
 ### Initial Release
