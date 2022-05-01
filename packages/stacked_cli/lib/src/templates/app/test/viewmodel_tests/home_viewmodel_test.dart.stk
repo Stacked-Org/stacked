@@ -5,7 +5,7 @@ import 'package:stacked_app/enums/bottom_sheet_type.dart';
 import 'package:stacked_app/ui/common/app_strings.dart';
 import 'package:stacked_app/ui/views/home/home_viewmodel.dart';
 
-import '../helpers/test_helpers.dart.stk';
+import '../helpers/test_helpers.dart';
 
 void main() {
   HomeViewModel _getModel() => HomeViewModel();

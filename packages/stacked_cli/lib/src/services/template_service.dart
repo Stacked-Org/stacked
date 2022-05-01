@@ -214,15 +214,23 @@ class TemplateService {
 
     final renderDataForTemplate = renderFunction(nameRecase);
 
-    return applyGlobalTemplateProperties(renderDataForTemplate);
+    final packageName = templateName == kTemplateNameApp ? name : null;
+
+    return applyGlobalTemplateProperties(
+      renderDataForTemplate,
+      packageName: packageName,
+    );
   }
 
   Map<String, String> applyGlobalTemplateProperties(
-      Map<String, String> renderTemplate) {
+    Map<String, String> renderTemplate, {
+    String? packageName,
+  }) {
     return {
       ...renderTemplate,
       // All template data will have the values added below
-      kTemplatePropertyPackageName: _pubspecService.getPackageName,
+      kTemplatePropertyPackageName:
+          packageName ?? _pubspecService.getPackageName,
     };
   }
 
