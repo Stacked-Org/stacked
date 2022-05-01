@@ -9,7 +9,7 @@ class HomeViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
   final _bottomSheetService = locator<BottomSheetService>();
 
-  String get counterLabel => 'Counter is: $_counter';
+  String get counterLabel => 'Counter is: \$_counter';
 
   int _counter = 0;
 
@@ -22,7 +22,7 @@ class HomeViewModel extends BaseViewModel {
     _dialogService.showCustomDialog(
         variant: DialogType.infoAlert,
         title: 'Stacked Rocks!',
-        description: 'Give stacked $_counter stars on Github ');
+        description: 'Give stacked \$_counter stars on Github ');
   }
 
   void showBottomSheet() {

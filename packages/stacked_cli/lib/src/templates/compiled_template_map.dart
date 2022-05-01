@@ -4,6 +4,97 @@ import 'package:stacked_cli/src/templates/compiled_templates.dart';
 import 'package:stacked_cli/src/templates/template_constants.dart';
 
 Map<String, StackedTemplate> kCompiledStackedTemplates = {
+  'app': StackedTemplate(
+    templateFiles: [
+      TemplateFile(
+        relativeOutputPath: kAppTemplateHomeViewmodelTestPath,
+        content: kAppTemplateHomeViewmodelTestContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateTestHelpersPath,
+        content: kAppTemplateTestHelpersContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateREADMEMdStkPath,
+        content: kAppTemplateREADMEMdStkContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateMainPath,
+        content: kAppTemplateMainContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateSetupDialogUiPath,
+        content: kAppTemplateSetupDialogUiContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateSetupBottomSheetUiPath,
+        content: kAppTemplateSetupBottomSheetUiContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateUiHelpersPath,
+        content: kAppTemplateUiHelpersContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateAppStringsPath,
+        content: kAppTemplateAppStringsContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateAppColorsPath,
+        content: kAppTemplateAppColorsContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateNoticeSheetPath,
+        content: kAppTemplateNoticeSheetContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateNoticeSheetViewmodelPath,
+        content: kAppTemplateNoticeSheetViewmodelContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateInfoAlertDialogPath,
+        content: kAppTemplateInfoAlertDialogContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateInfoAlertViewmodelPath,
+        content: kAppTemplateInfoAlertViewmodelContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateHomeViewPath,
+        content: kAppTemplateHomeViewContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateHomeViewmodelPath,
+        content: kAppTemplateHomeViewmodelContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateStartupViewmodelPath,
+        content: kAppTemplateStartupViewmodelContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateStartupViewPath,
+        content: kAppTemplateStartupViewContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateAppPath,
+        content: kAppTemplateAppContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateDialogTypePath,
+        content: kAppTemplateDialogTypeContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateBottomSheetTypePath,
+        content: kAppTemplateBottomSheetTypeContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplatePubspecYamlStkPath,
+        content: kAppTemplatePubspecYamlStkContent,
+      ),
+    ],
+    modificationFiles: [
+    ],
+  ),
+  
   'view': StackedTemplate(
     templateFiles: [
       TemplateFile(
