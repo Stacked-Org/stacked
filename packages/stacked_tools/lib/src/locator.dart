@@ -8,10 +8,7 @@ import 'package:stacked_tools/src/templates/template_helper.dart';
 final locator = GetIt.I;
 
 Future setupLocator() async {
-  final pubSpecService = PubspecService();
-  await pubSpecService.initialise();
-  locator.registerSingleton(pubSpecService);
-
+  locator.registerLazySingleton(() => PubspecService());
   locator.registerLazySingleton(() => PathService());
   locator.registerLazySingleton(() => TemplateService());
   locator.registerLazySingleton(() => FileService());

@@ -5,8 +5,11 @@ import 'package:stacked_tools/src/mixins/project_structure_validator_mixin.dart'
 import 'package:stacked_tools/src/services/template_service.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 
+import '../../services/pubspec_service.dart';
+
 class CreateServiceCommand extends Command with ProjectStructureValidator {
   final _templateService = locator<TemplateService>();
+  final _pubspecService = locator<PubspecService>();
 
   @override
   String get description =>
@@ -25,6 +28,8 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
 
   @override
   Future<void> run() async {
+    await _pubspecService.initialise();
+
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     await validateStructure(outputPath: outputPath);
 

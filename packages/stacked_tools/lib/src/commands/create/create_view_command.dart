@@ -2,11 +2,13 @@ import 'package:args/command_runner.dart';
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/message_constants.dart';
 import 'package:stacked_tools/src/mixins/project_structure_validator_mixin.dart';
+import 'package:stacked_tools/src/services/pubspec_service.dart';
 import 'package:stacked_tools/src/services/template_service.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 
 class CreateViewCommand extends Command with ProjectStructureValidator {
   final _templateService = locator<TemplateService>();
+  final _pubspecService = locator<PubspecService>();
 
   @override
   String get description =>
@@ -26,6 +28,8 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
 
   @override
   Future<void> run() async {
+    await _pubspecService.initialise();
+
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     await validateStructure(outputPath: outputPath);
 
