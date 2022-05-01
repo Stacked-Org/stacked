@@ -1,3 +1,7 @@
+## 0.1.2+1
+
+- Adds documentation link to basic docs
+
 ## 0.1.2
 
 - Fixes bug that loads pubspec on project create
