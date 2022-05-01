@@ -3,14 +3,14 @@ import 'package:mockito/mockito.dart';
 import 'package:stacked_app/app/app.locator.dart';
 import 'package:stacked_app/enums/bottom_sheet_type.dart';
 import 'package:stacked_app/ui/common/app_strings.dart';
-import 'package:stacked_app/ui/views/generic_view/generic_viewmodel.dart';
+import 'package:stacked_app/ui/views/home/home_viewmodel.dart';
 
-import '../helpers/test_helpers.dart';
+import '../helpers/test_helpers.dart.stk';
 
 void main() {
-  GenericViewModel _getModel() => GenericViewModel();
+  HomeViewModel _getModel() => HomeViewModel();
 
-  group('GenericViewmodelTest -', () {
+  group('HomeViewmodelTest -', () {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
 
@@ -31,8 +31,8 @@ void main() {
         model.showBottomSheet();
         verify(bottomSheetService.showCustomSheet(
           variant: BottomSheetType.notice,
-          title: ksGenericBottomSheetTitle,
-          description: ksGenericBottomSheetDescription,
+          title: ksHomeBottomSheetTitle,
+          description: ksHomeBottomSheetDescription,
         ));
       });
     });
