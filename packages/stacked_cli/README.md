@@ -1,14 +1,14 @@
 # Stacked CLI
 
-The official CLI (Command Line Interface) dev tools for working with the stacked flutter framework.
+The official CLI (Command Line Interface) dev tools for working with the stacked framework. Stacked is a framework built in Flutter for production teams. It is built for maintenance, readability, and scaleability. To read about the usage of this tool read the [Stacked CLI docs](https://stacked.filledstacks.com)
 
-## Installation
+## Running the code
 
-## Usage
+_Todo: write out the steps to run this project locally_
 
-Stacked CLI allows you to get up and running with the stacked package. Stacked is a framework built in Flutter for production teams. It it built for maintenance, readability, and scaleability. To read more about stacked check out stacked.filledstacks.com for all the documentation. 
+## Code Structure
 
-This cli helps you build a stacked app from scratch and also provides you with useful scaffolding that takes up time during development. 
+_Todo: Write out a code base overview to explain how things are built_
 
 ## Templates
 
@@ -29,3 +29,5 @@ Templates are written as normal dart files using mustache templating. A file tha
 - serviceName: The name of the service class in Dart. Given a service name stripe expect `StripeService`
 
 - serviceFilename: The name of the file the service class will be stored in. Given a name stripe expect `stripe_service.dart` to be returned.
+
+_Todo: Change to a table and add all other template variables here_
