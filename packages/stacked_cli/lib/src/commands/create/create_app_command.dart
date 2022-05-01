@@ -26,7 +26,7 @@ class CreateAppCommand extends Command {
       arguments: ['create', appName],
     );
 
-    print('Add Stacked Magic ... ');
+    stdout.writeln('Add Stacked Magic ... ');
     await _templateService.renderTemplate(
       templateName: kTemplateNameApp,
       name: appName,
@@ -59,7 +59,7 @@ class CreateAppCommand extends Command {
     String? workingDirectory,
   }) async {
     final hasWorkingDirectory = workingDirectory != null;
-    print(
+    stdout.writeln(
         'Running $workingDirectory${hasWorkingDirectory ? '/' : ''}$programName ${arguments.join(' ')} ... ');
     var process = await Process.start(
       programName,
@@ -67,10 +67,10 @@ class CreateAppCommand extends Command {
       workingDirectory: workingDirectory,
     );
     process.stdout.transform(utf8.decoder).forEach((output) {
-      print(output);
+      stdout.writeln(output);
     });
 
     final exitCode = await process.exitCode;
-    print('Command complete. ExitCode: $exitCode');
+    stdout.writeln('Command complete. ExitCode: $exitCode');
   }
 }

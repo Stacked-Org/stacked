@@ -65,7 +65,7 @@ class FileService {
 
   void log(String message, {bool verbose = false}) {
     if (verbose) {
-      print(message);
+      stdout.writeln(message);
     }
   }
 
