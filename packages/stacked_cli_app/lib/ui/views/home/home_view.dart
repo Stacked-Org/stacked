@@ -3,15 +3,15 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_app/ui/common/app_colors.dart';
 import 'package:stacked_app/ui/common/ui_helpers.dart';
 
-import 'generic_viewmodel.dart';
+import 'home_viewmodel.dart';
 
-class GenericView extends StatelessWidget {
-  const GenericView({Key? key}) : super(key: key);
+class HomeView extends StatelessWidget {
+  const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<GenericViewModel>.reactive(
-      viewModelBuilder: () => GenericViewModel(),
+    return ViewModelBuilder<HomeViewModel>.reactive(
+      viewModelBuilder: () => HomeViewModel(),
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
           child: Padding(

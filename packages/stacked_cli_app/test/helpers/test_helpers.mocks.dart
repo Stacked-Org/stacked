@@ -3,9 +3,10 @@
 // Do not manually edit this file.
 
 import 'dart:async' as _i4;
-import 'dart:ui' as _i5;
+import 'dart:ui' as _i6;
 
 import 'package:flutter/material.dart' as _i3;
+import 'package:get/get.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i2;
 
@@ -61,10 +62,10 @@ class MockNavigationService extends _i1.Mock implements _i2.NavigationService {
           bool? popGesture,
           int? id,
           _i3.Curve? curve,
-          _i2.Bindings? binding,
+          _i5.Bindings? binding,
           bool? fullscreenDialog = false,
           bool? preventDuplicates = true,
-          _i2.Transition? transitionClass}) =>
+          _i5.Transition? transitionClass}) =>
       (super.noSuchMethod(Invocation.method(#navigateWithTransition, [
         page
       ], {
@@ -87,10 +88,10 @@ class MockNavigationService extends _i1.Mock implements _i2.NavigationService {
           bool? popGesture,
           int? id,
           _i3.Curve? curve,
-          _i2.Bindings? binding,
+          _i5.Bindings? binding,
           bool? fullscreenDialog = false,
           bool? preventDuplicates = true,
-          _i2.Transition? transitionClass}) =>
+          _i5.Transition? transitionClass}) =>
       (super.noSuchMethod(Invocation.method(#replaceWithTransition, [
         page
       ], {
@@ -137,12 +138,12 @@ class MockNavigationService extends _i1.Mock implements _i2.NavigationService {
           int? id,
           bool? opaque,
           _i3.Curve? curve,
-          _i2.Bindings? binding,
+          _i5.Bindings? binding,
           Duration? duration,
           bool? fullscreenDialog = false,
           bool? popGesture,
           bool? preventDuplicates = true,
-          _i2.Transition? transition}) =>
+          _i5.Transition? transition}) =>
       (super.noSuchMethod(Invocation.method(#navigateToView, [
         view
       ], {
@@ -262,7 +263,7 @@ class MockBottomSheetService extends _i1.Mock
           bool? showIconInAdditionalButton = false,
           String? additionalButtonTitle,
           bool? takesInput = false,
-          _i5.Color? barrierColor = const _i5.Color(2315255808),
+          _i6.Color? barrierColor = const _i6.Color(2315255808),
           bool? barrierDismissible = true,
           bool? isScrollControlled = false,
           String? barrierLabel = r'',
@@ -330,9 +331,9 @@ class MockDialogService extends _i1.Mock implements _i2.DialogService {
           {String? title,
           String? description,
           String? cancelTitle,
-          _i5.Color? cancelTitleColor,
+          _i6.Color? cancelTitleColor,
           String? buttonTitle = r'Ok',
-          _i5.Color? buttonTitleColor,
+          _i6.Color? buttonTitleColor,
           bool? barrierDismissible = false,
           _i2.DialogPlatform? dialogPlatform}) =>
       (super.noSuchMethod(
@@ -362,7 +363,7 @@ class MockDialogService extends _i1.Mock implements _i2.DialogService {
           bool? showIconInAdditionalButton = false,
           String? additionalButtonTitle,
           bool? takesInput = false,
-          _i5.Color? barrierColor = const _i5.Color(2315255808),
+          _i6.Color? barrierColor = const _i6.Color(2315255808),
           bool? barrierDismissible = false,
           String? barrierLabel = r'',
           dynamic customData,
