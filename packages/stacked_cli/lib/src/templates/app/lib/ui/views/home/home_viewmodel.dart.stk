@@ -1,8 +1,8 @@
 import 'package:stacked/stacked.dart';
-import 'package:stacked_app/app/app.locator.dart';
-import 'package:stacked_app/enums/bottom_sheet_type.dart';
-import 'package:stacked_app/enums/dialog_type.dart';
-import 'package:stacked_app/ui/common/app_strings.dart';
+import 'package:{{packageName}}/app/app.locator.dart';
+import 'package:{{packageName}}/enums/bottom_sheet_type.dart';
+import 'package:{{packageName}}/enums/dialog_type.dart';
+import 'package:{{packageName}}/ui/common/app_strings.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class HomeViewModel extends BaseViewModel {

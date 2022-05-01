@@ -1,6 +1,6 @@
-import 'package:stacked_app/app/app.locator.dart';
-import 'package:stacked_app/enums/dialog_type.dart';
-import 'package:stacked_app/ui/dialogs/info_alert/info_alert_dialog.dart';
+import 'package:{{packageName}}/app/app.locator.dart';
+import 'package:{{packageName}}/enums/dialog_type.dart';
+import 'package:{{packageName}}/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 void setupDialogUi() {

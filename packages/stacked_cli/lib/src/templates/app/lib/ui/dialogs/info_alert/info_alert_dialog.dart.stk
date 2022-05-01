@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stacked_app/ui/common/app_colors.dart';
-import 'package:stacked_app/ui/common/ui_helpers.dart';
+import 'package:{{packageName}}/ui/common/app_colors.dart';
+import 'package:{{packageName}}/ui/common/ui_helpers.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 const double _graphicSize = 60;
