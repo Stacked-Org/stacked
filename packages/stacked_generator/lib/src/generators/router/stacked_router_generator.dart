@@ -1,5 +1,5 @@
 import 'package:analyzer/dart/element/element.dart';
-import 'package:stacked/stacked_annotations.dart';
+import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/router/router_class_generator.dart';
