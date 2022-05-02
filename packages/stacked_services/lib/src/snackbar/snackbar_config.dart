@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:stacked_services/stacked_services.dart';
-import '../../stacked_services.dart';
+
+import 'stacked_snackbar_customizations.dart';
 
 /// Stores the configuration for the visual appearance of a snackbar
 class SnackbarConfig {

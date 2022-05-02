@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stacked_services/src/exceptions/custom_snackbar_exception.dart';
 import 'package:stacked_services/src/snackbar/snackbar_config.dart';
+import 'stacked_snackbar_customizations.dart';
 
 /// A service that allows the user to show the snackbar from a ViewModel
 class SnackbarService {
@@ -115,7 +115,7 @@ class SnackbarService {
       barBlur: _snackbarConfig?.barBlur,
       isDismissible: _snackbarConfig?.isDismissible ?? true,
       duration: duration,
-      snackPosition: _snackbarConfig?.snackPosition ?? SnackPosition.BOTTOM,
+      snackPosition: _snackbarConfig?.snackPosition.toGet,
       backgroundColor: _snackbarConfig?.backgroundColor ?? Colors.grey[800],
       margin: _snackbarConfig?.margin ??
           const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
@@ -215,8 +215,8 @@ class SnackbarService {
       progressIndicatorBackgroundColor:
           snackbarConfig.progressIndicatorBackgroundColor,
       progressIndicatorValueColor: snackbarConfig.progressIndicatorValueColor,
-      snackPosition: snackbarConfig.snackPosition,
-      snackStyle: snackbarConfig.snackStyle,
+      snackPosition: snackbarConfig.snackPosition.toGet,
+      snackStyle: snackbarConfig.snackStyle.toGet,
       forwardAnimationCurve: snackbarConfig.forwardAnimationCurve,
       reverseAnimationCurve: snackbarConfig.reverseAnimationCurve,
       animationDuration: snackbarConfig.animationDuration,
