@@ -4,7 +4,7 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 
-import 'package:stacked/stacked_annotations.dart';
+import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/src/generators/enums/dependency_type.dart';
 import 'package:stacked_generator/src/generators/getit/dependency_config.dart';

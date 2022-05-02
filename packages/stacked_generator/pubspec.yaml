@@ -16,9 +16,9 @@ dependencies:
   path: ^1.8.0
   # logger: ^1.0.0
   recase: ^4.0.0
-  stacked:
-    ^2.3.0
-    # path: ../stacked
+  # Remove the path and use pub one after publish the stacked_core
+  stacked_core:
+    path: ../stacked_core
 
 dev_dependencies:
   build_runner: ^2.0.6
