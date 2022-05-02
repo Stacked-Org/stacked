@@ -1,6 +1,5 @@
 import 'package:get_it/get_it.dart';
-
-import '../../stacked_annotations.dart';
+import 'package:stacked_core/stacked_core.dart';
 
 /// A thin wrapper around get_it to reduce the number of direct dependencies the user has to depend on.
 class StackedLocator {
