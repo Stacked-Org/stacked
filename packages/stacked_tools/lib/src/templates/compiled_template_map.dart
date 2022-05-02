@@ -115,13 +115,13 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
         relativeModificationPath: 'lib/app/app.dart',
         modificationIdentifier: '// @stacked-route',
         modificationTemplate: '''MaterialRoute(page: {{viewName}}),''',
-        modificationProblemError: 'The structure of your stacked application is invalid. The app.dart file should be located in lib&#x2F;app&#x2F;',
+        modificationProblemError: 'The structure of your stacked application is invalid. The app.dart file should be located in lib/app/',
       ),
       ModificationFile(
         relativeModificationPath: 'lib/app/app.dart',
         modificationIdentifier: '// @stacked-import',
         modificationTemplate: '''import \'package:{{packageName}}/ui/views/{{viewFolderName}}/{{viewFileName}}\';''',
-        modificationProblemError: 'The structure of your stacked application is invalid. The app.dart file should be located in lib&#x2F;app&#x2F;',
+        modificationProblemError: 'The structure of your stacked application is invalid. The app.dart file should be located in lib/app/',
       ),
     ],
   ),
@@ -139,33 +139,33 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
     ],
     modificationFiles: [
       ModificationFile(
-        relativeModificationPath: 'test/helpers/test_helper.dart',
-        modificationIdentifier: '// @stacked-mock-helper-register',
-        modificationTemplate: '''getAndRegister{{serviceName}}Service();''',
-        modificationProblemError: 'The test mocks and helpers should be stored in test&#x2F;helpers&#x2F;test_helper.dart',
-      ),
-      ModificationFile(
-        relativeModificationPath: 'test/helpers/test_helper.dart',
-        modificationIdentifier: '// @stacked-import',
-        modificationTemplate: '''import \'package:{{packageName}}/services/{{serviceFilename}}\';''',
-        modificationProblemError: 'The test mocks and helpers should be stored in test&#x2F;helpers&#x2F;test_helper.dart',
-      ),
-      ModificationFile(
-        relativeModificationPath: 'test/helpers/test_helper.dart',
-        modificationIdentifier: '// @stacked-mock-helper',
+        relativeModificationPath: 'test/helpers/test_helpers.dart',
+        modificationIdentifier: '// @stacked-mock-create',
         modificationTemplate: '''Mock{{serviceName}}Service getAndRegister{{serviceName}}Service() { 
 _removeRegistrationIfExists<{{serviceName}}Service>(); 
 final service = Mock{{serviceName}}Service(); 
 locator.registerSingleton<{{serviceName}}Service>(service); 
 return service; 
 }''',
-        modificationProblemError: 'The test mocks and helpers should be stored in test&#x2F;helpers&#x2F;test_helper.dart',
+        modificationProblemError: 'The test mocks and helpers should be stored in test/helpers/test_helpers.dart',
       ),
       ModificationFile(
-        relativeModificationPath: 'test/helpers/test_helper.dart',
-        modificationIdentifier: '// @stacked-service-mock',
+        relativeModificationPath: 'test/helpers/test_helpers.dart',
+        modificationIdentifier: '// @stacked-import',
+        modificationTemplate: '''import \'package:{{packageName}}/services/{{serviceFilename}}\';''',
+        modificationProblemError: 'The test mocks and helpers should be stored in test/helpers/test_helpers.dart',
+      ),
+      ModificationFile(
+        relativeModificationPath: 'test/helpers/test_helpers.dart',
+        modificationIdentifier: '// @stacked-mock-spec',
         modificationTemplate: '''MockSpec<{{serviceName}}Service>(returnNullOnMissingStub: true),''',
-        modificationProblemError: 'The test mocks and helpers should be stored in test&#x2F;helpers&#x2F;test_helper.dart',
+        modificationProblemError: 'The test mocks and helpers should be stored in test/helpers/test_helpers.dart',
+      ),
+      ModificationFile(
+        relativeModificationPath: 'test/helpers/test_helpers.dart',
+        modificationIdentifier: '// @stacked-mock-register',
+        modificationTemplate: '''getAndRegister{{serviceName}}Service();''',
+        modificationProblemError: 'The test mocks and helpers should be stored in test/helpers/test_helpers.dart',
       ),
     ],
   ),

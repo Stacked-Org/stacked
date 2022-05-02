@@ -1,7 +1,7 @@
 {
   "description": "When a service is created a mock should be added to help with the unit testing of the service interactions.",
-  "path": "test/helpers/test_helper.dart",
-  "identifier": "// @stacked-service-mock",
+  "path": "test/helpers/test_helpers.dart",
+  "identifier": "// @stacked-mock-spec",
   "template": "MockSpec<{{serviceName}}Service>(returnNullOnMissingStub: true),",
-  "error": "The test mocks and helpers should be stored in test/helpers/test_helper.dart"
+  "error": "The test mocks and helpers should be stored in test/helpers/test_helpers.dart"
 }

@@ -72,13 +72,13 @@ import 'test_helpers.mocks.dart';
   MockSpec<NavigationService>(returnNullOnMissingStub: true),
   MockSpec<BottomSheetService>(returnNullOnMissingStub: true),
   MockSpec<DialogService>(returnNullOnMissingStub: true),
-  // @stacked-service-mock
+  // @stacked-mock-spec
 ])
 void registerServices() {
   getAndRegisterNavigationService();
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
-  // @stacked-mock-helper-register
+  // @stacked-mock-register
 }
 
 MockNavigationService getAndRegisterNavigationService() {
@@ -131,7 +131,7 @@ MockDialogService getAndRegisterDialogService() {
   return service;
 }
 
-// @stacked-mock-helper
+// @stacked-mock-create
 
 void _removeRegistrationIfExists<T extends Object>() {
   if (locator.isRegistered<T>()) {
@@ -1005,6 +1005,8 @@ const String kViewTemplateGenericViewmodelTestPath =
 
 const String kViewTemplateGenericViewmodelTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
+import 'package:test_ground/app/app.locator.dart';
+
 import '../helpers/test_helpers.dart';
 
 void main() {
@@ -1070,6 +1072,9 @@ const String kServiceTemplateGenericServiceTestPath =
 
 const String kServiceTemplateGenericServiceTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
+import 'package:test_ground/app/app.locator.dart';
+
+import '../helpers/test_helpers.dart';
 
 void main() {
   group('{{serviceName}}ServiceTest -', () {

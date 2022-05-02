@@ -8,7 +8,7 @@ import 'package:stacked_tools/src/templates/compiled_template_map.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 import 'package:test/test.dart';
 
-import '../helpers/test_helper.dart';
+import '../helpers/test_helpers.dart';
 
 TemplateService _getService() => TemplateService();
 

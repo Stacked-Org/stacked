@@ -11,7 +11,7 @@ import 'package:stacked_tools/src/templates/template_helper.dart';
 
 // @stacked-import
 
-import 'test_helper.mocks.dart';
+import 'test_helpers.mocks.dart';
 
 @GenerateMocks([], customMocks: [
   // core services

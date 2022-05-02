@@ -9,9 +9,9 @@ const String kModificationIdentifierAppRoutes = '// @stacked-route';
 const String kModificationIdentifierAppImports = '// @stacked-import';
 const String kModificationIdentifierServiceMock = '// @stacked-service-mock';
 const String kModificationIdentifierServiceMockHelper =
-    '// @stacked-mock-helper';
+    '// @stacked-mock-create';
 const String kModificationIdentifierServiceMockHelperRegister =
-    '// @stacked-mock-helper-register';
+    '// @stacked-mock-register';
 
 // ------- Property names for Rendering replacement -------
 
@@ -90,7 +90,7 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
         relativeModificationPath: '{{{path}}}',
         modificationIdentifier: '{{{identifier}}}',
         modificationTemplate: \'''{{{template}}}\''',
-        modificationProblemError: '{{error}}',
+        modificationProblemError: '{{{error}}}',
       ),
       {{/modificationFiles}}
     ],

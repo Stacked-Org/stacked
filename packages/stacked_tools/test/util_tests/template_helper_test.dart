@@ -7,7 +7,7 @@ import 'package:stacked_tools/src/templates/template_constants.dart';
 import 'package:stacked_tools/src/templates/template_helper.dart';
 import 'package:test/test.dart';
 
-import '../helpers/test_helper.dart';
+import '../helpers/test_helpers.dart';
 
 TemplateHelper _getHelper() => TemplateHelper();
 
