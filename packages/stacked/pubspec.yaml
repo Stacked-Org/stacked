@@ -17,8 +17,7 @@ dependencies:
   provider: ^6.0.0 #5.0.0
   collection: ^1.15.0
   # Remove the path and use pub one after publish the stacked_core
-  stacked_core:
-    path: ../stacked_core
+  stacked_core: ^1.0.0
   #universal_io
   universal_io: ^2.0.4
 
