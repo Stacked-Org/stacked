@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class NavigationTransition {
