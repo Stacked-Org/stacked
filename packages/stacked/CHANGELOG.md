@@ -1,6 +1,10 @@
-## 2.3.5
+
+## 2.3.6
 
 - Reverts 2.3.4
+
+## 2.3.5
+- Use the stacked_core package to expose the stacked_annotation
 
 ## 2.3.4
 - Updates MultipleStreamViewModel to take generic type for key
