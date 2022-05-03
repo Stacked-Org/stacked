@@ -1,3 +1,6 @@
+## 0.8.20
+
+- Remove the export of the Get package to hide its global variables
 ## 0.8.19
 
 - Adds `titleTextStyle` and `messageTextStyle` to `showCustomSnackbar` to allow custom textstyles for snackbars.
