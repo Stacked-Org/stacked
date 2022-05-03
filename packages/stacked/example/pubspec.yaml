@@ -27,15 +27,15 @@ dependencies:
 
   # state management
   stacked:
-    # path: ../
+    path: ../
   stacked_services:
-    # path: ../../stacked_services/
+    path: ../../stacked_services/
   stacked_hooks:
   flutter_hooks:
   stacked_themes:
-    # path: ../../stacked_themes/
+    path: ../../stacked_themes/
   stacked_crashlytics:
-    # path: ../../stacked_crashlytics/
+    path: ../../stacked_crashlytics/
   # navigation
   get:
 

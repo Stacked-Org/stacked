@@ -33,7 +33,7 @@ class TestStreamViewModel extends StreamViewModel<int> {
 const String _NumberStream = 'numberStream';
 const String _StringStream = 'stringStream';
 
-class TestMultipleStreamViewModel extends MultipleStreamViewModel<String> {
+class TestMultipleStreamViewModel extends MultipleStreamViewModel {
   final bool failOne;
   final int delay;
   TestMultipleStreamViewModel({this.failOne = false, this.delay = 0});

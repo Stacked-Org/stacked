@@ -350,31 +350,32 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel
 }
 
 /// Provides functionality for a ViewModel to run and fetch data using multiple streams
-abstract class MultipleStreamViewModel<K extends Object>
-    extends _MultiDataSourceViewModel<K> implements Initialisable {
+abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel
+    implements Initialisable {
   // Every MultipleStreamViewModel must override streamDataMap
   // StreamData requires a stream, but lifecycle events are optional
   // if a lifecyle event isn't defined we use the default ones here
-  Map<K, StreamData> get streamsMap;
+  Map<String, StreamData> get streamsMap;
 
-  Map<K, StreamSubscription>? _streamsSubscriptions;
+  Map<String, StreamSubscription>? _streamsSubscriptions;
 
   @visibleForTesting
-  Map<K, StreamSubscription>? get streamsSubscriptions => _streamsSubscriptions;
+  Map<String, StreamSubscription>? get streamsSubscriptions =>
+      _streamsSubscriptions;
 
   /// Returns the stream subscription associated with the key
-  StreamSubscription? getSubscriptionForKey(K key) =>
+  StreamSubscription? getSubscriptionForKey(String key) =>
       _streamsSubscriptions![key];
 
   void initialise() {
-    _dataMap = Map<K, dynamic>();
+    _dataMap = Map<String, dynamic>();
     clearErrors();
-    _streamsSubscriptions = Map<K, StreamSubscription>();
+    _streamsSubscriptions = Map<String, StreamSubscription>();
 
     if (!changeSource) {
       notifyListeners();
     }
-    final _streamsMapValues = Map<K, StreamData>.from(streamsMap);
+    final _streamsMapValues = Map<String, StreamData>.from(streamsMap);
 
     for (final key in _streamsMapValues.keys) {
       // If a lifecycle function isn't supplied, we fallback to default
@@ -428,11 +429,11 @@ abstract class MultipleStreamViewModel<K extends Object>
     notifyListeners();
   }
 
-  void onData(K key, dynamic data) {}
-  void onSubscribed(K key) {}
-  void onError(K key, error) {}
-  void onCancel(K key) {}
-  dynamic transformData(K key, data) {
+  void onData(String key, dynamic data) {}
+  void onSubscribed(String key) {}
+  void onError(String key, error) {}
+  void onCancel(String key) {}
+  dynamic transformData(String key, data) {
     return data;
   }
 
