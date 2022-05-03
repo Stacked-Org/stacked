@@ -1,3 +1,6 @@
+## 0.6.3
+
+- Replace dependency on stacked with stacked_core
 ## 0.6.2
 
 - Enables multi logger output only in release mode
