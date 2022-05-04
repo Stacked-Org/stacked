@@ -8,7 +8,7 @@ class StackedFormContentGenerator extends BaseGenerator {
   final FormViewConfig _formViewConfig;
 
   StackedFormContentGenerator(this._formViewConfig);
-
+  @override
   String generate() {
     writeLine("// ignore_for_file: public_member_api_docs");
 

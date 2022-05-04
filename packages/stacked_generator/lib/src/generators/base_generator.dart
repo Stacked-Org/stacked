@@ -1,5 +1,5 @@
 /// Provides functionality common to all Generators
-class BaseGenerator {
+abstract class BaseGenerator {
   final StringBuffer stringBuffer = StringBuffer();
 
   /// Writes the object supplied next to what was written before without adding a new line
@@ -16,4 +16,6 @@ class BaseGenerator {
     var sorted = imports.toList()..sort();
     sorted.forEach((import) => writeLine("import '$import';"));
   }
+
+  String generate();
 }

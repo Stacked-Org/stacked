@@ -14,7 +14,7 @@ class StackedLocatorContentGenerator extends BaseGenerator {
     required this.locatorName,
     required this.locatorSetupName,
   });
-
+  @override
   String generate() {
     final services = servicesConfig.services;
     writeLine("// ignore_for_file: public_member_api_docs");

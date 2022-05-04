@@ -8,8 +8,8 @@ class LoggerClassGenerator extends BaseGenerator {
   final LoggerConfig _loggerConfig;
 
   LoggerClassGenerator(this._loggerConfig);
-
-  Future<String> generate() async {
+  @override
+  String generate() {
     // TODO: Refactor the way we do this to make more sense.
     // TODO: Use O from SOLID principles (open / closed) to Close implementation
     final utils = LoggerClassGeneratorUtils();

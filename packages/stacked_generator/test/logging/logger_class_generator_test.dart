@@ -11,7 +11,7 @@ void main() {
           imports: {'importOne', 'importTwo'},
           logHelperName: 'ebraLogger',
           loggerOutputs: ['outputOne', 'outputTwo']);
-      final generatedCode = await LoggerClassGenerator(loggerConfig).generate();
+      final generatedCode = LoggerClassGenerator(loggerConfig).generate();
       expect(generatedCode, kloggerClassContent);
     });
     test(
@@ -22,7 +22,7 @@ void main() {
           imports: {'importOne', 'importTwo'},
           logHelperName: 'ebraLogger',
           loggerOutputs: ['outputOne', 'outputTwo']);
-      final generatedCode = await LoggerClassGenerator(loggerConfig).generate();
+      final generatedCode = LoggerClassGenerator(loggerConfig).generate();
       expect(generatedCode, kloggerClassContentWithDisableReleaseConsoleOutput);
     });
   });
