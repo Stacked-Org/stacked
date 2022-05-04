@@ -7,18 +7,19 @@ import 'logger_class_content.dart';
 class LoggerClassGenerator extends BaseGenerator {
   final LoggerConfig _loggerConfig;
 
-  LoggerClassGenerator(LoggerConfig loggerConfig)
-      : _loggerConfig = loggerConfig;
+  LoggerClassGenerator(this._loggerConfig);
 
   Future<String> generate() async {
     // TODO: Refactor the way we do this to make more sense.
     // TODO: Use O from SOLID principles (open / closed) to Close implementation
-    final _logHelperNameKey = _loggerConfig.logHelperName;
-    final _imports = _generateImports(_loggerConfig.imports);
-    final _multiLogger = _generateMultiLoggers(_loggerConfig.loggerOutputs);
+    final utils = LoggerClassGeneratorUtils();
 
-    final _replacedHelperName =
-        loggerClassContent.replaceFirst(LogHelperNameKey, _logHelperNameKey);
+    final _imports = utils.generateImports(_loggerConfig.imports);
+    final _multiLogger =
+        utils.generateMultiLoggers(_loggerConfig.loggerOutputs);
+
+    final _replacedHelperName = loggerClassContent.replaceFirst(
+        LogHelperNameKey, _loggerConfig.logHelperName);
 
     final _replacedImports =
         _replacedHelperName.replaceFirst(MultiLoggerImports, _imports);
@@ -32,8 +33,10 @@ class LoggerClassGenerator extends BaseGenerator {
 
     return stringBuffer.toString();
   }
+}
 
-  String _generateMultiLoggers(List<String> multiLogger) {
+class LoggerClassGeneratorUtils {
+  String generateMultiLoggers(List<String> multiLogger) {
     final _multiLoggers = StringBuffer();
 
     multiLogger.forEach((element) {
@@ -42,7 +45,7 @@ class LoggerClassGenerator extends BaseGenerator {
     return _multiLoggers.toString();
   }
 
-  String _generateImports(Set<String> imports) {
+  String generateImports(Set<String> imports) {
     final _importBuffer = StringBuffer();
     imports.forEach((element) {
       _importBuffer.writeln("import '$element';");
