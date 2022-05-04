@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stacked_services/src/route_observer.dart';
+
+import 'navigation/route_observer.dart';
 
 /// This service exposes properties that is required to be set before any of the services can be used
 class StackedService {
