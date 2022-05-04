@@ -50,21 +50,6 @@ class NavigationService {
       G.Get.nestedKey(index);
 
   /// Allows you to configure the default behaviour for navigation.
-  ///
-  /// [defaultTransition] can be set using the static members of [NavigationTransition]
-  ///
-  /// If you want to use the string directly. Defined [transition] values are
-  /// - fade
-  /// - rightToLeft
-  /// - leftToRight
-  /// - upToDown
-  /// - downToUp
-  /// - scale
-  /// - rotate
-  /// - size
-  /// - rightToLeftWithFade
-  /// - leftToRightWithFade
-  /// - cupertino
   void config({
     bool? enableLog,
     bool? defaultPopGesture,
@@ -88,20 +73,16 @@ class NavigationService {
   /// Pushes [page] onto the navigation stack. This uses the [page] itself (Widget) instead
   /// of routeName (String).
   ///
-  /// Defined [transition] values can be accessed as static memebers of [NavigationTransition]
+  /// [id] is for when you are using nested navigation, as explained in documentation.
   ///
-  /// If you want to use the string directly. Defined [transition] values are
-  /// - fade
-  /// - rightToLeft
-  /// - leftToRight
-  /// - upToDown
-  /// - downToUp
-  /// - scale
-  /// - rotate
-  /// - size
-  /// - rightToLeftWithFade
-  /// - leftToRightWithFade
-  /// - cupertino
+  /// If you want the same behavior of ios that pops a route when the user drag, you can set [popGesture] to true.
+  ///
+  /// [preventDuplicates] will prevent you from pushing a route that you already in, if you want to push anyway,
+  /// set to false.
+  ///
+  /// [duration] transition duration.
+  ///
+  /// [opaque] Whether the route obscures previous routes when the transition is complete.
   Future<T?>? navigateWithTransition<T>(
     Widget page, {
     bool? opaque,
@@ -111,7 +92,6 @@ class NavigationService {
     bool? popGesture,
     int? id,
     Curve? curve,
-    G.Bindings? binding,
     bool fullscreenDialog = false,
     bool preventDuplicates = true,
     @Deprecated('Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
@@ -129,7 +109,6 @@ class NavigationService {
       id: id,
       preventDuplicates: preventDuplicates,
       curve: curve,
-      binding: binding,
       fullscreenDialog: fullscreenDialog,
     );
   }
@@ -137,20 +116,16 @@ class NavigationService {
   /// Replaces current view in the navigation stack. This uses the [page] itself (Widget) instead
   /// of routeName (String).
   ///
-  /// Defined [transition] values can be accessed as static memebers of [NavigationTransition]
+  /// [id] is for when you are using nested navigation, as explained in documentation.
   ///
-  /// If you want to use the string directly. Defined [transition] values are
-  /// - fade
-  /// - rightToLeft
-  /// - leftToRight
-  /// - upToDown
-  /// - downToUp
-  /// - scale
-  /// - rotate
-  /// - size
-  /// - rightToLeftWithFade
-  /// - leftToRightWithFade
-  /// - cupertino
+  /// If you want the same behavior of ios that pops a route when the user drag, you can set [popGesture] to true.
+  ///
+  /// [preventDuplicates] will prevent you from pushing a route that you already in, if you want to push anyway,
+  /// set to false.
+  ///
+  /// [duration] transition duration.
+  ///
+  /// [opaque] Whether the route obscures previous routes when the transition is complete.
   Future<T?>? replaceWithTransition<T>(
     Widget page, {
     bool? opaque,
@@ -160,7 +135,6 @@ class NavigationService {
     bool? popGesture,
     int? id,
     Curve? curve,
-    G.Bindings? binding,
     bool fullscreenDialog = false,
     bool preventDuplicates = true,
     @Deprecated('Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
@@ -178,12 +152,14 @@ class NavigationService {
       id: id,
       preventDuplicates: preventDuplicates,
       curve: curve,
-      binding: binding,
       fullscreenDialog: fullscreenDialog,
     );
   }
 
   /// Pops the current scope and indicates if you can pop again
+  ///
+  /// [result] is the data that will returned to the previous route
+  /// you can use this feature to exchange data between two routes
   bool back<T>({dynamic result, int? id}) {
     G.Get.back<T>(result: result, id: id);
     return G.Get.key.currentState?.canPop() ?? false;
@@ -200,6 +176,11 @@ class NavigationService {
   }
 
   /// Pushes [routeName] onto the navigation stack
+  ///
+  /// [id] is for when you are using nested navigation, as explained in documentation.
+  ///
+  /// [preventDuplicates] will prevent you from pushing a route that you already in, if you want to push anyway,
+  /// set to false.
   Future<T?>? navigateTo<T>(
     String routeName, {
     dynamic arguments,
@@ -217,13 +198,23 @@ class NavigationService {
   }
 
   /// Pushes [view] onto the navigation stack
+  ///
+  /// [id] is for when you are using nested navigation, as explained in documentation.
+  ///
+  /// If you want the same behavior of ios that pops a route when the user drag, you can set [popGesture] to true.
+  ///
+  /// [preventDuplicates] will prevent you from pushing a route that you already in, if you want to push anyway,
+  /// set to false.
+  ///
+  /// [duration] transition duration.
+  ///
+  /// [opaque] Whether the route obscures previous routes when the transition is complete.
   Future<T?>? navigateToView<T>(
     Widget view, {
     dynamic arguments,
     int? id,
     bool? opaque,
     Curve? curve,
-    G.Bindings? binding,
     Duration? duration,
     bool fullscreenDialog = false,
     bool? popGesture,
@@ -239,7 +230,6 @@ class NavigationService {
       opaque: opaque,
       preventDuplicates: preventDuplicates,
       curve: curve,
-      binding: binding,
       duration: duration,
       fullscreenDialog: fullscreenDialog,
       popGesture: popGesture,
@@ -248,6 +238,11 @@ class NavigationService {
   }
 
   /// Replaces the current route with the [routeName]
+  ///
+  /// [id] is for when you are using nested navigation, as explained in documentation.
+  ///
+  /// [preventDuplicates] will prevent you from pushing a route that you already in, if you want to push anyway,
+  /// set to false.
   Future<T?>? replaceWith<T>(
     String routeName, {
     dynamic arguments,
@@ -265,6 +260,8 @@ class NavigationService {
   }
 
   /// Clears the entire back stack and shows [routeName]
+  ///
+  /// [id] is for when you are using nested navigation, as explained in documentation.
   Future<T?>? clearStackAndShow<T>(
     String routeName, {
     dynamic arguments,
@@ -280,6 +277,11 @@ class NavigationService {
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [routeName] onto the stack
+  ///
+  /// [id] is for when you are using nested navigation, as explained in documentation.
+  ///
+  /// [preventDuplicates] will prevent you from pushing a route that you already in, if you want to push anyway,
+  /// set to false.
   Future<T?>? clearTillFirstAndShow<T>(
     String routeName, {
     dynamic arguments,
@@ -299,6 +301,8 @@ class NavigationService {
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [view] onto the stack
+  ///
+  /// [id] is for when you are using nested navigation, as explained in documentation.
   Future<T?>? clearTillFirstAndShowView<T>(Widget view,
       {dynamic arguments, int? id}) {
     _clearBackstackTillFirst();
@@ -307,6 +311,8 @@ class NavigationService {
   }
 
   /// Push route and clear stack until predicate is satisfied
+  ///
+  /// [id] is for when you are using nested navigation, as explained in documentation.
   Future<T?>? pushNamedAndRemoveUntil<T>(String routeName,
       {RoutePredicate? predicate, dynamic arguments, int? id}) {
     return G.Get.offAllNamed<T?>(
@@ -317,6 +323,7 @@ class NavigationService {
     );
   }
 
+  /// Pop repeatedly until reach the first route
   void _clearBackstackTillFirst() {
     StackedService.navigatorKey?.currentState
         ?.popUntil((Route route) => route.isFirst);
