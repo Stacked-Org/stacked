@@ -1,5 +1,9 @@
+## 0.8.22
+- Fix navigation service
+- Deprecate: transition and transitionClass and defaultTransition argument
+- Update the example app
+- Replace deprecated documentaion with new one
 ## 0.8.21
-
 - Minor fix
 ## 0.8.20
 
