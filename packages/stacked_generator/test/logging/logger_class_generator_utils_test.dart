@@ -3,16 +3,12 @@ import 'package:test/test.dart';
 
 void main() {
   group('LoggerClassGeneratorUtilsTest -', () {
-    var utils;
-    setUp(() {
-      utils = LoggerClassGeneratorUtils();
-    });
     group('generateMultiLoggers', () {
       test('''
 Given two items one,two , Should return 
 if(kReleaseMode) one(),if(kReleaseMode) two(),
 ''', () {
-        expect(utils.addCheckForReleaseModeToEachLogger(['one', 'two']),
+        expect(['one', 'two'].addCheckForReleaseModeToEachLogger,
             " if(kReleaseMode) one(), if(kReleaseMode) two(),");
       });
     });
@@ -20,7 +16,7 @@ if(kReleaseMode) one(),if(kReleaseMode) two(),
       test('''
 Given two items one,two, Should return import'one'; import'two';
 ''', () {
-        expect(utils.surroundStringWithImportTemplate({'one', 'two'}), '''
+        expect({'one', 'two'}.surroundStringWithImportTemplate, '''
 import 'one';
 import 'two';
 ''');

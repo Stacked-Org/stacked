@@ -1,3 +1,5 @@
+import 'dart:_internal';
+
 import 'package:stacked_generator/src/generators/base_generator.dart';
 import 'package:stacked_generator/src/generators/logging/logger_config.dart';
 
@@ -9,34 +11,29 @@ class LoggerClassGenerator extends BaseGenerator {
 
   LoggerClassGenerator(this._loggerConfig);
 
-  final utils = LoggerClassGeneratorUtils();
-
   @override
   String generate() {
-    writeImports();
+    _writeImports();
 
-    writeBody();
+    _writeBody();
 
-    writeLoggerNameAndOutputs();
+    _writeLoggerNameAndOutputs();
 
     return stringBuffer.toString();
   }
 
-  void writeImports() {
-    final preparedImports =
-        utils.surroundStringWithImportTemplate(_loggerConfig.imports);
-
-    final replacedImports =
-        loggerClassImports.replaceFirst(MultiLoggerImports, preparedImports);
+  void _writeImports() {
+    final replacedImports = loggerClassImports.replaceFirst(MultiLoggerImports,
+        _loggerConfig.imports.surroundStringWithImportTemplate);
 
     write(replacedImports);
   }
 
-  void writeBody() {
+  void _writeBody() {
     write(loggerClassConstantBody);
   }
 
-  void writeLoggerNameAndOutputs() {
+  void _writeLoggerNameAndOutputs() {
     final withHelperNameInPlace = loggerClassNameAndOutputs.replaceFirst(
         LogHelperNameKey, _loggerConfig.logHelperName);
 
@@ -44,29 +41,28 @@ class LoggerClassGenerator extends BaseGenerator {
         DisableConsoleOutputInRelease,
         _loggerConfig.disableReleaseConsoleOutput ? 'if(!kReleaseMode)' : '');
 
-    final loggerOutputs =
-        utils.addCheckForReleaseModeToEachLogger(_loggerConfig.loggerOutputs);
-
     String loggerOutputsInPlace = withConditionalLoggerInPlace.replaceFirst(
-        MultipleLoggerOutput, loggerOutputs);
+        MultipleLoggerOutput,
+        _loggerConfig.loggerOutputs.addCheckForReleaseModeToEachLogger);
 
     write(loggerOutputsInPlace);
   }
 }
 
-class LoggerClassGeneratorUtils {
-  String addCheckForReleaseModeToEachLogger(List<String> multiLogger) {
+/// I used [EfficientLengthIterable] cause it's the common ancestor of [List] and [Set]
+extension LoggerClassGeneratorUtils on EfficientLengthIterable {
+  String get addCheckForReleaseModeToEachLogger {
     final _multiLoggers = StringBuffer();
 
-    multiLogger.forEach((element) {
+    this.forEach((element) {
       _multiLoggers.write(" if(kReleaseMode) $element(),");
     });
     return _multiLoggers.toString();
   }
 
-  String surroundStringWithImportTemplate(Set<String> imports) {
+  String get surroundStringWithImportTemplate {
     final _importBuffer = StringBuffer();
-    imports.forEach((element) {
+    this.forEach((element) {
       _importBuffer.writeln("import '$element';");
     });
     return _importBuffer.toString();
