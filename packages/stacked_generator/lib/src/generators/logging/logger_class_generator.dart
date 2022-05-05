@@ -8,35 +8,56 @@ class LoggerClassGenerator extends BaseGenerator {
   final LoggerConfig _loggerConfig;
 
   LoggerClassGenerator(this._loggerConfig);
+
+  final utils = LoggerClassGeneratorUtils();
+
   @override
   String generate() {
-    // TODO: Refactor the way we do this to make more sense.
-    // TODO: Use O from SOLID principles (open / closed) to Close implementation
-    final utils = LoggerClassGeneratorUtils();
-
-    final _imports = utils.generateImports(_loggerConfig.imports);
-    final _multiLogger =
-        utils.generateMultiLoggers(_loggerConfig.loggerOutputs);
+    writeImports();
 
     final _replacedHelperName = loggerClassContent.replaceFirst(
         LogHelperNameKey, _loggerConfig.logHelperName);
+    String _replacedConditionalLogger =
+        _addConditionalLogger(_replacedHelperName);
 
-    final _replacedImports =
-        _replacedHelperName.replaceFirst(MultiLoggerImports, _imports);
+    String afterReplaceMultiLoggerOutput =
+        _replaceMutiLoggerOutput(utils, _replacedConditionalLogger);
 
+    write(afterReplaceMultiLoggerOutput);
+
+    return stringBuffer.toString();
+  }
+
+  String _addConditionalLogger(String _replacedImports) {
     final _replacedConditionalLogger = _replacedImports.replaceFirst(
         DisableConsoleOutputInRelease,
         _loggerConfig.disableReleaseConsoleOutput ? 'if(!kReleaseMode)' : '');
+    return _replacedConditionalLogger;
+  }
 
-    write(_replacedConditionalLogger.replaceFirst(
-        MultipleLoggerOutput, _multiLogger));
+  void writeImports() {
+    final preparedImports =
+        utils.surroundStringWithImportTemplate(_loggerConfig.imports);
 
-    return stringBuffer.toString();
+    final replacedImports =
+        loggerClassImports.replaceFirst(MultiLoggerImports, preparedImports);
+
+    write(replacedImports);
+  }
+
+  String _replaceMutiLoggerOutput(
+      LoggerClassGeneratorUtils utils, String _replacedConditionalLogger) {
+    final _multiLogger =
+        utils.addCheckForReleaseModeToEachLogger(_loggerConfig.loggerOutputs);
+
+    final afterReplaceMultiLoggerOutput = _replacedConditionalLogger
+        .replaceFirst(MultipleLoggerOutput, _multiLogger);
+    return afterReplaceMultiLoggerOutput;
   }
 }
 
 class LoggerClassGeneratorUtils {
-  String generateMultiLoggers(List<String> multiLogger) {
+  String addCheckForReleaseModeToEachLogger(List<String> multiLogger) {
     final _multiLoggers = StringBuffer();
 
     multiLogger.forEach((element) {
@@ -45,7 +66,7 @@ class LoggerClassGeneratorUtils {
     return _multiLoggers.toString();
   }
 
-  String generateImports(Set<String> imports) {
+  String surroundStringWithImportTemplate(Set<String> imports) {
     final _importBuffer = StringBuffer();
     imports.forEach((element) {
       _importBuffer.writeln("import '$element';");

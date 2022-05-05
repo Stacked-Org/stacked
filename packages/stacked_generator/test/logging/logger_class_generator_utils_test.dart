@@ -12,7 +12,7 @@ void main() {
 Given two items one,two , Should return 
 if(kReleaseMode) one(),if(kReleaseMode) two(),
 ''', () {
-        expect(utils.generateMultiLoggers(['one', 'two']),
+        expect(utils.addCheckForReleaseModeToEachLogger(['one', 'two']),
             " if(kReleaseMode) one(), if(kReleaseMode) two(),");
       });
     });
@@ -20,7 +20,7 @@ if(kReleaseMode) one(),if(kReleaseMode) two(),
       test('''
 Given two items one,two, Should return import'one'; import'two';
 ''', () {
-        expect(utils.generateImports({'one', 'two'}), '''
+        expect(utils.surroundStringWithImportTemplate({'one', 'two'}), '''
 import 'one';
 import 'two';
 ''');
