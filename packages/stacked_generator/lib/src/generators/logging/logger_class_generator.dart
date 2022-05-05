@@ -14,7 +14,7 @@ class LoggerClassGenerator extends BaseGenerator {
   @override
   String generate() {
     writeImports();
-
+    writeBody();
     final _replacedHelperName = loggerClassContent.replaceFirst(
         LogHelperNameKey, _loggerConfig.logHelperName);
     String _replacedConditionalLogger =
@@ -53,6 +53,10 @@ class LoggerClassGenerator extends BaseGenerator {
     final afterReplaceMultiLoggerOutput = _replacedConditionalLogger
         .replaceFirst(MultipleLoggerOutput, _multiLogger);
     return afterReplaceMultiLoggerOutput;
+  }
+
+  void writeBody() {
+    write(loggerClassConstantBody);
   }
 }
 
