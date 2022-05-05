@@ -154,28 +154,3 @@ Logger $LogHelperNameKey(
   );
 }
 ''';
-
-const String loggerClassContent = '''
-Logger $LogHelperNameKey(
-  String className, {
-  bool printCallingFunctionName = true,
-  bool printCallstack = false,
-  List<String> exludeLogsFromClasses = const [],
-  String? showOnlyClass,
-}) {
-  return Logger(
-    printer: SimpleLogPrinter(
-      className,
-      printCallingFunctionName: printCallingFunctionName,
-      printCallStack: printCallstack,
-      showOnlyClass: showOnlyClass,
-      exludeLogsFromClasses: exludeLogsFromClasses,
-    ),
-    output: MultipleLoggerOutput([
-      $DisableConsoleOutputInRelease
-      ConsoleOutput(),
-      $MultipleLoggerOutput
-    ]),
-  );
-}
-''';

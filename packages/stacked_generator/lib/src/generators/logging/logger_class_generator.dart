@@ -14,25 +14,12 @@ class LoggerClassGenerator extends BaseGenerator {
   @override
   String generate() {
     writeImports();
+
     writeBody();
-    final _replacedHelperName = loggerClassContent.replaceFirst(
-        LogHelperNameKey, _loggerConfig.logHelperName);
-    String _replacedConditionalLogger =
-        _addConditionalLogger(_replacedHelperName);
 
-    String afterReplaceMultiLoggerOutput =
-        _replaceMutiLoggerOutput(utils, _replacedConditionalLogger);
-
-    write(afterReplaceMultiLoggerOutput);
+    writeLoggerNameAndOutputs();
 
     return stringBuffer.toString();
-  }
-
-  String _addConditionalLogger(String _replacedImports) {
-    final _replacedConditionalLogger = _replacedImports.replaceFirst(
-        DisableConsoleOutputInRelease,
-        _loggerConfig.disableReleaseConsoleOutput ? 'if(!kReleaseMode)' : '');
-    return _replacedConditionalLogger;
   }
 
   void writeImports() {
@@ -45,18 +32,25 @@ class LoggerClassGenerator extends BaseGenerator {
     write(replacedImports);
   }
 
-  String _replaceMutiLoggerOutput(
-      LoggerClassGeneratorUtils utils, String _replacedConditionalLogger) {
-    final _multiLogger =
-        utils.addCheckForReleaseModeToEachLogger(_loggerConfig.loggerOutputs);
-
-    final afterReplaceMultiLoggerOutput = _replacedConditionalLogger
-        .replaceFirst(MultipleLoggerOutput, _multiLogger);
-    return afterReplaceMultiLoggerOutput;
-  }
-
   void writeBody() {
     write(loggerClassConstantBody);
+  }
+
+  void writeLoggerNameAndOutputs() {
+    final withHelperNameInPlace = loggerClassNameAndOutputs.replaceFirst(
+        LogHelperNameKey, _loggerConfig.logHelperName);
+
+    String withConditionalLoggerInPlace = withHelperNameInPlace.replaceFirst(
+        DisableConsoleOutputInRelease,
+        _loggerConfig.disableReleaseConsoleOutput ? 'if(!kReleaseMode)' : '');
+
+    final loggerOutputs =
+        utils.addCheckForReleaseModeToEachLogger(_loggerConfig.loggerOutputs);
+
+    String loggerOutputsInPlace = withConditionalLoggerInPlace.replaceFirst(
+        MultipleLoggerOutput, loggerOutputs);
+
+    write(loggerOutputsInPlace);
   }
 }
 
