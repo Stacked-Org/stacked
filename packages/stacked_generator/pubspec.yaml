@@ -11,14 +11,13 @@ dependencies:
     sdk: flutter
 
   build: ^2.2.1
-  source_gen: ^1.2.1
   analyzer: ^3.1.0
   path: ^1.8.0
   # logger: ^1.0.0
   recase: ^4.0.0
   stacked_core: ^1.0.0
+  source_gen: ^1.2.2
 
 dev_dependencies:
   build_runner: ^2.0.6
-  source_gen_test: ^1.0.0
   test:
