@@ -1,7 +1,6 @@
 import 'package:stacked_generator/src/generators/enums/dependency_type.dart';
 import 'package:recase/recase.dart';
-
-import 'stacked_locator_parameter_resolver.dart';
+import 'dependency_param_config.dart';
 
 class DependencyConfig {
   /// The import to use for the type of the service

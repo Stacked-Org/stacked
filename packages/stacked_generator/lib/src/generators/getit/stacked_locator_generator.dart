@@ -13,6 +13,8 @@ import 'package:stacked_generator/src/generators/getit/services_config.dart';
 import 'package:stacked_generator/src/generators/getit/stacked_locator_parameter_resolver.dart';
 import 'package:stacked_generator/utils.dart';
 
+import 'dependency_param_config.dart';
+
 class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
   @override
   dynamic generateForAnnotatedElement(
