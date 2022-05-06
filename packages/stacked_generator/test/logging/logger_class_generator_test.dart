@@ -6,24 +6,41 @@ import '../test_helper/constants.dart';
 
 void main() {
   group('LoggerClassGeneratorTest -', () {
-    test('Given this LoggerConfig, Should predict the output', () async {
-      final loggerConfig = LoggerConfig(
-          imports: {'importOne', 'importTwo'},
-          logHelperName: 'ebraLogger',
-          loggerOutputs: ['outputOne', 'outputTwo']);
-      final generatedCode = LoggerClassGenerator(loggerConfig).generate();
-      expect(generatedCode, kloggerClassContent);
+    group('generate -', () {
+      test('Given this LoggerConfig, Should predict the output', () async {
+        final loggerConfig = LoggerConfig(
+            imports: {'importOne', 'importTwo'},
+            logHelperName: 'ebraLogger',
+            loggerOutputs: ['outputOne', 'outputTwo']);
+        final generatedCode = LoggerClassGenerator(loggerConfig).generate();
+        expect(generatedCode, kloggerClassContent);
+      });
+      test(
+          'Given a LoggerConfig with disableReleaseConsoleOutput=false, Should predict the output',
+          () async {
+        final loggerConfig = LoggerConfig(
+            disableReleaseConsoleOutput: false,
+            imports: {'importOne', 'importTwo'},
+            logHelperName: 'ebraLogger',
+            loggerOutputs: ['outputOne', 'outputTwo']);
+        final generatedCode = LoggerClassGenerator(loggerConfig).generate();
+        expect(
+            generatedCode, kloggerClassContentWithDisableReleaseConsoleOutput);
+      });
     });
-    test(
-        'Given a LoggerConfig with disableReleaseConsoleOutput=false, Should predict the output',
-        () async {
-      final loggerConfig = LoggerConfig(
-          disableReleaseConsoleOutput: false,
-          imports: {'importOne', 'importTwo'},
-          logHelperName: 'ebraLogger',
-          loggerOutputs: ['outputOne', 'outputTwo']);
-      final generatedCode = LoggerClassGenerator(loggerConfig).generate();
-      expect(generatedCode, kloggerClassContentWithDisableReleaseConsoleOutput);
+    group('customizeLoggerNameAndOutputs -', () {
+      test('When calling it, ', () {
+        final loggerConfig = LoggerConfig(
+            disableReleaseConsoleOutput: false,
+            imports: {'importOne', 'importTwo'},
+            logHelperName: 'ebraLogger',
+            loggerOutputs: ['outputOne', 'outputTwo']);
+        final loggerGenerator = LoggerClassGenerator(loggerConfig)
+          ..customizeLoggerNameAndOutputs(kloggerClassNameAndOutputs);
+
+        expect(loggerGenerator.stringBuffer.toString(),
+            kCustomizedloggerClassNameAndOutputs);
+      });
     });
   });
 }

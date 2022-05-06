@@ -292,3 +292,56 @@ Logger ebraLogger(
   );
 }
 ''';
+const String kLogHelperNameKey = 'logHelperName';
+const String kMultiLoggerImports = 'MultiLoggerImport';
+const String kMultipleLoggerOutput = 'MultiLoggerList';
+const String kDisableConsoleOutputInRelease = 'MultiLoggerList';
+
+const String kloggerClassNameAndOutputs = '''
+Logger $kLogHelperNameKey(
+  String className, {
+  bool printCallingFunctionName = true,
+  bool printCallstack = false,
+  List<String> exludeLogsFromClasses = const [],
+  String? showOnlyClass,
+}) {
+  return Logger(
+    printer: SimpleLogPrinter(
+      className,
+      printCallingFunctionName: printCallingFunctionName,
+      printCallStack: printCallstack,
+      showOnlyClass: showOnlyClass,
+      exludeLogsFromClasses: exludeLogsFromClasses,
+    ),
+    output: MultipleLoggerOutput([
+      $kDisableConsoleOutputInRelease
+      ConsoleOutput(),
+      $kMultipleLoggerOutput
+    ]),
+  );
+}
+''';
+const String kCustomizedloggerClassNameAndOutputs = '''
+Logger ebraLogger(
+  String className, {
+  bool printCallingFunctionName = true,
+  bool printCallstack = false,
+  List<String> exludeLogsFromClasses = const [],
+  String? showOnlyClass,
+}) {
+  return Logger(
+    printer: SimpleLogPrinter(
+      className,
+      printCallingFunctionName: printCallingFunctionName,
+      printCallStack: printCallstack,
+      showOnlyClass: showOnlyClass,
+      exludeLogsFromClasses: exludeLogsFromClasses,
+    ),
+    output: MultipleLoggerOutput([
+      
+      ConsoleOutput(),
+       if(kReleaseMode) outputOne(), if(kReleaseMode) outputTwo(),
+    ]),
+  );
+}
+''';

@@ -1,5 +1,4 @@
-import 'dart:_internal';
-
+import 'package:flutter/material.dart';
 import 'package:stacked_generator/src/generators/base_generator.dart';
 import 'package:stacked_generator/src/generators/logging/logger_config.dart';
 
@@ -13,29 +12,19 @@ class LoggerClassGenerator extends BaseGenerator {
 
   @override
   String generate() {
-    _writeImports();
+    writeImports(_loggerConfig.imports, prefex: loggerClassPrefex);
 
-    _writeBody();
+    write(loggerClassConstantBody);
 
-    _writeLoggerNameAndOutputs();
+    customizeLoggerNameAndOutputs(loggerClassNameAndOutputs);
 
     return stringBuffer.toString();
   }
 
-  void _writeImports() {
-    final replacedImports = loggerClassImports.replaceFirst(MultiLoggerImports,
-        _loggerConfig.imports.surroundStringWithImportTemplate);
-
-    write(replacedImports);
-  }
-
-  void _writeBody() {
-    write(loggerClassConstantBody);
-  }
-
-  void _writeLoggerNameAndOutputs() {
-    final withHelperNameInPlace = loggerClassNameAndOutputs.replaceFirst(
-        LogHelperNameKey, _loggerConfig.logHelperName);
+  @visibleForTesting
+  void customizeLoggerNameAndOutputs(String template) {
+    final withHelperNameInPlace =
+        template.replaceFirst(LogHelperNameKey, _loggerConfig.logHelperName);
 
     String withConditionalLoggerInPlace = withHelperNameInPlace.replaceFirst(
         DisableConsoleOutputInRelease,
@@ -49,8 +38,7 @@ class LoggerClassGenerator extends BaseGenerator {
   }
 }
 
-/// I used [EfficientLengthIterable] cause it's the common ancestor of [List] and [Set]
-extension LoggerClassGeneratorUtils on EfficientLengthIterable {
+extension LoggerClassGeneratorExtension on List<String> {
   String get addCheckForReleaseModeToEachLogger {
     final _multiLoggers = StringBuffer();
 
@@ -58,13 +46,5 @@ extension LoggerClassGeneratorUtils on EfficientLengthIterable {
       _multiLoggers.write(" if(kReleaseMode) $element(),");
     });
     return _multiLoggers.toString();
-  }
-
-  String get surroundStringWithImportTemplate {
-    final _importBuffer = StringBuffer();
-    this.forEach((element) {
-      _importBuffer.writeln("import '$element';");
-    });
-    return _importBuffer.toString();
   }
 }

@@ -17,5 +17,21 @@ abstract class BaseGenerator {
     sorted.forEach((import) => writeLine("import '$import';"));
   }
 
+  /// Sorts the imports and then writed it to the current [StringBuffer]
+  /// the [writeLine] calls is just a way to beautify the code and make
+  /// it more readable
+  void writeImports(Set<String> imports, {String? prefex}) {
+    if (prefex != null) write(prefex);
+
+    writeLine();
+
+    final sorted = imports.toList()..sort();
+    sorted.forEach((import) => writeLine("import '$import';"));
+
+    writeLine();
+    writeLine();
+    writeLine();
+  }
+
   String generate();
 }
