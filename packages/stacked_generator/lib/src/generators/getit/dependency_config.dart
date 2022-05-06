@@ -2,6 +2,8 @@ import 'package:stacked_generator/src/generators/enums/dependency_type.dart';
 import 'package:recase/recase.dart';
 import 'dependency_param_config.dart';
 
+/// Todo: refactor  to use factories instead of this nonesense
+/// for example the [params] is not needed unless DependencyType is FactoryWithParam
 class DependencyConfig {
   /// The import to use for the type of the service
   @Deprecated(

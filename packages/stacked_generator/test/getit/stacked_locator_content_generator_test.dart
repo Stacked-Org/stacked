@@ -131,5 +131,40 @@ void main() {
       expect(stackedLocaterContentGenerator.generate(),
           kStackedLocaterWithOneDependencyOutputWithPresolveFunctionAndDependencyTypePresolvedSingleton);
     });
+    test(
+        'test generating locator with one dependency that has presolveFunction and type = DependencyType.Factory',
+        () {
+      final servicesConfig = ServicesConfig(services: [
+        DependencyConfig(
+            type: DependencyType.Factory,
+            import: 'importOne',
+            className: 'GeolocaorService',
+            params: {DependencyParamConfig()}),
+      ]);
+      final stackedLocaterContentGenerator = StackedLocatorContentGenerator(
+          servicesConfig: servicesConfig,
+          locatorName: 'filledstacksLocator',
+          locatorSetupName: 'filledstacksLocatorSetupName');
+      expect(stackedLocaterContentGenerator.generate(),
+          kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactory);
+    });
+    test(
+        'test generating locator with one dependency that has type = DependencyType.FactoryWithParams',
+        () {
+      final servicesConfig = ServicesConfig(services: [
+        DependencyConfig(
+            type: DependencyType.FactoryWithParam,
+            import: 'importOne',
+            className: 'GeolocaorService',
+            presolveFunction: 'staticPresolveFunction',
+            params: {DependencyParamConfig()}),
+      ]);
+      final stackedLocaterContentGenerator = StackedLocatorContentGenerator(
+          servicesConfig: servicesConfig,
+          locatorName: 'filledstacksLocator',
+          locatorSetupName: 'filledstacksLocatorSetupName');
+      expect(stackedLocaterContentGenerator.generate(),
+          kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactory);
+    });
   });
 }
