@@ -4,6 +4,8 @@ import 'dependency_param_config.dart';
 
 class DependencyConfig {
   /// The import to use for the type of the service
+  @Deprecated(
+      'Should removed in future, We already have imports from [DependencyParamConfig]')
   final String? import;
 
   /// The import to use for the abstracted service type

@@ -8,7 +8,7 @@ import '../helpers/getit_constants.dart';
 
 void main() {
   group('StackedLocatorContentGeneratorTest -', () {
-    test('test generating simple locator ', () {
+    test('test generating locator with one dependency ', () {
       final servicesConfig = ServicesConfig(services: [
         DependencyConfig(
             import: 'importOne',
@@ -20,7 +20,81 @@ void main() {
           locatorName: 'ebraLocator',
           locatorSetupName: 'ebraLocatorSetupName');
       expect(stackedLocaterContentGenerator.generate(),
-          kStackedLocaterContentGeneratorResult);
+          kStackedLocaterWithOneDependencyOutput);
+    });
+    test('test generating locator with two dependencies', () {
+      final servicesConfig = ServicesConfig(services: [
+        DependencyConfig(
+            import: 'importOne',
+            className: 'GeolocaorService',
+            params: {DependencyParamConfig()}),
+        DependencyConfig(
+            import: 'importTwo',
+            className: 'FireService',
+            params: {DependencyParamConfig()})
+      ]);
+      final stackedLocaterContentGenerator = StackedLocatorContentGenerator(
+          servicesConfig: servicesConfig,
+          locatorName: 'filledstacksLocator',
+          locatorSetupName: 'filledstacksLocatorSetupName');
+      expect(stackedLocaterContentGenerator.generate(),
+          kStackedLocaterWithTwoDependenciesOutput);
+    });
+    test(
+        'test generating locator with two dependencies with added DependencyParamConfig imports',
+        () {
+      final servicesConfig = ServicesConfig(services: [
+        DependencyConfig(
+            import: 'importOne',
+            className: 'GeolocaorService',
+            params: {
+              DependencyParamConfig(imports: {
+                'importsSetOne',
+                'importsSetTwo',
+              })
+            }),
+      ]);
+      final stackedLocaterContentGenerator = StackedLocatorContentGenerator(
+          servicesConfig: servicesConfig,
+          locatorName: 'filledstacksLocator',
+          locatorSetupName: 'filledstacksLocatorSetupName');
+      expect(stackedLocaterContentGenerator.generate(),
+          kStackedLocaterWithOneDependencyOutputWithImports);
+    });
+
+    test(
+        'test generating locator with one dependency that has abstractedImport',
+        () {
+      final servicesConfig = ServicesConfig(services: [
+        DependencyConfig(
+            import: 'importOne',
+            className: 'GeolocaorService',
+            abstractedImport: 'abstractedImportOne',
+            params: {DependencyParamConfig()}),
+      ]);
+      final stackedLocaterContentGenerator = StackedLocatorContentGenerator(
+          servicesConfig: servicesConfig,
+          locatorName: 'filledstacksLocator',
+          locatorSetupName: 'filledstacksLocatorSetupName');
+      expect(stackedLocaterContentGenerator.generate(),
+          kStackedLocaterWithOneDependencyOutputWithAbstractedImport);
+    });
+    test(
+        'test generating locator with one dependency that has abstractedImport',
+        () {
+      final servicesConfig = ServicesConfig(services: [
+        DependencyConfig(
+            import: 'importOne',
+            className: 'GeolocaorService',
+            abstractedTypeClassName: 'abstractedTypeClassNamee',
+            params: {DependencyParamConfig()}),
+      ]);
+      final stackedLocaterContentGenerator = StackedLocatorContentGenerator(
+          servicesConfig: servicesConfig,
+          locatorName: 'filledstacksLocator',
+          locatorSetupName: 'filledstacksLocatorSetupName');
+      expect(stackedLocaterContentGenerator.generate(),
+          kStackedLocaterWithOneDependencyOutputWithAbstractedTypeClassName);
     });
   });
 }
