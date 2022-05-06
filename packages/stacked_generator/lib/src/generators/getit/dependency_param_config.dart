@@ -1,7 +1,6 @@
 class DependencyParamConfig {
   final String? type;
   final String? name;
-  final String? alias;
   final bool isPositional;
   final bool isRequired;
   final String? defaultValueCode;
@@ -11,7 +10,6 @@ class DependencyParamConfig {
   DependencyParamConfig({
     this.type,
     this.name,
-    this.alias,
     this.isFactoryParam = false,
     this.isPositional = false,
     this.isRequired = false,
