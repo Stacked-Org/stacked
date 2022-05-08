@@ -1,0 +1,86 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:stacked_tools/src/constants/command_constants.dart';
+import 'package:stacked_tools/src/mixins/colorized_output_mixin.dart';
+
+/// helper service to run flutter commands
+class ProcessService with ColorizedOutput {
+  /// It creates a new flutter app.
+  ///
+  /// Args:
+  ///   appName (String): The name of the app that's going to be create.
+  Future<void> runCreateApp({required String appName}) async {
+    await _runProcessAndLogOutput(
+      programName: ksFlutter,
+      arguments: [ksCreate, appName],
+    );
+  }
+
+  /// Run the `pub run build_runner build --delete-conflicting-outputs` command in the `appName` directory
+  ///
+  /// Args:
+  ///   appName (String): The name of the app.
+  Future<void> runBuildRunner({String? appName}) async {
+    await _runProcessAndLogOutput(
+      programName: ksFlutter,
+      arguments: buildRunnerArguments,
+      workingDirectory: appName,
+    );
+  }
+
+  /// It runs the `flutter pub get` command in the app's directory
+  ///
+  /// Args:
+  ///   appName (String): The name of the app.
+  Future<void> runPubGet({String? appName}) async {
+    await _runProcessAndLogOutput(
+      programName: ksFlutter,
+      arguments: pubGetArguments,
+      workingDirectory: appName,
+    );
+  }
+
+  /// "Runs the flutter format . command on the app's source code."
+  ///
+  /// Args:
+  ///   appName (String): The name of the app.
+  Future<void> runFormat({String? appName}) async {
+    await _runProcessAndLogOutput(
+      programName: ksFlutter,
+      arguments: [ksFormat, ksCurrentDirectory],
+      workingDirectory: appName,
+    );
+  }
+
+  /// It runs a process and logs the output to the console
+  ///
+  /// Args:
+  ///   programName (String): The name of the program to run.
+  ///   arguments (List<String>): The arguments to pass to the program. Defaults to const []
+  ///   workingDirectory (String): The directory to run the command in.
+  Future<void> _runProcessAndLogOutput({
+    required String programName,
+    List<String> arguments = const [],
+    String? workingDirectory,
+  }) async {
+    final hasWorkingDirectory = workingDirectory != null;
+    stackedOutput(
+        message:
+            'Running $programName ${arguments.join(' ')} ${hasWorkingDirectory ? 'in $workingDirectory/' : ''}... ');
+    var process = await Process.start(
+      programName,
+      arguments,
+      workingDirectory: workingDirectory,
+    );
+    process.stdout.transform(utf8.decoder).forEach((output) {
+      flutterOutput(message: output);
+    });
+
+    final exitCode = await process.exitCode;
+    successOutput(
+      success: exitCode == 0,
+      message: 'Command complete. ExitCode: $exitCode',
+    );
+  }
+}
