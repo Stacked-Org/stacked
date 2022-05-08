@@ -2,16 +2,15 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:path/path.dart' as path;
+import 'package:stacked_tools/src/mixins/colorized_output_mixin.dart';
 
 /// Handles the writing of files to disk
-class FileService {
+class FileService with ColorizedOutput {
   Future<void> writeFile({
     required File file,
     required String fileContent,
     bool verbose = false,
   }) async {
-    log('Start writing file: $file', verbose: verbose);
-
     if (!(await file.exists())) {
       log('File does not exist. Write it out');
       await file.create(recursive: true);
@@ -19,7 +18,7 @@ class FileService {
 
     await file.writeAsString(fileContent);
 
-    log('File write complete: $file', verbose: verbose);
+    log('Created $file', verbose: verbose);
   }
 
   /// Check if the file at [filePath] exists
@@ -65,7 +64,7 @@ class FileService {
 
   void log(String message, {bool verbose = false}) {
     if (verbose) {
-      stdout.writeln(message);
+      stackedOutput(message: message);
     }
   }
 
