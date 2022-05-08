@@ -7,7 +7,7 @@ import 'package:path/path.dart' as path;
 import 'package:recase/recase.dart';
 import 'package:stacked_tools/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_tools/src/locator.dart';
-import 'package:stacked_tools/src/message_constants.dart';
+import 'package:stacked_tools/src/constants/message_constants.dart';
 import 'package:stacked_tools/src/models/template_models.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
 import 'package:stacked_tools/src/services/pubspec_service.dart';
