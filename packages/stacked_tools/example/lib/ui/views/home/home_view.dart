@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_app/ui/common/app_colors.dart';
-import 'package:stacked_app/ui/common/ui_helpers.dart';
+import 'package:example/ui/common/app_colors.dart';
+import 'package:example/ui/common/ui_helpers.dart';
 
 import 'home_viewmodel.dart';
 
@@ -76,3 +76,4 @@ class HomeView extends StatelessWidget {
     );
   }
 }
+

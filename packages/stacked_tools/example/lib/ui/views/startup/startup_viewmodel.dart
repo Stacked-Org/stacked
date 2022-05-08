@@ -1,6 +1,6 @@
 import 'package:stacked/stacked.dart';
-import 'package:stacked_app/app/app.locator.dart';
-import 'package:stacked_app/app/app.router.dart';
+import 'package:example/app/app.locator.dart';
+import 'package:example/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class StartupViewModel extends BaseViewModel {
@@ -16,3 +16,4 @@ class StartupViewModel extends BaseViewModel {
     _navigationService.replaceWith(Routes.homeView);
   }
 }
+

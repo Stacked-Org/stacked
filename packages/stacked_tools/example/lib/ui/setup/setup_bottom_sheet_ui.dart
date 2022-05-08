@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:stacked_app/app/app.locator.dart';
-import 'package:stacked_app/enums/bottom_sheet_type.dart';
-import 'package:stacked_app/ui/bottom_sheets/notice_sheet/notice_sheet.dart';
+import 'package:example/app/app.locator.dart';
+import 'package:example/enums/bottom_sheet_type.dart';
+import 'package:example/ui/bottom_sheets/notice_sheet/notice_sheet.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 void setupBottomSheetUi() {
@@ -17,3 +17,4 @@ void setupBottomSheetUi() {
 
   bottomSheetService.setCustomSheetBuilders(builders);
 }
+

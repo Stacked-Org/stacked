@@ -1,5 +1,5 @@
-name: stacked_app
-description: A new Flutter project.
+name: example
+description: An app build with the stacked framework
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -94,3 +94,4 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
