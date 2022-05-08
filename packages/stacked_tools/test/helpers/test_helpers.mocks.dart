@@ -302,8 +302,10 @@ class MockPubspecService extends _i1.Mock implements _i11.PubspecService {
       (super.noSuchMethod(Invocation.getter(#getPackageName), returnValue: '')
           as String);
   @override
-  _i4.Future<void> initialise() =>
-      (super.noSuchMethod(Invocation.method(#initialise, []),
+  _i4.Future<void> initialise({String? workingDirectory}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #initialise, [], {#workingDirectory: workingDirectory}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
 }

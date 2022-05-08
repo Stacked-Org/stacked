@@ -1,7 +1,7 @@
 import 'package:mockito/mockito.dart';
 import 'package:stacked_tools/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_tools/src/locator.dart';
-import 'package:stacked_tools/src/message_constants.dart';
+import 'package:stacked_tools/src/constants/message_constants.dart';
 import 'package:stacked_tools/src/models/template_models.dart';
 import 'package:stacked_tools/src/services/template_service.dart';
 import 'package:stacked_tools/src/templates/compiled_template_map.dart';
@@ -47,6 +47,21 @@ void main() {
           () {
         final content = '{{viewModelFileName}}';
         final expected = 'order_details_viewmodel.dart';
+
+        final templateService = _getService();
+        final result = templateService.renderContentForTemplate(
+          content: content,
+          templateName: kTemplateNameView,
+          name: 'orderDetails',
+        );
+
+        expect(result, expected);
+      });
+      test(
+          'When given content with string that has viewName as orderDetails should return order_details_t_viewmodel_test.dart for viewModel',
+          () {
+        final content = '{{viewModelFileName}}';
+        final expected = 'order_details_viewmodel_test.dart';
 
         final templateService = _getService();
         final result = templateService.renderContentForTemplate(

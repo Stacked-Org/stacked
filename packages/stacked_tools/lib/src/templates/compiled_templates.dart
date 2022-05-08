@@ -1005,7 +1005,7 @@ const String kViewTemplateGenericViewmodelTestPath =
 
 const String kViewTemplateGenericViewmodelTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
-import 'package:test_ground/app/app.locator.dart';
+import 'package:{{packageName}}/app/app.locator.dart';
 
 import '../helpers/test_helpers.dart';
 
@@ -1072,7 +1072,7 @@ const String kServiceTemplateGenericServiceTestPath =
 
 const String kServiceTemplateGenericServiceTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
-import 'package:test_ground/app/app.locator.dart';
+import 'package:{{packageName}}/app/app.locator.dart';
 
 import '../helpers/test_helpers.dart';
 
