@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:stacked_app/app/app.locator.dart';
-import 'package:stacked_app/enums/bottom_sheet_type.dart';
-import 'package:stacked_app/ui/common/app_strings.dart';
-import 'package:stacked_app/ui/views/home/home_viewmodel.dart';
+import 'package:example/app/app.locator.dart';
+import 'package:example/enums/bottom_sheet_type.dart';
+import 'package:example/ui/common/app_strings.dart';
+import 'package:example/ui/views/home/home_viewmodel.dart';
 
 import '../helpers/test_helpers.dart';
 
@@ -38,3 +38,4 @@ void main() {
     });
   });
 }
+

@@ -73,7 +73,7 @@ double getResponsiveFontSize(BuildContext context,
   var responsiveSize = min(
       screenWidthFraction(context, dividedBy: 10) * ((fontSize ?? 100) / 100),
       max);
-  // print(
-  //     '*********** RESPONSIVE SIZE: fontSize:$fontSize responsiveSize$responsiveSize max:$max');
+  
   return responsiveSize;
 }
+

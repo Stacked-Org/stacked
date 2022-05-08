@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stacked_app/ui/common/app_colors.dart';
-import 'package:stacked_app/ui/common/ui_helpers.dart';
+import 'package:example/ui/common/app_colors.dart';
+import 'package:example/ui/common/ui_helpers.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 const double _graphicSize = 60;
@@ -95,3 +95,4 @@ class InfoAlertDialog extends StatelessWidget {
     );
   }
 }
+
