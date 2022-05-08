@@ -17,6 +17,7 @@ dependencies:
   pubspec_yaml: ^3.1.0
   recase: ^4.0.0
   json_annotation: ^4.4.0
+  ansicolor: ^2.0.1
 
 dev_dependencies:
   lints: ^1.0.0
