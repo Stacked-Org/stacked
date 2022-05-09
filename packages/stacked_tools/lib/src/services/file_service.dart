@@ -1,24 +1,59 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:async';
 import 'dart:io';
 
 import 'package:path/path.dart' as path;
-import 'package:stacked_tools/src/mixins/colorized_output_mixin.dart';
+import 'package:recase/recase.dart';
+import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/services/colorized_log_service.dart';
 
 /// Handles the writing of files to disk
-class FileService with ColorizedOutput {
+class FileService {
+  final _cLog = locator<ColorizedLogService>();
+
   Future<void> writeFile({
     required File file,
     required String fileContent,
     bool verbose = false,
+    FileModificationType type = FileModificationType.Create,
   }) async {
     if (!(await file.exists())) {
-      log('File does not exist. Write it out');
+      if (type != FileModificationType.Create) {
+        _cLog.successOutput(
+            success: false, message: 'File does not exist. Write it out');
+      }
       await file.create(recursive: true);
     }
 
     await file.writeAsString(fileContent);
 
-    log('Created $file', verbose: verbose);
+    if (verbose) {
+      _cLog.fileOutput(type: type, message: '$file');
+    }
+  }
+
+  /// Delete a file at the given path
+  ///
+  /// Args:
+  ///   filePath (String): The path to the file you want to delete.
+  Future<void> deleteFile({required String filePath}) async {
+    final file = File(filePath);
+    await file.delete();
+    _cLog.fileOutput(type: FileModificationType.Delete, message: '$file');
+  }
+
+  /// It deletes all the files in a folder.
+  ///
+  /// Args:
+  ///   directoryPath (String): The path to the directory you want to delete.
+  Future<void> deleteFolder({required String directoryPath}) async {
+    var files = await getFilesInDirectory(directoryPath: directoryPath);
+    await Future.forEach<FileSystemEntity>(files, (file) async {
+      await file.delete();
+      _cLog.fileOutput(type: FileModificationType.Delete, message: '$file');
+    });
+    await Directory(directoryPath).delete(recursive: false);
   }
 
   /// Check if the file at [filePath] exists
@@ -27,8 +62,33 @@ class FileService with ColorizedOutput {
   }
 
   /// Reads the file at [filePath] on disk and returns as String
-  Future<String> readFile({required String filePath}) {
+  Future<String> readFileAsString({
+    required String filePath,
+  }) {
     return File(filePath).readAsString();
+  }
+
+  Future<List<String>> readFileAsLines({
+    required String filePath,
+  }) {
+    return File(filePath).readAsLines();
+  }
+
+  Future<void> removeSpecificFileLines({
+    required String filePath,
+    required String removedContent,
+  }) async {
+    List<String> fileLines = await readFileAsLines(filePath: filePath);
+    final recaseName = ReCase(removedContent);
+    fileLines.removeWhere((line) => line.contains(recaseName.snakeCase));
+    fileLines
+        .removeWhere((line) => line.contains('${recaseName.pascalCase}View'));
+    await writeFile(
+      file: File(filePath),
+      fileContent: fileLines.join('\n'),
+      type: FileModificationType.Modify,
+      verbose: true,
+    );
   }
 
   /// Gets all files in a given directory
@@ -62,12 +122,6 @@ class FileService with ColorizedOutput {
     return completer.future;
   }
 
-  void log(String message, {bool verbose = false}) {
-    if (verbose) {
-      stackedOutput(message: message);
-    }
-  }
-
   /// Returns true if the cli is running from the root of a flutter
   /// or dart project
   Future<bool> isProjectRoot({String? outputPath}) {
@@ -80,11 +134,18 @@ class FileService with ColorizedOutput {
 
   /// Checks if the current project aligns with the stacked application structure
   /// to allow for scaffolding to work properly
-  Future<bool> isStakedApplication({String? outputPath}) {
+  Future<bool> isStackedApplication({String? outputPath}) {
     final hasOutputPath = outputPath != null;
     final appPath = 'lib/app/app.dart';
 
     return File(hasOutputPath ? path.join(outputPath, appPath) : appPath)
         .exists();
   }
+}
+
+// enum for file modification types
+enum FileModificationType {
+  Create,
+  Modify,
+  Delete,
 }
