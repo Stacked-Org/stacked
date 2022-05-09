@@ -42,6 +42,7 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
       verbose: true,
       excludeRoute: argResults![ksExcludeDependency],
     );
-    await _processService.runBuildRunner();
+    await _processService.runBuildRunner(appName: outputPath);
+    await _processService.runFormat(appName: outputPath);
   }
 }

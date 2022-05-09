@@ -33,5 +33,6 @@ class CreateAppCommand extends Command {
     );
     await _processService.runPubGet(appName: appName);
     await _processService.runBuildRunner(appName: appName);
+    await _processService.runFormat(appName: appName);
   }
 }
