@@ -2,10 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:stacked_tools/src/constants/command_constants.dart';
-import 'package:stacked_tools/src/mixins/colorized_output_mixin.dart';
+import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/services/colorized_log_service.dart';
 
 /// helper service to run flutter commands
-class ProcessService with ColorizedOutput {
+class ProcessService {
+  final _cLog = locator<ColorizedLogService>();
+
   /// It creates a new flutter app.
   ///
   /// Args:
@@ -65,7 +68,7 @@ class ProcessService with ColorizedOutput {
     String? workingDirectory,
   }) async {
     final hasWorkingDirectory = workingDirectory != null;
-    stackedOutput(
+    _cLog.stackedOutput(
         message:
             'Running $programName ${arguments.join(' ')} ${hasWorkingDirectory ? 'in $workingDirectory/' : ''}... ');
     var process = await Process.start(
@@ -74,11 +77,11 @@ class ProcessService with ColorizedOutput {
       workingDirectory: workingDirectory,
     );
     process.stdout.transform(utf8.decoder).forEach((output) {
-      flutterOutput(message: output);
+      _cLog.flutterOutput(message: output);
     });
 
     final exitCode = await process.exitCode;
-    successOutput(
+    _cLog.successOutput(
       success: exitCode == 0,
       message: 'Command complete. ExitCode: $exitCode',
     );
