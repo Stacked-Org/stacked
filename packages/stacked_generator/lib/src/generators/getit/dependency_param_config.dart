@@ -1,4 +1,5 @@
 class DependencyParamConfig {
+  /// Doesn't have an effect when isPositional=true
   final String? name;
   final bool isPositional;
   final bool isRequired;
