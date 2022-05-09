@@ -176,6 +176,6 @@ void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? env
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-filledstacksLocator.registerFactory(() => GeolocaorService()  );
+filledstacksLocator.registerFactoryParam<GeolocaorService,newType?, dynamic>((param1, param2) => GeolocaorService(null:param1)  );
 }
 ''';

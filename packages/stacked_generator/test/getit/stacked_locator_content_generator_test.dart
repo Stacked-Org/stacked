@@ -22,13 +22,19 @@ void main() {
         expect(stackedLocaterContentGenerator.generate(), expectedResult);
       }
 
-      void callGeneratorWithServicesConfigAndExpectException(
-          ServicesConfig servicesConfig, dynamic expectedResult) {
+      void callGeneratorWithServicesConfigAndExpectException<T>(
+          ServicesConfig servicesConfig,
+          [String? exceptionMessage]) {
         final stackedLocaterContentGenerator = StackedLocatorContentGenerator(
             servicesConfig: servicesConfig,
             locatorName: 'filledstacksLocator',
             locatorSetupName: 'filledstacksLocatorSetupName');
-        expect(() => stackedLocaterContentGenerator.generate(), expectedResult);
+        expect(
+          () => stackedLocaterContentGenerator.generate(),
+          throwsA(predicate<dynamic>((e) => e is T && exceptionMessage == null
+              ? true
+              : e.message == exceptionMessage)),
+        );
       }
 
       test('with one dependency ', () {
@@ -151,8 +157,8 @@ with one dependency that has [type=DependencyType.FactoryWithParams] and params 
           ),
         ]);
 
-        callGeneratorWithServicesConfigAndExpectException(
-            servicesConfig, throwsA(isA<TypeError>()));
+        callGeneratorWithServicesConfigAndExpectException<TypeError>(
+            servicesConfig);
       });
       test('''
 with one dependency that has [type=DependencyType.FactoryWithParams] and params isempty
@@ -165,8 +171,84 @@ with one dependency that has [type=DependencyType.FactoryWithParams] and params 
               params: {}),
         ]);
 
-        callGeneratorWithServicesConfigAndExpectException(
-            servicesConfig, throwsA(isA<InvalidGeneratorInputException>()));
+        callGeneratorWithServicesConfigAndExpectException<
+                InvalidGeneratorInputException>(servicesConfig,
+            'At least one paramter is requerd for FactoryWithParam registration ');
+      });
+      test('''
+with one dependency that has [type=DependencyType.FactoryWithParams] and params
+is not empty but DependencyParamConfig type is null
+, Should throw a InvalidGeneratorInputException''', () {
+        final servicesConfig = ServicesConfig(services: [
+          DependencyConfig(
+              type: DependencyType.FactoryWithParam,
+              import: 'importOne',
+              className: 'GeolocaorService',
+              params: {DependencyParamConfig()}),
+        ]);
+
+        callGeneratorWithServicesConfigAndExpectException<
+                InvalidGeneratorInputException>(servicesConfig,
+            'At least one paramter is requerd for FactoryWithParam registration ');
+      });
+      test('''
+with one dependency that has [type=DependencyType.FactoryWithParams] and params
+is not empty and DependencyParamConfig isFactoryParam=true,
+, Should throw a InvalidGeneratorInputException that atleast one [DependencyParamConfig] 
+needs to have isFactoryParam needs to be true''', () {
+        final servicesConfig = ServicesConfig(services: [
+          DependencyConfig(
+              type: DependencyType.FactoryWithParam,
+              import: 'importOne',
+              className: 'GeolocaorService',
+              params: {DependencyParamConfig(type: '')}),
+        ]);
+
+        callGeneratorWithServicesConfigAndExpectException<
+                InvalidGeneratorInputException>(servicesConfig,
+            'At least one paramter is requerd for FactoryWithParam registration ');
+      });
+      test('''
+with one dependency that has [type=DependencyType.FactoryWithParams] and params
+is not empty and DependencyParamConfig type is newType
+, Should throw a InvalidGeneratorInputException that factory needs to be nullable''',
+          () {
+        final servicesConfig = ServicesConfig(services: [
+          DependencyConfig(
+              type: DependencyType.FactoryWithParam,
+              import: 'importOne',
+              className: 'GeolocaorService',
+              params: {
+                DependencyParamConfig(
+                  type: 'newType',
+                  isFactoryParam: true,
+                ),
+              }),
+        ]);
+
+        callGeneratorWithServicesConfigAndExpectException<
+                InvalidGeneratorInputException>(servicesConfig,
+            "Factory params must be nullable. Parameter null is not nullable");
+      });
+      test('''
+with one dependency that has [type=DependencyType.FactoryWithParams] and params
+is not empty and DependencyParamConfig type is newType?
+, Should generate code''', () {
+        final servicesConfig = ServicesConfig(services: [
+          DependencyConfig(
+              type: DependencyType.FactoryWithParam,
+              import: 'importOne',
+              className: 'GeolocaorService',
+              params: {
+                DependencyParamConfig(
+                  type: 'newType?',
+                  isFactoryParam: true,
+                ),
+              }),
+        ]);
+
+        callGeneratorWithServicesConfigAndExpectResult(servicesConfig,
+            kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParams);
       });
     });
   });
