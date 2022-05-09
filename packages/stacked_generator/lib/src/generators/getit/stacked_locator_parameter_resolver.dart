@@ -9,9 +9,8 @@ const _factoryParamChecker = TypeChecker.fromRuntime(FactoryParam);
 
 class DependencyParameterResolver {
   final ImportResolver _importResolver;
-  final Set<String> imports = {};
 
-  DependencyParameterResolver(this._importResolver);
+  const DependencyParameterResolver(this._importResolver);
 
   DependencyParamConfig resolve(ParameterElement parameterElement) {
     final paramType = parameterElement.type;
