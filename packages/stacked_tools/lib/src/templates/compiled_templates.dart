@@ -1001,7 +1001,7 @@ flutter:
 // -------- GenericViewmodelTest Template Data ----------
 
 const String kViewTemplateGenericViewmodelTestPath =
-    'test/viewmodels/generic_viewmodel_test.dart.stk';
+    'test/viewmodel/generic_viewmodel_test.dart.stk';
 
 const String kViewTemplateGenericViewmodelTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
@@ -1068,7 +1068,7 @@ class {{viewName}} extends StatelessWidget {
 // -------- GenericServiceTest Template Data ----------
 
 const String kServiceTemplateGenericServiceTestPath =
-    'test/services/generic_service_test.dart.stk';
+    'test/service/generic_service_test.dart.stk';
 
 const String kServiceTemplateGenericServiceTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
