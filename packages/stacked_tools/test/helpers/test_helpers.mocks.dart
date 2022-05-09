@@ -34,10 +34,17 @@ class _FakePubspecYaml_0 extends _i1.Fake implements _i2.PubspecYaml {}
 class MockFileService extends _i1.Mock implements _i3.FileService {
   @override
   _i4.Future<void> writeFile(
-          {_i5.File? file, String? fileContent, bool? verbose = false}) =>
+          {_i5.File? file,
+          String? fileContent,
+          bool? verbose = false,
+          _i3.FileModificationType? type = _i3.FileModificationType.Create}) =>
       (super.noSuchMethod(
-          Invocation.method(#writeFile, [],
-              {#file: file, #fileContent: fileContent, #verbose: verbose}),
+          Invocation.method(#writeFile, [], {
+            #file: file,
+            #fileContent: fileContent,
+            #verbose: verbose,
+            #type: type
+          }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
@@ -65,18 +72,14 @@ class MockFileService extends _i1.Mock implements _i3.FileService {
               returnValue: Future<List<String>>.value(<String>[]))
           as _i4.Future<List<String>>);
   @override
-  void log(String? message, {bool? verbose = false}) => super.noSuchMethod(
-      Invocation.method(#log, [message], {#verbose: verbose}),
-      returnValueForMissingStub: null);
-  @override
   _i4.Future<bool> isProjectRoot({String? outputPath}) => (super.noSuchMethod(
       Invocation.method(#isProjectRoot, [], {#outputPath: outputPath}),
       returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
   @override
-  _i4.Future<bool> isStakedApplication({String? outputPath}) =>
+  _i4.Future<bool> isStackedApplication({String? outputPath}) =>
       (super.noSuchMethod(
           Invocation.method(
-              #isStakedApplication, [], {#outputPath: outputPath}),
+              #isStackedApplication, [], {#outputPath: outputPath}),
           returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
 }
 
