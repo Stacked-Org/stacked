@@ -1,14 +1,16 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:args/command_runner.dart';
 import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/services/colorized_log_service.dart';
+import 'package:stacked_tools/src/services/process_service.dart';
 import 'package:stacked_tools/src/services/template_service.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 
 class CreateAppCommand extends Command {
   final _templateService = locator<TemplateService>();
+  final _processService = locator<ProcessService>();
+  final _cLog = locator<ColorizedLogService>();
 
   @override
   String get description =>
@@ -21,56 +23,17 @@ class CreateAppCommand extends Command {
   Future<void> run() async {
     final appName = argResults!.rest.first;
 
-    await _runProcessAndLogOutput(
-      programName: 'flutter',
-      arguments: ['create', appName],
-    );
+    await _processService.runCreateApp(appName: appName);
 
-    stdout.writeln('Add Stacked Magic ... ');
+    _cLog.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
     await _templateService.renderTemplate(
       templateName: kTemplateNameApp,
       name: appName,
       verbose: true,
       outputPath: appName,
     );
-
-    await _runProcessAndLogOutput(
-      programName: 'flutter',
-      arguments: ['pub', 'get'],
-      workingDirectory: appName,
-    );
-    // flutter pub run build_runner build --delete-conflicting-outputs
-    await _runProcessAndLogOutput(
-      programName: 'flutter',
-      arguments: [
-        'pub',
-        'run',
-        'build_runner',
-        'build',
-        '--delete-conflicting-outputs'
-      ],
-      workingDirectory: appName,
-    );
-  }
-
-  Future<void> _runProcessAndLogOutput({
-    required String programName,
-    List<String> arguments = const [],
-    String? workingDirectory,
-  }) async {
-    final hasWorkingDirectory = workingDirectory != null;
-    stdout.writeln(
-        'Running $workingDirectory${hasWorkingDirectory ? '/' : ''}$programName ${arguments.join(' ')} ... ');
-    var process = await Process.start(
-      programName,
-      arguments,
-      workingDirectory: workingDirectory,
-    );
-    process.stdout.transform(utf8.decoder).forEach((output) {
-      stdout.writeln(output);
-    });
-
-    final exitCode = await process.exitCode;
-    stdout.writeln('Command complete. ExitCode: $exitCode');
+    await _processService.runPubGet(appName: appName);
+    await _processService.runBuildRunner(appName: appName);
+    await _processService.runFormat(appName: appName);
   }
 }
