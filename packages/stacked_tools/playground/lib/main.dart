@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:playground/app/app.locator.dart';
 import 'package:playground/ui/common/app_colors.dart';
+import 'package:playground/ui/setup/setup_bottom_sheet_ui.dart';
+import 'package:playground/ui/setup/setup_dialog_ui.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'app/app.router.dart';
 
 void main() {
+  setupLocator();
+  setupDialogUi();
+  setupBottomSheetUi();
+
   runApp(const MyApp());
 }
 
@@ -22,6 +29,7 @@ class MyApp extends StatelessWidget {
               bodyColor: Colors.black,
             ),
       ),
+      initialRoute: Routes.startupView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,
     );
