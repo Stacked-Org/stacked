@@ -179,3 +179,63 @@ filledstacksLocator.registerEnvironment(environment: environment, environmentFil
 filledstacksLocator.registerFactoryParam<GeolocaorService,newType?, dynamic>((param1, param2) => GeolocaorService(null:param1)  );
 }
 ''';
+final kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndDefaultValue =
+    '''
+// ignore_for_file: public_member_api_docs
+
+import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
+
+import 'importOne';
+
+final filledstacksLocator = StackedLocator.instance;
+
+void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+
+// Register environments
+filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
+
+// Register dependencies
+filledstacksLocator.registerFactoryParam<GeolocaorService,newType?, dynamic>((param1, param2) => GeolocaorService(null:param1 ?? shit)  );
+}
+''';
+final kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndIsPositionalIsTrue =
+    '''
+// ignore_for_file: public_member_api_docs
+
+import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
+
+import 'importOne';
+
+final filledstacksLocator = StackedLocator.instance;
+
+void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+
+// Register environments
+filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
+
+// Register dependencies
+filledstacksLocator.registerFactoryParam<GeolocaorService,newType?, dynamic>((param1, param2) => GeolocaorService(param1)  );
+}
+''';
+final kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndDefaultValueAndIsPositionalIsTrue =
+    '''
+// ignore_for_file: public_member_api_docs
+
+import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
+
+import 'importOne';
+
+final filledstacksLocator = StackedLocator.instance;
+
+void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+
+// Register environments
+filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
+
+// Register dependencies
+filledstacksLocator.registerFactoryParam<GeolocaorService,newType?, dynamic>((param1, param2) => GeolocaorService(param1 ?? shit)  );
+}
+''';

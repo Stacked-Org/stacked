@@ -250,6 +250,70 @@ is not empty and DependencyParamConfig type is newType?
         callGeneratorWithServicesConfigAndExpectResult(servicesConfig,
             kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParams);
       });
+      test('''
+with one dependency that has [type=DependencyType.FactoryWithParams] and params
+is not empty and DependencyParamConfig type is newType? and default value is shit
+, Should generate code''', () {
+        final servicesConfig = ServicesConfig(services: [
+          DependencyConfig(
+              type: DependencyType.FactoryWithParam,
+              import: 'importOne',
+              className: 'GeolocaorService',
+              params: {
+                DependencyParamConfig(
+                  type: 'newType?',
+                  defaultValueCode: 'shit',
+                  isFactoryParam: true,
+                ),
+              }),
+        ]);
+
+        callGeneratorWithServicesConfigAndExpectResult(servicesConfig,
+            kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndDefaultValue);
+      });
+      test('''
+with one dependency that has [type=DependencyType.FactoryWithParams] and params
+is not empty and DependencyParamConfig type is newType? and isPositional=true
+, Should generate code''', () {
+        final servicesConfig = ServicesConfig(services: [
+          DependencyConfig(
+              type: DependencyType.FactoryWithParam,
+              import: 'importOne',
+              className: 'GeolocaorService',
+              params: {
+                DependencyParamConfig(
+                  type: 'newType?',
+                  isPositional: true,
+                  isFactoryParam: true,
+                ),
+              }),
+        ]);
+
+        callGeneratorWithServicesConfigAndExpectResult(servicesConfig,
+            kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndIsPositionalIsTrue);
+      });
+      test('''
+with one dependency that has [type=DependencyType.FactoryWithParams] and params
+is not empty and DependencyParamConfig type is newType? and default value is shit and isPositional=true
+, Should generate code''', () {
+        final servicesConfig = ServicesConfig(services: [
+          DependencyConfig(
+              type: DependencyType.FactoryWithParam,
+              import: 'importOne',
+              className: 'GeolocaorService',
+              params: {
+                DependencyParamConfig(
+                  type: 'newType?',
+                  isPositional: true,
+                  defaultValueCode: 'shit',
+                  isFactoryParam: true,
+                ),
+              }),
+        ]);
+
+        callGeneratorWithServicesConfigAndExpectResult(servicesConfig,
+            kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndDefaultValueAndIsPositionalIsTrue);
+      });
     });
   });
 }
