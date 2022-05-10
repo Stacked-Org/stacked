@@ -35,3 +35,21 @@ class CompileError extends Error {
     return 'CompileError: \n${errors.join('\n')}';
   }
 }
+
+Future<void> checkCodeForCompilationError(String resolverPath,
+    String fileNameWithoutExtension, String absolutePath) async {
+  final main = await resolveSources(
+    {
+      resolverPath: useAssetReader,
+    },
+    (r) => r.libraries.firstWhere((element) {
+      /// [element.source.toString()] will print the name of the file for example 'test.dart'
+      return element.source.toString().contains(fileNameWithoutExtension);
+    }),
+  );
+
+  final errorResult =
+      await main.session.getErrors(absolutePath) as ErrorsResult;
+
+  expect(errorResult.errors, isEmpty);
+}

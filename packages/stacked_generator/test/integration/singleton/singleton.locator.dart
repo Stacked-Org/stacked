@@ -8,16 +8,16 @@
 
 import 'package:stacked_core/stacked_core.dart';
 
-import 'services/geoService.dart';
+import '../../helpers/dumb_service.dart';
 
-final exampleLocator = StackedLocator.instance;
+final singletonLocator = StackedLocator.instance;
 
-void setupExampleLocator(
+void setupSingletonLocator(
     {String? environment, EnvironmentFilter? environmentFilter}) {
 // Register environments
-  exampleLocator.registerEnvironment(
+  singletonLocator.registerEnvironment(
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-  exampleLocator.registerLazySingleton(() => GeoService());
+  singletonLocator.registerSingleton(DumpService());
 }

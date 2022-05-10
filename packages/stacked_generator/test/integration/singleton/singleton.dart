@@ -1,14 +1,14 @@
 import 'package:stacked_core/stacked_core.dart';
 
-import 'services/geoService.dart';
+import '../../helpers/dumb_service.dart';
 
 @StackedApp(
   routes: [],
   dependencies: [
-    LazySingleton(classType: GeoService),
+    Singleton(classType: DumpService),
   ],
-  locatorName: 'exampleLocator',
-  locatorSetupName: 'setupExampleLocator',
+  locatorName: 'SingletonLocator',
+  locatorSetupName: 'setupSingletonLocator',
 )
 class App {
   /** This class has no puporse besides housing the annotation that generates the required functionality **/

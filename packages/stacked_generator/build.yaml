@@ -6,6 +6,7 @@ targets:
         generate_for:
           exclude:
             - test
+            - .dart_tool
           include:
             - test/integration/*
             - test/integration/**/*
