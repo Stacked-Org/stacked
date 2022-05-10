@@ -1,3 +1,19 @@
+targets:
+  $default:
+    builders:
+      stacked_generator|stackedLocatorGenerator:
+        enabled: true
+        generate_for:
+          exclude:
+            - test
+          include:
+            - test/integration/*
+            - test/integration/**/*
+      source_gen|combining_builder:
+        options:
+          ignore_for_file:
+            - "type=lint"
+
 builders:
   # Generate the router file and routes
   stackedRouterGenerator:
