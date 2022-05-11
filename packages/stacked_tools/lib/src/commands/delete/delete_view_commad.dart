@@ -51,7 +51,7 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
   Future<void> deleteViewAndTestFiles({String? outputPath}) async {
     /// Deleting the view folder.
     String directoryPath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: kViewTemplateGenericFolderPath,
+      inputTemplatePath: 'lib/ui/views/generic/',
       name: argResults!.rest.first,
       outputFolder: outputPath,
     );
