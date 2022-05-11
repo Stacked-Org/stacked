@@ -3,14 +3,17 @@ import 'dart:io';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/services/colorized_log_service.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
 import 'package:stacked_tools/src/services/path_service.dart';
 import 'package:stacked_tools/src/services/pubspec_service.dart';
 import 'package:stacked_tools/src/services/template_service.dart';
+import 'package:stacked_tools/src/templates/compiled_templates.dart';
 import 'package:stacked_tools/src/templates/template_helper.dart';
 
 // @stacked-import
 
+import '../test_constants.dart';
 import 'test_helpers.mocks.dart';
 
 @GenerateMocks([], customMocks: [
@@ -20,6 +23,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<TemplateService>(returnNullOnMissingStub: true),
   MockSpec<TemplateHelper>(returnNullOnMissingStub: true),
   MockSpec<PubspecService>(returnNullOnMissingStub: true),
+  MockSpec<ColorizedLogService>(returnNullOnMissingStub: true),
 // @stacked-service-mock
 ])
 MockFileService getAndRegisterMockFileService({
@@ -33,7 +37,7 @@ MockFileService getAndRegisterMockFileService({
   when(service.fileExists(filePath: anyNamed('filePath')))
       .thenAnswer((realInvocation) => Future.value(fileExistsResult));
 
-  when(service.readFile(filePath: anyNamed('filePath')))
+  when(service.readFileAsString(filePath: anyNamed('filePath')))
       .thenAnswer((realInvocation) => Future.value(readFileResult));
 
   when(service.getFilesInDirectory(directoryPath: anyNamed('directoryPath')))
@@ -84,6 +88,13 @@ MockTemplateHelper getAndRegisterTemplateHelper() {
   return service;
 }
 
+MockColorizedLogService getAndRegisterColorizedLogService() {
+  _removeRegistrationIfExists<ColorizedLogService>();
+  final service = MockColorizedLogService();
+  locator.registerSingleton<ColorizedLogService>(service);
+  return service;
+}
+
 // Call this before any service registration helper. This is to ensure that if there
 // is a service registered we remove it first. We register all services to remove boiler plate from tests
 void _removeRegistrationIfExists<T extends Object>() {
@@ -99,5 +110,17 @@ void registerServices() {
   getAndRegisterPathService();
   getAndRegisterTemplateHelper();
   getAndRegisterPubSpecService();
+  getAndRegisterColorizedLogService();
 // @stacked-mock-helper-register
+}
+
+void createTestFile() {
+  File(ksTestFileName).writeAsStringSync(kAppTemplateAppContent);
+}
+
+Future<void> deleteTestFile() async {
+  File file = File(ksTestFileName);
+  if (await file.exists()) {
+    await file.delete();
+  }
 }
