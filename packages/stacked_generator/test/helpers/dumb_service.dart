@@ -15,6 +15,14 @@ class DumpService implements AbstractDumpService {
     return _instance!;
   }
 
+  static Future<DumpService> presolve() async {
+    if (_instance == null) {
+      _instance = DumpService();
+    }
+
+    return _instance!;
+  }
+
   static disposee(String) {}
 }
 

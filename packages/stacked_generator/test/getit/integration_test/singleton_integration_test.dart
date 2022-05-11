@@ -39,4 +39,13 @@ void main() {
       );
     });
   });
+  group('presolvedsingleton -', () {
+    test('has no compile issue', () async {
+      await checkCodeForCompilationError(
+        generatorName: 'stacked_generator',
+        relativePath: 'test/integration/singleton/',
+        fileName: 'presolvedsingleton.locator',
+      );
+    });
+  });
 }
