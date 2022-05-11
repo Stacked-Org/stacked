@@ -8,18 +8,16 @@
 
 import 'package:stacked_core/stacked_core.dart';
 
-import '../helpers/dumb_service.dart';
+import '../../helpers/dumb_service.dart';
 
-final factoryWithParamLocator = StackedLocator.instance;
+final lazySingletonLocator = StackedLocator.instance;
 
-void setupFactoryWithParamLocator(
+void setupLazySingletonLocator(
     {String? environment, EnvironmentFilter? environmentFilter}) {
 // Register environments
-  factoryWithParamLocator.registerEnvironment(
+  lazySingletonLocator.registerEnvironment(
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-  factoryWithParamLocator.registerFactoryParam<DumpServiceWithParams, String?,
-          int?>(
-      (param1, param2) => DumpServiceWithParams(name: param1, value: param2));
+  lazySingletonLocator.registerLazySingleton(() => DumpService());
 }

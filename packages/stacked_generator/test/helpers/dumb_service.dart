@@ -14,6 +14,8 @@ class DumpService implements AbstractDumpService {
 
     return _instance!;
   }
+
+  static disposee(String) {}
 }
 
 class DumpServiceWithParams {

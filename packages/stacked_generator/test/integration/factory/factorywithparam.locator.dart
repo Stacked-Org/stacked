@@ -8,16 +8,18 @@
 
 import 'package:stacked_core/stacked_core.dart';
 
-import '../helpers/dumb_service.dart';
+import '../../helpers/dumb_service.dart';
 
-final factoryLocator = StackedLocator.instance;
+final factoryWithParamLocator = StackedLocator.instance;
 
-void setupFactoryLocator(
+void setupFactoryWithParamLocator(
     {String? environment, EnvironmentFilter? environmentFilter}) {
 // Register environments
-  factoryLocator.registerEnvironment(
+  factoryWithParamLocator.registerEnvironment(
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-  factoryLocator.registerFactory(() => DumpService());
+  factoryWithParamLocator.registerFactoryParam<DumpServiceWithParams, String?,
+          int?>(
+      (param1, param2) => DumpServiceWithParams(name: param1, value: param2));
 }
