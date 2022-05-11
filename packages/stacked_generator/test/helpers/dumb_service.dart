@@ -5,7 +5,15 @@ abstract class AbstractDumpService {}
 class DumpService implements AbstractDumpService {
   String? name;
   int? value;
-  DumpService();
+  static DumpService? _instance;
+
+  static DumpService getInstance() {
+    if (_instance == null) {
+      _instance = DumpService();
+    }
+
+    return _instance!;
+  }
 }
 
 class DumpServiceWithParams {

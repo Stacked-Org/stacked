@@ -16,7 +16,8 @@ $src
   }, (r) => r.findLibraryByName('main'));
 
   final errorResult = await main!.session
-      .getErrors('/freezed/test/integration/main.dart') as ErrorsResult;
+          .getErrors('/stacked_generator/test/integration/main.dart')
+      as ErrorsResult;
   final criticalErrors = errorResult.errors
       .where((element) => element.severity == Severity.error)
       .toList();
@@ -36,20 +37,23 @@ class CompileError extends Error {
   }
 }
 
-Future<void> checkCodeForCompilationError(String resolverPath,
-    String fileNameWithoutExtension, String absolutePath) async {
+Future<void> checkCodeForCompilationError(
+    {required String generatorName,
+    required String relativePath,
+    required String fileName}) async {
   final main = await resolveSources(
     {
-      resolverPath: useAssetReader,
+      generatorName + '|' + relativePath + fileName + '.dart': useAssetReader,
     },
     (r) => r.libraries.firstWhere((element) {
       /// [element.source.toString()] will print the name of the file for example 'test.dart'
-      return element.source.toString().contains(fileNameWithoutExtension);
+      return element.source.toString().contains(fileName);
     }),
   );
 
-  final errorResult =
-      await main.session.getErrors(absolutePath) as ErrorsResult;
+  final errorResult = await main.session.getErrors(
+          '/' + generatorName + '/' + relativePath + fileName + '.dart')
+      as ErrorsResult;
 
   expect(errorResult.errors, isEmpty);
 }
