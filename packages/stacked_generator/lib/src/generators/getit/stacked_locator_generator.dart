@@ -6,6 +6,9 @@ import 'package:source_gen/source_gen.dart';
 
 import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_generator/import_resolver.dart';
+import 'package:stacked_generator/src/generators/getit/dependency_config/factory_dependency.dart';
+import 'package:stacked_generator/src/generators/getit/dependency_config/presolve_singleton_dependency.dart';
+import 'package:stacked_generator/src/generators/getit/dependency_config/singleton_dependency.dart';
 import 'package:stacked_generator/src/generators/getit/stacked_locator_content_generator.dart';
 import 'package:stacked_generator/src/generators/getit/services_config.dart';
 import 'package:stacked_generator/src/generators/getit/stacked_locator_parameter_resolver.dart';
@@ -13,6 +16,7 @@ import 'package:stacked_generator/utils.dart';
 
 import 'dependency_config/dependency_config.dart';
 import 'dependency_config/factory_param_dependency.dart';
+import 'dependency_config/lazy_singleton.dart';
 
 class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
   @override
@@ -104,6 +108,56 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
     // NOTE: This can be used for actual dependency inject. We do service location instead.
     final constructor = classElement.unnamedConstructor;
 
+    if (dependencyReader.instanceOf(TypeChecker.fromRuntime(Factory))) {
+      return FactoryDependency(
+        import: import!,
+        className: className,
+        abstractedTypeClassName: abstractedTypeClassName,
+        abstractedImport: abstractedImport,
+        environments: environments,
+      );
+    }
+
+    if (dependencyReader.instanceOf(TypeChecker.fromRuntime(Singleton))) {
+      final ConstantReader? resolveUsing =
+          dependencyReader.peek('resolveUsing');
+      final resolveObject = resolveUsing?.objectValue.toFunctionValue();
+
+      return SingletonDependency(
+          import: import!,
+          className: className,
+          abstractedTypeClassName: abstractedTypeClassName,
+          abstractedImport: abstractedImport,
+          environments: environments,
+          resolveFunction: resolveObject?.displayName);
+    }
+    if (dependencyReader.instanceOf(TypeChecker.fromRuntime(LazySingleton))) {
+      final ConstantReader? resolveUsing =
+          dependencyReader.peek('resolveUsing');
+      final resolveObject = resolveUsing?.objectValue.toFunctionValue();
+
+      return LazySingletonDependency(
+          import: import!,
+          className: className,
+          abstractedTypeClassName: abstractedTypeClassName,
+          abstractedImport: abstractedImport,
+          environments: environments,
+          resolveFunction: resolveObject?.displayName);
+    }
+    if (dependencyReader.instanceOf(TypeChecker.fromRuntime(Presolve))) {
+      final ConstantReader? presolveUsing =
+          dependencyReader.peek('presolveUsing');
+      final presolveObject = presolveUsing?.objectValue.toFunctionValue();
+      return PresolveSingletonDependency(
+          import: import!,
+          className: className,
+          abstractedTypeClassName: abstractedTypeClassName,
+          abstractedImport: abstractedImport,
+          environments: environments,
+          presolveFunction: presolveObject?.displayName);
+    }
+    // if (dependencyReader
+    //     .instanceOf(TypeChecker.fromRuntime(FactoryWithParam))) {
     final Set<DependencyParamConfig> clazzParams = {};
     var params = constructor?.parameters;
     if (params?.isNotEmpty == true && constructor != null) {
@@ -112,56 +166,13 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
         clazzParams.add(paramResolver.resolve(p));
       }
     }
-
-    final serviceType = _getDependencyType(dependencyReader);
-
-    String? presolveFunction;
-    if (serviceType == DependencyType.PresolvedSingleton) {
-      final ConstantReader? presolveUsing =
-          dependencyReader.peek('presolveUsing');
-      final presolveObject = presolveUsing?.objectValue.toFunctionValue();
-      presolveFunction = presolveObject?.displayName;
-    }
-
-    String? resolveFunction;
-    if (serviceType == DependencyType.LazySingleton ||
-        serviceType == DependencyType.Singleton) {
-      final ConstantReader? resolveUsing =
-          dependencyReader.peek('resolveUsing');
-      final resolveObject = resolveUsing?.objectValue.toFunctionValue();
-      resolveFunction = resolveObject?.displayName;
-    }
-
-    return DependencyConfig(
-      className: className,
-      abstractedTypeClassName: abstractedTypeClassName,
-      import: import,
-      abstractedImport: abstractedImport,
-      type: serviceType,
-      params: clazzParams,
-      presolveFunction: presolveFunction,
-      resolveFunction: resolveFunction,
-      environments: environments,
-    );
-  }
-
-  DependencyType _getDependencyType(ConstantReader serviceReader) {
-    if (serviceReader.instanceOf(TypeChecker.fromRuntime(Factory))) {
-      return DependencyType.Factory;
-    }
-    if (serviceReader.instanceOf(TypeChecker.fromRuntime(Singleton))) {
-      return DependencyType.Singleton;
-    }
-    if (serviceReader.instanceOf(TypeChecker.fromRuntime(LazySingleton))) {
-      return DependencyType.LazySingleton;
-    }
-    if (serviceReader.instanceOf(TypeChecker.fromRuntime(Presolve))) {
-      return DependencyType.PresolvedSingleton;
-    }
-    if (serviceReader.instanceOf(TypeChecker.fromRuntime(FactoryWithParam))) {
-      return DependencyType.FactoryWithParam;
-    }
-
-    return DependencyType.Singleton;
+    return FactoryParamDependency(
+        import: import!,
+        className: className,
+        abstractedTypeClassName: abstractedTypeClassName,
+        abstractedImport: abstractedImport,
+        environments: environments,
+        params: clazzParams);
+    // }
   }
 }
