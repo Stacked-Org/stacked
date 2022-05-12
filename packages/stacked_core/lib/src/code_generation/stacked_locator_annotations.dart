@@ -62,7 +62,6 @@ class LazySingleton<T> extends DependencyRegistration {
     Type? asType,
     Function? resolveUsing,
     Set<String>? environments,
-    FutureOr Function(T)? dispose,
   }) : super(
           classType: classType,
           asType: asType,
