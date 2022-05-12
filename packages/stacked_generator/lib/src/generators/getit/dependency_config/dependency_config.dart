@@ -1,6 +1,4 @@
 import 'package:recase/recase.dart';
-import 'package:stacked_generator/src/generators/getit/dependency_config/lazy_singleton.dart';
-import 'package:stacked_generator/src/generators/getit/dependency_config/singleton_dependency.dart';
 
 abstract class DependencyConfig {
   /// The import to use for the type of the service

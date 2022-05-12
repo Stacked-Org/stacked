@@ -43,7 +43,7 @@ class FactoryParamDependency extends DependencyConfig {
 
     final hasAbstratedType = abstractedTypeClassName != null;
     final abstractionType =
-        hasAbstratedType ? '<${abstractedTypeClassName}>' : '';
+        hasAbstratedType ? '<$abstractedTypeClassName>' : '';
     final Set<String> constructorParams = {};
     final List<String> constructorParamTypes = [];
     this.params!.toList().asMap().forEach((index, paramConfig) {

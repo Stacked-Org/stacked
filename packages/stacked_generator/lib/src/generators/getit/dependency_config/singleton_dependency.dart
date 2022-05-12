@@ -22,7 +22,8 @@ class SingletonDependency extends DependencyConfig {
   @override
   String body(String locatorName) {
     final hasAbstratedType = abstractedTypeClassName != null;
-    final abstractionType = hasAbstratedType ? '<abstractedTypeClassName>' : '';
+    final abstractionType =
+        hasAbstratedType ? '<$abstractedTypeClassName>' : '';
     final hasResolveFunction = resolveFunction != null;
     final singletonInstanceToReturn =
         hasResolveFunction ? '$className.$resolveFunction()' : '$className()';

@@ -12,7 +12,7 @@ import '../../helpers/dumb_service.dart';
 
 final presolvedsingletonLocator = StackedLocator.instance;
 
-Future setupPresolvedsingletonLocator(
+Future<void> setupPresolvedsingletonLocator(
     {String? environment, EnvironmentFilter? environmentFilter}) async {
 // Register environments
   presolvedsingletonLocator.registerEnvironment(
