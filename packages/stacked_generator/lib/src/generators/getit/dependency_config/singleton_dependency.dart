@@ -1,5 +1,6 @@
 import 'dependency_config.dart';
 import 'package:stacked_generator/src/generators/extensions/environments_extract_extension.dart';
+import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
 
 class SingletonDependency extends DependencyConfig {
   /// The static function to use for resolving a singleton instance
@@ -21,12 +22,9 @@ class SingletonDependency extends DependencyConfig {
 
   @override
   String body(String locatorName) {
-    final hasAbstratedType = abstractedTypeClassName != null;
-    final abstractionType =
-        hasAbstratedType ? '<$abstractedTypeClassName>' : '';
     final hasResolveFunction = resolveFunction != null;
     final singletonInstanceToReturn =
         hasResolveFunction ? '$className.$resolveFunction()' : '$className()';
-    return '$locatorName.registerSingleton$abstractionType($singletonInstanceToReturn  ${environments.getFromatedEnvs});';
+    return '$locatorName.registerSingleton${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}($singletonInstanceToReturn  ${environments.getFromatedEnvs});';
   }
 }

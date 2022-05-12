@@ -1,5 +1,6 @@
 import 'dependency_config.dart';
 import 'package:stacked_generator/src/generators/extensions/environments_extract_extension.dart';
+import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
 
 class FactoryDependency extends DependencyConfig {
   const FactoryDependency({
@@ -17,10 +18,6 @@ class FactoryDependency extends DependencyConfig {
 
   @override
   String body(String locatorName) {
-    final hasAbstratedType = abstractedTypeClassName != null;
-    final abstractionType =
-        hasAbstratedType ? '<$abstractedTypeClassName>' : '';
-
-    return '$locatorName.registerFactory$abstractionType(() => $className()  ${environments.getFromatedEnvs});';
+    return '$locatorName.registerFactory${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}(() => $className()  ${environments.getFromatedEnvs});';
   }
 }

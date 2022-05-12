@@ -21,6 +21,7 @@ abstract class DependencyConfig {
     this.environments,
     this.abstractedTypeClassName,
   });
+
   String body(String locatorName);
 
   /// Returns a camel case version o the [className]

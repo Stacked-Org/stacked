@@ -1,5 +1,6 @@
 import 'package:stacked_generator/utils.dart';
 import 'package:stacked_generator/src/generators/extensions/environments_extract_extension.dart';
+import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
 
 import 'dependency_config.dart';
 
@@ -42,9 +43,6 @@ class FactoryParamDependency extends DependencyConfig {
       "Max number of factory params supported by get_it is 2",
     );
 
-    final hasAbstratedType = abstractedTypeClassName != null;
-    final abstractionType =
-        hasAbstratedType ? '<$abstractedTypeClassName>' : '';
     final Set<String> constructorParams = {};
     final List<String> constructorParamTypes = [];
     factoryParamList.toList().asMap().forEach((index, paramConfig) {
@@ -73,7 +71,7 @@ class FactoryParamDependency extends DependencyConfig {
     final constructerParamtypes =
         constructorParamTypes.toString().replaceAll(RegExp(r'[\[\]]'), '');
 
-    return '$locatorName.registerFactoryParam<$className,$constructerParamtypes>$abstractionType((param1, param2) => $className($constructerParams)  ${environments.getFromatedEnvs});';
+    return '$locatorName.registerFactoryParam<$className,$constructerParamtypes>${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}((param1, param2) => $className($constructerParams)  ${environments.getFromatedEnvs});';
   }
 }
 
