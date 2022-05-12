@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:stacked_generator/src/generators/base_generator.dart';
+import 'package:stacked_generator/src/generators/extensions/list_utils_extension.dart';
 import 'package:stacked_generator/src/generators/logging/logger_config.dart';
 
 import 'logger_class_content.dart';
@@ -35,16 +36,5 @@ class LoggerClassGenerator extends BaseGenerator {
         _loggerConfig.loggerOutputs.addCheckForReleaseModeToEachLogger);
 
     write(loggerOutputsInPlace);
-  }
-}
-
-extension LoggerClassGeneratorExtension on List<String> {
-  String get addCheckForReleaseModeToEachLogger {
-    final _multiLoggers = StringBuffer();
-
-    this.forEach((element) {
-      _multiLoggers.write(" if(kReleaseMode) $element(),");
-    });
-    return _multiLoggers.toString();
   }
 }
