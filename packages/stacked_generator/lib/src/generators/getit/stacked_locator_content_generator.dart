@@ -1,4 +1,5 @@
 import 'package:stacked_generator/src/generators/base_generator.dart';
+import 'package:stacked_generator/src/generators/getit/dependency_config/factory_param_dependency.dart';
 import 'package:stacked_generator/src/generators/getit/services_config.dart';
 
 import 'dependency_config/dependency_config.dart';
@@ -56,13 +57,9 @@ class StackedLocatorContentGenerator extends BaseGenerator {
     imports.addAll(services.map((service) => service.import));
     imports.addAll(services.map((service) => service.abstractedImport));
 
-    services.forEach((element) {
-      if (element.params != null) {
-        element.params!.forEach((im) {
-          if (im.imports != null) {
-            imports.addAll(im.imports!);
-          }
-        });
+    services.forEach((dependency) {
+      if (dependency is FactoryParamDependency) {
+        imports.addAll(dependency.extraImports());
       }
     });
 

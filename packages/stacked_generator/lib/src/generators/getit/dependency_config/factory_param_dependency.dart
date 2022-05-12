@@ -20,6 +20,15 @@ class FactoryParamDependency extends DependencyConfig {
             abstractedImport: abstractedImport,
             abstractedTypeClassName: abstractedTypeClassName,
             environments: environments);
+  Set<String> extraImports() {
+    if (params == null) return {};
+    return params!.map((e) => e.imports ?? {}).fold(
+        {},
+        (previousValue, element) => {
+              ...previousValue,
+              ...element,
+            });
+  }
 
   @override
   String body(String locatorName) {

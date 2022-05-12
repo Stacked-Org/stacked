@@ -27,7 +27,4 @@ abstract class DependencyConfig {
 
   /// Returns a camel case version o the [className]
   String get camelCaseClassName => ReCase(className).camelCase;
-
-  bool get hasResolveFunction =>
-      this is SingletonDependency || this is LazySingletonDependency;
 }
