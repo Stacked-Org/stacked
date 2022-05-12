@@ -68,15 +68,10 @@ void main() {
       });
       test('with two dependencies and added DependencyParamConfig imports', () {
         final servicesConfig = ServicesConfig(services: [
-          FactoryParamDependency(
-              import: 'importOne',
-              className: 'GeolocaorService',
-              params: {
-                DependencyParamConfig(imports: {
-                  'importsSetOne',
-                  'importsSetTwo',
-                })
-              }),
+          SingletonDependency(
+            import: 'importOne',
+            className: 'GeolocaorService',
+          ),
         ]);
 
         callGeneratorWithServicesConfigAndExpectResult(

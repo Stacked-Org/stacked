@@ -7,7 +7,7 @@ import 'importOne';
 
 final ebraLocator = StackedLocator.instance;
 
-void ebraLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+Future<void> ebraLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
 
 // Register environments
 ebraLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
@@ -26,7 +26,7 @@ import 'importTwo';
 
 final filledstacksLocator = StackedLocator.instance;
 
-void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
 
 // Register environments
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
@@ -42,12 +42,10 @@ final kStackedLocaterWithOneDependencyOutputWithImports = '''
 import 'package:stacked_core/stacked_core.dart';
 
 import 'importOne';
-import 'importsSetOne';
-import 'importsSetTwo';
 
 final filledstacksLocator = StackedLocator.instance;
 
-void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
 
 // Register environments
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
@@ -67,7 +65,7 @@ import 'importOne';
 
 final filledstacksLocator = StackedLocator.instance;
 
-void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
 
 // Register environments
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
@@ -85,7 +83,7 @@ import 'importOne';
 
 final filledstacksLocator = StackedLocator.instance;
 
-void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
 
 // Register environments
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
@@ -103,7 +101,7 @@ import 'importOne';
 
 final filledstacksLocator = StackedLocator.instance;
 
-void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
 
 // Register environments
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
@@ -142,7 +140,7 @@ import 'importOne';
 
 final filledstacksLocator = StackedLocator.instance;
 
-void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
 
 // Register environments
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
@@ -161,7 +159,7 @@ import 'importOne';
 
 final filledstacksLocator = StackedLocator.instance;
 
-void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
 
 // Register environments
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
@@ -180,7 +178,7 @@ import 'importOne';
 
 final filledstacksLocator = StackedLocator.instance;
 
-void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
 
 // Register environments
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
@@ -199,7 +197,7 @@ import 'importOne';
 
 final filledstacksLocator = StackedLocator.instance;
 
-void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
 
 // Register environments
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
@@ -218,7 +216,7 @@ import 'importOne';
 
 final filledstacksLocator = StackedLocator.instance;
 
-void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
 
 // Register environments
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
@@ -237,7 +235,7 @@ import 'importOne';
 
 final filledstacksLocator = StackedLocator.instance;
 
-void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
 
 // Register environments
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
@@ -255,7 +253,7 @@ import 'importOne';
 
 final filledstacksLocator = StackedLocator.instance;
 
-void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
 
 // Register environments
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
@@ -273,7 +271,7 @@ import 'importOne';
 
 final filledstacksLocator = StackedLocator.instance;
 
-void filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter})  {
+Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
 
 // Register environments
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
