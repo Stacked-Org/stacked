@@ -25,10 +25,8 @@ class StackedLocatorContentGenerator extends BaseGenerator {
     writeLine('final $locatorName = StackedLocator.instance;');
     newLine();
 
-    final hasPresolve = services.any((service) => service.hasResolveFunction);
-
     writeLine(
-        '${hasPresolve ? 'Future' : 'void'} $locatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) ${hasPresolve ? 'async' : ''} {');
+        'Future<void> $locatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {');
 
     newLine();
     writeLine('// Register environments');
