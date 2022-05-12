@@ -48,7 +48,7 @@ class FactoryParamDependency extends DependencyConfig {
     final List<String> constructorParamTypes = [];
     this.params!.toList().asMap().forEach((index, paramConfig) {
       throwIf(
-        paramConfig.type!.contains("?"),
+        !paramConfig.type!.contains("?"),
         "Factory params must be nullable. Parameter ${paramConfig.name} is not nullable",
       );
 
