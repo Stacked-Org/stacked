@@ -1,4 +1,4 @@
-import 'package:stacked_generator/src/generators/getit/dependency_config.dart';
+import 'dependency_config/dependency_config.dart';
 
 /// Describes the configuration of a service to be registered with get_it
 class ServicesConfig {
