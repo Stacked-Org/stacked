@@ -18,7 +18,6 @@ class DependencyParameterResolver {
 
     final isFactoryParam =
         _factoryParamChecker.hasAnnotationOfExact(parameterElement);
-
     return DependencyParamConfig(
       isFactoryParam: isFactoryParam,
       type: toDisplayString(paramType, withNullability: true),

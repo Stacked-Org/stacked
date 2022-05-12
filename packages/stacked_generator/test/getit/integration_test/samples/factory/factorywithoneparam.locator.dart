@@ -8,17 +8,19 @@
 
 import 'package:stacked_core/stacked_core.dart';
 
-import '../../helpers/dumb_service.dart';
+import '../../../../helpers/dumb_service.dart';
 
-final singletonWithTypeLocator = StackedLocator.instance;
+final factoryWithOneParamLocator = StackedLocator.instance;
 
-Future<void> setupSingletonWithTypeLocator(
+Future<void> setupFactoryWithOneParamLocator(
     {String? environment, EnvironmentFilter? environmentFilter}) async {
 // Register environments
-  singletonWithTypeLocator.registerEnvironment(
+  factoryWithOneParamLocator.registerEnvironment(
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-  singletonWithTypeLocator
-      .registerSingleton<AbstractDumpService>(DumpService());
+  factoryWithOneParamLocator.registerFactoryParam<
+      DumpServiceWithOneParam,
+      String?,
+      dynamic>((param1, param2) => DumpServiceWithOneParam(name: param1));
 }

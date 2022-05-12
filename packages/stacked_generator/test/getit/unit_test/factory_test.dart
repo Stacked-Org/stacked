@@ -2,8 +2,8 @@ import 'package:stacked_core/stacked_core.dart';
 import 'package:test/test.dart';
 
 import '../../helpers/dumb_service.dart';
-import '../../integration/factory/factory.locator.dart';
-import '../../integration/factory/factorywithtype.locator.dart';
+import '../integration_test/samples/factory/factory.locator.dart';
+import '../integration_test/samples/factory/factorywithtype.locator.dart';
 
 void main() {
   group('FactoryTest -', () {

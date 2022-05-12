@@ -8,17 +8,16 @@
 
 import 'package:stacked_core/stacked_core.dart';
 
-import '../../helpers/dumb_service.dart';
+import '../../../../helpers/dumb_service.dart';
 
-final presolvedsingletonLocator = StackedLocator.instance;
+final lazySingletonLocator = StackedLocator.instance;
 
-Future<void> setupPresolvedsingletonLocator(
+Future<void> setupLazySingletonLocator(
     {String? environment, EnvironmentFilter? environmentFilter}) async {
 // Register environments
-  presolvedsingletonLocator.registerEnvironment(
+  lazySingletonLocator.registerEnvironment(
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-  final dumpService = await DumpService.presolve();
-  presolvedsingletonLocator.registerSingleton(dumpService);
+  lazySingletonLocator.registerLazySingleton(() => DumpService());
 }

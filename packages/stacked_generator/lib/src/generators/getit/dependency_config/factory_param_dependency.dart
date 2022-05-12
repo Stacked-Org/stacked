@@ -32,12 +32,13 @@ class FactoryParamDependency extends DependencyConfig {
 
   @override
   String body(String locatorName) {
+    final factoryParamList = params?.where((element) => element.isFactoryParam);
     throwIf(
-      params?.isEmpty ?? true,
+      factoryParamList?.isEmpty ?? true,
       "At least one paramter is requerd for FactoryWithParam registration ",
     );
     throwIf(
-      params!.length > 2,
+      factoryParamList!.length > 2,
       "Max number of factory params supported by get_it is 2",
     );
 
@@ -46,7 +47,7 @@ class FactoryParamDependency extends DependencyConfig {
         hasAbstratedType ? '<$abstractedTypeClassName>' : '';
     final Set<String> constructorParams = {};
     final List<String> constructorParamTypes = [];
-    this.params!.toList().asMap().forEach((index, paramConfig) {
+    factoryParamList.toList().asMap().forEach((index, paramConfig) {
       throwIf(
         !paramConfig.type!.contains("?"),
         "Factory params must be nullable. Parameter ${paramConfig.name} is not nullable",
@@ -63,7 +64,7 @@ class FactoryParamDependency extends DependencyConfig {
 
       constructorParamTypes.add('${paramConfig.type}');
     });
-    if (this.params == 1) {
+    if (factoryParamList.length == 1) {
       constructorParamTypes.add('dynamic');
     }
 
@@ -94,7 +95,7 @@ class DependencyParamConfig {
   /// When set this to [true] make sure that [type] is not null
   final bool isFactoryParam;
 
-  DependencyParamConfig({
+  const DependencyParamConfig({
     this.type,
     this.name,
     this.isFactoryParam = false,

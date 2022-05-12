@@ -2,8 +2,8 @@ import 'package:stacked_core/stacked_core.dart';
 import 'package:test/test.dart';
 
 import '../../helpers/dumb_service.dart';
-import '../../integration/singleton/singleton.locator.dart';
-import '../../integration/singleton/singletonwithtype.locator.dart';
+import '../integration_test/samples/singleton/singleton.locator.dart';
+import '../integration_test/samples/singleton/singletonwithtype.locator.dart';
 
 void main() {
   group('SingletonTest -', () {

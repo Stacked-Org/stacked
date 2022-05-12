@@ -1,6 +1,6 @@
 import 'package:stacked_core/stacked_core.dart';
 
-import '../../helpers/dumb_service.dart';
+import '../../../../helpers/dumb_service.dart';
 
 @StackedApp(
   routes: [],

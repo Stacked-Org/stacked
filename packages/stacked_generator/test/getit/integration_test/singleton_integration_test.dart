@@ -7,7 +7,7 @@ void main() {
     test('has no compile issue', () async {
       await checkCodeForCompilationError(
         generatorName: 'stacked_generator',
-        relativePath: 'test/integration/singleton/',
+        relativePath: 'test/getit/integration_test/samples/singleton/',
         fileName: 'singleton.locator',
       );
     });
@@ -16,7 +16,7 @@ void main() {
     test('has no compile issue', () async {
       await checkCodeForCompilationError(
         generatorName: 'stacked_generator',
-        relativePath: 'test/integration/singleton/',
+        relativePath: 'test/getit/integration_test/samples/singleton/',
         fileName: 'singletonwithtype.locator',
       );
     });
@@ -25,7 +25,7 @@ void main() {
     test('has no compile issue', () async {
       await checkCodeForCompilationError(
         generatorName: 'stacked_generator',
-        relativePath: 'test/integration/singleton/',
+        relativePath: 'test/getit/integration_test/samples/singleton/',
         fileName: 'singletonwithresolve.locator',
       );
     });
@@ -34,7 +34,7 @@ void main() {
     test('has no compile issue', () async {
       await checkCodeForCompilationError(
         generatorName: 'stacked_generator',
-        relativePath: 'test/integration/singleton/',
+        relativePath: 'test/getit/integration_test/samples/singleton/',
         fileName: 'lazysingleton.locator',
       );
     });
@@ -43,7 +43,7 @@ void main() {
     test('has no compile issue', () async {
       await checkCodeForCompilationError(
         generatorName: 'stacked_generator',
-        relativePath: 'test/integration/singleton/',
+        relativePath: 'test/getit/integration_test/samples/singleton/',
         fileName: 'presolvedsingleton.locator',
       );
     });

@@ -1,14 +1,14 @@
 import 'package:stacked_core/stacked_core.dart';
 
-import '../../helpers/dumb_service.dart';
+import '../../../../helpers/dumb_service.dart';
 
 @StackedApp(
   routes: [],
   dependencies: [
-    Presolve(classType: DumpService, presolveUsing: DumpService.presolve),
+    Singleton(classType: DumpService),
   ],
-  locatorName: 'PresolvedsingletonLocator',
-  locatorSetupName: 'setupPresolvedsingletonLocator',
+  locatorName: 'SingletonLocator',
+  locatorSetupName: 'setupSingletonLocator',
 )
 class App {
   /** This class has no puporse besides housing the annotation that generates the required functionality **/

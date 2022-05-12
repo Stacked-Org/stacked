@@ -7,7 +7,7 @@ void main() {
     test('has no compile issue', () async {
       await checkCodeForCompilationError(
         generatorName: 'stacked_generator',
-        relativePath: 'test/integration/factory/',
+        relativePath: 'test/getit/integration_test/samples/factory/',
         fileName: 'factory.locator',
       );
     });
@@ -16,17 +16,26 @@ void main() {
     test('has no compile issue', () async {
       await checkCodeForCompilationError(
         generatorName: 'stacked_generator',
-        relativePath: 'test/integration/factory/',
+        relativePath: 'test/getit/integration_test/samples/factory/',
         fileName: 'factorywithtype.locator',
       );
     });
   });
-  group('factorywithparam -', () {
+  group('factorywithoneparam -', () {
     test('has no compile issue', () async {
       await checkCodeForCompilationError(
         generatorName: 'stacked_generator',
-        relativePath: 'test/integration/factory/',
-        fileName: 'factorywithparam.locator',
+        relativePath: 'test/getit/integration_test/samples/factory/',
+        fileName: 'factorywithoneparam.locator',
+      );
+    });
+  });
+  group('factorywithtwoparam -', () {
+    test('has no compile issue', () async {
+      await checkCodeForCompilationError(
+        generatorName: 'stacked_generator',
+        relativePath: 'test/getit/integration_test/samples/factory/',
+        fileName: 'factorywithtwoparam.locator',
       );
     });
   });

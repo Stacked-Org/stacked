@@ -120,7 +120,7 @@ import 'importOne';
 
 final filledstacksLocator = StackedLocator.instance;
 
-Future filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
+Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
 
 // Register environments
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);

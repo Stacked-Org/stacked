@@ -26,10 +26,19 @@ class DumpService implements AbstractDumpService {
   static disposee(String) {}
 }
 
+class DumpServiceWithOneParam {
+  final String? name;
+  final int? value;
+  const DumpServiceWithOneParam({
+    @factoryParam this.name,
+    this.value,
+  });
+}
+
 class DumpServiceWithParams {
   final String? name;
   final int? value;
-  DumpServiceWithParams({
+  const DumpServiceWithParams({
     @factoryParam this.name,
     @factoryParam this.value,
   });
