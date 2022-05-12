@@ -22,7 +22,7 @@ abstract class DependencyConfig {
     this.abstractedTypeClassName,
   });
 
-  String body(String locatorName);
+  String registerDependencies(String locatorName);
 
   /// Returns a camel case version o the [className]
   String get camelCaseClassName => ReCase(className).camelCase;

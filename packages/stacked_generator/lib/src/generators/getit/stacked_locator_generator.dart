@@ -10,7 +10,6 @@ import 'package:stacked_generator/src/generators/getit/dependency_config/factory
 import 'package:stacked_generator/src/generators/getit/dependency_config/presolve_singleton_dependency.dart';
 import 'package:stacked_generator/src/generators/getit/dependency_config/singleton_dependency.dart';
 import 'package:stacked_generator/src/generators/getit/stacked_locator_content_generator.dart';
-import 'package:stacked_generator/src/generators/getit/services_config.dart';
 import 'package:stacked_generator/src/generators/getit/stacked_locator_parameter_resolver.dart';
 import 'package:stacked_generator/utils.dart';
 
@@ -41,18 +40,18 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
 
     final servicesConfig = stackedApplication.peek('dependencies')?.listValue;
     if (servicesConfig != null) {
-      List<DependencyConfig> services = <DependencyConfig>[];
+      List<DependencyConfig> dependencies = <DependencyConfig>[];
       // Convert the services config into Services configuration
       for (final serviceConfig in servicesConfig) {
         final serialisedServiceConfig = _readDependencyConfig(
           dependencyConfig: serviceConfig,
           importResolver: importResolver,
         );
-        services.add(serialisedServiceConfig);
+        dependencies.add(serialisedServiceConfig);
       }
 
       return StackedLocatorContentGenerator(
-        servicesConfig: ServicesConfig(services: services),
+        dependencies: dependencies,
         locatorName: toLowerCamelCase(locatorName),
         locatorSetupName: toLowerCamelCase(locatorSetupName),
       ).generate();
@@ -158,7 +157,7 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
     }
     // if (dependencyReader
     //     .instanceOf(TypeChecker.fromRuntime(FactoryWithParam))) {
-    final Set<DependencyParamConfig> clazzParams = {};
+    final Set<FactoryParameter> clazzParams = {};
     var params = constructor?.parameters;
     if (params?.isNotEmpty == true && constructor != null) {
       final paramResolver = DependencyParameterResolver(importResolver);

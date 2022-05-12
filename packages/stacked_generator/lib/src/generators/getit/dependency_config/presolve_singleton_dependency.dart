@@ -21,7 +21,7 @@ class PresolveSingletonDependency extends DependencyConfig {
             environments: environments);
 
   @override
-  String body(String locatorName) {
+  String registerDependencies(String locatorName) {
     return '''
         final $camelCaseClassName = await $className.$presolveFunction();
         $locatorName.registerSingleton${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}($camelCaseClassName  ${environments.getFromatedEnvs});

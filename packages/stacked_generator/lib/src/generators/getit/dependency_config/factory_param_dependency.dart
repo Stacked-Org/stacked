@@ -6,7 +6,7 @@ import 'dependency_config.dart';
 
 class FactoryParamDependency extends DependencyConfig {
   /// A set of parameters that are passed to the factory function.
-  final Set<DependencyParamConfig>? params;
+  final Set<FactoryParameter>? params;
 
   const FactoryParamDependency({
     required String import,
@@ -32,7 +32,7 @@ class FactoryParamDependency extends DependencyConfig {
   }
 
   @override
-  String body(String locatorName) {
+  String registerDependencies(String locatorName) {
     final factoryParamList = params?.where((element) => element.isFactoryParam);
     throwIf(
       factoryParamList?.isEmpty ?? true,
@@ -75,7 +75,7 @@ class FactoryParamDependency extends DependencyConfig {
   }
 }
 
-class DependencyParamConfig {
+class FactoryParameter {
   /// Doesn't have an effect when isPositional=true
   final String? name;
   final bool isPositional;
@@ -93,7 +93,7 @@ class DependencyParamConfig {
   /// When set this to [true] make sure that [type] is not null
   final bool isFactoryParam;
 
-  const DependencyParamConfig({
+  const FactoryParameter({
     this.type,
     this.name,
     this.isFactoryParam = false,

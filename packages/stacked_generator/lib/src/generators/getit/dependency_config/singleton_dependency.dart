@@ -21,10 +21,10 @@ class SingletonDependency extends DependencyConfig {
             environments: environments);
 
   @override
-  String body(String locatorName) {
-    final hasResolveFunction = resolveFunction != null;
-    final singletonInstanceToReturn =
-        hasResolveFunction ? '$className.$resolveFunction()' : '$className()';
+  String registerDependencies(String locatorName) {
+    final singletonInstanceToReturn = resolveFunction != null
+        ? '$className.$resolveFunction()'
+        : '$className()';
     return '$locatorName.registerSingleton${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}($singletonInstanceToReturn  ${environments.getFromatedEnvs});';
   }
 }

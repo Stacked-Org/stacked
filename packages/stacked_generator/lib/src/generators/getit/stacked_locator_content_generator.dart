@@ -1,25 +1,23 @@
 import 'package:stacked_generator/src/generators/base_generator.dart';
 import 'package:stacked_generator/src/generators/getit/dependency_config/factory_param_dependency.dart';
-import 'package:stacked_generator/src/generators/getit/services_config.dart';
 
 import 'dependency_config/dependency_config.dart';
 
 class StackedLocatorContentGenerator extends BaseGenerator {
   final String locatorName;
   final String locatorSetupName;
-  final ServicesConfig servicesConfig;
+  final List<DependencyConfig> dependencies;
 
   StackedLocatorContentGenerator({
-    required this.servicesConfig,
+    required this.dependencies,
     required this.locatorName,
     required this.locatorSetupName,
   });
   @override
   String generate() {
-    final services = servicesConfig.services;
     writeLine("// ignore_for_file: public_member_api_docs");
 
-    _generateImports(services);
+    _generateImports(dependencies);
 
     newLine();
     writeLine('final $locatorName = StackedLocator.instance;');
@@ -38,9 +36,10 @@ class StackedLocatorContentGenerator extends BaseGenerator {
     writeLine('// Register dependencies');
 
     // Loop through all service definitions and generate the code for it
-    for (final serviceDefinition in services) {
-      final registrationCodeForType = serviceDefinition.body(locatorName);
-      writeLine(registrationCodeForType);
+    for (final dependency in dependencies) {
+      final registerDependenciesCode =
+          dependency.registerDependencies(locatorName);
+      writeLine(registerDependenciesCode);
     }
 
     writeLine('}');

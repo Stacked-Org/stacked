@@ -17,7 +17,7 @@ class FactoryDependency extends DependencyConfig {
             environments: environments);
 
   @override
-  String body(String locatorName) {
+  String registerDependencies(String locatorName) {
     return '$locatorName.registerFactory${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}(() => $className()  ${environments.getFromatedEnvs});';
   }
 }
