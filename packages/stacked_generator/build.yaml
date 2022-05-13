@@ -10,7 +10,14 @@ targets:
           include:
             - test/getit/integration_test/samples/*
             - test/getit/integration_test/samples/**
-           
+      stacked_generator|stackedLoggerGenerator:
+        enabled: true
+        generate_for:
+          exclude:
+            - test
+            - .dart_tool
+          include:
+            - test/logging/integration_test/samples/*
       source_gen|combining_builder:
         options:
           ignore_for_file:
