@@ -230,7 +230,7 @@ class SnackbarService {
       return getBar.show();
     } else {
       Completer completer = new Completer();
-      WidgetsBinding.instance?.addPostFrameCallback((_) async {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
         final result = await getBar.show();
         completer.complete(result);
       });

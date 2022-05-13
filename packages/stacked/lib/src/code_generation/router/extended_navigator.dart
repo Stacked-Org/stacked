@@ -193,11 +193,11 @@ class ExtendedNavigatorState<T extends RouterBase?>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     _navigatorKey = widget.navigatorKey ?? GlobalKey<NavigatorState>();
     _heroController = HeroController(createRectTween: _createRectTween);
     if (_guardedInitialRoutes.isNotEmpty) {
-      SchedulerBinding.instance!.addPostFrameCallback((_) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
         _pushAllGuarded(_guardedInitialRoutes);
       });
     }
@@ -253,10 +253,10 @@ class ExtendedNavigatorState<T extends RouterBase?>
     assert(router != null);
     return Navigator(
       key: _navigatorKey,
-      initialRoute: WidgetsBinding.instance!.window.defaultRouteName !=
+      initialRoute: WidgetsBinding.instance.window.defaultRouteName !=
               Navigator.defaultRouteName
-          ? WidgetsBinding.instance!.window.defaultRouteName
-          : initial ?? WidgetsBinding.instance!.window.defaultRouteName,
+          ? WidgetsBinding.instance.window.defaultRouteName
+          : initial ?? WidgetsBinding.instance.window.defaultRouteName,
       observers: List.from(widget.observers)..add(_heroController!),
       onGenerateRoute: (RouteSettings settings) {
         return router!.onGenerateRoute(settings, basePath);
@@ -467,7 +467,7 @@ class ExtendedNavigatorState<T extends RouterBase?>
     if (_parent != null) {
       _parent!.children.remove(this);
     }
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
 
     if (routerName != null) {
       _NavigatorsContainer._instance.remove(routerName);

@@ -50,7 +50,7 @@ class ThemeManager {
   /// Returns the current selected theme mode
   ThemeMode? get selectedThemeMode => _selectedThemeMode;
 
-  ThemeModel get initalTheme => _initialTheme!;
+  ThemeModel get initialTheme => _initialTheme!;
 
   /// A builder function that provides you with the new selected theme that expects you to
   /// return a color for the status bar.
@@ -119,8 +119,8 @@ You can supply either a list of ThemeData objects to the themes property or a li
       }
 
       if (_selectedThemeMode == ThemeMode.system) {
-        final brighteness =
-            SchedulerBinding.instance?.window.platformBrightness;
+        final brightness =
+            SchedulerBinding.instance.window.platformBrightness;
         selectedTheme = brighteness == Brightness.dark ? darkTheme : lightTheme;
       } else {
         selectedTheme =
@@ -218,7 +218,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
           _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme);
     } else {
       var currentBrightness =
-          SchedulerBinding.instance!.window.platformBrightness;
+          SchedulerBinding.instance.window.platformBrightness;
       updateOverlayColors(
           currentBrightness == Brightness.dark ? darkTheme : lightTheme);
     }
