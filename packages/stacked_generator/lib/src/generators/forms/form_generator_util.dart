@@ -10,6 +10,35 @@ class FormGeneratorUtil extends BaseGenerator {
   List<FieldConfig> get fields => formViewConfig.fields;
   String get viewName => formViewConfig.viewName;
 
+  String generateForm() {
+    writeLine("// ignore_for_file: public_member_api_docs");
+
+    generateImports();
+    generateValueMapKeys();
+    generateDropdownItemsMap();
+    generateTextEditingControllerItemsMap();
+    generateFormMixin();
+    generateFormViewModelExtensions();
+    return stringBuffer.toString();
+  }
+
+  void generateFormMixin() {
+    writeLine("mixin \$${viewName} on StatelessWidget {");
+
+    generateTextEditingControllersForTextFields();
+    generateFocusNodesForTextFields();
+    generateListenerRegistrationsForTextFields();
+    generateFormDataUpdateFunctionTorTextControllers();
+    generateDisposeForTextControllers();
+
+    writeLine('}');
+  }
+
+  void generateFormViewModelExtensions() {
+    generateFormViewModelExtensionForGetters();
+    generateFormViewModelExtensionForMethods();
+  }
+
   void generateImports() {
     // write route imports
     final imports = <String>{
