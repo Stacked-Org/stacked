@@ -3,9 +3,9 @@ import 'package:stacked_generator/src/generators/base_generator.dart';
 import 'package:stacked_generator/src/generators/forms/field_config.dart';
 import 'package:stacked_generator/src/generators/forms/form_view_config.dart';
 
-class FormUtilService extends BaseGenerator {
+class FormGeneratorUtil extends BaseGenerator {
   final FormViewConfig formViewConfig;
-  FormUtilService({required this.formViewConfig});
+  FormGeneratorUtil({required this.formViewConfig});
 
   List<FieldConfig> get fields => formViewConfig.fields;
   String get viewName => formViewConfig.viewName;

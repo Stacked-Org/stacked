@@ -1,41 +1,41 @@
-import 'package:stacked_generator/src/generators/forms/form_util_service.dart';
+import 'package:stacked_generator/src/generators/forms/form_generator_util.dart';
 import 'package:stacked_generator/src/generators/forms/form_view_config.dart';
 
 /// A generator that creates the form code based on the configs passed in
-class StackedFormContentGenerator extends FormUtilService {
-  final FormViewConfig formViewConfig;
-  StackedFormContentGenerator(this.formViewConfig)
-      : super(formViewConfig: formViewConfig);
+class StackedFormContentGenerator {
+  final FormViewConfig _formViewConfig;
+  StackedFormContentGenerator(this._formViewConfig) : super();
+
+  late FormGeneratorUtil _util;
 
   String generate() {
-    writeLine("// ignore_for_file: public_member_api_docs");
+    _util = FormGeneratorUtil(formViewConfig: _formViewConfig);
+    _util.writeLine("// ignore_for_file: public_member_api_docs");
 
-    // TODO: All of these functions can be moved into a separate util class or service
-    // and can then be unit tested to avoid simple mistakes. BUT, that's for later.
-    generateImports();
-    generateValueMapKeys();
-    generateDropdownItemsMap();
-    generateTextEditingControllerItemsMap();
+    _util.generateImports();
+    _util.generateValueMapKeys();
+    _util.generateDropdownItemsMap();
+    _util.generateTextEditingControllerItemsMap();
     _generateFormMixin();
     _generateFormViewModelExtensions();
 
-    return stringBuffer.toString();
+    return _util.stringBuffer.toString();
   }
 
   void _generateFormMixin() {
-    writeLine("mixin \$$viewName on StatelessWidget {");
+    _util.writeLine("mixin \$${_util.viewName} on StatelessWidget {");
 
-    generateTextEditingControllersForTextFields();
-    generateFocusNodesForTextFields();
-    generateListenerRegistrationsForTextFields();
-    generateFormDataUpdateFunctionTorTextControllers();
-    generateDisposeForTextControllers();
+    _util.generateTextEditingControllersForTextFields();
+    _util.generateFocusNodesForTextFields();
+    _util.generateListenerRegistrationsForTextFields();
+    _util.generateFormDataUpdateFunctionTorTextControllers();
+    _util.generateDisposeForTextControllers();
 
-    writeLine('}');
+    _util.writeLine('}');
   }
 
   void _generateFormViewModelExtensions() {
-    generateFormViewModelExtensionForGetters();
-    generateFormViewModelExtensionForMethods();
+    _util.generateFormViewModelExtensionForGetters();
+    _util.generateFormViewModelExtensionForMethods();
   }
 }
