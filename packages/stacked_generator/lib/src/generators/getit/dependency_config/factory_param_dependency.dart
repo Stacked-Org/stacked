@@ -66,10 +66,8 @@ class FactoryParamDependency extends DependencyConfig {
       constructorParamTypes.add('dynamic');
     }
 
-    final constructerParams =
-        constructorParams.toString().replaceAll(RegExp('[{}]'), '');
-    final constructerParamtypes =
-        constructorParamTypes.toString().replaceAll(RegExp(r'[\[\]]'), '');
+    final constructerParams = constructorParams.join(',');
+    final constructerParamtypes = constructorParamTypes.join(',');
 
     return '$locatorName.registerFactoryParam<$className,$constructerParamtypes>${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}((param1, param2) => $className($constructerParams)  ${environments.getFromatedEnvs});';
   }

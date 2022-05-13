@@ -165,7 +165,7 @@ Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFil
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-filledstacksLocator.registerFactoryParam<GeolocaorService,newType?, dynamic>((param1, param2) => GeolocaorService(null:param1)  );
+filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,dynamic>((param1, param2) => GeolocaorService(null:param1)  );
 }
 ''';
 final kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndDefaultValue =
@@ -184,7 +184,7 @@ Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFil
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-filledstacksLocator.registerFactoryParam<GeolocaorService,newType?, dynamic>((param1, param2) => GeolocaorService(null:param1 ?? shit)  );
+filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,dynamic>((param1, param2) => GeolocaorService(null:param1 ?? shit)  );
 }
 ''';
 final kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndIsPositionalIsTrue =
@@ -203,7 +203,7 @@ Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFil
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-filledstacksLocator.registerFactoryParam<GeolocaorService,newType?, dynamic>((param1, param2) => GeolocaorService(param1)  );
+filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,dynamic>((param1, param2) => GeolocaorService(param1)  );
 }
 ''';
 final kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndDefaultValueIsshitAndIsPositionalIsTrue =
@@ -222,7 +222,7 @@ Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFil
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-filledstacksLocator.registerFactoryParam<GeolocaorService,newType?, dynamic>((param1, param2) => GeolocaorService(param1 ?? shit)  );
+filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,dynamic>((param1, param2) => GeolocaorService(param1 ?? shit)  );
 }
 ''';
 final kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndIsNameIsHello =
@@ -241,7 +241,26 @@ Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFil
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-filledstacksLocator.registerFactoryParam<GeolocaorService,newType?, dynamic>((param1, param2) => GeolocaorService(hello:param1)  );
+filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,dynamic>((param1, param2) => GeolocaorService(hello:param1)  );
+}
+''';
+final kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndTwoFactoryParam =
+    '''
+// ignore_for_file: public_member_api_docs
+
+import 'package:stacked_core/stacked_core.dart';
+
+import 'importOne';
+
+final filledstacksLocator = StackedLocator.instance;
+
+Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {
+
+// Register environments
+filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
+
+// Register dependencies
+filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,freshType?>((param1, param2) => GeolocaorService(hello:param1,helloThere:param2)  );
 }
 ''';
 final kStackedLocaterWithOneDependencyOutputWithDependencyTypeSinglton = '''

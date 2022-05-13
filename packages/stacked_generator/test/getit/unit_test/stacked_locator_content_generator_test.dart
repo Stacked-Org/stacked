@@ -72,7 +72,8 @@ void main() {
         });
       });
       group('FactoryWithParam -', () {
-        test('When params is null, Should throw a null exception', () {
+        test('When params is null, Should throw InvalidGeneratorInputException',
+            () {
           final dependencies = [
             FactoryParamDependency(
               import: 'importOne',
@@ -183,9 +184,8 @@ When params is not empty and DependencyParamConfig type is newType? and default 
               kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndDefaultValue);
         });
         test('''
-with one DependencyConfig that has [type=DependencyType.FactoryWithParams] and params
-is not empty and DependencyParamConfig type is newType? and isPositional=true
-, Should generate code''', () {
+When params is not empty and DependencyParamConfig type is 
+newType? and isPositional=true, Should generate code''', () {
           final dependencies = [
             FactoryParamDependency(
                 import: 'importOne',
@@ -203,9 +203,8 @@ is not empty and DependencyParamConfig type is newType? and isPositional=true
               kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndIsPositionalIsTrue);
         });
         test('''
-with one DependencyConfig that has [type=DependencyType.FactoryWithParams] and params
-is not empty and DependencyParamConfig type is newType? and default value is shit and isPositional=true
-, Should generate code''', () {
+When params is not empty and DependencyParamConfig type is newType? 
+and default value is shit and isPositional=true, Should generate code''', () {
           final dependencies = [
             FactoryParamDependency(
                 import: 'importOne',
@@ -224,9 +223,8 @@ is not empty and DependencyParamConfig type is newType? and default value is shi
               kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndDefaultValueIsshitAndIsPositionalIsTrue);
         });
         test('''
-with one DependencyConfig that has [type=DependencyType.FactoryWithParams] and params
-is not empty and DependencyParamConfig type is newType? and name is hello
-, Should generate code''', () {
+When params is not empty and DependencyParamConfig 
+type is newType? and name is hello, Should generate code''', () {
           final dependencies = [
             FactoryParamDependency(
                 import: 'importOne',
@@ -242,6 +240,29 @@ is not empty and DependencyParamConfig type is newType? and name is hello
 
           callGeneratorWithServicesConfigAndExpectResult(dependencies,
               kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndIsNameIsHello);
+        });
+        test('''
+When provide two FactoryParamDependency, Should generate code''', () {
+          final dependencies = [
+            FactoryParamDependency(
+                import: 'importOne',
+                className: 'GeolocaorService',
+                params: {
+                  FactoryParameter(
+                    type: 'newType?',
+                    name: 'hello',
+                    isFactoryParam: true,
+                  ),
+                  FactoryParameter(
+                    type: 'freshType?',
+                    name: 'helloThere',
+                    isFactoryParam: true,
+                  ),
+                }),
+          ];
+
+          callGeneratorWithServicesConfigAndExpectResult(dependencies,
+              kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndTwoFactoryParam);
         });
       });
       group('Singleton -', () {
