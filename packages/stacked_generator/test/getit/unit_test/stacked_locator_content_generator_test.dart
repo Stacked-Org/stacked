@@ -9,7 +9,7 @@ import 'package:stacked_generator/src/generators/getit/dependency_config/singlet
 import 'package:stacked_generator/src/generators/getit/stacked_locator_content_generator.dart';
 import 'package:test/test.dart';
 
-import '../helpers/getit_constants.dart';
+import '../../helpers/getit_constants.dart';
 
 void main() {
   group('StackedLocatorContentGeneratorTest -', () {

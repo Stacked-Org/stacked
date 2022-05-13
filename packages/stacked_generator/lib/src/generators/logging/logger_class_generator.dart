@@ -29,7 +29,7 @@ class LoggerClassGenerator extends BaseGenerator {
 
     String withConditionalLoggerInPlace = withHelperNameInPlace.replaceFirst(
         DisableConsoleOutputInRelease,
-        _loggerConfig.disableReleaseConsoleOutput ? 'if(!kReleaseMode)' : '');
+        _loggerConfig.disableReleaseConsoleOutput ? 'if(!_isReleaseMode)' : '');
 
     String loggerOutputsInPlace = withConditionalLoggerInPlace.replaceFirst(
         MultipleLoggerOutput,

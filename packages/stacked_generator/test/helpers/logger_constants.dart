@@ -4,13 +4,14 @@ const String kloggerClassContent = '''
 /// Maybe this should be generated for the user as well?
 ///
 /// import 'package:customer_app/services/stackdriver/stackdriver_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
 import 'importOne';
 import 'importTwo';
 
 
+
+const bool _isReleaseMode = bool.fromEnvironment("dart.vm.product");
 
 class SimpleLogPrinter extends LogPrinter {
   final String className;
@@ -48,7 +49,7 @@ class SimpleLogPrinter extends LogPrinter {
 
     for (var line in output.split('\\n')) {
       result.addAll(pattern.allMatches(line).map((match) {
-        if (kReleaseMode) {
+        if (_isReleaseMode) {
           return match.group(0)!;
         } else {
           return color!(match.group(0)!);
@@ -138,9 +139,9 @@ Logger ebraLogger(
       exludeLogsFromClasses: exludeLogsFromClasses,
     ),
     output: MultipleLoggerOutput([
-      if(!kReleaseMode)
+      if(!_isReleaseMode)
       ConsoleOutput(),
-       if(kReleaseMode) outputOne(), if(kReleaseMode) outputTwo(),
+       if(_isReleaseMode) outputOne(), if(_isReleaseMode) outputTwo(),
     ]),
   );
 }
@@ -151,13 +152,14 @@ const String kloggerClassContentWithDisableReleaseConsoleOutput = '''
 /// Maybe this should be generated for the user as well?
 ///
 /// import 'package:customer_app/services/stackdriver/stackdriver_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
 import 'importOne';
 import 'importTwo';
 
 
+
+const bool _isReleaseMode = bool.fromEnvironment("dart.vm.product");
 
 class SimpleLogPrinter extends LogPrinter {
   final String className;
@@ -195,7 +197,7 @@ class SimpleLogPrinter extends LogPrinter {
 
     for (var line in output.split('\\n')) {
       result.addAll(pattern.allMatches(line).map((match) {
-        if (kReleaseMode) {
+        if (_isReleaseMode) {
           return match.group(0)!;
         } else {
           return color!(match.group(0)!);
@@ -287,7 +289,7 @@ Logger ebraLogger(
     output: MultipleLoggerOutput([
       
       ConsoleOutput(),
-       if(kReleaseMode) outputOne(), if(kReleaseMode) outputTwo(),
+       if(_isReleaseMode) outputOne(), if(_isReleaseMode) outputTwo(),
     ]),
   );
 }
@@ -340,7 +342,7 @@ Logger ebraLogger(
     output: MultipleLoggerOutput([
       
       ConsoleOutput(),
-       if(kReleaseMode) outputOne(), if(kReleaseMode) outputTwo(),
+       if(_isReleaseMode) outputOne(), if(_isReleaseMode) outputTwo(),
     ]),
   );
 }
