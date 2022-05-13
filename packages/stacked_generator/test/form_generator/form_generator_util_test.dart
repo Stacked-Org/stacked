@@ -1,5 +1,5 @@
 import 'package:stacked_generator/src/generators/forms/field_config.dart';
-import 'package:stacked_generator/src/generators/forms/form_util_service.dart';
+import 'package:stacked_generator/src/generators/forms/form_generator_util.dart';
 import 'package:stacked_generator/src/generators/forms/form_view_config.dart';
 import 'package:test/test.dart';
 
@@ -9,19 +9,19 @@ void main() {
   group('FormGeneratorTest -', () {
     group('generateImport -', () {
       test('when called should generate imports', () {
-        FormUtilService utilService = FormUtilService(
+        FormGeneratorUtil util = FormGeneratorUtil(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [],
           ),
         );
-        utilService.generateImports();
-        expect(utilService.stringBuffer.toString(), ksFormImports);
+        util.generateImports();
+        expect(util.stringBuffer.toString(), ksFormImports);
       });
     });
     group('generateValueMapKeys -', () {
       test('when called should generate keys for fields', () {
-        FormUtilService utilService = FormUtilService(
+        FormGeneratorUtil util = FormGeneratorUtil(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
@@ -31,14 +31,14 @@ void main() {
             ],
           ),
         );
-        utilService.generateValueMapKeys();
-        expect(utilService.stringBuffer.toString(),
+        util.generateValueMapKeys();
+        expect(util.stringBuffer.toString(),
             ksFormKeys('name', 'date', 'dropDown'));
       });
     });
     group(' generateDropdownItemsMap-', () {
       test('when called should generate drop down options map', () {
-        FormUtilService utilService = FormUtilService(
+        FormGeneratorUtil util = FormGeneratorUtil(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
@@ -52,14 +52,14 @@ void main() {
             ],
           ),
         );
-        utilService.generateDropdownItemsMap();
-        expect(utilService.stringBuffer.toString(), ksDropdownItemsMap);
+        util.generateDropdownItemsMap();
+        expect(util.stringBuffer.toString(), ksDropdownItemsMap);
       });
     });
 
     group('generateTextEditingControllerItemsMap -', () {
       test('when called should generate textEditing controllers map', () {
-        FormUtilService utilService = FormUtilService(
+        FormGeneratorUtil util = FormGeneratorUtil(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
@@ -68,15 +68,15 @@ void main() {
             ],
           ),
         );
-        utilService.generateTextEditingControllerItemsMap();
-        expect(utilService.stringBuffer.toString(),
+        util.generateTextEditingControllerItemsMap();
+        expect(util.stringBuffer.toString(),
             ksTextEditingControllerItemsMap);
       });
     });
     group('generateTextEdittingControllersForTextFields -', () {
       test('when called should generate the getters for textEditingControllers',
           () {
-        FormUtilService utilService = FormUtilService(
+        FormGeneratorUtil util = FormGeneratorUtil(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
@@ -85,8 +85,8 @@ void main() {
             ],
           ),
         );
-        utilService.generateTextEditingControllersForTextFields();
-        expect(utilService.stringBuffer.toString(),
+        util.generateTextEditingControllersForTextFields();
+        expect(util.stringBuffer.toString(),
             ksTextEditingControllerGettersForTextFields);
       });
     });
