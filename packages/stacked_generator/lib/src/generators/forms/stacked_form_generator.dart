@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
@@ -10,7 +12,7 @@ import 'package:stacked_generator/src/generators/forms/stacked_form_content_gene
 
 class StackedFormGenerator extends GeneratorForAnnotation<FormView> {
   @override
-  dynamic generateForAnnotatedElement(
+  FutureOr<String> generateForAnnotatedElement(
     Element classForAnnotation,
     ConstantReader formView,
     BuildStep buildStep,
