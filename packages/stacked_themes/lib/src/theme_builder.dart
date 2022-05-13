@@ -51,7 +51,7 @@ class _ThemeBuilderState extends State<ThemeBuilder>
       value: themeManager,
       builder: (context, child) => StreamProvider<ThemeModel>(
         lazy: false,
-        initialData: themeManager.initalTheme,
+        initialData: themeManager.initialTheme,
         create: (context) => themeManager.themesStream,
         builder: (context, child) => Consumer<ThemeModel>(
           child: child,
@@ -102,8 +102,8 @@ class _ThemeBuilderState extends State<ThemeBuilder>
     }
   }
 
-  // Should update theme whenever platform brighteness changes.
-  // This makes sure that theme changes even if the brighteness changes from notification bar.
+  // Should update theme whenever platform brightness changes.
+  // This makes sure that theme changes even if the brightness changes from notification bar.
   @override
   void didChangePlatformBrightness() {
     super.didChangePlatformBrightness();

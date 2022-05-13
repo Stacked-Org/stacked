@@ -121,7 +121,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
       if (_selectedThemeMode == ThemeMode.system) {
         final brightness =
             SchedulerBinding.instance.window.platformBrightness;
-        selectedTheme = brighteness == Brightness.dark ? darkTheme : lightTheme;
+        selectedTheme = brightness == Brightness.dark ? darkTheme : lightTheme;
       } else {
         selectedTheme =
             _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme;
