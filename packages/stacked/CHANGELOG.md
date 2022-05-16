@@ -1,3 +1,5 @@
+## 2.3.6+1
+- Add move in left route transtion
 ## 2.3.6
 - Reverts 2.3.4
 
