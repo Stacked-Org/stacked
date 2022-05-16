@@ -1,3 +1,5 @@
+## 0.8.22+2
+- Update documentation.
 ## 0.8.22+1
 - Adds Breaking change indication below.
 ## 0.8.22
