@@ -6,7 +6,7 @@ class RouterClassGenerator extends BaseGenerator {
   final RouterConfig _rootRouterConfig;
 
   RouterClassGenerator(this._rootRouterConfig);
-
+  @override
   String generate() {
     writeLine("// ignore_for_file: public_member_api_docs");
     var allRouters = _rootRouterConfig.collectAllRoutersIncludingParent;
