@@ -12,7 +12,7 @@ class RouteConfigResolver {
   final RouterConfig _routerConfig;
   final ImportResolver _importResolver;
 
-  RouteConfigResolver(this._routerConfig, this._importResolver);
+  const RouteConfigResolver(this._routerConfig, this._importResolver);
 
   Future<RouteConfig> resolve(ConstantReader stackedRoute) async {
     final routeConfig = RouteConfig();

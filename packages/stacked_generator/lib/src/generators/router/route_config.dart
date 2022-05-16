@@ -1,7 +1,5 @@
 import 'package:stacked_generator/route_config_resolver.dart';
 
-import 'custom_transition_builder.dart';
-
 /// holds the extracted route configs
 /// to be used in [RouterClassGenerator]
 
