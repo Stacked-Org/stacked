@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_themes/src/theme_manager.dart';
 
 import '../stacked_themes.dart';
@@ -76,13 +77,13 @@ class _ThemeBuilderState extends State<ThemeBuilder>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    ambiguate(WidgetsBinding.instance)!.addObserver(this);
   }
 
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
+    ambiguate(WidgetsBinding.instance)!.removeObserver(this);
   }
 
   @override

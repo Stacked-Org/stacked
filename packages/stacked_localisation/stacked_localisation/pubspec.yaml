@@ -4,7 +4,7 @@ version: 0.2.2+1
 homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_localisation
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -12,6 +12,7 @@ dependencies:
 
   devicelocale: ^0.3.1
   get_it: ^4.0.4
+  stacked_core: ^1.1.0
 
 dev_dependencies:
   flutter_test:

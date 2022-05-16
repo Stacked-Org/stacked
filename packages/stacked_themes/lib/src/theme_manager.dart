@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_themes/src/locator_setup.dart';
 import 'package:stacked_themes/src/services/platform_service.dart';
 import 'package:stacked_themes/src/services/shared_preferences_service.dart';
@@ -120,7 +121,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
 
       if (_selectedThemeMode == ThemeMode.system) {
         final brightness =
-            SchedulerBinding.instance.window.platformBrightness;
+            ambiguate(SchedulerBinding.instance)!.window.platformBrightness;
         selectedTheme = brightness == Brightness.dark ? darkTheme : lightTheme;
       } else {
         selectedTheme =
@@ -218,7 +219,7 @@ You can supply either a list of ThemeData objects to the themes property or a li
           _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme);
     } else {
       var currentBrightness =
-          SchedulerBinding.instance.window.platformBrightness;
+          ambiguate(SchedulerBinding.instance)!.window.platformBrightness;
       updateOverlayColors(
           currentBrightness == Brightness.dark ? darkTheme : lightTheme);
     }

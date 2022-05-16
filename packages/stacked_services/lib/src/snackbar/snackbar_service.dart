@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_services/src/exceptions/custom_snackbar_exception.dart';
 import 'package:stacked_services/src/snackbar/snackbar_config.dart';
 import 'stacked_snackbar_customizations.dart';
@@ -230,7 +231,7 @@ class SnackbarService {
       return getBar.show();
     } else {
       Completer completer = new Completer();
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
+      ambiguate(WidgetsBinding.instance)!.addPostFrameCallback((_) async {
         final result = await getBar.show();
         completer.complete(result);
       });
