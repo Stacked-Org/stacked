@@ -1,7 +1,9 @@
 import 'package:args/command_runner.dart';
+import 'package:stacked_tools/src/constants/command_constants.dart';
 import 'package:stacked_tools/src/locator.dart';
-import 'package:stacked_tools/src/message_constants.dart';
+import 'package:stacked_tools/src/constants/message_constants.dart';
 import 'package:stacked_tools/src/mixins/project_structure_validator_mixin.dart';
+import 'package:stacked_tools/src/services/process_service.dart';
 import 'package:stacked_tools/src/services/pubspec_service.dart';
 import 'package:stacked_tools/src/services/template_service.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
@@ -9,6 +11,7 @@ import 'package:stacked_tools/src/templates/template_constants.dart';
 class CreateViewCommand extends Command with ProjectStructureValidator {
   final _templateService = locator<TemplateService>();
   final _pubspecService = locator<PubspecService>();
+  final _processService = locator<ProcessService>();
 
   @override
   String get description =>
@@ -18,9 +21,8 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
   String get name => kTemplateNameView;
 
   CreateViewCommand() {
-    // TODO: Move the command names and flags into a constants file to make it easier to work with
     argParser.addFlag(
-      'exclude-route',
+      ksExcludeRoute,
       defaultsTo: false,
       help: kCommandHelpExcludeRoute,
     );
@@ -28,9 +30,8 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
 
   @override
   Future<void> run() async {
-    await _pubspecService.initialise();
-
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
+    await _pubspecService.initialise(workingDirectory: outputPath);
     await validateStructure(outputPath: outputPath);
 
     await _templateService.renderTemplate(
@@ -38,7 +39,9 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       name: argResults!.rest.first,
       outputPath: outputPath,
       verbose: true,
-      excludeRoute: argResults!['exclude-route'],
+      excludeRoute: argResults![ksExcludeRoute],
     );
+    await _processService.runBuildRunner(appName: outputPath);
+    await _processService.runFormat(appName: outputPath);
   }
 }

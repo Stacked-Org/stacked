@@ -1,7 +1,7 @@
 import 'package:mockito/mockito.dart';
+import 'package:stacked_tools/src/constants/message_constants.dart';
 import 'package:stacked_tools/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_tools/src/locator.dart';
-import 'package:stacked_tools/src/message_constants.dart';
 import 'package:stacked_tools/src/models/template_models.dart';
 import 'package:stacked_tools/src/services/template_service.dart';
 import 'package:stacked_tools/src/templates/compiled_template_map.dart';
@@ -32,7 +32,7 @@ void main() {
         new_viewmodel.dart
     ''';
 
-        final templateService = _getService();
+        final templateService = _getService();  
         final result = templateService.renderContentForTemplate(
           content: content,
           templateName: kTemplateNameView,
@@ -204,7 +204,7 @@ void main() {
           templateName: kTemplateNameView,
           name: 'details',
         );
-        verify(fileService.readFile(filePath: 'lib/app/app.dart'));
+        verify(fileService.readFileAsString(filePath: 'lib/app/app.dart'));
       });
 
       test(

@@ -1,7 +1,8 @@
-import 'package:example/app/locator.dart';
+import '../../app/app.locator.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../../app/app.router.dart';
 import 'second_screen.dart';
 
 class FirstScreen extends StatelessWidget {
@@ -33,10 +34,8 @@ class FirstScreen extends StatelessWidget {
             OutlinedButton(
               child: Text("Use Fade Transition"),
               onPressed: () async {
-                await _navigationService.navigateWithTransition(
-                  SecondScreen(),
-                  transition: "fade",
-                );
+                await _navigationService.navigateWithTransition(SecondScreen(),
+                    transitionStyle: Transition.upToDown);
               },
             ),
             OutlinedButton(
@@ -51,19 +50,16 @@ class FirstScreen extends StatelessWidget {
             OutlinedButton(
               child: Text("Use Left to Right Transition"),
               onPressed: () async {
-                await _navigationService.navigateWithTransition(
-                  SecondScreen(),
-                  transition: "leftToRight",
+                await _navigationService.navigateTo(
+                  Routes.secondScreenRoute,
                 );
               },
             ),
             OutlinedButton(
               child: Text("Use Cupertino Transition"),
               onPressed: () async {
-                await _navigationService.navigateWithTransition(
-                  SecondScreen(),
-                  transition: "cupertino",
-                );
+                await _navigationService.navigateToView(SecondScreen(),
+                    transitionStyle: Transition.zoom);
               },
             ),
             OutlinedButton(

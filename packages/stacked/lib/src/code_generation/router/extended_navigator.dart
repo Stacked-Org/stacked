@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:stacked/src/code_generation/router/router_utils.dart';
+import 'package:stacked_core/stacked_core.dart';
 
 import 'uri_extension.dart';
 
@@ -193,11 +194,11 @@ class ExtendedNavigatorState<T extends RouterBase?>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
+    ambiguate(WidgetsBinding.instance)!.addObserver(this);
     _navigatorKey = widget.navigatorKey ?? GlobalKey<NavigatorState>();
     _heroController = HeroController(createRectTween: _createRectTween);
     if (_guardedInitialRoutes.isNotEmpty) {
-      SchedulerBinding.instance!.addPostFrameCallback((_) {
+      ambiguate(SchedulerBinding.instance)!.addPostFrameCallback((_) {
         _pushAllGuarded(_guardedInitialRoutes);
       });
     }
@@ -253,10 +254,10 @@ class ExtendedNavigatorState<T extends RouterBase?>
     assert(router != null);
     return Navigator(
       key: _navigatorKey,
-      initialRoute: WidgetsBinding.instance!.window.defaultRouteName !=
+      initialRoute: ambiguate(WidgetsBinding.instance)!.window.defaultRouteName !=
               Navigator.defaultRouteName
-          ? WidgetsBinding.instance!.window.defaultRouteName
-          : initial ?? WidgetsBinding.instance!.window.defaultRouteName,
+          ? ambiguate(WidgetsBinding.instance)!.window.defaultRouteName
+          : initial ?? ambiguate(WidgetsBinding.instance)!.window.defaultRouteName,
       observers: List.from(widget.observers)..add(_heroController!),
       onGenerateRoute: (RouteSettings settings) {
         return router!.onGenerateRoute(settings, basePath);
@@ -467,7 +468,7 @@ class ExtendedNavigatorState<T extends RouterBase?>
     if (_parent != null) {
       _parent!.children.remove(this);
     }
-    WidgetsBinding.instance!.removeObserver(this);
+    ambiguate(WidgetsBinding.instance)!.removeObserver(this);
 
     if (routerName != null) {
       _NavigatorsContainer._instance.remove(routerName);

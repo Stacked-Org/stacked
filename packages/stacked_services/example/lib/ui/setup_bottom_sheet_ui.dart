@@ -1,4 +1,4 @@
-import 'package:example/app/locator.dart';
+import '../../app/app.locator.dart';
 import 'package:example/enums/bottomsheet_type.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:flutter/material.dart';
