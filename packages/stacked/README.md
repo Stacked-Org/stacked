@@ -565,7 +565,7 @@ class InformationService with ReactiveServiceMixin { //1
   }
 
   //2
-  ReactiveValue<int> _postCount = ReactiveValue<int>(initial: 0);
+  ReactiveValue<int> _postCount = ReactiveValue<int>(0);
   int get postCount => _postCount.value;
 
   void updatePostCount() {

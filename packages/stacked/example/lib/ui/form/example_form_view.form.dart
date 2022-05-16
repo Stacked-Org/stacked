@@ -20,11 +20,20 @@ const Map<String, String> DoYouLoveFoodValueToTitleMap = {
   'NoDr': 'No',
 };
 
+final Map<String, TextEditingController>
+    _ExampleFormViewTextEditingControllers = {
+  EmailValueKey: TextEditingController(text: 'Lorem'),
+  PasswordValueKey: TextEditingController(),
+  ShortBioValueKey: TextEditingController(),
+};
+
 mixin $ExampleFormView on StatelessWidget {
-  final TextEditingController emailController =
-      TextEditingController(text: 'Lorem');
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController shortBioController = TextEditingController();
+  TextEditingController get emailController =>
+      _ExampleFormViewTextEditingControllers[EmailValueKey]!;
+  TextEditingController get passwordController =>
+      _ExampleFormViewTextEditingControllers[PasswordValueKey]!;
+  TextEditingController get shortBioController =>
+      _ExampleFormViewTextEditingControllers[ShortBioValueKey]!;
   final FocusNode emailFocusNode = FocusNode();
   final FocusNode passwordFocusNode = FocusNode();
   final FocusNode shortBioFocusNode = FocusNode();

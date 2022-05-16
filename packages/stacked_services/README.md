@@ -197,7 +197,7 @@ After you have created your register function go to your main.dart file and afte
 
 ```dart
 void main() {
-  setupLocator();
+  await setupLocator();
   setupDialogUi();
   runApp(MyApp());
 }
@@ -253,7 +253,7 @@ The `NavigationService` will allow you to navigate your app easily from the `Vie
 | `clearTillFirstAndShow`     | `Future<dynamic>` | Pops the navigation stack until there's 1 view left then pushes `routeName` onto the stack                        |
 | `clearTillFirstAndShowView` | `Future<dynamic>` | Pops the navigation stack until there's 1 view left then pushes `view` onto the stack                             |
 | `pushNamedAndRemoveUntil`   | `Future<dynamic>` | Push route and clear stack until predicate is satisfied                                                           |
-|  |
+|                             |
 
 ## Route observation
 
@@ -321,7 +321,7 @@ Then in the main.dart file before running the app, after setting up the locator 
 
 ```dart
 void main() {
-  setupLocator();
+  await setupLocator();
   setupSnackbarUi();
   runApp(MyApp());
 }
