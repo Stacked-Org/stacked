@@ -10,7 +10,7 @@ import 'package:stacked_tools/src/templates/template_helper.dart';
 final locator = GetIt.I;
 
 Future setupLocator() async {
-  locator.registerLazySingleton(() => ColorizedLogService()); 
+  locator.registerLazySingleton(() => ColorizedLogService());
   locator.registerLazySingleton(() => PubspecService());
   locator.registerLazySingleton(() => PathService());
   locator.registerLazySingleton(() => TemplateService());

@@ -95,4 +95,3 @@ class InfoAlertDialog extends StatelessWidget {
     );
   }
 }
-
