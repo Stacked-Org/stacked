@@ -1,3 +1,7 @@
+## 2.3.7
+#### Flutter v3 compatibility
+- Use [ambiguate](https://docs.flutter.dev/development/tools/sdk/release-notes/release-notes-3.0.0#your-code) to ensure v3 (and backward) compatibility
+
 ## 2.3.6
 - Reverts 2.3.4
 
