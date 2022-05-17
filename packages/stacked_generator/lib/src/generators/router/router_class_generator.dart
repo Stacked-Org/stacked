@@ -2,6 +2,8 @@ import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/base_generator.dart';
 import 'package:stacked_generator/utils.dart';
 
+import '../exceptions/invalid_generator_input_exception.dart';
+
 class RouterClassGenerator extends BaseGenerator {
   final RouterConfig _rootRouterConfig;
 
@@ -129,6 +131,8 @@ class RouterClassGenerator extends BaseGenerator {
 
     var routesMap = <String, RouteConfig>{};
     routerConfig.routes?.forEach((route) {
+      throwIf(route.className == null,
+          ExceptionMessages.RouteClassNameShouldnotBeNull);
       routesMap[route.className!] = route;
     });
 

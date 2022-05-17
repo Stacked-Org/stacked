@@ -10,3 +10,7 @@ class InvalidGeneratorInputException implements Exception {
   String toString() =>
       'InvalidGeneratorInputException: message: $message\n todo: $todo\n element: $element';
 }
+
+class ExceptionMessages {
+  static const RouteClassNameShouldnotBeNull = 'className should not be null';
+}
