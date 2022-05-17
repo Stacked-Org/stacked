@@ -13,4 +13,7 @@ class InvalidGeneratorInputException implements Exception {
 
 class ExceptionMessages {
   static const RouteClassNameShouldnotBeNull = 'className should not be null';
+
+  static String isPathParamAndIsQueryParamShouldNotBeNull =
+      'isPathParamAndIsQueryParamShouldNotBeNull';
 }

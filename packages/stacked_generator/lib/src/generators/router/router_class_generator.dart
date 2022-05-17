@@ -149,10 +149,11 @@ class RouterClassGenerator extends BaseGenerator {
 
     if (r.parameters?.isNotEmpty == true) {
       // if router has any required or positional params the argument class holder becomes required.
-      final nullOk = !r.argParams.any((p) => p.isRequired || p.isPositional);
+      final nullOk =
+          !r.notQueryAndNotPath.any((p) => p.isRequired || p.isPositional);
       // show an error page  if passed args are not the same as declared args
 
-      if (r.argParams.isNotEmpty) {
+      if (r.notQueryAndNotPath.isNotEmpty) {
         final argsType = r.argumentsHolderClassName;
         writeLine('var args = data.getArgs<$argsType>(');
         if (!nullOk) {
@@ -200,7 +201,7 @@ class RouterClassGenerator extends BaseGenerator {
     // also prevent duplicate class with the same name from being generated;
 
     routes
-        .where((r) => r.argParams.isNotEmpty)
+        .where((r) => r.notQueryAndNotPath.isNotEmpty)
         .forEach((r) => routesWithArgsHolders[r.className!] = r);
 
     if (routesWithArgsHolders.isNotEmpty) {
@@ -215,7 +216,7 @@ class RouterClassGenerator extends BaseGenerator {
 
     // generate fields
     writeLine('class $argsClassName{');
-    final params = routeConfig.argParams;
+    final params = routeConfig.notQueryAndNotPath;
     params.forEach((param) {
       writeLine('final ${param.type} ${param.name};');
     });

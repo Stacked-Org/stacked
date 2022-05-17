@@ -1,4 +1,6 @@
 import 'package:stacked_generator/route_config_resolver.dart';
+import 'package:stacked_generator/src/generators/exceptions/invalid_generator_input_exception.dart';
+import 'package:stacked_generator/utils.dart';
 
 /// holds the extracted route configs
 /// to be used in [RouterClassGenerator]
@@ -34,10 +36,12 @@ class RouteConfig {
     return pathName.contains(":") ? '_$name' : name;
   }
 
-  List<RouteParamConfig> get argParams {
-    return parameters
-            ?.where((p) => !p.isPathParam! && !p.isQueryParam!)
-            .toList() ??
+  List<RouteParamConfig> get notQueryAndNotPath {
+    return parameters?.where((p) {
+          throwIf(p.isPathParam == null || p.isQueryParam == null,
+              ExceptionMessages.isPathParamAndIsQueryParamShouldNotBeNull);
+          return !p.isPathParam! && !p.isQueryParam!;
+        }).toList() ??
         [];
   }
 }
