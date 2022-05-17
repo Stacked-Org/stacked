@@ -7,23 +7,21 @@ import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/utils.dart';
 
-class RouteFactory {
+class RouteConfigBuilder {
   final DartType dartType;
   final ImportResolver importResolver;
-  final String? routeNamePrefix;
   final ConstantReader stackedRoute;
   final RouteConfig routeConfig;
-  final RouteConfig? globalRouteConfig;
-  const RouteFactory({
+  const RouteConfigBuilder({
     required this.dartType,
     required this.importResolver,
-    required this.routeNamePrefix,
     required this.stackedRoute,
     required this.routeConfig,
-    this.globalRouteConfig,
   });
 
-  RouteConfig build() {
+  ClassElement get classElement => dartType.element as ClassElement;
+
+  RouteConfigBuilder addType(RouteConfig? globalRouteConfig) {
     if (stackedRoute.instanceOf(TypeChecker.fromRuntime(MaterialRoute))) {
       routeConfig.routeType = RouteType.material;
     } else if (stackedRoute
@@ -75,30 +73,32 @@ class RouteFactory {
         routeConfig.customRouteOpaque = globalRouteConfig?.customRouteOpaque;
       }
     }
+    return this;
   }
 
-  addImports() {
-    final classElement = dartType.element as ClassElement;
-
+  RouteConfigBuilder addImports() {
     final import = importResolver.resolve(classElement);
     if (import != null) {
       routeConfig.imports.add(import);
     }
+    return this;
   }
 
-  addClassName() {
+  RouteConfigBuilder addClassName() {
     routeConfig.className = toDisplayString(dartType);
+    return this;
   }
 
-  checkIfNotClassElement() {
+  RouteConfigBuilder checkIfNotClassElement() {
     throwIf(
       dartType.element is! ClassElement,
       '${toDisplayString(dartType)} is not a class element',
       element: dartType.element!,
     );
+    return this;
   }
 
-  setPath() {
+  RouteConfigBuilder addPathName(String? routeNamePrefix) {
     var path = stackedRoute.peek('path')?.stringValue;
     if (path == null) {
       if (stackedRoute.peek('initial')?.boolValue == true) {
@@ -108,18 +108,21 @@ class RouteFactory {
       }
     }
     routeConfig.pathName = path;
+    return this;
   }
 
-  setFullScreenDialog() {
+  RouteConfigBuilder addFullScreenDialog() {
     routeConfig.fullscreenDialog =
         stackedRoute.peek('fullscreenDialog')?.boolValue;
+    return this;
   }
 
-  setMaintainState() {
+  RouteConfigBuilder addMaintainState() {
     routeConfig.maintainState = stackedRoute.peek('maintainState')?.boolValue;
+    return this;
   }
 
-  setGuards() {
+  RouteConfigBuilder addGuards() {
     stackedRoute
         .peek('guards')
         ?.listValue
@@ -131,36 +134,32 @@ class RouteFactory {
             import: importResolver.resolve((guard.element)!)));
       }
     });
+    return this;
   }
 
-  setReturnType() {
+  RouteConfigBuilder addReturnTypeAndIfNotDynamicAddAddtionalImports() {
     final returnType = stackedRoute.objectValue.type;
     routeConfig.returnType = toDisplayString(returnType!);
-  }
-
-  addAdditionalImports() {
-    final returnType = stackedRoute.objectValue.type;
     if (routeConfig.returnType != 'dynamic') {
-      routeConfig.imports.addAll(importResolver.resolveAll(returnType!));
+      routeConfig.imports.addAll(importResolver.resolveAll(returnType));
     }
+    return this;
   }
 
-  setName() {
+  RouteConfigBuilder addName() {
     routeConfig.name = stackedRoute.peek('name')?.stringValue ??
         toLowerCamelCase(routeConfig.className!);
+    return this;
   }
 
-  hasWrapper() {
-    final classElement = dartType.element as ClassElement;
-
+  RouteConfigBuilder setHasWrapper() {
     routeConfig.hasWrapper = classElement.allSupertypes
         .map<String>((el) => toDisplayString(el))
         .contains('StackedRouteWrapper');
+    return this;
   }
 
-  Future<void> setParameter() async {
-    final classElement = dartType.element as ClassElement;
-
+  Future<RouteConfigBuilder> addParameters() async {
     final constructor = classElement.unnamedConstructor;
 
     var params = constructor?.parameters;
@@ -177,5 +176,6 @@ class RouteFactory {
         }
       }
     }
+    return this;
   }
 }

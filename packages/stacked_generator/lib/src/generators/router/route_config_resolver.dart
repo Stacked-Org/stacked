@@ -1,7 +1,7 @@
 import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
-import 'package:stacked_generator/src/generators/router/route_factory.dart';
+import 'package:stacked_generator/src/generators/router/route_config_builder.dart';
 import 'package:source_gen/source_gen.dart';
 
 const TypeChecker stackedRouteChecker = TypeChecker.fromRuntime(StackedRoute);
@@ -15,17 +15,27 @@ class RouteConfigResolver {
 
   Future<RouteConfig> resolve(ConstantReader stackedRoute) async {
     final dartType = stackedRoute.read('page').typeValue;
-    final routeConfig = RouteConfig();
 
-    final routeFactory = RouteFactory(
-            globalRouteConfig: _routerConfig.globalRouteConfig,
-            stackedRoute: stackedRoute,
-            dartType: dartType,
-            importResolver: _importResolver,
-            routeNamePrefix: _routerConfig.routeNamePrefix,
-            routeConfig: routeConfig)
-        .build();
+    final routeConfigBuilder = RouteConfigBuilder(
+        stackedRoute: stackedRoute,
+        dartType: dartType,
+        importResolver: _importResolver,
+        routeConfig: RouteConfig());
 
-    return routeFactory;
+    final result = await routeConfigBuilder
+        .checkIfNotClassElement()
+        .addType(_routerConfig.globalRouteConfig)
+        .addClassName()
+        .addFullScreenDialog()
+        .addGuards()
+        .addImports()
+        .addMaintainState()
+        .addName()
+        .addPathName(_routerConfig.routeNamePrefix)
+        .setHasWrapper()
+        .addReturnTypeAndIfNotDynamicAddAddtionalImports()
+        .addParameters();
+
+    return result.routeConfig;
   }
 }
