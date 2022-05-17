@@ -70,7 +70,7 @@ class ProcessService {
     final hasWorkingDirectory = workingDirectory != null;
     _cLog.stackedOutput(
         message:
-            'Running $programName ${arguments.join(' ')} ${hasWorkingDirectory ? 'in $workingDirectory/' : ''}... ');
+            'Running $programName ${arguments.join(' ')} ${hasWorkingDirectory ? 'in $workingDirectory/' : ''}...');
     var process = await Process.start(
       programName,
       arguments,
@@ -81,8 +81,13 @@ class ProcessService {
     });
 
     final exitCode = await process.exitCode;
-    _cLog.successOutput(
-      success: exitCode == 0,
+    if (exitCode == 0) {
+      _cLog.success(
+        message: 'Command complete. ExitCode: $exitCode',
+      );
+      return;
+    }
+    _cLog.error(
       message: 'Command complete. ExitCode: $exitCode',
     );
   }
