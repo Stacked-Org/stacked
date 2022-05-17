@@ -71,16 +71,30 @@ class ProcessService {
     _cLog.stackedOutput(
         message:
             'Running $programName ${arguments.join(' ')} ${hasWorkingDirectory ? 'in $workingDirectory/' : ''}...');
-    var process = await Process.start(
-      programName,
-      arguments,
-      workingDirectory: workingDirectory,
-    );
-    process.stdout.transform(utf8.decoder).forEach((output) {
-      _cLog.flutterOutput(message: output);
-    });
+    try {
+      var process = await Process.start(
+        programName,
+        arguments,
+        workingDirectory: workingDirectory,
+      );
+      process.stdout.transform(utf8.decoder).forEach((output) {
+        _cLog.flutterOutput(message: output);
+      });
 
-    final exitCode = await process.exitCode;
+      final exitCode = await process.exitCode;
+
+      logSucessStatus(exitCode);
+    } on ProcessException catch (e) {
+      _cLog.error(message: 'Command failed. ${e.message}');
+    }
+  }
+
+  /// If the exit code is 0, log a success message, otherwise log an error message
+  ///
+  /// Args:
+  ///   exitCode (int): The exit code of the command.
+  ///
+  void logSucessStatus(int exitCode) {
     if (exitCode == 0) {
       _cLog.success(
         message: 'Command complete. ExitCode: $exitCode',

@@ -53,6 +53,7 @@ class CompiledFileModification with _$CompiledFileModification {
 
     /// The message to show the user of the cli if the modification fails
     required String error,
+
     /// The message to show the user of the cli if the modification succeeds
     required String name,
   }) = _CompiledFileModification;
