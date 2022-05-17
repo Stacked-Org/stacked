@@ -53,6 +53,8 @@ class CompiledFileModification with _$CompiledFileModification {
 
     /// The message to show the user of the cli if the modification fails
     required String error,
+    /// The message to show the user of the cli if the modification succeeds
+    required String name,
   }) = _CompiledFileModification;
 
   factory CompiledFileModification.fromJson(Map<String, dynamic> json) =>
@@ -105,10 +107,13 @@ class ModificationFile {
   /// The message to show to the user of the cli if the modification fails
   final String modificationProblemError;
 
+  final String modificationName;
+
   ModificationFile({
     required this.relativeModificationPath,
     required this.modificationIdentifier,
     required this.modificationTemplate,
     required this.modificationProblemError,
+    required this.modificationName,
   });
 }

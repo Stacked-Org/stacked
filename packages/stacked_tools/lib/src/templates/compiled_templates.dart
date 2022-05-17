@@ -1,6 +1,7 @@
 /// NOTE: This is generated code from the compileTemplates command. Do not modify by hand
 ///       This file should be checked into source control.
 
+
 // -------- HomeViewmodelTest Template Data ----------
 
 const String kAppTemplateHomeViewmodelTestPath =
@@ -52,9 +53,53 @@ void main() {
 
 // --------------------------------------------------
 
+
+// -------- WidgetTest Template Data ----------
+
+const String kAppTemplateWidgetTestPath =
+    'test/widget_test.dart.stk';
+
+const String kAppTemplateWidgetTestContent = '''
+// This is a basic Flutter widget test.
+//
+// To perform an interaction with a widget in your test, use the WidgetTester
+// utility that Flutter provides. For example, you can send tap and scroll
+// gestures. You can also use WidgetTester to find child widgets in the widget
+// tree, read text, and verify that the values of widget properties are correct.
+
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import 'package:{{packageName}}/main.dart';
+
+void main() {
+  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MyApp());
+
+    // Verify that our counter starts at 0.
+    expect(find.text('0'), findsOneWidget);
+    expect(find.text('1'), findsNothing);
+
+    // Tap the '+' icon and trigger a frame.
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pump();
+
+    // Verify that our counter has incremented.
+    expect(find.text('0'), findsNothing);
+    expect(find.text('1'), findsOneWidget);
+  });
+}
+
+''';
+
+// --------------------------------------------------
+
+
 // -------- TestHelpers Template Data ----------
 
-const String kAppTemplateTestHelpersPath = 'test/helpers/test_helpers.dart.stk';
+const String kAppTemplateTestHelpersPath =
+    'test/helpers/test_helpers.dart.stk';
 
 const String kAppTemplateTestHelpersContent = '''
 import 'package:mockito/annotations.dart';
@@ -140,9 +185,11 @@ void _removeRegistrationIfExists<T extends Object>() {
 
 // --------------------------------------------------
 
+
 // -------- READMEMdStk Template Data ----------
 
-const String kAppTemplateREADMEMdStkPath = 'README.md.stk';
+const String kAppTemplateREADMEMdStkPath =
+    'README.md.stk';
 
 const String kAppTemplateREADMEMdStkContent = '''
 # stacked_app
@@ -166,9 +213,11 @@ samples, guidance on mobile development, and a full API reference.
 
 // --------------------------------------------------
 
+
 // -------- Main Template Data ----------
 
-const String kAppTemplateMainPath = 'lib/main.dart.stk';
+const String kAppTemplateMainPath =
+    'lib/main.dart.stk';
 
 const String kAppTemplateMainContent = '''
 import 'package:flutter/material.dart';
@@ -213,6 +262,7 @@ class MyApp extends StatelessWidget {
 
 // --------------------------------------------------
 
+
 // -------- SetupDialogUi Template Data ----------
 
 const String kAppTemplateSetupDialogUiPath =
@@ -238,6 +288,7 @@ void setupDialogUi() {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- SetupBottomSheetUi Template Data ----------
 
@@ -269,9 +320,11 @@ void setupBottomSheetUi() {
 
 // --------------------------------------------------
 
+
 // -------- UiHelpers Template Data ----------
 
-const String kAppTemplateUiHelpersPath = 'lib/ui/common/ui_helpers.dart.stk';
+const String kAppTemplateUiHelpersPath =
+    'lib/ui/common/ui_helpers.dart.stk';
 
 const String kAppTemplateUiHelpersContent = '''
 import 'dart:math';
@@ -357,9 +410,11 @@ double getResponsiveFontSize(BuildContext context,
 
 // --------------------------------------------------
 
+
 // -------- AppStrings Template Data ----------
 
-const String kAppTemplateAppStringsPath = 'lib/ui/common/app_strings.dart.stk';
+const String kAppTemplateAppStringsPath =
+    'lib/ui/common/app_strings.dart.stk';
 
 const String kAppTemplateAppStringsContent = '''
 const String ksHomeBottomSheetTitle = 'Build Great Apps!';
@@ -370,9 +425,11 @@ const String ksHomeBottomSheetDescription =
 
 // --------------------------------------------------
 
+
 // -------- AppColors Template Data ----------
 
-const String kAppTemplateAppColorsPath = 'lib/ui/common/app_colors.dart.stk';
+const String kAppTemplateAppColorsPath =
+    'lib/ui/common/app_colors.dart.stk';
 
 const String kAppTemplateAppColorsContent = '''
 import 'package:flutter/material.dart';
@@ -388,6 +445,7 @@ const Color kcBackgroundColor = kcDarkGreyColor;
 ''';
 
 // --------------------------------------------------
+
 
 // -------- NoticeSheet Template Data ----------
 
@@ -446,6 +504,7 @@ class NoticeSheet extends StatelessWidget {
 
 // --------------------------------------------------
 
+
 // -------- NoticeSheetViewmodel Template Data ----------
 
 const String kAppTemplateNoticeSheetViewmodelPath =
@@ -456,6 +515,7 @@ const String kAppTemplateNoticeSheetViewmodelContent = '''
 ''';
 
 // --------------------------------------------------
+
 
 // -------- InfoAlertDialog Template Data ----------
 
@@ -565,6 +625,7 @@ class InfoAlertDialog extends StatelessWidget {
 
 // --------------------------------------------------
 
+
 // -------- InfoAlertViewmodel Template Data ----------
 
 const String kAppTemplateInfoAlertViewmodelPath =
@@ -578,9 +639,11 @@ const String kAppTemplateInfoAlertViewmodelContent = '''
 
 // --------------------------------------------------
 
+
 // -------- HomeView Template Data ----------
 
-const String kAppTemplateHomeViewPath = 'lib/ui/views/home/home_view.dart.stk';
+const String kAppTemplateHomeViewPath =
+    'lib/ui/views/home/home_view.dart.stk';
 
 const String kAppTemplateHomeViewContent = '''
 import 'package:flutter/material.dart';
@@ -666,6 +729,7 @@ class HomeView extends StatelessWidget {
 
 // --------------------------------------------------
 
+
 // -------- HomeViewmodel Template Data ----------
 
 const String kAppTemplateHomeViewmodelPath =
@@ -712,6 +776,7 @@ class HomeViewModel extends BaseViewModel {
 
 // --------------------------------------------------
 
+
 // -------- StartupViewmodel Template Data ----------
 
 const String kAppTemplateStartupViewmodelPath =
@@ -740,6 +805,7 @@ class StartupViewModel extends BaseViewModel {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- StartupView Template Data ----------
 
@@ -807,9 +873,11 @@ class StartupView extends StatelessWidget {
 
 // --------------------------------------------------
 
+
 // -------- App Template Data ----------
 
-const String kAppTemplateAppPath = 'lib/app/app.dart.stk';
+const String kAppTemplateAppPath =
+    'lib/app/app.dart.stk';
 
 const String kAppTemplateAppContent = '''
 import 'package:stacked/stacked_annotations.dart';
@@ -833,9 +901,11 @@ class App {}
 
 // --------------------------------------------------
 
+
 // -------- DialogType Template Data ----------
 
-const String kAppTemplateDialogTypePath = 'lib/enums/dialog_type.dart.stk';
+const String kAppTemplateDialogTypePath =
+    'lib/enums/dialog_type.dart.stk';
 
 const String kAppTemplateDialogTypeContent = '''
 enum DialogType {
@@ -845,6 +915,7 @@ enum DialogType {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- BottomSheetType Template Data ----------
 
@@ -860,9 +931,11 @@ enum BottomSheetType {
 
 // --------------------------------------------------
 
+
 // -------- PubspecYamlStk Template Data ----------
 
-const String kAppTemplatePubspecYamlStkPath = 'pubspec.yaml.stk';
+const String kAppTemplatePubspecYamlStkPath =
+    'pubspec.yaml.stk';
 
 const String kAppTemplatePubspecYamlStkContent = '''
 name: {{packageName}}
@@ -966,6 +1039,7 @@ flutter:
 
 // --------------------------------------------------
 
+
 // -------- GenericViewmodelTest Template Data ----------
 
 const String kViewTemplateGenericViewmodelTestPath =
@@ -988,16 +1062,11 @@ void main() {
 
 // --------------------------------------------------
 
-// -------- Generic View Folder Template Path ----------
-
-const String kViewTemplateGenericFolderPath = 'lib/ui/views/generic/';
-
-// --------------------------------------------------
 
 // -------- GenericViewmodel Template Data ----------
 
 const String kViewTemplateGenericViewmodelPath =
-    '${kViewTemplateGenericFolderPath}generic_viewmodel.dart.stk';
+    'lib/ui/views/generic/generic_viewmodel.dart.stk';
 
 const String kViewTemplateGenericViewmodelContent = '''
 import 'package:stacked/stacked.dart';
@@ -1008,10 +1077,11 @@ class {{viewModelName}} extends BaseViewModel {
 
 // --------------------------------------------------
 
+
 // -------- GenericView Template Data ----------
 
 const String kViewTemplateGenericViewPath =
-    '${kViewTemplateGenericFolderPath}generic_view.dart.stk';
+    'lib/ui/views/generic/generic_view.dart.stk';
 
 const String kViewTemplateGenericViewContent = '''
 import 'package:flutter/material.dart';
@@ -1036,6 +1106,7 @@ class {{viewName}} extends StatelessWidget {
 
 // --------------------------------------------------
 
+
 // -------- GenericServiceTest Template Data ----------
 
 const String kServiceTemplateGenericServiceTestPath =
@@ -1057,6 +1128,7 @@ void main() {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- GenericService Template Data ----------
 

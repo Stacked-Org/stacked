@@ -55,6 +55,7 @@ _$_CompiledFileModification _$$_CompiledFileModificationFromJson(
       identifier: json['identifier'] as String,
       template: json['template'] as String,
       error: json['error'] as String,
+      name: json['name'] as String,
     );
 
 Map<String, dynamic> _$$_CompiledFileModificationToJson(
@@ -65,4 +66,5 @@ Map<String, dynamic> _$$_CompiledFileModificationToJson(
       'identifier': instance.identifier,
       'template': instance.template,
       'error': instance.error,
+      'name': instance.name,
     };
