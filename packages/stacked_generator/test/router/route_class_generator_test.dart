@@ -20,19 +20,18 @@ void main() {
     }
 
     void generateRouteAndExpectResult(
-      List<RouteConfig> routes,
-      dynamic expectedResult,
-    ) {
+        List<RouteConfig> routes, dynamic expectedResult,
+        {bool verbose = false}) {
       final routerBaseGenerator = RouterClassGenerator(RouterConfig(
           routesClassName: 'RoutesClassB',
           routerClassName: 'RouterNamee',
           routes: routes));
-      // print(routerBaseGenerator.generate());
+      if (verbose) print(routerBaseGenerator.generate());
       expect(routerBaseGenerator.generate(), expectedResult);
     }
 
-    group('default router -', () {
-      test('When className is null, Throw exception', () {
+    group('RouteType.material - default -', () {
+      test('When RouteConfig -> className is null, Throw exception', () {
         final routes = [
           RouteConfig()
             ..name = 'loginView'
@@ -51,9 +50,30 @@ void main() {
 
         generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
       });
+      test('Given the following three RouteConfig, Generate output', () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView1'
+            ..pathName = 'pathNamaw1'
+            ..className = 'ebraClass1',
+          RouteConfig()
+            ..name = 'loginView2'
+            ..pathName = 'pathNamaw2'
+            ..className = 'ebraClass2',
+          RouteConfig()
+            ..name = 'loginView3'
+            ..pathName = 'pathNamaw3'
+            ..className = 'ebraClass3'
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterWithThreeNamePathNameClassName,
+        );
+      });
       test('''
 When routeType is material, 
-(cupertinoNavTitle customRouteBarrierDismissible durationInMilliseconds initial reverseDurationInMilliseconds)
+(cupertinoNavTitle customRouteBarrierDismissible durationInMilliseconds initial reverseDurationInMilliseconds transitionBuilder)
  does not have any effect''', () {
         final routes = [
           RouteConfig()
@@ -64,6 +84,7 @@ When routeType is material,
             ..customRouteBarrierDismissible = true
             ..durationInMilliseconds = 22
             ..initial = true
+            ..reverseDurationInMilliseconds = 2
         ];
 
         generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
@@ -451,6 +472,78 @@ When routeType is material,
         ];
 
         generateRouteAndExpectResult(routes, kRouterWithNestedRouter);
+      });
+    });
+    group('RouteType.cupertino -', () {
+      test('Given the following RouteConfig, Generate output', () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..routeType = RouteType.cupertino
+        ];
+
+        generateRouteAndExpectResult(
+            routes, kRouterTypeCupertinoWithNamePathNameClassName);
+      });
+      test('With cupertinoNavTitle', () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..routeType = RouteType.cupertino
+            ..cupertinoNavTitle = 'cupertinoNavTitle'
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCupertinoWithCupertinoNavTitle,
+        );
+      });
+      test('With cupertinoNavTitle', () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..routeType = RouteType.cupertino
+            ..cupertinoNavTitle = 'cupertinoNavTitle'
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCupertinoWithCupertinoNavTitle,
+        );
+      });
+    });
+    group('RouteType.adaptive -', () {
+      test('Given the following RouteConfig, Generate output', () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..routeType = RouteType.adaptive
+        ];
+
+        generateRouteAndExpectResult(routes, kRouterTypeAdaptive);
+      });
+      test('With cupertinoNavTitle', () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..routeType = RouteType.adaptive
+            ..cupertinoNavTitle = 'cupertinooo'
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeAdaptiveWithCupertinoNavTitle,
+        );
       });
     });
   });

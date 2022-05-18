@@ -27,6 +27,47 @@ ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
 },};}
 ''';
+const kRouterWithThreeNamePathNameClassName = '''
+// ignore_for_file: public_member_api_docs
+
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+class RoutesClassB {
+static const String loginView1 = 'pathNamaw1';
+static const String loginView2 = 'pathNamaw2';
+static const String loginView3 = 'pathNamaw3';
+static const all = <String>{
+loginView1,loginView2,loginView3,};}
+
+class RouterNamee extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+RouteDef(RoutesClassB.loginView1
+,page: ebraClass1
+),
+RouteDef(RoutesClassB.loginView2
+,page: ebraClass2
+),
+RouteDef(RoutesClassB.loginView3
+,page: ebraClass3
+),
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+ebraClass1: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass1(), settings: data,);
+},ebraClass2: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass2(), settings: data,);
+},ebraClass3: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass3(), settings: data,);
+},};}
+''';
 
 const kRouterWithNamePathNameClassNameFullScreenDialogIsTrue = '''
 // ignore_for_file: public_member_api_docs
@@ -697,5 +738,120 @@ RouteDef(MyNestedRoutess.nestedView
 
 nestedClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   nestedClass(), settings: data,);
+},};}
+''';
+const kRouterTypeCupertinoWithNamePathNameClassName = '''
+// ignore_for_file: public_member_api_docs
+
+import 'package:flutter/cupertino.dart';
+import 'package:stacked/stacked.dart';
+
+class RoutesClassB {
+static const String loginView = 'pathNamaw';
+static const all = <String>{
+loginView,};}
+
+class RouterNamee extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+RouteDef(RoutesClassB.loginView
+,page: ebraClass
+),
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+ebraClass: (data) {
+return CupertinoPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
+},};}
+''';
+
+const kRouterTypeCupertinoWithCupertinoNavTitle = '''
+// ignore_for_file: public_member_api_docs
+
+import 'package:flutter/cupertino.dart';
+import 'package:stacked/stacked.dart';
+
+class RoutesClassB {
+static const String loginView = 'pathNamaw';
+static const all = <String>{
+loginView,};}
+
+class RouterNamee extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+RouteDef(RoutesClassB.loginView
+,page: ebraClass
+),
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+ebraClass: (data) {
+return CupertinoPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,title:'cupertinoNavTitle',);
+},};}
+''';
+const kRouterTypeAdaptive = '''
+// ignore_for_file: public_member_api_docs
+
+import 'package:stacked/stacked.dart';
+
+class RoutesClassB {
+static const String loginView = 'pathNamaw';
+static const all = <String>{
+loginView,};}
+
+class RouterNamee extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+RouteDef(RoutesClassB.loginView
+,page: ebraClass
+),
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+ebraClass: (data) {
+return buildAdaptivePageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
+},};}
+''';
+const kRouterTypeAdaptiveWithCupertinoNavTitle = '''
+// ignore_for_file: public_member_api_docs
+
+import 'package:stacked/stacked.dart';
+
+class RoutesClassB {
+static const String loginView = 'pathNamaw';
+static const all = <String>{
+loginView,};}
+
+class RouterNamee extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+RouteDef(RoutesClassB.loginView
+,page: ebraClass
+),
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+ebraClass: (data) {
+return buildAdaptivePageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,cupertinoTitle:'cupertinooo',);
 },};}
 ''';
