@@ -1,9 +1,16 @@
+## 0.8.22+2
+- Update documentation.
+## 0.8.22+1
+- Adds Breaking change indication below.
+## 0.8.22
+- Fix navigation service
+- Deprecate: transition and transitionClass and defaultTransition argument
+- Update the example app
+- Replace deprecated documentaion with new one
 ## 0.8.21
-
 - Minor fix
 ## 0.8.20
-
-- Remove the export of the Get package to hide its global variables
+- ⚠️ Break Change ⚠️: Remove the export of the Get package to hide its global variables
 ## 0.8.19
 
 - Adds `titleTextStyle` and `messageTextStyle` to `showCustomSnackbar` to allow custom textstyles for snackbars.

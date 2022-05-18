@@ -1,3 +1,11 @@
+## 0.1.4
+
+- Adds colorized outputs on command line
+- Runs build runner and pub get on view and service creation
+- Adds delete command for views
+  - you can now run `stacked delete view view_name ` to delete view_name view,viewmodel and tests also remove view from `app.dart`  
+- Fixes wrong pubspec.yaml file selection on non-root commands
+
 ## 0.1.2+1
 
 - Adds documentation link to basic docs

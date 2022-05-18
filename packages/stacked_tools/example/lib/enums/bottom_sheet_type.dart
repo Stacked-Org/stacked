@@ -1,0 +1,4 @@
+enum BottomSheetType {
+  notice,
+}
+
