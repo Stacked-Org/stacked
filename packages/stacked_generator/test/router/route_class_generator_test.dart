@@ -31,6 +31,14 @@ void main() {
     }
 
     group('RouteType.material - default -', () {
+      test('When routes are empty', () {
+        List<RouteConfig> routes = [];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterWithEmptyRoutes,
+        );
+      });
       test('When RouteConfig -> className is null, Throw exception', () {
         final routes = [
           RouteConfig()

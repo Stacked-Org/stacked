@@ -27,6 +27,28 @@ ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
 },};}
 ''';
+const kRouterWithEmptyRoutes = '''
+// ignore_for_file: public_member_api_docs
+
+import 'package:stacked/stacked.dart';
+
+class RoutesClassB {
+static const all = <String>{
+};}
+
+class RouterNamee extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+};}
+''';
 const kRouterWithThreeNamePathNameClassName = '''
 // ignore_for_file: public_member_api_docs
 
