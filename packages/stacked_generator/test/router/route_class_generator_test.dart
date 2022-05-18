@@ -546,5 +546,82 @@ When routeType is material,
         );
       });
     });
+    group('RouteType.custom -', () {
+      test('Given the following RouteConfig, Generate output', () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..routeType = RouteType.custom
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCustom,
+        );
+      });
+      test('With cupertinoNavTitle', () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..routeType = RouteType.custom
+            ..cupertinoNavTitle = 'cupertinooo'
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCustomWithTitleNavBar,
+        );
+      });
+      test('With customRouteBarrierDismissible', () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..routeType = RouteType.custom
+            ..customRouteBarrierDismissible = false
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCustomWithbarrierDismissible,
+        );
+      });
+      test('With durationInMilliseconds', () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..routeType = RouteType.custom
+            ..durationInMilliseconds = 22
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCustomWithTransitionDuration,
+        );
+      });
+      test('With durationInMilliseconds', () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..routeType = RouteType.custom
+          // ..initial = true
+          // ..reverseDurationInMilliseconds = 2
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCustomWithTransitionDuration,
+        );
+      });
+    });
   });
 }
