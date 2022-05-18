@@ -606,21 +606,66 @@ When routeType is material,
           kRouterTypeCustomWithTransitionDuration,
         );
       });
-      test('With durationInMilliseconds', () {
+      test('With reverseDurationInMilliseconds', () {
         final routes = [
           RouteConfig()
             ..name = 'loginView'
             ..pathName = 'pathNamaw'
             ..className = 'ebraClass'
             ..routeType = RouteType.custom
-          // ..initial = true
-          // ..reverseDurationInMilliseconds = 2
+            ..reverseDurationInMilliseconds = 2
         ];
 
         generateRouteAndExpectResult(
           routes,
-          kRouterTypeCustomWithTransitionDuration,
+          kRouterTypeCustomWithReverseDurationInMilliseconds,
         );
+      });
+    });
+    group('Mixed -', () {
+      test('Given random routing system', () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView1'
+            ..pathName = 'pathNamaw1'
+            ..className = 'ebraClass1'
+            ..routeType = RouteType.custom
+            ..reverseDurationInMilliseconds = 2
+            ..durationInMilliseconds = 22
+            ..cupertinoNavTitle = 'cupertinooo',
+          RouteConfig()
+            ..name = 'loginView2'
+            ..pathName = 'pathNamaw2'
+            ..className = 'ebraClass2'
+            ..parameters = [
+              RouteParamConfig(isPathParam: false, isQueryParam: true)
+            ],
+          RouteConfig()
+            ..name = 'loginView3'
+            ..pathName = 'pathNamaw3'
+            ..className = 'ebraClass3'
+            ..parameters = [
+              RouteParamConfig(isPathParam: false, isQueryParam: false)
+            ],
+          RouteConfig()
+            ..name = 'loginView4'
+            ..pathName = 'pathNamaw4'
+            ..className = 'ebraClass4'
+            ..maintainState = false,
+          RouteConfig()
+            ..name = 'loginView5'
+            ..pathName = 'pathNamaw5'
+            ..className = 'ebraClass5'
+            ..routeType = RouteType.adaptive
+            ..cupertinoNavTitle = 'cupertinooo',
+          RouteConfig()
+            ..name = 'loginView6'
+            ..pathName = 'pathNamaw6'
+            ..className = 'ebraClass6'
+            ..routeType = RouteType.cupertino
+        ];
+
+        generateRouteAndExpectResult(routes, kRouterMixin);
       });
     });
   });

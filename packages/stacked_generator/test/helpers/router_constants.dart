@@ -972,3 +972,104 @@ ebraClass: (data) {
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,transitionDuration: const Duration(milliseconds: 22),);
 },};}
 ''';
+const kRouterTypeCustomWithReverseDurationInMilliseconds = '''
+// ignore_for_file: public_member_api_docs
+
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+class RoutesClassB {
+static const String loginView = 'pathNamaw';
+static const all = <String>{
+loginView,};}
+
+class RouterNamee extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+RouteDef(RoutesClassB.loginView
+,page: ebraClass
+),
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+ebraClass: (data) {
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,reverseTransitionDuration: const Duration(milliseconds: 2),);
+},};}
+''';
+const kRouterMixin = '''
+// ignore_for_file: public_member_api_docs
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+class RoutesClassB {
+static const String loginView1 = 'pathNamaw1';
+static const String loginView2 = 'pathNamaw2';
+static const String loginView3 = 'pathNamaw3';
+static const String loginView4 = 'pathNamaw4';
+static const String loginView5 = 'pathNamaw5';
+static const String loginView6 = 'pathNamaw6';
+static const all = <String>{
+loginView1,loginView2,loginView3,loginView4,loginView5,loginView6,};}
+
+class RouterNamee extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+RouteDef(RoutesClassB.loginView1
+,page: ebraClass1
+),
+RouteDef(RoutesClassB.loginView2
+,page: ebraClass2
+),
+RouteDef(RoutesClassB.loginView3
+,page: ebraClass3
+),
+RouteDef(RoutesClassB.loginView4
+,page: ebraClass4
+),
+RouteDef(RoutesClassB.loginView5
+,page: ebraClass5
+),
+RouteDef(RoutesClassB.loginView6
+,page: ebraClass6
+),
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+ebraClass1: (data) {
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass1(), settings: data,transitionDuration: const Duration(milliseconds: 22),reverseTransitionDuration: const Duration(milliseconds: 2),);
+},ebraClass2: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass2(null:data.queryParams['null'].value()), settings: data,);
+},ebraClass3: (data) {
+var args = data.getArgs<ebraClass3Arguments>(
+orElse: ()=> ebraClass3Arguments(),);return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass3(null:args.null), settings: data,);
+},ebraClass4: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass4(), settings: data,maintainState:false,);
+},ebraClass5: (data) {
+return buildAdaptivePageRoute<dynamic>(builder: (context) =>   ebraClass5(), settings: data,cupertinoTitle:'cupertinooo',);
+},ebraClass6: (data) {
+return CupertinoPageRoute<dynamic>(builder: (context) =>   ebraClass6(), settings: data,);
+},};}
+
+/// ************************************************************************
+/// Arguments holder classes
+/// *************************************************************************
+
+/// ebraClass3 arguments holder class
+class ebraClass3Arguments{
+final null null;
+ebraClass3Arguments({
+this.null});
+}
+''';
