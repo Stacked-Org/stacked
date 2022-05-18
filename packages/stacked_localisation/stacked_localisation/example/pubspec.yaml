@@ -27,15 +27,22 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
-  stacked: ^1.7.6
-  stacked_services: ^0.5.2
+  stacked: 
+  stacked_services: 
   stacked_localisation:
-    path: ../
 
-  get_it: ^4.0.4
+  get_it: ^7.1.4
 
   # navigation
   auto_route: ^0.6.7
+
+dependency_overrides: 
+  stacked: 
+    path: ../../../stacked/
+  stacked_services:
+    path: ../../../stacked_services/
+  stacked_localisation:
+    path: ../
 
 dev_dependencies:
   flutter_test:

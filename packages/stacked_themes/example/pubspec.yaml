@@ -29,8 +29,13 @@ dependencies:
   cupertino_icons: ^0.1.3
   stacked:
   stacked_themes:
-    path: ../
   get_it:
+
+dependency_overrides: 
+  stacked:
+    path: ../../stacked/
+  stacked_themes:
+    path: ../ 
 
 dev_dependencies:
   flutter_test:
