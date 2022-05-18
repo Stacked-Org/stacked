@@ -32,12 +32,12 @@ dependencies:
   stacked_themes:
   stacked_crashlytics:
   
-  flutter_hooks:
+  flutter_hooks: ^0.18.4
   # navigation
-  get:
+  get: ^4.6.3
 
   # logging
-  logger:
+  logger: ^1.1.0
 
 dependency_overrides: 
   stacked:
