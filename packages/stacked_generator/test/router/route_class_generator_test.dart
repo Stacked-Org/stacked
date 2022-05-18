@@ -23,8 +23,10 @@ void main() {
       List<RouteConfig> routes,
       dynamic expectedResult,
     ) {
-      final routerBaseGenerator =
-          RouterClassGenerator(RouterConfig(routes: routes));
+      final routerBaseGenerator = RouterClassGenerator(RouterConfig(
+          routesClassName: 'RoutesClassB',
+          routerClassName: 'RouterNamee',
+          routes: routes));
       // print(routerBaseGenerator.generate());
       expect(routerBaseGenerator.generate(), expectedResult);
     }
@@ -51,8 +53,8 @@ void main() {
       });
       test('''
 When routeType is material, 
-(cupertinoNavTitle customRouteBarrierDismissible durationInMilliseconds initial) does not have any effect''',
-          () {
+(cupertinoNavTitle customRouteBarrierDismissible durationInMilliseconds initial reverseDurationInMilliseconds)
+ does not have any effect''', () {
         final routes = [
           RouteConfig()
             ..name = 'loginView'
@@ -197,8 +199,7 @@ When routeType is material,
             ..className = 'ebraClass'
             ..maintainState = false
         ];
-        generateRouteAndExpectResult(
-            routes, kRouterWithParameterPathFalseQueryFalse);
+        generateRouteAndExpectResult(routes, kRouterWithMaintainStateIsFalse);
       });
       test(
           'When adding an empty parameter, SHould throw InvalidGeneratorInputException ',
@@ -287,6 +288,169 @@ When routeType is material,
 
         generateRouteAndExpectResult(
             routes, kRouterWithParameterPathFalseQueryTrue);
+      });
+      test(
+          'When adding a parameter with PathParam: false, isQueryParam: true, alias: aliaso',
+          () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..parameters = [
+              RouteParamConfig(
+                  isPathParam: false, isQueryParam: true, alias: 'aliaso')
+            ]
+        ];
+
+        generateRouteAndExpectResult(
+            routes, kRouterWithParameterPathFalseQueryTrueAlias);
+      });
+      test(
+          'When adding a parameter with PathParam: false, isQueryParam: true, defaultValueCode: 2',
+          () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..parameters = [
+              RouteParamConfig(
+                  isPathParam: false, isQueryParam: true, defaultValueCode: '2')
+            ]
+        ];
+
+        generateRouteAndExpectResult(
+            routes, kRouterWithParameterPathFalseQueryTrueDefaultCode2);
+      });
+      test(
+          'When adding a parameter with PathParam: false, isQueryParam: true, imports',
+          () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..parameters = [
+              RouteParamConfig(
+                  isPathParam: false,
+                  isQueryParam: true,
+                  imports: {'parameter/import1', 'parameter/import2'})
+            ]
+        ];
+
+        generateRouteAndExpectResult(
+            routes, kRouterWithParameterPathFalseQueryTrueImports);
+      });
+      test(
+          'When adding a parameter with PathParam: false, isQueryParam: true, isPositional: true',
+          () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..parameters = [
+              RouteParamConfig(
+                isPathParam: false,
+                isQueryParam: true,
+                isPositional: true,
+              )
+            ]
+        ];
+
+        generateRouteAndExpectResult(
+            routes, kRouterWithParameterPathFalseQueryTrueIsPositionalTrue);
+      });
+      test(
+          'When adding a parameter with PathParam: false, isQueryParam: true, isRequired: true',
+          () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..parameters = [
+              RouteParamConfig(
+                isPathParam: false,
+                isQueryParam: true,
+                isRequired: true,
+              )
+            ]
+        ];
+
+        generateRouteAndExpectResult(
+            routes, kRouterWithParameterPathFalseQueryTrueIsRequiredTrue);
+      });
+      test(
+          'When adding a parameter with PathParam: false, isQueryParam: true, isRequired: true,name: ebra',
+          () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..parameters = [
+              RouteParamConfig(
+                  isPathParam: false, isQueryParam: true, name: 'ebra')
+            ]
+        ];
+
+        generateRouteAndExpectResult(
+            routes, kRouterWithParameterPathFalseQueryTrueIsRequiredTrueName);
+      });
+      test(
+          'When adding a parameter with PathParam: false, isQueryParam: false, type: newType',
+          () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..parameters = [
+              RouteParamConfig(
+                  isPathParam: false, isQueryParam: false, type: 'newType')
+            ]
+        ];
+
+        generateRouteAndExpectResult(
+            routes, kRouterWithParameterPathFalseQueryFalseType);
+      });
+      test('When adding returnType = returnYpe', () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..returnType = 'returnYpe'
+        ];
+
+        generateRouteAndExpectResult(routes, kRouterWithRetrunType);
+      });
+      test('When adding NestedRouter', () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..returnType = 'returnYpe'
+            ..routerConfig = RouterConfig(
+                routesClassName: 'MyNestedRoutess',
+                routeNamePrefix: 'prefexNestedRouter',
+                routerClassName: 'MyNestedRouteerrr',
+                globalRouteConfig: RouteConfig()
+                  ..name = 'globalNestedView'
+                  ..pathName = 'globalNestedPath'
+                  ..className = 'globalNestedClass',
+                routes: [
+                  RouteConfig()
+                    ..name = 'nestedView'
+                    ..pathName = 'nestedPath'
+                    ..className = 'nestedClass'
+                ])
+        ];
+
+        generateRouteAndExpectResult(routes, kRouterWithNestedRouter);
       });
     });
   });
