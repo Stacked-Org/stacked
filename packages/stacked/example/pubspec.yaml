@@ -36,9 +36,6 @@ dependencies:
   # navigation
   get: ^4.6.3
 
-  # logging
-  logger: ^1.1.0
-
 dependency_overrides: 
   stacked:
       path: ../
