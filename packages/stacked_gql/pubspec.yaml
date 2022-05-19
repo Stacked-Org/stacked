@@ -1,7 +1,6 @@
 name: stacked_gql
 description: A package that improves the usability of gql in flutter applications.
 version: 0.0.1
-homepage:
 
 environment:
   sdk: ">=2.13.0 <3.0.0"

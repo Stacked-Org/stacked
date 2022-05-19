@@ -27,20 +27,29 @@ dependencies:
 
   # state management
   stacked:
-    path: ../
+  stacked_services:
+  stacked_hooks:
+  stacked_themes:
+  stacked_crashlytics:
+  
+  flutter_hooks: ^0.18.4
+  # navigation
+  get: ^4.6.3
+
+dependency_overrides: 
+  stacked:
+      path: ../
   stacked_services:
     path: ../../stacked_services/
   stacked_hooks:
-  flutter_hooks:
+    path: ../../stacked_hooks/
   stacked_themes:
     path: ../../stacked_themes/
   stacked_crashlytics:
     path: ../../stacked_crashlytics/
-  # navigation
-  get:
+  stacked_generator:
+    path: ../../stacked_generator
 
-  # logging
-  logger:
 
 dev_dependencies:
   flutter_test:
@@ -50,6 +59,7 @@ dev_dependencies:
   build_runner:
   stacked_generator:
     # path: ../../stacked_generator
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

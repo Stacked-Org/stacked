@@ -9,6 +9,6 @@ class StackedFormContentGenerator {
 
   String generate() {
     _util = FormGeneratorUtil(formViewConfig: _formViewConfig);
-    return _util.generateForm();
+    return _util.generate();
   }
 }

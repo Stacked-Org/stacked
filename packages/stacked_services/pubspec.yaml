@@ -10,12 +10,17 @@ dependencies:
   flutter:
     sdk: flutter
 
-  stacked_core: ^1.1.0
+  stacked_core:
 
   # navigation
   get: ^4.5.1
 
   crypto: ^3.0.1
+
+dependency_overrides: 
+  stacked_core:
+    path: ../stacked_core/
+
 
 dev_dependencies:
   flutter_test:

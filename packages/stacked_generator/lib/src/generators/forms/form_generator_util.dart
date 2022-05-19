@@ -10,7 +10,8 @@ class FormGeneratorUtil extends BaseGenerator {
   List<FieldConfig> get fields => formViewConfig.fields;
   String get viewName => formViewConfig.viewName;
 
-  String generateForm() {
+  @override
+  String generate() {
     writeLine("// ignore_for_file: public_member_api_docs");
 
     generateImports();
