@@ -11,8 +11,12 @@ dependencies:
     sdk: flutter
 
   devicelocale: ^0.3.1
-  get_it: ^4.0.4
-  stacked_core: ^1.1.0
+  get_it: ^7.1.4
+  stacked_core: 
+
+dependency_overrides:
+  stacked_core:
+    path: ../../stacked_core/
 
 dev_dependencies:
   flutter_test:

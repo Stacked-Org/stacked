@@ -14,7 +14,7 @@ LocalisationService getAndRegisterLocalistionService(
     {String localisationString = 'hello, world'}) {
   _removeRegistrationIfExists<LocalisationService>();
   var mock = LocalisationServiceMock();
-  when(mock[any]).thenReturn(localisationString);
+  // when(mock[any]).thenReturn(localisationString);
   locator.registerSingleton<LocalisationService>(mock);
   return mock;
 }
@@ -37,7 +37,7 @@ StringReader getAndRegisterStringReaderMock() {
 
 // Call this before any service registration helper. This is to ensure that if there
 // is a service registered we remove it first. We register all services to remove boiler plate from tests
-void _removeRegistrationIfExists<T>() {
+void _removeRegistrationIfExists<T extends Object>() {
   if (locator.isRegistered<T>()) {
     locator.unregister<T>();
   }

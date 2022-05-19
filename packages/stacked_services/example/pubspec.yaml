@@ -27,6 +27,11 @@ dependencies:
   injectable:
   stacked:
   stacked_services:
+  
+dependency_overrides: 
+  stacked:
+    path: ../../stacked
+  stacked_services:
     path: ../
 
 dev_dependencies:
