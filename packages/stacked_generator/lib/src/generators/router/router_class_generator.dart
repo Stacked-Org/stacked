@@ -3,6 +3,7 @@ import 'package:stacked_generator/src/generators/base_generator.dart';
 import 'package:stacked_generator/utils.dart';
 
 import '../exceptions/invalid_generator_input_exception.dart';
+import 'router_config.dart';
 
 class RouterClassGenerator extends BaseGenerator {
   final RouterConfig _rootRouterConfig;

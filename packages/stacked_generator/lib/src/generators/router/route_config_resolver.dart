@@ -4,6 +4,8 @@ import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/router/route_config_builder.dart';
 import 'package:source_gen/source_gen.dart';
 
+import 'router_config.dart';
+
 const TypeChecker stackedRouteChecker = TypeChecker.fromRuntime(StackedRoute);
 
 // extracts route configs from class fields
@@ -20,7 +22,7 @@ class RouteConfigResolver {
         stackedRoute: stackedRoute,
         dartType: dartType,
         importResolver: _importResolver,
-        routeConfig: RouteConfig());
+        routeConfig: RouteConfig.fromStackedApp(stackedRoute));
 
     final result = await routeConfigBuilder
         .checkIfNotClassElement()
