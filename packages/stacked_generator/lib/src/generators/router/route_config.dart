@@ -9,7 +9,6 @@ class RouteConfig {
   List<String> imports = [];
   late String name;
   late String pathName;
-  bool? initial;
   bool? fullscreenDialog;
   bool? customRouteOpaque;
   bool? customRouteBarrierDismissible;
