@@ -81,7 +81,7 @@ void main() {
       });
       test('''
 When routeType is material, 
-(cupertinoNavTitle customRouteBarrierDismissible durationInMilliseconds initial reverseDurationInMilliseconds transitionBuilder)
+(cupertinoNavTitle customRouteBarrierDismissible durationInMilliseconds reverseDurationInMilliseconds customRouteOpaque transitionBuilder)
  does not have any effect''', () {
         final routes = [
           RouteConfig()
@@ -90,8 +90,8 @@ When routeType is material,
             ..className = 'ebraClass'
             ..cupertinoNavTitle = 'cupertinooo'
             ..customRouteBarrierDismissible = true
+            ..customRouteOpaque = true
             ..durationInMilliseconds = 22
-            ..initial = true
             ..reverseDurationInMilliseconds = 2
         ];
 
@@ -627,6 +627,36 @@ When routeType is material,
         generateRouteAndExpectResult(
           routes,
           kRouterTypeCustomWithReverseDurationInMilliseconds,
+        );
+      });
+      test('With customRouteOpaque true', () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..routeType = RouteType.custom
+            ..customRouteOpaque = true
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCustomWithCustomRouteOpaqueTrue,
+        );
+      });
+      test('With customRouteOpaque false', () {
+        final routes = [
+          RouteConfig()
+            ..name = 'loginView'
+            ..pathName = 'pathNamaw'
+            ..className = 'ebraClass'
+            ..routeType = RouteType.custom
+            ..customRouteOpaque = false
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCustomWithCustomRouteOpaqueFalse,
         );
       });
     });
