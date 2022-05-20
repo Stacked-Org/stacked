@@ -1,6 +1,7 @@
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/exceptions/invalid_generator_input_exception.dart';
 import 'package:stacked_generator/src/generators/router/router_class_generator.dart';
+import 'package:stacked_generator/src/generators/router/router_config.dart';
 import 'package:test/test.dart';
 
 import '../helpers/router_constants.dart';
@@ -467,10 +468,6 @@ When routeType is material,
                 routesClassName: 'MyNestedRoutess',
                 routeNamePrefix: 'prefexNestedRouter',
                 routerClassName: 'MyNestedRouteerrr',
-                globalRouteConfig: RouteConfig()
-                  ..name = 'globalNestedView'
-                  ..pathName = 'globalNestedPath'
-                  ..className = 'globalNestedClass',
                 routes: [
                   RouteConfig()
                     ..name = 'nestedView'

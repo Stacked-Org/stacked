@@ -6,7 +6,6 @@ import 'route_config/route_config.dart';
 class RouterConfig {
   final bool generateNavigationHelper;
   final List<RouteConfig> routes;
-  final RouteConfig? globalRouteConfig;
   final String? routesClassName;
   final String? routeNamePrefix;
   final String? routerClassName;
@@ -14,7 +13,6 @@ class RouterConfig {
   const RouterConfig({
     this.generateNavigationHelper = false,
     this.routes = const [],
-    this.globalRouteConfig,
     required this.routesClassName,
     this.routeNamePrefix,
     required this.routerClassName,
@@ -23,7 +21,6 @@ class RouterConfig {
   RouterConfig copyWith({
     bool? generateNavigationHelper,
     List<RouteConfig>? routes,
-    RouteConfig? globalRouteConfig,
     String? routesClassName,
     String? routeNamePrefix,
     String? routerClassName,
@@ -32,7 +29,6 @@ class RouterConfig {
       generateNavigationHelper:
           generateNavigationHelper ?? this.generateNavigationHelper,
       routes: routes ?? this.routes,
-      globalRouteConfig: globalRouteConfig ?? this.globalRouteConfig,
       routesClassName: routesClassName ?? this.routesClassName,
       routeNamePrefix: routeNamePrefix ?? this.routeNamePrefix,
       routerClassName: routerClassName ?? this.routerClassName,

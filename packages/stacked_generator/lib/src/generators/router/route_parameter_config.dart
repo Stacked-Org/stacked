@@ -68,7 +68,7 @@ class RouteParameterResolver {
 
   RouteParameterResolver(this._importResolver);
 
-  Future<RouteParamConfig> resolve(ParameterElement parameterElement) async {
+  RouteParamConfig resolve(ParameterElement parameterElement) {
     final paramType = parameterElement.type;
 
     var pathParam = pathParamChecker.hasAnnotationOfExact(parameterElement);
