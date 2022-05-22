@@ -14,7 +14,7 @@ class MaterialRouteConfig extends RouteConfig {
   final bool fullscreenDialog;
   final bool maintainState;
   final String? returnType;
-  final List<RouteParamConfig>? parameters;
+  final List<RouteParamConfig> parameters;
   final List<RouteGuardConfig> guards;
   final bool hasWrapper;
   final bool hasConstConstructor;
@@ -25,9 +25,9 @@ class MaterialRouteConfig extends RouteConfig {
     required this.pathName,
     required this.className,
     this.fullscreenDialog = false,
-    this.maintainState = false,
+    this.maintainState = true,
     this.returnType,
-    this.parameters,
+    this.parameters = const [],
     this.guards = const [],
     this.hasWrapper = false,
     this.hasConstConstructor = false,
@@ -49,8 +49,8 @@ class MaterialRouteConfig extends RouteConfig {
         );
 
   @override
-  String registerImports() {
-    return "package:stacked/stacked.dart";
+  Set<String> registerImports() {
+    return {...super.registerImports(), "package:flutter/material.dart"};
   }
 
   // TODO: move this code to the routeconfig super class
@@ -125,7 +125,7 @@ class MaterialRouteConfig extends RouteConfig {
         final paramResolver = RouteParameterResolver(importResolver);
         for (ParameterElement p in constructor.parameters) {
           materialRouteConfig.copyWith(parameters: [
-            ...?materialRouteConfig.parameters,
+            ...materialRouteConfig.parameters,
             paramResolver.resolve(p)
           ]);
         }

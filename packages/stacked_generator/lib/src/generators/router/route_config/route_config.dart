@@ -12,9 +12,6 @@ import 'cupertino_route_config.dart';
 import 'custom_route_config.dart';
 import 'material_route_config.dart';
 
-/// holds the extracted route configs
-/// to be used in [RouterClassGenerator]
-
 class RouteConfig {
   final String name;
   final String pathName;
@@ -22,9 +19,9 @@ class RouteConfig {
   final bool fullscreenDialog;
   final bool maintainState;
   final String? returnType;
-  final List<RouteParamConfig>? parameters;
+  final List<RouteParamConfig> parameters;
   final List<RouteGuardConfig> guards;
-  final bool? hasWrapper;
+  final bool hasWrapper;
   final RouterConfig? routerConfig;
   final bool hasConstConstructor;
   final Set<String> imports;
@@ -33,11 +30,11 @@ class RouteConfig {
     required this.pathName,
     required this.className,
     this.fullscreenDialog = false,
-    this.maintainState = false,
+    this.maintainState = true,
     this.returnType,
-    this.parameters,
+    this.parameters = const [],
     this.guards = const [],
-    this.hasWrapper,
+    this.hasWrapper = false,
     this.routerConfig,
     this.hasConstConstructor = false,
     this.imports = const {},
@@ -47,19 +44,32 @@ class RouteConfig {
     return '${className}Arguments';
   }
 
-  // String registerImports();
+  Set<String> registerImports() {
+    final guardsImports = guards
+        .where((guard) => guard.import != null)
+        .map((guard) => guard.import!)
+        .toSet();
+
+    final paramertersImports = this
+        .parameters
+        .map((parameter) => parameter.imports)
+        .fold<Set<String>>({}, (previousValue, element) {
+      return {...previousValue, ...?element};
+    });
+
+    return {...this.imports, ...guardsImports, ...paramertersImports};
+  }
 
   String? get templateName {
     return pathName.contains(":") ? '_$name' : name;
   }
 
   List<RouteParamConfig> get notQueryAndNotPath {
-    return parameters?.where((p) {
-          throwIf(p.isPathParam == null || p.isQueryParam == null,
-              ExceptionMessages.isPathParamAndIsQueryParamShouldNotBeNull);
-          return !p.isPathParam! && !p.isQueryParam!;
-        }).toList() ??
-        [];
+    return parameters.where((p) {
+      throwIf(p.isPathParam == null || p.isQueryParam == null,
+          ExceptionMessages.isPathParamAndIsQueryParamShouldNotBeNull);
+      return !p.isPathParam! && !p.isQueryParam!;
+    }).toList();
   }
 
   factory RouteConfig.fromStackedApp(

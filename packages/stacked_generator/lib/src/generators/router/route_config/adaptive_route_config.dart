@@ -16,7 +16,7 @@ class AdaptiveRouteConfig extends RouteConfig {
   final bool fullscreenDialog;
   final bool maintainState;
   final String? returnType;
-  final List<RouteParamConfig>? parameters;
+  final List<RouteParamConfig> parameters;
   final List<RouteGuardConfig> guards;
   final bool hasWrapper;
   final bool hasConstConstructor;
@@ -30,9 +30,9 @@ class AdaptiveRouteConfig extends RouteConfig {
     required this.pathName,
     required this.className,
     this.fullscreenDialog = false,
-    this.maintainState = false,
+    this.maintainState = true,
     this.returnType,
-    this.parameters,
+    this.parameters = const [],
     this.guards = const [],
     this.hasWrapper = false,
     this.hasConstConstructor = false,
@@ -55,8 +55,8 @@ class AdaptiveRouteConfig extends RouteConfig {
         );
 
   @override
-  String registerImports() {
-    return "package:stacked/stacked.dart";
+  Set<String> registerImports() {
+    return {...super.registerImports()};
   }
   // TODO: move this code to the routeconfig super class
 
@@ -129,7 +129,7 @@ class AdaptiveRouteConfig extends RouteConfig {
         final paramResolver = RouteParameterResolver(importResolver);
         for (ParameterElement p in constructor.parameters) {
           adaptiveRouteConfig.copyWith(parameters: [
-            ...?adaptiveRouteConfig.parameters,
+            ...adaptiveRouteConfig.parameters,
             paramResolver.resolve(p)
           ]);
         }

@@ -1,42 +1,42 @@
-import 'package:stacked_generator/route_config_resolver.dart';
-import 'package:stacked_generator/src/generators/router/router_config.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:source_gen/src/constants/reader.dart';
 
 import 'package:stacked_generator/import_resolver.dart';
+import 'package:stacked_generator/route_config_resolver.dart';
+import 'package:stacked_generator/src/generators/router/router_config.dart';
+
 import '../../../../utils.dart';
 import '../router_config.dart';
 
 class CustomRouteConfig extends RouteConfig {
-  final int? durationInMilliseconds;
-  final int? reverseDurationInMilliseconds;
-  final bool customRouteOpaque;
-  final bool customRouteBarrierDismissible;
-  final CustomTransitionBuilder? transitionBuilder;
-  final String? cupertinoNavTitle;
-
-  /// super constructed fields
   final String name;
   final String pathName;
   final String className;
   final bool fullscreenDialog;
   final bool maintainState;
   final String? returnType;
-  final List<RouteParamConfig>? parameters;
+  final List<RouteParamConfig> parameters;
   final List<RouteGuardConfig> guards;
   final bool hasWrapper;
   final bool hasConstConstructor;
   final RouterConfig? routerConfig;
   final Set<String> imports;
+
+  final int? durationInMilliseconds;
+  final int? reverseDurationInMilliseconds;
+  final bool customRouteOpaque;
+  final bool customRouteBarrierDismissible;
+  final CustomTransitionBuilder? transitionBuilder;
+  final String? cupertinoNavTitle;
   CustomRouteConfig({
     required this.name,
     required this.pathName,
     required this.className,
     this.fullscreenDialog = false,
-    this.maintainState = false,
+    this.maintainState = true,
     this.returnType,
-    this.parameters,
+    this.parameters = const [],
     this.guards = const [],
     this.hasWrapper = false,
     this.hasConstConstructor = false,
@@ -44,7 +44,7 @@ class CustomRouteConfig extends RouteConfig {
     this.imports = const {},
     this.durationInMilliseconds,
     this.reverseDurationInMilliseconds,
-    this.customRouteOpaque = false,
+    this.customRouteOpaque = true,
     this.customRouteBarrierDismissible = false,
     this.transitionBuilder,
     this.cupertinoNavTitle,
@@ -63,8 +63,12 @@ class CustomRouteConfig extends RouteConfig {
           routerConfig: routerConfig,
         );
   @override
-  String registerImports() {
-    return "package:stacked/stacked.dart";
+  Set<String> registerImports() {
+    return {
+      ...super.registerImports(),
+      "package:flutter/material.dart",
+      this.transitionBuilder?.import ?? ''
+    }.takeWhile((value) => value.isNotEmpty).toSet();
   }
 
   // TODO: move this code to the routeconfig super class
@@ -146,7 +150,7 @@ class CustomRouteConfig extends RouteConfig {
         final paramResolver = RouteParameterResolver(importResolver);
         for (ParameterElement p in constructor.parameters) {
           customRouteConfig.copyWith(parameters: [
-            ...?customRouteConfig.parameters,
+            ...customRouteConfig.parameters,
             paramResolver.resolve(p)
           ]);
         }
