@@ -46,11 +46,7 @@ void main() {
           kRouterWithEmptyRoutes,
         );
       });
-      // test('When RouteConfig -> className is null, Throw exception', () {
-      //   final routes = [RouteConfig(name: 'loginView', pathName: 'pathNamaw')];
-      //   generateRoutesAndExpectException<InvalidGeneratorInputException>(
-      //       routes, ExceptionMessages.RouteClassNameShouldnotBeNull);
-      // });
+
       test('Given the following RouteConfig, Generate output', () {
         final routes = [
           MaterialRouteConfig(
@@ -86,25 +82,6 @@ void main() {
           kRouterWithThreeNamePathNameClassName,
         );
       });
-//       test('''
-// When routeType is material,
-// (cupertinoNavTitle customRouteBarrierDismissible durationInMilliseconds reverseDurationInMilliseconds customRouteOpaque transitionBuilder)
-//  does not have any effect''', () {
-//         final routes = [
-//           MaterialRouteConfig(
-//             name: 'loginView',
-//             pathName: 'pathNamaw',
-//             className: 'ebraClass',
-//             cupertinoNavTitle: 'cupertinooo',
-//             customRouteBarrierDismissible: true,
-//             customRouteOpaque: true,
-//             durationInMilliseconds: 22,
-//             reverseDurationInMilliseconds: 2,
-//           )
-//         ];
-
-//         generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
-//       });
 
       test('When fullscreenDialog is true', () {
         final routes = [
@@ -119,7 +96,9 @@ void main() {
         generateRouteAndExpectResult(
             routes, kRouterWithNamePathNameClassNameFullScreenDialogIsTrue);
       });
-      test('When fullscreenDialog is false', () {
+      test(
+          'When fullscreenDialog is false, Should add nothing cause it is default',
+          () {
         final routes = [
           MaterialRouteConfig(
             name: 'loginView',
@@ -129,8 +108,7 @@ void main() {
           )
         ];
 
-        generateRouteAndExpectResult(
-            routes, kRouterWithFullScreenDialogIsFalse);
+        generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
       });
       test('When adding one RouteGuardConfig', () {
         final routes = [
@@ -220,7 +198,8 @@ void main() {
         ];
         generateRouteAndExpectResult(routes, kRouterWithImports);
       });
-      test('When maintainstate is true', () {
+      test('When maintainstate is true, Should add nothing cause it is default',
+          () {
         final routes = [
           MaterialRouteConfig(
               name: 'loginView',
@@ -228,7 +207,7 @@ void main() {
               className: 'ebraClass',
               maintainState: true)
         ];
-        generateRouteAndExpectResult(routes, kRouterWithMaintainStateIsTrue);
+        generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
       });
       test('When maintainstate is false', () {
         final routes = [
@@ -439,7 +418,7 @@ void main() {
               parameters: [
                 RouteParamConfig(
                   isPathParam: false,
-                  isQueryParam: true,
+                  isQueryParam: false,
                   type: 'newType',
                 )
               ])
@@ -608,7 +587,9 @@ void main() {
           kRouterTypeCustomWithReverseDurationInMilliseconds,
         );
       });
-      test('With customRouteOpaque true', () {
+      test(
+          'With customRouteOpaque true, Should add nothing cause it is default',
+          () {
         final routes = [
           CustomRouteConfig(
               name: 'loginView',
@@ -619,7 +600,7 @@ void main() {
 
         generateRouteAndExpectResult(
           routes,
-          kRouterTypeCustomWithCustomRouteOpaqueTrue,
+          kRouterTypeCustom,
         );
       });
       test('With customRouteOpaque false', () {
@@ -641,9 +622,9 @@ void main() {
       test('Given random routing system', () {
         final routes = [
           CustomRouteConfig(
-            name: 'loginView',
-            pathName: 'pathNamaw',
-            className: 'ebraClass',
+            name: 'loginView1',
+            pathName: 'pathNamaw1',
+            className: 'ebraClass1',
             reverseDurationInMilliseconds: 2,
             durationInMilliseconds: 22,
             cupertinoNavTitle: 'cupertinooo',
@@ -659,21 +640,14 @@ void main() {
                 ),
               ]),
           MaterialRouteConfig(
-              name: 'loginView2',
-              pathName: 'pathNamaw2',
-              className: 'ebraClass2',
-              parameters: [
-                RouteParamConfig(
-                  isPathParam: false,
-                  isQueryParam: true,
-                ),
-              ]),
-          MaterialRouteConfig(
               name: 'loginView3',
               pathName: 'pathNamaw3',
               className: 'ebraClass3',
               parameters: [
-                RouteParamConfig(isPathParam: false, isQueryParam: false),
+                RouteParamConfig(
+                  isPathParam: false,
+                  isQueryParam: false,
+                ),
               ]),
           MaterialRouteConfig(
               name: 'loginView4',

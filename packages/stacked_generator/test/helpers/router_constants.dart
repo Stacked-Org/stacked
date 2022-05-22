@@ -121,35 +121,6 @@ return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings:
 },};}
 ''';
 
-const kRouterWithFullScreenDialogIsFalse = '''
-// ignore_for_file: public_member_api_docs
-
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-
-class RoutesClassB {
-static const String loginView = 'pathNamaw';
-static const all = <String>{
-loginView,};}
-
-class RouterNamee extends RouterBase {
-     @override
-     List<RouteDef> get routes => _routes;
-     final _routes = <RouteDef>[
-     
-
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
-),
-];       @override
-       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
-        final _pagesMap = <Type, StackedRouteFactory>{
-        
-
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,fullscreenDialog:false,);
-},};}
-''';
 const kRouterWithOneGuard = '''
 // ignore_for_file: public_member_api_docs
 
@@ -302,36 +273,6 @@ ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
 },};}
 ''';
-const kRouterWithMaintainStateIsTrue = '''
-// ignore_for_file: public_member_api_docs
-
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-
-class RoutesClassB {
-static const String loginView = 'pathNamaw';
-static const all = <String>{
-loginView,};}
-
-class RouterNamee extends RouterBase {
-     @override
-     List<RouteDef> get routes => _routes;
-     final _routes = <RouteDef>[
-     
-
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
-),
-];       @override
-       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
-        final _pagesMap = <Type, StackedRouteFactory>{
-        
-
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,maintainState:true,);
-},};}
-''';
-
 const kRouterWithMaintainStateIsFalse = '''
 // ignore_for_file: public_member_api_docs
 
@@ -961,7 +902,7 @@ RouteDef(RoutesClassB.loginView
         
 
 ebraClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,barrierDismissible:false,);
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,);
 },};}
 ''';
 
@@ -1023,35 +964,7 @@ ebraClass: (data) {
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,reverseTransitionDuration: const Duration(milliseconds: 2),);
 },};}
 ''';
-const kRouterTypeCustomWithCustomRouteOpaqueTrue = '''
-// ignore_for_file: public_member_api_docs
 
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-
-class RoutesClassB {
-static const String loginView = 'pathNamaw';
-static const all = <String>{
-loginView,};}
-
-class RouterNamee extends RouterBase {
-     @override
-     List<RouteDef> get routes => _routes;
-     final _routes = <RouteDef>[
-     
-
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
-),
-];       @override
-       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
-        final _pagesMap = <Type, StackedRouteFactory>{
-        
-
-ebraClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,opaque:true,);
-},};}
-''';
 const kRouterTypeCustomWithCustomRouteOpaqueFalse = '''
 // ignore_for_file: public_member_api_docs
 
