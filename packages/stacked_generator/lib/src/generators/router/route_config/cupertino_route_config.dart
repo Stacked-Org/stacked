@@ -59,6 +59,19 @@ class CupertinoRouteConfig extends RouteConfig {
     return {...super.registerImports(), "package:flutter/cupertino.dart"};
   }
 
+  @override
+  String registerRoutes() {
+    StringBuffer stringBuffer = StringBuffer();
+    stringBuffer.write(super.registerArgs());
+    stringBuffer.write(
+        'return CupertinoPageRoute<$processedReturnType>(builder: (context) => $constructor, settings: data,');
+    if (cupertinoNavTitle != null) {
+      stringBuffer.write("title:'$cupertinoNavTitle',");
+    }
+    stringBuffer.write(super.registerRoutes());
+    return stringBuffer.toString();
+  }
+
   // TODO: move this code to the routeconfig super class
   factory CupertinoRouteConfig.fromStackedApp(ConstantReader stackedRoute,
       ImportResolver importResolver, RouterConfig routerConfig) {

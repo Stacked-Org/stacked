@@ -53,6 +53,17 @@ class MaterialRouteConfig extends RouteConfig {
     return {...super.registerImports(), "package:flutter/material.dart"};
   }
 
+  @override
+  String registerRoutes() {
+    StringBuffer stringBuffer = StringBuffer();
+
+    stringBuffer.write(super.registerArgs());
+    stringBuffer.write(
+        'return MaterialPageRoute<$processedReturnType>(builder: (context) => $constructor, settings: data,');
+    stringBuffer.write(super.registerRoutes());
+    return stringBuffer.toString();
+  }
+
   // TODO: move this code to the routeconfig super class
   factory MaterialRouteConfig.fromStackedApp(
     ConstantReader stackedRoute,

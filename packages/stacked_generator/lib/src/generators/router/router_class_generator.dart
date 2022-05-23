@@ -134,21 +134,6 @@ class RouterClassGenerator extends BaseGenerator {
     List<String>? constructorParams = [];
 
     if (r.parameters.isNotEmpty == true) {
-      // if router has any required or positional params the argument class holder becomes required.
-      final nullOk =
-          !r.notQueryAndNotPath.any((p) => p.isRequired || p.isPositional);
-      // show an error page  if passed args are not the same as declared args
-
-      if (r.notQueryAndNotPath.isNotEmpty) {
-        final argsType = r.argumentsHolderClassName;
-        writeLine('var args = data.getArgs<$argsType>(');
-        if (!nullOk) {
-          write('nullOk: false');
-        } else {
-          write("orElse: ()=> $argsType(),");
-        }
-        write(");");
-      }
       constructorParams = r.parameters.map<String>((param) {
         String getterName;
         if (param.isPathParam ?? false) {
@@ -257,75 +242,15 @@ class RouterClassGenerator extends BaseGenerator {
   }
 
   void _generateRouteBuilder(RouteConfig r, String constructor) {
-    final returnType = _extractReturnType(r).returnType;
-
     if (r is CupertinoRouteConfig) {
-      write(
-          'return CupertinoPageRoute<$returnType>(builder: (context) => $constructor, settings: data,');
-      if (r.cupertinoNavTitle != null) {
-        write("title:'${r.cupertinoNavTitle}',");
-      }
+      write(r.registerRoutes());
     } else if (r is MaterialRouteConfig) {
-      write(
-          'return MaterialPageRoute<$returnType>(builder: (context) => $constructor, settings: data,');
+      write(r.registerRoutes());
     } else if (r is AdaptiveRouteConfig) {
-      write(
-          'return buildAdaptivePageRoute<$returnType>(builder: (context) => $constructor, settings: data,');
-      if (r.cupertinoNavTitle != null) {
-        write("cupertinoTitle:'${r.cupertinoNavTitle}',");
-      }
+      write(r.registerRoutes());
     } else {
-      write(
-          'return PageRouteBuilder<$returnType>(pageBuilder: (context, animation, secondaryAnimation) => $constructor, settings: data,');
-
-      if (r is CustomRouteConfig) {
-        if (!r.customRouteOpaque)
-          write('opaque:${r.customRouteOpaque.toString()},');
-
-        if (r.customRouteBarrierDismissible) {
-          write(
-              'barrierDismissible:${r.customRouteBarrierDismissible.toString()},');
-        }
-        if (r.transitionBuilder != null) {
-          write('transitionsBuilder: ${r.transitionBuilder!.name},');
-        }
-        if (r.durationInMilliseconds != null) {
-          write(
-              'transitionDuration: const Duration(milliseconds: ${r.durationInMilliseconds}),');
-        }
-        if (r.reverseDurationInMilliseconds != null) {
-          write(
-              'reverseTransitionDuration: const Duration(milliseconds: ${r.reverseDurationInMilliseconds}),');
-        }
-      }
+      write((r as CustomRouteConfig).registerRoutes());
     }
-    // generated shared props
-    if (r.fullscreenDialog) {
-      write('fullscreenDialog:${r.fullscreenDialog.toString()},');
-    }
-    if (!r.maintainState) {
-      write('maintainState:${r.maintainState.toString()},');
-    }
-
-    writeLine(');');
-  }
-
-  RouteConfig _extractReturnType(RouteConfig r) {
-    final returnTypeContainsBiggerOperatorWithOneOfRouteNames = r.returnType !=
-            null &&
-        r.returnType!.contains('<') &&
-        r.returnType!.contains(
-            RegExp('CustomRoute|MaterialRoute|CupertinoRoute|AdaptiveRoute'));
-
-    if (returnTypeContainsBiggerOperatorWithOneOfRouteNames) {
-      final afterRemovingArrowHeads = r.returnType!.substring(
-          r.returnType!.indexOf('<') + 1, r.returnType!.lastIndexOf('>'));
-
-      r = r.copyWith(returnType: afterRemovingArrowHeads);
-    } else {
-      r = r.copyWith(returnType: r.returnType ?? 'dynamic');
-    }
-    return r;
   }
 
   void _generateNavigationHelpers(RouterConfig routerConfig) {

@@ -58,6 +58,21 @@ class AdaptiveRouteConfig extends RouteConfig {
   Set<String> registerImports() {
     return {...super.registerImports()};
   }
+
+  @override
+  String registerRoutes() {
+    StringBuffer stringBuffer = StringBuffer();
+    stringBuffer.write(super.registerArgs());
+    stringBuffer.write(
+        'return buildAdaptivePageRoute<$processedReturnType>(builder: (context) => $constructor, settings: data,');
+    if (cupertinoNavTitle != null) {
+      stringBuffer.write("cupertinoTitle:'${cupertinoNavTitle}',");
+    }
+    stringBuffer.write(super.registerRoutes());
+
+    return stringBuffer.toString();
+  }
+
   // TODO: move this code to the routeconfig super class
 
   factory AdaptiveRouteConfig.fromStackedApp(ConstantReader stackedRoute,

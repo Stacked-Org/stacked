@@ -71,6 +71,36 @@ class CustomRouteConfig extends RouteConfig {
     }.takeWhile((value) => value.isNotEmpty).toSet();
   }
 
+  @override
+  String registerRoutes() {
+    StringBuffer stringBuffer = StringBuffer();
+
+    stringBuffer.write(super.registerArgs());
+    stringBuffer.write(
+        'return PageRouteBuilder<$processedReturnType>(pageBuilder: (context, animation, secondaryAnimation) => $constructor, settings: data,');
+
+    if (!customRouteOpaque)
+      stringBuffer.write('opaque:${customRouteOpaque.toString()},');
+
+    if (customRouteBarrierDismissible) {
+      stringBuffer.write(
+          'barrierDismissible:${customRouteBarrierDismissible.toString()},');
+    }
+    if (transitionBuilder != null) {
+      stringBuffer.write('transitionsBuilder: ${transitionBuilder!.name},');
+    }
+    if (durationInMilliseconds != null) {
+      stringBuffer.write(
+          'transitionDuration: const Duration(milliseconds: ${durationInMilliseconds}),');
+    }
+    if (reverseDurationInMilliseconds != null) {
+      stringBuffer.write(
+          'reverseTransitionDuration: const Duration(milliseconds: ${reverseDurationInMilliseconds}),');
+    }
+    stringBuffer.write(super.registerRoutes());
+    return stringBuffer.toString();
+  }
+
   // TODO: move this code to the routeconfig super class
   factory CustomRouteConfig.fromStackedApp(
     ConstantReader stackedRoute,

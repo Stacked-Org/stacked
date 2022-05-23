@@ -60,6 +60,42 @@ class RouteConfig {
     return {...this.imports, ...guardsImports, ...paramertersImports};
   }
 
+  String registerArgs() {
+    StringBuffer stringBuffer = StringBuffer();
+
+    if (parameters.isNotEmpty == true) {
+      // if router has any required or positional params the argument class holder becomes required.
+      final nullOk =
+          !notQueryAndNotPath.any((p) => p.isRequired || p.isPositional);
+      // show an error page  if passed args are not the same as declared args
+
+      if (notQueryAndNotPath.isNotEmpty) {
+        final argsType = argumentsHolderClassName;
+        stringBuffer.writeln('var args = data.getArgs<$argsType>(');
+        if (!nullOk) {
+          stringBuffer.write('nullOk: false');
+        } else {
+          stringBuffer.write("orElse: ()=> $argsType(),");
+        }
+        stringBuffer.write(");");
+      }
+    }
+    return stringBuffer.toString();
+  }
+
+  String registerRoutes() {
+    StringBuffer stringBuffer = StringBuffer();
+
+    if (fullscreenDialog) {
+      stringBuffer.write('fullscreenDialog:true,');
+    }
+    if (!maintainState) {
+      stringBuffer.write('maintainState:false,');
+    }
+    stringBuffer.writeln(');');
+    return stringBuffer.toString();
+  }
+
   String? get templateName {
     return pathName.contains(":") ? '_$name' : name;
   }
@@ -70,6 +106,51 @@ class RouteConfig {
           ExceptionMessages.isPathParamAndIsQueryParamShouldNotBeNull);
       return !p.isPathParam! && !p.isQueryParam!;
     }).toList();
+  }
+
+  String get constructor {
+    List<String>? constructorParams = parameters.map<String>((param) {
+      String getterName;
+      if (param.isPathParam ?? false) {
+        getterName =
+            "data.pathParams['${param.paramName}'].${param.getterName}(${param.defaultValueCode != null ? '${param.defaultValueCode}' : ''})";
+      } else if (param.isQueryParam ?? false) {
+        getterName =
+            "data.queryParams['${param.paramName}'].${param.getterName}(${param.defaultValueCode != null ? '${param.defaultValueCode}' : ''})";
+      } else {
+        getterName = "args.${param.name}";
+      }
+      if (param.isPositional) {
+        return getterName;
+      } else {
+        return '${param.name}:$getterName';
+      }
+    }).toList();
+    // add any empty item to add a comma at end
+    // when join(',') is called
+    if (constructorParams.length > 1) {
+      constructorParams.add('');
+    }
+    final constructor =
+        "${hasConstConstructor == true ? 'const' : ''}  ${className}(${constructorParams.join(',')})${(hasWrapper) ? ".wrappedRoute(context)" : ""}";
+    return constructor;
+  }
+
+  String get processedReturnType {
+    final returnTypeContainsBiggerOperatorWithOneOfRouteNames = returnType !=
+            null &&
+        returnType!.contains('<') &&
+        returnType!.contains(
+            RegExp('CustomRoute|MaterialRoute|CupertinoRoute|AdaptiveRoute'));
+
+    if (returnTypeContainsBiggerOperatorWithOneOfRouteNames) {
+      final afterRemovingArrowHeads = returnType!.substring(
+          returnType!.indexOf('<') + 1, returnType!.lastIndexOf('>'));
+
+      return afterRemovingArrowHeads;
+    } else {
+      return returnType ?? 'dynamic';
+    }
   }
 
   factory RouteConfig.fromStackedApp(

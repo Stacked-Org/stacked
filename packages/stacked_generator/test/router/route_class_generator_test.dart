@@ -629,6 +629,26 @@ void main() {
           kRouterTypeCustomWithCustomRouteOpaqueFalse,
         );
       });
+      test('With parameters', () {
+        final routes = [
+          CustomRouteConfig(
+            name: 'loginView',
+            pathName: 'pathNamaw',
+            className: 'ebraClass',
+            parameters: [
+              RouteParamConfig(
+                isPathParam: false,
+                isQueryParam: false,
+              ),
+            ],
+          )
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCustomWithParameters,
+        );
+      });
     });
     group('Mixed -', () {
       test('Given random routing system', () {
