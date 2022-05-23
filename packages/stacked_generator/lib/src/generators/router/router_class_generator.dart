@@ -1,14 +1,11 @@
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/base_generator.dart';
-import 'package:stacked_generator/src/generators/router/route_config/cupertino_route_config.dart';
+import 'package:stacked_generator/src/generators/router/route_generator_helper.dart';
 import 'package:stacked_generator/utils.dart';
 
-import 'route_config/adaptive_route_config.dart';
-import 'route_config/custom_route_config.dart';
-import 'route_config/material_route_config.dart';
 import 'router_config.dart';
 
-class RouterClassGenerator extends BaseGenerator {
+class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
   final RouterConfig _rootRouterConfig;
 
   RouterClassGenerator(this._rootRouterConfig);
@@ -142,7 +139,7 @@ class RouterClassGenerator extends BaseGenerator {
         .forEach((r) => routesWithArgsHolders[r.className] = r);
 
     if (routesWithArgsHolders.isNotEmpty) {
-      _generateBoxed('Arguments holder classes');
+      write(generateCommentBoxWithMessage('Arguments holder classes'));
       routesWithArgsHolders.values.forEach(_generateArgsHolder);
     }
   }
@@ -177,13 +174,6 @@ class RouterClassGenerator extends BaseGenerator {
     writeLine('}');
   }
 
-  void _generateBoxed(String message) {
-    writeLine('\n/// '.padRight(77, '*'));
-    writeLine('/// $message');
-    writeLine('/// '.padRight(77, '*'));
-    newLine();
-  }
-
   void _generateRouterClass(RouterConfig routerConfig) {
     writeLine('\nclass ${routerConfig.routerClassName} extends RouterBase {');
 
@@ -208,7 +198,7 @@ class RouterClassGenerator extends BaseGenerator {
   }
 
   void _generateNavigationHelpers(RouterConfig routerConfig) {
-    _generateBoxed('Navigation helper methods extension');
+    write(generateCommentBoxWithMessage('Navigation helper methods extension'));
     writeLine(
         'extension ${routerConfig.routerClassName}ExtendedNavigatorStateX on ExtendedNavigatorState {');
     for (var route in routerConfig.routes) {
