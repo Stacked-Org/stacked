@@ -438,6 +438,18 @@ void main() {
 
         generateRouteAndExpectResult(routes, kRouterWithRetrunType);
       });
+      test('When adding returnType = <CupertinoRoute>', () {
+        final routes = [
+          MaterialRouteConfig(
+              name: 'loginView',
+              pathName: 'pathNamaw',
+              className: 'ebraClass',
+              returnType: '<CupertinoRoute>')
+        ];
+
+        generateRouteAndExpectResult(
+            routes, kRouterWithRetrunTypeCupertinoRoute);
+      });
       test('When adding NestedRouter', () {
         final routes = [
           MaterialRouteConfig(
