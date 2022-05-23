@@ -500,6 +500,26 @@ void main() {
           kRouterTypeCupertinoWithCupertinoNavTitle,
         );
       });
+      test('With parameters path = false, query = false', () {
+        final routes = [
+          CupertinoRouteConfig(
+            name: 'loginView',
+            pathName: 'pathNamaw',
+            className: 'ebraClass',
+            parameters: [
+              RouteParamConfig(
+                isPathParam: false,
+                isQueryParam: false,
+              ),
+            ],
+          )
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCupertinoWithParametersPathFalseQueryFalse,
+        );
+      });
     });
     group('RouteType.adaptive -', () {
       test('Given the following RouteConfig, Generate output', () {
@@ -525,6 +545,26 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterTypeAdaptiveWithCupertinoNavTitle,
+        );
+      });
+      test('With parameters path = false, query = false', () {
+        final routes = [
+          AdaptiveRouteConfig(
+            name: 'loginView',
+            pathName: 'pathNamaw',
+            className: 'ebraClass',
+            parameters: [
+              RouteParamConfig(
+                isPathParam: false,
+                isQueryParam: false,
+              ),
+            ],
+          )
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeAdaptiveWithParametersPathFalseQueryFalse,
         );
       });
     });
@@ -629,7 +669,7 @@ void main() {
           kRouterTypeCustomWithCustomRouteOpaqueFalse,
         );
       });
-      test('With parameters', () {
+      test('With parameters path = false, query = false', () {
         final routes = [
           CustomRouteConfig(
             name: 'loginView',
@@ -646,7 +686,27 @@ void main() {
 
         generateRouteAndExpectResult(
           routes,
-          kRouterTypeCustomWithParameters,
+          kRouterTypeCustomWithParametersPathFalseQueryFalse,
+        );
+      });
+      test('With parameters path = false, query = true', () {
+        final routes = [
+          CustomRouteConfig(
+            name: 'loginView',
+            pathName: 'pathNamaw',
+            className: 'ebraClass',
+            parameters: [
+              RouteParamConfig(
+                isPathParam: false,
+                isQueryParam: true,
+              ),
+            ],
+          )
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCustomWithParametersPathFalseQueryTrue,
         );
       });
     });
