@@ -124,44 +124,10 @@ class RouterClassGenerator extends BaseGenerator {
 
     routesMap.forEach((name, route) {
       writeLine('$name: (data) {');
-      _generateRoute(route);
+      write(route.registerRoutes());
       //close builder
       write("},");
     });
-  }
-
-  void _generateRoute(RouteConfig r) {
-    List<String>? constructorParams = [];
-
-    if (r.parameters.isNotEmpty == true) {
-      constructorParams = r.parameters.map<String>((param) {
-        String getterName;
-        if (param.isPathParam ?? false) {
-          getterName =
-              "data.pathParams['${param.paramName}'].${param.getterName}(${param.defaultValueCode != null ? '${param.defaultValueCode}' : ''})";
-        } else if (param.isQueryParam ?? false) {
-          getterName =
-              "data.queryParams['${param.paramName}'].${param.getterName}(${param.defaultValueCode != null ? '${param.defaultValueCode}' : ''})";
-        } else {
-          getterName = "args.${param.name}";
-        }
-        if (param.isPositional) {
-          return getterName;
-        } else {
-          return '${param.name}:$getterName';
-        }
-      }).toList();
-    }
-
-    // add any empty item to add a comma at end
-    // when join(',') is called
-    if (constructorParams.length > 1) {
-      constructorParams.add('');
-    }
-    final constructor =
-        "${r.hasConstConstructor == true ? 'const' : ''}  ${r.className}(${constructorParams.join(',')})${(r.hasWrapper) ? ".wrappedRoute(context)" : ""}";
-
-    _generateRouteBuilder(r, constructor);
   }
 
   void _generateArgumentHolders(List<RouteConfig> routes) {
@@ -239,18 +205,6 @@ class RouterClassGenerator extends BaseGenerator {
 
     // close router class
     writeLine('}');
-  }
-
-  void _generateRouteBuilder(RouteConfig r, String constructor) {
-    if (r is CupertinoRouteConfig) {
-      write(r.registerRoutes());
-    } else if (r is MaterialRouteConfig) {
-      write(r.registerRoutes());
-    } else if (r is AdaptiveRouteConfig) {
-      write(r.registerRoutes());
-    } else {
-      write((r as CustomRouteConfig).registerRoutes());
-    }
   }
 
   void _generateNavigationHelpers(RouterConfig routerConfig) {
