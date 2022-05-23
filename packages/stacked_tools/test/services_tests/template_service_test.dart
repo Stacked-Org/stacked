@@ -32,7 +32,7 @@ void main() {
         new_viewmodel.dart
     ''';
 
-        final templateService = _getService();  
+        final templateService = _getService();
         final result = templateService.renderContentForTemplate(
           content: content,
           templateName: kTemplateNameView,
@@ -242,18 +242,21 @@ void main() {
               modificationIdentifier: 'lib',
               modificationTemplate: 'modificationTemplate',
               modificationProblemError: '',
+              modificationName: 'modificationName',
             ),
             ModificationFile(
               relativeModificationPath: 'lib',
               modificationIdentifier: 'lib',
               modificationTemplate: 'modificationTemplate',
               modificationProblemError: '',
+              modificationName: 'modificationName',
             ),
             ModificationFile(
               relativeModificationPath: 'lib',
               modificationIdentifier: 'lib',
               modificationTemplate: 'modificationTemplate',
               modificationProblemError: '',
+              modificationName: 'modificationName',
             ),
           ]),
           templateName: kTemplateNameView,

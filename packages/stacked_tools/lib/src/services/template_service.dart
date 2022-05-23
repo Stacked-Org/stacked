@@ -9,6 +9,7 @@ import 'package:stacked_tools/src/constants/message_constants.dart';
 import 'package:stacked_tools/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/models/template_models.dart';
+import 'package:stacked_tools/src/services/colorized_log_service.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
 import 'package:stacked_tools/src/services/pubspec_service.dart';
 import 'package:stacked_tools/src/templates/compiled_template_map.dart';
@@ -22,6 +23,7 @@ class TemplateService {
   final _fileService = locator<FileService>();
   final _templateHelper = locator<TemplateHelper>();
   final _pubspecService = locator<PubspecService>();
+  final _clog = locator<ColorizedLogService>();
 
   /// Reads the template folder and creates the dart code that will be used to generate
   /// the templates
@@ -251,6 +253,9 @@ class TemplateService {
       );
 
       if (!fileExists) {
+        _clog.warn(
+            message:
+                'Modification not applied. The file $modificationPath does not exist');
         throw InvalidStackedStructureException(kInvalidStackedStructureAppFile);
       }
 
@@ -258,10 +263,22 @@ class TemplateService {
         filePath: modificationPath,
       );
 
+      if (!fileContent.contains(fileToModify.modificationIdentifier)) {
+        _clog.warn(
+            message:
+                'Modification not applied. The identifier `${fileToModify.modificationIdentifier}` does not exist in the file.');
+      }
+
       final updatedFileContent = templateModificationFileContent(
         fileContent: fileContent,
         modificationIdentifier: fileToModify.modificationIdentifier,
         modificationTemplate: fileToModify.modificationTemplate,
+        name: name,
+        templateName: templateName,
+      );
+
+      final verboseMessage = templateModificationName(
+        modificationName: fileToModify.modificationName,
         name: name,
         templateName: templateName,
       );
@@ -272,8 +289,28 @@ class TemplateService {
         fileContent: updatedFileContent,
         verbose: true,
         type: FileModificationType.Modify,
+        verboseMessage: verboseMessage,
       );
     }
+  }
+
+  String templateModificationName({
+    required String modificationName,
+    required String name,
+    required String templateName,
+  }) {
+    final template = Template(
+      modificationName,
+      lenient: true,
+    );
+
+    final templateRenderData = getTemplateRenderData(
+      templateName: templateName,
+      name: name,
+    );
+
+    final renderedTemplate = template.renderString(templateRenderData);
+    return renderedTemplate;
   }
 
   String templateModificationFileContent({

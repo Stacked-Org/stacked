@@ -17,11 +17,11 @@ class FileService {
     required String fileContent,
     bool verbose = false,
     FileModificationType type = FileModificationType.Create,
+    String? verboseMessage,
   }) async {
     if (!(await file.exists())) {
       if (type != FileModificationType.Create) {
-        _cLog.successOutput(
-            success: false, message: 'File does not exist. Write it out');
+        _cLog.warn(message: 'File does not exist. Write it out');
       }
       await file.create(recursive: true);
     }
@@ -29,7 +29,7 @@ class FileService {
     await file.writeAsString(fileContent);
 
     if (verbose) {
-      _cLog.fileOutput(type: type, message: '$file');
+      _cLog.fileOutput(type: type, message: verboseMessage ?? '$file');
     }
   }
 
@@ -43,7 +43,7 @@ class FileService {
     _cLog.fileOutput(type: FileModificationType.Delete, message: '$file');
   }
 
-  /// It deletes all the files in a folder.
+  /// It deletes all the files in a folder. and the folder itself.
   ///
   /// Args:
   ///   directoryPath (String): The path to the directory you want to delete.
@@ -68,6 +68,14 @@ class FileService {
     return File(filePath).readAsString();
   }
 
+  /// "Read the file at the given path and return the contents as a list of strings, one string per
+  /// line."
+  ///
+  /// Args:
+  ///   filePath (String): The path to the file to read.
+  ///
+  /// Returns:
+  ///   A Future<List<String>>
   Future<List<String>> readFileAsLines({
     required String filePath,
   }) {
@@ -88,6 +96,7 @@ class FileService {
       fileContent: fileLines.join('\n'),
       type: FileModificationType.Modify,
       verbose: true,
+      verboseMessage: "Removed ${recaseName.pascalCase}View from $filePath",
     );
   }
 

@@ -41,13 +41,15 @@ class MockFileService extends _i1.Mock implements _i4.FileService {
           {_i6.File? file,
           String? fileContent,
           bool? verbose = false,
-          _i4.FileModificationType? type = _i4.FileModificationType.Create}) =>
+          _i4.FileModificationType? type = _i4.FileModificationType.Create,
+          String? verboseMessage}) =>
       (super.noSuchMethod(
           Invocation.method(#writeFile, [], {
             #file: file,
             #fileContent: fileContent,
             #verbose: verbose,
-            #type: type
+            #type: type,
+            #verboseMessage: verboseMessage
           }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
@@ -374,9 +376,19 @@ class MockColorizedLogService extends _i1.Mock
               #stackedOutput, [], {#message: message, #isBold: isBold}),
           returnValueForMissingStub: null);
   @override
-  void successOutput({bool? success = true, String? message}) => super
-      .noSuchMethod(
-          Invocation.method(
-              #successOutput, [], {#success: success, #message: message}),
+  void success({String? message}) =>
+      super.noSuchMethod(Invocation.method(#success, [], {#message: message}),
+          returnValueForMissingStub: null);
+  @override
+  void warn({String? message}) =>
+      super.noSuchMethod(Invocation.method(#warn, [], {#message: message}),
+          returnValueForMissingStub: null);
+  @override
+  void info({String? message}) =>
+      super.noSuchMethod(Invocation.method(#info, [], {#message: message}),
+          returnValueForMissingStub: null);
+  @override
+  void error({String? message}) =>
+      super.noSuchMethod(Invocation.method(#error, [], {#message: message}),
           returnValueForMissingStub: null);
 }
