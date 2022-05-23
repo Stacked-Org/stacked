@@ -6,8 +6,6 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../../app/app.locator.dart';
 import 'example_form_view.form.dart';
-// Import the validators you want to use or define it in this class
-import 'validators.dart';
 
 // #5: extend from FormViewModel
 class ExampleFormViewModel extends FormViewModel {
@@ -19,7 +17,7 @@ class ExampleFormViewModel extends FormViewModel {
     log.i('Set form Status with data: $formValueMap');
 
     // Set the validation message per field
-    setPasswordValidationMessage(passwordValidator(value: passwordValue));
+    // setPasswordValidationMessage(passwordValidator(value: passwordValue));
 
     // Set a validation message for the entire form
     if (hasPasswordValidationMessage) {

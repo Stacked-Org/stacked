@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_architecture/ui/form/validators.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -7,8 +8,16 @@ import 'example_form_viewmodel.dart';
 
 // #1: Add the annotation
 @FormView(fields: [
-  FormTextField(name: 'email', initialValue: "Lorem"),
-  FormTextField(name: 'password', isPassword: true),
+  FormTextField(
+    name: 'email',
+    initialValue: "Lorem",
+    validator: FormValidators.emailValidator,
+  ),
+  FormTextField(
+    name: 'password',
+    isPassword: true,
+    validator: FormValidators.passwordValidator,
+  ),
   FormTextField(name: 'shortBio'),
   FormDateField(name: 'birthDate'),
   FormDropdownField(
@@ -61,6 +70,11 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                     focusNode: emailFocusNode,
                   ),
                 ),
+                if (viewModel.hasEmailValidationMessage)
+                  Text(
+                    viewModel.emailValidationMessage!,
+                    style: TextStyle(color: Colors.red),
+                  ),
                 SizedBox(height: 15),
                 ConstrainedBox(
                   constraints: BoxConstraints(
