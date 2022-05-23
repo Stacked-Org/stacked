@@ -15,8 +15,13 @@ class NonReactiveView extends StatelessWidget {
             viewModel.updateTitle();
           },
         ),
-        body: Center(
-          child: Text(viewModel.title),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+                onPressed: viewModel.navigateToNewView, child: Text('go to ')),
+            Text(viewModel.title),
+          ],
         ),
       ),
       viewModelBuilder: () => NonReactiveViewModel(),

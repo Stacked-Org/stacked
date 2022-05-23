@@ -1,11 +1,13 @@
 import 'package:new_architecture/app/app.locator.dart';
 import 'package:new_architecture/app/app.logger.dart';
 import 'package:new_architecture/app/app.router.dart';
-import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import '../../app/app.locator.dart';
 import 'example_form_view.form.dart';
+// Import the validators you want to use or define it in this class
+import 'validators.dart';
 
 // #5: extend from FormViewModel
 class ExampleFormViewModel extends FormViewModel {
@@ -15,8 +17,13 @@ class ExampleFormViewModel extends FormViewModel {
   @override
   void setFormStatus() {
     log.i('Set form Status with data: $formValueMap');
-    if (passwordValue?.isEmpty ?? false) {
-      setValidationMessage('You need to give a password');
+
+    // Set the validation message per field
+    setPasswordValidationMessage(passwordValidator(value: passwordValue));
+
+    // Set a validation message for the entire form
+    if (hasPasswordValidationMessage) {
+      setValidationMessage('Error in the form, please check again');
     }
   }
 

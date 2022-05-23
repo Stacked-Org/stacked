@@ -1,17 +1,22 @@
 name: stacked_localisation
 description: A service class that helps with implementing localisation functionality in your application
-version: 0.2.2
+version: 0.2.3
 homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_localisation
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
   devicelocale: ^0.3.1
-  get_it: ^4.0.4
+  get_it: ^7.1.4
+  stacked_core: 
+
+dependency_overrides:
+  stacked_core:
+    path: ../../stacked_core/
 
 dev_dependencies:
   flutter_test:

@@ -25,16 +25,19 @@ dependencies:
   cupertino_icons: ^0.1.2
   get_it: 
   injectable:
-  auto_route: ^0.6.9
-
+  stacked:
+  stacked_services:
+  
+dependency_overrides: 
+  stacked:
+    path: ../../stacked
   stacked_services:
     path: ../
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  injectable_generator:
-  auto_route_generator:
+  stacked_generator:
   build_runner:
 
 # For information on the generic Dart part of this file, see the

@@ -1,7 +1,8 @@
 library stacked_services;
 
-export 'package:get/get.dart';
-export 'src/navigation_service.dart';
+export 'src/navigation/route_transition.dart';
+export 'src/snackbar/stacked_snackbar_customizations.dart';
+export 'src/navigation/navigation_service.dart';
 export 'src/dialog/dialog_service.dart';
 export 'src/bottom_sheet/bottom_sheet_service.dart';
 export 'src/snackbar/snackbar_service.dart';

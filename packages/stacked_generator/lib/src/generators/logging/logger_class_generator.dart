@@ -1,4 +1,6 @@
+import 'package:meta/meta.dart';
 import 'package:stacked_generator/src/generators/base_generator.dart';
+import 'package:stacked_generator/src/generators/extensions/list_utils_extension.dart';
 import 'package:stacked_generator/src/generators/logging/logger_config.dart';
 
 import 'logger_class_content.dart';
@@ -7,39 +9,32 @@ import 'logger_class_content.dart';
 class LoggerClassGenerator extends BaseGenerator {
   final LoggerConfig _loggerConfig;
 
-  LoggerClassGenerator(LoggerConfig loggerConfig)
-      : _loggerConfig = loggerConfig;
+  LoggerClassGenerator(this._loggerConfig);
 
-  Future<String> generate() async {
-    final _logHelperNameKey = _loggerConfig.logHelperName;
-    final _imports = _generateImports(_loggerConfig.imports);
-    final _multiLogger = _generateMultiLoggers(_loggerConfig.loggerOutputs);
+  @override
+  String generate() {
+    writeImports(_loggerConfig.imports, prefex: loggerClassPrefex);
 
-    final _replacedHelperName =
-        loggerClassContent.replaceFirst(LogHelperNameKey, _logHelperNameKey);
+    write(loggerClassConstantBody);
 
-    final _replacedImports =
-        _replacedHelperName.replaceFirst(MultiLoggerImports, _imports);
-
-    write(_replacedImports.replaceFirst(MultipleLoggerOutput, _multiLogger));
+    customizeLoggerNameAndOutputs(loggerClassNameAndOutputs);
 
     return stringBuffer.toString();
   }
 
-  String _generateMultiLoggers(List<String> multiLogger) {
-    final _multiLoggers = StringBuffer();
+  @visibleForTesting
+  void customizeLoggerNameAndOutputs(String template) {
+    final withHelperNameInPlace =
+        template.replaceFirst(LogHelperNameKey, _loggerConfig.logHelperName);
 
-    multiLogger.forEach((element) {
-      _multiLoggers.write("$element(),");
-    });
-    return _multiLoggers.toString();
-  }
+    String withConditionalLoggerInPlace = withHelperNameInPlace.replaceFirst(
+        DisableConsoleOutputInRelease,
+        _loggerConfig.disableReleaseConsoleOutput ? 'if(!_isReleaseMode)' : '');
 
-  String _generateImports(Set<String> imports) {
-    final _importBuffer = StringBuffer();
-    imports.forEach((element) {
-      _importBuffer.writeln("import '$element';");
-    });
-    return _importBuffer.toString();
+    String loggerOutputsInPlace = withConditionalLoggerInPlace.replaceFirst(
+        MultipleLoggerOutput,
+        _loggerConfig.loggerOutputs.addCheckForReleaseModeToEachLogger);
+
+    write(loggerOutputsInPlace);
   }
 }

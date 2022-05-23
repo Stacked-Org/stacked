@@ -1,5 +1,5 @@
 import 'package:analyzer/dart/element/element.dart';
-import 'package:stacked/stacked_annotations.dart';
+import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_generator/import_resolver.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_generator/utils.dart';
@@ -68,7 +68,7 @@ class RouteParameterResolver {
 
   RouteParameterResolver(this._importResolver);
 
-  Future<RouteParamConfig> resolve(ParameterElement parameterElement) async {
+  RouteParamConfig resolve(ParameterElement parameterElement) {
     final paramType = parameterElement.type;
 
     var pathParam = pathParamChecker.hasAnnotationOfExact(parameterElement);

@@ -2,7 +2,7 @@
 
 An architecture developed and revised by the [FilledStacks](https://www.youtube.com/filledstacks) community. This architecture was initially a version of MVVM as [described in this video](https://youtu.be/kDEflMYTFlk). Since then Filledstacks app development team has built 6 production applications with various requirements. This experience along with countless requests for improvements and common functionality is what sparked the creation of this architecture package. It aims to provide **common functionalities to make app development easier** as well as code principles to use during development to ensure your code stays maintainable.
 
-**If you're reading this disclaimer, the series that does a deep-dive on this architecture has not been published yet.**
+[Here you can watch the full video series](https://www.youtube.com/playlist?list=PLdTodMosi-BwM4XkagNwe4KADOMWQS5X-) for an in depth dive of this architecture.
 
 ## How it works
 

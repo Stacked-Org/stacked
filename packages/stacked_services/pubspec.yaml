@@ -1,6 +1,6 @@
 name: stacked_services
 description: A package that contains some default implementations of services required for a cleaner implementation of the Stacked Architecture.
-version: 0.8.15
+version: 0.8.24
 homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_services
 
 environment:
@@ -10,10 +10,17 @@ dependencies:
   flutter:
     sdk: flutter
 
+  stacked_core:
+
   # navigation
-  get: ^4.3.8
+  get: ^4.5.1
 
   crypto: ^3.0.1
+
+dependency_overrides: 
+  stacked_core:
+    path: ../stacked_core/
+
 
 dev_dependencies:
   flutter_test:

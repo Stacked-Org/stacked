@@ -1,8 +1,7 @@
-import 'package:example/app/locator.dart';
+import '../../app/app.locator.dart';
 import 'package:example/enums/snackbar_type.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:get/get.dart';
 
 void setupSnackbarUi() {
   final service = locator<SnackbarService>();
@@ -17,16 +16,18 @@ void setupSnackbarUi() {
   service.registerCustomSnackbarConfig(
     variant: SnackbarType.blueAndYellow,
     config: SnackbarConfig(
+      snackStyle: SnackStyle.GROUNDED,
       backgroundColor: Colors.blueAccent,
       textColor: Colors.yellow,
       borderRadius: 1,
-      dismissDirection: SnackDismissDirection.HORIZONTAL,
+      dismissDirection: DismissDirection.horizontal,
     ),
   );
 
   service.registerCustomSnackbarConfig(
     variant: SnackbarType.greenAndRed,
     config: SnackbarConfig(
+      snackPosition: SnackPosition.TOP,
       backgroundColor: Colors.white,
       titleColor: Colors.green,
       messageColor: Colors.red,

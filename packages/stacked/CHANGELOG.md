@@ -1,11 +1,64 @@
+## 2.3.7
+### Flutter v3 compatibility
+- Use [ambiguate](https://docs.flutter.dev/development/tools/sdk/release-notes/release-notes-3.0.0#your-code) to ensure v3 (and backward) compatibility
+
+### Fixes
+- Add move in left route transtion
+
+## 2.3.6
+- Reverts 2.3.4
+
+## 2.3.5
+- Use the stacked_core package to expose the stacked_annotation
+
+## 2.3.4
+- Updates MultipleStreamViewModel to take generic type for key
+
+## 2.3.3+1
+
+- Updates Example's kotlin version to 1.4.10
+- Updates Example's Android Embedding to Version 2
+- Updates Example's CompileSdk to 31
+
+## 2.3.3
+
+- Returns a null value for catchError handler when using FutureViewModel
+
+## 2.3.2
+
+- Reverts 2.3.1
+
+## 2.3.1
+
+- Handles the futureToRun viewmodels with try/catch and not catchError function
+
+## 2.3.0
+
+### New Feature: Adds per field validation
+
+- A setValidationMessage will now be generated for each field for you to set and use similar to the global validation message that was used before
+
+- Breaking changes on `FormViewModel`
+  - `showValidation` → `showValidationMessage`
+
+## 2.2.8
+
+- Adds `disableReleaseConsoleOutput` to the logger annotation to disable console output in release mode
+
+## 2.2.7+1
+
+- Upgraded the dependency on `provider` to 6.0.0
+
 ## 2.2.7
 
 - Fixes non-reactive `ViewModelBuilderWidget`
 
 ## 2.2.6
+
 - Optimized skeleton loader to be dynamic
 
 ## 2.2.5
+
 - Added IgnorePointer to Skeleton Loader Widget
 
 ## 2.2.4

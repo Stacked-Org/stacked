@@ -1,13 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:stacked/stacked.dart';
 
-Stream<int> numberStream(int dataBack, {required bool fail, int? delay}) async* {
+Stream<int> numberStream(int dataBack,
+    {required bool fail, int? delay}) async* {
   if (fail) throw Exception('numberStream failed');
   if (delay != null) await Future.delayed(Duration(milliseconds: delay));
   yield dataBack;
 }
 
-Stream<String> textStream(String dataBack, {required bool fail, int? delay}) async* {
+Stream<String> textStream(String dataBack,
+    {required bool fail, int? delay}) async* {
   if (fail) throw Exception('textStream failed');
   if (delay != null) await Future.delayed(Duration(milliseconds: delay));
   yield dataBack;
@@ -140,8 +142,8 @@ void main() async {
           var streamViewModel = TestStreamViewModel(delay: 10);
           streamViewModel.initialise();
 
-        await Future.delayed(const Duration(milliseconds: 30));
-        streamViewModel.notifySourceChanged();
+          await Future.delayed(const Duration(milliseconds: 30));
+          streamViewModel.notifySourceChanged();
 
           expect(streamViewModel.data, 1);
         },

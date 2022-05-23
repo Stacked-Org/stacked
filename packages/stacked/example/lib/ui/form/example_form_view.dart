@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -77,9 +76,9 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                     onFieldSubmitted: (_) => viewModel.saveData(),
                   ),
                 ),
-                if (viewModel.showValidation)
+                if (viewModel.hasPasswordValidationMessage)
                   Text(
-                    viewModel.validationMessage!,
+                    viewModel.passwordValidationMessage!,
                     style: TextStyle(color: Colors.red),
                   ),
                 SizedBox(height: 15),
@@ -131,7 +130,13 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                           .toList(),
                     )
                   ],
-                )
+                ),
+                SizedBox(height: 15),
+                if (viewModel.showValidationMessage)
+                  Text(
+                    viewModel.validationMessage!,
+                    style: TextStyle(color: Colors.red),
+                  ),
               ],
             ),
           ),

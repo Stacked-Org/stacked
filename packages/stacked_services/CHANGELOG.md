@@ -1,3 +1,40 @@
+## 0.8.22+2
+- Update documentation.
+## 0.8.22+1
+- Adds Breaking change indication below.
+## 0.8.22
+- Fix navigation service
+- Deprecate: transition and transitionClass and defaultTransition argument
+- Update the example app
+- Replace deprecated documentaion with new one
+## 0.8.21
+- Minor fix
+## 0.8.20
+- ⚠️ Break Change ⚠️: Remove the export of the Get package to hide its global variables
+## 0.8.19
+
+- Adds `titleTextStyle` and `messageTextStyle` to `showCustomSnackbar` to allow custom textstyles for snackbars.
+- Fixes reference to `title` and `message` widget properties in `registerCustomSnackbarConfig` so they may now be optionally used where extra customization is preferrable.
+- Adds `mainButtonStyle` in `showCustomSnackbar` to allow further customization.
+
+## 0.8.18
+
+- Adds useRootNavigator to bottomSheet
+
+## 0.8.17+1
+
+- Updates Example's kotlin version to 1.4.10
+- Updates Example's Android Embedding to Version 2
+  
+## 0.8.17
+
+- Add `buttonTitleColor` and `cancelTitleColor` to showDialog method when a dialogPlatform is passed.
+
+## 0.8.16
+
+- Updated `get` to latest package version
+- Fixed bug on unknown `isSnackbar` and `SnackDismissDirection`
+
 ## 0.8.15
 
 ### Bottom Sheet Unique Name
@@ -41,7 +78,7 @@ BottomSheetType.FloatingBox_33557de8784ebb01ebd64b71926b5933 // Custom Bottom sh
 
 - Added generic type arguments for `OverlayResponse` and `OverlayRequest` for dialogs and bottom sheets
 - Deprecated `responseData` and added new property `data` that corresponds to that type provided
-- Added 2 generic type arguments for `showCustomDialog` and `showCustomSheet` 
+- Added 2 generic type arguments for `showCustomDialog` and `showCustomSheet`
 - The first generic type argument for `showCustomDialog` from `DialogService` is intended for the response `data` and the second generic type argument for `showCustomSheet` from `BottomSheetService` is intended for the request payload `data`
 
 ## 0.8.7

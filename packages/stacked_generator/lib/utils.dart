@@ -1,6 +1,6 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:source_gen/source_gen.dart';
+import 'package:stacked_generator/src/generators/exceptions/invalid_generator_input_exception.dart';
 
 String toLowerCamelCase(String s) {
   if (s.length < 2) return s.toLowerCase();
@@ -29,7 +29,7 @@ void throwIf(bool condition, String message,
 }
 
 void throwError(String message, {Element? element, String todo = ''}) {
-  throw InvalidGenerationSourceError(
+  throw InvalidGeneratorInputException(
     message,
     todo: todo,
     element: element,
