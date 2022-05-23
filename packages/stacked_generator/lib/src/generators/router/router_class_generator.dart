@@ -257,18 +257,8 @@ class RouterClassGenerator extends BaseGenerator {
   }
 
   void _generateRouteBuilder(RouteConfig r, String constructor) {
-    if (r.returnType != null && r.returnType!.contains('<')) {
-      if (r.returnType!.contains('CustomRoute') ||
-          r.returnType!.contains('MaterialRoute') ||
-          r.returnType!.contains('CupertinoRoute') ||
-          r.returnType!.contains('AdaptiveRoute')) {
-        // get the correct return type
-        final type = r.returnType!.substring(
-            r.returnType!.indexOf('<') + 1, r.returnType!.lastIndexOf('>'));
-        r = r.copyWith(returnType: type);
-      }
-    }
-    final returnType = r.returnType ?? 'dynamic';
+    final returnType = _extractReturnType(r).returnType;
+
     if (r is CupertinoRouteConfig) {
       write(
           'return CupertinoPageRoute<$returnType>(builder: (context) => $constructor, settings: data,');
@@ -318,6 +308,24 @@ class RouterClassGenerator extends BaseGenerator {
     }
 
     writeLine(');');
+  }
+
+  RouteConfig _extractReturnType(RouteConfig r) {
+    final returnTypeContainsBiggerOperatorWithOneOfRouteNames = r.returnType !=
+            null &&
+        r.returnType!.contains('<') &&
+        r.returnType!.contains(
+            RegExp('CustomRoute|MaterialRoute|CupertinoRoute|AdaptiveRoute'));
+
+    if (returnTypeContainsBiggerOperatorWithOneOfRouteNames) {
+      final afterRemovingArrowHeads = r.returnType!.substring(
+          r.returnType!.indexOf('<') + 1, r.returnType!.lastIndexOf('>'));
+
+      r = r.copyWith(returnType: afterRemovingArrowHeads);
+    } else {
+      r = r.copyWith(returnType: r.returnType ?? 'dynamic');
+    }
+    return r;
   }
 
   void _generateNavigationHelpers(RouterConfig routerConfig) {
