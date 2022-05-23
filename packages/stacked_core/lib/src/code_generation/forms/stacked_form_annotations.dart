@@ -22,10 +22,13 @@ class FormTextField extends FormField {
   /// Assigns initial value, `text` parameter in `TextEditingController`
   final String? initialValue;
 
+  final String? Function(String?)? validator;
+
   const FormTextField({
     String? name,
     this.isPassword,
     this.initialValue,
+    this.validator,
   }) : super(name: name);
 }
 
