@@ -52,6 +52,46 @@ void main() {
 
 // --------------------------------------------------
 
+// -------- WidgetTest Template Data ----------
+
+const String kAppTemplateWidgetTestPath = 'test/widget_test.dart.stk';
+
+const String kAppTemplateWidgetTestContent = '''
+// This is a basic Flutter widget test.
+//
+// To perform an interaction with a widget in your test, use the WidgetTester
+// utility that Flutter provides. For example, you can send tap and scroll
+// gestures. You can also use WidgetTester to find child widgets in the widget
+// tree, read text, and verify that the values of widget properties are correct.
+
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import 'package:{{packageName}}/main.dart';
+
+void main() {
+  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MyApp());
+
+    // Verify that our counter starts at 0.
+    expect(find.text('0'), findsOneWidget);
+    expect(find.text('1'), findsNothing);
+
+    // Tap the '+' icon and trigger a frame.
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pump();
+
+    // Verify that our counter has incremented.
+    expect(find.text('0'), findsNothing);
+    expect(find.text('1'), findsOneWidget);
+  });
+}
+
+''';
+
+// --------------------------------------------------
+
 // -------- TestHelpers Template Data ----------
 
 const String kAppTemplateTestHelpersPath = 'test/helpers/test_helpers.dart.stk';
@@ -988,16 +1028,10 @@ void main() {
 
 // --------------------------------------------------
 
-// -------- Generic View Folder Template Path ----------
-
-const String kViewTemplateGenericFolderPath = 'lib/ui/views/generic/';
-
-// --------------------------------------------------
-
 // -------- GenericViewmodel Template Data ----------
 
 const String kViewTemplateGenericViewmodelPath =
-    '${kViewTemplateGenericFolderPath}generic_viewmodel.dart.stk';
+    'lib/ui/views/generic/generic_viewmodel.dart.stk';
 
 const String kViewTemplateGenericViewmodelContent = '''
 import 'package:stacked/stacked.dart';
@@ -1011,7 +1045,7 @@ class {{viewModelName}} extends BaseViewModel {
 // -------- GenericView Template Data ----------
 
 const String kViewTemplateGenericViewPath =
-    '${kViewTemplateGenericFolderPath}generic_view.dart.stk';
+    'lib/ui/views/generic/generic_view.dart.stk';
 
 const String kViewTemplateGenericViewContent = '''
 import 'package:flutter/material.dart';
@@ -1070,4 +1104,3 @@ class {{serviceName}}Service {
 ''';
 
 // --------------------------------------------------
-

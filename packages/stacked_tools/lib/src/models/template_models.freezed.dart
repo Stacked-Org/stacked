@@ -482,13 +482,15 @@ class _$CompiledFileModificationTearOff {
       required String path,
       required String identifier,
       required String template,
-      required String error}) {
+      required String error,
+      required String name}) {
     return _CompiledFileModification(
       description: description,
       path: path,
       identifier: identifier,
       template: template,
       error: error,
+      name: name,
     );
   }
 
@@ -517,6 +519,9 @@ mixin _$CompiledFileModification {
   /// The message to show the user of the cli if the modification fails
   String get error => throw _privateConstructorUsedError;
 
+  /// The message to show the user of the cli if the modification succeeds
+  String get name => throw _privateConstructorUsedError;
+
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $CompiledFileModificationCopyWith<CompiledFileModification> get copyWith =>
@@ -533,7 +538,8 @@ abstract class $CompiledFileModificationCopyWith<$Res> {
       String path,
       String identifier,
       String template,
-      String error});
+      String error,
+      String name});
 }
 
 /// @nodoc
@@ -552,6 +558,7 @@ class _$CompiledFileModificationCopyWithImpl<$Res>
     Object? identifier = freezed,
     Object? template = freezed,
     Object? error = freezed,
+    Object? name = freezed,
   }) {
     return _then(_value.copyWith(
       description: description == freezed
@@ -574,6 +581,10 @@ class _$CompiledFileModificationCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -590,7 +601,8 @@ abstract class _$CompiledFileModificationCopyWith<$Res>
       String path,
       String identifier,
       String template,
-      String error});
+      String error,
+      String name});
 }
 
 /// @nodoc
@@ -612,6 +624,7 @@ class __$CompiledFileModificationCopyWithImpl<$Res>
     Object? identifier = freezed,
     Object? template = freezed,
     Object? error = freezed,
+    Object? name = freezed,
   }) {
     return _then(_CompiledFileModification(
       description: description == freezed
@@ -634,6 +647,10 @@ class __$CompiledFileModificationCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -646,7 +663,8 @@ class _$_CompiledFileModification implements _CompiledFileModification {
       required this.path,
       required this.identifier,
       required this.template,
-      required this.error});
+      required this.error,
+      required this.name});
 
   factory _$_CompiledFileModification.fromJson(Map<String, dynamic> json) =>
       _$$_CompiledFileModificationFromJson(json);
@@ -671,10 +689,14 @@ class _$_CompiledFileModification implements _CompiledFileModification {
 
   /// The message to show the user of the cli if the modification fails
   final String error;
+  @override
+
+  /// The message to show the user of the cli if the modification succeeds
+  final String name;
 
   @override
   String toString() {
-    return 'CompiledFileModification(description: $description, path: $path, identifier: $identifier, template: $template, error: $error)';
+    return 'CompiledFileModification(description: $description, path: $path, identifier: $identifier, template: $template, error: $error, name: $name)';
   }
 
   @override
@@ -688,7 +710,8 @@ class _$_CompiledFileModification implements _CompiledFileModification {
             const DeepCollectionEquality()
                 .equals(other.identifier, identifier) &&
             const DeepCollectionEquality().equals(other.template, template) &&
-            const DeepCollectionEquality().equals(other.error, error));
+            const DeepCollectionEquality().equals(other.error, error) &&
+            const DeepCollectionEquality().equals(other.name, name));
   }
 
   @override
@@ -698,7 +721,8 @@ class _$_CompiledFileModification implements _CompiledFileModification {
       const DeepCollectionEquality().hash(path),
       const DeepCollectionEquality().hash(identifier),
       const DeepCollectionEquality().hash(template),
-      const DeepCollectionEquality().hash(error));
+      const DeepCollectionEquality().hash(error),
+      const DeepCollectionEquality().hash(name));
 
   @JsonKey(ignore: true)
   @override
@@ -718,7 +742,8 @@ abstract class _CompiledFileModification implements CompiledFileModification {
       required String path,
       required String identifier,
       required String template,
-      required String error}) = _$_CompiledFileModification;
+      required String error,
+      required String name}) = _$_CompiledFileModification;
 
   factory _CompiledFileModification.fromJson(Map<String, dynamic> json) =
       _$_CompiledFileModification.fromJson;
@@ -743,6 +768,10 @@ abstract class _CompiledFileModification implements CompiledFileModification {
 
   /// The message to show the user of the cli if the modification fails
   String get error;
+  @override
+
+  /// The message to show the user of the cli if the modification succeeds
+  String get name;
   @override
   @JsonKey(ignore: true)
   _$CompiledFileModificationCopyWith<_CompiledFileModification> get copyWith =>

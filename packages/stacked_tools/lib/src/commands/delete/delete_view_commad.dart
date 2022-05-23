@@ -3,7 +3,6 @@ import 'package:stacked_tools/src/constants/command_constants.dart';
 import 'package:stacked_tools/src/constants/message_constants.dart';
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/mixins/project_structure_validator_mixin.dart';
-import 'package:stacked_tools/src/services/colorized_log_service.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
 import 'package:stacked_tools/src/services/process_service.dart';
 import 'package:stacked_tools/src/services/pubspec_service.dart';
@@ -16,7 +15,6 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
   final _processService = locator<ProcessService>();
   final _fileService = locator<FileService>();
   final _templateService = locator<TemplateService>();
-  final _cLog = locator<ColorizedLogService>();
 
   @override
   String get description =>
@@ -51,7 +49,9 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
   Future<void> deleteViewAndTestFiles({String? outputPath}) async {
     /// Deleting the view folder.
     String directoryPath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: kViewTemplateGenericFolderPath,
+      inputTemplatePath: 'lib/ui/views/generic/',
+
+      ///TODO: Change this 👆 to the config file view path when it's added.
       name: argResults!.rest.first,
       outputFolder: outputPath,
     );

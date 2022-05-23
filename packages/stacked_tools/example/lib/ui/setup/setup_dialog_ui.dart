@@ -13,4 +13,3 @@ void setupDialogUi() {
 
   dialogService.registerCustomDialogBuilders(builders);
 }
-

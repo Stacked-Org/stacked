@@ -17,4 +17,3 @@ void setupBottomSheetUi() {
 
   bottomSheetService.setCustomSheetBuilders(builders);
 }
-

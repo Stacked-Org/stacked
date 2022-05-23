@@ -16,4 +16,3 @@ class StartupViewModel extends BaseViewModel {
     _navigationService.replaceWith(Routes.homeView);
   }
 }
-
