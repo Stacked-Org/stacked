@@ -1,6 +1,6 @@
-import 'stacked_locator_annotations.dart';
-import 'stacked_logger_annotations.dart';
-import 'stacked_router_annotations.dart';
+import 'locator/stacked_locator_annotations.dart';
+import 'logger/stacked_logger_annotations.dart';
+import 'router/stacked_router_annotations.dart';
 
 /// The annotation that defines a stacked application
 class StackedApp {
