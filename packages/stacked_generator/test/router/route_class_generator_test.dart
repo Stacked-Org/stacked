@@ -32,6 +32,7 @@ void main() {
       final routerBaseGenerator = RouterClassGenerator(RouterConfig(
           routesClassName: 'RoutesClassB',
           routerClassName: 'RouterNamee',
+          generateNavigationHelper: true,
           routes: routes));
       if (verbose) print(routerBaseGenerator.generate());
       expect(routerBaseGenerator.generate(), expectedResult);
@@ -470,7 +471,10 @@ void main() {
                   ]))
         ];
 
-        generateRouteAndExpectResult(routes, kRouterWithNestedRouter);
+        generateRouteAndExpectResult(
+          routes,
+          kRouterWithNestedRouter,
+        );
       });
     });
     group('RouteType.cupertino -', () {
@@ -758,7 +762,10 @@ void main() {
           ),
         ];
 
-        generateRouteAndExpectResult(routes, kRouterMixin);
+        generateRouteAndExpectResult(
+          routes,
+          kRouterMixin,
+        );
       });
     });
   });

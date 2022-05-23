@@ -26,6 +26,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 const kRouterWithEmptyRoutes = '''
 // ignore_for_file: public_member_api_docs
@@ -48,6 +58,13 @@ class RouterNamee extends RouterBase {
         
 
 };}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+}
 ''';
 const kRouterWithThreeNamePathNameClassName = '''
 // ignore_for_file: public_member_api_docs
@@ -89,6 +106,22 @@ return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass2(), settings
 },ebraClass3: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass3(), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView1()
+ => push(RoutesClassB.loginView1);
+
+Future pushLoginView2()
+ => push(RoutesClassB.loginView2);
+
+Future pushLoginView3()
+ => push(RoutesClassB.loginView3);
+
+}
 ''';
 
 const kRouterWithNamePathNameClassNameFullScreenDialogIsTrue = '''
@@ -119,6 +152,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,fullscreenDialog:true,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 
 const kRouterWithOneGuard = '''
@@ -151,6 +194,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 const kRouterWithTwoGuards = '''
 // ignore_for_file: public_member_api_docs
@@ -183,6 +236,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 const kRouterWithHasConstConstructorIsTrue = '''
 // ignore_for_file: public_member_api_docs
@@ -212,6 +275,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) => const  ebraClass(), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 const kRouterWithHasWrapperIsTrue = '''
 // ignore_for_file: public_member_api_docs
@@ -241,6 +314,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass().wrappedRoute(context), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 const kRouterWithImports = '''
 // ignore_for_file: public_member_api_docs
@@ -272,6 +355,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 const kRouterWithMaintainStateIsFalse = '''
 // ignore_for_file: public_member_api_docs
@@ -301,6 +394,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,maintainState:false,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 
 const kRouterWithParameterPathFalseQueryFalse = '''
@@ -332,6 +435,16 @@ ebraClass: (data) {
 var args = data.getArgs<ebraClassArguments>(
 orElse: ()=> ebraClassArguments(),);return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(null:args.null), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView({null null,})
+ => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+
+}
 
 /// ************************************************************************
 /// Arguments holder classes
@@ -373,6 +486,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(null:data.pathParams['null'].value()), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView({null null,})
+ => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+
+}
 ''';
 const kRouterWithParameterPathFalseQueryTrue = '''
 // ignore_for_file: public_member_api_docs
@@ -402,6 +525,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(null:data.queryParams['null'].value()), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView({null null,})
+ => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+
+}
 ''';
 
 const kRouterWithParameterPathFalseQueryTrueAlias = '''
@@ -432,6 +565,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(null:data.queryParams['aliaso'].value()), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView({null null,})
+ => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+
+}
 ''';
 const kRouterWithParameterPathFalseQueryTrueDefaultCode2 = '''
 // ignore_for_file: public_member_api_docs
@@ -461,6 +604,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(null:data.queryParams['null'].value(2)), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView({null null = 2,})
+ => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+
+}
 ''';
 const kRouterWithParameterPathFalseQueryTrueImports = '''
 // ignore_for_file: public_member_api_docs
@@ -492,6 +645,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(null:data.queryParams['null'].value()), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView({null null,})
+ => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+
+}
 ''';
 const kRouterWithParameterPathFalseQueryTrueIsPositionalTrue = '''
 // ignore_for_file: public_member_api_docs
@@ -521,6 +684,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(data.queryParams['null'].value()), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView({@required null null,})
+ => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+
+}
 ''';
 const kRouterWithParameterPathFalseQueryTrueIsRequiredTrue = '''
 // ignore_for_file: public_member_api_docs
@@ -550,6 +723,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(null:data.queryParams['null'].value()), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView({@required null null,})
+ => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+
+}
 ''';
 const kRouterWithParameterPathFalseQueryTrueIsRequiredTrueName = '''
 // ignore_for_file: public_member_api_docs
@@ -579,6 +762,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(ebra:data.queryParams['ebra'].value()), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView({null ebra,})
+ => push(RoutesClassB.loginView,arguments: ebraClassArguments(ebra: ebra),);
+
+}
 ''';
 
 const kRouterWithParameterPathFalseQueryFalseType = '''
@@ -610,6 +803,16 @@ ebraClass: (data) {
 var args = data.getArgs<ebraClassArguments>(
 orElse: ()=> ebraClassArguments(),);return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(null:args.null), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView({newType null,})
+ => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+
+}
 
 /// ************************************************************************
 /// Arguments holder classes
@@ -650,6 +853,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<returnYpe>(builder: (context) =>   ebraClass(), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future<returnYpe> pushLoginView()
+ => push<returnYpe>(RoutesClassB.loginView);
+
+}
 ''';
 const kRouterWithRetrunTypeCupertinoRoute = '''
 // ignore_for_file: public_member_api_docs
@@ -679,6 +892,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<CupertinoRoute>(builder: (context) =>   ebraClass(), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future<<CupertinoRoute>> pushLoginView()
+ => push<<CupertinoRoute>>(RoutesClassB.loginView);
+
+}
 ''';
 const kRouterWithNestedRouter = '''
 // ignore_for_file: public_member_api_docs
@@ -709,6 +932,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return MaterialPageRoute<returnYpe>(builder: (context) =>   ebraClass(), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future<returnYpe> pushLoginView()
+ => push<returnYpe>(RoutesClassB.loginView);
+
+}
 class MyNestedRoutess {
 static const String nestedView = 'nestedPath';
 static const all = <String>{
@@ -731,6 +964,16 @@ RouteDef(MyNestedRoutess.nestedView
 nestedClass: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   nestedClass(), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension MyNestedRouteerrrExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushNestedView()
+ => push(MyNestedRoutess.nestedView);
+
+}
 ''';
 const kRouterTypeCupertinoWithNamePathNameClassName = '''
 // ignore_for_file: public_member_api_docs
@@ -760,6 +1003,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return CupertinoPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 
 const kRouterTypeCupertinoWithCupertinoNavTitle = '''
@@ -790,6 +1043,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return CupertinoPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,title:'cupertinoNavTitle',);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 const kRouterTypeCupertinoWithParametersPathFalseQueryFalse = '''
 // ignore_for_file: public_member_api_docs
@@ -820,6 +1083,16 @@ ebraClass: (data) {
 var args = data.getArgs<ebraClassArguments>(
 orElse: ()=> ebraClassArguments(),);return CupertinoPageRoute<dynamic>(builder: (context) =>   ebraClass(null:args.null), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView({null null,})
+ => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+
+}
 
 /// ************************************************************************
 /// Arguments holder classes
@@ -859,6 +1132,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return buildAdaptivePageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 const kRouterTypeAdaptiveWithCupertinoNavTitle = '''
 // ignore_for_file: public_member_api_docs
@@ -887,6 +1170,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return buildAdaptivePageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,cupertinoTitle:'cupertinooo',);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 const kRouterTypeAdaptiveWithParametersPathFalseQueryFalse = '''
 // ignore_for_file: public_member_api_docs
@@ -916,6 +1209,16 @@ ebraClass: (data) {
 var args = data.getArgs<ebraClassArguments>(
 orElse: ()=> ebraClassArguments(),);return buildAdaptivePageRoute<dynamic>(builder: (context) =>   ebraClass(null:args.null), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView({null null,})
+ => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+
+}
 
 /// ************************************************************************
 /// Arguments holder classes
@@ -956,6 +1259,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 const kRouterTypeCustomWithTitleNavBar = '''
 // ignore_for_file: public_member_api_docs
@@ -985,6 +1298,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 const kRouterTypeCustomWithbarrierDismissible = '''
 // ignore_for_file: public_member_api_docs
@@ -1014,6 +1337,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 
 const kRouterTypeCustomWithTransitionDuration = '''
@@ -1044,6 +1377,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,transitionDuration: const Duration(milliseconds: 22),);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 const kRouterTypeCustomWithReverseDurationInMilliseconds = '''
 // ignore_for_file: public_member_api_docs
@@ -1073,6 +1416,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,reverseTransitionDuration: const Duration(milliseconds: 2),);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 
 const kRouterTypeCustomWithCustomRouteOpaqueFalse = '''
@@ -1103,6 +1456,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,opaque:false,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView()
+ => push(RoutesClassB.loginView);
+
+}
 ''';
 
 const kRouterTypeCustomWithParametersPathFalseQueryFalse = '''
@@ -1134,6 +1497,16 @@ ebraClass: (data) {
 var args = data.getArgs<ebraClassArguments>(
 orElse: ()=> ebraClassArguments(),);return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(null:args.null), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView({null null,})
+ => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+
+}
 
 /// ************************************************************************
 /// Arguments holder classes
@@ -1174,6 +1547,16 @@ RouteDef(RoutesClassB.loginView
 ebraClass: (data) {
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(null:data.queryParams['null'].value()), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView({null null,})
+ => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+
+}
 ''';
 const kRouterMixin = '''
 // ignore_for_file: public_member_api_docs
@@ -1235,6 +1618,31 @@ return buildAdaptivePageRoute<dynamic>(builder: (context) =>   ebraClass5(), set
 },ebraClass6: (data) {
 return CupertinoPageRoute<dynamic>(builder: (context) =>   ebraClass6(), settings: data,);
 },};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushLoginView1()
+ => push(RoutesClassB.loginView1);
+
+Future pushLoginView2({null null,})
+ => push(RoutesClassB.loginView2,arguments: ebraClass2Arguments(null: null),);
+
+Future pushLoginView3({null null,})
+ => push(RoutesClassB.loginView3,arguments: ebraClass3Arguments(null: null),);
+
+Future pushLoginView4()
+ => push(RoutesClassB.loginView4);
+
+Future pushLoginView5()
+ => push(RoutesClassB.loginView5);
+
+Future pushLoginView6()
+ => push(RoutesClassB.loginView6);
+
+}
 
 /// ************************************************************************
 /// Arguments holder classes
