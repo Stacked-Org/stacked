@@ -108,7 +108,7 @@ class RouteConfig {
     }).toList();
   }
 
-  String get constructor {
+  String get joinedConstructerParams {
     List<String>? constructorParams = parameters.map<String>((param) {
       String getterName;
       if (param.isPathParam ?? false) {
@@ -153,28 +153,95 @@ class RouteConfig {
     }
   }
 
-  factory RouteConfig.fromStackedApp(
-    ConstantReader stackedRoute,
-    ImportResolver importResolver,
-    RouterConfig routerConfig,
-  ) {
-    if (stackedRoute.instanceOf(TypeChecker.fromRuntime(MaterialRoute))) {
-      return MaterialRouteConfig.fromStackedApp(
-          stackedRoute, importResolver, routerConfig);
-    } else if (stackedRoute
-        .instanceOf(TypeChecker.fromRuntime(CupertinoRoute))) {
-      return CupertinoRouteConfig.fromStackedApp(
-          stackedRoute, importResolver, routerConfig);
+  RouteConfig toSpecificType(
+      ConstantReader stackedRoute, ImportResolver importResolver) {
+    if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CupertinoRoute))) {
+      return CupertinoRouteConfig(
+          className: className,
+          name: name,
+          pathName: pathName,
+          fullscreenDialog: fullscreenDialog,
+          guards: guards,
+          hasConstConstructor: hasConstConstructor,
+          hasWrapper: hasWrapper,
+          imports: imports,
+          maintainState: maintainState,
+          parameters: parameters,
+          returnType: returnType,
+          routerConfig: routerConfig,
+          cupertinoNavTitle: stackedRoute.peek('title')?.stringValue);
     } else if (stackedRoute
         .instanceOf(TypeChecker.fromRuntime(AdaptiveRoute))) {
-      return AdaptiveRouteConfig.fromStackedApp(
-          stackedRoute, importResolver, routerConfig);
+      return AdaptiveRouteConfig(
+          className: className,
+          name: name,
+          pathName: pathName,
+          fullscreenDialog: fullscreenDialog,
+          guards: guards,
+          hasConstConstructor: hasConstConstructor,
+          hasWrapper: hasWrapper,
+          imports: imports,
+          maintainState: maintainState,
+          parameters: parameters,
+          returnType: returnType,
+          routerConfig: routerConfig,
+          cupertinoNavTitle:
+              stackedRoute.peek('cupertinoPageTitle')?.stringValue);
     } else if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CustomRoute))) {
-      return CustomRouteConfig.fromStackedApp(
-          stackedRoute, importResolver, routerConfig);
+      var customRouteConfig = CustomRouteConfig(
+        className: className,
+        name: name,
+        pathName: pathName,
+        fullscreenDialog: fullscreenDialog,
+        guards: guards,
+        hasConstConstructor: hasConstConstructor,
+        hasWrapper: hasWrapper,
+        imports: imports,
+        maintainState: maintainState,
+        parameters: parameters,
+        returnType: returnType,
+        routerConfig: routerConfig,
+        durationInMilliseconds:
+            stackedRoute.peek('durationInMilliseconds')?.intValue,
+        reverseDurationInMilliseconds:
+            stackedRoute.peek('reverseDurationInMilliseconds')?.intValue,
+        customRouteOpaque: stackedRoute.peek('opaque')?.boolValue ?? false,
+        customRouteBarrierDismissible:
+            stackedRoute.peek('barrierDismissible')?.boolValue ?? false,
+      );
+      final function = stackedRoute
+          .peek('transitionsBuilder')
+          ?.objectValue
+          .toFunctionValue();
+      if (function != null) {
+        final displayName = function.displayName.replaceFirst(RegExp('^_'), '');
+        final functionName = function.isStatic
+            ? '${function.enclosingElement.displayName}.$displayName'
+            : displayName;
+
+        var import;
+        if (function.enclosingElement.name != 'TransitionsBuilders') {
+          import = importResolver.resolve(function);
+        }
+        customRouteConfig = customRouteConfig.copyWith(
+            transitionBuilder: CustomTransitionBuilder(functionName, import));
+      }
+
+      return customRouteConfig;
     } else {
-      return MaterialRouteConfig.fromStackedApp(
-          stackedRoute, importResolver, routerConfig);
+      return MaterialRouteConfig(
+          className: className,
+          name: name,
+          pathName: pathName,
+          fullscreenDialog: fullscreenDialog,
+          guards: guards,
+          hasConstConstructor: hasConstConstructor,
+          hasWrapper: hasWrapper,
+          imports: imports,
+          maintainState: maintainState,
+          parameters: parameters,
+          returnType: returnType,
+          routerConfig: routerConfig);
     }
   }
 

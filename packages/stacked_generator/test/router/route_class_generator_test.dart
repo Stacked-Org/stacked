@@ -587,20 +587,7 @@ void main() {
           kRouterTypeCustom,
         );
       });
-      test('With cupertinoNavTitle', () {
-        final routes = [
-          CustomRouteConfig(
-              name: 'loginView',
-              pathName: 'pathNamaw',
-              className: 'ebraClass',
-              cupertinoNavTitle: 'cupertinooo')
-        ];
 
-        generateRouteAndExpectResult(
-          routes,
-          kRouterTypeCustomWithTitleNavBar,
-        );
-      });
       test('With customRouteBarrierDismissible', () {
         final routes = [
           CustomRouteConfig(
@@ -723,7 +710,6 @@ void main() {
             className: 'ebraClass1',
             reverseDurationInMilliseconds: 2,
             durationInMilliseconds: 22,
-            cupertinoNavTitle: 'cupertinooo',
           ),
           MaterialRouteConfig(
               name: 'loginView2',

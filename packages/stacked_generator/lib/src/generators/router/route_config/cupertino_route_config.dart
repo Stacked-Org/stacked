@@ -64,7 +64,7 @@ class CupertinoRouteConfig extends RouteConfig {
     StringBuffer stringBuffer = StringBuffer();
     stringBuffer.write(super.registerArgs());
     stringBuffer.write(
-        'return CupertinoPageRoute<$processedReturnType>(builder: (context) => $constructor, settings: data,');
+        'return CupertinoPageRoute<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,');
     if (cupertinoNavTitle != null) {
       stringBuffer.write("title:'$cupertinoNavTitle',");
     }

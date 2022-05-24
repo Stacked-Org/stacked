@@ -64,93 +64,13 @@ class AdaptiveRouteConfig extends RouteConfig {
     StringBuffer stringBuffer = StringBuffer();
     stringBuffer.write(super.registerArgs());
     stringBuffer.write(
-        'return buildAdaptivePageRoute<$processedReturnType>(builder: (context) => $constructor, settings: data,');
+        'return buildAdaptivePageRoute<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,');
     if (cupertinoNavTitle != null) {
       stringBuffer.write("cupertinoTitle:'${cupertinoNavTitle}',");
     }
     stringBuffer.write(super.registerRoutes());
 
     return stringBuffer.toString();
-  }
-
-  // TODO: move this code to the routeconfig super class
-
-  factory AdaptiveRouteConfig.fromStackedApp(ConstantReader stackedRoute,
-      ImportResolver importResolver, RouterConfig routerConfig) {
-    final dartType = stackedRoute.read('page').typeValue;
-    throwIf(
-      dartType.element is! ClassElement,
-      '${toDisplayString(dartType)} is not a class element',
-      element: dartType.element!,
-    );
-    Set<String> imports = {};
-
-    final extractedGuards = stackedRoute.peek('guards')?.listValue.where((g) {
-      final guard = g.toTypeValue();
-      return guard != null && guard.element != null;
-    }).map((g) {
-      final guard = g.toTypeValue();
-      return RouteGuardConfig(
-          type: toDisplayString(guard!),
-          import: importResolver.resolve((guard.element)!));
-    }).toList();
-
-    final classElement = dartType.element as ClassElement;
-    final className = toDisplayString(dartType);
-
-    final import = importResolver.resolve(classElement);
-    if (import != null) imports.add(import);
-
-    String? pathName = stackedRoute.peek('path')?.stringValue;
-    if (pathName == null) {
-      if (stackedRoute.peek('initial')?.boolValue == true) {
-        pathName = '/';
-      } else {
-        pathName = '${routerConfig.routeNamePrefix}${toKababCase(className)}';
-      }
-    }
-
-    final returnType = stackedRoute.objectValue.type;
-
-    if (returnType != null && returnType != 'dynamic') {
-      imports.addAll(importResolver.resolveAll(returnType));
-    }
-
-    var adaptiveRouteConfig = AdaptiveRouteConfig(
-        cupertinoNavTitle: stackedRoute.peek('cupertinoPageTitle')?.stringValue,
-        hasWrapper: classElement.allSupertypes
-            .map<String>((el) => toDisplayString(el))
-            .contains('StackedRouteWrapper'),
-        returnType: toDisplayString(returnType!),
-        pathName: pathName,
-        name: stackedRoute.peek('name')?.stringValue ??
-            toLowerCamelCase(className),
-        maintainState: stackedRoute.peek('maintainState')?.boolValue ?? false,
-        imports: imports,
-        guards: extractedGuards ?? [],
-        className: className,
-        fullscreenDialog:
-            stackedRoute.peek('fullscreenDialog')?.boolValue ?? false);
-    final constructor = classElement.unnamedConstructor;
-
-    var params = constructor?.parameters;
-    if (params?.isNotEmpty == true) {
-      if (constructor!.isConst &&
-          params!.length == 1 &&
-          toDisplayString(params.first.type) == 'Key') {
-        adaptiveRouteConfig =
-            adaptiveRouteConfig.copyWith(hasConstConstructor: true);
-      } else {
-        final paramResolver = RouteParameterResolver(importResolver);
-        for (ParameterElement p in constructor.parameters) {
-          adaptiveRouteConfig.copyWith(parameters: [
-            ...adaptiveRouteConfig.parameters,
-            paramResolver.resolve(p)
-          ]);
-        }
-      }
-    }
-    return adaptiveRouteConfig;
   }
 
   AdaptiveRouteConfig copyWith({

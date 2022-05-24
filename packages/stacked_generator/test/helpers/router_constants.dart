@@ -1270,45 +1270,6 @@ Future pushLoginView()
 
 }
 ''';
-const kRouterTypeCustomWithTitleNavBar = '''
-// ignore_for_file: public_member_api_docs
-
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-
-class RoutesClassB {
-static const String loginView = 'pathNamaw';
-static const all = <String>{
-loginView,};}
-
-class RouterNamee extends RouterBase {
-     @override
-     List<RouteDef> get routes => _routes;
-     final _routes = <RouteDef>[
-     
-
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
-),
-];       @override
-       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
-        final _pagesMap = <Type, StackedRouteFactory>{
-        
-
-ebraClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,);
-},};}
-
-/// ************************************************************************
-/// Navigation helper methods extension
-/// *************************************************************************
-
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
-Future pushLoginView()
- => push(RoutesClassB.loginView);
-
-}
-''';
 const kRouterTypeCustomWithbarrierDismissible = '''
 // ignore_for_file: public_member_api_docs
 
