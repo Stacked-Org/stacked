@@ -458,17 +458,13 @@ void main() {
               pathName: 'pathNamaw',
               className: 'ebraClass',
               returnType: 'returnYpe',
-              routerConfig: RouterConfig(
-                  routesClassName: 'MyNestedRoutess',
-                  routeNamePrefix: 'prefexNestedRouter',
-                  routerClassName: 'MyNestedRouteerrr',
-                  routes: [
-                    MaterialRouteConfig(
-                      name: 'nestedView',
-                      pathName: 'nestedPath',
-                      className: 'nestedClass',
-                    )
-                  ]))
+              children: [
+                MaterialRouteConfig(
+                  name: 'nestedView',
+                  pathName: 'nestedPath',
+                  className: 'nestedClass',
+                )
+              ])
         ];
 
         generateRouteAndExpectResult(

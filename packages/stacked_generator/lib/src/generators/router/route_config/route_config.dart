@@ -22,7 +22,7 @@ class RouteConfig {
   final List<RouteParamConfig> parameters;
   final List<RouteGuardConfig> guards;
   final bool hasWrapper;
-  final RouterConfig? routerConfig;
+  final List<RouteConfig> children;
   final bool hasConstConstructor;
   final Set<String> imports;
   const RouteConfig({
@@ -35,7 +35,7 @@ class RouteConfig {
     this.parameters = const [],
     this.guards = const [],
     this.hasWrapper = false,
-    this.routerConfig,
+    this.children = const [],
     this.hasConstConstructor = false,
     this.imports = const {},
   });
@@ -168,7 +168,7 @@ class RouteConfig {
           maintainState: maintainState,
           parameters: parameters,
           returnType: returnType,
-          routerConfig: routerConfig,
+          children: children,
           cupertinoNavTitle: stackedRoute.peek('title')?.stringValue);
     } else if (stackedRoute
         .instanceOf(TypeChecker.fromRuntime(AdaptiveRoute))) {
@@ -184,7 +184,7 @@ class RouteConfig {
           maintainState: maintainState,
           parameters: parameters,
           returnType: returnType,
-          routerConfig: routerConfig,
+          children: children,
           cupertinoNavTitle:
               stackedRoute.peek('cupertinoPageTitle')?.stringValue);
     } else if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CustomRoute))) {
@@ -200,7 +200,7 @@ class RouteConfig {
         maintainState: maintainState,
         parameters: parameters,
         returnType: returnType,
-        routerConfig: routerConfig,
+        children: children,
         durationInMilliseconds:
             stackedRoute.peek('durationInMilliseconds')?.intValue,
         reverseDurationInMilliseconds:
@@ -241,7 +241,7 @@ class RouteConfig {
           maintainState: maintainState,
           parameters: parameters,
           returnType: returnType,
-          routerConfig: routerConfig);
+          children: children);
     }
   }
 
@@ -255,7 +255,7 @@ class RouteConfig {
     List<RouteParamConfig>? parameters,
     List<RouteGuardConfig>? guards,
     bool? hasWrapper,
-    RouterConfig? routerConfig,
+    List<RouteConfig>? children,
     bool? hasConstConstructor,
     Set<String>? imports,
   }) {
@@ -269,7 +269,7 @@ class RouteConfig {
       parameters: parameters ?? this.parameters,
       guards: guards ?? this.guards,
       hasWrapper: hasWrapper ?? this.hasWrapper,
-      routerConfig: routerConfig ?? this.routerConfig,
+      children: children ?? this.children,
       hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
       imports: imports ?? this.imports,
     );
