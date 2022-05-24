@@ -20,20 +20,18 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
       _rootRouterConfig.routesClassName ?? 'HHHHHHHH',
     ));
 
-    _rootRouterConfig.routes.forEach((routeConfig) {
-      write(generateRouterClass(
-        routeConfig,
-        _rootRouterConfig.routerClassName ?? 'HHHHHHHH',
-        _rootRouterConfig.routesClassName ?? 'HHHHHHHH',
-      ));
+    write(generateRouterClass(
+      _rootRouterConfig.routes,
+      _rootRouterConfig.routerClassName ?? 'HHHHHHHH',
+      _rootRouterConfig.routesClassName ?? 'HHHHHHHH',
+    ));
 
-      if (_rootRouterConfig.generateNavigationHelper) {
-        _generateNavigationHelpers(
-            _rootRouterConfig.routes,
-            _rootRouterConfig.routerClassName!,
-            _rootRouterConfig.routesClassName!);
-      }
-    });
+    if (_rootRouterConfig.generateNavigationHelper) {
+      _generateNavigationHelpers(
+          _rootRouterConfig.routes,
+          _rootRouterConfig.routerClassName!,
+          _rootRouterConfig.routesClassName!);
+    }
 
     _generateArgumentHolders(_rootRouterConfig.routes);
 

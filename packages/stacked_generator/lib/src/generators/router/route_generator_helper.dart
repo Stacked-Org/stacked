@@ -52,7 +52,10 @@ mixin RouteGeneratorHelper {
   }
 
   String generateRouterClass(
-      RouteConfig route, String routerClassName, String routesClassName) {
+    List<RouteConfig> routes,
+    String routerClassName,
+    String routesClassName,
+  ) {
     StringBuffer stringBuffer = StringBuffer();
 
     stringBuffer.writeln('\nclass $routerClassName extends RouterBase {');
@@ -62,8 +65,11 @@ mixin RouteGeneratorHelper {
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      ''');
-    stringBuffer.write(
-        _generateRouteTemplates(route, routerClassName, routesClassName));
+    for (var route in routes) {
+      stringBuffer.write(
+          _generateRouteTemplates(route, routerClassName, routesClassName));
+    }
+    stringBuffer.writeln();
     stringBuffer.write('];');
 
     stringBuffer.writeln('''
@@ -71,7 +77,12 @@ mixin RouteGeneratorHelper {
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         ''');
-    stringBuffer.write(_generateRouteGeneratorFunction(route));
+    stringBuffer.writeln();
+
+    for (var route in routes) {
+      stringBuffer.write(_generateRouteGeneratorFunction(route));
+    }
+
     stringBuffer.write('};');
 
     stringBuffer.writeln('}');
@@ -85,7 +96,8 @@ mixin RouteGeneratorHelper {
 
     stringBuffer.writeln();
 
-    stringBuffer.writeln("RouteDef(${routesClassName}.${route.templateName}");
+    stringBuffer.write("RouteDef(${routesClassName}.${route.templateName}");
+    stringBuffer.writeln();
     stringBuffer.writeln(",page: ${route.className}");
     if (route.guards.isNotEmpty == true) {
       stringBuffer.writeln(
@@ -94,14 +106,13 @@ mixin RouteGeneratorHelper {
     if (route.children.isNotEmpty) {
       stringBuffer.writeln(",generator: ${routerClassName}(),");
     }
-    stringBuffer.writeln('),');
+    stringBuffer.write('),');
+
     return stringBuffer.toString();
   }
 
   String _generateRouteGeneratorFunction(RouteConfig route) {
     StringBuffer stringBuffer = StringBuffer();
-
-    stringBuffer.writeln();
 
     var routesMap = <String, RouteConfig>{};
 
