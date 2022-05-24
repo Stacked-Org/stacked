@@ -35,14 +35,6 @@ class RouterConfig {
     );
   }
 
-  List<RouterConfig?> get subRouters => routes
-      .where((e) => e.routerConfig != null)
-      .map((e) => e.routerConfig)
-      .toList();
-
-  List<RouterConfig> get collectAllRoutersIncludingParent => subRouters.fold(
-      [this], (all, e) => all..addAll(e!.collectAllRoutersIncludingParent));
-
   @override
   String toString() {
     return 'RouterConfig{routes: $routes, routesClassName: $routesClassName, routerClassName: $routerClassName}';

@@ -12,21 +12,29 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
   @override
   String generate() {
     writeLine("// ignore_for_file: public_member_api_docs");
-    var allRouters = _rootRouterConfig.collectAllRoutersIncludingParent;
-    var allRoutes = allRouters.fold<List<RouteConfig>>(
-        [], (all, e) => all..addAll(e.routes)).toList();
-    _generateImports(allRoutes);
 
-    allRouters.forEach((routerConfig) {
-      _generateRoutesClass(routerConfig);
-      _generateRouterClass(routerConfig);
+    _generateImports(_rootRouterConfig.routes);
+
+    _rootRouterConfig.routes.forEach((routeConfig) {
+      write(generateRoutesClass(
+        routeConfig,
+        _rootRouterConfig.routesClassName ?? 'HHHHHHHH',
+      ));
+      write(generateRouterClass(
+        routeConfig,
+        _rootRouterConfig.routerClassName ?? 'HHHHHHHH',
+        _rootRouterConfig.routesClassName ?? 'HHHHHHHH',
+      ));
 
       if (_rootRouterConfig.generateNavigationHelper) {
-        _generateNavigationHelpers(routerConfig);
+        _generateNavigationHelpers(
+            _rootRouterConfig.routes,
+            _rootRouterConfig.routerClassName!,
+            _rootRouterConfig.routesClassName!);
       }
     });
 
-    _generateArgumentHolders(allRoutes);
+    _generateArgumentHolders(_rootRouterConfig.routes);
 
     return stringBuffer.toString();
   }
@@ -53,78 +61,6 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
 
     var rest = validImports.difference({...dartImports, ...packageImports});
     sortAndGenerate(rest);
-  }
-
-  void _generateRoutesClass(RouterConfig routerConfig) {
-    writeLine('class ${routerConfig.routesClassName} {');
-    var allNames = <String>{};
-    routerConfig.routes.forEach((r) {
-      final routeName = r.name;
-      final path = r.pathName;
-
-      if (path.contains(':')) {
-        // handle template paths
-        writeLine("static const String _$routeName = '$path';");
-        allNames.add('_$routeName');
-        var params = RegExp(r':([^/]+)').allMatches(path).map((m) {
-          var match = m.group(1);
-          if (match!.endsWith('?')) {
-            return "dynamic  ${match.substring(0, match.length - 1)} = ''";
-          } else {
-            return "@required  dynamic $match";
-          }
-        });
-        writeLine(
-          "static String $routeName({${params.join(',')}}) => '${path.replaceAllMapped(RegExp(r'([:])|([?])'), (m) {
-            if (m[1] != null) {
-              return '\$';
-            } else {
-              return '';
-            }
-          })}';",
-        );
-      } else {
-        allNames.add(routeName);
-        writeLine("static const String $routeName = '$path';");
-      }
-    });
-    writeLine("static const all = <String>{");
-    allNames.forEach((name) => write('$name,'));
-    write("};");
-    writeLine('}');
-  }
-
-  void _generateRouteTemplates(RouterConfig routerConfig) {
-    newLine();
-    routerConfig.routes.forEach((r) {
-      writeLine("RouteDef(${routerConfig.routesClassName}.${r.templateName}");
-      writeLine(",page: ${r.className}");
-      if (r.guards.isNotEmpty == true) {
-        writeLine(",guards:${r.guards.map((e) => e.type).toList().toString()}");
-      }
-      if (r.routerConfig != null) {
-        writeLine(",generator: ${r.routerConfig!.routerClassName}(),");
-      }
-      writeLine('),');
-    });
-  }
-
-  void _generateRouteGeneratorFunction(RouterConfig routerConfig) {
-    newLine();
-
-    var routesMap = <String, RouteConfig>{};
-    routerConfig.routes.forEach((route) {
-      // throwIf(route.className == null,
-      //     ExceptionMessages.RouteClassNameShouldnotBeNull);
-      routesMap[route.className] = route;
-    });
-
-    routesMap.forEach((name, route) {
-      writeLine('$name: (data) {');
-      write(route.registerRoutes());
-      //close builder
-      write("},");
-    });
   }
 
   void _generateArgumentHolders(List<RouteConfig> routes) {
@@ -174,40 +110,21 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
     writeLine('}');
   }
 
-  void _generateRouterClass(RouterConfig routerConfig) {
-    writeLine('\nclass ${routerConfig.routerClassName} extends RouterBase {');
-
-    writeLine('''
-     @override
-     List<RouteDef> get routes => _routes;
-     final _routes = <RouteDef>[
-     ''');
-    _generateRouteTemplates(routerConfig);
-    write('];');
-
-    writeLine('''
-       @override
-       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
-        final _pagesMap = <Type, StackedRouteFactory>{
-        ''');
-    _generateRouteGeneratorFunction(routerConfig);
-    write('};');
-
-    // close router class
-    writeLine('}');
-  }
-
-  void _generateNavigationHelpers(RouterConfig routerConfig) {
+  void _generateNavigationHelpers(
+    List<RouteConfig> routes,
+    String routerClassName,
+    String routesClassName,
+  ) {
     write(generateCommentBoxWithMessage('Navigation helper methods extension'));
     writeLine(
-        'extension ${routerConfig.routerClassName}ExtendedNavigatorStateX on ExtendedNavigatorState {');
-    for (var route in routerConfig.routes) {
+        'extension ${routerClassName}ExtendedNavigatorStateX on ExtendedNavigatorState {');
+    for (var route in routes) {
       // skip routes that has path params until
       // until there's a practical way to handle them
       if (RegExp(r':([^/]+)').hasMatch(route.pathName)) {
         continue;
       }
-      _generateHelperMethod(route, routerConfig.routesClassName!);
+      _generateHelperMethod(route, routesClassName);
     }
     writeLine('}');
   }

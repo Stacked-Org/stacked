@@ -54,7 +54,7 @@ class RouterConfigResolver {
           routesClassName: '${capitalizedRouteName}Routes',
         );
         final routes = await _resolveRoutes(subRouterConfig, children!);
-        route.copyWith(routerConfig: subRouterConfig.copyWith(routes: routes));
+        route.copyWith(children: routes);
       }
     }
     return routes;
