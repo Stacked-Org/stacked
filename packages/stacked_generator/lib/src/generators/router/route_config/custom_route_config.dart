@@ -1,7 +1,7 @@
-import 'package:stacked_generator/route_config_resolver.dart';
-import 'package:stacked_generator/src/generators/router/router_config.dart';
-
-import '../router_config.dart';
+import '../custom_transition_builder.dart';
+import '../route_guard_config.dart';
+import '../route_parameter_config.dart';
+import 'route_config.dart';
 
 class CustomRouteConfig extends RouteConfig {
   final String name;

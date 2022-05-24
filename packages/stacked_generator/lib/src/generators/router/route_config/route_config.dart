@@ -6,7 +6,6 @@ import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/exceptions/invalid_generator_input_exception.dart';
 import 'package:stacked_generator/utils.dart';
 
-import '../router_config.dart';
 import 'adaptive_route_config.dart';
 import 'cupertino_route_config.dart';
 import 'custom_route_config.dart';

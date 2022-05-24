@@ -1,6 +1,6 @@
-import 'package:stacked_generator/route_config_resolver.dart';
-
-import '../router_config.dart';
+import '../route_guard_config.dart';
+import '../route_parameter_config.dart';
+import 'route_config.dart';
 
 class MaterialRouteConfig extends RouteConfig {
   final String name;

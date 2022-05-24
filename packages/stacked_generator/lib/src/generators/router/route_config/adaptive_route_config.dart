@@ -1,13 +1,6 @@
-import 'package:analyzer/dart/element/element.dart';
-import 'package:source_gen/source_gen.dart';
-import 'package:source_gen/src/constants/reader.dart';
-
-import 'package:stacked_generator/import_resolver.dart';
-import 'package:stacked_generator/route_config_resolver.dart';
-import 'package:stacked_generator/src/generators/router/router_config.dart';
-
-import '../../../../utils.dart';
-import '../router_config.dart';
+import '../route_guard_config.dart';
+import '../route_parameter_config.dart';
+import 'route_config.dart';
 
 class AdaptiveRouteConfig extends RouteConfig {
   final String name;
