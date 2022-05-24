@@ -16,9 +16,6 @@ class ExampleFormViewModel extends FormViewModel {
   void setFormStatus() {
     log.i('Set form Status with data: $formValueMap');
 
-    // Set the validation message per field
-    // setPasswordValidationMessage(passwordValidator(value: passwordValue));
-
     // Set a validation message for the entire form
     if (hasPasswordValidationMessage) {
       setValidationMessage('Error in the form, please check again');
@@ -30,6 +27,8 @@ class ExampleFormViewModel extends FormViewModel {
   // data to the backend or db.
 
   Future? saveData() {
+    return null;
+
     // here we can run custom functionality to save to our api
   }
 
