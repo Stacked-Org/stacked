@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
-import 'select_location_viewmodel.dart';
 import 'select_location_view.form.dart';
+import 'select_location_viewmodel.dart';
 
 @FormView(fields: [
   FormDropdownField(name: 'country', items: [

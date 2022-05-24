@@ -18,6 +18,8 @@ class FormGeneratorUtil extends BaseGenerator {
     generateValueMapKeys();
     generateDropdownItemsMap();
     generateTextEditingControllerItemsMap();
+    generateFocusNodeItemsMap();
+    generateValidationFunctionsFromAnnotation();
     generateFormMixin();
     generateFormViewModelExtensions();
     return stringBuffer.toString();
@@ -30,6 +32,8 @@ class FormGeneratorUtil extends BaseGenerator {
     generateFocusNodesForTextFields();
     generateListenerRegistrationsForTextFields();
     generateFormDataUpdateFunctionTorTextControllers();
+    generateValidationDataUpdateFunctionTorTextControllers();
+    generateGetValidationMessageForTextController();
     generateDisposeForTextControllers();
 
     writeLine('}');
@@ -55,12 +59,23 @@ class FormGeneratorUtil extends BaseGenerator {
 
     var packageImports =
         validImports.where((element) => element.startsWith('package')).toSet();
+    packageImports.addAll(validationFileImports);
     sortAndGenerate(packageImports);
     newLine();
 
     var rest = validImports.difference({...dartImports, ...packageImports});
     sortAndGenerate(rest);
     newLine();
+  }
+
+  List<String> get validationFileImports {
+    List<String> paths = [];
+    for (var textFields in fields.onlyTextFieldConfigs) {
+      if (textFields.validatorPath != null) {
+        paths.add(textFields.validatorPath!);
+      }
+    }
+    return paths;
   }
 
   void generateValueMapKeys() {
@@ -103,7 +118,33 @@ class FormGeneratorUtil extends BaseGenerator {
     newLine();
   }
 
+  void generateFocusNodeItemsMap() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return;
+    newLine();
+    writeLine("final Map<String, FocusNode> _${viewName}FocusNodes = {");
+    for (var field in fields.onlyTextFieldConfigs) {
+      final caseName = ReCase(field.name);
+      writeLine("${_getFormKeyName(caseName)}: FocusNode(),");
+    }
+    writeLine("};");
+    newLine();
+  }
+
+  void generateValidationFunctionsFromAnnotation() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return;
+    newLine();
+    writeLine(
+        "final Map<String, String? Function(String?)?> _${viewName}TextValidations = {");
+    for (var field in fields.onlyTextFieldConfigs) {
+      final caseName = ReCase(field.name);
+      writeLine("${_getFormKeyName(caseName)}: ${field.validatorName},");
+    }
+    writeLine("};");
+    newLine();
+  }
+
   void generateTextEditingControllersForTextFields() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return;
     for (final field in fields.onlyTextFieldConfigs) {
       final caseName = ReCase(field.name);
       writeLine(
@@ -112,8 +153,11 @@ class FormGeneratorUtil extends BaseGenerator {
   }
 
   void generateFocusNodesForTextFields() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return;
     for (final field in fields.onlyTextFieldConfigs) {
-      writeLine('final FocusNode ${field.name}FocusNode = FocusNode();');
+      final caseName = ReCase(field.name);
+      writeLine(
+          'FocusNode get ${field.name}FocusNode => _${viewName}FocusNodes[${_getFormKeyName(caseName)}]!;');
     }
   }
 
@@ -133,9 +177,10 @@ class FormGeneratorUtil extends BaseGenerator {
   }
 
   void generateFormDataUpdateFunctionTorTextControllers() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return;
     writeLine('''
         /// Updates the formData on the FormViewModel
-        void _updateFormData(FormViewModel model) => model.setData(
+        void _updateFormData(FormViewModel model) { model.setData(
               model.formValueMap
                 ..addAll({
             ''');
@@ -149,7 +194,41 @@ class FormGeneratorUtil extends BaseGenerator {
     writeLine('''
               }),
           );
+          _updateValidationData(model);}
               ''');
+  }
+
+  void generateValidationDataUpdateFunctionTorTextControllers() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return;
+    writeLine('''
+        /// Updates the fieldsValidationMessages on the FormViewModel
+        void _updateValidationData(FormViewModel model) => model.setValidationMessages(
+              {
+            ''');
+
+    for (final field in fields.onlyTextFieldConfigs) {
+      final caseName = ReCase(field.name);
+      writeLine(
+          '${_getFormKeyName(caseName)}: _getValidationMessage(${_getFormKeyName(caseName)}),');
+    }
+    writeLine('''
+              }
+          );
+              ''');
+  }
+
+  void generateGetValidationMessageForTextController() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return;
+    writeLine('''
+        /// Returns the validation message for the given key
+        String? _getValidationMessage(String key) {
+      final validatorForKey = _${viewName}TextValidations[key];
+      if (validatorForKey == null) return null;
+      String? validationMessageForKey =
+            validatorForKey(_${viewName}TextEditingControllers[key]!.text);
+      return validationMessageForKey;
+      }
+    ''');
   }
 
   void generateDisposeForTextControllers() {

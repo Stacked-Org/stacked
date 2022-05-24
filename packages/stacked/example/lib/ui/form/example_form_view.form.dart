@@ -7,6 +7,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/material.dart';
+import 'package:new_architecture/ui/form/validators.dart';
 import 'package:stacked/stacked.dart';
 
 const String EmailValueKey = 'email';
@@ -27,6 +28,19 @@ final Map<String, TextEditingController>
   ShortBioValueKey: TextEditingController(),
 };
 
+final Map<String, FocusNode> _ExampleFormViewFocusNodes = {
+  EmailValueKey: FocusNode(),
+  PasswordValueKey: FocusNode(),
+  ShortBioValueKey: FocusNode(),
+};
+
+final Map<String, String? Function(String?)?> _ExampleFormViewTextValidations =
+    {
+  EmailValueKey: FormValidators.emailValidator,
+  PasswordValueKey: FormValidators.passwordValidator,
+  ShortBioValueKey: null,
+};
+
 mixin $ExampleFormView on StatelessWidget {
   TextEditingController get emailController =>
       _ExampleFormViewTextEditingControllers[EmailValueKey]!;
@@ -34,9 +48,11 @@ mixin $ExampleFormView on StatelessWidget {
       _ExampleFormViewTextEditingControllers[PasswordValueKey]!;
   TextEditingController get shortBioController =>
       _ExampleFormViewTextEditingControllers[ShortBioValueKey]!;
-  final FocusNode emailFocusNode = FocusNode();
-  final FocusNode passwordFocusNode = FocusNode();
-  final FocusNode shortBioFocusNode = FocusNode();
+  FocusNode get emailFocusNode => _ExampleFormViewFocusNodes[EmailValueKey]!;
+  FocusNode get passwordFocusNode =>
+      _ExampleFormViewFocusNodes[PasswordValueKey]!;
+  FocusNode get shortBioFocusNode =>
+      _ExampleFormViewFocusNodes[ShortBioValueKey]!;
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
@@ -47,14 +63,34 @@ mixin $ExampleFormView on StatelessWidget {
   }
 
   /// Updates the formData on the FormViewModel
-  void _updateFormData(FormViewModel model) => model.setData(
-        model.formValueMap
-          ..addAll({
-            EmailValueKey: emailController.text,
-            PasswordValueKey: passwordController.text,
-            ShortBioValueKey: shortBioController.text,
-          }),
-      );
+  void _updateFormData(FormViewModel model) {
+    model.setData(
+      model.formValueMap
+        ..addAll({
+          EmailValueKey: emailController.text,
+          PasswordValueKey: passwordController.text,
+          ShortBioValueKey: shortBioController.text,
+        }),
+    );
+    _updateValidationData(model);
+  }
+
+  /// Updates the fieldsValidationMessages on the FormViewModel
+  void _updateValidationData(FormViewModel model) =>
+      model.setValidationMessages({
+        EmailValueKey: _getValidationMessage(EmailValueKey),
+        PasswordValueKey: _getValidationMessage(PasswordValueKey),
+        ShortBioValueKey: _getValidationMessage(ShortBioValueKey),
+      });
+
+  /// Returns the validation message for the given key
+  String? _getValidationMessage(String key) {
+    final validatorForKey = _ExampleFormViewTextValidations[key];
+    if (validatorForKey == null) return null;
+    String? validationMessageForKey =
+        validatorForKey(_ExampleFormViewTextEditingControllers[key]!.text);
+    return validationMessageForKey;
+  }
 
   /// Calls dispose on all the generated controllers and focus nodes
   void disposeForm() {
