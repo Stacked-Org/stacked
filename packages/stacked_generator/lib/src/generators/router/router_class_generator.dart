@@ -15,11 +15,12 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
 
     _generateImports(_rootRouterConfig.routes);
 
+    write(generateRoutesConstantsMap(
+      _rootRouterConfig.routes,
+      _rootRouterConfig.routesClassName ?? 'HHHHHHHH',
+    ));
+
     _rootRouterConfig.routes.forEach((routeConfig) {
-      write(generateRoutesClass(
-        routeConfig,
-        _rootRouterConfig.routesClassName ?? 'HHHHHHHH',
-      ));
       write(generateRouterClass(
         routeConfig,
         _rootRouterConfig.routerClassName ?? 'HHHHHHHH',

@@ -9,39 +9,41 @@ mixin RouteGeneratorHelper {
 
 ''';
 
-  String generateRoutesClass(RouteConfig route, String routesClassName) {
+  String generateRoutesConstantsMap(
+      List<RouteConfig> routes, String routesClassName) {
     StringBuffer stringBuffer = StringBuffer();
-    stringBuffer
-        .writeln('class $routesClassName {'); //{routerConfig.routesClassName}
+    stringBuffer.writeln('class $routesClassName {');
     var allNames = <String>{};
-    final routeName = route.name;
-    final path = route.pathName;
+    routes.forEach((r) {
+      final routeName = r.name;
+      final path = r.pathName;
 
-    if (path.contains(':')) {
-      // handle template paths
-      stringBuffer.writeln("static const String _$routeName = '$path';");
-      allNames.add('_$routeName');
-      var params = RegExp(r':([^/]+)').allMatches(path).map((m) {
-        var match = m.group(1);
-        if (match!.endsWith('?')) {
-          return "dynamic  ${match.substring(0, match.length - 1)} = ''";
-        } else {
-          return "@required  dynamic $match";
-        }
-      });
-      stringBuffer.writeln(
-        "static String $routeName({${params.join(',')}}) => '${path.replaceAllMapped(RegExp(r'([:])|([?])'), (m) {
-          if (m[1] != null) {
-            return '\$';
+      if (path.contains(':')) {
+        // handle template paths
+        stringBuffer.writeln("static const String _$routeName = '$path';");
+        allNames.add('_$routeName');
+        var params = RegExp(r':([^/]+)').allMatches(path).map((m) {
+          var match = m.group(1);
+          if (match!.endsWith('?')) {
+            return "dynamic  ${match.substring(0, match.length - 1)} = ''";
           } else {
-            return '';
+            return "@required  dynamic $match";
           }
-        })}';",
-      );
-    } else {
-      allNames.add(routeName);
-      stringBuffer.writeln("static const String $routeName = '$path';");
-    }
+        });
+        stringBuffer.writeln(
+          "static String $routeName({${params.join(',')}}) => '${path.replaceAllMapped(RegExp(r'([:])|([?])'), (m) {
+            if (m[1] != null) {
+              return '\$';
+            } else {
+              return '';
+            }
+          })}';",
+        );
+      } else {
+        allNames.add(routeName);
+        stringBuffer.writeln("static const String $routeName = '$path';");
+      }
+    });
     stringBuffer.writeln("static const all = <String>{");
     allNames.forEach((name) => stringBuffer.write('$name,'));
     stringBuffer.write("};");
@@ -53,8 +55,7 @@ mixin RouteGeneratorHelper {
       RouteConfig route, String routerClassName, String routesClassName) {
     StringBuffer stringBuffer = StringBuffer();
 
-    stringBuffer.writeln(
-        '\nclass $routerClassName extends RouterBase {'); //{routerConfig.routerClassName}
+    stringBuffer.writeln('\nclass $routerClassName extends RouterBase {');
 
     stringBuffer.writeln('''
      @override
