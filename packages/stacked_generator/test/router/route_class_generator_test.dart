@@ -451,25 +451,165 @@ void main() {
         generateRouteAndExpectResult(
             routes, kRouterWithRetrunTypeCupertinoRoute);
       });
-      test('When adding NestedRouter', () {
+      test('When adding NestedRouter with one child', () {
         final routes = [
           MaterialRouteConfig(
-              name: 'loginView',
-              pathName: 'pathNamaw',
-              className: 'ebraClass',
-              returnType: 'returnYpe',
-              children: [
-                MaterialRouteConfig(
-                  name: 'nestedView',
-                  pathName: 'nestedPath',
-                  className: 'nestedClass',
-                )
-              ])
+            name: 'loginView1',
+            pathName: 'pathNamaw1',
+            className: 'ebraClass1',
+            returnType: 'returnYpe1',
+            children: [
+              MaterialRouteConfig(
+                name: 'nestedView1',
+                pathName: 'nestedPath1',
+                className: 'nestedClass1',
+              )
+            ],
+          )
         ];
 
         generateRouteAndExpectResult(
           routes,
           kRouterWithNestedRouter,
+        );
+      });
+      test('When adding multiple NestedRouter with one child each', () {
+        final routes = [
+          MaterialRouteConfig(
+              name: 'loginView1',
+              pathName: 'pathNamaw1',
+              className: 'ebraClass1',
+              returnType: 'returnYpe1',
+              children: [
+                MaterialRouteConfig(
+                    name: 'nestedView1',
+                    pathName: 'nestedPath1',
+                    className: 'nestedClass1',
+                    children: [
+                      MaterialRouteConfig(
+                        name: 'multiNestedmultiNestedView1',
+                        pathName: 'multiNestedmultiNestedPath1',
+                        className: 'multiNestedmultiNestedClass1',
+                      )
+                    ])
+              ])
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterWithMultipleNestedRouter,
+        );
+      });
+      test('When adding NestedRouter with three different childs', () {
+        final routes = [
+          MaterialRouteConfig(
+              name: 'loginView2',
+              pathName: 'pathNamaw2',
+              className: 'ebraClass2',
+              returnType: 'returnYpe2',
+              children: [
+                MaterialRouteConfig(
+                  name: 'firstView',
+                  pathName: 'firstPath',
+                  className: 'firstClass',
+                ),
+                CupertinoRouteConfig(
+                  name: 'secondView',
+                  pathName: 'secondPath',
+                  className: 'secondClass',
+                ),
+                CustomRouteConfig(
+                  name: 'thirdView',
+                  pathName: 'thirdPath',
+                  className: 'thirdClass',
+                ),
+              ])
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterWithThreeNestedRouter,
+        );
+      });
+      test('When adding NestedRouter with six different childs', () {
+        final routes = [
+          MaterialRouteConfig(
+              name: 'loginView3',
+              pathName: 'pathNamaw3',
+              className: 'ebraClass3',
+              returnType: 'returnYpe3',
+              children: [
+                MaterialRouteConfig(
+                  name: 'firstView',
+                  pathName: 'firstPath',
+                  className: 'firstClass',
+                ),
+                CupertinoRouteConfig(
+                  name: 'secondView',
+                  pathName: 'secondPath',
+                  className: 'secondClass',
+                ),
+                AdaptiveRouteConfig(
+                  name: 'thirdView',
+                  pathName: 'thirdPath',
+                  className: 'thirdClass',
+                ),
+              ]),
+          AdaptiveRouteConfig(
+              name: 'loginView4',
+              pathName: 'pathNamaw4',
+              className: 'ebraClass4',
+              returnType: 'returnYpe4',
+              children: [
+                MaterialRouteConfig(
+                  name: 'fourthView',
+                  pathName: 'fourthPath',
+                  className: 'fourthClass',
+                ),
+                CupertinoRouteConfig(
+                  name: 'fifthView',
+                  pathName: 'fifthPath',
+                  className: 'fifthClass',
+                ),
+                CustomRouteConfig(
+                  name: 'sixthView',
+                  pathName: 'sixthPath',
+                  className: 'sixthClass',
+                ),
+              ]),
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterWithSixNestedRouter,
+        );
+      });
+    });
+    group('RouteType.cupertino -', () {
+      test('Given the following RouteConfig, Generate output', () {
+        final routes = [
+          CupertinoRouteConfig(
+            name: 'loginView',
+            pathName: 'pathNamaw',
+            className: 'ebraClass',
+          )
+        ];
+
+        generateRouteAndExpectResult(
+            routes, kRouterTypeCupertinoWithNamePathNameClassName);
+      });
+      test('With cupertinoNavTitle', () {
+        final routes = [
+          CupertinoRouteConfig(
+              name: 'loginView',
+              pathName: 'pathNamaw',
+              className: 'ebraClass',
+              cupertinoNavTitle: 'cupertinoNavTitle')
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCupertinoWithCupertinoNavTitle,
         );
       });
     });

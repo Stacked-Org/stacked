@@ -910,9 +910,9 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class RoutesClassB {
-static const String loginView = 'pathNamaw';
+static const String loginView1 = 'pathNamaw1';
 static const all = <String>{
-loginView,};}
+loginView1,};}
 
 class RouterNamee extends RouterBase {
      @override
@@ -920,17 +920,17 @@ class RouterNamee extends RouterBase {
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
-,generator: LoginViewRouter(),
+RouteDef(RoutesClassB.loginView1
+,page: ebraClass1
+,generator: LoginView1Router(),
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<returnYpe>(builder: (context) =>   ebraClass(), settings: data,);
+ebraClass1: (data) {
+return MaterialPageRoute<returnYpe1>(builder: (context) =>   ebraClass1(), settings: data,);
 },};}
 
 /// ************************************************************************
@@ -938,43 +938,392 @@ return MaterialPageRoute<returnYpe>(builder: (context) =>   ebraClass(), setting
 /// *************************************************************************
 
 extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
-Future<returnYpe> pushLoginView()
- => push<returnYpe>(RoutesClassB.loginView);
+Future<returnYpe1> pushLoginView1()
+ => push<returnYpe1>(RoutesClassB.loginView1);
 
 }
-class LoginViewRoutes {
-static const String nestedView = 'nestedPath';
+class LoginView1Routes {
+static const String nestedView1 = 'nestedPath1';
 static const all = <String>{
-nestedView,};}
+nestedView1,};}
 
-class LoginViewRouter extends RouterBase {
+class LoginView1Router extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(LoginViewRoutes.nestedView
-,page: nestedClass
+RouteDef(LoginView1Routes.nestedView1
+,page: nestedClass1
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-nestedClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   nestedClass(), settings: data,);
+nestedClass1: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   nestedClass1(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension LoginViewRouterExtendedNavigatorStateX on ExtendedNavigatorState {
-Future pushNestedView()
- => push(LoginViewRoutes.nestedView);
+extension LoginView1RouterExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushNestedView1()
+ => push(LoginView1Routes.nestedView1);
 
 }
 ''';
+
+const kRouterWithMultipleNestedRouter = '''
+// ignore_for_file: public_member_api_docs
+
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+class RoutesClassB {
+static const String loginView1 = 'pathNamaw1';
+static const all = <String>{
+loginView1,};}
+
+class RouterNamee extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+RouteDef(RoutesClassB.loginView1
+,page: ebraClass1
+,generator: LoginView1Router(),
+),
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+ebraClass1: (data) {
+return MaterialPageRoute<returnYpe1>(builder: (context) =>   ebraClass1(), settings: data,);
+},};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future<returnYpe1> pushLoginView1()
+ => push<returnYpe1>(RoutesClassB.loginView1);
+
+}
+class LoginView1Routes {
+static const String nestedView1 = 'nestedPath1';
+static const all = <String>{
+nestedView1,};}
+
+class LoginView1Router extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+RouteDef(LoginView1Routes.nestedView1
+,page: nestedClass1
+,generator: NestedView1Router(),
+),
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+nestedClass1: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   nestedClass1(), settings: data,);
+},};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension LoginView1RouterExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushNestedView1()
+ => push(LoginView1Routes.nestedView1);
+
+}
+class NestedView1Routes {
+static const String multiNestedmultiNestedView1 = 'multiNestedmultiNestedPath1';
+static const all = <String>{
+multiNestedmultiNestedView1,};}
+
+class NestedView1Router extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+RouteDef(NestedView1Routes.multiNestedmultiNestedView1
+,page: multiNestedmultiNestedClass1
+),
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+multiNestedmultiNestedClass1: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   multiNestedmultiNestedClass1(), settings: data,);
+},};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension NestedView1RouterExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushMultiNestedmultiNestedView1()
+ => push(NestedView1Routes.multiNestedmultiNestedView1);
+
+}
+''';
+const kRouterWithThreeNestedRouter = '''
+// ignore_for_file: public_member_api_docs
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+class RoutesClassB {
+static const String loginView2 = 'pathNamaw2';
+static const all = <String>{
+loginView2,};}
+
+class RouterNamee extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+RouteDef(RoutesClassB.loginView2
+,page: ebraClass2
+,generator: LoginView2Router(),
+),
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+ebraClass2: (data) {
+return MaterialPageRoute<returnYpe2>(builder: (context) =>   ebraClass2(), settings: data,);
+},};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future<returnYpe2> pushLoginView2()
+ => push<returnYpe2>(RoutesClassB.loginView2);
+
+}
+class LoginView2Routes {
+static const String firstView = 'firstPath';
+static const String secondView = 'secondPath';
+static const String thirdView = 'thirdPath';
+static const all = <String>{
+firstView,secondView,thirdView,};}
+
+class LoginView2Router extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+RouteDef(LoginView2Routes.firstView
+,page: firstClass
+),
+RouteDef(LoginView2Routes.secondView
+,page: secondClass
+),
+RouteDef(LoginView2Routes.thirdView
+,page: thirdClass
+),
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+firstClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   firstClass(), settings: data,);
+},secondClass: (data) {
+return CupertinoPageRoute<dynamic>(builder: (context) =>   secondClass(), settings: data,);
+},thirdClass: (data) {
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   thirdClass(), settings: data,);
+},};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension LoginView2RouterExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushFirstView()
+ => push(LoginView2Routes.firstView);
+
+Future pushSecondView()
+ => push(LoginView2Routes.secondView);
+
+Future pushThirdView()
+ => push(LoginView2Routes.thirdView);
+
+}
+''';
+const kRouterWithSixNestedRouter = '''
+// ignore_for_file: public_member_api_docs
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+class RoutesClassB {
+static const String loginView3 = 'pathNamaw3';
+static const String loginView4 = 'pathNamaw4';
+static const all = <String>{
+loginView3,loginView4,};}
+
+class RouterNamee extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+RouteDef(RoutesClassB.loginView3
+,page: ebraClass3
+,generator: LoginView3Router(),
+),
+RouteDef(RoutesClassB.loginView4
+,page: ebraClass4
+,generator: LoginView4Router(),
+),
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+ebraClass3: (data) {
+return MaterialPageRoute<returnYpe3>(builder: (context) =>   ebraClass3(), settings: data,);
+},ebraClass4: (data) {
+return buildAdaptivePageRoute<returnYpe4>(builder: (context) =>   ebraClass4(), settings: data,);
+},};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+Future<returnYpe3> pushLoginView3()
+ => push<returnYpe3>(RoutesClassB.loginView3);
+
+Future<returnYpe4> pushLoginView4()
+ => push<returnYpe4>(RoutesClassB.loginView4);
+
+}
+class LoginView3Routes {
+static const String firstView = 'firstPath';
+static const String secondView = 'secondPath';
+static const String thirdView = 'thirdPath';
+static const all = <String>{
+firstView,secondView,thirdView,};}
+
+class LoginView3Router extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+RouteDef(LoginView3Routes.firstView
+,page: firstClass
+),
+RouteDef(LoginView3Routes.secondView
+,page: secondClass
+),
+RouteDef(LoginView3Routes.thirdView
+,page: thirdClass
+),
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+firstClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   firstClass(), settings: data,);
+},secondClass: (data) {
+return CupertinoPageRoute<dynamic>(builder: (context) =>   secondClass(), settings: data,);
+},thirdClass: (data) {
+return buildAdaptivePageRoute<dynamic>(builder: (context) =>   thirdClass(), settings: data,);
+},};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension LoginView3RouterExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushFirstView()
+ => push(LoginView3Routes.firstView);
+
+Future pushSecondView()
+ => push(LoginView3Routes.secondView);
+
+Future pushThirdView()
+ => push(LoginView3Routes.thirdView);
+
+}
+class LoginView4Routes {
+static const String fourthView = 'fourthPath';
+static const String fifthView = 'fifthPath';
+static const String sixthView = 'sixthPath';
+static const all = <String>{
+fourthView,fifthView,sixthView,};}
+
+class LoginView4Router extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+RouteDef(LoginView4Routes.fourthView
+,page: fourthClass
+),
+RouteDef(LoginView4Routes.fifthView
+,page: fifthClass
+),
+RouteDef(LoginView4Routes.sixthView
+,page: sixthClass
+),
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+fourthClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   fourthClass(), settings: data,);
+},fifthClass: (data) {
+return CupertinoPageRoute<dynamic>(builder: (context) =>   fifthClass(), settings: data,);
+},sixthClass: (data) {
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   sixthClass(), settings: data,);
+},};}
+
+/// ************************************************************************
+/// Navigation helper methods extension
+/// *************************************************************************
+
+extension LoginView4RouterExtendedNavigatorStateX on ExtendedNavigatorState {
+Future pushFourthView()
+ => push(LoginView4Routes.fourthView);
+
+Future pushFifthView()
+ => push(LoginView4Routes.fifthView);
+
+Future pushSixthView()
+ => push(LoginView4Routes.sixthView);
+
+}
+''';
+
 const kRouterTypeCupertinoWithNamePathNameClassName = '''
 // ignore_for_file: public_member_api_docs
 
