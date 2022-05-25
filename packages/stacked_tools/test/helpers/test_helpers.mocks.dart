@@ -10,6 +10,7 @@ import 'package:mockito/mockito.dart' as _i1;
 import 'package:pubspec_yaml/pubspec_yaml.dart' as _i2;
 import 'package:stacked_tools/src/models/template_models.dart' as _i9;
 import 'package:stacked_tools/src/services/colorized_log_service.dart' as _i13;
+import 'package:stacked_tools/src/services/config_service.dart' as _i14;
 import 'package:stacked_tools/src/services/file_service.dart' as _i4;
 import 'package:stacked_tools/src/services/path_service.dart' as _i7;
 import 'package:stacked_tools/src/services/pubspec_service.dart' as _i12;
@@ -102,16 +103,6 @@ class MockFileService extends _i1.Mock implements _i4.FileService {
                   #getFoldersInDirectory, [], {#directoryPath: directoryPath}),
               returnValue: Future<List<String>>.value(<String>[]))
           as _i5.Future<List<String>>);
-  @override
-  _i5.Future<bool> isProjectRoot({String? outputPath}) => (super.noSuchMethod(
-      Invocation.method(#isProjectRoot, [], {#outputPath: outputPath}),
-      returnValue: Future<bool>.value(false)) as _i5.Future<bool>);
-  @override
-  _i5.Future<bool> isStackedApplication({String? outputPath}) =>
-      (super.noSuchMethod(
-          Invocation.method(
-              #isStackedApplication, [], {#outputPath: outputPath}),
-          returnValue: Future<bool>.value(false)) as _i5.Future<bool>);
 }
 
 /// A class which mocks [PathService].
@@ -238,6 +229,16 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
           }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+  @override
+  String templateModificationName(
+          {String? modificationName, String? name, String? templateName}) =>
+      (super.noSuchMethod(
+          Invocation.method(#templateModificationName, [], {
+            #modificationName: modificationName,
+            #name: name,
+            #templateName: templateName
+          }),
+          returnValue: '') as String);
   @override
   String templateModificationFileContent(
           {String? fileContent,
@@ -391,4 +392,49 @@ class MockColorizedLogService extends _i1.Mock
   void error({String? message}) =>
       super.noSuchMethod(Invocation.method(#error, [], {#message: message}),
           returnValueForMissingStub: null);
+}
+
+/// A class which mocks [ConfigService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockConfigService extends _i1.Mock implements _i14.ConfigService {
+  @override
+  String get stackedAppPath =>
+      (super.noSuchMethod(Invocation.getter(#stackedAppPath), returnValue: '')
+          as String);
+  @override
+  String get viewPath =>
+      (super.noSuchMethod(Invocation.getter(#viewPath), returnValue: '')
+          as String);
+  @override
+  String get viewTestsPath =>
+      (super.noSuchMethod(Invocation.getter(#viewTestsPath), returnValue: '')
+          as String);
+  @override
+  String get servicePath =>
+      (super.noSuchMethod(Invocation.getter(#servicePath), returnValue: '')
+          as String);
+  @override
+  String get serviceTestsPath =>
+      (super.noSuchMethod(Invocation.getter(#serviceTestsPath), returnValue: '')
+          as String);
+  @override
+  String get testHelpersPath =>
+      (super.noSuchMethod(Invocation.getter(#testHelpersPath), returnValue: '')
+          as String);
+  @override
+  String get testMocksPath =>
+      (super.noSuchMethod(Invocation.getter(#testMocksPath), returnValue: '')
+          as String);
+  @override
+  _i5.Future<bool> isConfigFileAvailable(
+          {String? path = r'stacked.config.json'}) =>
+      (super.noSuchMethod(
+          Invocation.method(#isConfigFileAvailable, [], {#path: path}),
+          returnValue: Future<bool>.value(false)) as _i5.Future<bool>);
+  @override
+  _i5.Future<void> loadConfig({String? path = r'stacked.config.json'}) =>
+      (super.noSuchMethod(Invocation.method(#loadConfig, [], {#path: path}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
 }
