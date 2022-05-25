@@ -48,12 +48,7 @@ class RouterConfigResolver {
 
       final children = routeReader.peek('children')?.listValue;
       if (children?.isNotEmpty ?? false) {
-        final capitalizedRouteName = capitalize(route.name);
-        final subRouterConfig = routerConfig.copyWith(
-          routerClassName: '${capitalizedRouteName}Router',
-          routesClassName: '${capitalizedRouteName}Routes',
-        );
-        final routes = await _resolveRoutes(subRouterConfig, children!);
+        final routes = await _resolveRoutes(routerConfig, children!);
         route.copyWith(children: routes);
       }
     }

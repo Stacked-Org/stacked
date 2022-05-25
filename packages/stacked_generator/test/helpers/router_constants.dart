@@ -922,7 +922,7 @@ class RouterNamee extends RouterBase {
 
 RouteDef(RoutesClassB.loginView
 ,page: ebraClass
-,generator: MyNestedRouteerrr(),
+,generator: LoginViewRouter(),
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -942,18 +942,18 @@ Future<returnYpe> pushLoginView()
  => push<returnYpe>(RoutesClassB.loginView);
 
 }
-class MyNestedRoutess {
+class LoginViewRoutes {
 static const String nestedView = 'nestedPath';
 static const all = <String>{
 nestedView,};}
 
-class MyNestedRouteerrr extends RouterBase {
+class LoginViewRouter extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(MyNestedRoutess.nestedView
+RouteDef(LoginViewRoutes.nestedView
 ,page: nestedClass
 ),
 ];       @override
@@ -969,9 +969,9 @@ return MaterialPageRoute<dynamic>(builder: (context) =>   nestedClass(), setting
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension MyNestedRouteerrrExtendedNavigatorStateX on ExtendedNavigatorState {
+extension LoginViewRouterExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushNestedView()
- => push(MyNestedRoutess.nestedView);
+ => push(LoginViewRoutes.nestedView);
 
 }
 ''';

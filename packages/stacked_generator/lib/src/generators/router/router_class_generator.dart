@@ -1,6 +1,8 @@
 import 'package:stacked_generator/src/generators/base_generator.dart';
 import 'package:stacked_generator/src/generators/router/route_generator_helper.dart';
+import 'package:stacked_generator/utils.dart';
 
+import 'route_config/route_config.dart';
 import 'router_config.dart';
 
 class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
@@ -11,25 +13,48 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
   String generate() {
     writeLine("// ignore_for_file: public_member_api_docs");
     generateImports(_rootRouterConfig.routes);
+    generateRouterByRouter(
+        _rootRouterConfig.routes,
+        _rootRouterConfig.routerClassName,
+        _rootRouterConfig.routesClassName,
+        _rootRouterConfig.generateNavigationHelper);
+    return stringBuffer.toString();
+  }
 
+  void generateRouterByRouter(
+    List<RouteConfig> routes,
+    String routerClassName,
+    String routesClassName,
+    bool generateNavigationHelper,
+  ) {
     generateRoutesConstantsMap(
-      _rootRouterConfig.routes,
-      _rootRouterConfig.routesClassName,
+      routes,
+      routesClassName,
     );
 
     generateRouterClass(
-      _rootRouterConfig.routes,
-      _rootRouterConfig.routerClassName,
-      _rootRouterConfig.routesClassName,
+      routes,
+      routerClassName,
+      routesClassName,
     );
 
     if (_rootRouterConfig.generateNavigationHelper) {
-      generateNavigationHelpers(_rootRouterConfig.routes,
-          _rootRouterConfig.routerClassName, _rootRouterConfig.routesClassName);
+      generateNavigationHelpers(
+        routes,
+        routerClassName,
+        routesClassName,
+      );
     }
 
-    generateArgumentHolders(_rootRouterConfig.routes);
+    generateArgumentHolders(routes);
 
-    return stringBuffer.toString();
+    routes.where((element) => element.children.isNotEmpty).forEach((element) {
+      generateRouterByRouter(
+        element.children,
+        capitalize(element.name + 'Router'),
+        capitalize(element.name + 'Routes'),
+        generateNavigationHelper,
+      );
+    });
   }
 }
