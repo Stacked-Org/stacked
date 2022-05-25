@@ -12,25 +12,22 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
   @override
   String generate() {
     writeLine("// ignore_for_file: public_member_api_docs");
-
     _generateImports(_rootRouterConfig.routes);
 
     write(generateRoutesConstantsMap(
       _rootRouterConfig.routes,
-      _rootRouterConfig.routesClassName ?? 'HHHHHHHH',
+      _rootRouterConfig.routesClassName,
     ));
 
     write(generateRouterClass(
       _rootRouterConfig.routes,
-      _rootRouterConfig.routerClassName ?? 'HHHHHHHH',
-      _rootRouterConfig.routesClassName ?? 'HHHHHHHH',
+      _rootRouterConfig.routerClassName,
+      _rootRouterConfig.routesClassName,
     ));
 
     if (_rootRouterConfig.generateNavigationHelper) {
-      _generateNavigationHelpers(
-          _rootRouterConfig.routes,
-          _rootRouterConfig.routerClassName!,
-          _rootRouterConfig.routesClassName!);
+      _generateNavigationHelpers(_rootRouterConfig.routes,
+          _rootRouterConfig.routerClassName, _rootRouterConfig.routesClassName);
     }
 
     _generateArgumentHolders(_rootRouterConfig.routes);

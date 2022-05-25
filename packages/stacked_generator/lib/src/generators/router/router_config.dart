@@ -6,9 +6,9 @@ import 'route_config/route_config.dart';
 class RouterConfig {
   final bool generateNavigationHelper;
   final List<RouteConfig> routes;
-  final String? routesClassName;
+  final String routesClassName;
   final String? routeNamePrefix;
-  final String? routerClassName;
+  final String routerClassName;
 
   const RouterConfig({
     this.generateNavigationHelper = false,

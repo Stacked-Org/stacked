@@ -1,4 +1,5 @@
 import 'package:stacked_generator/src/generators/router/route_config/route_config.dart';
+import 'package:stacked_generator/utils.dart';
 
 mixin RouteGeneratorHelper {
   String generateCommentBoxWithMessage(String message) => '''
@@ -66,8 +67,7 @@ mixin RouteGeneratorHelper {
      final _routes = <RouteDef>[
      ''');
     for (var route in routes) {
-      stringBuffer.write(
-          _generateRouteTemplates(route, routerClassName, routesClassName));
+      stringBuffer.write(_generateRouteTemplates(route, routesClassName));
     }
     stringBuffer.writeln();
     stringBuffer.write('];');
@@ -90,8 +90,7 @@ mixin RouteGeneratorHelper {
     return stringBuffer.toString();
   }
 
-  String _generateRouteTemplates(
-      RouteConfig route, String routerClassName, String routesClassName) {
+  String _generateRouteTemplates(RouteConfig route, String routesClassName) {
     StringBuffer stringBuffer = StringBuffer();
 
     stringBuffer.writeln();
@@ -104,7 +103,7 @@ mixin RouteGeneratorHelper {
           ",guards:${route.guards.map((e) => e.type).toList().toString()}");
     }
     if (route.children.isNotEmpty) {
-      stringBuffer.writeln(",generator: ${routerClassName}(),");
+      stringBuffer.writeln(",generator: ${capitalize(route.name)}Router(),");
     }
     stringBuffer.write('),');
 
@@ -116,14 +115,13 @@ mixin RouteGeneratorHelper {
 
     var routesMap = <String, RouteConfig>{};
 
-    // throwIf(route.className == null,
-    //     ExceptionMessages.RouteClassNameShouldnotBeNull);
     routesMap[route.className] = route;
 
     routesMap.forEach((name, route) {
       stringBuffer.writeln('$name: (data) {');
+
       stringBuffer.write(route.registerRoutes());
-      //close builder
+
       stringBuffer.write("},");
     });
     return stringBuffer.toString();
