@@ -35,6 +35,12 @@ class RouterConfig {
     );
   }
 
+  List<RouteConfig> get subRouters => routes
+      .where((route) => route.children.isNotEmpty)
+      .map((route) => route.children)
+      .fold<List<RouteConfig>>([],
+          (previousValue, element) => [...previousValue, ...element]).toList();
+
   @override
   String toString() {
     return 'RouterConfig{routes: $routes, routesClassName: $routesClassName, routerClassName: $routerClassName}';

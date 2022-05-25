@@ -12,7 +12,8 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
   @override
   String generate() {
     writeLine("// ignore_for_file: public_member_api_docs");
-    generateImports(_rootRouterConfig.routes);
+    generateImports(
+        [..._rootRouterConfig.routes, ..._rootRouterConfig.subRouters]);
     generateRouterByRouter(
         _rootRouterConfig.routes,
         _rootRouterConfig.routerClassName,
