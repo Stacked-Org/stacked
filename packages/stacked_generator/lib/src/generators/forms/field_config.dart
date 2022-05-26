@@ -1,3 +1,5 @@
+import 'package:analyzer/dart/element/element.dart';
+
 /// Described a single field to be generated.
 ///
 /// TODO: Think about different field types like drop down, image selection,
@@ -11,10 +13,19 @@ abstract class FieldConfig {
 
 class TextFieldConfig extends FieldConfig {
   final String? initialValue;
+  final ExecutableElement? validatorFunction;
   const TextFieldConfig({
     required String name,
     this.initialValue,
+    this.validatorFunction,
   }) : super(name: name);
+
+  String? get validatorPath => validatorFunction?.source.uri.toString();
+  String? get validatorName => hasEnclosingElementName
+      ? '${enclosingElementName}.${validatorFunction?.name}'
+      : validatorFunction?.name;
+  bool get hasEnclosingElementName => enclosingElementName != null;
+  String? get enclosingElementName => validatorFunction?.enclosingElement.name;
 }
 
 class DateFieldConfig extends FieldConfig {

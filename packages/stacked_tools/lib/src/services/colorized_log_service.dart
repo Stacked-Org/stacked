@@ -35,7 +35,7 @@ class ColorizedLogService {
         coloredPrint(pen..red(), message: 'Deleted $message');
         break;
       case FileModificationType.Modify:
-        coloredPrint(pen..blue(), message: 'Modified $message');
+        coloredPrint(pen..blue(), message: 'Applied Modification $message');
         break;
       default:
         throw Exception('Invalid FileModificationType');
@@ -60,13 +60,39 @@ class ColorizedLogService {
     coloredPrint(pen..cyan(bold: isBold), message: message);
   }
 
-  /// `successOutput` is a function that takes in a boolean and a string, and prints the string in green
-  /// if the boolean is true, and red if the boolean is false
+  /// `success` is a function that takes a required named parameter `message` of type `String` and
+  /// prints a green message to the console
   ///
   /// Args:
-  ///   success (bool): Whether the output should be green or red. Defaults to true
   ///   message (String): The message to be printed.
-  void successOutput({bool success = true, required String message}) {
-    coloredPrint(success ? (pen..green()) : (pen..red()), message: message);
+  void success({required String message}) {
+    coloredPrint(pen..green(), message: message);
+  }
+
+  /// `warn` is a function that takes a required parameter `message` of type `String` and prints a
+  /// warning message to the console
+  ///
+  /// Args:
+  ///   message (String): The message to be printed.
+  void warn({required String message}) {
+    coloredPrint(pen..rgb(r: 255, g: 165, b: 0), message: message);
+  }
+
+  /// `info` is a function that takes a required parameter `message` of type `String` and prints the
+  /// message in white
+  ///
+  /// Args:
+  ///   message (String): The message to be printed.
+  void info({required String message}) {
+    coloredPrint(pen..white(), message: message);
+  }
+
+  /// `error` is a function that takes a required parameter `message` of type `String` and prints the
+  /// message in red
+  ///
+  /// Args:
+  ///   message (String): The message to be printed.
+  void error({required String message}) {
+    coloredPrint(pen..red(), message: message);
   }
 }

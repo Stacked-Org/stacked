@@ -41,6 +41,13 @@ abstract class FormViewModel extends ReactiveViewModel {
     notifyListeners();
   }
 
+  void setValidationMessages(Map<String, String?> validationMessages) {
+    fieldsValidationMessages = validationMessages;
+    fieldsValidationMessages.removeWhere((key, value) => value == null);
+    setFormStatus();
+    notifyListeners();
+  }
+
   /// Called after the [formValueMap] has been updated and allows you to set
   /// values relating to the forms status.
   void setFormStatus();

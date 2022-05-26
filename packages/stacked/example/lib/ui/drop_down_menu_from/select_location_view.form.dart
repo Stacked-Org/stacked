@@ -33,11 +33,6 @@ mixin $SelectLocationView on StatelessWidget {
   /// with the latest textController values
   void listenToFormUpdated(FormViewModel model) {}
 
-  /// Updates the formData on the FormViewModel
-  void _updateFormData(FormViewModel model) => model.setData(
-        model.formValueMap..addAll({}),
-      );
-
   /// Calls dispose on all the generated controllers and focus nodes
   void disposeForm() {
     // The dispose function for a TextEditingController sets all listeners to null

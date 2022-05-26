@@ -1,3 +1,11 @@
+## 0.2.11
+
+- Updates firebase_core to ^1.17.0
+- Updates firebase_auth to ^3.3.18
+- Updates google_sign_in to ^5.3.1
+- Updates sign_in_with_apple to ^4.0.0
+
+
 ## 0.2.10+2
 
 - Updates 'google_sign_in' to 5.2.1

@@ -33,4 +33,3 @@ class HomeViewModel extends BaseViewModel {
     );
   }
 }
-

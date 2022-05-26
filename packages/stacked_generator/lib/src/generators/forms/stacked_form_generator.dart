@@ -10,6 +10,7 @@ import 'package:stacked_generator/src/generators/forms/field_config.dart';
 import 'package:stacked_generator/src/generators/forms/form_view_config.dart';
 import 'package:stacked_generator/src/generators/forms/stacked_form_content_generator.dart';
 
+
 class StackedFormGenerator extends GeneratorForAnnotation<FormView> {
   @override
   FutureOr<String> generateForAnnotatedElement(
@@ -77,9 +78,13 @@ FieldConfig _readTextFieldConfig({
 }) {
   final String name = (fieldReader.peek('name')?.stringValue) ?? '';
   final String? initialValue = (fieldReader.peek('initialValue')?.stringValue);
+  final ExecutableElement? validatorFunction =
+      (fieldReader.peek('validator')?.objectValue)?.toFunctionValue();
+
   return TextFieldConfig(
     name: name,
     initialValue: initialValue,
+    validatorFunction: validatorFunction,
   );
 }
 

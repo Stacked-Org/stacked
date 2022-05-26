@@ -76,4 +76,3 @@ void _removeRegistrationIfExists<T extends Object>() {
     locator.unregister<T>();
   }
 }
-
