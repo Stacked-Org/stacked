@@ -19,7 +19,7 @@ class LoggerClassGenerator extends BaseGenerator {
 
     customizeLoggerNameAndOutputs(loggerClassNameAndOutputs);
 
-    return stringBuffer.toString();
+    return serializeStringBuffer;
   }
 
   @visibleForTesting

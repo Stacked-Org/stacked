@@ -1,8 +1,8 @@
 // holds the name and path of the passed
 // transition builder function
 class CustomTransitionBuilder {
-  String name;
-  String? import;
+  final String name;
+  final String? import;
 
-  CustomTransitionBuilder(this.name, this.import);
+  const CustomTransitionBuilder(this.name, this.import);
 }

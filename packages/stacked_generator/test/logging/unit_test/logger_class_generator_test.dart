@@ -38,7 +38,7 @@ void main() {
         final loggerGenerator = LoggerClassGenerator(loggerConfig)
           ..customizeLoggerNameAndOutputs(kloggerClassNameAndOutputs);
 
-        expect(loggerGenerator.stringBuffer.toString(),
+        expect(loggerGenerator.serializeStringBuffer,
             kCustomizedloggerClassNameAndOutputs);
       });
     });

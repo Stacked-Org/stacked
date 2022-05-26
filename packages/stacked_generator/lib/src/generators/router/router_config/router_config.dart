@@ -1,4 +1,4 @@
-import 'route_config/route_config.dart';
+import '../route_config/route_config.dart';
 
 /// Extracts and holds router configs
 /// to be used in [RouterClassGenerator]
@@ -6,9 +6,9 @@ import 'route_config/route_config.dart';
 class RouterConfig {
   final bool generateNavigationHelper;
   final List<RouteConfig> routes;
-  final String? routesClassName;
+  final String routesClassName;
   final String? routeNamePrefix;
-  final String? routerClassName;
+  final String routerClassName;
 
   const RouterConfig({
     this.generateNavigationHelper = false,
@@ -35,13 +35,11 @@ class RouterConfig {
     );
   }
 
-  List<RouterConfig?> get subRouters => routes
-      .where((e) => e.routerConfig != null)
-      .map((e) => e.routerConfig)
-      .toList();
-
-  List<RouterConfig> get collectAllRoutersIncludingParent => subRouters.fold(
-      [this], (all, e) => all..addAll(e!.collectAllRoutersIncludingParent));
+  List<RouteConfig> get subRouters => routes
+      .where((route) => route.children.isNotEmpty)
+      .map((route) => route.children)
+      .fold<List<RouteConfig>>([],
+          (previousValue, element) => [...previousValue, ...element]).toList();
 
   @override
   String toString() {

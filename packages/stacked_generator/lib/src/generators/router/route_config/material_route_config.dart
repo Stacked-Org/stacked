@@ -1,11 +1,6 @@
-import 'package:analyzer/dart/element/element.dart';
-import 'package:source_gen/source_gen.dart';
-
-import 'package:stacked_generator/import_resolver.dart';
-import 'package:stacked_generator/route_config_resolver.dart';
-
-import '../../../../utils.dart';
-import '../router_config.dart';
+import '../models/route_guard_config.dart';
+import '../models/route_parameter_config.dart';
+import 'route_config.dart';
 
 class MaterialRouteConfig extends RouteConfig {
   final String name;
@@ -18,7 +13,7 @@ class MaterialRouteConfig extends RouteConfig {
   final List<RouteGuardConfig> guards;
   final bool hasWrapper;
   final bool hasConstConstructor;
-  final RouterConfig? routerConfig;
+  final List<RouteConfig> children;
   final Set<String> imports;
   MaterialRouteConfig({
     required this.name,
@@ -31,7 +26,7 @@ class MaterialRouteConfig extends RouteConfig {
     this.guards = const [],
     this.hasWrapper = false,
     this.hasConstConstructor = false,
-    this.routerConfig,
+    this.children = const [],
     this.imports = const {},
   }) : super(
           imports: imports,
@@ -45,7 +40,7 @@ class MaterialRouteConfig extends RouteConfig {
           parameters: parameters,
           guards: guards,
           hasWrapper: hasWrapper,
-          routerConfig: routerConfig,
+          children: children,
         );
 
   @override
@@ -53,85 +48,15 @@ class MaterialRouteConfig extends RouteConfig {
     return {...super.registerImports(), "package:flutter/material.dart"};
   }
 
-  // TODO: move this code to the routeconfig super class
-  factory MaterialRouteConfig.fromStackedApp(
-    ConstantReader stackedRoute,
-    ImportResolver importResolver,
-    RouterConfig routerConfig,
-  ) {
-    final dartType = stackedRoute.read('page').typeValue;
-    throwIf(
-      dartType.element is! ClassElement,
-      '${toDisplayString(dartType)} is not a class element',
-      element: dartType.element!,
-    );
-    Set<String> imports = {};
+  @override
+  String registerRoutes() {
+    StringBuffer stringBuffer = StringBuffer();
 
-    final extractedGuards = stackedRoute.peek('guards')?.listValue.where((g) {
-      final guard = g.toTypeValue();
-      return guard != null && guard.element != null;
-    }).map((g) {
-      final guard = g.toTypeValue();
-      return RouteGuardConfig(
-          type: toDisplayString(guard!),
-          import: importResolver.resolve((guard.element)!));
-    }).toList();
-
-    final classElement = dartType.element as ClassElement;
-    final className = toDisplayString(dartType);
-
-    final import = importResolver.resolve(classElement);
-    if (import != null) imports.add(import);
-
-    String? pathName = stackedRoute.peek('path')?.stringValue;
-    if (pathName == null) {
-      if (stackedRoute.peek('initial')?.boolValue == true) {
-        pathName = '/';
-      } else {
-        pathName = '${routerConfig.routeNamePrefix}${toKababCase(className)}';
-      }
-    }
-
-    final returnType = stackedRoute.objectValue.type;
-
-    if (returnType != null && returnType != 'dynamic') {
-      imports.addAll(importResolver.resolveAll(returnType));
-    }
-
-    var materialRouteConfig = MaterialRouteConfig(
-        hasWrapper: classElement.allSupertypes
-            .map<String>((el) => toDisplayString(el))
-            .contains('StackedRouteWrapper'),
-        returnType: toDisplayString(returnType!),
-        pathName: pathName,
-        name: stackedRoute.peek('name')?.stringValue ??
-            toLowerCamelCase(className),
-        maintainState: stackedRoute.peek('maintainState')?.boolValue ?? false,
-        imports: imports,
-        guards: extractedGuards ?? [],
-        className: className,
-        fullscreenDialog:
-            stackedRoute.peek('fullscreenDialog')?.boolValue ?? false);
-    final constructor = classElement.unnamedConstructor;
-
-    var params = constructor?.parameters;
-    if (params?.isNotEmpty == true) {
-      if (constructor!.isConst &&
-          params!.length == 1 &&
-          toDisplayString(params.first.type) == 'Key') {
-        materialRouteConfig =
-            materialRouteConfig.copyWith(hasConstConstructor: true);
-      } else {
-        final paramResolver = RouteParameterResolver(importResolver);
-        for (ParameterElement p in constructor.parameters) {
-          materialRouteConfig.copyWith(parameters: [
-            ...materialRouteConfig.parameters,
-            paramResolver.resolve(p)
-          ]);
-        }
-      }
-    }
-    return materialRouteConfig;
+    stringBuffer.write(super.registerArgs());
+    stringBuffer.write(
+        'return MaterialPageRoute<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,');
+    stringBuffer.write(super.registerRoutes());
+    return stringBuffer.toString();
   }
 
   MaterialRouteConfig copyWith({
@@ -145,7 +70,7 @@ class MaterialRouteConfig extends RouteConfig {
     List<RouteGuardConfig>? guards,
     bool? hasWrapper,
     bool? hasConstConstructor,
-    RouterConfig? routerConfig,
+    List<RouteConfig>? children,
     Set<String>? imports,
   }) {
     return MaterialRouteConfig(
@@ -159,7 +84,7 @@ class MaterialRouteConfig extends RouteConfig {
       guards: guards ?? this.guards,
       hasWrapper: hasWrapper ?? this.hasWrapper,
       hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
-      routerConfig: routerConfig ?? this.routerConfig,
+      children: children ?? this.children,
       imports: imports ?? this.imports,
     );
   }

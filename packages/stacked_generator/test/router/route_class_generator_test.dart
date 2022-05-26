@@ -1,11 +1,11 @@
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/exceptions/invalid_generator_input_exception.dart';
+import 'package:stacked_generator/src/generators/router/generator/router_class_generator.dart';
 import 'package:stacked_generator/src/generators/router/route_config/adaptive_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/cupertino_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/custom_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/material_route_config.dart';
-import 'package:stacked_generator/src/generators/router/router_class_generator.dart';
-import 'package:stacked_generator/src/generators/router/router_config.dart';
+import 'package:stacked_generator/src/generators/router/router_config/router_config.dart';
 import 'package:test/test.dart';
 
 import '../helpers/router_constants.dart';
@@ -15,8 +15,8 @@ void main() {
     void generateRoutesAndExpectException<T>(List<RouteConfig> routes,
         [String? exceptionMessage]) {
       final routerBaseGenerator = RouterClassGenerator(RouterConfig(
-          routesClassName: 'RoutesClassB',
-          routerClassName: 'RouterNamee',
+          routesClassName: 'RoutesTestClassName',
+          routerClassName: 'RouterTestClassName',
           routes: routes));
       expect(
         () => routerBaseGenerator.generate(),
@@ -30,8 +30,9 @@ void main() {
         List<RouteConfig> routes, dynamic expectedResult,
         {bool verbose = false}) {
       final routerBaseGenerator = RouterClassGenerator(RouterConfig(
-          routesClassName: 'RoutesClassB',
-          routerClassName: 'RouterNamee',
+          routesClassName: 'RoutesTestClassName',
+          routerClassName: 'RouterTestClassName',
+          generateNavigationHelper: true,
           routes: routes));
       if (verbose) print(routerBaseGenerator.generate());
       expect(routerBaseGenerator.generate(), expectedResult);
@@ -52,7 +53,7 @@ void main() {
           MaterialRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
           )
         ];
 
@@ -63,17 +64,17 @@ void main() {
           MaterialRouteConfig(
             name: 'loginView1',
             pathName: 'pathNamaw1',
-            className: 'ebraClass1',
+            className: 'TestClass1',
           ),
           MaterialRouteConfig(
             name: 'loginView2',
             pathName: 'pathNamaw2',
-            className: 'ebraClass2',
+            className: 'TestClass2',
           ),
           MaterialRouteConfig(
             name: 'loginView3',
             pathName: 'pathNamaw3',
-            className: 'ebraClass3',
+            className: 'TestClass3',
           ),
         ];
 
@@ -88,7 +89,7 @@ void main() {
           MaterialRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
             fullscreenDialog: true,
           )
         ];
@@ -103,7 +104,7 @@ void main() {
           MaterialRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
             fullscreenDialog: false,
           )
         ];
@@ -115,7 +116,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               guards: [
                 RouteGuardConfig(import: 'guard/import.dart', type: 'GuardType')
               ])
@@ -128,7 +129,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               guards: [
                 RouteGuardConfig(
                   import: 'guard/import.dart',
@@ -148,7 +149,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               hasConstConstructor: false)
         ];
 
@@ -159,7 +160,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               hasConstConstructor: true)
         ];
 
@@ -171,7 +172,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               hasWrapper: false)
         ];
 
@@ -182,7 +183,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               hasWrapper: true)
         ];
 
@@ -193,7 +194,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               imports: {'import one', 'import two'})
         ];
         generateRouteAndExpectResult(routes, kRouterWithImports);
@@ -204,7 +205,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               maintainState: true)
         ];
         generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
@@ -214,7 +215,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               maintainState: false)
         ];
         generateRouteAndExpectResult(routes, kRouterWithMaintainStateIsFalse);
@@ -226,7 +227,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [RouteParamConfig()])
         ];
         generateRoutesAndExpectException<InvalidGeneratorInputException>(routes,
@@ -238,7 +239,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(isPathParam: false, isQueryParam: false)
               ])
@@ -253,7 +254,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(isPathParam: true, isQueryParam: false)
               ])
@@ -268,7 +269,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(isPathParam: true, isQueryParam: true)
               ])
@@ -283,7 +284,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(isPathParam: false, isQueryParam: true)
               ])
@@ -299,7 +300,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(
                     isPathParam: false, isQueryParam: true, alias: 'aliaso')
@@ -316,7 +317,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(
                     isPathParam: false,
@@ -335,7 +336,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(
                     isPathParam: false,
@@ -354,7 +355,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(
                   isPathParam: false,
@@ -374,7 +375,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(
                   isPathParam: false,
@@ -394,7 +395,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(
                   isPathParam: false,
@@ -414,7 +415,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(
                   isPathParam: false,
@@ -432,33 +433,156 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               returnType: 'returnYpe')
         ];
 
         generateRouteAndExpectResult(routes, kRouterWithRetrunType);
       });
-      test('When adding NestedRouter', () {
+      test('When adding returnType = <CupertinoRoute>', () {
         final routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
-              returnType: 'returnYpe',
-              routerConfig: RouterConfig(
-                  routesClassName: 'MyNestedRoutess',
-                  routeNamePrefix: 'prefexNestedRouter',
-                  routerClassName: 'MyNestedRouteerrr',
-                  routes: [
-                    MaterialRouteConfig(
-                      name: 'nestedView',
-                      pathName: 'nestedPath',
-                      className: 'nestedClass',
-                    )
-                  ]))
+              className: 'TestClass',
+              returnType: '<CupertinoRoute>')
         ];
 
-        generateRouteAndExpectResult(routes, kRouterWithNestedRouter);
+        generateRouteAndExpectResult(
+            routes, kRouterWithRetrunTypeCupertinoRoute);
+      });
+      test('When adding NestedRouter with one child', () {
+        final routes = [
+          MaterialRouteConfig(
+            name: 'loginView1',
+            pathName: 'pathNamaw1',
+            className: 'TestClass1',
+            returnType: 'returnYpe1',
+            children: [
+              MaterialRouteConfig(
+                name: 'nestedView1',
+                pathName: 'nestedPath1',
+                className: 'nestedClass1',
+              )
+            ],
+          )
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterWithNestedRouter,
+        );
+      });
+      test('When adding multiple NestedRouter with one child each', () {
+        final routes = [
+          MaterialRouteConfig(
+              name: 'loginView1',
+              pathName: 'pathNamaw1',
+              className: 'TestClass1',
+              returnType: 'returnYpe1',
+              children: [
+                MaterialRouteConfig(
+                    name: 'nestedView1',
+                    pathName: 'nestedPath1',
+                    className: 'nestedClass1',
+                    children: [
+                      MaterialRouteConfig(
+                        name: 'multiNestedmultiNestedView1',
+                        pathName: 'multiNestedmultiNestedPath1',
+                        className: 'multiNestedmultiNestedClass1',
+                      )
+                    ])
+              ])
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterWithMultipleNestedRouter,
+        );
+      });
+      test('When adding NestedRouter with three different childs', () {
+        final routes = [
+          MaterialRouteConfig(
+              name: 'loginView2',
+              pathName: 'pathNamaw2',
+              className: 'TestClass2',
+              returnType: 'returnYpe2',
+              children: [
+                MaterialRouteConfig(
+                  name: 'firstView',
+                  pathName: 'firstPath',
+                  className: 'firstClass',
+                ),
+                CupertinoRouteConfig(
+                  name: 'secondView',
+                  pathName: 'secondPath',
+                  className: 'secondClass',
+                ),
+                CustomRouteConfig(
+                  name: 'thirdView',
+                  pathName: 'thirdPath',
+                  className: 'thirdClass',
+                ),
+              ])
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterWithThreeNestedRouter,
+        );
+      });
+      test('When adding NestedRouter with six different childs', () {
+        final routes = [
+          MaterialRouteConfig(
+              name: 'loginView3',
+              pathName: 'pathNamaw3',
+              className: 'TestClass3',
+              returnType: 'returnYpe3',
+              children: [
+                MaterialRouteConfig(
+                  name: 'firstView',
+                  pathName: 'firstPath',
+                  className: 'firstClass',
+                ),
+                CupertinoRouteConfig(
+                  name: 'secondView',
+                  pathName: 'secondPath',
+                  className: 'secondClass',
+                ),
+                AdaptiveRouteConfig(
+                  name: 'thirdView',
+                  pathName: 'thirdPath',
+                  className: 'thirdClass',
+                ),
+              ]),
+          AdaptiveRouteConfig(
+              name: 'loginView4',
+              pathName: 'pathNamaw4',
+              className: 'TestClass4',
+              returnType: 'returnYpe4',
+              children: [
+                MaterialRouteConfig(
+                  name: 'fourthView',
+                  pathName: 'fourthPath',
+                  className: 'fourthClass',
+                ),
+                CupertinoRouteConfig(
+                  name: 'fifthView',
+                  pathName: 'fifthPath',
+                  className: 'fifthClass',
+                ),
+                CustomRouteConfig(
+                  name: 'sixthView',
+                  pathName: 'sixthPath',
+                  className: 'sixthClass',
+                ),
+              ]),
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterWithSixNestedRouter,
+        );
       });
     });
     group('RouteType.cupertino -', () {
@@ -467,7 +591,7 @@ void main() {
           CupertinoRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
           )
         ];
 
@@ -479,7 +603,7 @@ void main() {
           CupertinoRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               cupertinoNavTitle: 'cupertinoNavTitle')
         ];
 
@@ -489,13 +613,61 @@ void main() {
         );
       });
     });
+    group('RouteType.cupertino -', () {
+      test('Given the following RouteConfig, Generate output', () {
+        final routes = [
+          CupertinoRouteConfig(
+            name: 'loginView',
+            pathName: 'pathNamaw',
+            className: 'TestClass',
+          )
+        ];
+
+        generateRouteAndExpectResult(
+            routes, kRouterTypeCupertinoWithNamePathNameClassName);
+      });
+      test('With cupertinoNavTitle', () {
+        final routes = [
+          CupertinoRouteConfig(
+              name: 'loginView',
+              pathName: 'pathNamaw',
+              className: 'TestClass',
+              cupertinoNavTitle: 'cupertinoNavTitle')
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCupertinoWithCupertinoNavTitle,
+        );
+      });
+      test('With parameters path = false, query = false', () {
+        final routes = [
+          CupertinoRouteConfig(
+            name: 'loginView',
+            pathName: 'pathNamaw',
+            className: 'TestClass',
+            parameters: [
+              RouteParamConfig(
+                isPathParam: false,
+                isQueryParam: false,
+              ),
+            ],
+          )
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCupertinoWithParametersPathFalseQueryFalse,
+        );
+      });
+    });
     group('RouteType.adaptive -', () {
       test('Given the following RouteConfig, Generate output', () {
         final routes = [
           AdaptiveRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
           )
         ];
 
@@ -506,13 +678,33 @@ void main() {
           AdaptiveRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               cupertinoNavTitle: 'cupertinooo')
         ];
 
         generateRouteAndExpectResult(
           routes,
           kRouterTypeAdaptiveWithCupertinoNavTitle,
+        );
+      });
+      test('With parameters path = false, query = false', () {
+        final routes = [
+          AdaptiveRouteConfig(
+            name: 'loginView',
+            pathName: 'pathNamaw',
+            className: 'TestClass',
+            parameters: [
+              RouteParamConfig(
+                isPathParam: false,
+                isQueryParam: false,
+              ),
+            ],
+          )
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeAdaptiveWithParametersPathFalseQueryFalse,
         );
       });
     });
@@ -522,7 +714,7 @@ void main() {
           CustomRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
           )
         ];
 
@@ -531,26 +723,13 @@ void main() {
           kRouterTypeCustom,
         );
       });
-      test('With cupertinoNavTitle', () {
-        final routes = [
-          CustomRouteConfig(
-              name: 'loginView',
-              pathName: 'pathNamaw',
-              className: 'ebraClass',
-              cupertinoNavTitle: 'cupertinooo')
-        ];
 
-        generateRouteAndExpectResult(
-          routes,
-          kRouterTypeCustomWithTitleNavBar,
-        );
-      });
       test('With customRouteBarrierDismissible', () {
         final routes = [
           CustomRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               customRouteBarrierDismissible: false)
         ];
 
@@ -564,7 +743,7 @@ void main() {
           CustomRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               durationInMilliseconds: 22)
         ];
 
@@ -578,7 +757,7 @@ void main() {
           CustomRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               reverseDurationInMilliseconds: 2)
         ];
 
@@ -594,7 +773,7 @@ void main() {
           CustomRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               customRouteOpaque: true)
         ];
 
@@ -608,13 +787,53 @@ void main() {
           CustomRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               customRouteOpaque: false)
         ];
 
         generateRouteAndExpectResult(
           routes,
           kRouterTypeCustomWithCustomRouteOpaqueFalse,
+        );
+      });
+      test('With parameters path = false, query = false', () {
+        final routes = [
+          CustomRouteConfig(
+            name: 'loginView',
+            pathName: 'pathNamaw',
+            className: 'TestClass',
+            parameters: [
+              RouteParamConfig(
+                isPathParam: false,
+                isQueryParam: false,
+              ),
+            ],
+          )
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCustomWithParametersPathFalseQueryFalse,
+        );
+      });
+      test('With parameters path = false, query = true', () {
+        final routes = [
+          CustomRouteConfig(
+            name: 'loginView',
+            pathName: 'pathNamaw',
+            className: 'TestClass',
+            parameters: [
+              RouteParamConfig(
+                isPathParam: false,
+                isQueryParam: true,
+              ),
+            ],
+          )
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCustomWithParametersPathFalseQueryTrue,
         );
       });
     });
@@ -624,15 +843,14 @@ void main() {
           CustomRouteConfig(
             name: 'loginView1',
             pathName: 'pathNamaw1',
-            className: 'ebraClass1',
+            className: 'TestClass1',
             reverseDurationInMilliseconds: 2,
             durationInMilliseconds: 22,
-            cupertinoNavTitle: 'cupertinooo',
           ),
           MaterialRouteConfig(
               name: 'loginView2',
               pathName: 'pathNamaw2',
-              className: 'ebraClass2',
+              className: 'TestClass2',
               parameters: [
                 RouteParamConfig(
                   isPathParam: false,
@@ -642,7 +860,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView3',
               pathName: 'pathNamaw3',
-              className: 'ebraClass3',
+              className: 'TestClass3',
               parameters: [
                 RouteParamConfig(
                   isPathParam: false,
@@ -652,21 +870,24 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView4',
               pathName: 'pathNamaw4',
-              className: 'ebraClass4',
+              className: 'TestClass4',
               maintainState: false),
           AdaptiveRouteConfig(
               name: 'loginView5',
               pathName: 'pathNamaw5',
-              className: 'ebraClass5',
+              className: 'TestClass5',
               cupertinoNavTitle: 'cupertinooo'),
           CupertinoRouteConfig(
             name: 'loginView6',
             pathName: 'pathNamaw6',
-            className: 'ebraClass6',
+            className: 'TestClass6',
           ),
         ];
 
-        generateRouteAndExpectResult(routes, kRouterMixin);
+        generateRouteAndExpectResult(
+          routes,
+          kRouterMixin,
+        );
       });
     });
   });

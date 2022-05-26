@@ -1,6 +1,7 @@
 import 'package:stacked_core/stacked_core.dart';
 
 @StackedApp(
+  routes: [],
   logger: StackedLogger(
     disableReleaseConsoleOutput: false,
   ),

@@ -1,13 +1,7 @@
-import 'package:analyzer/dart/element/element.dart';
-import 'package:source_gen/source_gen.dart';
-import 'package:source_gen/src/constants/reader.dart';
-
-import 'package:stacked_generator/import_resolver.dart';
-import 'package:stacked_generator/route_config_resolver.dart';
-import 'package:stacked_generator/src/generators/router/router_config.dart';
-
-import '../../../../utils.dart';
-import '../router_config.dart';
+import '../models/custom_transition_builder.dart';
+import '../models/route_guard_config.dart';
+import '../models/route_parameter_config.dart';
+import 'route_config.dart';
 
 class CustomRouteConfig extends RouteConfig {
   final String name;
@@ -19,8 +13,8 @@ class CustomRouteConfig extends RouteConfig {
   final List<RouteParamConfig> parameters;
   final List<RouteGuardConfig> guards;
   final bool hasWrapper;
+  final List<RouteConfig> children;
   final bool hasConstConstructor;
-  final RouterConfig? routerConfig;
   final Set<String> imports;
 
   final int? durationInMilliseconds;
@@ -28,7 +22,6 @@ class CustomRouteConfig extends RouteConfig {
   final bool customRouteOpaque;
   final bool customRouteBarrierDismissible;
   final CustomTransitionBuilder? transitionBuilder;
-  final String? cupertinoNavTitle;
   CustomRouteConfig({
     required this.name,
     required this.pathName,
@@ -40,14 +33,13 @@ class CustomRouteConfig extends RouteConfig {
     this.guards = const [],
     this.hasWrapper = false,
     this.hasConstConstructor = false,
-    this.routerConfig,
+    this.children = const [],
     this.imports = const {},
     this.durationInMilliseconds,
     this.reverseDurationInMilliseconds,
     this.customRouteOpaque = true,
     this.customRouteBarrierDismissible = false,
     this.transitionBuilder,
-    this.cupertinoNavTitle,
   }) : super(
           imports: imports,
           hasConstConstructor: hasConstConstructor,
@@ -60,7 +52,7 @@ class CustomRouteConfig extends RouteConfig {
           parameters: parameters,
           guards: guards,
           hasWrapper: hasWrapper,
-          routerConfig: routerConfig,
+          children: children,
         );
   @override
   Set<String> registerImports() {
@@ -71,117 +63,37 @@ class CustomRouteConfig extends RouteConfig {
     }.takeWhile((value) => value.isNotEmpty).toSet();
   }
 
-  // TODO: move this code to the routeconfig super class
-  factory CustomRouteConfig.fromStackedApp(
-    ConstantReader stackedRoute,
-    ImportResolver importResolver,
-    RouterConfig routerConfig,
-  ) {
-    final dartType = stackedRoute.read('page').typeValue;
-    throwIf(
-      dartType.element is! ClassElement,
-      '${toDisplayString(dartType)} is not a class element',
-      element: dartType.element!,
-    );
-    Set<String> imports = {};
+  @override
+  String registerRoutes() {
+    StringBuffer stringBuffer = StringBuffer();
 
-    final extractedGuards = stackedRoute.peek('guards')?.listValue.where((g) {
-      final guard = g.toTypeValue();
-      return guard != null && guard.element != null;
-    }).map((g) {
-      final guard = g.toTypeValue();
-      return RouteGuardConfig(
-          type: toDisplayString(guard!),
-          import: importResolver.resolve((guard.element)!));
-    }).toList();
+    stringBuffer.write(super.registerArgs());
+    stringBuffer.write(
+        'return PageRouteBuilder<$processedReturnType>(pageBuilder: (context, animation, secondaryAnimation) => $joinedConstructerParams, settings: data,');
 
-    final classElement = dartType.element as ClassElement;
-    final className = toDisplayString(dartType);
+    if (!customRouteOpaque)
+      stringBuffer.write('opaque:${customRouteOpaque.toString()},');
 
-    final import = importResolver.resolve(classElement);
-    if (import != null) imports.add(import);
-
-    String? pathName = stackedRoute.peek('path')?.stringValue;
-    if (pathName == null) {
-      if (stackedRoute.peek('initial')?.boolValue == true) {
-        pathName = '/';
-      } else {
-        pathName = '${routerConfig.routeNamePrefix}${toKababCase(className)}';
-      }
+    if (customRouteBarrierDismissible) {
+      stringBuffer.write(
+          'barrierDismissible:${customRouteBarrierDismissible.toString()},');
     }
-
-    final returnType = stackedRoute.objectValue.type;
-
-    if (returnType != null && returnType != 'dynamic') {
-      imports.addAll(importResolver.resolveAll(returnType));
+    if (transitionBuilder != null) {
+      stringBuffer.write('transitionsBuilder: ${transitionBuilder!.name},');
     }
-
-    var customRouteConfig = CustomRouteConfig(
-        durationInMilliseconds:
-            stackedRoute.peek('durationInMilliseconds')?.intValue,
-        reverseDurationInMilliseconds:
-            stackedRoute.peek('reverseDurationInMilliseconds')?.intValue,
-        customRouteOpaque: stackedRoute.peek('opaque')?.boolValue ?? false,
-        customRouteBarrierDismissible:
-            stackedRoute.peek('barrierDismissible')?.boolValue ?? false,
-        hasWrapper: classElement.allSupertypes
-            .map<String>((el) => toDisplayString(el))
-            .contains('StackedRouteWrapper'),
-        returnType: toDisplayString(returnType!),
-        pathName: pathName,
-        name: stackedRoute.peek('name')?.stringValue ??
-            toLowerCamelCase(className),
-        maintainState: stackedRoute.peek('maintainState')?.boolValue ?? false,
-        imports: imports,
-        guards: extractedGuards ?? [],
-        className: className,
-        fullscreenDialog:
-            stackedRoute.peek('fullscreenDialog')?.boolValue ?? false);
-    final constructor = classElement.unnamedConstructor;
-
-    var params = constructor?.parameters;
-    if (params?.isNotEmpty == true) {
-      if (constructor!.isConst &&
-          params!.length == 1 &&
-          toDisplayString(params.first.type) == 'Key') {
-        customRouteConfig =
-            customRouteConfig.copyWith(hasConstConstructor: true);
-      } else {
-        final paramResolver = RouteParameterResolver(importResolver);
-        for (ParameterElement p in constructor.parameters) {
-          customRouteConfig.copyWith(parameters: [
-            ...customRouteConfig.parameters,
-            paramResolver.resolve(p)
-          ]);
-        }
-      }
+    if (durationInMilliseconds != null) {
+      stringBuffer.write(
+          'transitionDuration: const Duration(milliseconds: ${durationInMilliseconds}),');
     }
-
-    final function =
-        stackedRoute.peek('transitionsBuilder')?.objectValue.toFunctionValue();
-    if (function != null) {
-      final displayName = function.displayName.replaceFirst(RegExp('^_'), '');
-      final functionName = function.isStatic
-          ? '${function.enclosingElement.displayName}.$displayName'
-          : displayName;
-
-      var import;
-      if (function.enclosingElement.name != 'TransitionsBuilders') {
-        import = importResolver.resolve(function);
-      }
-      customRouteConfig = customRouteConfig.copyWith(
-          transitionBuilder: CustomTransitionBuilder(functionName, import));
+    if (reverseDurationInMilliseconds != null) {
+      stringBuffer.write(
+          'reverseTransitionDuration: const Duration(milliseconds: ${reverseDurationInMilliseconds}),');
     }
-    return customRouteConfig;
+    stringBuffer.write(super.registerRoutes());
+    return stringBuffer.toString();
   }
 
   CustomRouteConfig copyWith({
-    int? durationInMilliseconds,
-    int? reverseDurationInMilliseconds,
-    bool? customRouteOpaque,
-    bool? customRouteBarrierDismissible,
-    CustomTransitionBuilder? transitionBuilder,
-    String? cupertinoNavTitle,
     String? name,
     String? pathName,
     String? className,
@@ -191,20 +103,16 @@ class CustomRouteConfig extends RouteConfig {
     List<RouteParamConfig>? parameters,
     List<RouteGuardConfig>? guards,
     bool? hasWrapper,
+    List<RouteConfig>? children,
     bool? hasConstConstructor,
-    RouterConfig? routerConfig,
     Set<String>? imports,
+    int? durationInMilliseconds,
+    int? reverseDurationInMilliseconds,
+    bool? customRouteOpaque,
+    bool? customRouteBarrierDismissible,
+    CustomTransitionBuilder? transitionBuilder,
   }) {
     return CustomRouteConfig(
-      durationInMilliseconds:
-          durationInMilliseconds ?? this.durationInMilliseconds,
-      reverseDurationInMilliseconds:
-          reverseDurationInMilliseconds ?? this.reverseDurationInMilliseconds,
-      customRouteOpaque: customRouteOpaque ?? this.customRouteOpaque,
-      customRouteBarrierDismissible:
-          customRouteBarrierDismissible ?? this.customRouteBarrierDismissible,
-      transitionBuilder: transitionBuilder ?? this.transitionBuilder,
-      cupertinoNavTitle: cupertinoNavTitle ?? this.cupertinoNavTitle,
       name: name ?? this.name,
       pathName: pathName ?? this.pathName,
       className: className ?? this.className,
@@ -214,9 +122,17 @@ class CustomRouteConfig extends RouteConfig {
       parameters: parameters ?? this.parameters,
       guards: guards ?? this.guards,
       hasWrapper: hasWrapper ?? this.hasWrapper,
+      children: children ?? this.children,
       hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
-      routerConfig: routerConfig ?? this.routerConfig,
       imports: imports ?? this.imports,
+      durationInMilliseconds:
+          durationInMilliseconds ?? this.durationInMilliseconds,
+      reverseDurationInMilliseconds:
+          reverseDurationInMilliseconds ?? this.reverseDurationInMilliseconds,
+      customRouteOpaque: customRouteOpaque ?? this.customRouteOpaque,
+      customRouteBarrierDismissible:
+          customRouteBarrierDismissible ?? this.customRouteBarrierDismissible,
+      transitionBuilder: transitionBuilder ?? this.transitionBuilder,
     );
   }
 }

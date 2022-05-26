@@ -16,7 +16,7 @@ void main() {
           ),
         );
         util.generateImports();
-        expect(util.stringBuffer.toString(), ksFormImports);
+        expect(util.serializeStringBuffer, ksFormImports);
       });
     });
     group('generateValueMapKeys -', () {
@@ -32,8 +32,8 @@ void main() {
           ),
         );
         util.generateValueMapKeys();
-        expect(util.stringBuffer.toString(),
-            ksFormKeys('name', 'date', 'dropDown'));
+        expect(
+            util.serializeStringBuffer, ksFormKeys('name', 'date', 'dropDown'));
       });
     });
     group(' generateDropdownItemsMap-', () {
@@ -53,7 +53,7 @@ void main() {
           ),
         );
         util.generateDropdownItemsMap();
-        expect(util.stringBuffer.toString(), ksDropdownItemsMap);
+        expect(util.serializeStringBuffer, ksDropdownItemsMap);
       });
     });
 
@@ -69,8 +69,7 @@ void main() {
           ),
         );
         util.generateTextEditingControllerItemsMap();
-        expect(util.stringBuffer.toString(),
-            ksTextEditingControllerItemsMap);
+        expect(util.serializeStringBuffer, ksTextEditingControllerItemsMap);
       });
     });
     group('generateTextEdittingControllersForTextFields -', () {
@@ -86,7 +85,7 @@ void main() {
           ),
         );
         util.generateTextEditingControllersForTextFields();
-        expect(util.stringBuffer.toString(),
+        expect(util.serializeStringBuffer,
             ksTextEditingControllerGettersForTextFields);
       });
     });

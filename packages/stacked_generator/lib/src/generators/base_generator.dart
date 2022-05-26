@@ -1,15 +1,16 @@
 /// Provides functionality common to all Generators
 abstract class BaseGenerator {
-  final StringBuffer stringBuffer = StringBuffer();
+  final StringBuffer _stringBuffer = StringBuffer();
+  String get serializeStringBuffer => _stringBuffer.toString();
 
   /// Writes the object supplied next to what was written before without adding a new line
-  void write(Object obj) => stringBuffer.write(obj);
+  void write(Object obj) => _stringBuffer.write(obj);
 
   /// Writes a line of text into the current [StringBuffer] and adds a space new line after it
-  void writeLine([Object obj = '']) => stringBuffer.writeln(obj);
+  void writeLine([Object obj = '']) => _stringBuffer.writeln(obj);
 
   /// Adds a new line after what was written before this
-  void newLine() => stringBuffer.writeln();
+  void newLine() => _stringBuffer.writeln();
 
   /// Sorts the imports and then writed it to the current [StringBuffer]
   void sortAndGenerate(Set<String> imports) {
