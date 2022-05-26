@@ -14,7 +14,7 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
     writeLine("// ignore_for_file: public_member_api_docs");
     generateImports(
         [..._rootRouterConfig.routes, ..._rootRouterConfig.subRouters]);
-    generateRouterByRouter(
+    generateAllRoutersIncludingNestedOnes(
         _rootRouterConfig.routes,
         _rootRouterConfig.routerClassName,
         _rootRouterConfig.routesClassName,
@@ -22,7 +22,7 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
     return serializeStringBuffer;
   }
 
-  void generateRouterByRouter(
+  void generateAllRoutersIncludingNestedOnes(
     List<RouteConfig> routes,
     String routerClassName,
     String routesClassName,
@@ -50,7 +50,7 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
     generateArgumentHolders(routes);
 
     routes.where((element) => element.children.isNotEmpty).forEach((element) {
-      generateRouterByRouter(
+      generateAllRoutersIncludingNestedOnes(
         element.children,
         capitalize(element.name + 'Router'),
         capitalize(element.name + 'Routes'),
