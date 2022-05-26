@@ -64,7 +64,7 @@ class RouteConfigResolver {
         pathName: pathName,
         name: stackedRoute.peek('name')?.stringValue ??
             toLowerCamelCase(className),
-        maintainState: stackedRoute.peek('maintainState')?.boolValue ?? false,
+        maintainState: stackedRoute.peek('maintainState')?.boolValue ?? true,
         imports: imports,
         guards: extractedGuards ?? [],
         className: className,
