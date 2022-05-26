@@ -81,7 +81,7 @@ class RouteConfigResolver {
       } else {
         final paramResolver = RouteParameterResolver(_importResolver);
         for (ParameterElement p in constructor.parameters) {
-          baseRouteConfig.copyWith(parameters: [
+          baseRouteConfig = baseRouteConfig.copyWith(parameters: [
             ...baseRouteConfig.parameters,
             paramResolver.resolve(p)
           ]);
