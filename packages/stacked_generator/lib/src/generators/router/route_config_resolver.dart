@@ -5,7 +5,7 @@ import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_generator/utils.dart';
 
-import 'router_config.dart';
+import 'router_config/router_config.dart';
 
 const TypeChecker stackedRouteChecker = TypeChecker.fromRuntime(StackedRoute);
 

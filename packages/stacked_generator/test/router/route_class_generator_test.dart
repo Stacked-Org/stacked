@@ -1,11 +1,11 @@
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/exceptions/invalid_generator_input_exception.dart';
+import 'package:stacked_generator/src/generators/router/generator/router_class_generator.dart';
 import 'package:stacked_generator/src/generators/router/route_config/adaptive_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/cupertino_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/custom_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/material_route_config.dart';
-import 'package:stacked_generator/src/generators/router/router_class_generator.dart';
-import 'package:stacked_generator/src/generators/router/router_config.dart';
+import 'package:stacked_generator/src/generators/router/router_config/router_config.dart';
 import 'package:test/test.dart';
 
 import '../helpers/router_constants.dart';

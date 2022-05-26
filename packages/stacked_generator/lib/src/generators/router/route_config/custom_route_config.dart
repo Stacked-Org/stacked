@@ -1,6 +1,6 @@
-import '../custom_transition_builder.dart';
-import '../route_guard_config.dart';
-import '../route_parameter_config.dart';
+import '../models/custom_transition_builder.dart';
+import '../models/route_guard_config.dart';
+import '../models/route_parameter_config.dart';
 import 'route_config.dart';
 
 class CustomRouteConfig extends RouteConfig {

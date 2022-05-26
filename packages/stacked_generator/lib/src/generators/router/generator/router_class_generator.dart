@@ -1,9 +1,9 @@
 import 'package:stacked_generator/src/generators/base_generator.dart';
-import 'package:stacked_generator/src/generators/router/route_generator_helper.dart';
 import 'package:stacked_generator/utils.dart';
 
-import 'route_config/route_config.dart';
-import 'router_config.dart';
+import '../route_config/route_config.dart';
+import '../router_config/router_config.dart';
+import 'route_generator_helper.dart';
 
 class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
   final RouterConfig _rootRouterConfig;
