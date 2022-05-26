@@ -184,7 +184,7 @@ class FirebaseAuthenticationService {
       final familyName = appleIdCredential.familyName;
       final hasFamilyName = familyName != null;
 
-      print('Apple Sign in complete: ${appleIdCredential.toString()}');
+      // print('Apple Sign in complete: ${appleIdCredential.toString()}');
 
       await appleCredential.user?.updateDisplayName(
           '${hasGivenName ? givenName : ''}${hasFamilyName ? ' $familyName' : ''}');
