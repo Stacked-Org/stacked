@@ -44,7 +44,7 @@ class StackedLocatorContentGenerator extends BaseGenerator {
 
     writeLine('}');
 
-    return stringBuffer.toString();
+    return serializeStringBuffer;
   }
 
   void _generateImports(List<DependencyConfig> services) {

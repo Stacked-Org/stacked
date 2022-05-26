@@ -19,7 +19,7 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
         _rootRouterConfig.routerClassName,
         _rootRouterConfig.routesClassName,
         _rootRouterConfig.generateNavigationHelper);
-    return stringBuffer.toString();
+    return serializeStringBuffer;
   }
 
   void generateRouterByRouter(

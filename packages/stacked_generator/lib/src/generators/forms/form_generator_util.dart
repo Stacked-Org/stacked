@@ -22,7 +22,7 @@ class FormGeneratorUtil extends BaseGenerator {
     generateValidationFunctionsFromAnnotation();
     generateFormMixin();
     generateFormViewModelExtensions();
-    return stringBuffer.toString();
+    return serializeStringBuffer;
   }
 
   void generateFormMixin() {

@@ -62,8 +62,8 @@ mixin RouteGeneratorHelper on BaseGenerator {
       }
     });
     writeLine("static const all = <String>{");
-    allNames.forEach((name) => stringBuffer.write('$name,'));
-    stringBuffer.write("};");
+    allNames.forEach((name) => write('$name,'));
+    write("};");
     writeLine('}');
   }
 
@@ -83,7 +83,7 @@ mixin RouteGeneratorHelper on BaseGenerator {
       _generateRouteTemplates(route, routesClassName);
     }
     writeLine();
-    stringBuffer.write('];');
+    write('];');
 
     writeLine('''
        @override
@@ -96,7 +96,7 @@ mixin RouteGeneratorHelper on BaseGenerator {
       _generateRouteGeneratorFunction(route);
     }
 
-    stringBuffer.write('};');
+    write('};');
 
     writeLine('}');
   }
@@ -104,7 +104,7 @@ mixin RouteGeneratorHelper on BaseGenerator {
   void _generateRouteTemplates(RouteConfig route, String routesClassName) {
     writeLine();
 
-    stringBuffer.write("RouteDef(${routesClassName}.${route.templateName}");
+    write("RouteDef(${routesClassName}.${route.templateName}");
     writeLine();
     writeLine(",page: ${route.className}");
     if (route.guards.isNotEmpty == true) {
@@ -114,7 +114,7 @@ mixin RouteGeneratorHelper on BaseGenerator {
     if (route.children.isNotEmpty) {
       writeLine(",generator: ${capitalize(route.name)}Router(),");
     }
-    stringBuffer.write('),');
+    write('),');
   }
 
   void _generateRouteGeneratorFunction(RouteConfig route) {
@@ -125,9 +125,9 @@ mixin RouteGeneratorHelper on BaseGenerator {
     routesMap.forEach((name, route) {
       writeLine('$name: (data) {');
 
-      stringBuffer.write(route.registerRoutes());
+      write(route.registerRoutes());
 
-      stringBuffer.write("},");
+      write("},");
     });
   }
 
