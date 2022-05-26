@@ -62,7 +62,7 @@ class RouteConfig {
   String registerArgs() {
     StringBuffer stringBuffer = StringBuffer();
 
-    if (parameters.isNotEmpty == true) {
+    if (parameters.isNotEmpty) {
       // if router has any required or positional params the argument class holder becomes required.
       final nullOk =
           !notQueryAndNotPath.any((p) => p.isRequired || p.isPositional);
