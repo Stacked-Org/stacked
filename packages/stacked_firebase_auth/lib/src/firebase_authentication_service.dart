@@ -178,11 +178,14 @@ class FirebaseAuthenticationService {
         _clearPendingData();
       }
 
-      // Update the display name using the name from apple credential
+      // Update the display name using the name from
       final givenName = appleIdCredential.givenName;
+      final hasGivenName = givenName != null;
       final familyName = appleIdCredential.familyName;
+      final hasFamilyName = familyName != null;
 
-      await appleCredential.user?.updateDisplayName('$givenName $familyName');
+      await appleCredential.user?.updateDisplayName(
+          '${hasGivenName ? givenName : ''}${hasFamilyName ? ' $familyName' : ''}');
 
       return FirebaseAuthenticationResult(user: appleCredential.user);
     } on FirebaseAuthException catch (e) {
