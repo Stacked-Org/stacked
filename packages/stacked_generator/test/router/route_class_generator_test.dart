@@ -15,8 +15,8 @@ void main() {
     void generateRoutesAndExpectException<T>(List<RouteConfig> routes,
         [String? exceptionMessage]) {
       final routerBaseGenerator = RouterClassGenerator(RouterConfig(
-          routesClassName: 'RoutesClassB',
-          routerClassName: 'RouterNamee',
+          routesClassName: 'RoutesTestClassName',
+          routerClassName: 'RouterTestClassName',
           routes: routes));
       expect(
         () => routerBaseGenerator.generate(),
@@ -30,8 +30,8 @@ void main() {
         List<RouteConfig> routes, dynamic expectedResult,
         {bool verbose = false}) {
       final routerBaseGenerator = RouterClassGenerator(RouterConfig(
-          routesClassName: 'RoutesClassB',
-          routerClassName: 'RouterNamee',
+          routesClassName: 'RoutesTestClassName',
+          routerClassName: 'RouterTestClassName',
           generateNavigationHelper: true,
           routes: routes));
       if (verbose) print(routerBaseGenerator.generate());
@@ -53,7 +53,7 @@ void main() {
           MaterialRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
           )
         ];
 
@@ -64,17 +64,17 @@ void main() {
           MaterialRouteConfig(
             name: 'loginView1',
             pathName: 'pathNamaw1',
-            className: 'ebraClass1',
+            className: 'TestClass1',
           ),
           MaterialRouteConfig(
             name: 'loginView2',
             pathName: 'pathNamaw2',
-            className: 'ebraClass2',
+            className: 'TestClass2',
           ),
           MaterialRouteConfig(
             name: 'loginView3',
             pathName: 'pathNamaw3',
-            className: 'ebraClass3',
+            className: 'TestClass3',
           ),
         ];
 
@@ -89,7 +89,7 @@ void main() {
           MaterialRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
             fullscreenDialog: true,
           )
         ];
@@ -104,7 +104,7 @@ void main() {
           MaterialRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
             fullscreenDialog: false,
           )
         ];
@@ -116,7 +116,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               guards: [
                 RouteGuardConfig(import: 'guard/import.dart', type: 'GuardType')
               ])
@@ -129,7 +129,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               guards: [
                 RouteGuardConfig(
                   import: 'guard/import.dart',
@@ -149,7 +149,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               hasConstConstructor: false)
         ];
 
@@ -160,7 +160,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               hasConstConstructor: true)
         ];
 
@@ -172,7 +172,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               hasWrapper: false)
         ];
 
@@ -183,7 +183,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               hasWrapper: true)
         ];
 
@@ -194,7 +194,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               imports: {'import one', 'import two'})
         ];
         generateRouteAndExpectResult(routes, kRouterWithImports);
@@ -205,7 +205,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               maintainState: true)
         ];
         generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
@@ -215,7 +215,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               maintainState: false)
         ];
         generateRouteAndExpectResult(routes, kRouterWithMaintainStateIsFalse);
@@ -227,7 +227,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [RouteParamConfig()])
         ];
         generateRoutesAndExpectException<InvalidGeneratorInputException>(routes,
@@ -239,7 +239,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(isPathParam: false, isQueryParam: false)
               ])
@@ -254,7 +254,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(isPathParam: true, isQueryParam: false)
               ])
@@ -269,7 +269,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(isPathParam: true, isQueryParam: true)
               ])
@@ -284,7 +284,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(isPathParam: false, isQueryParam: true)
               ])
@@ -300,7 +300,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(
                     isPathParam: false, isQueryParam: true, alias: 'aliaso')
@@ -317,7 +317,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(
                     isPathParam: false,
@@ -336,7 +336,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(
                     isPathParam: false,
@@ -355,7 +355,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(
                   isPathParam: false,
@@ -375,7 +375,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(
                   isPathParam: false,
@@ -395,7 +395,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(
                   isPathParam: false,
@@ -415,7 +415,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               parameters: [
                 RouteParamConfig(
                   isPathParam: false,
@@ -433,7 +433,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               returnType: 'returnYpe')
         ];
 
@@ -444,7 +444,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               returnType: '<CupertinoRoute>')
         ];
 
@@ -456,7 +456,7 @@ void main() {
           MaterialRouteConfig(
             name: 'loginView1',
             pathName: 'pathNamaw1',
-            className: 'ebraClass1',
+            className: 'TestClass1',
             returnType: 'returnYpe1',
             children: [
               MaterialRouteConfig(
@@ -478,7 +478,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView1',
               pathName: 'pathNamaw1',
-              className: 'ebraClass1',
+              className: 'TestClass1',
               returnType: 'returnYpe1',
               children: [
                 MaterialRouteConfig(
@@ -505,7 +505,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView2',
               pathName: 'pathNamaw2',
-              className: 'ebraClass2',
+              className: 'TestClass2',
               returnType: 'returnYpe2',
               children: [
                 MaterialRouteConfig(
@@ -536,7 +536,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView3',
               pathName: 'pathNamaw3',
-              className: 'ebraClass3',
+              className: 'TestClass3',
               returnType: 'returnYpe3',
               children: [
                 MaterialRouteConfig(
@@ -558,7 +558,7 @@ void main() {
           AdaptiveRouteConfig(
               name: 'loginView4',
               pathName: 'pathNamaw4',
-              className: 'ebraClass4',
+              className: 'TestClass4',
               returnType: 'returnYpe4',
               children: [
                 MaterialRouteConfig(
@@ -591,7 +591,7 @@ void main() {
           CupertinoRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
           )
         ];
 
@@ -603,7 +603,7 @@ void main() {
           CupertinoRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               cupertinoNavTitle: 'cupertinoNavTitle')
         ];
 
@@ -619,7 +619,7 @@ void main() {
           CupertinoRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
           )
         ];
 
@@ -631,7 +631,7 @@ void main() {
           CupertinoRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               cupertinoNavTitle: 'cupertinoNavTitle')
         ];
 
@@ -645,7 +645,7 @@ void main() {
           CupertinoRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
             parameters: [
               RouteParamConfig(
                 isPathParam: false,
@@ -667,7 +667,7 @@ void main() {
           AdaptiveRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
           )
         ];
 
@@ -678,7 +678,7 @@ void main() {
           AdaptiveRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               cupertinoNavTitle: 'cupertinooo')
         ];
 
@@ -692,7 +692,7 @@ void main() {
           AdaptiveRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
             parameters: [
               RouteParamConfig(
                 isPathParam: false,
@@ -714,7 +714,7 @@ void main() {
           CustomRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
           )
         ];
 
@@ -729,7 +729,7 @@ void main() {
           CustomRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               customRouteBarrierDismissible: false)
         ];
 
@@ -743,7 +743,7 @@ void main() {
           CustomRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               durationInMilliseconds: 22)
         ];
 
@@ -757,7 +757,7 @@ void main() {
           CustomRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               reverseDurationInMilliseconds: 2)
         ];
 
@@ -773,7 +773,7 @@ void main() {
           CustomRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               customRouteOpaque: true)
         ];
 
@@ -787,7 +787,7 @@ void main() {
           CustomRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
-              className: 'ebraClass',
+              className: 'TestClass',
               customRouteOpaque: false)
         ];
 
@@ -801,7 +801,7 @@ void main() {
           CustomRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
             parameters: [
               RouteParamConfig(
                 isPathParam: false,
@@ -821,7 +821,7 @@ void main() {
           CustomRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: 'ebraClass',
+            className: 'TestClass',
             parameters: [
               RouteParamConfig(
                 isPathParam: false,
@@ -843,14 +843,14 @@ void main() {
           CustomRouteConfig(
             name: 'loginView1',
             pathName: 'pathNamaw1',
-            className: 'ebraClass1',
+            className: 'TestClass1',
             reverseDurationInMilliseconds: 2,
             durationInMilliseconds: 22,
           ),
           MaterialRouteConfig(
               name: 'loginView2',
               pathName: 'pathNamaw2',
-              className: 'ebraClass2',
+              className: 'TestClass2',
               parameters: [
                 RouteParamConfig(
                   isPathParam: false,
@@ -860,7 +860,7 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView3',
               pathName: 'pathNamaw3',
-              className: 'ebraClass3',
+              className: 'TestClass3',
               parameters: [
                 RouteParamConfig(
                   isPathParam: false,
@@ -870,17 +870,17 @@ void main() {
           MaterialRouteConfig(
               name: 'loginView4',
               pathName: 'pathNamaw4',
-              className: 'ebraClass4',
+              className: 'TestClass4',
               maintainState: false),
           AdaptiveRouteConfig(
               name: 'loginView5',
               pathName: 'pathNamaw5',
-              className: 'ebraClass5',
+              className: 'TestClass5',
               cupertinoNavTitle: 'cupertinooo'),
           CupertinoRouteConfig(
             name: 'loginView6',
             pathName: 'pathNamaw6',
-            className: 'ebraClass6',
+            className: 'TestClass6',
           ),
         ];
 

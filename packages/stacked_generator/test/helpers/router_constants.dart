@@ -4,36 +4,36 @@ const kRouterWithNamePathNameClassName = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
+TestClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -42,11 +42,11 @@ const kRouterWithEmptyRoutes = '''
 
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const all = <String>{
 };}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
@@ -63,7 +63,7 @@ class RouterNamee extends RouterBase {
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 }
 ''';
 const kRouterWithThreeNamePathNameClassName = '''
@@ -72,54 +72,54 @@ const kRouterWithThreeNamePathNameClassName = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView1 = 'pathNamaw1';
 static const String loginView2 = 'pathNamaw2';
 static const String loginView3 = 'pathNamaw3';
 static const all = <String>{
 loginView1,loginView2,loginView3,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView1
-,page: ebraClass1
+RouteDef(RoutesTestClassName.loginView1
+,page: TestClass1
 ),
-RouteDef(RoutesClassB.loginView2
-,page: ebraClass2
+RouteDef(RoutesTestClassName.loginView2
+,page: TestClass2
 ),
-RouteDef(RoutesClassB.loginView3
-,page: ebraClass3
+RouteDef(RoutesTestClassName.loginView3
+,page: TestClass3
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass1: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass1(), settings: data,);
-},ebraClass2: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass2(), settings: data,);
-},ebraClass3: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass3(), settings: data,);
+TestClass1: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass1(), settings: data,);
+},TestClass2: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass2(), settings: data,);
+},TestClass3: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass3(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView1()
- => push(RoutesClassB.loginView1);
+ => push(RoutesTestClassName.loginView1);
 
 Future pushLoginView2()
- => push(RoutesClassB.loginView2);
+ => push(RoutesTestClassName.loginView2);
 
 Future pushLoginView3()
- => push(RoutesClassB.loginView3);
+ => push(RoutesTestClassName.loginView3);
 
 }
 ''';
@@ -130,36 +130,36 @@ const kRouterWithNamePathNameClassNameFullScreenDialogIsTrue = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,fullscreenDialog:true,);
+TestClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass(), settings: data,fullscreenDialog:true,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -171,19 +171,19 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import 'guard/import.dart';
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ,guards:[GuardType]
 ),
 ];       @override
@@ -191,17 +191,17 @@ RouteDef(RoutesClassB.loginView
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
+TestClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -213,19 +213,19 @@ import 'package:stacked/stacked.dart';
 
 import 'guard/import.dart';
 import 'guard/import2.dart';
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ,guards:[GuardType, GuardType2?]
 ),
 ];       @override
@@ -233,17 +233,17 @@ RouteDef(RoutesClassB.loginView
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
+TestClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -253,36 +253,36 @@ const kRouterWithHasConstConstructorIsTrue = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) => const  ebraClass(), settings: data,);
+TestClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) => const  TestClass(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -292,36 +292,36 @@ const kRouterWithHasWrapperIsTrue = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass().wrappedRoute(context), settings: data,);
+TestClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass().wrappedRoute(context), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -333,36 +333,36 @@ import 'package:stacked/stacked.dart';
 
 import 'import one';
 import 'import two';
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
+TestClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -372,36 +372,36 @@ const kRouterWithMaintainStateIsFalse = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,maintainState:false,);
+TestClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass(), settings: data,maintainState:false,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -412,37 +412,37 @@ const kRouterWithParameterPathFalseQueryFalse = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-var args = data.getArgs<ebraClassArguments>(
-orElse: ()=> ebraClassArguments(),);return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(null:args.null), settings: data,);
+TestClass: (data) {
+var args = data.getArgs<TestClassArguments>(
+orElse: ()=> TestClassArguments(),);return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass(null:args.null), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView({null null,})
- => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+ => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
 
@@ -450,10 +450,10 @@ Future pushLoginView({null null,})
 /// Arguments holder classes
 /// *************************************************************************
 
-/// ebraClass arguments holder class
-class ebraClassArguments{
+/// TestClass arguments holder class
+class TestClassArguments{
 final null null;
-ebraClassArguments({
+TestClassArguments({
 this.null});
 }
 ''';
@@ -464,36 +464,36 @@ const kRouterWithParameterPathTrueQueryFalse = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(null:data.pathParams['null'].value()), settings: data,);
+TestClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass(null:data.pathParams['null'].value()), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView({null null,})
- => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+ => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
 ''';
@@ -503,36 +503,36 @@ const kRouterWithParameterPathFalseQueryTrue = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(null:data.queryParams['null'].value()), settings: data,);
+TestClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass(null:data.queryParams['null'].value()), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView({null null,})
- => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+ => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
 ''';
@@ -543,36 +543,36 @@ const kRouterWithParameterPathFalseQueryTrueAlias = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(null:data.queryParams['aliaso'].value()), settings: data,);
+TestClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass(null:data.queryParams['aliaso'].value()), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView({null null,})
- => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+ => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
 ''';
@@ -582,36 +582,36 @@ const kRouterWithParameterPathFalseQueryTrueDefaultCode2 = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(null:data.queryParams['null'].value(2)), settings: data,);
+TestClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass(null:data.queryParams['null'].value(2)), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView({null null = 2,})
- => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+ => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
 ''';
@@ -623,36 +623,36 @@ import 'package:stacked/stacked.dart';
 
 import 'parameter/import1';
 import 'parameter/import2';
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(null:data.queryParams['null'].value()), settings: data,);
+TestClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass(null:data.queryParams['null'].value()), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView({null null,})
- => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+ => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
 ''';
@@ -662,36 +662,36 @@ const kRouterWithParameterPathFalseQueryTrueIsPositionalTrue = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(data.queryParams['null'].value()), settings: data,);
+TestClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass(data.queryParams['null'].value()), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView({@required null null,})
- => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+ => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
 ''';
@@ -701,36 +701,36 @@ const kRouterWithParameterPathFalseQueryTrueIsRequiredTrue = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(null:data.queryParams['null'].value()), settings: data,);
+TestClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass(null:data.queryParams['null'].value()), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView({@required null null,})
- => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+ => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
 ''';
@@ -740,36 +740,36 @@ const kRouterWithParameterPathFalseQueryTrueIsRequiredTrueName = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(ebra:data.queryParams['ebra'].value()), settings: data,);
+TestClass: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass(ebra:data.queryParams['ebra'].value()), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView({null ebra,})
- => push(RoutesClassB.loginView,arguments: ebraClassArguments(ebra: ebra),);
+ => push(RoutesTestClassName.loginView,arguments: TestClassArguments(ebra: ebra),);
 
 }
 ''';
@@ -780,37 +780,37 @@ const kRouterWithParameterPathFalseQueryFalseType = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-var args = data.getArgs<ebraClassArguments>(
-orElse: ()=> ebraClassArguments(),);return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass(null:args.null), settings: data,);
+TestClass: (data) {
+var args = data.getArgs<TestClassArguments>(
+orElse: ()=> TestClassArguments(),);return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass(null:args.null), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView({newType null,})
- => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+ => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
 
@@ -818,10 +818,10 @@ Future pushLoginView({newType null,})
 /// Arguments holder classes
 /// *************************************************************************
 
-/// ebraClass arguments holder class
-class ebraClassArguments{
+/// TestClass arguments holder class
+class TestClassArguments{
 final newType null;
-ebraClassArguments({
+TestClassArguments({
 this.null});
 }
 ''';
@@ -831,36 +831,36 @@ const kRouterWithRetrunType = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<returnYpe>(builder: (context) =>   ebraClass(), settings: data,);
+TestClass: (data) {
+return MaterialPageRoute<returnYpe>(builder: (context) =>   TestClass(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future<returnYpe> pushLoginView()
- => push<returnYpe>(RoutesClassB.loginView);
+ => push<returnYpe>(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -870,36 +870,36 @@ const kRouterWithRetrunTypeCupertinoRoute = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return MaterialPageRoute<CupertinoRoute>(builder: (context) =>   ebraClass(), settings: data,);
+TestClass: (data) {
+return MaterialPageRoute<CupertinoRoute>(builder: (context) =>   TestClass(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future<<CupertinoRoute>> pushLoginView()
- => push<<CupertinoRoute>>(RoutesClassB.loginView);
+ => push<<CupertinoRoute>>(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -909,19 +909,19 @@ const kRouterWithNestedRouter = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView1 = 'pathNamaw1';
 static const all = <String>{
 loginView1,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView1
-,page: ebraClass1
+RouteDef(RoutesTestClassName.loginView1
+,page: TestClass1
 ,generator: LoginView1Router(),
 ),
 ];       @override
@@ -929,17 +929,17 @@ RouteDef(RoutesClassB.loginView1
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass1: (data) {
-return MaterialPageRoute<returnYpe1>(builder: (context) =>   ebraClass1(), settings: data,);
+TestClass1: (data) {
+return MaterialPageRoute<returnYpe1>(builder: (context) =>   TestClass1(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future<returnYpe1> pushLoginView1()
- => push<returnYpe1>(RoutesClassB.loginView1);
+ => push<returnYpe1>(RoutesTestClassName.loginView1);
 
 }
 class LoginView1Routes {
@@ -982,19 +982,19 @@ const kRouterWithMultipleNestedRouter = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView1 = 'pathNamaw1';
 static const all = <String>{
 loginView1,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView1
-,page: ebraClass1
+RouteDef(RoutesTestClassName.loginView1
+,page: TestClass1
 ,generator: LoginView1Router(),
 ),
 ];       @override
@@ -1002,17 +1002,17 @@ RouteDef(RoutesClassB.loginView1
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass1: (data) {
-return MaterialPageRoute<returnYpe1>(builder: (context) =>   ebraClass1(), settings: data,);
+TestClass1: (data) {
+return MaterialPageRoute<returnYpe1>(builder: (context) =>   TestClass1(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future<returnYpe1> pushLoginView1()
- => push<returnYpe1>(RoutesClassB.loginView1);
+ => push<returnYpe1>(RoutesTestClassName.loginView1);
 
 }
 class LoginView1Routes {
@@ -1088,19 +1088,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView2 = 'pathNamaw2';
 static const all = <String>{
 loginView2,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView2
-,page: ebraClass2
+RouteDef(RoutesTestClassName.loginView2
+,page: TestClass2
 ,generator: LoginView2Router(),
 ),
 ];       @override
@@ -1108,17 +1108,17 @@ RouteDef(RoutesClassB.loginView2
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass2: (data) {
-return MaterialPageRoute<returnYpe2>(builder: (context) =>   ebraClass2(), settings: data,);
+TestClass2: (data) {
+return MaterialPageRoute<returnYpe2>(builder: (context) =>   TestClass2(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future<returnYpe2> pushLoginView2()
- => push<returnYpe2>(RoutesClassB.loginView2);
+ => push<returnYpe2>(RoutesTestClassName.loginView2);
 
 }
 class LoginView2Routes {
@@ -1179,24 +1179,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView3 = 'pathNamaw3';
 static const String loginView4 = 'pathNamaw4';
 static const all = <String>{
 loginView3,loginView4,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView3
-,page: ebraClass3
+RouteDef(RoutesTestClassName.loginView3
+,page: TestClass3
 ,generator: LoginView3Router(),
 ),
-RouteDef(RoutesClassB.loginView4
-,page: ebraClass4
+RouteDef(RoutesTestClassName.loginView4
+,page: TestClass4
 ,generator: LoginView4Router(),
 ),
 ];       @override
@@ -1204,22 +1204,22 @@ RouteDef(RoutesClassB.loginView4
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass3: (data) {
-return MaterialPageRoute<returnYpe3>(builder: (context) =>   ebraClass3(), settings: data,);
-},ebraClass4: (data) {
-return buildAdaptivePageRoute<returnYpe4>(builder: (context) =>   ebraClass4(), settings: data,);
+TestClass3: (data) {
+return MaterialPageRoute<returnYpe3>(builder: (context) =>   TestClass3(), settings: data,);
+},TestClass4: (data) {
+return buildAdaptivePageRoute<returnYpe4>(builder: (context) =>   TestClass4(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future<returnYpe3> pushLoginView3()
- => push<returnYpe3>(RoutesClassB.loginView3);
+ => push<returnYpe3>(RoutesTestClassName.loginView3);
 
 Future<returnYpe4> pushLoginView4()
- => push<returnYpe4>(RoutesClassB.loginView4);
+ => push<returnYpe4>(RoutesTestClassName.loginView4);
 
 }
 class LoginView3Routes {
@@ -1330,36 +1330,36 @@ const kRouterTypeCupertinoWithNamePathNameClassName = '''
 import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return CupertinoPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
+TestClass: (data) {
+return CupertinoPageRoute<dynamic>(builder: (context) =>   TestClass(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -1370,36 +1370,36 @@ const kRouterTypeCupertinoWithCupertinoNavTitle = '''
 import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return CupertinoPageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,title:'cupertinoNavTitle',);
+TestClass: (data) {
+return CupertinoPageRoute<dynamic>(builder: (context) =>   TestClass(), settings: data,title:'cupertinoNavTitle',);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -1409,37 +1409,37 @@ const kRouterTypeCupertinoWithParametersPathFalseQueryFalse = '''
 import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-var args = data.getArgs<ebraClassArguments>(
-orElse: ()=> ebraClassArguments(),);return CupertinoPageRoute<dynamic>(builder: (context) =>   ebraClass(null:args.null), settings: data,);
+TestClass: (data) {
+var args = data.getArgs<TestClassArguments>(
+orElse: ()=> TestClassArguments(),);return CupertinoPageRoute<dynamic>(builder: (context) =>   TestClass(null:args.null), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView({null null,})
- => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+ => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
 
@@ -1447,10 +1447,10 @@ Future pushLoginView({null null,})
 /// Arguments holder classes
 /// *************************************************************************
 
-/// ebraClass arguments holder class
-class ebraClassArguments{
+/// TestClass arguments holder class
+class TestClassArguments{
 final null null;
-ebraClassArguments({
+TestClassArguments({
 this.null});
 }
 ''';
@@ -1459,36 +1459,36 @@ const kRouterTypeAdaptive = '''
 
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return buildAdaptivePageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,);
+TestClass: (data) {
+return buildAdaptivePageRoute<dynamic>(builder: (context) =>   TestClass(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -1497,36 +1497,36 @@ const kRouterTypeAdaptiveWithCupertinoNavTitle = '''
 
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return buildAdaptivePageRoute<dynamic>(builder: (context) =>   ebraClass(), settings: data,cupertinoTitle:'cupertinooo',);
+TestClass: (data) {
+return buildAdaptivePageRoute<dynamic>(builder: (context) =>   TestClass(), settings: data,cupertinoTitle:'cupertinooo',);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -1535,37 +1535,37 @@ const kRouterTypeAdaptiveWithParametersPathFalseQueryFalse = '''
 
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-var args = data.getArgs<ebraClassArguments>(
-orElse: ()=> ebraClassArguments(),);return buildAdaptivePageRoute<dynamic>(builder: (context) =>   ebraClass(null:args.null), settings: data,);
+TestClass: (data) {
+var args = data.getArgs<TestClassArguments>(
+orElse: ()=> TestClassArguments(),);return buildAdaptivePageRoute<dynamic>(builder: (context) =>   TestClass(null:args.null), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView({null null,})
- => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+ => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
 
@@ -1573,10 +1573,10 @@ Future pushLoginView({null null,})
 /// Arguments holder classes
 /// *************************************************************************
 
-/// ebraClass arguments holder class
-class ebraClassArguments{
+/// TestClass arguments holder class
+class TestClassArguments{
 final null null;
-ebraClassArguments({
+TestClassArguments({
 this.null});
 }
 ''';
@@ -1586,36 +1586,36 @@ const kRouterTypeCustom = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,);
+TestClass: (data) {
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -1625,36 +1625,36 @@ const kRouterTypeCustomWithbarrierDismissible = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,);
+TestClass: (data) {
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -1665,36 +1665,36 @@ const kRouterTypeCustomWithTransitionDuration = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,transitionDuration: const Duration(milliseconds: 22),);
+TestClass: (data) {
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,transitionDuration: const Duration(milliseconds: 22),);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -1704,36 +1704,36 @@ const kRouterTypeCustomWithReverseDurationInMilliseconds = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,reverseTransitionDuration: const Duration(milliseconds: 2),);
+TestClass: (data) {
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,reverseTransitionDuration: const Duration(milliseconds: 2),);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -1744,36 +1744,36 @@ const kRouterTypeCustomWithCustomRouteOpaqueFalse = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(), settings: data,opaque:false,);
+TestClass: (data) {
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,opaque:false,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
- => push(RoutesClassB.loginView);
+ => push(RoutesTestClassName.loginView);
 
 }
 ''';
@@ -1784,37 +1784,37 @@ const kRouterTypeCustomWithParametersPathFalseQueryFalse = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-var args = data.getArgs<ebraClassArguments>(
-orElse: ()=> ebraClassArguments(),);return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(null:args.null), settings: data,);
+TestClass: (data) {
+var args = data.getArgs<TestClassArguments>(
+orElse: ()=> TestClassArguments(),);return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(null:args.null), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView({null null,})
- => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+ => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
 
@@ -1822,10 +1822,10 @@ Future pushLoginView({null null,})
 /// Arguments holder classes
 /// *************************************************************************
 
-/// ebraClass arguments holder class
-class ebraClassArguments{
+/// TestClass arguments holder class
+class TestClassArguments{
 final null null;
-ebraClassArguments({
+TestClassArguments({
 this.null});
 }
 ''';
@@ -1835,36 +1835,36 @@ const kRouterTypeCustomWithParametersPathFalseQueryTrue = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
 static const all = <String>{
 loginView,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView
-,page: ebraClass
+RouteDef(RoutesTestClassName.loginView
+,page: TestClass
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass(null:data.queryParams['null'].value()), settings: data,);
+TestClass: (data) {
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(null:data.queryParams['null'].value()), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView({null null,})
- => push(RoutesClassB.loginView,arguments: ebraClassArguments(null: null),);
+ => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
 ''';
@@ -1875,7 +1875,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class RoutesClassB {
+class RoutesTestClassName {
 static const String loginView1 = 'pathNamaw1';
 static const String loginView2 = 'pathNamaw2';
 static const String loginView3 = 'pathNamaw3';
@@ -1885,72 +1885,72 @@ static const String loginView6 = 'pathNamaw6';
 static const all = <String>{
 loginView1,loginView2,loginView3,loginView4,loginView5,loginView6,};}
 
-class RouterNamee extends RouterBase {
+class RouterTestClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
      
 
-RouteDef(RoutesClassB.loginView1
-,page: ebraClass1
+RouteDef(RoutesTestClassName.loginView1
+,page: TestClass1
 ),
-RouteDef(RoutesClassB.loginView2
-,page: ebraClass2
+RouteDef(RoutesTestClassName.loginView2
+,page: TestClass2
 ),
-RouteDef(RoutesClassB.loginView3
-,page: ebraClass3
+RouteDef(RoutesTestClassName.loginView3
+,page: TestClass3
 ),
-RouteDef(RoutesClassB.loginView4
-,page: ebraClass4
+RouteDef(RoutesTestClassName.loginView4
+,page: TestClass4
 ),
-RouteDef(RoutesClassB.loginView5
-,page: ebraClass5
+RouteDef(RoutesTestClassName.loginView5
+,page: TestClass5
 ),
-RouteDef(RoutesClassB.loginView6
-,page: ebraClass6
+RouteDef(RoutesTestClassName.loginView6
+,page: TestClass6
 ),
 ];       @override
        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
         final _pagesMap = <Type, StackedRouteFactory>{
         
 
-ebraClass1: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   ebraClass1(), settings: data,transitionDuration: const Duration(milliseconds: 22),reverseTransitionDuration: const Duration(milliseconds: 2),);
-},ebraClass2: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass2(null:data.queryParams['null'].value()), settings: data,);
-},ebraClass3: (data) {
-var args = data.getArgs<ebraClass3Arguments>(
-orElse: ()=> ebraClass3Arguments(),);return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass3(null:args.null), settings: data,);
-},ebraClass4: (data) {
-return MaterialPageRoute<dynamic>(builder: (context) =>   ebraClass4(), settings: data,maintainState:false,);
-},ebraClass5: (data) {
-return buildAdaptivePageRoute<dynamic>(builder: (context) =>   ebraClass5(), settings: data,cupertinoTitle:'cupertinooo',);
-},ebraClass6: (data) {
-return CupertinoPageRoute<dynamic>(builder: (context) =>   ebraClass6(), settings: data,);
+TestClass1: (data) {
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass1(), settings: data,transitionDuration: const Duration(milliseconds: 22),reverseTransitionDuration: const Duration(milliseconds: 2),);
+},TestClass2: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass2(null:data.queryParams['null'].value()), settings: data,);
+},TestClass3: (data) {
+var args = data.getArgs<TestClass3Arguments>(
+orElse: ()=> TestClass3Arguments(),);return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass3(null:args.null), settings: data,);
+},TestClass4: (data) {
+return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass4(), settings: data,maintainState:false,);
+},TestClass5: (data) {
+return buildAdaptivePageRoute<dynamic>(builder: (context) =>   TestClass5(), settings: data,cupertinoTitle:'cupertinooo',);
+},TestClass6: (data) {
+return CupertinoPageRoute<dynamic>(builder: (context) =>   TestClass6(), settings: data,);
 },};}
 
 /// ************************************************************************
 /// Navigation helper methods extension
 /// *************************************************************************
 
-extension RouterNameeExtendedNavigatorStateX on ExtendedNavigatorState {
+extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView1()
- => push(RoutesClassB.loginView1);
+ => push(RoutesTestClassName.loginView1);
 
 Future pushLoginView2({null null,})
- => push(RoutesClassB.loginView2,arguments: ebraClass2Arguments(null: null),);
+ => push(RoutesTestClassName.loginView2,arguments: TestClass2Arguments(null: null),);
 
 Future pushLoginView3({null null,})
- => push(RoutesClassB.loginView3,arguments: ebraClass3Arguments(null: null),);
+ => push(RoutesTestClassName.loginView3,arguments: TestClass3Arguments(null: null),);
 
 Future pushLoginView4()
- => push(RoutesClassB.loginView4);
+ => push(RoutesTestClassName.loginView4);
 
 Future pushLoginView5()
- => push(RoutesClassB.loginView5);
+ => push(RoutesTestClassName.loginView5);
 
 Future pushLoginView6()
- => push(RoutesClassB.loginView6);
+ => push(RoutesTestClassName.loginView6);
 
 }
 
@@ -1958,10 +1958,10 @@ Future pushLoginView6()
 /// Arguments holder classes
 /// *************************************************************************
 
-/// ebraClass3 arguments holder class
-class ebraClass3Arguments{
+/// TestClass3 arguments holder class
+class TestClass3Arguments{
 final null null;
-ebraClass3Arguments({
+TestClass3Arguments({
 this.null});
 }
 ''';
