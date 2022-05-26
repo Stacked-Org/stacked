@@ -13,8 +13,8 @@ class CustomRouteConfig extends RouteConfig {
   final List<RouteParamConfig> parameters;
   final List<RouteGuardConfig> guards;
   final bool hasWrapper;
-  final bool hasConstConstructor;
   final List<RouteConfig> children;
+  final bool hasConstConstructor;
   final Set<String> imports;
 
   final int? durationInMilliseconds;
@@ -94,12 +94,6 @@ class CustomRouteConfig extends RouteConfig {
   }
 
   CustomRouteConfig copyWith({
-    int? durationInMilliseconds,
-    int? reverseDurationInMilliseconds,
-    bool? customRouteOpaque,
-    bool? customRouteBarrierDismissible,
-    CustomTransitionBuilder? transitionBuilder,
-    String? cupertinoNavTitle,
     String? name,
     String? pathName,
     String? className,
@@ -109,19 +103,16 @@ class CustomRouteConfig extends RouteConfig {
     List<RouteParamConfig>? parameters,
     List<RouteGuardConfig>? guards,
     bool? hasWrapper,
-    bool? hasConstConstructor,
     List<RouteConfig>? children,
+    bool? hasConstConstructor,
     Set<String>? imports,
+    int? durationInMilliseconds,
+    int? reverseDurationInMilliseconds,
+    bool? customRouteOpaque,
+    bool? customRouteBarrierDismissible,
+    CustomTransitionBuilder? transitionBuilder,
   }) {
     return CustomRouteConfig(
-      durationInMilliseconds:
-          durationInMilliseconds ?? this.durationInMilliseconds,
-      reverseDurationInMilliseconds:
-          reverseDurationInMilliseconds ?? this.reverseDurationInMilliseconds,
-      customRouteOpaque: customRouteOpaque ?? this.customRouteOpaque,
-      customRouteBarrierDismissible:
-          customRouteBarrierDismissible ?? this.customRouteBarrierDismissible,
-      transitionBuilder: transitionBuilder ?? this.transitionBuilder,
       name: name ?? this.name,
       pathName: pathName ?? this.pathName,
       className: className ?? this.className,
@@ -131,9 +122,17 @@ class CustomRouteConfig extends RouteConfig {
       parameters: parameters ?? this.parameters,
       guards: guards ?? this.guards,
       hasWrapper: hasWrapper ?? this.hasWrapper,
-      hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
       children: children ?? this.children,
+      hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
       imports: imports ?? this.imports,
+      durationInMilliseconds:
+          durationInMilliseconds ?? this.durationInMilliseconds,
+      reverseDurationInMilliseconds:
+          reverseDurationInMilliseconds ?? this.reverseDurationInMilliseconds,
+      customRouteOpaque: customRouteOpaque ?? this.customRouteOpaque,
+      customRouteBarrierDismissible:
+          customRouteBarrierDismissible ?? this.customRouteBarrierDismissible,
+      transitionBuilder: transitionBuilder ?? this.transitionBuilder,
     );
   }
 }
