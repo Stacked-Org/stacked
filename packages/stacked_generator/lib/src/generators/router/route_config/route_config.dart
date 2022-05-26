@@ -204,7 +204,7 @@ class RouteConfig {
             stackedRoute.peek('durationInMilliseconds')?.intValue,
         reverseDurationInMilliseconds:
             stackedRoute.peek('reverseDurationInMilliseconds')?.intValue,
-        customRouteOpaque: stackedRoute.peek('opaque')?.boolValue ?? false,
+        customRouteOpaque: stackedRoute.peek('opaque')?.boolValue ?? true,
         customRouteBarrierDismissible:
             stackedRoute.peek('barrierDismissible')?.boolValue ?? false,
       );
