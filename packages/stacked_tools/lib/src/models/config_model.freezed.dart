@@ -23,21 +23,25 @@ class _$ConfigTearOff {
   const _$ConfigTearOff();
 
   _Config call(
-      {String stackedAppPath = 'lib/app/app.dart',
-      String viewPath = 'lib/ui/views',
-      String viewTestsPath = 'test/viewmodel',
-      String servicePath = 'lib/services',
-      String serviceTestsPath = 'test/service',
-      String testHelpersPath = 'test/helpers',
-      String testMocksPath = 'test/helpers'}) {
+      {@JsonKey(name: 'views_path')
+          String viewsPath = 'lib/ui/views',
+      @JsonKey(name: 'services_path')
+          String servicesPath = 'lib/services',
+      @JsonKey(name: 'stacked_app_path')
+          String stackedAppPath = 'lib/app/app.dart',
+      @JsonKey(name: 'test_helpers_path')
+          String testHelpersPath = 'test/helpers',
+      @JsonKey(name: 'test_services_path')
+          String testServicesPath = 'test/services',
+      @JsonKey(name: 'test_views_path')
+          String testViewsPath = 'test/viewmodels'}) {
     return _Config(
+      viewsPath: viewsPath,
+      servicesPath: servicesPath,
       stackedAppPath: stackedAppPath,
-      viewPath: viewPath,
-      viewTestsPath: viewTestsPath,
-      servicePath: servicePath,
-      serviceTestsPath: serviceTestsPath,
       testHelpersPath: testHelpersPath,
-      testMocksPath: testMocksPath,
+      testServicesPath: testServicesPath,
+      testViewsPath: testViewsPath,
     );
   }
 
@@ -51,27 +55,30 @@ const $Config = _$ConfigTearOff();
 
 /// @nodoc
 mixin _$Config {
-  /// Path of the file where StackedApp is setup.
+  /// Relative path where views and viewmodels will be genereated.
+  @JsonKey(name: 'views_path')
+  String get viewsPath => throw _privateConstructorUsedError;
+
+  /// Relative path where services will be genereated.
+  @JsonKey(name: 'services_path')
+  String get servicesPath => throw _privateConstructorUsedError;
+
+  /// Relative path of the file where StackedApp is setup.
+  @JsonKey(name: 'stacked_app_path')
   String get stackedAppPath => throw _privateConstructorUsedError;
 
-  /// Path where views and viewmodels will be genereated.
-  String get viewPath => throw _privateConstructorUsedError;
-
-  /// Path where viewmodels unit tests will be genereated.
-  String get viewTestsPath => throw _privateConstructorUsedError;
-
-  /// Path where services will be genereated.
-  String get servicePath => throw _privateConstructorUsedError;
-
-  /// Path where services unit tests will be genereated.
-  String get serviceTestsPath => throw _privateConstructorUsedError;
-
-  /// Path for test helper file that contains the register functions for unit
-  /// test setup.
+  /// Relative path for test helper file that contains the register functions
+  /// for unit test setup and mock declarations.
+  @JsonKey(name: 'test_helpers_path')
   String get testHelpersPath => throw _privateConstructorUsedError;
 
-  /// Path for mock declarations.
-  String get testMocksPath => throw _privateConstructorUsedError;
+  /// Relative Paths where services unit tests will be genereated.
+  @JsonKey(name: 'test_services_path')
+  String get testServicesPath => throw _privateConstructorUsedError;
+
+  /// Relative path where viewmodels unit tests will be genereated.
+  @JsonKey(name: 'test_views_path')
+  String get testViewsPath => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -83,13 +90,12 @@ abstract class $ConfigCopyWith<$Res> {
   factory $ConfigCopyWith(Config value, $Res Function(Config) then) =
       _$ConfigCopyWithImpl<$Res>;
   $Res call(
-      {String stackedAppPath,
-      String viewPath,
-      String viewTestsPath,
-      String servicePath,
-      String serviceTestsPath,
-      String testHelpersPath,
-      String testMocksPath});
+      {@JsonKey(name: 'views_path') String viewsPath,
+      @JsonKey(name: 'services_path') String servicesPath,
+      @JsonKey(name: 'stacked_app_path') String stackedAppPath,
+      @JsonKey(name: 'test_helpers_path') String testHelpersPath,
+      @JsonKey(name: 'test_services_path') String testServicesPath,
+      @JsonKey(name: 'test_views_path') String testViewsPath});
 }
 
 /// @nodoc
@@ -102,42 +108,37 @@ class _$ConfigCopyWithImpl<$Res> implements $ConfigCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? viewsPath = freezed,
+    Object? servicesPath = freezed,
     Object? stackedAppPath = freezed,
-    Object? viewPath = freezed,
-    Object? viewTestsPath = freezed,
-    Object? servicePath = freezed,
-    Object? serviceTestsPath = freezed,
     Object? testHelpersPath = freezed,
-    Object? testMocksPath = freezed,
+    Object? testServicesPath = freezed,
+    Object? testViewsPath = freezed,
   }) {
     return _then(_value.copyWith(
+      viewsPath: viewsPath == freezed
+          ? _value.viewsPath
+          : viewsPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      servicesPath: servicesPath == freezed
+          ? _value.servicesPath
+          : servicesPath // ignore: cast_nullable_to_non_nullable
+              as String,
       stackedAppPath: stackedAppPath == freezed
           ? _value.stackedAppPath
           : stackedAppPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      viewPath: viewPath == freezed
-          ? _value.viewPath
-          : viewPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      viewTestsPath: viewTestsPath == freezed
-          ? _value.viewTestsPath
-          : viewTestsPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      servicePath: servicePath == freezed
-          ? _value.servicePath
-          : servicePath // ignore: cast_nullable_to_non_nullable
-              as String,
-      serviceTestsPath: serviceTestsPath == freezed
-          ? _value.serviceTestsPath
-          : serviceTestsPath // ignore: cast_nullable_to_non_nullable
               as String,
       testHelpersPath: testHelpersPath == freezed
           ? _value.testHelpersPath
           : testHelpersPath // ignore: cast_nullable_to_non_nullable
               as String,
-      testMocksPath: testMocksPath == freezed
-          ? _value.testMocksPath
-          : testMocksPath // ignore: cast_nullable_to_non_nullable
+      testServicesPath: testServicesPath == freezed
+          ? _value.testServicesPath
+          : testServicesPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      testViewsPath: testViewsPath == freezed
+          ? _value.testViewsPath
+          : testViewsPath // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -149,13 +150,12 @@ abstract class _$ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
       __$ConfigCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String stackedAppPath,
-      String viewPath,
-      String viewTestsPath,
-      String servicePath,
-      String serviceTestsPath,
-      String testHelpersPath,
-      String testMocksPath});
+      {@JsonKey(name: 'views_path') String viewsPath,
+      @JsonKey(name: 'services_path') String servicesPath,
+      @JsonKey(name: 'stacked_app_path') String stackedAppPath,
+      @JsonKey(name: 'test_helpers_path') String testHelpersPath,
+      @JsonKey(name: 'test_services_path') String testServicesPath,
+      @JsonKey(name: 'test_views_path') String testViewsPath});
 }
 
 /// @nodoc
@@ -169,42 +169,37 @@ class __$ConfigCopyWithImpl<$Res> extends _$ConfigCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? viewsPath = freezed,
+    Object? servicesPath = freezed,
     Object? stackedAppPath = freezed,
-    Object? viewPath = freezed,
-    Object? viewTestsPath = freezed,
-    Object? servicePath = freezed,
-    Object? serviceTestsPath = freezed,
     Object? testHelpersPath = freezed,
-    Object? testMocksPath = freezed,
+    Object? testServicesPath = freezed,
+    Object? testViewsPath = freezed,
   }) {
     return _then(_Config(
+      viewsPath: viewsPath == freezed
+          ? _value.viewsPath
+          : viewsPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      servicesPath: servicesPath == freezed
+          ? _value.servicesPath
+          : servicesPath // ignore: cast_nullable_to_non_nullable
+              as String,
       stackedAppPath: stackedAppPath == freezed
           ? _value.stackedAppPath
           : stackedAppPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      viewPath: viewPath == freezed
-          ? _value.viewPath
-          : viewPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      viewTestsPath: viewTestsPath == freezed
-          ? _value.viewTestsPath
-          : viewTestsPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      servicePath: servicePath == freezed
-          ? _value.servicePath
-          : servicePath // ignore: cast_nullable_to_non_nullable
-              as String,
-      serviceTestsPath: serviceTestsPath == freezed
-          ? _value.serviceTestsPath
-          : serviceTestsPath // ignore: cast_nullable_to_non_nullable
               as String,
       testHelpersPath: testHelpersPath == freezed
           ? _value.testHelpersPath
           : testHelpersPath // ignore: cast_nullable_to_non_nullable
               as String,
-      testMocksPath: testMocksPath == freezed
-          ? _value.testMocksPath
-          : testMocksPath // ignore: cast_nullable_to_non_nullable
+      testServicesPath: testServicesPath == freezed
+          ? _value.testServicesPath
+          : testServicesPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      testViewsPath: testViewsPath == freezed
+          ? _value.testViewsPath
+          : testViewsPath // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -214,57 +209,57 @@ class __$ConfigCopyWithImpl<$Res> extends _$ConfigCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Config implements _Config {
   _$_Config(
-      {this.stackedAppPath = 'lib/app/app.dart',
-      this.viewPath = 'lib/ui/views',
-      this.viewTestsPath = 'test/viewmodel',
-      this.servicePath = 'lib/services',
-      this.serviceTestsPath = 'test/service',
-      this.testHelpersPath = 'test/helpers',
-      this.testMocksPath = 'test/helpers'});
+      {@JsonKey(name: 'views_path')
+          this.viewsPath = 'lib/ui/views',
+      @JsonKey(name: 'services_path')
+          this.servicesPath = 'lib/services',
+      @JsonKey(name: 'stacked_app_path')
+          this.stackedAppPath = 'lib/app/app.dart',
+      @JsonKey(name: 'test_helpers_path')
+          this.testHelpersPath = 'test/helpers',
+      @JsonKey(name: 'test_services_path')
+          this.testServicesPath = 'test/services',
+      @JsonKey(name: 'test_views_path')
+          this.testViewsPath = 'test/viewmodels'});
 
   factory _$_Config.fromJson(Map<String, dynamic> json) =>
       _$$_ConfigFromJson(json);
 
-  @JsonKey()
   @override
 
-  /// Path of the file where StackedApp is setup.
+  /// Relative path where views and viewmodels will be genereated.
+  @JsonKey(name: 'views_path')
+  final String viewsPath;
+  @override
+
+  /// Relative path where services will be genereated.
+  @JsonKey(name: 'services_path')
+  final String servicesPath;
+  @override
+
+  /// Relative path of the file where StackedApp is setup.
+  @JsonKey(name: 'stacked_app_path')
   final String stackedAppPath;
-  @JsonKey()
   @override
 
-  /// Path where views and viewmodels will be genereated.
-  final String viewPath;
-  @JsonKey()
-  @override
-
-  /// Path where viewmodels unit tests will be genereated.
-  final String viewTestsPath;
-  @JsonKey()
-  @override
-
-  /// Path where services will be genereated.
-  final String servicePath;
-  @JsonKey()
-  @override
-
-  /// Path where services unit tests will be genereated.
-  final String serviceTestsPath;
-  @JsonKey()
-  @override
-
-  /// Path for test helper file that contains the register functions for unit
-  /// test setup.
+  /// Relative path for test helper file that contains the register functions
+  /// for unit test setup and mock declarations.
+  @JsonKey(name: 'test_helpers_path')
   final String testHelpersPath;
-  @JsonKey()
   @override
 
-  /// Path for mock declarations.
-  final String testMocksPath;
+  /// Relative Paths where services unit tests will be genereated.
+  @JsonKey(name: 'test_services_path')
+  final String testServicesPath;
+  @override
+
+  /// Relative path where viewmodels unit tests will be genereated.
+  @JsonKey(name: 'test_views_path')
+  final String testViewsPath;
 
   @override
   String toString() {
-    return 'Config(stackedAppPath: $stackedAppPath, viewPath: $viewPath, viewTestsPath: $viewTestsPath, servicePath: $servicePath, serviceTestsPath: $serviceTestsPath, testHelpersPath: $testHelpersPath, testMocksPath: $testMocksPath)';
+    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, stackedAppPath: $stackedAppPath, testHelpersPath: $testHelpersPath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath)';
   }
 
   @override
@@ -272,31 +267,28 @@ class _$_Config implements _Config {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Config &&
+            const DeepCollectionEquality().equals(other.viewsPath, viewsPath) &&
+            const DeepCollectionEquality()
+                .equals(other.servicesPath, servicesPath) &&
             const DeepCollectionEquality()
                 .equals(other.stackedAppPath, stackedAppPath) &&
-            const DeepCollectionEquality().equals(other.viewPath, viewPath) &&
-            const DeepCollectionEquality()
-                .equals(other.viewTestsPath, viewTestsPath) &&
-            const DeepCollectionEquality()
-                .equals(other.servicePath, servicePath) &&
-            const DeepCollectionEquality()
-                .equals(other.serviceTestsPath, serviceTestsPath) &&
             const DeepCollectionEquality()
                 .equals(other.testHelpersPath, testHelpersPath) &&
             const DeepCollectionEquality()
-                .equals(other.testMocksPath, testMocksPath));
+                .equals(other.testServicesPath, testServicesPath) &&
+            const DeepCollectionEquality()
+                .equals(other.testViewsPath, testViewsPath));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(viewsPath),
+      const DeepCollectionEquality().hash(servicesPath),
       const DeepCollectionEquality().hash(stackedAppPath),
-      const DeepCollectionEquality().hash(viewPath),
-      const DeepCollectionEquality().hash(viewTestsPath),
-      const DeepCollectionEquality().hash(servicePath),
-      const DeepCollectionEquality().hash(serviceTestsPath),
       const DeepCollectionEquality().hash(testHelpersPath),
-      const DeepCollectionEquality().hash(testMocksPath));
+      const DeepCollectionEquality().hash(testServicesPath),
+      const DeepCollectionEquality().hash(testViewsPath));
 
   @JsonKey(ignore: true)
   @override
@@ -311,45 +303,46 @@ class _$_Config implements _Config {
 
 abstract class _Config implements Config {
   factory _Config(
-      {String stackedAppPath,
-      String viewPath,
-      String viewTestsPath,
-      String servicePath,
-      String serviceTestsPath,
-      String testHelpersPath,
-      String testMocksPath}) = _$_Config;
+      {@JsonKey(name: 'views_path') String viewsPath,
+      @JsonKey(name: 'services_path') String servicesPath,
+      @JsonKey(name: 'stacked_app_path') String stackedAppPath,
+      @JsonKey(name: 'test_helpers_path') String testHelpersPath,
+      @JsonKey(name: 'test_services_path') String testServicesPath,
+      @JsonKey(name: 'test_views_path') String testViewsPath}) = _$_Config;
 
   factory _Config.fromJson(Map<String, dynamic> json) = _$_Config.fromJson;
 
   @override
 
-  /// Path of the file where StackedApp is setup.
+  /// Relative path where views and viewmodels will be genereated.
+  @JsonKey(name: 'views_path')
+  String get viewsPath;
+  @override
+
+  /// Relative path where services will be genereated.
+  @JsonKey(name: 'services_path')
+  String get servicesPath;
+  @override
+
+  /// Relative path of the file where StackedApp is setup.
+  @JsonKey(name: 'stacked_app_path')
   String get stackedAppPath;
   @override
 
-  /// Path where views and viewmodels will be genereated.
-  String get viewPath;
-  @override
-
-  /// Path where viewmodels unit tests will be genereated.
-  String get viewTestsPath;
-  @override
-
-  /// Path where services will be genereated.
-  String get servicePath;
-  @override
-
-  /// Path where services unit tests will be genereated.
-  String get serviceTestsPath;
-  @override
-
-  /// Path for test helper file that contains the register functions for unit
-  /// test setup.
+  /// Relative path for test helper file that contains the register functions
+  /// for unit test setup and mock declarations.
+  @JsonKey(name: 'test_helpers_path')
   String get testHelpersPath;
   @override
 
-  /// Path for mock declarations.
-  String get testMocksPath;
+  /// Relative Paths where services unit tests will be genereated.
+  @JsonKey(name: 'test_services_path')
+  String get testServicesPath;
+  @override
+
+  /// Relative path where viewmodels unit tests will be genereated.
+  @JsonKey(name: 'test_views_path')
+  String get testViewsPath;
   @override
   @JsonKey(ignore: true)
   _$ConfigCopyWith<_Config> get copyWith => throw _privateConstructorUsedError;
