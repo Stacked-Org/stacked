@@ -1,3 +1,5 @@
+## 0.8.24
+- Flutter v3 compatibility 
 ## 0.8.22+2
 - Update documentation.
 ## 0.8.22+1
