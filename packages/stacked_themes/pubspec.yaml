@@ -10,8 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  stacked_core:
-
+  stacked_core: ^1.1.0
   provider: ^6.0.0
   rxdart: ^0.27.1
   shared_preferences: ^2.0.6

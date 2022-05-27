@@ -12,7 +12,7 @@ dependencies:
 
   devicelocale: ^0.3.1
   get_it: ^7.1.4
-  stacked_core: 
+  stacked_core: ^1.1.0
 
 dependency_overrides:
   stacked_core:
