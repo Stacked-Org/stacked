@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_core/stacked_core.dart' as sc;
 import 'package:stacked_services/src/exceptions/custom_snackbar_exception.dart';
 import 'package:stacked_services/src/snackbar/snackbar_config.dart';
 import 'stacked_snackbar_customizations.dart';
@@ -176,22 +176,27 @@ class SnackbarService {
           ? Text(
               title,
               key: Key('snackbar_text_title'),
-              style: snackbarConfig.titleTextStyle ?? titleTextStyle ?? TextStyle(
-                color: snackbarConfig.titleColor ?? snackbarConfig.textColor,
-                fontWeight: FontWeight.w800,
-                fontSize: 16,
-              ),
+              style: snackbarConfig.titleTextStyle ??
+                  titleTextStyle ??
+                  TextStyle(
+                    color:
+                        snackbarConfig.titleColor ?? snackbarConfig.textColor,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 16,
+                  ),
               textAlign: snackbarConfig.titleTextAlign,
             )
           : snackbarConfig.titleText ?? null,
       messageText: Text(
         message,
         key: Key('snackbar_text_message'),
-        style: snackbarConfig.messageTextStyle ?? messageTextStyle ?? TextStyle(
-          color: snackbarConfig.messageColor ?? snackbarConfig.textColor,
-          fontWeight: FontWeight.w300,
-          fontSize: 14,
-        ),
+        style: snackbarConfig.messageTextStyle ??
+            messageTextStyle ??
+            TextStyle(
+              color: snackbarConfig.messageColor ?? snackbarConfig.textColor,
+              fontWeight: FontWeight.w300,
+              fontSize: 14,
+            ),
         textAlign: snackbarConfig.messageTextAlign,
       ),
       icon: snackbarConfig.icon,
@@ -231,7 +236,7 @@ class SnackbarService {
       return getBar.show();
     } else {
       Completer completer = new Completer();
-      ambiguate(WidgetsBinding.instance)!.addPostFrameCallback((_) async {
+      sc.ambiguate(WidgetsBinding.instance)!.addPostFrameCallback((_) async {
         final result = await getBar.show();
         completer.complete(result);
       });
