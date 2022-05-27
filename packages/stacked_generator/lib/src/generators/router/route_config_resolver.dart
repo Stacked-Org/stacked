@@ -1,20 +1,25 @@
 import 'package:analyzer/dart/element/element.dart';
-import 'package:stacked_core/stacked_core.dart';
-import 'package:stacked_generator/import_resolver.dart';
-import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:source_gen/source_gen.dart';
+import 'package:stacked_core/stacked_core.dart';
+
+import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/utils.dart';
 
-import 'router_config/router_config.dart';
+import 'models/route_guard_config.dart';
+import 'models/route_parameter_config.dart';
+import 'route_config/route_config.dart';
 
 const TypeChecker stackedRouteChecker = TypeChecker.fromRuntime(StackedRoute);
 
 // extracts route configs from class fields
 class RouteConfigResolver {
-  final RouterConfig _routerConfig;
+  final String? routeNamePrefex;
   final ImportResolver _importResolver;
 
-  const RouteConfigResolver(this._routerConfig, this._importResolver);
+  const RouteConfigResolver(
+    this.routeNamePrefex,
+    this._importResolver,
+  );
 
   Future<RouteConfig> resolve(ConstantReader stackedRoute) async {
     final dartType = stackedRoute.read('page').typeValue;
@@ -46,7 +51,7 @@ class RouteConfigResolver {
       if (stackedRoute.peek('initial')?.boolValue == true) {
         pathName = '/';
       } else {
-        pathName = '${_routerConfig.routeNamePrefix}${toKababCase(className)}';
+        pathName = '${routeNamePrefex}${toKababCase(className)}';
       }
     }
 

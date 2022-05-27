@@ -1,7 +1,6 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
-import 'package:stacked_generator/utils.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'router_config.dart';
@@ -19,7 +18,7 @@ class RouterConfigResolver {
     final routesClassName =
         stackedApp.peek('routesClassName')?.stringValue ?? 'Routes';
 
-    final stackedRoutes = stackedApp.read('routes').listValue;
+    final nestedRoutes = stackedApp.read('routes').listValue;
 
     var routerConfig = RouterConfig(
       routerClassName: 'StackedRouter',
@@ -28,7 +27,7 @@ class RouterConfigResolver {
       generateNavigationHelper: generateNavigationExt,
     );
 
-    final routes = await _resolveRoutes(routerConfig, stackedRoutes);
+    final routes = await _resolveRoutes(routerConfig, nestedRoutes);
     return routerConfig.copyWith(routes: routes);
   }
 
@@ -36,22 +35,22 @@ class RouterConfigResolver {
     RouterConfig routerConfig,
     List<DartObject> routesList,
   ) async {
-    final List<RouteConfig> routes = [];
+    final List<RouteConfig> allRoutes = [];
 
     for (var routeDartObject in routesList) {
       final routeReader = ConstantReader(routeDartObject);
-
-      final route = await RouteConfigResolver(routerConfig, _importResolver)
+      var route = await RouteConfigResolver(
+              routerConfig.routeNamePrefix, _importResolver)
           .resolve(routeReader);
 
-      routes.add(route);
-
       final children = routeReader.peek('children')?.listValue;
+
       if (children?.isNotEmpty ?? false) {
-        final routes = await _resolveRoutes(routerConfig, children!);
-        route.copyWith(children: routes);
+        final childrenRoutes = await _resolveRoutes(routerConfig, children!);
+        route = route.copyWith(children: childrenRoutes);
       }
+      allRoutes.add(route);
     }
-    return routes;
+    return allRoutes;
   }
 }

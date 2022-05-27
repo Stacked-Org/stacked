@@ -29,6 +29,9 @@
 .pub/
 build/
 
+# Dependency releated
+pubspec_overrides.yaml
+
 # Android related
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
