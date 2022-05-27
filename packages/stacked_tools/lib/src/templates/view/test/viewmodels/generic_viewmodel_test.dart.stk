@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:{{packageName}}/app/app.locator.dart';
 
-import '../helpers/test_helpers.dart';
+import '{{{viewTestHelpersImportPath}}}/test_helpers.dart';
 
 void main() {
-  group('{{serviceName}}ServiceTest -', () {
+  group('{{viewModelName}} Tests -', () {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
   });

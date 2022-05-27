@@ -2,7 +2,7 @@
   "description": "When a service is created a mock should be added, this mock type should be imported as well.",
   "path": "test/helpers/test_helpers.dart",
   "identifier": "// @stacked-import",
-  "template": "import \\'package:{{packageName}}/services/{{serviceFilename}}\\';",
+  "template": "import \\'package:{{packageName}}/{{{serviceImportPath}}}/{{serviceFilename}}\\';",
   "error": "The test mocks and helpers should be stored in test/helpers/test_helpers.dart",
   "name": "Add {{serviceName}} import to test helpers"
 }
