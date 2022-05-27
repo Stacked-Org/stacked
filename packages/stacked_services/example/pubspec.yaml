@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: ">=2.12.1 <3.0.0"
 
 dependencies:
   flutter:
@@ -22,11 +22,11 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
-  get_it: 
-  injectable:
-  stacked:
-  stacked_services:
+  cupertino_icons: ^1.0.4
+  get_it: ^7.2.0 
+  injectable: ^1.5.3
+  stacked: ^2.3.7
+  stacked_services: ^0.8.24
   
 dependency_overrides: 
   stacked:
@@ -37,8 +37,8 @@ dependency_overrides:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  stacked_generator:
-  build_runner:
+  stacked_generator: ^0.6.5
+  build_runner: ^2.1.11
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

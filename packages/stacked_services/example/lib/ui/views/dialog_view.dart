@@ -6,7 +6,7 @@ import 'package:stacked_services/stacked_services.dart';
 import '../../enums/dialog_type.dart';
 
 class DialogView extends StatelessWidget {
-  DialogView({Key key}) : super(key: key);
+  DialogView({Key? key}) : super(key: key);
 
   final DialogService _dialogService = locator<DialogService>();
 
@@ -122,7 +122,7 @@ class DialogView extends StatelessWidget {
                     data: GenericDialogRequest(),
                   );
 
-                  print(response.data.message);
+                  print(response?.data?.message??'');
                 },
                 child: Text(
                   'Show Generic Dialog',

@@ -122,7 +122,7 @@ void setupDialogUi() {
 class _BasicDialog extends StatelessWidget {
   final DialogRequest request;
   final Function(DialogResponse) completer;
-  const _BasicDialog({Key key, this.request, this.completer}) : super(key: key);
+  const _BasicDialog({Key? key, this.request, this.completer}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +135,7 @@ class _BasicDialog extends StatelessWidget {
 class _FormDialog extends StatelessWidget {
   final DialogRequest request;
   final Function(DialogResponse) completer;
-  const _FormDialog({Key key, this.request, this.completer}) : super(key: key);
+  const _FormDialog({Key? key, this.request, this.completer}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -455,7 +455,7 @@ class _FloatingBoxBottomSheet extends StatelessWidget {
   final SheetRequest request;
   final Function(SheetResponse) completer;
   const _FloatingBoxBottomSheet({
-    Key key,
+    Key? key,
     this.request,
     this.completer,
   }) : super(key: key);

@@ -23,7 +23,7 @@ void setupDialogUi() {
 class _BasicDialog extends StatelessWidget {
   final DialogRequest request;
   final Function(DialogResponse) completer;
-  const _BasicDialog({Key key, this.request, this.completer}) : super(key: key);
+  const _BasicDialog({Key? key, required this.request, required this.completer}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +39,14 @@ class _BasicDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-              request.title,
+              request.title??'',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
             ),
             SizedBox(
               height: 10,
             ),
             Text(
-              request.description,
+              request.description??'',
               style: TextStyle(
                 fontSize: 18,
               ),
@@ -58,9 +58,9 @@ class _BasicDialog extends StatelessWidget {
             GestureDetector(
               onTap: () => completer(DialogResponse()),
               child: Container(
-                child: request.showIconInMainButton
+                child: request.showIconInMainButton??false
                     ? Icon(Icons.check_circle)
-                    : Text(request.mainButtonTitle),
+                    : Text(request.mainButtonTitle??''),
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 width: double.infinity,
@@ -98,9 +98,9 @@ class _GenericDialog extends StatelessWidget {
   final Function(DialogResponse<GenericDialogResponse>) completer;
 
   const _GenericDialog({
-    Key key,
-    this.request,
-    this.completer,
+    Key? key,
+    required this.request,
+    required this.completer,
   }) : super(key: key);
 
   @override
@@ -124,7 +124,7 @@ class _GenericDialog extends StatelessWidget {
               height: 10,
             ),
             Text(
-              request.description,
+              request.description??'',
               style: TextStyle(
                 fontSize: 18,
               ),
@@ -138,9 +138,9 @@ class _GenericDialog extends StatelessWidget {
                 DialogResponse(data: GenericDialogResponse()),
               ),
               child: Container(
-                child: request.showIconInMainButton
+                child: request.showIconInMainButton??false
                     ? Icon(Icons.check_circle)
-                    : Text(request.mainButtonTitle),
+                    : Text(request.mainButtonTitle??''),
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 width: double.infinity,
