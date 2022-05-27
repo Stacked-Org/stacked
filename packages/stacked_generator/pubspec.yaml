@@ -22,8 +22,3 @@ dev_dependencies:
   build_runner: ^2.0.6
   test: ^1.20.1
   build_test: ^2.1.5
-
-
-dependency_overrides:
-  stacked_core:
-    path: ../stacked_core/
