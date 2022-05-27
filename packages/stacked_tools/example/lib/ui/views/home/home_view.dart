@@ -8,10 +8,19 @@ import 'home_viewmodel.dart';
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
+  static HomeViewModel? _viewmodel;
+
+  factory HomeView.create({
+    required HomeViewModel viewmodel,
+  }) {
+    _viewmodel = viewmodel;
+    return const HomeView();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
-      viewModelBuilder: () => HomeViewModel(),
+      viewModelBuilder: () => _viewmodel ?? HomeViewModel(),
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
           child: Padding(
