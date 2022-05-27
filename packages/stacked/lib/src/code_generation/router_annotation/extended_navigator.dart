@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:stacked/src/code_generation/router/route_data.dart';
-import 'package:stacked/src/code_generation/router/route_guard.dart';
-import 'package:stacked/src/code_generation/router/router_base.dart';
+import 'route_data.dart';
+import 'route_guard.dart';
+import 'router_base.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:stacked/src/code_generation/router/router_utils.dart';
+import 'router_utils.dart';
 import 'package:stacked_core/stacked_core.dart';
 
 import 'uri_extension.dart';
@@ -254,10 +254,12 @@ class ExtendedNavigatorState<T extends RouterBase?>
     assert(router != null);
     return Navigator(
       key: _navigatorKey,
-      initialRoute: ambiguate(WidgetsBinding.instance)!.window.defaultRouteName !=
-              Navigator.defaultRouteName
-          ? ambiguate(WidgetsBinding.instance)!.window.defaultRouteName
-          : initial ?? ambiguate(WidgetsBinding.instance)!.window.defaultRouteName,
+      initialRoute:
+          ambiguate(WidgetsBinding.instance)!.window.defaultRouteName !=
+                  Navigator.defaultRouteName
+              ? ambiguate(WidgetsBinding.instance)!.window.defaultRouteName
+              : initial ??
+                  ambiguate(WidgetsBinding.instance)!.window.defaultRouteName,
       observers: List.from(widget.observers)..add(_heroController!),
       onGenerateRoute: (RouteSettings settings) {
         return router!.onGenerateRoute(settings, basePath);

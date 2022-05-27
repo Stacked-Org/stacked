@@ -1,8 +1,8 @@
-import 'package:stacked/src/code_generation/router/route_data.dart';
-import 'package:stacked/src/code_generation/router/route_def.dart';
+import 'route_data.dart';
+import 'route_def.dart';
 
 import 'package:flutter/widgets.dart';
-import 'package:stacked/src/code_generation/router/route_matcher.dart';
+import 'route_matcher.dart';
 
 typedef StackedRouteFactory = Route<dynamic> Function(RouteData data);
 typedef RouterBuilder<T extends RouterBase> = T Function();
@@ -20,7 +20,8 @@ abstract class RouterBase {
     var match = findMatch(settings);
     if (match != null) {
       if (basePath != null) {
-        match = match.copyWith(name: _joinPath(basePath, match.name)) as RouteMatch?;
+        match = match.copyWith(name: _joinPath(basePath, match.name))
+            as RouteMatch?;
       }
 
       RouteData data;
