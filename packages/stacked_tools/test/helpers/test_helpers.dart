@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/models/config_model.dart';
 import 'package:stacked_tools/src/services/colorized_log_service.dart';
 import 'package:stacked_tools/src/services/config_service.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
@@ -97,9 +98,27 @@ MockColorizedLogService getAndRegisterColorizedLogService() {
   return service;
 }
 
-MockConfigService getAndRegisterConfigService() {
+MockConfigService getAndRegisterConfigService({
+  String? customPath,
+  String serviceImportPath = 'lib/services',
+  String serviceTestHelpersImportPath = '../helpers/test_helpers.dart',
+  String viewImportPath = 'lib/viewmodels',
+  String viewTestHelpersImportPath = '../helpers/test_helpers.dart',
+}) {
   _removeRegistrationIfExists<ConfigService>();
   final service = MockConfigService();
+
+  when(service.serviceImportPath).thenReturn(serviceImportPath);
+  when(service.serviceTestHelpersImportPath).thenReturn(
+    serviceTestHelpersImportPath,
+  );
+  when(service.viewImportPath).thenReturn(viewImportPath);
+  when(service.viewTestHelpersImportPath).thenReturn(viewTestHelpersImportPath);
+
+  when(service.replaceCustomPaths(any)).thenAnswer(
+    (invocation) => customPath ?? invocation.positionalArguments[0],
+  );
+
   locator.registerSingleton<ConfigService>(service);
   return service;
 }

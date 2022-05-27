@@ -116,9 +116,11 @@ void main() {
       test(
           'When given a path generic/generic.dart with viewName orderDetails, should return order_details/order_details.dart',
           () {
+        final inputTemplatePath = 'generic/generic.dart';
+        getAndRegisterConfigService(customPath: inputTemplatePath);
         final service = _getService();
         final result = service.getTemplateOutputPath(
-          inputTemplatePath: 'generic/generic.dart',
+          inputTemplatePath: inputTemplatePath,
           name: 'orderDetails',
         );
         expect(result, 'order_details/order_details.dart');

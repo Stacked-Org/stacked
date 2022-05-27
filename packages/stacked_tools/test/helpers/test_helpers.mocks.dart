@@ -399,33 +399,49 @@ class MockColorizedLogService extends _i1.Mock
 /// See the documentation for Mockito's code generation for more information.
 class MockConfigService extends _i1.Mock implements _i14.ConfigService {
   @override
-  String get stackedAppPath =>
-      (super.noSuchMethod(Invocation.getter(#stackedAppPath), returnValue: '')
-          as String);
+  bool get hasCustomConfig => (super
+          .noSuchMethod(Invocation.getter(#hasCustomConfig), returnValue: false)
+      as bool);
   @override
-  String get viewPath =>
-      (super.noSuchMethod(Invocation.getter(#viewPath), returnValue: '')
-          as String);
-  @override
-  String get viewTestsPath =>
-      (super.noSuchMethod(Invocation.getter(#viewTestsPath), returnValue: '')
-          as String);
+  String get serviceImportPath => (super
+          .noSuchMethod(Invocation.getter(#serviceImportPath), returnValue: '')
+      as String);
   @override
   String get servicePath =>
       (super.noSuchMethod(Invocation.getter(#servicePath), returnValue: '')
           as String);
   @override
-  String get serviceTestsPath =>
-      (super.noSuchMethod(Invocation.getter(#serviceTestsPath), returnValue: '')
+  String get serviceTestHelpersImportPath =>
+      (super.noSuchMethod(Invocation.getter(#serviceTestHelpersImportPath),
+          returnValue: '') as String);
+  @override
+  String get stackedAppPath =>
+      (super.noSuchMethod(Invocation.getter(#stackedAppPath), returnValue: '')
           as String);
   @override
   String get testHelpersPath =>
       (super.noSuchMethod(Invocation.getter(#testHelpersPath), returnValue: '')
           as String);
   @override
-  String get testMocksPath =>
-      (super.noSuchMethod(Invocation.getter(#testMocksPath), returnValue: '')
+  String get testServicesPath =>
+      (super.noSuchMethod(Invocation.getter(#testServicesPath), returnValue: '')
           as String);
+  @override
+  String get testViewsPath =>
+      (super.noSuchMethod(Invocation.getter(#testViewsPath), returnValue: '')
+          as String);
+  @override
+  String get viewImportPath =>
+      (super.noSuchMethod(Invocation.getter(#viewImportPath), returnValue: '')
+          as String);
+  @override
+  String get viewPath =>
+      (super.noSuchMethod(Invocation.getter(#viewPath), returnValue: '')
+          as String);
+  @override
+  String get viewTestHelpersImportPath =>
+      (super.noSuchMethod(Invocation.getter(#viewTestHelpersImportPath),
+          returnValue: '') as String);
   @override
   _i5.Future<bool> isConfigFileAvailable(
           {String? path = r'stacked.config.json'}) =>
@@ -437,4 +453,8 @@ class MockConfigService extends _i1.Mock implements _i14.ConfigService {
       (super.noSuchMethod(Invocation.method(#loadConfig, [], {#path: path}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+  @override
+  String replaceCustomPaths(String? path) =>
+      (super.noSuchMethod(Invocation.method(#replaceCustomPaths, [path]),
+          returnValue: '') as String);
 }
