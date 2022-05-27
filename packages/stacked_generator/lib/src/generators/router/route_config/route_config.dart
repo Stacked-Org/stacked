@@ -1,6 +1,5 @@
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_core/stacked_core.dart';
-
 import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/exceptions/invalid_generator_input_exception.dart';
@@ -134,6 +133,8 @@ class RouteConfig {
         "${hasConstConstructor == true ? 'const' : ''}  ${className}(${constructorParams.join(',')})${(hasWrapper) ? ".wrappedRoute(context)" : ""}";
     return constructor;
   }
+
+  bool get isProcessedReturnTypeDynamic => processedReturnType == 'dynamic';
 
   String get processedReturnType {
     final returnTypeContainsBiggerOperatorWithOneOfRouteNames = returnType !=

@@ -11,7 +11,7 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
   RouterClassGenerator(this._rootRouterConfig);
   @override
   String generate() {
-    writeLine("// ignore_for_file: public_member_api_docs");
+    writeLine("// ignore_for_file: public_member_api_docs, unused_import");
     generateImports(
         [..._rootRouterConfig.routes, ..._rootRouterConfig.subRouters]);
     generateAllRoutersIncludingNestedOnes(
@@ -48,6 +48,7 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
     }
 
     generateArgumentHolders(routes);
+    generateExtensionForStronglyTypedNavigation(routes);
 
     routes.where((element) => element.children.isNotEmpty).forEach((element) {
       generateAllRoutersIncludingNestedOnes(

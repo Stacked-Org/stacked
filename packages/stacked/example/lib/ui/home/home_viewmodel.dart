@@ -6,7 +6,8 @@ import 'package:stacked_services/stacked_services.dart';
 
 class HomeViewModel extends BaseViewModel {
   final log = getLogger('HomeViewModel');
-  final NavigationService _navigationService = exampleLocator<NavigationService>();
+  final NavigationService _navigationService =
+      exampleLocator<NavigationService>();
 
   HomeViewModel() {
     log.d('created');
@@ -15,7 +16,17 @@ class HomeViewModel extends BaseViewModel {
   String title = 'default';
 
   void navigate() {
-    _navigationService.navigateTo(Routes.nonReactiveView);
+    _navigationService.navigateTo(
+      Routes.nonReactiveView,
+      // transition: TransitionsBuilders.fadeIn,
+      // transition: ((context, animation, secondaryAnimation, child) =>
+      //     SharedAxisTransition(
+      //       animation: animation,
+      //       secondaryAnimation: secondaryAnimation,
+      //       transitionType: SharedAxisTransitionType.scaled,
+      //       child: child,
+      //     )),
+    );
   }
 
   void initialise() {

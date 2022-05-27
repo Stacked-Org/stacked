@@ -38,7 +38,7 @@ dependencies:
 
 dependency_overrides: 
   stacked:
-      path: ../
+    path: ../
   stacked_services:
     path: ../../stacked_services/
   stacked_hooks:
@@ -48,7 +48,7 @@ dependency_overrides:
   stacked_crashlytics:
     path: ../../stacked_crashlytics/
   stacked_generator:
-    path: ../../stacked_generator
+    path: ../../stacked_generator/
   stacked_core:
     path: ../../stacked_core/
 

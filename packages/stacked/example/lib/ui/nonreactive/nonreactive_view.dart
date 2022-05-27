@@ -15,6 +15,7 @@ class NonReactiveView extends StatelessWidget {
             viewModel.updateTitle();
           },
         ),
+        appBar: AppBar(),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
