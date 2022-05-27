@@ -1,5 +1,5 @@
-import 'package:stacked/src/code_generation/router/parameters.dart';
-import 'package:stacked/src/code_generation/router/route_def.dart';
+import 'parameters.dart';
+import 'route_def.dart';
 
 import 'package:flutter/widgets.dart';
 
@@ -9,7 +9,8 @@ class RouteMatcher {
   final Uri _uri;
   final RouteSettings? _settings;
 
-  RouteMatcher(RouteSettings this._settings) : _uri = Uri.parse(_settings.name!);
+  RouteMatcher(RouteSettings this._settings)
+      : _uri = Uri.parse(_settings.name!);
 
   RouteMatcher.fromUri(this._uri) : _settings = null;
 

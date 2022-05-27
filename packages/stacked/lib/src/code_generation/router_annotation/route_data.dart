@@ -1,6 +1,6 @@
-import 'package:stacked/src/code_generation/router/parameters.dart';
-import 'package:stacked/src/code_generation/router/route_matcher.dart';
-import 'package:stacked/src/code_generation/router/router_base.dart';
+import 'parameters.dart';
+import 'route_matcher.dart';
+import 'router_base.dart';
 import 'package:flutter/widgets.dart';
 
 @immutable
