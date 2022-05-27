@@ -10,6 +10,7 @@ import 'package:stacked_tools/src/exceptions/invalid_stacked_structure_exception
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/models/template_models.dart';
 import 'package:stacked_tools/src/services/colorized_log_service.dart';
+import 'package:stacked_tools/src/services/config_service.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
 import 'package:stacked_tools/src/services/pubspec_service.dart';
 import 'package:stacked_tools/src/templates/compiled_template_map.dart';
@@ -23,6 +24,7 @@ class TemplateService {
   final _fileService = locator<FileService>();
   final _templateHelper = locator<TemplateHelper>();
   final _pubspecService = locator<PubspecService>();
+  final _configService = locator<ConfigService>();
   final _clog = locator<ColorizedLogService>();
 
   /// Reads the template folder and creates the dart code that will be used to generate
@@ -163,14 +165,15 @@ class TemplateService {
     String? outputFolder,
   }) {
     final hasOutputFolder = outputFolder != null;
-
     final recaseName = ReCase(name);
-    final modifiedOutputPath = inputTemplatePath
+    final modifiedOutputPath = _configService
+        .replaceCustomPaths(inputTemplatePath)
         .replaceAll(
           'generic',
           recaseName.snakeCase,
         )
         .replaceFirst('.stk', '');
+
     if (hasOutputFolder) {
       return path.join(outputFolder, modifiedOutputPath);
     }
