@@ -17,9 +17,6 @@ dependencies:
 
   crypto: ^3.0.1
 
-dependency_overrides: 
-  stacked_core:
-    path: ../stacked_core/
 
 
 dev_dependencies:
