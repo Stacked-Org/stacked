@@ -236,6 +236,12 @@ class TemplateService {
       // All template data will have the values added below
       kTemplatePropertyPackageName:
           packageName ?? _pubspecService.getPackageName,
+      kTemplatePropertyServiceImportPath: _configService.serviceImportPath,
+      kTemplatePropertyServiceTestHelpersImportPath:
+          _configService.serviceTestHelpersImportPath,
+      kTemplatePropertyViewImportPath: _configService.viewImportPath,
+      kTemplatePropertyViewTestHelpersImportPath:
+          _configService.viewTestHelpersImportPath,
     };
   }
 

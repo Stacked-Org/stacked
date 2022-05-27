@@ -44,6 +44,16 @@ const String kTemplatePropertyServiceName = 'serviceName';
 
 const String kTemplatePropertyServiceFilename = 'serviceFilename';
 
+const String kTemplatePropertyServiceImportPath = 'serviceImportPath';
+
+const String kTemplatePropertyServiceTestHelpersImportPath =
+    'serviceTestHelpersImportPath';
+
+const String kTemplatePropertyViewImportPath = 'viewImportPath';
+
+const String kTemplatePropertyViewTestHelpersImportPath =
+    'viewTestHelpersImportPath';
+
 // -------- Compiled Template Structure ---------
 
 const String kTemplateDataStructure = '''
