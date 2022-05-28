@@ -1,0 +1,35 @@
+name: Stacked App Integration Tests
+
+on: [push, pull_request]
+
+jobs:
+  integration_tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        channel:
+          - stable
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: ${{ matrix.channel }}
+
+      - name: Get packages
+      - run: flutter pub get
+
+      - name: Launch WebDriver
+      - run: cd packages/stacked/example &
+
+      - name: Launch WebDriver
+      - run: chromedriver --port=4444 &
+
+      - name: Run stacked example app tests
+      - run: |
+          flutter drive \
+            --driver=test_driver/integration_test.dart \
+            --target=integration_test/app_test.dart \
+            -d web-server
