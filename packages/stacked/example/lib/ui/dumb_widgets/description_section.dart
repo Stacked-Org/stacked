@@ -7,13 +7,11 @@ class DescriptionSection extends ViewModelWidget<HomeViewModel> {
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Row(
       children: <Widget>[
-        Text(
+        const Text(
           'Description',
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
         ),
-        Container(
-          child: Text(viewModel.title),
-        ),
+        Text(viewModel.title),
       ],
     );
   }

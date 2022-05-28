@@ -9,7 +9,7 @@ class StartupView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<StartupVieWModel>.reactive(
       viewModelBuilder: () => StartupVieWModel(),
-      builder: (context, viewModel, child) => Scaffold(
+      builder: (context, viewModel, child) => const Scaffold(
         body: Center(
           child: Text('Startup View'),
         ),

@@ -7,7 +7,7 @@ class TitleSection extends ViewModelWidget<HomeViewModel> {
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Row(
       children: <Widget>[
-        Text(
+        const Text(
           'Title',
           style: TextStyle(fontSize: 20),
         ),

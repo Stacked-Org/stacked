@@ -19,10 +19,10 @@ class MultipleFuturesExampleView extends StatelessWidget {
                       alignment: Alignment.center,
                       color: Colors.yellow,
                       child: viewModel.fetchingNumber
-                          ? CircularProgressIndicator()
+                          ? const CircularProgressIndicator()
                           : Text(viewModel.fetchedNumber.toString()),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Container(
@@ -31,7 +31,7 @@ class MultipleFuturesExampleView extends StatelessWidget {
                       alignment: Alignment.center,
                       color: Colors.red,
                       child: viewModel.fetchingString
-                          ? CircularProgressIndicator()
+                          ? const CircularProgressIndicator()
                           : Text(viewModel.fetchedString),
                     ),
                   ],

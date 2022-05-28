@@ -3,16 +3,35 @@ import 'package:new_architecture/ui/stream_view/stream_counter_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class StreamCounterView extends StatelessWidget {
+  const StreamCounterView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<StreamCounterViewModel>.reactive(
       builder: (context, viewModel, child) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Stream Counter View'),
+          centerTitle: true,
+        ),
         body: Center(
-          child: Text(viewModel.title),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                viewModel.title,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              Text(
+                viewModel.streamSource,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
         floatingActionButton: MaterialButton(
-          child: Text('Change Stream Srouces'),
           onPressed: viewModel.changeStreamSources,
+          child: const Text('Change Stream Sources'),
         ),
       ),
       viewModelBuilder: () => StreamCounterViewModel(),

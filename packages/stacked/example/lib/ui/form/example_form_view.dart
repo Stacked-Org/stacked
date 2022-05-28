@@ -59,13 +59,13 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ConstrainedBox(
-                  constraints: BoxConstraints(
+                  constraints: const BoxConstraints(
                     maxWidth: 300,
                   ),
                   child: TextFormField(
                     //#4: Set email emailController and focus node
                     controller: emailController,
-                    decoration: InputDecoration(hintText: 'email'),
+                    decoration: const InputDecoration(hintText: 'email'),
                     keyboardType: TextInputType.emailAddress,
                     focusNode: emailFocusNode,
                   ),
@@ -73,17 +73,17 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                 if (viewModel.hasEmailValidationMessage)
                   Text(
                     viewModel.emailValidationMessage!,
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 ConstrainedBox(
-                  constraints: BoxConstraints(
+                  constraints: const BoxConstraints(
                     maxWidth: 300,
                   ),
                   child: TextFormField(
                     //#5: Set password passwordController and focus node
                     controller: passwordController,
-                    decoration: InputDecoration(hintText: 'password'),
+                    decoration: const InputDecoration(hintText: 'password'),
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
                     focusNode: passwordFocusNode,
@@ -93,11 +93,11 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                 if (viewModel.hasPasswordValidationMessage)
                   Text(
                     viewModel.passwordValidationMessage!,
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 ConstrainedBox(
-                  constraints: BoxConstraints(
+                  constraints: const BoxConstraints(
                     maxWidth: 300,
                   ),
                   child: TextField(
@@ -105,13 +105,13 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
                     controller: shortBioController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Tell us a bit more about yourself',
                     ),
                     focusNode: shortBioFocusNode,
                   ),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 ElevatedButton(
                   onPressed: () => viewModel.selectBirthDate(
                       context: context,
@@ -124,11 +124,11 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                         : 'Select your Date of birth',
                   ),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 Row(
                   children: [
-                    Text('Do you love food?'),
-                    SizedBox(width: 15),
+                    const Text('Do you love food?'),
+                    const SizedBox(width: 15),
                     DropdownButton<String>(
                       value: viewModel.doYouLoveFoodValue,
                       onChanged: (value) {
@@ -145,11 +145,11 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                     )
                   ],
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 if (viewModel.showValidationMessage)
                   Text(
                     viewModel.validationMessage!,
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   ),
               ],
             ),

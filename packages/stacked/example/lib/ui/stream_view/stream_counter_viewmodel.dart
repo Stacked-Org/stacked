@@ -8,6 +8,8 @@ class StreamCounterViewModel extends StreamViewModel<int> {
   late Stream<int> _currentSource;
   bool isSlowEpochNumbers = true;
 
+  String get streamSource => isSlowEpochNumbers ? 'Slow' : 'Fast';
+
   StreamCounterViewModel() {
     _setSource();
   }
