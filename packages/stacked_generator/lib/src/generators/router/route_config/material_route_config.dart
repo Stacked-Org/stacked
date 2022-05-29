@@ -3,45 +3,20 @@ import '../models/route_parameter_config.dart';
 import 'route_config.dart';
 
 class MaterialRouteConfig extends RouteConfig {
-  final String name;
-  final String pathName;
-  final String className;
-  final bool fullscreenDialog;
-  final bool maintainState;
-  final String? returnType;
-  final List<RouteParamConfig> parameters;
-  final List<RouteGuardConfig> guards;
-  final bool hasWrapper;
-  final bool hasConstConstructor;
-  final List<RouteConfig> children;
-  final Set<String> imports;
-  MaterialRouteConfig({
-    required this.name,
-    required this.pathName,
-    required this.className,
-    this.fullscreenDialog = false,
-    this.maintainState = true,
-    this.returnType,
-    this.parameters = const [],
-    this.guards = const [],
-    this.hasWrapper = false,
-    this.hasConstConstructor = false,
-    this.children = const [],
-    this.imports = const {},
-  }) : super(
-          imports: imports,
-          hasConstConstructor: hasConstConstructor,
-          name: name,
-          pathName: pathName,
-          className: className,
-          fullscreenDialog: fullscreenDialog,
-          maintainState: maintainState,
-          returnType: returnType,
-          parameters: parameters,
-          guards: guards,
-          hasWrapper: hasWrapper,
-          children: children,
-        );
+  const MaterialRouteConfig({
+    required super.name,
+    required super.pathName,
+    required super.className,
+    super.fullscreenDialog,
+    super.maintainState,
+    super.returnType,
+    super.parameters,
+    super.guards,
+    super.hasWrapper,
+    super.hasConstConstructor,
+    super.children,
+    super.imports,
+  });
 
   @override
   Set<String> registerImports() {
