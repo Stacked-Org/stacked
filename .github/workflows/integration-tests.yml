@@ -18,15 +18,19 @@ jobs:
       - name: Setup chrome driver
         uses: nanasess/setup-chromedriver@v1
         with:
-          chromedriver_version: "102.0.5005.61"
+          chromedriver-version: "102.0.5005.61"
+
+      - name: Setup path for example app
+        run: cd packages/stacked/example
 
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Launch web driver
+        run: chromedriver --port=4444
+
       - name: Run integration tests
-        run: cd packages/stacked/example
-      - run: chromedriver --port=4444 &
-      - run: |
+        run: |
           flutter drive \
             --driver=test_driver/integration_test.dart \
             --target=integration_test/app_test.dart \
