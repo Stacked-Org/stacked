@@ -35,30 +35,30 @@ class MyApp extends StatelessWidget {
 
 class _LoggingObserver extends NavigatorObserver {
   @override
-  void didPop(Route route, Route previousRoute) {
+  void didPop(Route route, Route? previousRoute) {
     print(
-        'route.name: ${route?.settings?.name}, previousRoute.name: ${previousRoute?.settings?.name}');
+        'route.name: ${route.settings.name}, previousRoute.name: ${previousRoute?.settings.name}');
     super.didPop(route, previousRoute);
   }
 
   @override
-  void didRemove(Route route, Route previousRoute) {
+  void didRemove(Route route, Route? previousRoute) {
     print(
-        'route.name: ${route?.settings?.name}, previousRoute.name: ${previousRoute?.settings?.name}');
+        'route.name: ${route.settings.name}, previousRoute.name: ${previousRoute?.settings.name}');
     super.didRemove(route, previousRoute);
   }
 
   @override
-  void didPush(Route route, Route previousRoute) {
+  void didPush(Route route, Route? previousRoute) {
     print(
-        'route.name: ${route?.settings?.name}, previousRoute.name: ${previousRoute?.settings?.name}');
+        'route.name: ${route.settings.name}, previousRoute.name: ${previousRoute?.settings.name}');
     super.didPush(route, previousRoute);
   }
 
   @override
-  void didReplace({Route newRoute, Route oldRoute}) {
+  void didReplace({Route? newRoute, Route? oldRoute}) {
     print(
-        'newRoute.name: ${newRoute?.settings?.name}, oldRoute.name: ${oldRoute?.settings?.name}');
+        'newRoute.name: ${newRoute?.settings.name}, oldRoute.name: ${oldRoute?.settings.name}');
     super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
   }
 }

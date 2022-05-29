@@ -8,7 +8,7 @@ import 'package:stacked_services/stacked_services.dart';
 import '../../app/app.router.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }

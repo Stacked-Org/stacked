@@ -6,7 +6,7 @@ import '../../app/app.router.dart';
 import 'second_screen.dart';
 
 class FirstScreen extends StatelessWidget {
-  const FirstScreen({Key key}) : super(key: key);
+  const FirstScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
