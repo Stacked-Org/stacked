@@ -62,39 +62,41 @@ class RouteConfigResolver {
       imports.addAll(_importResolver.resolveAll(returnType));
     }
 
-    var baseRouteConfig = RouteConfig(
-        hasWrapper: classElement.allSupertypes
-            .map<String>((el) => toDisplayString(el))
-            .contains('StackedRouteWrapper'),
-        returnType: toDisplayString(returnType!),
-        pathName: pathName,
-        name: stackedRoute.peek('name')?.stringValue ??
-            toLowerCamelCase(className),
-        maintainState: stackedRoute.peek('maintainState')?.boolValue ?? true,
-        imports: imports,
-        guards: extractedGuards ?? [],
-        className: className,
-        fullscreenDialog:
-            stackedRoute.peek('fullscreenDialog')?.boolValue ?? false);
     final constructor = classElement.unnamedConstructor;
 
     var params = constructor?.parameters;
+
+    bool hasConstConstructor = false;
+    List<RouteParamConfig> parameters = [];
     if (params?.isNotEmpty == true) {
       if (constructor!.isConst &&
           params!.length == 1 &&
           toDisplayString(params.first.type) == 'Key') {
-        baseRouteConfig = baseRouteConfig.copyWith(hasConstConstructor: true);
+        hasConstConstructor = true;
       } else {
         final paramResolver = RouteParameterResolver(_importResolver);
         for (ParameterElement p in constructor.parameters) {
-          baseRouteConfig = baseRouteConfig.copyWith(parameters: [
-            ...baseRouteConfig.parameters,
-            paramResolver.resolve(p)
-          ]);
+          parameters.add(paramResolver.resolve(p));
         }
       }
     }
-    return RouteConfigFactory(baseRouteConfig)
+    return RouteConfigFactory(
+            parameters: parameters,
+            hasWrapper: classElement.allSupertypes
+                .map<String>((el) => toDisplayString(el))
+                .contains('StackedRouteWrapper'),
+            returnType: toDisplayString(returnType!),
+            pathName: pathName,
+            name: stackedRoute.peek('name')?.stringValue ??
+                toLowerCamelCase(className),
+            maintainState:
+                stackedRoute.peek('maintainState')?.boolValue ?? true,
+            imports: imports,
+            guards: extractedGuards ?? [],
+            className: className,
+            fullscreenDialog:
+                stackedRoute.peek('fullscreenDialog')?.boolValue ?? false,
+            hasConstConstructor: hasConstConstructor)
         .fromResolver(stackedRoute, _importResolver);
   }
 }

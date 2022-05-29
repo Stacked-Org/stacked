@@ -3,6 +3,8 @@ import 'package:stacked_core/stacked_core.dart';
 
 import '../../../../import_resolver.dart';
 import '../models/custom_transition_builder.dart';
+import '../models/route_guard_config.dart';
+import '../models/route_parameter_config.dart';
 import 'adaptive_route_config.dart';
 import 'cupertino_route_config.dart';
 import 'custom_route_config.dart';
@@ -10,58 +12,76 @@ import 'material_route_config.dart';
 import 'route_config.dart';
 
 class RouteConfigFactory {
-  final RouteConfig routeConfig;
-
-  const RouteConfigFactory(this.routeConfig);
+  final bool hasWrapper;
+  final String? returnType;
+  final String pathName;
+  final String name;
+  final String className;
+  final bool maintainState;
+  final bool fullscreenDialog;
+  final bool hasConstConstructor;
+  final List<RouteGuardConfig> guards;
+  final Set<String> imports;
+  final List<RouteParamConfig> parameters;
+  const RouteConfigFactory({
+    required this.hasWrapper,
+    this.returnType,
+    required this.pathName,
+    required this.name,
+    required this.className,
+    required this.maintainState,
+    required this.fullscreenDialog,
+    required this.hasConstConstructor,
+    required this.guards,
+    required this.imports,
+    required this.parameters,
+  });
 
   RouteConfig fromResolver(
       ConstantReader stackedRoute, ImportResolver importResolver) {
     if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CupertinoRoute))) {
       return CupertinoRouteConfig(
-          className: routeConfig.className,
-          name: routeConfig.name,
-          pathName: routeConfig.pathName,
-          fullscreenDialog: routeConfig.fullscreenDialog,
-          guards: routeConfig.guards,
-          hasConstConstructor: routeConfig.hasConstConstructor,
-          hasWrapper: routeConfig.hasWrapper,
-          imports: routeConfig.imports,
-          maintainState: routeConfig.maintainState,
-          parameters: routeConfig.parameters,
-          returnType: routeConfig.returnType,
-          children: routeConfig.children,
+          className: className,
+          name: name,
+          pathName: pathName,
+          fullscreenDialog: fullscreenDialog,
+          guards: guards,
+          hasConstConstructor: hasConstConstructor,
+          hasWrapper: hasWrapper,
+          imports: imports,
+          maintainState: maintainState,
+          parameters: parameters,
+          returnType: returnType,
           cupertinoNavTitle: stackedRoute.peek('title')?.stringValue);
     } else if (stackedRoute
         .instanceOf(TypeChecker.fromRuntime(AdaptiveRoute))) {
       return AdaptiveRouteConfig(
-          className: routeConfig.className,
-          name: routeConfig.name,
-          pathName: routeConfig.pathName,
-          fullscreenDialog: routeConfig.fullscreenDialog,
-          guards: routeConfig.guards,
-          hasConstConstructor: routeConfig.hasConstConstructor,
-          hasWrapper: routeConfig.hasWrapper,
-          imports: routeConfig.imports,
-          maintainState: routeConfig.maintainState,
-          parameters: routeConfig.parameters,
-          returnType: routeConfig.returnType,
-          children: routeConfig.children,
+          className: className,
+          name: name,
+          pathName: pathName,
+          fullscreenDialog: fullscreenDialog,
+          guards: guards,
+          hasConstConstructor: hasConstConstructor,
+          hasWrapper: hasWrapper,
+          imports: imports,
+          maintainState: maintainState,
+          parameters: parameters,
+          returnType: returnType,
           cupertinoNavTitle:
               stackedRoute.peek('cupertinoPageTitle')?.stringValue);
     } else if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CustomRoute))) {
       var customRouteConfig = CustomRouteConfig(
-        className: routeConfig.className,
-        name: routeConfig.name,
-        pathName: routeConfig.pathName,
-        fullscreenDialog: routeConfig.fullscreenDialog,
-        guards: routeConfig.guards,
-        hasConstConstructor: routeConfig.hasConstConstructor,
-        hasWrapper: routeConfig.hasWrapper,
-        imports: routeConfig.imports,
-        maintainState: routeConfig.maintainState,
-        parameters: routeConfig.parameters,
-        returnType: routeConfig.returnType,
-        children: routeConfig.children,
+        className: className,
+        name: name,
+        pathName: pathName,
+        fullscreenDialog: fullscreenDialog,
+        guards: guards,
+        hasConstConstructor: hasConstConstructor,
+        hasWrapper: hasWrapper,
+        imports: imports,
+        maintainState: maintainState,
+        parameters: parameters,
+        returnType: returnType,
         durationInMilliseconds:
             stackedRoute.peek('durationInMilliseconds')?.intValue,
         reverseDurationInMilliseconds:
@@ -91,18 +111,18 @@ class RouteConfigFactory {
       return customRouteConfig;
     } else {
       return MaterialRouteConfig(
-          className: routeConfig.className,
-          name: routeConfig.name,
-          pathName: routeConfig.pathName,
-          fullscreenDialog: routeConfig.fullscreenDialog,
-          guards: routeConfig.guards,
-          hasConstConstructor: routeConfig.hasConstConstructor,
-          hasWrapper: routeConfig.hasWrapper,
-          imports: routeConfig.imports,
-          maintainState: routeConfig.maintainState,
-          parameters: routeConfig.parameters,
-          returnType: routeConfig.returnType,
-          children: routeConfig.children);
+        className: className,
+        name: name,
+        pathName: pathName,
+        fullscreenDialog: fullscreenDialog,
+        guards: guards,
+        hasConstConstructor: hasConstConstructor,
+        hasWrapper: hasWrapper,
+        imports: imports,
+        maintainState: maintainState,
+        parameters: parameters,
+        returnType: returnType,
+      );
     }
   }
 }
