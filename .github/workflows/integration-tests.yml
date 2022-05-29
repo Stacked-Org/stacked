@@ -4,25 +4,28 @@ on: [push, pull_request]
 
 jobs:
   integration_tests:
+    name: Run stacked app integration tests
     runs-on: ubuntu-latest
-
-
-env:
-  flutter_channel: "stable"
-
+    if: github.event.pull_request.draft == false
     steps:
+      - name: Setup Flutter
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
         with:
-          channel: ${{ env.flutter_channel }}
+          channel: flutter_channel: "stable"
 
+      - name: Setup chrome driver
       - uses: actions/checkout@v2
       - uses: nanasess/setup-chromedriver@v1
         with:
           chromedriver_version: "102.0.5005.61"
+
+      - name: Install dependencies
       - run: flutter pub get
-      - run: chromedriver --port=4444 &
+
+      - name: Run integration tests
       - run: cd packages/stacked/example
+      - run: chromedriver --port=4444 &
       - run: |
           flutter drive \
             --driver=test_driver/integration_test.dart \
