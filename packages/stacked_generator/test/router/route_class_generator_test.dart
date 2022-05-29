@@ -5,6 +5,7 @@ import 'package:stacked_generator/src/generators/router/route_config/adaptive_ro
 import 'package:stacked_generator/src/generators/router/route_config/cupertino_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/custom_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/material_route_config.dart';
+import 'package:stacked_generator/src/generators/router/route_config/route_config.dart';
 import 'package:stacked_generator/src/generators/router/router_config/router_config.dart';
 import 'package:test/test.dart';
 
@@ -49,7 +50,7 @@ void main() {
       });
 
       test('Given the following RouteConfig, Generate output', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
@@ -60,7 +61,7 @@ void main() {
         generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
       });
       test('Given the following three RouteConfig, Generate output', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
             name: 'loginView1',
             pathName: 'pathNamaw1',
@@ -85,7 +86,7 @@ void main() {
       });
 
       test('When fullscreenDialog is true', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
@@ -100,7 +101,7 @@ void main() {
       test(
           'When fullscreenDialog is false, Should add nothing cause it is default',
           () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
@@ -112,7 +113,7 @@ void main() {
         generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
       });
       test('When adding one RouteGuardConfig', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -125,7 +126,7 @@ void main() {
         generateRouteAndExpectResult(routes, kRouterWithOneGuard);
       });
       test('When adding two RouteGuardConfig', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -145,7 +146,7 @@ void main() {
         generateRouteAndExpectResult(routes, kRouterWithTwoGuards);
       });
       test('When hasConstConstructor is false have no effect ', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -156,7 +157,7 @@ void main() {
         generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
       });
       test('When hasConstConstructor is true', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -168,7 +169,7 @@ void main() {
             routes, kRouterWithHasConstConstructorIsTrue);
       });
       test('When hasWrapper is false have no effect ', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -179,7 +180,7 @@ void main() {
         generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
       });
       test('When hasConstConstructor is true', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -190,7 +191,7 @@ void main() {
         generateRouteAndExpectResult(routes, kRouterWithHasWrapperIsTrue);
       });
       test('When has two imports', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -201,7 +202,7 @@ void main() {
       });
       test('When maintainstate is true, Should add nothing cause it is default',
           () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -211,7 +212,7 @@ void main() {
         generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
       });
       test('When maintainstate is false', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -223,7 +224,7 @@ void main() {
       test(
           'When adding an empty parameter, SHould throw InvalidGeneratorInputException ',
           () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -235,7 +236,7 @@ void main() {
       });
       test('When adding a parameter with PathParam: false, isQueryParam: false',
           () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -250,7 +251,7 @@ void main() {
       });
       test('When adding a parameter with PathParam: true, isQueryParam: false',
           () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -265,7 +266,7 @@ void main() {
       });
       test('When adding a parameter with PathParam: true, isQueryParam: true',
           () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -280,7 +281,7 @@ void main() {
       });
       test('When adding a parameter with PathParam: false, isQueryParam: true',
           () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -296,7 +297,7 @@ void main() {
       test(
           'When adding a parameter with PathParam: false, isQueryParam: true, alias: aliaso',
           () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -313,7 +314,7 @@ void main() {
       test(
           'When adding a parameter with PathParam: false, isQueryParam: true, defaultValueCode: 2',
           () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -332,7 +333,7 @@ void main() {
       test(
           'When adding a parameter with PathParam: false, isQueryParam: true, imports',
           () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -351,7 +352,7 @@ void main() {
       test(
           'When adding a parameter with PathParam: false, isQueryParam: true, isPositional: true',
           () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -371,7 +372,7 @@ void main() {
       test(
           'When adding a parameter with PathParam: false, isQueryParam: true, isRequired: true',
           () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -391,7 +392,7 @@ void main() {
       test(
           'When adding a parameter with PathParam: false, isQueryParam: true, isRequired: true,name: ebra',
           () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -411,7 +412,7 @@ void main() {
       test(
           'When adding a parameter with PathParam: false, isQueryParam: false, type: newType',
           () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -429,7 +430,7 @@ void main() {
             routes, kRouterWithParameterPathFalseQueryFalseType);
       });
       test('When adding returnType = returnYpe', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -440,7 +441,7 @@ void main() {
         generateRouteAndExpectResult(routes, kRouterWithRetrunType);
       });
       test('When adding returnType = <CupertinoRoute>', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -452,7 +453,7 @@ void main() {
             routes, kRouterWithRetrunTypeCupertinoRoute);
       });
       test('When adding NestedRouter with one child', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
             name: 'loginView1',
             pathName: 'pathNamaw1',
@@ -474,7 +475,7 @@ void main() {
         );
       });
       test('When adding multiple NestedRouter with one child each', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView1',
               pathName: 'pathNamaw1',
@@ -501,8 +502,8 @@ void main() {
         );
       });
       test('When adding NestedRouter with three different childs', () {
-        final routes = [
-          MaterialRouteConfig(
+        final List<RouteConfig> routes = [
+          CupertinoRouteConfig(
               name: 'loginView2',
               pathName: 'pathNamaw2',
               className: 'TestClass2',
@@ -532,7 +533,7 @@ void main() {
         );
       });
       test('When adding NestedRouter with six different childs', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           MaterialRouteConfig(
               name: 'loginView3',
               pathName: 'pathNamaw3',
@@ -587,7 +588,7 @@ void main() {
     });
     group('RouteType.cupertino -', () {
       test('Given the following RouteConfig, Generate output', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           CupertinoRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
@@ -599,7 +600,7 @@ void main() {
             routes, kRouterTypeCupertinoWithNamePathNameClassName);
       });
       test('With cupertinoNavTitle', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           CupertinoRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -615,7 +616,7 @@ void main() {
     });
     group('RouteType.cupertino -', () {
       test('Given the following RouteConfig, Generate output', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           CupertinoRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
@@ -627,7 +628,7 @@ void main() {
             routes, kRouterTypeCupertinoWithNamePathNameClassName);
       });
       test('With cupertinoNavTitle', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           CupertinoRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -641,7 +642,7 @@ void main() {
         );
       });
       test('With parameters path = false, query = false', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           CupertinoRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
@@ -663,7 +664,7 @@ void main() {
     });
     group('RouteType.adaptive -', () {
       test('Given the following RouteConfig, Generate output', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           AdaptiveRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
@@ -674,7 +675,7 @@ void main() {
         generateRouteAndExpectResult(routes, kRouterTypeAdaptive);
       });
       test('With cupertinoNavTitle', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           AdaptiveRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -688,7 +689,7 @@ void main() {
         );
       });
       test('With parameters path = false, query = false', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           AdaptiveRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
@@ -710,7 +711,7 @@ void main() {
     });
     group('RouteType.custom -', () {
       test('Given the following RouteConfig, Generate output', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           CustomRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
@@ -725,7 +726,7 @@ void main() {
       });
 
       test('With customRouteBarrierDismissible', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           CustomRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -739,7 +740,7 @@ void main() {
         );
       });
       test('With durationInMilliseconds', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           CustomRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -753,7 +754,7 @@ void main() {
         );
       });
       test('With reverseDurationInMilliseconds', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           CustomRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -769,7 +770,7 @@ void main() {
       test(
           'With customRouteOpaque true, Should add nothing cause it is default',
           () {
-        final routes = [
+        final List<RouteConfig> routes = [
           CustomRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -783,7 +784,7 @@ void main() {
         );
       });
       test('With customRouteOpaque false', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           CustomRouteConfig(
               name: 'loginView',
               pathName: 'pathNamaw',
@@ -797,7 +798,7 @@ void main() {
         );
       });
       test('With parameters path = false, query = false', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           CustomRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
@@ -817,7 +818,7 @@ void main() {
         );
       });
       test('With parameters path = false, query = true', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           CustomRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
@@ -839,7 +840,7 @@ void main() {
     });
     group('Mixed -', () {
       test('Given random routing system', () {
-        final routes = [
+        final List<RouteConfig> routes = [
           CustomRouteConfig(
             name: 'loginView1',
             pathName: 'pathNamaw1',
