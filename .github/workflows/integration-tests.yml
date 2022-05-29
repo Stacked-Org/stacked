@@ -20,7 +20,6 @@ jobs:
 
       - name: Setup chrome browser
         uses: browser-actions/setup-chrome@latest
-        run: chrome --102.0.5005.61
 
       - name: Setup chrome driver
         uses: nanasess/setup-chromedriver@v1
