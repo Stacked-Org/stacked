@@ -3,6 +3,7 @@ import 'package:source_gen/source_gen.dart';
 import 'package:stacked_core/stacked_core.dart';
 
 import 'package:stacked_generator/import_resolver.dart';
+import 'package:stacked_generator/src/generators/router/route_config/route_config_factory.dart';
 import 'package:stacked_generator/utils.dart';
 
 import 'models/route_guard_config.dart';
@@ -93,6 +94,7 @@ class RouteConfigResolver {
         }
       }
     }
-    return baseRouteConfig.toSpecificType(stackedRoute, _importResolver);
+    return RouteConfigFactory(baseRouteConfig)
+        .fromResolver(stackedRoute, _importResolver);
   }
 }
