@@ -12,7 +12,7 @@ flutter test integration_test/app_test.dart
 
 If multiple devices was found, select the device you want to run the tests on.
 
-## **Running using command line**
+## **Running using chrome driver**
 
 Ensure you have the [chrome driver](https://chromedriver.chromium.org/downloads) installed.
 
