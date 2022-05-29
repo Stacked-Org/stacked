@@ -6,28 +6,23 @@ jobs:
   integration_tests:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        channel:
-          - stable
+
+env:
+  flutter_channel: "stable"
 
     steps:
       - uses: actions/checkout@v2
-
       - uses: subosito/flutter-action@v1
         with:
-          channel: ${{ matrix.channel }}
+          channel: ${{ env.flutter_channel }}
 
-      - name: Get packages
+      - uses: actions/checkout@v2
+      - uses: nanasess/setup-chromedriver@v1
+        with:
+          chromedriver_version: "102.0.5005.61"
       - run: flutter pub get
-
-      - name: Launch WebDriver
-      - run: cd packages/stacked/example &
-
-      - name: Launch WebDriver
       - run: chromedriver --port=4444 &
-
-      - name: Run stacked example app tests
+      - run: cd packages/stacked/example
       - run: |
           flutter drive \
             --driver=test_driver/integration_test.dart \
