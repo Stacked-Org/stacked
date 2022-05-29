@@ -18,13 +18,10 @@ jobs:
         with:
           channel: "stable"
 
-      - name: Setup chrome browser
-        uses: browser-actions/setup-chrome@latest
-
       - name: Setup chrome driver
         uses: nanasess/setup-chromedriver@v1
         with:
-          chromedriver-version: "102.0.5005.61"
+          chromedriver-version: "101.0.4951.41"
 
       - name: Install dependencies
         run: flutter pub get
