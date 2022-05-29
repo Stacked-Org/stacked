@@ -32,6 +32,7 @@ class ExampleFormViewModel extends FormViewModel {
     // here we can run custom functionality to save to our api
   }
 
-  Future? navigateSomewhere() =>
-      _navigationService.navigateTo(Routes.streamCounterView);
+  void navigateToNewView() {
+    _navigationService.navigateTo(Routes.bottomNavExample);
+  }
 }

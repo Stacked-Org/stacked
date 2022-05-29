@@ -17,6 +17,11 @@ class StreamCounterView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              ElevatedButton(
+                onPressed: viewModel.changeStreamSources,
+                child: const Text('Change Stream Sources'),
+              ),
+              const SizedBox(height: 10),
               Text(
                 viewModel.title,
                 textAlign: TextAlign.center,
@@ -29,9 +34,8 @@ class StreamCounterView extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButton: MaterialButton(
-          onPressed: viewModel.changeStreamSources,
-          child: const Text('Change Stream Sources'),
+        floatingActionButton: FloatingActionButton(
+          onPressed: viewModel.navigateToNewView,
         ),
       ),
       viewModelBuilder: () => StreamCounterViewModel(),

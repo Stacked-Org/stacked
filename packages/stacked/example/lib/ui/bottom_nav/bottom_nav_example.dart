@@ -20,21 +20,24 @@ class BottomNavExampleState extends State<BottomNavExample> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BottomNavExampleViewModel>.reactive(
       builder: (context, viewModel, child) => Scaffold(
-        body: getViewForIndex(viewModel.currentTabIndex),
+        body: getViewForIndex(viewModel.currentIndex),
         bottomNavigationBar: BottomNavigationBar(
           elevation: 6,
           backgroundColor: Colors.white,
-          currentIndex: viewModel.currentTabIndex,
-          onTap: viewModel.setTabIndex,
+          currentIndex: viewModel.currentIndex,
+          onTap: viewModel.setIndex,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.ac_unit),
+              icon: Icon(Icons.favorite),
+              label: 'Favorites',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.access_alarm),
+              icon: Icon(Icons.history),
+              label: 'History',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.access_alarms),
+              icon: Icon(Icons.person),
+              label: 'Profile',
             ),
           ],
         ),

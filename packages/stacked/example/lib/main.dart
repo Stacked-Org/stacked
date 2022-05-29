@@ -7,10 +7,12 @@ import 'app/app.router.dart';
 
 void main() {
   setupExampleLocator(environment: Environment.dev);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

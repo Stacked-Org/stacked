@@ -47,10 +47,12 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
         viewModel.setDoYouLoveFood(DoYouLoveFoodValueToTitleMap.keys.first);
       },
       builder: (context, viewModel, child) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Example Form View'),
+          centerTitle: true,
+        ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            viewModel.navigateSomewhere();
-          },
+          onPressed: viewModel.navigateToNewView,
         ),
         body: SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -82,6 +84,7 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                   ),
                   child: TextFormField(
                     //#5: Set password passwordController and focus node
+                    key: const ValueKey('passwordField'),
                     controller: passwordController,
                     decoration: const InputDecoration(hintText: 'password'),
                     keyboardType: TextInputType.visiblePassword,
@@ -126,10 +129,12 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                 ),
                 const SizedBox(height: 15),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text('Do you love food?'),
                     const SizedBox(width: 15),
                     DropdownButton<String>(
+                      key: const ValueKey('dropdownField'),
                       value: viewModel.doYouLoveFoodValue,
                       onChanged: (value) {
                         viewModel.setDoYouLoveFood(value!);
@@ -137,6 +142,7 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                       items: DoYouLoveFoodValueToTitleMap.keys
                           .map(
                             (value) => DropdownMenuItem<String>(
+                              key: ValueKey('$value key'),
                               value: value,
                               child: Text(DoYouLoveFoodValueToTitleMap[value]!),
                             ),

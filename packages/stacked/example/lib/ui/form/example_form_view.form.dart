@@ -109,8 +109,7 @@ extension ValueProperties on FormViewModel {
   String? get emailValue => formValueMap[EmailValueKey] as String?;
   String? get passwordValue => formValueMap[PasswordValueKey] as String?;
   String? get shortBioValue => formValueMap[ShortBioValueKey] as String?;
-  DateTime? get birthDateValue =>
-      formValueMap[BirthDateValueKey] as DateTime?;
+  String? get birthDateValue => formValueMap[BirthDateValueKey] as String?;
   String? get doYouLoveFoodValue =>
       formValueMap[DoYouLoveFoodValueKey] as String?;
 
@@ -118,8 +117,7 @@ extension ValueProperties on FormViewModel {
   bool get hasPassword => formValueMap.containsKey(PasswordValueKey);
   bool get hasShortBio => formValueMap.containsKey(ShortBioValueKey);
   bool get hasBirthDate => formValueMap.containsKey(BirthDateValueKey);
-  bool get hasDoYouLoveFood =>
-      formValueMap.containsKey(DoYouLoveFoodValueKey);
+  bool get hasDoYouLoveFood => formValueMap.containsKey(DoYouLoveFoodValueKey);
 
   bool get hasEmailValidationMessage =>
       fieldsValidationMessages[EmailValueKey]?.isNotEmpty ?? false;
@@ -132,8 +130,7 @@ extension ValueProperties on FormViewModel {
   bool get hasDoYouLoveFoodValidationMessage =>
       fieldsValidationMessages[DoYouLoveFoodValueKey]?.isNotEmpty ?? false;
 
-  String? get emailValidationMessage =>
-      fieldsValidationMessages[EmailValueKey];
+  String? get emailValidationMessage => fieldsValidationMessages[EmailValueKey];
   String? get passwordValidationMessage =>
       fieldsValidationMessages[PasswordValueKey];
   String? get shortBioValidationMessage =>
@@ -156,14 +153,14 @@ extension Methods on FormViewModel {
         firstDate: firstDate,
         lastDate: lastDate);
     if (selectedDate != null) {
-      setData(
-          formValueMap..addAll({BirthDateValueKey: selectedDate}));
+      final dateString =
+          '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}';
+      setData(formValueMap..addAll({BirthDateValueKey: dateString}));
     }
   }
 
   void setDoYouLoveFood(String doYouLoveFood) {
-    setData(
-        formValueMap..addAll({DoYouLoveFoodValueKey: doYouLoveFood}));
+    setData(formValueMap..addAll({DoYouLoveFoodValueKey: doYouLoveFood}));
   }
 
   setEmailValidationMessage(String? validationMessage) =>
