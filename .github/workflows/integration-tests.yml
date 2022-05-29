@@ -27,8 +27,8 @@ jobs:
         run: flutter pub get
 
       - name: Launch web driver & run tests
-        run: chromedriver --port=4444 &
         run: |
+          chromedriver --port=4444 & 
           flutter drive \
             --driver=test_driver/integration_test.dart \
             --target=integration_test/app_test.dart \
