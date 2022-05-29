@@ -6,8 +6,9 @@ import 'package:new_architecture/main.dart' as app;
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('end-to-end test', () {
-    testWidgets('app testing', (WidgetTester tester) async {
+  group('Integration Test', () {
+    testWidgets('Ensure all stacked integrations still work as expected',
+        (WidgetTester tester) async {
       // Build our app and trigger a frame.
       app.main();
       await tester.pumpAndSettle();
