@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_architecture/datamodels/human.dart';
+import 'package:example/datamodels/human.dart';
 import 'package:stacked/stacked.dart';
 
 class FullNameWidget extends ViewModelWidget<Human> {

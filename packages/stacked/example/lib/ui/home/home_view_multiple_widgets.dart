@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:new_architecture/ui/dumb_widgets/description_section.dart';
-import 'package:new_architecture/ui/dumb_widgets/title_section.dart';
+import 'package:example/ui/dumb_widgets/description_section.dart';
+import 'package:example/ui/dumb_widgets/title_section.dart';
 import 'package:stacked/stacked.dart';
 
 import 'home_viewmodel.dart';

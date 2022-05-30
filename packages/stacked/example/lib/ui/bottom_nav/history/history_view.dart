@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_architecture/app/app.locator.dart';
+import 'package:example/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../app/app.locator.dart';
