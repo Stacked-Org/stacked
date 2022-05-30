@@ -47,9 +47,9 @@ jobs:
 
       - name: Run tests
         run: |
-          if grep -q "name: example" "pubspec.yaml"; then
-            flutter test
-          else
+          if grep -q "name: stacked_generator" "pubspec.yaml"; then
             dart test
+          else
+            flutter test
           fi
         working-directory: ${{ matrix.package }}
