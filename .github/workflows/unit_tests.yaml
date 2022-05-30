@@ -20,6 +20,11 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: ${{ matrix.channel }}
+          
+      # It is executed separatly
+      - name: Removing example folder
+        run: rm -rf example
+        working-directory: ${{ matrix.package }}
 
       - name: Install dependencies
         run: flutter pub get
