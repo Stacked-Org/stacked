@@ -84,12 +84,15 @@ void main() {
         );
         await tester.pumpWidget(widget);
 
+        // ignore: invalid_use_of_protected_member
         stateKey.currentState!.dispose();
         await tester.pumpWidget(widget);
 
+        // ignore: invalid_use_of_protected_member
         stateKey.currentState!.reassemble();
         await tester.pumpWidget(widget);
 
+        // ignore: invalid_use_of_protected_member
         stateKey.currentState!.initState();
         await tester.pumpWidget(widget);
 

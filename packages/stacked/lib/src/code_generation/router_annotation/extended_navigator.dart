@@ -139,7 +139,6 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
   ExtendedNavigator<T> call(_, navigator) => this;
 
   static ExtendedNavigatorState? named(String name) {
-    assert(name != null);
     return _NavigatorsContainer._instance.get(name);
   }
 
@@ -292,9 +291,7 @@ class ExtendedNavigatorState<T extends RouterBase?>
     _parent = context.findAncestorStateOfType<ExtendedNavigatorState>();
     if (_parent != null) {
       _parent!.children.add(this);
-      if (_parent!._registeredGuards != null) {
-        _registeredGuards.addAll(_parent!._registeredGuards);
-      }
+      _registeredGuards.addAll(_parent!._registeredGuards);
     }
     widget.guards.forEach(_registerGuard);
 
