@@ -1,0 +1,55 @@
+name: Build
+
+on: [push, workflow_dispatch, pull_request]
+
+jobs:
+  stacked:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        package:
+          - packages/stacked
+          - packages/stacked_generation
+        channel:
+          - stable
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: ${{ matrix.channel }}
+
+      # It is executed separatly
+      - name: Removing example folder
+        run: rm -rf example
+        working-directory: ${{ matrix.package }}
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: ${{ matrix.package }}
+
+      - name: Check format
+        run: flutter format --set-exit-if-changed .
+        working-directory: ${{ matrix.package }}
+
+      - name: Generate
+        run: |
+          if grep -q build_runner "pubspec.yaml"; then
+            flutter pub run build_runner build --delete-conflicting-outputs
+          fi
+        working-directory: ${{ matrix.package }}
+
+      - name: Analyze
+        run: flutter analyze
+        working-directory: ${{ matrix.package }}
+
+      - name: Run tests
+        run: |
+          if grep -q "name: example" "pubspec.yaml"; then
+            flutter test
+          else
+            dart test
+          fi
+        working-directory: ${{ matrix.package }}
