@@ -75,9 +75,6 @@ PageRoute<T> buildAdaptivePageRoute<T>({
   bool fullscreenDialog = false,
   String? cupertinoTitle,
 }) {
-  assert(builder != null);
-  assert(maintainState != null);
-  assert(fullscreenDialog != null);
   // no transitions for web
   if (kIsWeb) {
     return PageRouteBuilder(

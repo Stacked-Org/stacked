@@ -15,8 +15,6 @@ abstract class RouterBase {
   Set<String> get allRoutes => routes.map((e) => e.template).toSet();
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings, [String? basePath]) {
-    assert(routes != null);
-    assert(settings != null);
     var match = findMatch(settings);
     if (match != null) {
       if (basePath != null) {

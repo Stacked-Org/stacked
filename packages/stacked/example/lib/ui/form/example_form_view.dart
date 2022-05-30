@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_architecture/ui/form/validators.dart';
+import 'package:example/ui/form/validators.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 

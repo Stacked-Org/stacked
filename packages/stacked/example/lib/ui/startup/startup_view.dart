@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_architecture/ui/startup/startup_viewmodel.dart';
+import 'package:example/ui/startup/startup_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class StartupView extends StatelessWidget {

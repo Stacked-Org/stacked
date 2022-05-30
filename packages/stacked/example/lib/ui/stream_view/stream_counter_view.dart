@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_architecture/ui/stream_view/stream_counter_viewmodel.dart';
+import 'package:example/ui/stream_view/stream_counter_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class StreamCounterView extends StatelessWidget {

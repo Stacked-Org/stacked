@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:new_architecture/datamodels/human.dart';
-import 'package:new_architecture/ui/dumb_widgets/duplicate_name_widget.dart';
-import 'package:new_architecture/ui/dumb_widgets/full_name_widget.dart';
+import 'package:example/datamodels/human.dart';
+import 'package:example/ui/dumb_widgets/duplicate_name_widget.dart';
+import 'package:example/ui/dumb_widgets/full_name_widget.dart';
 import 'package:provider/provider.dart';
 
 class HomeViewProviderWidget extends StatelessWidget {
