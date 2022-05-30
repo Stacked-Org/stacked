@@ -2,6 +2,8 @@ name: Build
 
 on:
   push:
+    branches:
+    - master
   pull_request:
 
 jobs:
@@ -80,6 +82,13 @@ jobs:
 
         - name: Install dependencies
           run: flutter pub get
+
+        - name: Generate
+          run: |
+            if grep -q build_runner "pubspec.yaml"; then
+              flutter pub run build_runner build --delete-conflicting-outputs
+            fi
+          working-directory: ${{ matrix.package }}
 
         - name: Launch web driver & run tests
           run: |
