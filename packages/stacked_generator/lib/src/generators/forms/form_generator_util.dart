@@ -375,7 +375,5 @@ class FormGeneratorUtil extends BaseGenerator {
 
   String _getFocusNodeName(FieldConfig field) => '${field.name}FocusNode';
   String _getControllerName(FieldConfig field) => '${field.name}Controller';
-  String _getControllerInitialValue(TextFieldConfig field) =>
-      field.initialValue != null ? "text:'${field.initialValue!}'" : "";
   String _getFormKeyName(ReCase caseName) => '${caseName.pascalCase}ValueKey';
 }
