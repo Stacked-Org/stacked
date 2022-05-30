@@ -11,7 +11,6 @@ export 'src/state_management/skeleton_loader.dart';
 
 export 'src/code_generation/router_annotation/extended_navigator.dart';
 export 'src/code_generation/router_annotation/router_base.dart';
-export 'src/code_generation/router_annotation/route_guard.dart';
 export 'src/code_generation/router_annotation/route_def.dart';
 export 'src/code_generation/router_annotation/router_utils.dart';
 export 'src/code_generation/router_annotation/transitions_builders.dart';
