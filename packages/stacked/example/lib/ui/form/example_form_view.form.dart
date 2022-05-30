@@ -106,42 +106,39 @@ mixin $ExampleFormView on StatelessWidget {
 }
 
 extension ValueProperties on FormViewModel {
-  String? get emailValue => this.formValueMap[EmailValueKey] as String?;
-  String? get passwordValue => this.formValueMap[PasswordValueKey] as String?;
-  String? get shortBioValue => this.formValueMap[ShortBioValueKey] as String?;
-  DateTime? get birthDateValue =>
-      this.formValueMap[BirthDateValueKey] as DateTime?;
+  String? get emailValue => formValueMap[EmailValueKey] as String?;
+  String? get passwordValue => formValueMap[PasswordValueKey] as String?;
+  String? get shortBioValue => formValueMap[ShortBioValueKey] as String?;
+  String? get birthDateValue => formValueMap[BirthDateValueKey] as String?;
   String? get doYouLoveFoodValue =>
-      this.formValueMap[DoYouLoveFoodValueKey] as String?;
+      formValueMap[DoYouLoveFoodValueKey] as String?;
 
-  bool get hasEmail => this.formValueMap.containsKey(EmailValueKey);
-  bool get hasPassword => this.formValueMap.containsKey(PasswordValueKey);
-  bool get hasShortBio => this.formValueMap.containsKey(ShortBioValueKey);
-  bool get hasBirthDate => this.formValueMap.containsKey(BirthDateValueKey);
-  bool get hasDoYouLoveFood =>
-      this.formValueMap.containsKey(DoYouLoveFoodValueKey);
+  bool get hasEmail => formValueMap.containsKey(EmailValueKey);
+  bool get hasPassword => formValueMap.containsKey(PasswordValueKey);
+  bool get hasShortBio => formValueMap.containsKey(ShortBioValueKey);
+  bool get hasBirthDate => formValueMap.containsKey(BirthDateValueKey);
+  bool get hasDoYouLoveFood => formValueMap.containsKey(DoYouLoveFoodValueKey);
 
   bool get hasEmailValidationMessage =>
-      this.fieldsValidationMessages[EmailValueKey]?.isNotEmpty ?? false;
+      fieldsValidationMessages[EmailValueKey]?.isNotEmpty ?? false;
   bool get hasPasswordValidationMessage =>
-      this.fieldsValidationMessages[PasswordValueKey]?.isNotEmpty ?? false;
+      fieldsValidationMessages[PasswordValueKey]?.isNotEmpty ?? false;
   bool get hasShortBioValidationMessage =>
-      this.fieldsValidationMessages[ShortBioValueKey]?.isNotEmpty ?? false;
+      fieldsValidationMessages[ShortBioValueKey]?.isNotEmpty ?? false;
   bool get hasBirthDateValidationMessage =>
-      this.fieldsValidationMessages[BirthDateValueKey]?.isNotEmpty ?? false;
+      fieldsValidationMessages[BirthDateValueKey]?.isNotEmpty ?? false;
   bool get hasDoYouLoveFoodValidationMessage =>
-      this.fieldsValidationMessages[DoYouLoveFoodValueKey]?.isNotEmpty ?? false;
+      fieldsValidationMessages[DoYouLoveFoodValueKey]?.isNotEmpty ?? false;
 
-  String? get emailValidationMessage =>
-      this.fieldsValidationMessages[EmailValueKey];
+  String? get emailValidationMessage => fieldsValidationMessages[EmailValueKey];
   String? get passwordValidationMessage =>
-      this.fieldsValidationMessages[PasswordValueKey];
+      fieldsValidationMessages[PasswordValueKey];
   String? get shortBioValidationMessage =>
-      this.fieldsValidationMessages[ShortBioValueKey];
+      fieldsValidationMessages[ShortBioValueKey];
   String? get birthDateValidationMessage =>
-      this.fieldsValidationMessages[BirthDateValueKey];
+      fieldsValidationMessages[BirthDateValueKey];
   String? get doYouLoveFoodValidationMessage =>
-      this.fieldsValidationMessages[DoYouLoveFoodValueKey];
+      fieldsValidationMessages[DoYouLoveFoodValueKey];
 }
 
 extension Methods on FormViewModel {
@@ -156,24 +153,24 @@ extension Methods on FormViewModel {
         firstDate: firstDate,
         lastDate: lastDate);
     if (selectedDate != null) {
-      this.setData(
-          this.formValueMap..addAll({BirthDateValueKey: selectedDate}));
+      final dateString =
+          '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}';
+      setData(formValueMap..addAll({BirthDateValueKey: dateString}));
     }
   }
 
   void setDoYouLoveFood(String doYouLoveFood) {
-    this.setData(
-        this.formValueMap..addAll({DoYouLoveFoodValueKey: doYouLoveFood}));
+    setData(formValueMap..addAll({DoYouLoveFoodValueKey: doYouLoveFood}));
   }
 
   setEmailValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[EmailValueKey] = validationMessage;
+      fieldsValidationMessages[EmailValueKey] = validationMessage;
   setPasswordValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[PasswordValueKey] = validationMessage;
+      fieldsValidationMessages[PasswordValueKey] = validationMessage;
   setShortBioValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[ShortBioValueKey] = validationMessage;
+      fieldsValidationMessages[ShortBioValueKey] = validationMessage;
   setBirthDateValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[BirthDateValueKey] = validationMessage;
+      fieldsValidationMessages[BirthDateValueKey] = validationMessage;
   setDoYouLoveFoodValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[DoYouLoveFoodValueKey] = validationMessage;
+      fieldsValidationMessages[DoYouLoveFoodValueKey] = validationMessage;
 }

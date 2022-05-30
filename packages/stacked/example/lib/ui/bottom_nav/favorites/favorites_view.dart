@@ -18,7 +18,7 @@ class FavoritesView extends StatelessWidget {
           body: Center(
               child: Text(
             viewModel.counter.toString(),
-            style: TextStyle(fontSize: 30),
+            style: const TextStyle(fontSize: 30),
           ))),
       viewModelBuilder: () => exampleLocator<FavoritesViewModel>(),
       onModelReady: (viewModel) => viewModel.setCounterTo999(),

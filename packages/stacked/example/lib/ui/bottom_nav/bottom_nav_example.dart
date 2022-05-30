@@ -10,31 +10,34 @@ class BottomNavExample extends StatefulWidget {
   const BottomNavExample({Key? key}) : super(key: key);
 
   @override
-  _BottomNavExampleState createState() => _BottomNavExampleState();
+  BottomNavExampleState createState() => BottomNavExampleState();
 }
 
-class _BottomNavExampleState extends State<BottomNavExample> {
-  final Map<int, Widget> _viewCache = Map<int, Widget>();
+class BottomNavExampleState extends State<BottomNavExample> {
+  final Map<int, Widget> _viewCache = <int, Widget>{};
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BottomNavExampleViewModel>.reactive(
       builder: (context, viewModel, child) => Scaffold(
-        body: getViewForIndex(viewModel.currentTabIndex),
+        body: getViewForIndex(viewModel.currentIndex),
         bottomNavigationBar: BottomNavigationBar(
           elevation: 6,
           backgroundColor: Colors.white,
-          currentIndex: viewModel.currentTabIndex,
-          onTap: viewModel.setTabIndex,
-          items: [
+          currentIndex: viewModel.currentIndex,
+          onTap: viewModel.setIndex,
+          items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.ac_unit),
+              icon: Icon(Icons.favorite),
+              label: 'Favorites',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.access_alarm),
+              icon: Icon(Icons.history),
+              label: 'History',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.access_alarms),
+              icon: Icon(Icons.person),
+              label: 'Profile',
             ),
           ],
         ),
@@ -47,13 +50,13 @@ class _BottomNavExampleState extends State<BottomNavExample> {
     if (!_viewCache.containsKey(index)) {
       switch (index) {
         case 0:
-          _viewCache[index] = FavoritesView();
+          _viewCache[index] = const FavoritesView();
           break;
         case 1:
-          _viewCache[index] = HistoryView();
+          _viewCache[index] = const HistoryView();
           break;
         case 2:
-          _viewCache[index] = ProfileView();
+          _viewCache[index] = const ProfileView();
           break;
       }
     }

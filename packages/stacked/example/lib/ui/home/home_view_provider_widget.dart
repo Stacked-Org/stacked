@@ -12,7 +12,7 @@ class HomeViewProviderWidget extends StatelessWidget {
         value: Human(name: 'Dane', surname: 'Mackier'),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[FullNameWidget(), DuplicateNameWidget()],
+          children: const <Widget>[FullNameWidget(), DuplicateNameWidget()],
         ),
       ),
     );

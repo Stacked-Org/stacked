@@ -16,7 +16,7 @@ class HistoryView extends StatelessWidget {
       builder: (context, viewModel, child) => Scaffold(
           body: Center(
               child: viewModel.isBusy
-                  ? CircularProgressIndicator()
+                  ? const CircularProgressIndicator()
                   : Text(viewModel.data.toString()))),
       viewModelBuilder: () => exampleLocator<HistoryViewModel>(),
     );

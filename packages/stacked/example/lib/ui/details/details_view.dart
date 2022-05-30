@@ -9,8 +9,8 @@ class DetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    NavigationService _navigationService = NavigationService();
-    _navigationService.navigateTo(
+    NavigationService navigationService = NavigationService();
+    navigationService.navigateTo(
       Routes.detailsView,
       arguments: DetailsViewArguments(name: 'FilledStacks'),
     );

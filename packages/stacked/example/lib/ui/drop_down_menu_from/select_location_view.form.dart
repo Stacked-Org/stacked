@@ -40,34 +40,34 @@ mixin $SelectLocationView on StatelessWidget {
 }
 
 extension ValueProperties on FormViewModel {
-  String? get countryValue => this.formValueMap[CountryValueKey] as String?;
-  String? get provinceValue => this.formValueMap[ProvinceValueKey] as String?;
+  String? get countryValue => formValueMap[CountryValueKey] as String?;
+  String? get provinceValue => formValueMap[ProvinceValueKey] as String?;
 
-  bool get hasCountry => this.formValueMap.containsKey(CountryValueKey);
-  bool get hasProvince => this.formValueMap.containsKey(ProvinceValueKey);
+  bool get hasCountry => formValueMap.containsKey(CountryValueKey);
+  bool get hasProvince => formValueMap.containsKey(ProvinceValueKey);
 
   bool get hasCountryValidationMessage =>
-      this.fieldsValidationMessages[CountryValueKey]?.isNotEmpty ?? false;
+      fieldsValidationMessages[CountryValueKey]?.isNotEmpty ?? false;
   bool get hasProvinceValidationMessage =>
-      this.fieldsValidationMessages[ProvinceValueKey]?.isNotEmpty ?? false;
+      fieldsValidationMessages[ProvinceValueKey]?.isNotEmpty ?? false;
 
   String? get countryValidationMessage =>
-      this.fieldsValidationMessages[CountryValueKey];
+      fieldsValidationMessages[CountryValueKey];
   String? get provinceValidationMessage =>
-      this.fieldsValidationMessages[ProvinceValueKey];
+      fieldsValidationMessages[ProvinceValueKey];
 }
 
 extension Methods on FormViewModel {
   void setCountry(String country) {
-    this.setData(this.formValueMap..addAll({CountryValueKey: country}));
+    setData(formValueMap..addAll({CountryValueKey: country}));
   }
 
   void setProvince(String province) {
-    this.setData(this.formValueMap..addAll({ProvinceValueKey: province}));
+    setData(formValueMap..addAll({ProvinceValueKey: province}));
   }
 
   setCountryValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[CountryValueKey] = validationMessage;
+      fieldsValidationMessages[CountryValueKey] = validationMessage;
   setProvinceValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[ProvinceValueKey] = validationMessage;
+      fieldsValidationMessages[ProvinceValueKey] = validationMessage;
 }

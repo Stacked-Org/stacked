@@ -5,8 +5,8 @@ import '../../app/app.locator.dart';
 import '../../app/app.router.dart';
 
 class NonReactiveViewModel extends BaseViewModel {
-  String title = 'This should not change';
   final _navigationService = exampleLocator<NavigationService>();
+  String title = 'This should not change';
 
   void updateTitle() {
     title += '. This has changed';
