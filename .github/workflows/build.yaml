@@ -5,9 +5,10 @@ on:
   pull_request:
 
 jobs:
-  stacked:
+  unit_tests:
     runs-on: ubuntu-latest
-
+    if: github.event.pull_request.draft == false
+    
     strategy:
       matrix:
         package:
@@ -55,3 +56,34 @@ jobs:
             flutter test
           fi
         working-directory: ${{ matrix.package }}
+        
+  integration_tests:
+      name: Run stacked app integration tests
+      runs-on: ubuntu-latest
+      if: github.event.pull_request.draft == false
+      defaults:
+        run:
+          working-directory: packages/stacked/example
+      steps:
+        - uses: actions/checkout@v2
+
+        - name: Setup Flutter
+          uses: subosito/flutter-action@v1
+          with:
+            channel: "stable"
+
+        - name: Setup chrome driver
+          uses: nanasess/setup-chromedriver@v1
+          with:
+            chromedriver-version: "101.0.4951.41"
+
+        - name: Install dependencies
+          run: flutter pub get
+
+        - name: Launch web driver & run tests
+          run: |
+            chromedriver --port=4444 & 
+            flutter drive \
+              --driver=test_driver/integration_test.dart \
+              --target=integration_test/app_test.dart \
+              -d web-server
