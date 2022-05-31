@@ -11,7 +11,8 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
   RouterClassGenerator(this._rootRouterConfig);
   @override
   String generate() {
-    writeLine("// ignore_for_file: public_member_api_docs, unused_import");
+    writeLine(
+        "// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names");
     generateImports(
         [..._rootRouterConfig.routes, ..._rootRouterConfig.subRouters]);
     generateAllRoutersIncludingNestedOnes(
@@ -26,8 +27,9 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
     List<RouteConfig> routes,
     String routerClassName,
     String routesClassName,
-    bool generateNavigationHelper,
-  ) {
+    bool generateNavigationHelper, {
+    bool isChild = false,
+  }) {
     generateRoutesConstantsMap(
       routes,
       routesClassName,
@@ -47,16 +49,19 @@ class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
       );
     }
 
-    generateArgumentHolders(routes);
-    generateExtensionForStronglyTypedNavigation(routes);
-
+    generateArgumentHolders(routes, isChild: isChild);
     routes.where((element) => element.children.isNotEmpty).forEach((element) {
       generateAllRoutersIncludingNestedOnes(
         element.children,
         capitalize(element.name + 'Router'),
         capitalize(element.name + 'Routes'),
         generateNavigationHelper,
+        isChild: true,
       );
     });
+
+    if (!isChild) {
+      generateExtensionForStronglyTypedNavigation(routes);
+    }
   }
 }

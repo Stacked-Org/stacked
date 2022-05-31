@@ -13,16 +13,8 @@ class HomeViewModel extends BaseViewModel {
   int counter = 0;
 
   void navigate() {
-    _navigationService.navigateTo(
-      Routes.nonReactiveView,
-      // transition: TransitionsBuilders.fadeIn,
-      // transition: ((context, animation, secondaryAnimation, child) =>
-      //     SharedAxisTransition(
-      //       animation: animation,
-      //       secondaryAnimation: secondaryAnimation,
-      //       transitionType: SharedAxisTransitionType.scaled,
-      //       child: child,
-      //     )),
+    _navigationService.navigateToNonReactiveView(
+      transition: TransitionsBuilders.fadeIn,
     );
   }
 

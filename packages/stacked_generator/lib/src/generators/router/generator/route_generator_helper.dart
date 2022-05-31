@@ -189,12 +189,13 @@ mixin RouteGeneratorHelper on BaseGenerator {
     writeLine('}');
   }
 
-  void _generateArgsHolder(RouteConfig routeConfig) {
+  void _generateArgsHolder(RouteConfig routeConfig, {bool isChild = false}) {
     writeLine('/// ${routeConfig.className} arguments holder class');
     final argsClassName = '${routeConfig.argumentsHolderClassName}';
 
     // generate fields
-    writeLine('class $argsClassName{');
+    final className = isChild ? 'Nested$argsClassName' : '$argsClassName';
+    writeLine('class $className{');
     final params = routeConfig.notQueryAndNotPath;
     params.forEach((param) {
       writeLine('final ${param.type} ${param.name};');
@@ -219,7 +220,8 @@ mixin RouteGeneratorHelper on BaseGenerator {
     writeLine('}');
   }
 
-  void generateArgumentHolders(List<RouteConfig> routes) {
+  void generateArgumentHolders(List<RouteConfig> routes,
+      {bool isChild = false}) {
     final routesWithArgsHolders = Map<String, RouteConfig>();
 
     // make sure we only generated holder classes for
@@ -232,28 +234,49 @@ mixin RouteGeneratorHelper on BaseGenerator {
 
     if (routesWithArgsHolders.isNotEmpty) {
       write(_generateCommentBoxWithMessage('Arguments holder classes'));
-      routesWithArgsHolders.values.forEach(_generateArgsHolder);
+      routesWithArgsHolders.values.forEach(
+          ((element) => _generateArgsHolder(element, isChild: isChild)));
     }
   }
 
-  void generateExtensionForStronglyTypedNavigation(List<RouteConfig> routes) {
+  void generateExtensionForStronglyTypedNavigation(
+    List<RouteConfig> routes,
+  ) {
     write(_generateCommentBoxWithMessage(
         'Extension for strongly typed navigation'));
 
     writeLine("extension NavigatorStateExtension on NavigationService {");
 
     /// Generating the strongly typed navigation methods.
-    for (var route in routes) {
-      generateStronglyTypedNavigationReturnType(route);
-      writeLine('''
-        navigateTo${route.className}( ''');
+    generateStronglyTypedNavigationForRoutesAndChildren(routes);
 
+    writeLine('}');
+  }
+
+  void generateStronglyTypedNavigationForRoutesAndChildren(
+      List<RouteConfig> routes,
+      {String? parentClassName}) {
+    for (var route in routes) {
+      final name = parentClassName != null ? parentClassName : 'Routes';
+      generateStronglyTypedNavigationReturnType(route);
+      if (parentClassName != null) {
+        writeLine('''
+        navigateToNested${route.className}( ''');
+      } else {
+        writeLine('''
+        navigateTo${route.className}( ''');
+      }
       generateStronglyTypedNavigationParameters(route);
-      writeLine(') async { return navigateTo(Routes.${route.name}, ');
+      writeLine(') async { return navigateTo(${name}.${route.name}, ');
       generateStronglyTypedNavigationRouteArguments(route);
       writeLine('); }\n');
+      if (route.children.isNotEmpty) {
+        generateStronglyTypedNavigationForRoutesAndChildren(
+          route.children,
+          parentClassName: capitalize(route.name + 'Routes'),
+        );
+      }
     }
-    writeLine('}');
   }
 
   void generateStronglyTypedNavigationReturnType(RouteConfig route) {
