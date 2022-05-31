@@ -1,3 +1,6 @@
+## 0.6.6+1
+- Readme update 
+  
 ## 0.6.6
 - Fixes bug [#627](https://github.com/FilledStacks/stacked/issues/627)
 - TextEditingControllers are now created and disposed better.
