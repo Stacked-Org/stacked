@@ -46,6 +46,7 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
         listenToFormUpdated(viewModel);
         viewModel.setDoYouLoveFood(DoYouLoveFoodValueToTitleMap.keys.first);
       },
+      onDispose: (model) => disposeForm(),
       builder: (context, viewModel, child) => Scaffold(
         appBar: AppBar(
           title: const Text('Example Form View'),

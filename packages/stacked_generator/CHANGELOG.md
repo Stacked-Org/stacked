@@ -1,3 +1,7 @@
+##0.6.6
+- Fixes bug #627
+- TextEditingControllers are now created and disposed better.
+  
 ##0.6.5
 - Major refacor to the router_generator but no changes
 ## 0.6.3

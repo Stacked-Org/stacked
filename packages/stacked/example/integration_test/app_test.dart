@@ -37,8 +37,8 @@ void main() {
       final formPasswordTextField = find.byKey(const ValueKey('passwordField'));
       final passwordErrorText = find.text('Password should not be empty');
       final dobButton = find.text('Select your Date of birth');
-      final date = DateTime.now();
-      final dateString = '11/${date.month}/${date.year}';
+      final date = DateTime(DateTime.now().year, DateTime.now().month, 11);
+      final dateString = date.toString();
       final dropDownButton = find.byKey(const ValueKey('dropdownField'));
       final dropDownItem = find.text('No').last;
       final dropDownButtonNo = find.text('No');

@@ -4,7 +4,7 @@
 // StackedFormGenerator
 // **************************************************************************
 
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs,  constant_identifier_names, non_constant_identifier_names,unnecessary_this
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -40,34 +40,34 @@ mixin $SelectLocationView on StatelessWidget {
 }
 
 extension ValueProperties on FormViewModel {
-  String? get countryValue => formValueMap[CountryValueKey] as String?;
-  String? get provinceValue => formValueMap[ProvinceValueKey] as String?;
+  String? get countryValue => this.formValueMap[CountryValueKey] as String?;
+  String? get provinceValue => this.formValueMap[ProvinceValueKey] as String?;
 
-  bool get hasCountry => formValueMap.containsKey(CountryValueKey);
-  bool get hasProvince => formValueMap.containsKey(ProvinceValueKey);
+  bool get hasCountry => this.formValueMap.containsKey(CountryValueKey);
+  bool get hasProvince => this.formValueMap.containsKey(ProvinceValueKey);
 
   bool get hasCountryValidationMessage =>
-      fieldsValidationMessages[CountryValueKey]?.isNotEmpty ?? false;
+      this.fieldsValidationMessages[CountryValueKey]?.isNotEmpty ?? false;
   bool get hasProvinceValidationMessage =>
-      fieldsValidationMessages[ProvinceValueKey]?.isNotEmpty ?? false;
+      this.fieldsValidationMessages[ProvinceValueKey]?.isNotEmpty ?? false;
 
   String? get countryValidationMessage =>
-      fieldsValidationMessages[CountryValueKey];
+      this.fieldsValidationMessages[CountryValueKey];
   String? get provinceValidationMessage =>
-      fieldsValidationMessages[ProvinceValueKey];
+      this.fieldsValidationMessages[ProvinceValueKey];
 }
 
 extension Methods on FormViewModel {
   void setCountry(String country) {
-    setData(formValueMap..addAll({CountryValueKey: country}));
+    this.setData(this.formValueMap..addAll({CountryValueKey: country}));
   }
 
   void setProvince(String province) {
-    setData(formValueMap..addAll({ProvinceValueKey: province}));
+    this.setData(this.formValueMap..addAll({ProvinceValueKey: province}));
   }
 
   setCountryValidationMessage(String? validationMessage) =>
-      fieldsValidationMessages[CountryValueKey] = validationMessage;
+      this.fieldsValidationMessages[CountryValueKey] = validationMessage;
   setProvinceValidationMessage(String? validationMessage) =>
-      fieldsValidationMessages[ProvinceValueKey] = validationMessage;
+      this.fieldsValidationMessages[ProvinceValueKey] = validationMessage;
 }
