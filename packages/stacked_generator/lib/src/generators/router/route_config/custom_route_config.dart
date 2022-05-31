@@ -79,7 +79,14 @@ class CustomRouteConfig extends RouteConfig {
           'barrierDismissible:${customRouteBarrierDismissible.toString()},');
     }
     if (transitionBuilder != null) {
-      stringBuffer.write('transitionsBuilder: ${transitionBuilder!.name},');
+      stringBuffer.write(
+          'transitionsBuilder: data.transition ?? ${transitionBuilder!.name},');
+    }
+    if (transitionBuilder == null) {
+      stringBuffer.write('''transitionsBuilder: data.transition??
+              (context, animation, secondaryAnimation, child) {
+            return child;
+          }''');
     }
     if (durationInMilliseconds != null) {
       stringBuffer.write(

@@ -92,7 +92,7 @@ class StackedRouter extends RouterBase {
         pageBuilder: (context, animation, secondaryAnimation) =>
             const NonReactiveView(),
         settings: data,
-        transitionsBuilder: TransitionsBuilders.slideBottom,
+        transitionsBuilder: data.transition ?? TransitionsBuilders.slideBottom,
       );
     },
   };
