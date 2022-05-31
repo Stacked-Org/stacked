@@ -21,13 +21,12 @@ class HomeView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(viewModel.title),
+              const SizedBox(height: 20),
               Row(
                 mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
+                children: const <Widget>[
                   WidgetOne(),
-                  SizedBox(
-                    width: 50,
-                  ),
+                  SizedBox(width: 50),
                   WidgetTwo(id: 2),
                 ],
               ),

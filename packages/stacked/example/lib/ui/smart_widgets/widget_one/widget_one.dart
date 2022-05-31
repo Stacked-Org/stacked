@@ -21,20 +21,20 @@ class WidgetOne extends StatelessWidget {
               ? Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       'Tap to increment',
                       style: TextStyle(fontSize: 10),
                     ),
                     Text(
                       viewModel.postCount.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 40,
                       ),
                     ),
                   ],
                 )
-              : Center(
+              : const Center(
                   child: CircularProgressIndicator(),
                 ),
         ),

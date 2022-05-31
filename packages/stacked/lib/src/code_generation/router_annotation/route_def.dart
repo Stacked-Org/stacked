@@ -1,8 +1,7 @@
-import 'package:stacked/src/code_generation/router/router_base.dart';
+import 'router_base.dart';
 
 class RouteDef {
   final String template;
-  final List<Type>? guards;
   final RouterBase? generator;
   final Pattern pattern;
   final Type? page;
@@ -10,7 +9,6 @@ class RouteDef {
   RouteDef(
     this.template, {
     this.page,
-    this.guards,
     this.generator,
   }) : pattern = _buildPathPattern(template);
 

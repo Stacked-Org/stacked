@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:new_architecture/ui/home/home_viewmodel.dart';
+import 'package:example/ui/home/home_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class BuilderWidgetExampleView extends ViewModelBuilderWidget<HomeViewModel> {
+  const BuilderWidgetExampleView({Key? key}) : super(key: key);
+
   @override
   Widget builder(
     BuildContext context,

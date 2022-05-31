@@ -17,12 +17,12 @@ class MultipleFuturesExampleViewModel extends MultipleFutureViewModel {
       };
 
   Future<int> getNumberAfterDelay() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     return 3;
   }
 
   Future<String> getStringAfterDelay() async {
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     return 'String data';
   }
 }

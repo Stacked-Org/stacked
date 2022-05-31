@@ -1,3 +1,5 @@
+## 2.3.8
+- Remove dublicate code and Clean up 
 ## 2.3.7
 ### Flutter v3 compatibility
 - Use [ambiguate](https://docs.flutter.dev/development/tools/sdk/release-notes/release-notes-3.0.0#your-code) to ensure v3 (and backward) compatibility

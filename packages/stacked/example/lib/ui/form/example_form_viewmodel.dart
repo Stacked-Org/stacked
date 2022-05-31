@@ -1,6 +1,6 @@
-import 'package:new_architecture/app/app.locator.dart';
-import 'package:new_architecture/app/app.logger.dart';
-import 'package:new_architecture/app/app.router.dart';
+import 'package:example/app/app.locator.dart';
+import 'package:example/app/app.logger.dart';
+import 'package:example/app/app.router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -32,6 +32,7 @@ class ExampleFormViewModel extends FormViewModel {
     // here we can run custom functionality to save to our api
   }
 
-  Future? navigateSomewhere() =>
-      _navigationService.navigateTo(Routes.streamCounterView);
+  void navigateToNewView() {
+    _navigationService.navigateTo(Routes.bottomNavExample);
+  }
 }

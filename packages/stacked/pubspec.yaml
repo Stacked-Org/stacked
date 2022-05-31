@@ -2,7 +2,7 @@ name: stacked
 description: An architecture and widgets for an MVVM inspired architecture in
   Flutter. It provides common functionalities required to build a large
   application in a understandable manner.
-version: 2.3.7
+version: 2.3.8
 homepage: https://github.com/FilledStacks/stacked
 
 environment:
@@ -11,18 +11,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  get_it: ^7.1.4 #7.1.3
+  get_it: ^7.1.4 
   meta: ^1.3.0
-  provider: ^6.0.0 #5.0.0
+  provider: ^6.0.0 
   collection: ^1.15.0
   # Remove the path and use pub one after publish the stacked_core
   stacked_core: ^1.1.0
   #universal_io
   universal_io: ^2.0.4
 
-dependency_overrides:
-  stacked_core:
-    path: ../stacked_core/
 
 dev_dependencies:
   flutter_test:

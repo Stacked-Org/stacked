@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+
 import 'widget_two_viewmodel.dart';
 
 class WidgetTwo extends StatelessWidget {
@@ -23,13 +24,13 @@ class WidgetTwo extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(
+              const Text(
                 'Tap to Reset',
                 style: TextStyle(fontSize: 10),
               ),
               Text(
                 viewModel.postCount.toString(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 40,
                 ),

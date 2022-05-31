@@ -1,3 +1,13 @@
+## 0.6.6+1
+- Readme update 
+  
+## 0.6.6
+- Fixes bug [#627](https://github.com/FilledStacks/stacked/issues/627)
+- TextEditingControllers are now created and disposed better.
+  
+## 0.6.5
+- Major refacor to the router_generator but no changes
+  
 ## 0.6.3
 
 - Replace dependency on stacked with stacked_core

@@ -1,3 +1,5 @@
+## 0.8.25
+- Added clearStackAndShowView to clear stack and show widget directly 
 ## 0.8.24
 - Flutter v3 compatibility 
 ## 0.8.22+2

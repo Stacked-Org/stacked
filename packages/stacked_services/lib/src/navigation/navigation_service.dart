@@ -277,6 +277,19 @@ class NavigationService {
     );
   }
 
+  /// Clears the entire back stack and shows [view]
+  Future<T?>? clearStackAndShowView<T>(
+    Widget view, {
+    dynamic arguments,
+    int? id,
+  }) {
+    return G.Get.offAll<T?>(
+      view,
+      arguments: arguments,
+      id: id,
+    );
+  }
+
   /// Pops the navigation stack until there's 1 view left then pushes [routeName] onto the stack
   ///
   /// [id] is for when you are using nested navigation, as explained in documentation.

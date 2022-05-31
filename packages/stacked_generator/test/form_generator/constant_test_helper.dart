@@ -25,14 +25,11 @@ const Map<String, String> DropDownValueToTitleMap = {
 
 String ksTextEditingControllerItemsMap = '''
 
-final Map<String, TextEditingController> _TestTextEditingControllers = {
-FirstNameValueKey: TextEditingController(),
-LastNameValueKey: TextEditingController(),
-};
+final Map<String, TextEditingController> _TestTextEditingControllers = {};
 
 ''';
 
 String ksTextEditingControllerGettersForTextFields = '''
-TextEditingController get firstNameController => _TestTextEditingControllers[FirstNameValueKey]!;
-TextEditingController get lastNameController => _TestTextEditingControllers[LastNameValueKey]!;
+TextEditingController get firstNameController => _getFormTextEditingController(FirstNameValueKey);
+TextEditingController get lastNameController => _getFormTextEditingController(LastNameValueKey);
 ''';

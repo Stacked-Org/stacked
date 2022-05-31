@@ -13,7 +13,7 @@ class HomeViewTraditional extends StatelessWidget {
       viewModelBuilder: () => HomeViewModel(),
       onModelReady: (viewModel) => viewModel.initialise(),
       builder: (context, viewModel, child) => Scaffold(
-        floatingActionButton: UpdateTitleButton(),
+        floatingActionButton: const UpdateTitleButton(),
         body: Center(
           child: Text(viewModel.title),
         ),

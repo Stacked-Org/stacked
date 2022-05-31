@@ -66,20 +66,20 @@ class SelectLocationView extends StatelessWidget with $SelectLocationView {
       },
       viewModelBuilder: () => SelectLocationViewModel(),
       builder: (context, model, child) => Scaffold(
-        backgroundColor: Color.fromARGB(255, 26, 27, 30),
+        backgroundColor: const Color.fromARGB(255, 26, 27, 30),
         body: Center(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-              Text("Select Location",
+              const Text("Select Location",
                   style:
                       TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800)),
-              Text("Manually select your location"),
-              SizedBox(height: 20),
+              const Text("Manually select your location"),
+              const SizedBox(height: 20),
               Row(
                 children: [
-                  Text('Country'),
-                  SizedBox(width: 15),
+                  const Text('Country'),
+                  const SizedBox(width: 15),
                   DropdownButton<String>(
                     value: model.countryValue,
                     onChanged: (value) {
@@ -96,11 +96,11 @@ class SelectLocationView extends StatelessWidget with $SelectLocationView {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 children: [
-                  Text('State &#x2F; Province'),
-                  SizedBox(width: 15),
+                  const Text('State &#x2F; Province'),
+                  const SizedBox(width: 15),
                   DropdownButton<String>(
                     value: model.provinceValue,
                     onChanged: (value) {
@@ -117,7 +117,7 @@ class SelectLocationView extends StatelessWidget with $SelectLocationView {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
             ]),
           ),
         ),
