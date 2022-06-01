@@ -86,10 +86,10 @@ class TemplateHelper {
   }
 
   /// Returns all the compiled template files to write out to disk
-  Future<List<CompliledTemplateFile>> getTemplateItemsToRender({
+  Future<List<CompiledTemplateFile>> getTemplateItemsToRender({
     required String templateName,
   }) async {
-    final templateItemsToRender = <CompliledTemplateFile>[];
+    final templateItemsToRender = <CompiledTemplateFile>[];
 
     final templateFiles = await getFilesForTemplate(
       templateName: templateName,
@@ -116,7 +116,7 @@ class TemplateHelper {
       final templateFileContent =
           await _fileService.readFileAsString(filePath: templateFile.path);
 
-      templateItemsToRender.add(CompliledTemplateFile(
+      templateItemsToRender.add(CompiledTemplateFile(
         name: templateNameRecase.pascalCase,
         fileName: templateFileNameRecase.pascalCase,
         path: relativeTemplateFilePath,

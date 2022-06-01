@@ -94,7 +94,7 @@ class FileService {
     await writeFile(
       file: File(filePath),
       fileContent: fileLines.join('\n'),
-      type: FileModificationType.Modify,
+      type: FileModificationType.ApplyModification,
       verbose: true,
       verboseMessage: "Removed ${recaseName.pascalCase}View from $filePath",
     );
@@ -155,6 +155,7 @@ class FileService {
 // enum for file modification types
 enum FileModificationType {
   Create,
-  Modify,
+  ApplyModification,
+  RevertModification,
   Delete,
 }

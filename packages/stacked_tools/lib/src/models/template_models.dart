@@ -4,8 +4,8 @@ part 'template_models.freezed.dart';
 part 'template_models.g.dart';
 
 @freezed
-class CompliledTemplateFile with _$CompliledTemplateFile {
-  factory CompliledTemplateFile({
+class CompiledTemplateFile with _$CompiledTemplateFile {
+  factory CompiledTemplateFile({
     /// Pascal case name of the template this file belongs too
     required String name,
 
@@ -18,17 +18,17 @@ class CompliledTemplateFile with _$CompliledTemplateFile {
 
     /// The content as is from the file that was read
     required String content,
-  }) = _CompliledTemplateFile;
+  }) = _CompiledTemplateFile;
 
-  factory CompliledTemplateFile.fromJson(Map<String, dynamic> json) =>
-      _$CompliledTemplateFileFromJson(json);
+  factory CompiledTemplateFile.fromJson(Map<String, dynamic> json) =>
+      _$CompiledTemplateFileFromJson(json);
 }
 
 @freezed
 class CompiledStackedTemplate with _$CompiledStackedTemplate {
   factory CompiledStackedTemplate({
     required String name,
-    required List<CompliledTemplateFile> templateFiles,
+    required List<CompiledTemplateFile> templateFiles,
     @Default([]) List<CompiledFileModification> modificationFiles,
   }) = _CompiledStackedTemplate;
 

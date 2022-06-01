@@ -14,7 +14,7 @@ class ProcessService {
   /// Args:
   ///   appName (String): The name of the app that's going to be create.
   Future<void> runCreateApp({required String appName}) async {
-    await _runProcessAndLogOutput(
+    await runProcessAndLogOutput(
       programName: ksFlutter,
       arguments: [ksCreate, appName],
     );
@@ -25,7 +25,7 @@ class ProcessService {
   /// Args:
   ///   appName (String): The name of the app.
   Future<void> runBuildRunner({String? appName}) async {
-    await _runProcessAndLogOutput(
+    await runProcessAndLogOutput(
       programName: ksFlutter,
       arguments: buildRunnerArguments,
       workingDirectory: appName,
@@ -37,7 +37,7 @@ class ProcessService {
   /// Args:
   ///   appName (String): The name of the app.
   Future<void> runPubGet({String? appName}) async {
-    await _runProcessAndLogOutput(
+    await runProcessAndLogOutput(
       programName: ksFlutter,
       arguments: pubGetArguments,
       workingDirectory: appName,
@@ -49,7 +49,7 @@ class ProcessService {
   /// Args:
   ///   appName (String): The name of the app.
   Future<void> runFormat({String? appName}) async {
-    await _runProcessAndLogOutput(
+    await runProcessAndLogOutput(
       programName: ksFlutter,
       arguments: [ksFormat, ksCurrentDirectory],
       workingDirectory: appName,
@@ -62,7 +62,7 @@ class ProcessService {
   ///   programName (String): The name of the program to run.
   ///   arguments (List<String>): The arguments to pass to the program. Defaults to const []
   ///   workingDirectory (String): The directory to run the command in.
-  Future<void> _runProcessAndLogOutput({
+  Future<void> runProcessAndLogOutput({
     required String programName,
     List<String> arguments = const [],
     String? workingDirectory,

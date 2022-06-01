@@ -1,10 +1,12 @@
 import 'dart:async';
-import 'dart:io';
+import 'dart:io' as io;
 
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mustache_template/mustache_template.dart';
 // TODO: Refactor into a service so we can mock out the return value
 import 'package:path/path.dart' as path;
 import 'package:recase/recase.dart';
+import 'package:stacked_tools/src/constants/command_constants.dart';
 import 'package:stacked_tools/src/constants/message_constants.dart';
 import 'package:stacked_tools/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_tools/src/locator.dart';
@@ -12,6 +14,7 @@ import 'package:stacked_tools/src/models/template_models.dart';
 import 'package:stacked_tools/src/services/colorized_log_service.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
 import 'package:stacked_tools/src/services/pubspec_service.dart';
+import 'package:stacked_tools/src/services/process_service.dart';
 import 'package:stacked_tools/src/templates/compiled_template_map.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 import 'package:stacked_tools/src/templates/template_helper.dart';
@@ -24,6 +27,7 @@ class TemplateService {
   final _templateHelper = locator<TemplateHelper>();
   final _pubspecService = locator<PubspecService>();
   final _clog = locator<ColorizedLogService>();
+  final _processService = locator<ProcessService>();
 
   /// Reads the template folder and creates the dart code that will be used to generate
   /// the templates
@@ -35,7 +39,7 @@ class TemplateService {
     );
 
     final stackedTemplates = <CompiledStackedTemplate>[];
-    final allTemplateItems = <CompliledTemplateFile>[];
+    final allTemplateItems = <CompiledTemplateFile>[];
 
     for (final stackedTemplateFolderPath in stackedTemplateFolderPaths) {
       final templateName = _templateHelper.getTemplateFolderName(
@@ -68,11 +72,11 @@ class TemplateService {
         outputTemplate.renderString(templateItemsData);
 
     await _fileService.writeFile(
-      file: File(path.join(templatesPath, 'compiled_templates.dart')),
+      file: io.File(path.join(templatesPath, 'compiled_templates.dart')),
       fileContent: allTemplateItemsContent,
     );
 
-    // Creat the template map
+    // Create the template map
     final templateMap = Template(kTemplateMapDataStructure);
     final templateMapData = {
       'stackedTemplates': stackedTemplates.map((e) => e.toJson()).toList(),
@@ -80,7 +84,7 @@ class TemplateService {
 
     final templateMapContent = templateMap.renderString(templateMapData);
     await _fileService.writeFile(
-      file: File(path.join(templatesPath, 'compiled_template_map.dart')),
+      file: io.File(path.join(templatesPath, 'compiled_template_map.dart')),
       fileContent: templateMapContent,
     );
   }
@@ -129,6 +133,37 @@ class TemplateService {
     );
   }
 
+  /// Using the [templateName] this function will delete out the template
+  /// files in the directory the cli is currently running and revert the modifications applied by this template.
+  Future<void> revertTemplate({
+    required String templateName,
+
+    /// The name to use for the views when generating the view template
+    required String name,
+    bool verbose = false,
+
+    /// When set to true the newly generated view will not be added to the app.dart file
+    bool excludeRoute = false,
+
+    /// When supplied the templates will be created using the folder supplied here as the
+    /// output location.
+    ///
+    /// i.e. When the template writes too lib/ui/view.dart if output path is playground
+    /// the final output path will be playground/lib/ui/view.dart
+    String? outputPath,
+  }) async {
+    // Get the template that we want to render
+    final template = kCompiledStackedTemplates[templateName] ??
+        StackedTemplate(templateFiles: []);
+
+    await revertTemplateFiles(
+      template: template,
+      templateName: templateName,
+      name: name,
+      outputFolder: outputPath,
+    );
+  }
+
   Future<void> writeOutTemplateFiles({
     required StackedTemplate template,
     required String templateName,
@@ -149,10 +184,104 @@ class TemplateService {
       );
 
       await _fileService.writeFile(
-        file: File(templateFileOutputPath),
+        file: io.File(templateFileOutputPath),
         fileContent: templateContent,
         verbose: true,
       );
+    }
+  }
+
+  /// Revert all the modifications made be [template]
+  Future<void> revertTemplateFiles({
+    required StackedTemplate template,
+    required String templateName,
+    required String name,
+    String? outputFolder,
+  }) async {
+    // Delete all the template generated files
+    for (final templateFile in template.templateFiles) {
+      final templateFileOutputPath = getTemplateOutputPath(
+        inputTemplatePath: templateFile.relativeOutputPath,
+        name: name,
+        outputFolder: outputFolder,
+      );
+
+      bool fileExists =
+          await _fileService.fileExists(filePath: templateFileOutputPath);
+      if (!fileExists) {
+        _clog.warn(
+            message:
+                'Template Generated File not deleted. The file $templateFileOutputPath does not exist');
+      }
+
+      _fileService.deleteFile(filePath: templateFileOutputPath);
+    }
+
+    //revert modified Files of the template
+    final hasOutputPath = outputFolder != null;
+    for (final fileToModify in template.modificationFiles) {
+      final modificationPath = hasOutputPath
+          ? path.join(outputFolder, fileToModify.relativeModificationPath)
+          : fileToModify.relativeModificationPath;
+
+      final fileExists = await _fileService.fileExists(
+        filePath: modificationPath,
+      );
+
+      if (!fileExists) {
+        _clog.warn(
+            message:
+                'Modification not unapplied. The file $modificationPath does not exist');
+        throw InvalidStackedStructureException(kInvalidStackedStructureAppFile);
+      }
+
+      final fileContent = await _fileService.readFileAsString(
+        filePath: modificationPath,
+      );
+
+      if (!fileContent.contains(fileToModify.modificationIdentifier)) {
+        _clog.warn(
+            message:
+                'Modification not unapplied. The identifier `${fileToModify.modificationIdentifier}` does not exist in the file.');
+        throw InvalidStackedStructureException(kInvalidStackedStructureAppFile);
+      }
+
+      // Get the file content without the modifications
+      final updatedFileContent = await templateWithoutModifiedFileContent(
+        fileContent: fileContent,
+        modificationIdentifier: fileToModify.modificationIdentifier,
+        modificationTemplate: fileToModify.modificationTemplate,
+        name: name,
+        templateName: templateName,
+      );
+
+      final verboseMessage = templateModificationName(
+        modificationName: fileToModify.modificationName,
+        name: name,
+        templateName: templateName,
+      );
+
+      // Write the file back that was modified
+      await _fileService.writeFile(
+        file: io.File(modificationPath),
+        fileContent: updatedFileContent,
+        verbose: true,
+        type: FileModificationType.RevertModification,
+        verboseMessage: verboseMessage
+      );
+    }
+
+    // The template being deleted is a view template, and thus we have to delete the created folders as well.
+    if (templateName == "view") {
+      /// Deleting the view folder.
+      String directoryPath = getTemplateOutputPath(
+        inputTemplatePath: 'lib/ui/views/generic/',
+
+        ///TODO: Change this 👆 to the config file view path when it's added.
+        name: name,
+        outputFolder: outputFolder,
+      );
+      _fileService.deleteFolder(directoryPath: directoryPath);
     }
   }
 
@@ -285,10 +414,10 @@ class TemplateService {
 
       // Write the file back that was modified
       await _fileService.writeFile(
-        file: File(modificationPath),
+        file: io.File(modificationPath),
         fileContent: updatedFileContent,
         verbose: true,
-        type: FileModificationType.Modify,
+        type: FileModificationType.ApplyModification,
         verboseMessage: verboseMessage,
       );
     }
@@ -338,5 +467,52 @@ class TemplateService {
       modificationIdentifier,
       '$renderedTemplate\n$modificationIdentifier',
     );
+  }
+
+  /// It reverts the modification applied to a file by [modificationTemplate]
+  Future<String> templateWithoutModifiedFileContent({
+    required String fileContent,
+    required String modificationTemplate,
+    required String modificationIdentifier,
+    required String name,
+    required String templateName,
+  }) async {
+    final template = Template(
+      modificationTemplate,
+      lenient: true,
+    );
+
+    final templateRenderData = getTemplateRenderData(
+      templateName: templateName,
+      name: name,
+    );
+
+    final renderedTemplate = template.renderString(templateRenderData);
+
+    //Replace generated io.File content with modifier, to remove the generated content
+    if (renderedTemplate.contains("\n")) {
+      var file = io.File("temp.txt");
+      await _fileService.writeFile(
+          file: file,
+          fileContent: '$renderedTemplate\n$modificationIdentifier');
+
+      await _processService.runProcessAndLogOutput(
+        programName: 'dart',
+        arguments: [ksFormat, "temp.txt", "--set-exit-if-changed"],
+        workingDirectory: ksCurrentDirectory,
+      );
+
+      String formattedText = await file.readAsString();
+
+      file.delete();
+
+      return fileContent.replaceFirst(
+        formattedText,
+        modificationIdentifier + '\n\n',
+      );
+    } else {
+      return fileContent.replaceFirst(
+          '$renderedTemplate\n$modificationIdentifier', modificationIdentifier);
+    }
   }
 }

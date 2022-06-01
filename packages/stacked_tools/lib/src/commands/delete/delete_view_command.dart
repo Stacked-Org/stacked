@@ -36,8 +36,7 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     await _pubspecService.initialise(workingDirectory: outputPath);
     await validateStructure(outputPath: outputPath);
-    await deleteViewAndTestFiles(outputPath: outputPath);
-    await removeViewFromRoute(outputPath: outputPath);
+    await purgeView(outputPath: outputPath);
     await _processService.runBuildRunner(appName: outputPath);
     await _processService.runFormat(appName: outputPath);
   }
@@ -46,39 +45,8 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
   ///
   /// Args:
   ///   outputPath (String): The path to the output folder.
-  Future<void> deleteViewAndTestFiles({String? outputPath}) async {
-    /// Deleting the view folder.
-    String directoryPath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: 'lib/ui/views/generic/',
-
-      ///TODO: Change this 👆 to the config file view path when it's added.
-      name: argResults!.rest.first,
-      outputFolder: outputPath,
-    );
-    await _fileService.deleteFolder(directoryPath: directoryPath);
-
-    /// Deleting the test file for the view.
-    String filePath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: kViewTemplateGenericViewmodelTestPath,
-      name: argResults!.rest.first,
-      outputFolder: outputPath,
-    );
-    await _fileService.deleteFile(filePath: filePath);
-  }
-
-  /// It removes the view from [app.dart]
-  ///
-  /// Args:
-  ///   outputPath (String): The path to the output folder.
-  Future<void> removeViewFromRoute({String? outputPath}) async {
-    String filePath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: kAppTemplateAppPath,
-      name: argResults!.rest.first,
-      outputFolder: outputPath,
-    );
-    await _fileService.removeSpecificFileLines(
-      filePath: filePath,
-      removedContent: argResults!.rest.first,
-    );
+  Future<void> purgeView({String? outputPath}) async {
+    _templateService.revertTemplate(
+        templateName: kTemplateNameView, name: argResults!.rest.first);
   }
 }

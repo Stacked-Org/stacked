@@ -6,17 +6,17 @@ part of 'template_models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CompliledTemplateFile _$$_CompliledTemplateFileFromJson(
+_$_CompiledTemplateFile _$$_CompiledTemplateFileFromJson(
         Map<String, dynamic> json) =>
-    _$_CompliledTemplateFile(
+    _$_CompiledTemplateFile(
       name: json['name'] as String,
       fileName: json['fileName'] as String,
       path: json['path'] as String,
       content: json['content'] as String,
     );
 
-Map<String, dynamic> _$$_CompliledTemplateFileToJson(
-        _$_CompliledTemplateFile instance) =>
+Map<String, dynamic> _$$_CompiledTemplateFileToJson(
+        _$_CompiledTemplateFile instance) =>
     <String, dynamic>{
       'name': instance.name,
       'fileName': instance.fileName,
@@ -29,7 +29,7 @@ _$_CompiledStackedTemplate _$$_CompiledStackedTemplateFromJson(
     _$_CompiledStackedTemplate(
       name: json['name'] as String,
       templateFiles: (json['templateFiles'] as List<dynamic>)
-          .map((e) => CompliledTemplateFile.fromJson(e as Map<String, dynamic>))
+          .map((e) => CompiledTemplateFile.fromJson(e as Map<String, dynamic>))
           .toList(),
       modificationFiles: (json['modificationFiles'] as List<dynamic>?)
               ?.map((e) =>

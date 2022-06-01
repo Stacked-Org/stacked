@@ -34,8 +34,11 @@ class ColorizedLogService {
       case FileModificationType.Delete:
         coloredPrint(pen..red(), message: 'Deleted $message');
         break;
-      case FileModificationType.Modify:
+      case FileModificationType.ApplyModification:
         coloredPrint(pen..blue(), message: 'Applied Modification $message');
+        break;
+      case FileModificationType.RevertModification:
+        coloredPrint(pen..blue(), message: 'Reverted Modification $message');
         break;
       default:
         throw Exception('Invalid FileModificationType');
