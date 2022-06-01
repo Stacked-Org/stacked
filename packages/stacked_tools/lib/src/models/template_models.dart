@@ -39,7 +39,7 @@ class CompiledStackedTemplate with _$CompiledStackedTemplate {
 @freezed
 class CompiledFileModification with _$CompiledFileModification {
   factory CompiledFileModification({
-    /// A short description for what this modiciation does
+    /// A short description for what this modification does
     required String description,
 
     /// The relative path to the file that needs to be modified

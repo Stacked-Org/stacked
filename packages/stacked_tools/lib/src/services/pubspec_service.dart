@@ -6,7 +6,7 @@ import 'package:pubspec_yaml/pubspec_yaml.dart';
 class PubspecService {
   late PubspecYaml pubspecYaml;
 
-  /// Reads the pubpec and caches the value locally
+  /// Reads the pubspec and caches the value locally
   Future<void> initialise({String? workingDirectory}) async {
     final bool hasWorkingDirectory = workingDirectory != null;
     // stdout.writeln('PubspecService - initialise from pubspec.yaml');

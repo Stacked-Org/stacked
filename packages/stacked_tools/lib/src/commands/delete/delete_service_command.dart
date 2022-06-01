@@ -1,25 +1,17 @@
 import 'package:args/command_runner.dart';
-import 'package:path/path.dart' as path;
 import 'package:stacked_tools/src/constants/command_constants.dart';
 import 'package:stacked_tools/src/constants/message_constants.dart';
-import 'package:stacked_tools/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/mixins/project_structure_validator_mixin.dart';
-import 'package:stacked_tools/src/services/colorized_log_service.dart';
-import 'package:stacked_tools/src/services/file_service.dart';
 import 'package:stacked_tools/src/services/process_service.dart';
 import 'package:stacked_tools/src/services/pubspec_service.dart';
 import 'package:stacked_tools/src/services/template_service.dart';
-import 'package:stacked_tools/src/templates/compiled_template_map.dart';
-import 'package:stacked_tools/src/templates/compiled_templates.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 
 class DeleteServiceCommand extends Command with ProjectStructureValidator {
   final _pubspecService = locator<PubspecService>();
   final _processService = locator<ProcessService>();
-  final _fileService = locator<FileService>();
   final _templateService = locator<TemplateService>();
-  final _clog = locator<ColorizedLogService>();
 
   @override
   String get description =>

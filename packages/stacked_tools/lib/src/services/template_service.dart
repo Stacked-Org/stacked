@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io' as io;
 
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mustache_template/mustache_template.dart';
 // TODO: Refactor into a service so we can mock out the return value
 import 'package:path/path.dart' as path;

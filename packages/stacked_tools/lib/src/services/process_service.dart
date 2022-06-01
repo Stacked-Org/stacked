@@ -83,7 +83,7 @@ class ProcessService {
 
       final exitCode = await process.exitCode;
 
-      logSucessStatus(exitCode);
+      logSuccessStatus(exitCode);
     } on ProcessException catch (e) {
       _cLog.error(message: 'Command failed. ${e.message}');
     }
@@ -94,7 +94,7 @@ class ProcessService {
   /// Args:
   ///   exitCode (int): The exit code of the command.
   ///
-  void logSucessStatus(int exitCode) {
+  void logSuccessStatus(int exitCode) {
     if (exitCode == 0) {
       _cLog.success(
         message: 'Command complete. ExitCode: $exitCode',

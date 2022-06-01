@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
-/// Wraps the path package functionality to allwo us to write
+/// Wraps the path package functionality to allow us to write
 /// deterministic unit tests when using path related functionality
 class PathService {
   String get templatesPath => p.joinAll([
