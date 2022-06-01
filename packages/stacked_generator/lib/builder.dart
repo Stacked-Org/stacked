@@ -5,6 +5,8 @@ import 'package:stacked_generator/src/generators/getit/stacked_locator_generator
 import 'package:stacked_generator/src/generators/logging/stacked_logger_generator.dart';
 import 'package:stacked_generator/src/generators/router/stacked_router_generator.dart';
 
+import 'src/generators/dialogs/resolve/stacked_dialog_generator.dart';
+
 Builder stackedRouterGenerator(BuilderOptions options) {
   return LibraryBuilder(
     StackedRouterGenerator(),
@@ -30,5 +32,12 @@ Builder stackedLoggerGenerator(BuilderOptions options) {
   return LibraryBuilder(
     StackedLoggerGenerator(),
     generatedExtension: '.logger.dart',
+  );
+}
+
+Builder stackedDialogGenerator(BuilderOptions options) {
+  return LibraryBuilder(
+    StackedDialogGenerator(),
+    generatedExtension: '.dialog.dart',
   );
 }
