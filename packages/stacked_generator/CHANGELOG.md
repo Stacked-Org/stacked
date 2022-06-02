@@ -1,3 +1,5 @@
+## 0.7.0
+- Add dialogs generator
 ## 0.6.6+1
 - Readme update 
   

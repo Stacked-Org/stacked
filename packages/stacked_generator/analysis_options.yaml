@@ -1,0 +1,4 @@
+analyzer:
+  # exclude the .dialog.dart generated files cause they require 
+  # stacked_services packages and 
+  exclude: [test/dialogs/integration_test/samples/*.dialog.dart]
