@@ -242,6 +242,7 @@ mixin RouteGeneratorHelper on BaseGenerator {
   void generateExtensionForStronglyTypedNavigation(
     List<RouteConfig> routes,
   ) {
+    if (routes.isEmpty) return;
     write(_generateCommentBoxWithMessage(
         'Extension for strongly typed navigation'));
 
@@ -260,16 +261,17 @@ mixin RouteGeneratorHelper on BaseGenerator {
       final name = parentClassName != null ? parentClassName : 'Routes';
       generateStronglyTypedNavigationReturnType(route);
       if (parentClassName != null) {
-        writeLine('''
+        write('''
         navigateToNested${route.className}( ''');
       } else {
-        writeLine('''
+        write('''
         navigateTo${route.className}( ''');
       }
       generateStronglyTypedNavigationParameters(route);
       writeLine(') async { return navigateTo(${name}.${route.name}, ');
       generateStronglyTypedNavigationRouteArguments(route);
-      writeLine('); }\n');
+      writeLine('); }');
+      newLine();
       if (route.children.isNotEmpty) {
         generateStronglyTypedNavigationForRoutesAndChildren(
           route.children,
@@ -280,13 +282,8 @@ mixin RouteGeneratorHelper on BaseGenerator {
   }
 
   void generateStronglyTypedNavigationReturnType(RouteConfig route) {
-    writeLine('''
-
-       Future<''');
-    writeLine(route.isProcessedReturnTypeDynamic
-        ? route.processedReturnType
-        : '${route.processedReturnType}?');
-    write('>');
+    writeLine(
+        '''\nFuture<${route.isProcessedReturnTypeDynamic ? route.processedReturnType : '${route.processedReturnType}?'}>''');
   }
 
   void generateStronglyTypedNavigationParameters(RouteConfig route) {

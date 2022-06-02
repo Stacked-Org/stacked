@@ -15,7 +15,7 @@ class StackedLocatorContentGenerator extends BaseGenerator {
   });
   @override
   String generate() {
-    writeLine("// ignore_for_file: public_member_api_docs, unused_import");
+    writeLine("// ignore_for_file: public_member_api_docs");
 
     _generateImports(dependencies);
 

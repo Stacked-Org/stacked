@@ -1,5 +1,5 @@
 final kStackedLocaterWithOneDependencyOutput = '''
-// ignore_for_file: public_member_api_docs, unused_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -17,7 +17,7 @@ ebraLocator.registerSingleton(GeolocaorService()  );
 }
 ''';
 final kStackedLocaterWithTwoDependenciesOutput = '''
-// ignore_for_file: public_member_api_docs, unused_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -37,7 +37,7 @@ filledstacksLocator.registerSingleton(FireService()  );
 }
 ''';
 final kStackedLocaterWithOneDependencyOutputWithImports = '''
-// ignore_for_file: public_member_api_docs, unused_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -56,7 +56,7 @@ filledstacksLocator.registerSingleton(GeolocaorService()  );
 ''';
 
 final kStackedLocaterWithOneDependencyOutputWithAbstractedImport = '''
-// ignore_for_file: public_member_api_docs, unused_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -75,7 +75,7 @@ filledstacksLocator.registerSingleton(GeolocaorService()  );
 }
 ''';
 final kStackedLocaterWithOneDependencyOutputWithAbstractedTypeClassName = '''
-// ignore_for_file: public_member_api_docs, unused_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -93,7 +93,7 @@ filledstacksLocator.registerSingleton<abstractedTypeClassNamee>(GeolocaorService
 }
 ''';
 final kStackedLocaterWithOneDependencyOutputWithEnviroments = '''
-// ignore_for_file: public_member_api_docs, unused_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -112,7 +112,7 @@ filledstacksLocator.registerSingleton(GeolocaorService()  ,registerFor:{"dev","p
 ''';
 final kStackedLocaterWithOneDependencyOutputWithPresolveFunctionAndDependencyTypePresolvedSingleton =
     '''
-// ignore_for_file: public_member_api_docs, unused_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -132,7 +132,7 @@ filledstacksLocator.registerEnvironment(environment: environment, environmentFil
 }
 ''';
 final kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactory = '''
-// ignore_for_file: public_member_api_docs, unused_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -151,7 +151,7 @@ filledstacksLocator.registerFactory(() => GeolocaorService()  );
 ''';
 final kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParams =
     '''
-// ignore_for_file: public_member_api_docs, unused_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -170,7 +170,7 @@ filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,dynamic>((par
 ''';
 final kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndDefaultValue =
     '''
-// ignore_for_file: public_member_api_docs, unused_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -189,7 +189,7 @@ filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,dynamic>((par
 ''';
 final kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndIsPositionalIsTrue =
     '''
-// ignore_for_file: public_member_api_docs, unused_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -208,7 +208,7 @@ filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,dynamic>((par
 ''';
 final kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndDefaultValueIsshitAndIsPositionalIsTrue =
     '''
-// ignore_for_file: public_member_api_docs, unused_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -227,7 +227,7 @@ filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,dynamic>((par
 ''';
 final kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndIsNameIsHello =
     '''
-// ignore_for_file: public_member_api_docs, unused_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -246,7 +246,7 @@ filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,dynamic>((par
 ''';
 final kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndTwoFactoryParam =
     '''
-// ignore_for_file: public_member_api_docs, unused_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -264,7 +264,7 @@ filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,freshType?>((
 }
 ''';
 final kStackedLocaterWithOneDependencyOutputWithDependencyTypeSinglton = '''
-// ignore_for_file: public_member_api_docs, unused_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -282,7 +282,7 @@ filledstacksLocator.registerSingleton(GeolocaorService()  );
 }
 ''';
 final kStackedLocaterWithOneDependencyOutputWithDependencyTypeLazySinglton = '''
-// ignore_for_file: public_member_api_docs, unused_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:stacked_core/stacked_core.dart';
 
