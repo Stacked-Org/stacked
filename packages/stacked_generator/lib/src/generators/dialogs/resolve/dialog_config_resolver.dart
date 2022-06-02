@@ -1,3 +1,4 @@
+import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_generator/import_resolver.dart';
@@ -9,17 +10,12 @@ import '../dialog_config.dart';
 /// Reolves the [LoggerConfig] and returns the object if it's supplied
 class DialogConfigResolver {
   List<DialogConfig> resolve(
-      ConstantReader stackedApp, ImportResolver importResolver) {
-    final dialogsConfig = stackedApp.peek('dialogs')?.listValue;
-
-    throwIf(
-        dialogsConfig == null, 'Something went wrong with dialog generator');
-
+      List<DartObject>? dialogsObject, ImportResolver importResolver) {
     final dialogConfigs = <DialogConfig>[];
 
     // Convert the dialog config into DialogConfig
-    for (final dialogConfig in dialogsConfig!) {
-      var dialogReader = ConstantReader(dialogConfig);
+    for (final dialogObject in dialogsObject!) {
+      var dialogReader = ConstantReader(dialogObject);
 
       // Get the type of the dialog that we want to register
       final dialogClassType = dialogReader.read('classType').typeValue;
