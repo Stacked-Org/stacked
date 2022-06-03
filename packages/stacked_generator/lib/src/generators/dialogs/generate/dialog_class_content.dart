@@ -1,3 +1,5 @@
+import '../../../../utils.dart';
+
 String setupDialogHeader(String? locatorName) => '''
 void setupDialogUi() {
   var dialogService = ${locatorName ?? 'locator'}<DialogService>();
@@ -5,9 +7,10 @@ void setupDialogUi() {
   final builders = {
   
 ''';
+
 String dialogRegisterContent(String dialogClassName) => '''
-  DialogType.${dialogClassName}: (context, sheetRequest, completer) =>
-        ${dialogClassName}(request: sheetRequest, completer: completer),
+  DialogType.${toLowerCamelCase(dialogClassName)}: (context, DialogRequest request, void Function(DialogResponse) completer) =>
+        ${dialogClassName}(request: request,completer: completer),
 ''';
 
 const dialogRegisterTrailing = '''

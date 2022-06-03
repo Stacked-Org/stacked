@@ -1,5 +1,6 @@
 import 'package:stacked_generator/src/generators/base_generator.dart';
 
+import '../../../../utils.dart';
 import '../dialog_config.dart';
 import 'dialog_class_content.dart';
 
@@ -7,7 +8,7 @@ mixin DialogClassGeneratorHelper on BaseGenerator {
   void writeDialogTypeEnum(List<DialogConfig> dialogConfigs) {
     writeLine("enum DialogType{");
     for (var dialogConfig in dialogConfigs) {
-      writeLine(dialogConfig.dialogClassName + ',');
+      writeLine(toLowerCamelCase(dialogConfig.dialogClassName) + ',');
     }
     writeLine("}");
   }
