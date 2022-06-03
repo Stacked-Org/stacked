@@ -1,6 +1,6 @@
-const setupDialogHeader = '''
+String setupDialogHeader(String? locatorName) => '''
 void setupDialogUi() {
-  var dialogService = locator<DialogService>();
+  var dialogService = ${locatorName ?? 'locator'}<DialogService>();
 
   final builders = {
   

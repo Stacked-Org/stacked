@@ -12,6 +12,10 @@ mixin DialogClassGeneratorHelper on BaseGenerator {
     writeLine("}");
   }
 
+  void writeDialogHeader(String? locatorName) {
+    write(setupDialogHeader(locatorName));
+  }
+
   void writeStackedservicesAndGeneratedLocaterImports() {
     writeLine();
     writeLine("import 'package:stacked_services/stacked_services.dart';");

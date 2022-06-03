@@ -16,6 +16,24 @@ void setupDialogUi() {
   dialogService.registerCustomDialogBuilders(builders);
 }
 ''';
+const kDialogsWithCustomNamedLocator = '''
+
+import 'package:stacked_services/stacked_services.dart';
+import 'app.locator.dart';
+
+
+enum DialogType{
+}
+void setupDialogUi() {
+  var dialogService = customLocator<DialogService>();
+
+  final builders = {
+  
+  };
+
+  dialogService.registerCustomDialogBuilders(builders);
+}
+''';
 const kOneDialog = '''
 
 import 'package:stacked_services/stacked_services.dart';
