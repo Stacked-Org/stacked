@@ -2,6 +2,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:playground/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
+
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -10,13 +11,15 @@ import 'test_helpers.mocks.dart';
   MockSpec<NavigationService>(returnNullOnMissingStub: true),
   MockSpec<BottomSheetService>(returnNullOnMissingStub: true),
   MockSpec<DialogService>(returnNullOnMissingStub: true),
-  // @stacked-mock-spec
+
+// @stacked-mock-spec
 ])
 void registerServices() {
   getAndRegisterNavigationService();
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
-  // @stacked-mock-register
+
+// @stacked-mock-register
 }
 
 MockNavigationService getAndRegisterNavigationService() {
@@ -68,7 +71,6 @@ MockDialogService getAndRegisterDialogService() {
   locator.registerSingleton<DialogService>(service);
   return service;
 }
-
 // @stacked-mock-create
 
 void _removeRegistrationIfExists<T extends Object>() {

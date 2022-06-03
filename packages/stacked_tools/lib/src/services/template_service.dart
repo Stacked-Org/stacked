@@ -262,12 +262,11 @@ class TemplateService {
 
       // Write the file back that was modified
       await _fileService.writeFile(
-        file: io.File(modificationPath),
-        fileContent: updatedFileContent,
-        verbose: true,
-        type: FileModificationType.RevertModification,
-        verboseMessage: verboseMessage
-      );
+          file: io.File(modificationPath),
+          fileContent: updatedFileContent,
+          verbose: true,
+          type: FileModificationType.RevertModification,
+          verboseMessage: verboseMessage);
     }
 
     // The template being deleted is a view template, and thus we have to delete the created folders as well.
@@ -491,9 +490,7 @@ class TemplateService {
     //Replace generated io.File content with modifier, to remove the generated content
     if (renderedTemplate.contains("\n")) {
       var file = io.File("temp.txt");
-      await _fileService.writeFile(
-          file: file,
-          fileContent: '$renderedTemplate\n$modificationIdentifier');
+      await _fileService.writeFile(file: file, fileContent: renderedTemplate);
 
       await _processService.runProcessAndLogOutput(
         programName: 'dart',
@@ -506,12 +503,11 @@ class TemplateService {
       file.delete();
 
       return fileContent.replaceFirst(
-        formattedText,
-        modificationIdentifier + '\n\n',
+        '\n' + formattedText,
+        '',
       );
     } else {
-      return fileContent.replaceFirst(
-          '$renderedTemplate\n$modificationIdentifier', modificationIdentifier);
+      return fileContent.replaceFirst(renderedTemplate, '');
     }
   }
 }
