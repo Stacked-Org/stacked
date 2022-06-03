@@ -30,20 +30,6 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
 
   @override
   Future<void> run() async {
-    final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
-    await _pubspecService.initialise(workingDirectory: outputPath);
-    await validateStructure(outputPath: outputPath);
-    await purgeService(outputPath: outputPath);
-    await _processService.runBuildRunner(appName: outputPath);
-    await _processService.runFormat(appName: outputPath);
-  }
-  
-  /// It purges the Service, i.e. It removes the files that were created and reverts modifications that we made
-  ///
-  /// Args:
-  ///   outputPath (String): The path to the output folder.
-  Future<void> purgeService({String? outputPath}) async {
-    _templateService.revertTemplate(
-        templateName: kTemplateNameService, name: argResults!.rest.first);
+    await _templateService.purgeTemplate(kTemplateNameService, argResults!, this);
   }
 }

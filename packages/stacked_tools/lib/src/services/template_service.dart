@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io' as io;
 
+import 'package:args/args.dart';
 import 'package:mustache_template/mustache_template.dart';
 // TODO: Refactor into a service so we can mock out the return value
 import 'package:path/path.dart' as path;
@@ -9,6 +10,7 @@ import 'package:stacked_tools/src/constants/command_constants.dart';
 import 'package:stacked_tools/src/constants/message_constants.dart';
 import 'package:stacked_tools/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/mixins/project_structure_validator_mixin.dart';
 import 'package:stacked_tools/src/models/template_models.dart';
 import 'package:stacked_tools/src/services/colorized_log_service.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
@@ -447,17 +449,7 @@ class TemplateService {
     required String name,
     required String templateName,
   }) {
-    final template = Template(
-      modificationTemplate,
-      lenient: true,
-    );
-
-    final templateRenderData = getTemplateRenderData(
-      templateName: templateName,
-      name: name,
-    );
-
-    final renderedTemplate = template.renderString(templateRenderData);
+    final renderedTemplate = getRenderedTemplateData(modificationTemplate, templateName, name);
 
     // Take the content, replace the identifier in the file with the new code
     // plus the identifier so we can do the same thing again later.
@@ -475,17 +467,7 @@ class TemplateService {
     required String name,
     required String templateName,
   }) async {
-    final template = Template(
-      modificationTemplate,
-      lenient: true,
-    );
-
-    final templateRenderData = getTemplateRenderData(
-      templateName: templateName,
-      name: name,
-    );
-
-    final renderedTemplate = template.renderString(templateRenderData);
+    String renderedTemplate = getRenderedTemplateData(modificationTemplate, templateName, name);
 
     //Replace generated io.File content with modifier, to remove the generated content
     if (renderedTemplate.contains("\n")) {
@@ -509,5 +491,30 @@ class TemplateService {
     } else {
       return fileContent.replaceFirst(renderedTemplate, '');
     }
+  }
+
+  String getRenderedTemplateData(String modificationTemplate, String templateName, String name) {
+    final template = Template(
+      modificationTemplate,
+      lenient: true,
+    );
+    
+    final templateRenderData = getTemplateRenderData(
+      templateName: templateName,
+      name: name,
+    );
+    
+    final renderedTemplate = template.renderString(templateRenderData);
+    return renderedTemplate;
+  }
+
+  /// Use this method to purge a view or a service.
+  Future<void> purgeTemplate(String templateName, ArgResults argResults, ProjectStructureValidator structureValidator) async {
+    final outputPath = argResults.rest.length > 1 ? argResults.rest[1] : null;
+    await _pubspecService.initialise(workingDirectory: outputPath);
+    await structureValidator.validateStructure(outputPath: outputPath);
+    await revertTemplate(templateName: templateName, name: argResults.rest.first);
+    await _processService.runBuildRunner(appName: outputPath);
+    await _processService.runFormat(appName: outputPath);
   }
 }

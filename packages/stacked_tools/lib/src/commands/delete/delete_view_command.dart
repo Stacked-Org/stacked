@@ -30,20 +30,6 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
 
   @override
   Future<void> run() async {
-    final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
-    await _pubspecService.initialise(workingDirectory: outputPath);
-    await validateStructure(outputPath: outputPath);
-    await purgeView(outputPath: outputPath);
-    await _processService.runBuildRunner(appName: outputPath);
-    await _processService.runFormat(appName: outputPath);
-  }
-
-  /// It deletes the view and test files
-  ///
-  /// Args:
-  ///   outputPath (String): The path to the output folder.
-  Future<void> purgeView({String? outputPath}) async {
-    _templateService.revertTemplate(
-        templateName: kTemplateNameView, name: argResults!.rest.first);
+    await _templateService.purgeTemplate(kTemplateNameView, argResults!, this);
   }
 }
