@@ -14,7 +14,10 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
+import '../ui/dialogs/basic_dialog.dart';
+
 @StackedApp(
+  dialogs: [StackedDialog(classType: BasicDialog)],
   routes: [
     MaterialRoute(page: HomeView, initial: true),
     MaterialRoute(page: BottomNavExample),
