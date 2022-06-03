@@ -2,7 +2,9 @@
 class StackedDialog {
   /// Pass Dialogs types here.
   ///
-  /// dialogs must extends [DialogBase]
+  /// dialogs classes should have two named parameters:
+  /// 1. request of type [DialogRequest]
+  /// 2. completer of type [void Function(DialogResponse)]
   final Type classType;
 
   const StackedDialog({
