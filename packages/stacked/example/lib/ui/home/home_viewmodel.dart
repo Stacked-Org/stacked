@@ -13,9 +13,7 @@ class HomeViewModel extends BaseViewModel {
   int counter = 0;
 
   void navigate() {
-    _navigationService.navigateToNonReactiveView(
-      transition: TransitionsBuilders.fadeIn,
-    );
+    _navigationService.navigateToNonReactiveView();
   }
 
   void initialise() {

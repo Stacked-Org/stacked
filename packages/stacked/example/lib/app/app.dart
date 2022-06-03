@@ -14,6 +14,8 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
+import 'custom_route_transition.dart';
+
 @StackedApp(
   routes: [
     MaterialRoute(page: HomeView, initial: true),
@@ -24,7 +26,7 @@ import 'package:stacked_themes/stacked_themes.dart';
     MaterialRoute(page: ExampleFormView),
     CustomRoute(
       page: NonReactiveView,
-      transitionsBuilder: TransitionsBuilders.slideBottom,
+      transitionsBuilder: CustomRouteTransition.sharedAxis,
     ),
   ],
   dependencies: [

@@ -6,6 +6,7 @@
 
 // ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
+import 'package:example/app/custom_route_transition.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -92,7 +93,7 @@ class StackedRouter extends RouterBase {
         pageBuilder: (context, animation, secondaryAnimation) =>
             const NonReactiveView(),
         settings: data,
-        transitionsBuilder: data.transition ?? TransitionsBuilders.slideBottom,
+        transitionsBuilder: data.transition ?? CustomRouteTransition.sharedAxis,
       );
     },
   };
