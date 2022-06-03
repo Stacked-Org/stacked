@@ -9,12 +9,18 @@ class RouteData extends RouteSettings {
       : _pathParams = routeMatch.pathParams,
         _queryParams = routeMatch.queryParams,
         fragment = routeMatch.uri.fragment,
-        super(name: routeMatch.name, arguments: routeMatch.arguments);
+        transition = (routeMatch.arguments as Map?)?['transition'],
+        super(
+          name: routeMatch.name,
+          arguments: (routeMatch.arguments as Map?)?['arguments'],
+        );
 
   final RouteMatch routeMatch;
   final Parameters _pathParams;
   final Parameters _queryParams;
   final String fragment;
+
+  final RouteTransitionsBuilder? transition;
 
   String get template => routeMatch.template;
 

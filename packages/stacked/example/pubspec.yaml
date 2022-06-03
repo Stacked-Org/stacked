@@ -48,7 +48,7 @@ dependency_overrides:
   stacked_crashlytics:
     path: ../../stacked_crashlytics/
   stacked_generator:
-    path: ../../stacked_generator
+    path: ../../stacked_generator/
   stacked_core:
     path: ../../stacked_core/
 

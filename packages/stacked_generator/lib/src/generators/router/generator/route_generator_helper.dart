@@ -20,6 +20,7 @@ mixin RouteGeneratorHelper on BaseGenerator {
     var packageImports =
         validImports.where((element) => element.startsWith('package')).toSet();
     packageImports.add("package:stacked/stacked.dart");
+    packageImports.add("package:stacked_services/stacked_services.dart");
     sortAndGenerate(packageImports);
     newLine();
 
@@ -188,12 +189,13 @@ mixin RouteGeneratorHelper on BaseGenerator {
     writeLine('}');
   }
 
-  void _generateArgsHolder(RouteConfig routeConfig) {
+  void _generateArgsHolder(RouteConfig routeConfig, {bool isChild = false}) {
     writeLine('/// ${routeConfig.className} arguments holder class');
     final argsClassName = '${routeConfig.argumentsHolderClassName}';
 
     // generate fields
-    writeLine('class $argsClassName{');
+    final className = isChild ? 'Nested$argsClassName' : '$argsClassName';
+    writeLine('class $className{');
     final params = routeConfig.notQueryAndNotPath;
     params.forEach((param) {
       writeLine('final ${param.type} ${param.name};');
@@ -218,7 +220,8 @@ mixin RouteGeneratorHelper on BaseGenerator {
     writeLine('}');
   }
 
-  void generateArgumentHolders(List<RouteConfig> routes) {
+  void generateArgumentHolders(List<RouteConfig> routes,
+      {bool isChild = false}) {
     final routesWithArgsHolders = Map<String, RouteConfig>();
 
     // make sure we only generated holder classes for
@@ -231,8 +234,95 @@ mixin RouteGeneratorHelper on BaseGenerator {
 
     if (routesWithArgsHolders.isNotEmpty) {
       write(_generateCommentBoxWithMessage('Arguments holder classes'));
-      routesWithArgsHolders.values.forEach(_generateArgsHolder);
+      routesWithArgsHolders.values.forEach(
+          ((element) => _generateArgsHolder(element, isChild: isChild)));
     }
+  }
+
+  void generateExtensionForStronglyTypedNavigation(
+    List<RouteConfig> routes,
+  ) {
+    if (routes.isEmpty) return;
+    write(_generateCommentBoxWithMessage(
+        'Extension for strongly typed navigation'));
+
+    writeLine("extension NavigatorStateExtension on NavigationService {");
+
+    /// Generating the strongly typed navigation methods.
+    generateStronglyTypedNavigationForRoutesAndChildren(routes);
+
+    writeLine('}');
+  }
+
+  void generateStronglyTypedNavigationForRoutesAndChildren(
+      List<RouteConfig> routes,
+      {String? parentClassName}) {
+    for (var route in routes) {
+      final name = parentClassName != null ? parentClassName : 'Routes';
+      generateStronglyTypedNavigationReturnType(route);
+      if (parentClassName != null) {
+        write('''
+        navigateToNested${route.className}( ''');
+      } else {
+        write('''
+        navigateTo${route.className}( ''');
+      }
+      generateStronglyTypedNavigationParameters(route);
+      writeLine(') async { return navigateTo(${name}.${route.name}, ');
+      generateStronglyTypedNavigationRouteArguments(route);
+      writeLine('); }');
+      newLine();
+      if (route.children.isNotEmpty) {
+        generateStronglyTypedNavigationForRoutesAndChildren(
+          route.children,
+          parentClassName: capitalize(route.name + 'Routes'),
+        );
+      }
+    }
+  }
+
+  void generateStronglyTypedNavigationReturnType(RouteConfig route) {
+    writeLine(
+        '''\nFuture<${route.isProcessedReturnTypeDynamic ? route.processedReturnType : '${route.processedReturnType}?'}>''');
+  }
+
+  void generateStronglyTypedNavigationParameters(RouteConfig route) {
+    final params = route.notQueryAndNotPath;
+    writeLine('{');
+    if (params.isNotEmpty) {
+      params.forEach((param) {
+        if (param.isRequired || param.isPositional) {
+          writeLine('required ${param.type} ${param.name},');
+        } else {
+          writeLine('${param.type} ${param.name},');
+        }
+      });
+    }
+    writeLine('''
+      int? id,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      ''');
+    writeLine('}');
+  }
+
+  void generateStronglyTypedNavigationRouteArguments(RouteConfig route) {
+    final params = route.notQueryAndNotPath;
+    if (params.isNotEmpty) {
+      writeLine('''
+arguments: ${route.argumentsHolderClassName}(
+      ${params.map((param) => '${param.name}: ${param.name}').join(',')}
+    ),
+     
+      ''');
+    }
+    writeLine(''' 
+        id:id,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        ''');
   }
 
   String _generateCommentBoxWithMessage(String message) => '''

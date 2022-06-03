@@ -6,8 +6,8 @@
 
 // ignore_for_file: public_member_api_docs,  constant_identifier_names, non_constant_identifier_names,unnecessary_this
 
-import 'package:flutter/material.dart';
 import 'package:example/ui/form/validators.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 const String EmailValueKey = 'email';

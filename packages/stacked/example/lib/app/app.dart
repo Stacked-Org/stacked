@@ -19,7 +19,7 @@ import 'package:stacked_themes/stacked_themes.dart';
     MaterialRoute(page: HomeView, initial: true),
     MaterialRoute(page: BottomNavExample),
     MaterialRoute(page: StreamCounterView),
-    CupertinoRoute<Map<String, List<String>>>(page: DetailsView),
+    CupertinoRoute<Map<String, List<String>>?>(page: DetailsView),
     // TODO: Change the name of the FormView to avoid type clashing
     MaterialRoute(page: ExampleFormView),
     CustomRoute(

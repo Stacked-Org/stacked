@@ -13,7 +13,9 @@ class HomeViewModel extends BaseViewModel {
   int counter = 0;
 
   void navigate() {
-    _navigationService.navigateTo(Routes.nonReactiveView);
+    _navigationService.navigateToNonReactiveView(
+      transition: TransitionsBuilders.fadeIn,
+    );
   }
 
   void initialise() {
