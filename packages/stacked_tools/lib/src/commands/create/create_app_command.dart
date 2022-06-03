@@ -4,11 +4,11 @@ import 'package:args/command_runner.dart';
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/services/colorized_log_service.dart';
 import 'package:stacked_tools/src/services/process_service.dart';
-import 'package:stacked_tools/src/services/template_service.dart';
+import 'package:stacked_tools/src/services/render_template_service.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 
 class CreateAppCommand extends Command {
-  final _templateService = locator<TemplateService>();
+  final _templateService = locator<RenderTemplateService>();
   final _processService = locator<ProcessService>();
   final _cLog = locator<ColorizedLogService>();
 

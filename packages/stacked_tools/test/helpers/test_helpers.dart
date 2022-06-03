@@ -6,8 +6,11 @@ import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/services/colorized_log_service.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
 import 'package:stacked_tools/src/services/path_service.dart';
+import 'package:stacked_tools/src/services/process_service.dart';
 import 'package:stacked_tools/src/services/pubspec_service.dart';
-import 'package:stacked_tools/src/services/template_service.dart';
+import 'package:stacked_tools/src/services/render_template_service.dart';
+import 'package:stacked_tools/src/services/revert_template_service.dart';
+import 'package:stacked_tools/src/services/template_service_utils.dart';
 import 'package:stacked_tools/src/templates/compiled_templates.dart';
 import 'package:stacked_tools/src/templates/template_helper.dart';
 
@@ -20,10 +23,13 @@ import 'test_helpers.mocks.dart';
   // core services
   MockSpec<FileService>(returnNullOnMissingStub: true),
   MockSpec<PathService>(returnNullOnMissingStub: true),
-  MockSpec<TemplateService>(returnNullOnMissingStub: true),
   MockSpec<TemplateHelper>(returnNullOnMissingStub: true),
+  MockSpec<TemplateServiceUtils>(returnNullOnMissingStub: true),
+  MockSpec<RevertTemplateService>(returnNullOnMissingStub: true),
+  MockSpec<RenderTemplateService>(returnNullOnMissingStub: true),
   MockSpec<PubspecService>(returnNullOnMissingStub: true),
   MockSpec<ColorizedLogService>(returnNullOnMissingStub: true),
+  MockSpec<ProcessService>(returnNullOnMissingStub: true),
 // @stacked-service-mock
 ])
 MockFileService getAndRegisterMockFileService({
@@ -95,6 +101,34 @@ MockColorizedLogService getAndRegisterColorizedLogService() {
   return service;
 }
 
+MockProcessService getAndRegisterProcessService() {
+  _removeRegistrationIfExists<ProcessService>();
+  final service = MockProcessService();
+  locator.registerSingleton<ProcessService>(service);
+  return service;
+}
+
+TemplateServiceUtils getAndRegisterTemplateService() {
+  _removeRegistrationIfExists<TemplateServiceUtils>();
+  final service = TemplateServiceUtils();
+  locator.registerSingleton<TemplateServiceUtils>(service);
+  return service;
+}
+
+RenderTemplateService getAndRegisterRenderTemplateService() {
+  _removeRegistrationIfExists<RenderTemplateService>();
+  final service = RenderTemplateService();
+  locator.registerSingleton<RenderTemplateService>(service);
+  return service;
+}
+
+RevertTemplateService getAndRegisterRevertTemplateService() {
+  _removeRegistrationIfExists<RevertTemplateService>();
+  final service = RevertTemplateService();
+  locator.registerSingleton<RevertTemplateService>(service);
+  return service;
+}
+
 // Call this before any service registration helper. This is to ensure that if there
 // is a service registered we remove it first. We register all services to remove boiler plate from tests
 void _removeRegistrationIfExists<T extends Object>() {
@@ -111,6 +145,8 @@ void registerServices() {
   getAndRegisterTemplateHelper();
   getAndRegisterPubSpecService();
   getAndRegisterColorizedLogService();
+  getAndRegisterProcessService();
+  getAndRegisterTemplateService();
 // @stacked-mock-helper-register
 }
 

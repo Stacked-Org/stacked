@@ -3,15 +3,11 @@ import 'package:stacked_tools/src/constants/command_constants.dart';
 import 'package:stacked_tools/src/constants/message_constants.dart';
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/mixins/project_structure_validator_mixin.dart';
-import 'package:stacked_tools/src/services/process_service.dart';
-import 'package:stacked_tools/src/services/pubspec_service.dart';
-import 'package:stacked_tools/src/services/template_service.dart';
+import 'package:stacked_tools/src/services/revert_template_service.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 
 class DeleteServiceCommand extends Command with ProjectStructureValidator {
-  final _pubspecService = locator<PubspecService>();
-  final _processService = locator<ProcessService>();
-  final _templateService = locator<TemplateService>();
+  final _templateService = locator<RevertTemplateService>();
 
   @override
   String get description =>

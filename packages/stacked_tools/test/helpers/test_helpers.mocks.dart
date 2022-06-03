@@ -6,17 +6,25 @@ import 'dart:async' as _i5;
 import 'dart:io' as _i6;
 
 import 'package:ansicolor/ansicolor.dart' as _i3;
+import 'package:args/args.dart' as _i13;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:pubspec_yaml/pubspec_yaml.dart' as _i2;
+import 'package:stacked_tools/src/mixins/project_structure_validator_mixin.dart'
+    as _i14;
 import 'package:stacked_tools/src/models/template_models.dart' as _i9;
-import 'package:stacked_tools/src/services/colorized_log_service.dart' as _i13;
+import 'package:stacked_tools/src/services/colorized_log_service.dart' as _i17;
 import 'package:stacked_tools/src/services/file_service.dart' as _i4;
 import 'package:stacked_tools/src/services/path_service.dart' as _i7;
-import 'package:stacked_tools/src/services/pubspec_service.dart' as _i12;
-import 'package:stacked_tools/src/services/template_service.dart' as _i8;
-import 'package:stacked_tools/src/templates/template_helper.dart' as _i11;
+import 'package:stacked_tools/src/services/process_service.dart' as _i18;
+import 'package:stacked_tools/src/services/pubspec_service.dart' as _i16;
+import 'package:stacked_tools/src/services/render_template_service.dart'
+    as _i15;
+import 'package:stacked_tools/src/services/revert_template_service.dart'
+    as _i12;
+import 'package:stacked_tools/src/services/template_service_utils.dart' as _i10;
+import 'package:stacked_tools/src/templates/template_helper.dart' as _i8;
 import 'package:stacked_tools/src/templates/template_render_functions.dart'
-    as _i10;
+    as _i11;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -145,179 +153,10 @@ class MockPathService extends _i1.Mock implements _i7.PathService {
           as String);
 }
 
-/// A class which mocks [TemplateService].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
-  @override
-  _i5.Future<void> compileTemplateInformation() =>
-      (super.noSuchMethod(Invocation.method(#compileTemplateInformation, []),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
-  @override
-  _i5.Future<void> renderTemplate(
-          {String? templateName,
-          String? name,
-          bool? verbose = false,
-          bool? excludeRoute = false,
-          String? outputPath}) =>
-      (super.noSuchMethod(
-          Invocation.method(#renderTemplate, [], {
-            #templateName: templateName,
-            #name: name,
-            #verbose: verbose,
-            #excludeRoute: excludeRoute,
-            #outputPath: outputPath
-          }),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
-  @override
-  _i5.Future<void> revertTemplate(
-          {String? templateName,
-          String? name,
-          bool? verbose = false,
-          bool? excludeRoute = false,
-          String? outputPath}) =>
-      (super.noSuchMethod(
-          Invocation.method(#revertTemplate, [], {
-            #templateName: templateName,
-            #name: name,
-            #verbose: verbose,
-            #excludeRoute: excludeRoute,
-            #outputPath: outputPath
-          }),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
-  @override
-  _i5.Future<void> writeOutTemplateFiles(
-          {_i9.StackedTemplate? template,
-          String? templateName,
-          String? name,
-          String? outputFolder}) =>
-      (super.noSuchMethod(
-          Invocation.method(#writeOutTemplateFiles, [], {
-            #template: template,
-            #templateName: templateName,
-            #name: name,
-            #outputFolder: outputFolder
-          }),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
-  @override
-  _i5.Future<void> revertTemplateFiles(
-          {_i9.StackedTemplate? template,
-          String? templateName,
-          String? name,
-          String? outputFolder}) =>
-      (super.noSuchMethod(
-          Invocation.method(#revertTemplateFiles, [], {
-            #template: template,
-            #templateName: templateName,
-            #name: name,
-            #outputFolder: outputFolder
-          }),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
-  @override
-  String getTemplateOutputPath(
-          {String? inputTemplatePath, String? name, String? outputFolder}) =>
-      (super.noSuchMethod(
-          Invocation.method(#getTemplateOutputPath, [], {
-            #inputTemplatePath: inputTemplatePath,
-            #name: name,
-            #outputFolder: outputFolder
-          }),
-          returnValue: '') as String);
-  @override
-  String renderContentForTemplate(
-          {String? content, String? templateName, String? name}) =>
-      (super.noSuchMethod(
-          Invocation.method(#renderContentForTemplate, [],
-              {#content: content, #templateName: templateName, #name: name}),
-          returnValue: '') as String);
-  @override
-  Map<String, String> getTemplateRenderData(
-          {String? templateName,
-          String? name,
-          Map<String, _i10.RenderFunction>? testRenderFunctions}) =>
-      (super.noSuchMethod(
-          Invocation.method(#getTemplateRenderData, [], {
-            #templateName: templateName,
-            #name: name,
-            #testRenderFunctions: testRenderFunctions
-          }),
-          returnValue: <String, String>{}) as Map<String, String>);
-  @override
-  Map<String, String> applyGlobalTemplateProperties(
-          Map<String, String>? renderTemplate,
-          {String? packageName}) =>
-      (super.noSuchMethod(
-          Invocation.method(#applyGlobalTemplateProperties, [renderTemplate],
-              {#packageName: packageName}),
-          returnValue: <String, String>{}) as Map<String, String>);
-  @override
-  _i5.Future<void> modifyExistingFiles(
-          {_i9.StackedTemplate? template,
-          String? templateName,
-          String? name,
-          String? outputPath}) =>
-      (super.noSuchMethod(
-          Invocation.method(#modifyExistingFiles, [], {
-            #template: template,
-            #templateName: templateName,
-            #name: name,
-            #outputPath: outputPath
-          }),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
-  @override
-  String templateModificationName(
-          {String? modificationName, String? name, String? templateName}) =>
-      (super.noSuchMethod(
-          Invocation.method(#templateModificationName, [], {
-            #modificationName: modificationName,
-            #name: name,
-            #templateName: templateName
-          }),
-          returnValue: '') as String);
-  @override
-  String templateModificationFileContent(
-          {String? fileContent,
-          String? modificationTemplate,
-          String? modificationIdentifier,
-          String? name,
-          String? templateName}) =>
-      (super.noSuchMethod(
-          Invocation.method(#templateModificationFileContent, [], {
-            #fileContent: fileContent,
-            #modificationTemplate: modificationTemplate,
-            #modificationIdentifier: modificationIdentifier,
-            #name: name,
-            #templateName: templateName
-          }),
-          returnValue: '') as String);
-  @override
-  _i5.Future<String> templateWithoutModifiedFileContent(
-          {String? fileContent,
-          String? modificationTemplate,
-          String? modificationIdentifier,
-          String? name,
-          String? templateName}) =>
-      (super.noSuchMethod(
-          Invocation.method(#templateWithoutModifiedFileContent, [], {
-            #fileContent: fileContent,
-            #modificationTemplate: modificationTemplate,
-            #modificationIdentifier: modificationIdentifier,
-            #name: name,
-            #templateName: templateName
-          }),
-          returnValue: Future<String>.value('')) as _i5.Future<String>);
-}
-
 /// A class which mocks [TemplateHelper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTemplateHelper extends _i1.Mock implements _i11.TemplateHelper {
+class MockTemplateHelper extends _i1.Mock implements _i8.TemplateHelper {
   @override
   String get templatesPath =>
       (super.noSuchMethod(Invocation.getter(#templatesPath), returnValue: '')
@@ -377,10 +216,211 @@ class MockTemplateHelper extends _i1.Mock implements _i11.TemplateHelper {
           as _i5.Future<List<_i9.CompiledTemplateFile>>);
 }
 
+/// A class which mocks [TemplateServiceUtils].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTemplateServiceUtils extends _i1.Mock
+    implements _i10.TemplateServiceUtils {
+  @override
+  _i5.Future<void> compileTemplateInformation() =>
+      (super.noSuchMethod(Invocation.method(#compileTemplateInformation, []),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+  @override
+  String getTemplateOutputPath(
+          {String? inputTemplatePath, String? name, String? outputFolder}) =>
+      (super.noSuchMethod(
+          Invocation.method(#getTemplateOutputPath, [], {
+            #inputTemplatePath: inputTemplatePath,
+            #name: name,
+            #outputFolder: outputFolder
+          }),
+          returnValue: '') as String);
+  @override
+  Map<String, String> getTemplateRenderData(
+          {String? templateName,
+          String? name,
+          Map<String, _i11.RenderFunction>? testRenderFunctions}) =>
+      (super.noSuchMethod(
+          Invocation.method(#getTemplateRenderData, [], {
+            #templateName: templateName,
+            #name: name,
+            #testRenderFunctions: testRenderFunctions
+          }),
+          returnValue: <String, String>{}) as Map<String, String>);
+  @override
+  Map<String, String> applyGlobalTemplateProperties(
+          Map<String, String>? renderTemplate,
+          {String? packageName}) =>
+      (super.noSuchMethod(
+          Invocation.method(#applyGlobalTemplateProperties, [renderTemplate],
+              {#packageName: packageName}),
+          returnValue: <String, String>{}) as Map<String, String>);
+  @override
+  String templateModificationName(
+          {String? modificationName, String? name, String? templateName}) =>
+      (super.noSuchMethod(
+          Invocation.method(#templateModificationName, [], {
+            #modificationName: modificationName,
+            #name: name,
+            #templateName: templateName
+          }),
+          returnValue: '') as String);
+  @override
+  String getRenderedTemplateData(
+          String? modificationTemplate, String? templateName, String? name) =>
+      (super.noSuchMethod(
+          Invocation.method(#getRenderedTemplateData,
+              [modificationTemplate, templateName, name]),
+          returnValue: '') as String);
+}
+
+/// A class which mocks [RevertTemplateService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockRevertTemplateService extends _i1.Mock
+    implements _i12.RevertTemplateService {
+  @override
+  _i5.Future<void> revertTemplate(
+          {String? templateName,
+          String? name,
+          bool? verbose = false,
+          bool? excludeRoute = false,
+          String? outputPath}) =>
+      (super.noSuchMethod(
+          Invocation.method(#revertTemplate, [], {
+            #templateName: templateName,
+            #name: name,
+            #verbose: verbose,
+            #excludeRoute: excludeRoute,
+            #outputPath: outputPath
+          }),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+  @override
+  _i5.Future<void> revertTemplateFiles(
+          {_i9.StackedTemplate? template,
+          String? templateName,
+          String? name,
+          String? outputFolder}) =>
+      (super.noSuchMethod(
+          Invocation.method(#revertTemplateFiles, [], {
+            #template: template,
+            #templateName: templateName,
+            #name: name,
+            #outputFolder: outputFolder
+          }),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+  @override
+  _i5.Future<String> templateWithoutModifiedFileContent(
+          {String? fileContent,
+          String? modificationTemplate,
+          String? modificationIdentifier,
+          String? name,
+          String? templateName}) =>
+      (super.noSuchMethod(
+          Invocation.method(#templateWithoutModifiedFileContent, [], {
+            #fileContent: fileContent,
+            #modificationTemplate: modificationTemplate,
+            #modificationIdentifier: modificationIdentifier,
+            #name: name,
+            #templateName: templateName
+          }),
+          returnValue: Future<String>.value('')) as _i5.Future<String>);
+  @override
+  _i5.Future<void> purgeTemplate(
+          String? templateName,
+          _i13.ArgResults? argResults,
+          _i14.ProjectStructureValidator? structureValidator) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #purgeTemplate, [templateName, argResults, structureValidator]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+}
+
+/// A class which mocks [RenderTemplateService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockRenderTemplateService extends _i1.Mock
+    implements _i15.RenderTemplateService {
+  @override
+  _i5.Future<void> renderTemplate(
+          {String? templateName,
+          String? name,
+          bool? verbose = false,
+          bool? excludeRoute = false,
+          String? outputPath}) =>
+      (super.noSuchMethod(
+          Invocation.method(#renderTemplate, [], {
+            #templateName: templateName,
+            #name: name,
+            #verbose: verbose,
+            #excludeRoute: excludeRoute,
+            #outputPath: outputPath
+          }),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+  @override
+  _i5.Future<void> modifyExistingFiles(
+          {_i9.StackedTemplate? template,
+          String? templateName,
+          String? name,
+          String? outputPath}) =>
+      (super.noSuchMethod(
+          Invocation.method(#modifyExistingFiles, [], {
+            #template: template,
+            #templateName: templateName,
+            #name: name,
+            #outputPath: outputPath
+          }),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+  @override
+  String templateModificationFileContent(
+          {String? fileContent,
+          String? modificationTemplate,
+          String? modificationIdentifier,
+          String? name,
+          String? templateName}) =>
+      (super.noSuchMethod(
+          Invocation.method(#templateModificationFileContent, [], {
+            #fileContent: fileContent,
+            #modificationTemplate: modificationTemplate,
+            #modificationIdentifier: modificationIdentifier,
+            #name: name,
+            #templateName: templateName
+          }),
+          returnValue: '') as String);
+  @override
+  _i5.Future<void> writeOutTemplateFiles(
+          {_i9.StackedTemplate? template,
+          String? templateName,
+          String? name,
+          String? outputFolder}) =>
+      (super.noSuchMethod(
+          Invocation.method(#writeOutTemplateFiles, [], {
+            #template: template,
+            #templateName: templateName,
+            #name: name,
+            #outputFolder: outputFolder
+          }),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+  @override
+  String renderContentForTemplate(
+          {String? content, String? templateName, String? name}) =>
+      (super.noSuchMethod(
+          Invocation.method(#renderContentForTemplate, [],
+              {#content: content, #templateName: templateName, #name: name}),
+          returnValue: '') as String);
+}
+
 /// A class which mocks [PubspecService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPubspecService extends _i1.Mock implements _i12.PubspecService {
+class MockPubspecService extends _i1.Mock implements _i16.PubspecService {
   @override
   _i2.PubspecYaml get pubspecYaml =>
       (super.noSuchMethod(Invocation.getter(#pubspecYaml),
@@ -406,7 +446,7 @@ class MockPubspecService extends _i1.Mock implements _i12.PubspecService {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockColorizedLogService extends _i1.Mock
-    implements _i13.ColorizedLogService {
+    implements _i17.ColorizedLogService {
   @override
   _i3.AnsiPen get pen => (super.noSuchMethod(Invocation.getter(#pen),
       returnValue: _FakeAnsiPen_1()) as _i3.AnsiPen);
@@ -448,5 +488,48 @@ class MockColorizedLogService extends _i1.Mock
   @override
   void error({String? message}) =>
       super.noSuchMethod(Invocation.method(#error, [], {#message: message}),
+          returnValueForMissingStub: null);
+}
+
+/// A class which mocks [ProcessService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockProcessService extends _i1.Mock implements _i18.ProcessService {
+  @override
+  _i5.Future<void> runCreateApp({String? appName}) => (super.noSuchMethod(
+      Invocation.method(#runCreateApp, [], {#appName: appName}),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+  @override
+  _i5.Future<void> runBuildRunner({String? appName}) => (super.noSuchMethod(
+      Invocation.method(#runBuildRunner, [], {#appName: appName}),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+  @override
+  _i5.Future<void> runPubGet({String? appName}) => (super.noSuchMethod(
+      Invocation.method(#runPubGet, [], {#appName: appName}),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+  @override
+  _i5.Future<void> runFormat({String? appName}) => (super.noSuchMethod(
+      Invocation.method(#runFormat, [], {#appName: appName}),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+  @override
+  _i5.Future<void> runProcessAndLogOutput(
+          {String? programName,
+          List<String>? arguments = const [],
+          String? workingDirectory}) =>
+      (super.noSuchMethod(
+          Invocation.method(#runProcessAndLogOutput, [], {
+            #programName: programName,
+            #arguments: arguments,
+            #workingDirectory: workingDirectory
+          }),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+  @override
+  void logSuccessStatus(int? exitCode) =>
+      super.noSuchMethod(Invocation.method(#logSuccessStatus, [exitCode]),
           returnValueForMissingStub: null);
 }

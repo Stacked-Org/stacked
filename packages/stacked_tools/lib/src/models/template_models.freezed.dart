@@ -503,7 +503,7 @@ const $CompiledFileModification = _$CompiledFileModificationTearOff();
 
 /// @nodoc
 mixin _$CompiledFileModification {
-  /// A short description for what this modiciation does
+  /// A short description for what this modification does
   String get description => throw _privateConstructorUsedError;
 
   /// The relative path to the file that needs to be modified
@@ -670,7 +670,7 @@ class _$_CompiledFileModification implements _CompiledFileModification {
 
   @override
 
-  /// A short description for what this modiciation does
+  /// A short description for what this modification does
   final String description;
   @override
 
@@ -749,7 +749,7 @@ abstract class _CompiledFileModification implements CompiledFileModification {
 
   @override
 
-  /// A short description for what this modiciation does
+  /// A short description for what this modification does
   String get description;
   @override
 

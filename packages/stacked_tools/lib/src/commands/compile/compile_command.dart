@@ -1,10 +1,10 @@
 import 'package:args/command_runner.dart';
 import 'package:stacked_tools/src/locator.dart';
-import 'package:stacked_tools/src/services/template_service.dart';
+import 'package:stacked_tools/src/services/template_service_utils.dart';
 
 /// The command to run
 class CompileCommand extends Command {
-  final _templateService = locator<TemplateService>();
+  final _templateService = locator<TemplateServiceUtils>();
 
   @override
   String get description =>

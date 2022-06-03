@@ -4,13 +4,13 @@ import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/constants/message_constants.dart';
 import 'package:stacked_tools/src/mixins/project_structure_validator_mixin.dart';
 import 'package:stacked_tools/src/services/process_service.dart';
-import 'package:stacked_tools/src/services/template_service.dart';
+import 'package:stacked_tools/src/services/render_template_service.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 
 import '../../services/pubspec_service.dart';
 
 class CreateServiceCommand extends Command with ProjectStructureValidator {
-  final _templateService = locator<TemplateService>();
+  final _templateService = locator<RenderTemplateService>();
   final _pubspecService = locator<PubspecService>();
   final _processService = locator<ProcessService>();
 

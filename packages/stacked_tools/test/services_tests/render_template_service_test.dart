@@ -12,12 +12,10 @@ import 'package:test/test.dart';
 
 import '../helpers/test_helpers.dart';
 
-TemplateServiceUtils _getUtilsService() => TemplateServiceUtils();
 RenderTemplateService _getRenderService() => RenderTemplateService();
-RevertTemplateService _getRevertService() => RevertTemplateService();
 
 void main() {
-  group('TemplateServiceTest -', () {
+  group('RenderTemplateServiceTest -', () {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
 
@@ -113,41 +111,6 @@ void main() {
         final expectedOutput = 'order_details_view.dart\nSTACKED';
 
         expect(result, expectedOutput);
-      });
-    });
-
-    group('getTemplateOutputPath -', () {
-      test(
-          'When given a path generic/generic.dart with viewName orderDetails, should return order_details/order_details.dart',
-          () {
-        final service = _getUtilsService();
-        final result = service.getTemplateOutputPath(
-          inputTemplatePath: 'generic/generic.dart',
-          name: 'orderDetails',
-        );
-        expect(result, 'order_details/order_details.dart');
-      });
-
-      test(
-          'When given a path generic/generic.dart.stk with viewName orderDetails, should return order_details/order_details.dart',
-          () {
-        final service = _getUtilsService();
-        final result = service.getTemplateOutputPath(
-          inputTemplatePath: 'generic/generic.dart.stk',
-          name: 'orderDetails',
-        );
-        expect(result, 'order_details/order_details.dart');
-      });
-
-      test(
-          'When given a path generic/generic.dart.stk with viewName orderDetails and outputPath playg§round, should return playground/order_details/order_details.dart',
-          () {
-        final service = _getUtilsService();
-        final result = service.getTemplateOutputPath(
-            inputTemplatePath: 'generic/generic.dart.stk',
-            name: 'orderDetails',
-            outputFolder: 'playground');
-        expect(result, 'playground/order_details/order_details.dart');
       });
     });
 
@@ -298,36 +261,6 @@ void main() {
         );
 
         verify(fileService.fileExists(filePath: anyNamed('filePath')));
-      });
-    });
-
-    group('getTemplateRenderData -', () {
-      test(
-          'When given renderTemplates with no values and templateName stacked, should throw exception',
-          () {
-        final service = _getUtilsService();
-        expect(
-          () => service.getTemplateRenderData(
-              templateName: 'stacked', testRenderFunctions: {}, name: ''),
-          throwsA(
-            predicate((e) => e is Exception),
-          ),
-        );
-      });
-      test(
-          'When given renderTemplate snakeCase and templateName snakeCase, should convert the property to snake_case',
-          () {
-        final service = _getUtilsService();
-        final result = service.getTemplateRenderData(
-            templateName: 'snakeCase',
-            name: 'stackedCli',
-            testRenderFunctions: {
-              'snakeCase': (recaseValue) => {
-                    'name': recaseValue.snakeCase,
-                  }
-            });
-
-        expect(result['name'], 'stacked_cli');
       });
     });
   });
