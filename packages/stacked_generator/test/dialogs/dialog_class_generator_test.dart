@@ -11,6 +11,11 @@ void main() {
         final generator = DialogClassGenerator([]);
         expect(generator.generate(), kDialogsEmpty);
       });
+      test('When change locator name', () {
+        final generator =
+            DialogClassGenerator([], locatorName: 'customLocator');
+        expect(generator.generate(), kDialogsWithCustomNamedLocator);
+      });
       test('One dialog', () {
         final generator = DialogClassGenerator(
             [DialogConfig(import: 'one.dart', dialogClassName: 'BasicDialog')]);

@@ -1,3 +1,5 @@
+## 0.7.1
+- Add Strong Type Navigation parameters
 ## 0.7.0
 - Add dialogs generator
 ## 0.6.6+1

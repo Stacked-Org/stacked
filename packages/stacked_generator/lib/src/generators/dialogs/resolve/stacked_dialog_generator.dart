@@ -23,6 +23,8 @@ class StackedDialogGenerator extends GeneratorForAnnotation<StackedApp> {
     /// If the dialogs parameter is not mentioned in the StackedApp
     /// return empty string
     final dialogsConfig = annotation.peek('dialogs')?.listValue;
+    final locatorName = annotation.peek('locatorName')?.stringValue;
+
     if (dialogsConfig == null) return '';
 
     final dialogConfig = await dialogResolver.resolve(
@@ -30,6 +32,7 @@ class StackedDialogGenerator extends GeneratorForAnnotation<StackedApp> {
       importResolver,
     );
 
-    return DialogClassGenerator(dialogConfig).generate();
+    return DialogClassGenerator(dialogConfig, locatorName: locatorName)
+        .generate();
   }
 }

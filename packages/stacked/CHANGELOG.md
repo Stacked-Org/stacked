@@ -1,3 +1,6 @@
+## 2.3.9
+- Pump stacked_core version
+- Update example app
 ## 2.3.8
 - Remove dublicate code and Clean up 
 ## 2.3.7
