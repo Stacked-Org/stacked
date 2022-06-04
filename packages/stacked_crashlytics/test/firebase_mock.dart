@@ -49,7 +49,6 @@ Future<T> neverEndingFuture<T>() async {
   }
 }
 
-
 setupCloudFirestoreMocks([Callback? customHandlers]) {
   TestWidgetsFlutterBinding.ensureInitialized();
 

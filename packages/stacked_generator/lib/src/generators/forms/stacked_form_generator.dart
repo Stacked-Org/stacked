@@ -10,7 +10,6 @@ import 'package:stacked_generator/src/generators/forms/field_config.dart';
 import 'package:stacked_generator/src/generators/forms/form_view_config.dart';
 import 'package:stacked_generator/src/generators/forms/stacked_form_content_generator.dart';
 
-
 class StackedFormGenerator extends GeneratorForAnnotation<FormView> {
   @override
   FutureOr<String> generateForAnnotatedElement(

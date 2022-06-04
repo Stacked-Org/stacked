@@ -168,24 +168,34 @@ class RevertTemplateService {
       );
 
       String formattedText = await file.readAsString();
-      formattedText = formattedText.substring(0, formattedText.length - 1);
+
       print(formattedText);
+
+      formattedText = formattedText[formattedText.length - 1] == '\n'
+          ? formattedText.substring(0, formattedText.length - 1)
+          : formattedText;
+      formattedText = escapeRegex(formattedText);
+
+      print(formattedText);
+      // var regexp = RegExp(r'(.*?)*\s*' + formattedText + r'\n?');
+      var regexp = RegExp(r'(.*)\s*' + formattedText + r'\n?');
 
       file.delete();
 
       // The reason of doing 2 replace is just to make sure if there is no newline above the formattedText, we
       // still eliminate it
-      return fileContent
-          .replaceFirst(
-            '\n' + formattedText,
-            '',
-          )
-          .replaceFirst(
-            formattedText + '\n',
-            '',
-          );
+      var returnedText = fileContent.replaceFirstMapped(
+        regexp,
+        (match) => '',
+      );
+
+      return returnedText;
     } else {
-      return fileContent.replaceFirst(renderedTemplate, '');
+      var templateText = escapeRegex(renderedTemplate);
+      // var regexp = RegExp(r'\n\s*' + templateText);
+      var regexp = RegExp(r'(.*)\s*' + templateText);
+      print(fileContent.replaceFirstMapped(regexp, (match) => ''));
+      return fileContent.replaceFirstMapped(regexp, (match) => '');
     }
   }
 
@@ -199,5 +209,12 @@ class RevertTemplateService {
         templateName: templateName, name: argResults.rest.first);
     await _processService.runBuildRunner(appName: outputPath);
     await _processService.runFormat(appName: outputPath);
+  }
+
+  // A function to escape all special regex characters, making the string safe for use in a regex match
+  String escapeRegex(String text) {
+    var regex = RegExp(r'[\.\^\$\*\+\-\?\(\)\[\]\{\}\|\—\/]\s*?');
+    // var regex = RegExp(r'[.^$*+-?()[]{}|—/]\s*+');
+    return text.replaceAllMapped(regex, (match) => r'\' + text[match.start]);
   }
 }

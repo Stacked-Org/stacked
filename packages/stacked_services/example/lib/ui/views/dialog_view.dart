@@ -122,7 +122,7 @@ class DialogView extends StatelessWidget {
                     data: GenericDialogRequest(),
                   );
 
-                  print(response?.data?.message??'');
+                  print(response?.data?.message ?? '');
                 },
                 child: Text(
                   'Show Generic Dialog',

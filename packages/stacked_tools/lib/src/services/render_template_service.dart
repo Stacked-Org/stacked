@@ -126,7 +126,8 @@ class RenderTemplateService {
     required String name,
     required String templateName,
   }) {
-    final renderedTemplate = _utils.getRenderedTemplateData(modificationTemplate, templateName, name);
+    final renderedTemplate = _utils.getRenderedTemplateData(
+        modificationTemplate, templateName, name);
 
     // Take the content, replace the identifier in the file with the new code
     // plus the identifier so we can do the same thing again later.
@@ -180,6 +181,4 @@ class RenderTemplateService {
 
     return viewTemplate.renderString(renderData);
   }
-
-
 }

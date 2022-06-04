@@ -1,12 +1,5 @@
-import 'package:mockito/mockito.dart';
-import 'package:stacked_tools/src/constants/message_constants.dart';
-import 'package:stacked_tools/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_tools/src/locator.dart';
-import 'package:stacked_tools/src/models/template_models.dart';
-import 'package:stacked_tools/src/services/render_template_service.dart';
 import 'package:stacked_tools/src/services/revert_template_service.dart';
-import 'package:stacked_tools/src/services/template_service_utils.dart';
-import 'package:stacked_tools/src/templates/compiled_template_map.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 import 'package:test/test.dart';
 
@@ -19,55 +12,679 @@ void main() {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
 
-    group('revertContentForTemplate -', () {
-      test(
-          'Tests if the revertTemplateService works as expected when reverting a template with no new-lines',
-          () async {
-        final content = '''
-        Revert This part
-        // @revertIdentifier
-    ''';
-        final expected = '''
-        
-        // @revertIdentifier
-    ''';
+    group('test Revert Template with no variables in the template -', () {
+      group('Single line template tests', () {
+        test(
+            '''Tests if the revertTemplateService works as expected when reverting a template with no new-lines
+          but the template has heading new lines and spaces/indentations which should also be stripped''',
+            () async {
+          final content = '''
+    Revert This part
+// @revertIdentifier''';
+          final expected = '\n// @revertIdentifier';
 
-        final templateService = _getRevertService();
-        final result = await templateService.templateWithoutModifiedFileContent(
-          fileContent: content,
-          modificationIdentifier: '// @revertIdentifier',
-          modificationTemplate: 'Revert This part',
-          name: '',
-          templateName: kTemplateNameService,
-        );
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: 'Revert This part',
+            name: '',
+            templateName: kTemplateNameService,
+          );
 
-        expect(result, expected);
+          expect(result, expected);
+        });
+
+        test(
+            '''Tests if the revertTemplateService works as expected when reverting a template with no new-lines
+          and the template does not have any heading new lines and spaces/indentations''',
+            () async {
+          final content = '''Revert This part
+// @revertIdentifier''';
+          final expected = '\n// @revertIdentifier';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: 'Revert This part',
+            name: '',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+
+        test(
+            '''Tests if the revertTemplateService works as expected when reverting a template with no new-lines
+          and the template does not have any heading new lines but does have heading spaces/indentations''',
+            () async {
+          final content = '''         Revert This part
+// @revertIdentifier''';
+          final expected = '\n// @revertIdentifier';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: 'Revert This part',
+            name: '',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+
+        test(
+            '''Tests if the revertTemplateService works as expected when reverting a template with no new-lines
+          and the template does have heading new lines but does not have any heading spaces/indentations''',
+            () async {
+          final content = '''
+Revert This part
+// @revertIdentifier''';
+          final expected = '\n// @revertIdentifier';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: 'Revert This part',
+            name: '',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
       });
 
-      test(
-          'Test if the revertTemplateService works as expected when reverting a template with new-lines',
-          () async {
-        getAndRegisterFileService();
-        getAndRegisterProcessService();
+      group('Multi-line template tests With indentations', () {
+        test(
+            '''Test if the revertTemplateService works as expected when reverting a template 
+            with new-lines  but no heading empty lines or spaces (the new lines before the template)''',
+            () async {
+          getAndRegisterFileService();
+          getAndRegisterProcessService();
 
-        final content = '''int getSomeInt() {
+          // as you can see there are indents, that means the file has changed due to formatting the content.
+          final content = '''int getSomeInt() {
   return 1;
 }
 // @revertIdentifier''';
-        final expected = '''// @revertIdentifier''';
+          final expected = '''// @revertIdentifier''';
 
-        final templateService = _getRevertService();
-        final result = await templateService.templateWithoutModifiedFileContent(
-          fileContent: content,
-          modificationIdentifier: '// @revertIdentifier',
-          modificationTemplate: '''int getSomeInt() {
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: '''int getSomeInt() {
 return 1;
 }''',
-          name: '',
-          templateName: kTemplateNameService,
-        );
+            name: '',
+            templateName: kTemplateNameService,
+          );
 
-        expect(result, expected);
+          expect(result, expected);
+        });
+
+        test(
+            '''Test if the revertTemplateService works as expected when reverting a template 
+            with new-lines, indentations and heading new lines (the new lines before the template) but no spaces/indentations''',
+            () async {
+          getAndRegisterFileService();
+          getAndRegisterProcessService();
+
+          // as you can see there are indents, that means the file has changed due to formatting the content.
+          final content = '''
+
+int getSomeInt() {
+  return 1;
+}
+// @revertIdentifier''';
+          final expected = '''// @revertIdentifier''';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: '''int getSomeInt() {
+return 1;
+}''',
+            name: '',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+
+        test(
+            '''Test if the revertTemplateService works as expected when reverting a template 
+            with new-lines, indentations, heading new lines (the new lines before the template) and spaces/indentations''',
+            () async {
+          getAndRegisterFileService();
+          getAndRegisterProcessService();
+
+          // as you can see there are indents, that means the file has changed due to formatting the content.
+          final content = '''
+
+   int getSomeInt() {
+  return 1;
+}
+// @revertIdentifier''';
+          final expected = '''// @revertIdentifier''';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: '''int getSomeInt() {
+return 1;
+}''',
+            name: '',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+
+        test(
+            '''Test if the revertTemplateService works as expected when reverting a template 
+            with new-lines, indentations and spaces/indentations but no heading new lines (the new lines before the template) ''',
+            () async {
+          getAndRegisterFileService();
+          getAndRegisterProcessService();
+
+          // as you can see there are indents, that means the file has changed due to formatting the content.
+          final content = '''     int getSomeInt() {
+  return 1;
+}
+// @revertIdentifier''';
+          final expected = '''// @revertIdentifier''';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: '''int getSomeInt() {
+return 1;
+}''',
+            name: '',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+      });
+
+      group('Multi-line template tests without indentations', () {
+        test(
+            '''Test if the revertTemplateService works as expected when reverting a template 
+            with new-lines but no heading empty lines (the new lines before the template) or spaces''',
+            () async {
+          getAndRegisterFileService();
+          getAndRegisterProcessService();
+
+          // as you can see there is no indents, that means nothing has changed due to formatting the content.
+          final content = '''import '../services/service_1.dart';
+import '../serviced/service_2.dart';
+// @revertIdentifier''';
+          final expected = '''// @revertIdentifier''';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: '''import '../services/service_1.dart';
+import '../serviced/service_2.dart';''',
+            name: '',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+
+        test(
+            '''Test if the revertTemplateService works as expected when reverting a template 
+            with new-lines, heading empty lines (the new lines before the template) but no spaces''',
+            () async {
+          getAndRegisterFileService();
+          getAndRegisterProcessService();
+
+          // as you can see there is no indents, that means nothing has changed due to formatting the content.
+          final content = '''
+
+import '../services/service_1.dart';
+import '../serviced/service_2.dart';
+// @revertIdentifier''';
+          final expected = '''// @revertIdentifier''';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: '''import '../services/service_1.dart';
+import '../serviced/service_2.dart';''',
+            name: '',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+
+        test(
+            '''Test if the revertTemplateService works as expected when reverting a template 
+            with new-lines, heading empty lines (the new lines before the template) and spaces''',
+            () async {
+          getAndRegisterFileService();
+          getAndRegisterProcessService();
+
+          // as you can see there is no indents, that means nothing has changed due to formatting the content.
+          final content = '''
+
+    import '../services/service_1.dart';
+import '../serviced/service_2.dart';
+// @revertIdentifier''';
+          final expected = '''// @revertIdentifier''';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: '''import '../services/service_1.dart';
+import '../serviced/service_2.dart';''',
+            name: '',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+
+        test(
+            '''Test if the revertTemplateService works as expected when reverting a template 
+            with new-lines and spaces but no heading empty lines (the new lines before the template)''',
+            () async {
+          getAndRegisterFileService();
+          getAndRegisterProcessService();
+
+          // as you can see there is no indents, that means nothing has changed due to formatting the content.
+          final content = '''    import '../services/service_1.dart';
+import '../serviced/service_2.dart';
+// @revertIdentifier''';
+          final expected = '''// @revertIdentifier''';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: '''import '../services/service_1.dart';
+import '../serviced/service_2.dart';''',
+            name: '',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+      });
+    });
+
+    group('test Revert Template with variables in the template -', () {
+      group('Single line template tests', () {
+        test(
+            '''Tests if the revertTemplateService works as expected when reverting a template with no new-lines
+          but the template has heading new lines and spaces/indentations which should also be stripped''',
+            () async {
+          final content = '''
+    Revert the service: Service1
+// @revertIdentifier''';
+          final expected = '\n// @revertIdentifier';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: 'Revert the service: {{serviceName}}',
+            name: 'service_1',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+
+        test(
+            '''Tests if the revertTemplateService works as expected when reverting a template with no new-lines
+          and the template does not have any heading new lines and spaces/indentations''',
+            () async {
+          final content = '''Revert the service: Service1
+// @revertIdentifier''';
+          final expected = '\n// @revertIdentifier';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: 'Revert the service: {{serviceName}}',
+            name: 'service_1',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+
+        test(
+            '''Tests if the revertTemplateService works as expected when reverting a template with no new-lines
+          and the template does not have any heading new lines but does have heading spaces/indentations''',
+            () async {
+          final content = '''         Revert the service: Service1
+// @revertIdentifier''';
+          final expected = '\n// @revertIdentifier';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: 'Revert the service: {{serviceName}}',
+            name: 'service_1',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+
+        test(
+            '''Tests if the revertTemplateService works as expected when reverting a template with no new-lines
+          and the template does have heading new lines but does not have any heading spaces/indentations''',
+            () async {
+          final content = '''
+Revert the service: Service1
+// @revertIdentifier''';
+          final expected = '\n// @revertIdentifier';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: 'Revert the service: {{serviceName}}',
+            name: 'service_1',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+      });
+
+      group('Multi-line template tests With indentations', () {
+        test(
+            '''Test if the revertTemplateService works as expected when reverting a template 
+            with new-lines  but no heading empty lines or spaces (the new lines before the template)''',
+            () async {
+          getAndRegisterFileService();
+          getAndRegisterProcessService();
+
+          // as you can see there are indents, that means the file has changed due to formatting the content.
+          final content = '''int getSomeInt() {
+  final service = locator<IntService>;
+  return service.getInt();
+}
+// @revertIdentifier''';
+          final expected = '''// @revertIdentifier''';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: '''int getSomeInt() {
+final service = locator<{{serviceName}}>;
+return service.getInt();
+}''',
+            name: 'int_service',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+
+        test(
+            '''Test if the revertTemplateService works as expected when reverting a template 
+            with new-lines, indentations and heading new lines (the new lines before the template) but no spaces/indentations''',
+            () async {
+          getAndRegisterFileService();
+          getAndRegisterProcessService();
+
+          // as you can see there are indents, that means the file has changed due to formatting the content.
+          final content = '''
+
+int getSomeInt() {
+  final service = locator<IntService>;
+  return service.getInt();
+}
+// @revertIdentifier''';
+          final expected = '''// @revertIdentifier''';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: '''int getSomeInt() {
+final service = locator<{{serviceName}}>;
+return service.getInt();
+}''',
+            name: 'int_service',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+
+        test(
+            '''Test if the revertTemplateService works as expected when reverting a template 
+            with new-lines, indentations, heading new lines (the new lines before the template) and spaces/indentations''',
+            () async {
+          getAndRegisterFileService();
+          getAndRegisterProcessService();
+
+          // as you can see there are indents, that means the file has changed due to formatting the content.
+          final content = '''
+
+   int getSomeInt() {
+  final service = locator<IntService>;
+  return service.getInt();
+}
+// @revertIdentifier''';
+          final expected = '''// @revertIdentifier''';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: '''int getSomeInt() {
+final service = locator<{{serviceName}}>;
+return service.getInt();
+}''',
+            name: 'int_service',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+
+        test(
+            '''Test if the revertTemplateService works as expected when reverting a template 
+            with new-lines, indentations and spaces/indentations but no heading new lines (the new lines before the template) ''',
+            () async {
+          getAndRegisterFileService();
+          getAndRegisterProcessService();
+
+          // as you can see there are indents, that means the file has changed due to formatting the content.
+          final content = '''     int getSomeInt() {
+  final service = locator<IntService>;
+  return service.getInt();
+}
+// @revertIdentifier''';
+          final expected = '''// @revertIdentifier''';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: '''int getSomeInt() {
+final service = locator<{{serviceName}}>;
+return service.getInt();
+}''',
+            name: 'int_service',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+      });
+
+      group('Multi-line template tests without indentations', () {
+        test(
+            '''Test if the revertTemplateService works as expected when reverting a template 
+            with new-lines but no heading empty lines (the new lines before the template) or spaces''',
+            () async {
+          getAndRegisterFileService();
+          getAndRegisterProcessService();
+
+          // as you can see there is no indents, that means nothing has changed due to formatting the content.
+          final content = '''import '../services/service_1.dart';
+import '../serviced/service_2.dart';
+
+class ImportantService {}
+// @revertIdentifier''';
+          final expected = '''// @revertIdentifier''';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: '''import '../services/service_1.dart';
+import '../serviced/service_2.dart';
+
+class {{serviceName}}Service{}''',
+            name: 'important',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+
+        test(
+            '''Test if the revertTemplateService works as expected when reverting a template 
+            with new-lines, heading empty lines (the new lines before the template) but no spaces''',
+            () async {
+          getAndRegisterFileService();
+          getAndRegisterProcessService();
+
+          // as you can see there is no indents, that means nothing has changed due to formatting the content.
+          final content = '''
+
+import '../services/service_1.dart';
+import '../serviced/service_2.dart';
+
+class ImportantService {}
+// @revertIdentifier''';
+          final expected = '''// @revertIdentifier''';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: '''import '../services/service_1.dart';
+import '../serviced/service_2.dart';
+
+class {{serviceName}}Service{}''',
+            name: 'important',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+
+        test(
+            '''Test if the revertTemplateService works as expected when reverting a template 
+            with new-lines, heading empty lines (the new lines before the template) and spaces''',
+            () async {
+          getAndRegisterFileService();
+          getAndRegisterProcessService();
+
+          // as you can see there is no indents, that means nothing has changed due to formatting the content.
+          final content = '''
+
+    import '../services/service_1.dart';
+import '../serviced/service_2.dart';
+
+class ImportantService {}
+// @revertIdentifier''';
+          final expected = '''// @revertIdentifier''';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: '''import '../services/service_1.dart';
+import '../serviced/service_2.dart';
+
+class {{serviceName}}Service{}''',
+            name: 'important',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
+
+        test(
+            '''Test if the revertTemplateService works as expected when reverting a template 
+            with new-lines and spaces but no heading empty lines (the new lines before the template)''',
+            () async {
+          getAndRegisterFileService();
+          getAndRegisterProcessService();
+
+          // as you can see there is no indents, that means nothing has changed due to formatting the content.
+          final content = '''    import '../services/service_1.dart';
+import '../serviced/service_2.dart';
+
+class ImportantService {}
+// @revertIdentifier''';
+          final expected = '''// @revertIdentifier''';
+
+          final templateService = _getRevertService();
+          final result =
+              await templateService.templateWithoutModifiedFileContent(
+            fileContent: content,
+            modificationIdentifier: '// @revertIdentifier',
+            modificationTemplate: '''import '../services/service_1.dart';
+import '../serviced/service_2.dart';
+
+class {{serviceName}}Service{}''',
+            name: 'important',
+            templateName: kTemplateNameService,
+          );
+
+          expect(result, expected);
+        });
       });
     });
   });
