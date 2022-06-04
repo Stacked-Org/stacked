@@ -26,6 +26,7 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
 
   @override
   Future<void> run() async {
-    await _templateService.purgeTemplate(kTemplateNameService, argResults!, this);
+    await _templateService.purgeTemplate(
+        kTemplateNameService, argResults!, this);
   }
 }

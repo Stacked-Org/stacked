@@ -43,8 +43,9 @@ class LocalisationService with WidgetsBindingObserver {
   @override
   void didChangeLocales(List<Locale>? locale) async {
     final currentLocale = locale?.first.toString();
-    if(currentLocale?.isNotEmpty == true) {
-      _localisedStrings = await _stringReader.getStringsFromAssets(currentLocale!);
+    if (currentLocale?.isNotEmpty == true) {
+      _localisedStrings =
+          await _stringReader.getStringsFromAssets(currentLocale!);
     }
   }
 
