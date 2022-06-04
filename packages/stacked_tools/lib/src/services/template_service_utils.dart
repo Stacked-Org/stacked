@@ -110,11 +110,6 @@ class TemplateServiceUtils {
     /// This value is only for testing
     Map<String, RenderFunction>? testRenderFunctions,
   }) {
-    print(templateName +
-        ' ' +
-        name +
-        ' ' +
-        (testRenderFunctions == null).toString());
     final nameRecase = ReCase(name);
 
     final renderFunction = testRenderFunctions != null

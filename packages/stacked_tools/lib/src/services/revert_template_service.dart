@@ -169,15 +169,11 @@ class RevertTemplateService {
 
       String formattedText = await file.readAsString();
 
-      print(formattedText);
-
       formattedText = formattedText[formattedText.length - 1] == '\n'
           ? formattedText.substring(0, formattedText.length - 1)
           : formattedText;
       formattedText = escapeRegex(formattedText);
 
-      print(formattedText);
-      // var regexp = RegExp(r'(.*?)*\s*' + formattedText + r'\n?');
       var regexp = RegExp(r'(.*)\s*' + formattedText + r'\n?');
 
       file.delete();
@@ -192,9 +188,8 @@ class RevertTemplateService {
       return returnedText;
     } else {
       var templateText = escapeRegex(renderedTemplate);
-      // var regexp = RegExp(r'\n\s*' + templateText);
+
       var regexp = RegExp(r'(.*)\s*' + templateText);
-      print(fileContent.replaceFirstMapped(regexp, (match) => ''));
       return fileContent.replaceFirstMapped(regexp, (match) => '');
     }
   }
@@ -214,7 +209,7 @@ class RevertTemplateService {
   // A function to escape all special regex characters, making the string safe for use in a regex match
   String escapeRegex(String text) {
     var regex = RegExp(r'[\.\^\$\*\+\-\?\(\)\[\]\{\}\|\—\/]\s*?');
-    // var regex = RegExp(r'[.^$*+-?()[]{}|—/]\s*+');
+
     return text.replaceAllMapped(regex, (match) => r'\' + text[match.start]);
   }
 }

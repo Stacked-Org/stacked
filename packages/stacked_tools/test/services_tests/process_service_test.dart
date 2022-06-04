@@ -58,10 +58,7 @@ void main() {
           await service.formatFile(
               workingDir: ksCurrentDirectory, fileName: ksFormatTestFileName);
 
-          print(await fileService.readFileAsString(
-              filePath: ksFormatTestFileName));
-
-          // deleteFormatTestFile();
+          deleteFormatTestFile();
           expect(
               await fileService.readFileAsString(
                   filePath: ksFormatTestFileName),
