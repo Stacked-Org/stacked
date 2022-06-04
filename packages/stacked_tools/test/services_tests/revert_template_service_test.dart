@@ -21,7 +21,7 @@ void main() {
 
     group('revertContentForTemplate -', () {
       test(
-          'When given content with string that has viewName, viewModelName and viewModelFileName, should return string with those values replaced',
+          'Tests if the revertTemplateService works as expected when reverting a template with no new-lines',
           () async {
         final content = '''
         Revert This part
@@ -37,6 +37,32 @@ void main() {
           fileContent: content,
           modificationIdentifier: '// @revertIdentifier',
           modificationTemplate: 'Revert This part',
+          name: '',
+          templateName: kTemplateNameService,
+        );
+
+        expect(result, expected);
+      });
+
+      test(
+          'Test if the revertTemplateService works as expected when reverting a template with new-lines',
+          () async {
+        getAndRegisterFileService();
+        getAndRegisterProcessService();
+
+        final content = '''int getSomeInt() {
+  return 1;
+}
+// @revertIdentifier''';
+        final expected = '''// @revertIdentifier''';
+
+        final templateService = _getRevertService();
+        final result = await templateService.templateWithoutModifiedFileContent(
+          fileContent: content,
+          modificationIdentifier: '// @revertIdentifier',
+          modificationTemplate: '''int getSomeInt() {
+return 1;
+}''',
           name: '',
           templateName: kTemplateNameService,
         );

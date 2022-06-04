@@ -1,9 +1,11 @@
 import 'package:mockito/mockito.dart';
+import 'package:stacked_tools/src/constants/command_constants.dart';
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/services/process_service.dart';
 import 'package:test/test.dart';
 
 import '../helpers/test_helpers.dart';
+import '../test_constants.dart';
 
 ProcessService _getService() => ProcessService();
 
@@ -42,6 +44,30 @@ void main() {
         await service.runFormat(appName: "xyz");
         verify(_clog.error(message: anyNamed('message')));
       });
+      test(
+        "when called should format $ksFormatTestFileName",
+        () async {
+          String expected = '''int getSomeInt() {
+  return 1;
+}
+''';
+          final fileService = getAndRegisterFileService();
+          createFormatTestFile();
+
+          var service = getAndRegisterProcessService();
+          await service.formatFile(
+              workingDir: ksCurrentDirectory, fileName: ksFormatTestFileName);
+
+          print(await fileService.readFileAsString(
+              filePath: ksFormatTestFileName));
+
+          // deleteFormatTestFile();
+          expect(
+              await fileService.readFileAsString(
+                  filePath: ksFormatTestFileName),
+              expected);
+        },
+      );
     });
   });
 }

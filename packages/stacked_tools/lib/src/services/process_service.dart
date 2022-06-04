@@ -14,7 +14,7 @@ class ProcessService {
   /// Args:
   ///   appName (String): The name of the app that's going to be create.
   Future<void> runCreateApp({required String appName}) async {
-    await runProcessAndLogOutput(
+    await _runProcessAndLogOutput(
       programName: ksFlutter,
       arguments: [ksCreate, appName],
     );
@@ -25,7 +25,7 @@ class ProcessService {
   /// Args:
   ///   appName (String): The name of the app.
   Future<void> runBuildRunner({String? appName}) async {
-    await runProcessAndLogOutput(
+    await _runProcessAndLogOutput(
       programName: ksFlutter,
       arguments: buildRunnerArguments,
       workingDirectory: appName,
@@ -37,7 +37,7 @@ class ProcessService {
   /// Args:
   ///   appName (String): The name of the app.
   Future<void> runPubGet({String? appName}) async {
-    await runProcessAndLogOutput(
+    await _runProcessAndLogOutput(
       programName: ksFlutter,
       arguments: pubGetArguments,
       workingDirectory: appName,
@@ -49,10 +49,24 @@ class ProcessService {
   /// Args:
   ///   appName (String): The name of the app.
   Future<void> runFormat({String? appName}) async {
-    await runProcessAndLogOutput(
+    await _runProcessAndLogOutput(
       programName: ksFlutter,
       arguments: [ksFormat, ksCurrentDirectory],
       workingDirectory: appName,
+    );
+  }
+
+  /// "Runs the dart format for the file int the provided path."
+  ///
+  /// Args:
+  ///   workingDir (String): The path to the folder in which the file is present to be formatted
+  ///   (the path can be relative or absolute).
+  ///   fileName (String): The name of the file to formatted.
+  Future<void> formatFile({String? workingDir, String? fileName}) async {
+    await _runProcessAndLogOutput(
+      programName: ksDart,
+      arguments: [ksFormat, fileName!, '--set-exit-if-changed'],
+      workingDirectory: workingDir,
     );
   }
 
@@ -62,7 +76,7 @@ class ProcessService {
   ///   programName (String): The name of the program to run.
   ///   arguments (List<String>): The arguments to pass to the program. Defaults to const []
   ///   workingDirectory (String): The directory to run the command in.
-  Future<void> runProcessAndLogOutput({
+  Future<void> _runProcessAndLogOutput({
     required String programName,
     List<String> arguments = const [],
     String? workingDirectory,

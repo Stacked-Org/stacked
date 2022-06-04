@@ -53,6 +53,15 @@ MockFileService getAndRegisterMockFileService({
   return service;
 }
 
+/// registers a real file service. In case you need a real file service for testing a particular service
+/// Use this function instead of the getAndRegisterMockFileService.
+FileService getAndRegisterFileService() {
+  _removeRegistrationIfExists<FileService>();
+  final service = FileService();
+  locator.registerSingleton<FileService>(service);
+  return service;
+}
+
 MockPubspecService getAndRegisterPubSpecService({
   String packageName = 'stacked_tools',
 }) {
@@ -101,9 +110,16 @@ MockColorizedLogService getAndRegisterColorizedLogService() {
   return service;
 }
 
-MockProcessService getAndRegisterProcessService() {
+MockProcessService getAndRegisterMockProcessService() {
   _removeRegistrationIfExists<ProcessService>();
   final service = MockProcessService();
+  locator.registerSingleton<ProcessService>(service);
+  return service;
+}
+
+ProcessService getAndRegisterProcessService() {
+  _removeRegistrationIfExists<ProcessService>();
+  final service = ProcessService();
   locator.registerSingleton<ProcessService>(service);
   return service;
 }
@@ -145,13 +161,26 @@ void registerServices() {
   getAndRegisterTemplateHelper();
   getAndRegisterPubSpecService();
   getAndRegisterColorizedLogService();
-  getAndRegisterProcessService();
+  getAndRegisterMockProcessService();
   getAndRegisterTemplateService();
 // @stacked-mock-helper-register
 }
 
 void createTestFile() {
   File(ksTestFileName).writeAsStringSync(kAppTemplateAppContent);
+}
+
+void createFormatTestFile() {
+  File(ksFormatTestFileName).writeAsStringSync('''int getSomeInt(){
+return 1;
+}''');
+}
+
+Future<void> deleteFormatTestFile() async {
+  File file = File(ksFormatTestFileName);
+  if (await file.exists()) {
+    await file.delete();
+  }
 }
 
 Future<void> deleteTestFile() async {

@@ -12,6 +12,7 @@ const String ksDeleteConflictingOutputs = '--delete-conflicting-outputs';
 const String ksExcludeRoute = 'exclude-route';
 const String ksExcludeDependency = 'exclude-dependency';
 const String ksCurrentDirectory = '.';
+const String ksDart = 'dart';
 
 /// A list of strings that are used to run the pub run build runner build --delete-conflicting-outputs command.
 const List<String> buildRunnerArguments = [

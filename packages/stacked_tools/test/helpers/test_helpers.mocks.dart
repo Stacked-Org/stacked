@@ -516,7 +516,7 @@ class MockProcessService extends _i1.Mock implements _i18.ProcessService {
       returnValue: Future<void>.value(),
       returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
   @override
-  _i5.Future<void> runProcessAndLogOutput(
+  _i5.Future<void> _runProcessAndLogOutput(
           {String? programName,
           List<String>? arguments = const [],
           String? workingDirectory}) =>

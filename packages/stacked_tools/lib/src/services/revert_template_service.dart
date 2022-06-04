@@ -154,28 +154,36 @@ class RevertTemplateService {
     required String name,
     required String templateName,
   }) async {
-    String renderedTemplate =
-        _utils.getRenderedTemplateData(modificationTemplate, templateName, name);
+    String renderedTemplate = _utils.getRenderedTemplateData(
+        modificationTemplate, templateName, name);
 
     //Replace generated io.File content with modifier, to remove the generated content
     if (renderedTemplate.contains("\n")) {
       var file = File("temp.txt");
       await _fileService.writeFile(file: file, fileContent: renderedTemplate);
 
-      await _processService.runProcessAndLogOutput(
-        programName: 'dart',
-        arguments: [ksFormat, "temp.txt", "--set-exit-if-changed"],
-        workingDirectory: ksCurrentDirectory,
+      await _processService.formatFile(
+        fileName: 'temp.txt',
+        workingDir: ksCurrentDirectory,
       );
 
       String formattedText = await file.readAsString();
+      formattedText = formattedText.substring(0, formattedText.length - 1);
+      print(formattedText);
 
       file.delete();
 
-      return fileContent.replaceFirst(
-        '\n' + formattedText,
-        '',
-      );
+      // The reason of doing 2 replace is just to make sure if there is no newline above the formattedText, we
+      // still eliminate it
+      return fileContent
+          .replaceFirst(
+            '\n' + formattedText,
+            '',
+          )
+          .replaceFirst(
+            formattedText + '\n',
+            '',
+          );
     } else {
       return fileContent.replaceFirst(renderedTemplate, '');
     }
