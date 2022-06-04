@@ -140,7 +140,6 @@ return 1;
 
           // as you can see there are indents, that means the file has changed due to formatting the content.
           final content = '''
-
 int getSomeInt() {
   return 1;
 }
@@ -171,7 +170,6 @@ return 1;
 
           // as you can see there are indents, that means the file has changed due to formatting the content.
           final content = '''
-
    int getSomeInt() {
   return 1;
 }
@@ -260,7 +258,6 @@ import '../serviced/service_2.dart';''',
 
           // as you can see there is no indents, that means nothing has changed due to formatting the content.
           final content = '''
-
 import '../services/service_1.dart';
 import '../serviced/service_2.dart';
 // @revertIdentifier''';
@@ -289,7 +286,6 @@ import '../serviced/service_2.dart';''',
 
           // as you can see there is no indents, that means nothing has changed due to formatting the content.
           final content = '''
-
     import '../services/service_1.dart';
 import '../serviced/service_2.dart';
 // @revertIdentifier''';
@@ -468,7 +464,6 @@ return service.getInt();
 
           // as you can see there are indents, that means the file has changed due to formatting the content.
           final content = '''
-
 int getSomeInt() {
   final service = locator<IntService>;
   return service.getInt();
@@ -501,7 +496,6 @@ return service.getInt();
 
           // as you can see there are indents, that means the file has changed due to formatting the content.
           final content = '''
-
    int getSomeInt() {
   final service = locator<IntService>;
   return service.getInt();
@@ -598,7 +592,6 @@ class {{serviceName}}Service{}''',
 
           // as you can see there is no indents, that means nothing has changed due to formatting the content.
           final content = '''
-
 import '../services/service_1.dart';
 import '../serviced/service_2.dart';
 
@@ -631,7 +624,6 @@ class {{serviceName}}Service{}''',
 
           // as you can see there is no indents, that means nothing has changed due to formatting the content.
           final content = '''
-
     import '../services/service_1.dart';
 import '../serviced/service_2.dart';
 
@@ -685,6 +677,178 @@ class {{serviceName}}Service{}''',
 
           expect(result, expected);
         });
+      });
+    });
+    group('tests to ensure the Service should only strip a max of 1 line', () {
+      test(
+          '''Test if the revertTemplateService strips only 1 line from the content, 
+            with new-lines and spaces but no heading empty lines (the new lines before the template)''',
+          () async {
+        getAndRegisterFileService();
+        getAndRegisterProcessService();
+
+        // as you can see there is no indents, that means nothing has changed due to formatting the content.
+        final content = '''
+
+import '../services/service_1.dart';
+import '../serviced/service_2.dart';
+
+class ImportantService {}
+// @revertIdentifier''';
+        final expected = '''
+// @revertIdentifier''';
+
+        final templateService = _getRevertService();
+        final result = await templateService.templateWithoutModifiedFileContent(
+          fileContent: content,
+          modificationIdentifier: '// @revertIdentifier',
+          modificationTemplate: '''import '../services/service_1.dart';
+import '../serviced/service_2.dart';
+
+class {{serviceName}}Service{}''',
+          name: 'important',
+          templateName: kTemplateNameService,
+        );
+
+        expect(result, expected);
+      });
+
+      test(
+          '''Tests if the revertTemplateService strips only 1 line from the content with new-lines''',
+          () async {
+        final content = '''
+
+Revert the service: Service1
+// @revertIdentifier''';
+        final expected = '\n// @revertIdentifier';
+
+        final templateService = _getRevertService();
+        final result = await templateService.templateWithoutModifiedFileContent(
+          fileContent: content,
+          modificationIdentifier: '// @revertIdentifier',
+          modificationTemplate: 'Revert the service: {{serviceName}}',
+          name: 'service_1',
+          templateName: kTemplateNameService,
+        );
+
+        expect(result, expected);
+      });
+
+      test(
+          '''Test if the revertTemplateService strips a max of 1 line for a content with new-lines''',
+          () async {
+        getAndRegisterFileService();
+        getAndRegisterProcessService();
+
+        // as you can see there are indents, that means the file has changed due to formatting the content.
+        final content = '''
+
+int getSomeInt() {
+  final service = locator<IntService>;
+  return service.getInt();
+}
+// @revertIdentifier''';
+        final expected = '''
+// @revertIdentifier''';
+
+        final templateService = _getRevertService();
+        final result = await templateService.templateWithoutModifiedFileContent(
+          fileContent: content,
+          modificationIdentifier: '// @revertIdentifier',
+          modificationTemplate: '''int getSomeInt() {
+final service = locator<{{serviceName}}>;
+return service.getInt();
+}''',
+          name: 'int_service',
+          templateName: kTemplateNameService,
+        );
+
+        expect(result, expected);
+      });
+
+      test(
+          '''Test if the revertTemplateService strips only 1 line from the content, 
+            with new-lines (without variable)''', () async {
+        getAndRegisterFileService();
+        getAndRegisterProcessService();
+
+        // as you can see there is no indents, that means nothing has changed due to formatting the content.
+        final content = '''
+
+import '../services/service_1.dart';
+import '../serviced/service_2.dart';
+
+class Service {}
+// @revertIdentifier''';
+        final expected = '''
+// @revertIdentifier''';
+
+        final templateService = _getRevertService();
+        final result = await templateService.templateWithoutModifiedFileContent(
+          fileContent: content,
+          modificationIdentifier: '// @revertIdentifier',
+          modificationTemplate: '''import '../services/service_1.dart';
+import '../serviced/service_2.dart';
+
+class Service{}''',
+          name: '',
+          templateName: kTemplateNameService,
+        );
+
+        expect(result, expected);
+      });
+
+      test(
+          '''Tests if the revertTemplateService strips only 1 line from the content with new-lines (without variable)''',
+          () async {
+        final content = '''
+
+Revert the service: Service1
+// @revertIdentifier''';
+        final expected = '\n// @revertIdentifier';
+
+        final templateService = _getRevertService();
+        final result = await templateService.templateWithoutModifiedFileContent(
+          fileContent: content,
+          modificationIdentifier: '// @revertIdentifier',
+          modificationTemplate: 'Revert the service: Service1',
+          name: '',
+          templateName: kTemplateNameService,
+        );
+
+        expect(result, expected);
+      });
+
+      test(
+          '''Test if the revertTemplateService strips a max of 1 line for a content with new-lines (without variable)''',
+          () async {
+        getAndRegisterFileService();
+        getAndRegisterProcessService();
+
+        // as you can see there are indents, that means the file has changed due to formatting the content.
+        final content = '''
+
+int getSomeInt() {
+  final service = locator<IntService>;
+  return service.getInt();
+}
+// @revertIdentifier''';
+        final expected = '''
+// @revertIdentifier''';
+
+        final templateService = _getRevertService();
+        final result = await templateService.templateWithoutModifiedFileContent(
+          fileContent: content,
+          modificationIdentifier: '// @revertIdentifier',
+          modificationTemplate: '''int getSomeInt() {
+final service = locator<IntService>;
+return service.getInt();
+}''',
+          name: '',
+          templateName: kTemplateNameService,
+        );
+
+        expect(result, expected);
       });
     });
   });

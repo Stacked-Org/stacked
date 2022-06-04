@@ -174,7 +174,9 @@ class RevertTemplateService {
           : formattedText;
       formattedText = escapeRegex(formattedText);
 
-      var regexp = RegExp(r'(.*)\s*' + formattedText + r'\n?');
+      // var regexp = RegExp(r'(.?)\s*' + formattedText + r'\n?');
+      var regexp =
+          RegExp(r'[\r\t\f ]*[\v\n]?[\r\t\f ]*' + formattedText + r'\n?');
 
       file.delete();
 
@@ -189,7 +191,8 @@ class RevertTemplateService {
     } else {
       var templateText = escapeRegex(renderedTemplate);
 
-      var regexp = RegExp(r'(.*)\s*' + templateText);
+      // var regexp = RegExp(r'(.?)\s*' + templateText);
+      var regexp = RegExp(r'[\r\t\f ]*[\v\n]?[\r\t\f ]*' + templateText);
       return fileContent.replaceFirstMapped(regexp, (match) => '');
     }
   }
