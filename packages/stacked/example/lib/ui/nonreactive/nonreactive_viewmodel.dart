@@ -16,4 +16,11 @@ class NonReactiveViewModel extends BaseViewModel {
   void navigateToNewView() {
     _navigationService.navigateTo(Routes.streamCounterView);
   }
+
+  void navigateBackHome() {
+    _navigationService.clearStackAndShow(
+      Routes.homeView,
+      arguments: HomeViewArguments(title: 'Home'),
+    );
+  }
 }
