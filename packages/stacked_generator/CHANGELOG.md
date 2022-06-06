@@ -1,3 +1,5 @@
+## 0.7.2
+- Add default values to Strong Type Navigation parameters
 ## 0.7.1
 - Add Strong Type Navigation parameters
 ## 0.7.0
