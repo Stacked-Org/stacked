@@ -31,10 +31,11 @@ dependencies:
   stacked_hooks:
   stacked_themes:
   stacked_crashlytics:
-
+  
   flutter_hooks: ^0.18.4
   # navigation
   get: ^4.6.3
+  animations: ^2.0.3
 
 dependency_overrides:
   stacked:

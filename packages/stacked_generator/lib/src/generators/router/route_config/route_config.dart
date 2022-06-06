@@ -221,7 +221,7 @@ class RouteConfig {
 
         var import;
         if (function.enclosingElement.name != 'TransitionsBuilders') {
-          import = importResolver.resolve(function);
+          import = function.source.uri.toString();
         }
         customRouteConfig = customRouteConfig.copyWith(
             transitionBuilder: CustomTransitionBuilder(functionName, import));
