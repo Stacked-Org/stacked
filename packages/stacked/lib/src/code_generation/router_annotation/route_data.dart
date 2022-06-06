@@ -1,8 +1,7 @@
-import 'package:flutter/widgets.dart';
-
 import 'parameters.dart';
 import 'route_matcher.dart';
 import 'router_base.dart';
+import 'package:flutter/widgets.dart';
 
 @immutable
 class RouteData extends RouteSettings {
@@ -10,14 +9,10 @@ class RouteData extends RouteSettings {
       : _pathParams = routeMatch.pathParams,
         _queryParams = routeMatch.queryParams,
         fragment = routeMatch.uri.fragment,
-        transition = routeMatch.arguments is Map
-            ? ((routeMatch.arguments as Map?)?['transition'])
-            : null,
+        transition = (routeMatch.arguments as Map?)?['transition'],
         super(
           name: routeMatch.name,
-          arguments: routeMatch.arguments is Map
-              ? ((routeMatch.arguments as Map?)?['arguments'])
-              : routeMatch.arguments,
+          arguments: (routeMatch.arguments as Map?)?['arguments'],
         );
 
   final RouteMatch routeMatch;

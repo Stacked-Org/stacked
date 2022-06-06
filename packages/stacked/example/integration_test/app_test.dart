@@ -1,7 +1,7 @@
-import 'package:example/main.dart' as app;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:example/main.dart' as app;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +19,6 @@ void main() {
       final initialisedText = find.text('Initialised');
       final widgetOne = find.text('Tap to increment');
       final widgetTwo = find.text('Tap to Reset');
-      final widgetThree = find.text('Home');
 
       // Non Reactive View Widgets
       final nonReactiveTitle = find.text('Non Reactive View');
@@ -53,7 +52,6 @@ void main() {
 
       // General Widget
       final fab = find.byType(FloatingActionButton);
-      final iconButton = find.byType(IconButton);
 
       // Home View Test
       tester.printToConsole('Home view Testing');
@@ -64,7 +62,6 @@ void main() {
       expect(widgetOne, findsOneWidget);
       expect(widgetTwo, findsOneWidget);
       expect(fab, findsOneWidget);
-      expect(widgetThree, findsNothing);
 
       // Emulate a tap on the widget one button 3 times.
       tester.printToConsole('Emulating tap on widget one button 3 times');
@@ -93,16 +90,6 @@ void main() {
       // Emulate a tap on the fab button to navigate to the second view.
       tester.printToConsole(
           'Emulating tap on fab button to navigate to the second view');
-      await tester.tap(fab);
-      // Trigger a frame.
-      await tester.pumpAndSettle();
-
-      /// Emulating a tap on the back icon button.
-      await tester.tap(iconButton);
-      // Trigger a frame.
-      await tester.pumpAndSettle();
-      expect(widgetThree, findsOneWidget);
-
       await tester.tap(fab);
       // Trigger a frame.
       await tester.pumpAndSettle();

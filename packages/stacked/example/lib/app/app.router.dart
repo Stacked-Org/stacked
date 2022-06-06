@@ -51,14 +51,8 @@ class StackedRouter extends RouterBase {
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, StackedRouteFactory>{
     HomeView: (data) {
-      var args = data.getArgs<HomeViewArguments>(
-        orElse: () => HomeViewArguments(),
-      );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => HomeView(
-          key: args.key,
-          title: args.title,
-        ),
+        builder: (context) => const HomeView(),
         settings: data,
       );
     },
@@ -108,13 +102,6 @@ class StackedRouter extends RouterBase {
 /// Arguments holder classes
 /// *************************************************************************
 
-/// HomeView arguments holder class
-class HomeViewArguments {
-  final Key? key;
-  final String? title;
-  HomeViewArguments({this.key, this.title});
-}
-
 /// DetailsView arguments holder class
 class DetailsViewArguments {
   final Key? key;
@@ -134,8 +121,6 @@ class ExampleFormViewArguments {
 
 extension NavigatorStateExtension on NavigationService {
   Future<dynamic> navigateToHomeView({
-    Key? key,
-    String? title,
     int? id,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -144,7 +129,6 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       Routes.homeView,
-      arguments: HomeViewArguments(key: key, title: title),
       id: id,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
