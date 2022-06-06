@@ -8,8 +8,8 @@ import 'dialog_class_content.dart';
 class DialogClassGenerator extends BaseGenerator
     with DialogClassGeneratorHelper {
   final List<DialogConfig> dialogConfigs;
-
-  DialogClassGenerator(this.dialogConfigs);
+  final String? locatorName;
+  DialogClassGenerator(this.dialogConfigs, {this.locatorName});
 
   @override
   String generate() {
@@ -19,7 +19,7 @@ class DialogClassGenerator extends BaseGenerator
 
     writeDialogTypeEnum(dialogConfigs);
 
-    write(setupDialogHeader);
+    writeDialogHeader(locatorName);
 
     writeDialogsRegistrationEntries(dialogConfigs);
 

@@ -9,14 +9,15 @@ import 'package:example/ui/form/example_form_view.dart';
 import 'package:example/ui/home/home_view.dart';
 import 'package:example/ui/nonreactive/nonreactive_view.dart';
 import 'package:example/ui/stream_view/stream_counter_view.dart';
-import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
+import '../ui/dialogs/basic_dialog.dart';
 import 'custom_route_transition.dart';
 
 @StackedApp(
+  dialogs: [StackedDialog(classType: BasicDialog)],
   routes: [
     MaterialRoute(page: HomeView, initial: true),
     MaterialRoute(page: BottomNavExample),
