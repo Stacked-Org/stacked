@@ -727,8 +727,8 @@ extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
         navigateToTestClass( {
-null null,
-      int? id,
+null null
+,      int? id,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
@@ -1326,8 +1326,8 @@ extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
         navigateToTestClass( {
-newType null,
-      int? id,
+newType null
+,      int? id,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
@@ -2413,8 +2413,8 @@ extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
         navigateToTestClass( {
-null null,
-      int? id,
+null null
+,      int? id,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
@@ -2620,8 +2620,8 @@ extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
         navigateToTestClass( {
-null null,
-      int? id,
+null null
+,      int? id,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
@@ -3043,8 +3043,8 @@ extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
         navigateToTestClass( {
-null null,
-      int? id,
+null null
+,      int? id,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
@@ -3275,8 +3275,8 @@ Future<dynamic>
 
 Future<dynamic>
         navigateToTestClass3( {
-null null,
-      int? id,
+null null
+,      int? id,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,

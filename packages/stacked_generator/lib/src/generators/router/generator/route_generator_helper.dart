@@ -292,10 +292,14 @@ mixin RouteGeneratorHelper on BaseGenerator {
     if (params.isNotEmpty) {
       params.forEach((param) {
         if (param.isRequired || param.isPositional) {
-          writeLine('required ${param.type} ${param.name},');
+          writeLine('required ${param.type} ${param.name}');
         } else {
-          writeLine('${param.type} ${param.name},');
+          writeLine('${param.type} ${param.name}');
         }
+        if (param.defaultValueCode != null) {
+          write(' = ${param.defaultValueCode}');
+        }
+        write(',');
       });
     }
     writeLine('''
