@@ -1,3 +1,5 @@
+## 2.3.10
+- Fixes issues on navigation 
 ## 2.3.9
 - Pump stacked_core version
 - Update example app
