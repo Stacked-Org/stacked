@@ -21,6 +21,7 @@ mixin RouteGeneratorHelper on BaseGenerator {
         validImports.where((element) => element.startsWith('package')).toSet();
     packageImports.add("package:stacked/stacked.dart");
     packageImports.add("package:stacked_services/stacked_services.dart");
+    if (routes.isNotEmpty) packageImports.add('package:flutter/material.dart');
     sortAndGenerate(packageImports);
     newLine();
 
