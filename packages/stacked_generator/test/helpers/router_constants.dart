@@ -2228,6 +2228,7 @@ const kRouterTypeCupertinoWithNamePathNameClassName = '''
 // ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -2293,6 +2294,7 @@ const kRouterTypeCupertinoWithCupertinoNavTitle = '''
 // ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -2357,6 +2359,7 @@ const kRouterTypeCupertinoWithParametersPathFalseQueryFalse = '''
 // ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -2438,6 +2441,7 @@ arguments: TestClassArguments(
 const kRouterTypeAdaptive = '''
 // ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -2501,6 +2505,7 @@ Future<dynamic>
 const kRouterTypeAdaptiveWithCupertinoNavTitle = '''
 // ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -2564,6 +2569,7 @@ Future<dynamic>
 const kRouterTypeAdaptiveWithParametersPathFalseQueryFalse = '''
 // ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
