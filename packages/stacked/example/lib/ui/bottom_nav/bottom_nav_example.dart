@@ -1,10 +1,9 @@
+import 'package:example/app/app.router.dart';
 import 'package:flutter/material.dart';
-import 'package:example/ui/bottom_nav/profile/profile_view.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import 'bottom_nav_example_viewmodel.dart';
-import 'favorites/favorites_view.dart';
-import 'history/history_view.dart';
 
 class BottomNavExample extends StatefulWidget {
   const BottomNavExample({Key? key}) : super(key: key);
@@ -14,18 +13,20 @@ class BottomNavExample extends StatefulWidget {
 }
 
 class BottomNavExampleState extends State<BottomNavExample> {
-  final Map<int, Widget> _viewCache = <int, Widget>{};
-
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BottomNavExampleViewModel>.reactive(
       builder: (context, viewModel, child) => Scaffold(
-        body: getViewForIndex(viewModel.currentIndex),
+        body: ExtendedNavigator(
+          navigatorKey: StackedService.nestedNavigationKey(1),
+          initialRoute: BottomNavExampleRoutes.favoritesView,
+          router: BottomNavExampleRouter(),
+        ),
         bottomNavigationBar: BottomNavigationBar(
           elevation: 6,
           backgroundColor: Colors.white,
           currentIndex: viewModel.currentIndex,
-          onTap: viewModel.setIndex,
+          onTap: viewModel.handleNavigation,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.favorite),
@@ -44,23 +45,5 @@ class BottomNavExampleState extends State<BottomNavExample> {
       ),
       viewModelBuilder: () => BottomNavExampleViewModel(),
     );
-  }
-
-  Widget getViewForIndex(int index) {
-    if (!_viewCache.containsKey(index)) {
-      switch (index) {
-        case 0:
-          _viewCache[index] = const FavoritesView();
-          break;
-        case 1:
-          _viewCache[index] = const HistoryView();
-          break;
-        case 2:
-          _viewCache[index] = const ProfileView();
-          break;
-      }
-    }
-
-    return _viewCache[index]!;
   }
 }

@@ -1,6 +1,6 @@
 import 'package:example/app/app.locator.dart';
-import 'package:example/app/app.router.dart';
 import 'package:example/services/epoch_service.dart';
+import 'package:example/ui/form/example_form_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -46,6 +46,7 @@ class StreamCounterViewModel extends StreamViewModel<int> {
   }
 
   void navigateToNewView() {
-    _navigationService.navigateTo(Routes.exampleFormView);
+    _navigationService.navigateWithTransition(ExampleFormView(),
+        transitionStyle: Transition.zoom);
   }
 }
