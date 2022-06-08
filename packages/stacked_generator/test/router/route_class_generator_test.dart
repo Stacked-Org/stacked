@@ -26,6 +26,12 @@ void main() {
       );
     }
 
+    /// How to copy a test result(Snapshot):
+    /// 1. Pass true to verbose argument
+    /// 2. Run the test
+    /// 3. Open the debug console in your IDE and copy the result
+    ///
+    /// Note: It usually adds an extra line in the bottom of the result
     void generateRouteAndExpectResult(
         List<RouteConfig> routes, dynamic expectedResult,
         {bool verbose = false}) {
@@ -34,8 +40,9 @@ void main() {
           routerClassName: 'RouterTestClassName',
           generateNavigationHelper: true,
           routes: routes));
-      if (verbose) print(routerBaseGenerator.generate());
-      expect(routerBaseGenerator.generate(), expectedResult);
+      final result = routerBaseGenerator.generate();
+      if (verbose) print(result);
+      expect(result, expectedResult);
     }
 
     group('RouteType.material - default -', () {
