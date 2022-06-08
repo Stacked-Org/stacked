@@ -42,7 +42,6 @@ class RouteConfigResolver {
 
     final classElement = dartType.element as ClassElement;
     final className = toDisplayString(dartType);
-
     final import = _importResolver.resolve(classElement);
     if (import != null) imports.add(import);
 
@@ -56,10 +55,6 @@ class RouteConfigResolver {
     }
 
     final returnType = stackedRoute.objectValue.type;
-
-    if (returnType != null && returnType != 'dynamic') {
-      imports.addAll(_importResolver.resolveAll(returnType));
-    }
 
     var baseRouteConfig = RouteConfig(
         hasWrapper: classElement.allSupertypes
@@ -75,6 +70,14 @@ class RouteConfigResolver {
         className: className,
         fullscreenDialog:
             stackedRoute.peek('fullscreenDialog')?.boolValue ?? false);
+
+    /// Check if a return type is provided for example [MaterialRoute<int>()]
+    /// and adds the import for that type other wise is will default to dynamic which
+    /// doesn't needs an import
+    if (baseRouteConfig.processedReturnType != 'dynamic') {
+      imports.addAll(_importResolver.resolveAll(returnType));
+    }
+
     final constructor = classElement.unnamedConstructor;
 
     var params = constructor?.parameters;
