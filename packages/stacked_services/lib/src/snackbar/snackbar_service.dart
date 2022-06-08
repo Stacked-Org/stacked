@@ -9,12 +9,6 @@ import 'stacked_snackbar_customizations.dart';
 
 /// A service that allows the user to show the snackbar from a ViewModel
 class SnackbarService {
-  @Deprecated(
-      'Prefer to use the StackedServices.navigatorKey instead of using this key. This will be removed in the next major version update for stacked.')
-  get navigatorKey {
-    return Get.key;
-  }
-
   Map<dynamic, SnackbarConfig?> _customSnackbarConfigs =
       Map<dynamic, SnackbarConfig?>();
 
@@ -32,18 +26,6 @@ class SnackbarService {
   /// Saves the [config] to be used for the [showSnackbar] function
   void registerSnackbarConfig(SnackbarConfig config) =>
       _snackbarConfig = config;
-
-  /// Saves the [config] against the value of [customData]
-  @Deprecated(
-      'Prefer to use the registerCustomSnackbarConfig() method. Will be removed in future release')
-  void registerCustomSnackbarconfig({
-    @required dynamic customData,
-    @required SnackbarConfig? config,
-  }) =>
-      registerCustomSnackbarConfig(
-        variant: customData,
-        config: config,
-      );
 
   /// Registers a builder that will be used when showing a matching variant value. The builder
   /// function takes in a [String] to display as the title and a `Function` to be used to the
@@ -127,8 +109,7 @@ class SnackbarService {
   Future? showCustomSnackBar({
     required String message,
     TextStyle? messageTextStyle,
-    @deprecated dynamic customData,
-    dynamic variant,
+    required dynamic variant,
     String? title,
     TextStyle? titleTextStyle,
     String? mainButtonTitle,
@@ -137,16 +118,8 @@ class SnackbarService {
     Function? onTap,
     Duration duration = const Duration(seconds: 1),
   }) async {
-    // TODO: Remove customData in the future release and set variant as required
-    final snackbarVariant = variant ?? customData;
-    assert(
-      snackbarVariant != null,
-      'No variant defined, you should provide the variant property to show a custom snackbar',
-    );
-
-    final snackbarConfigSupplied = _customSnackbarConfigs[snackbarVariant];
-    final snackbarConfigBuilder =
-        _customSnackbarConfigBuilders[snackbarVariant];
+    final snackbarConfigSupplied = _customSnackbarConfigs[variant];
+    final snackbarConfigBuilder = _customSnackbarConfigBuilders[variant];
 
     final snackbarConfig = snackbarConfigBuilder != null
         ? snackbarConfigBuilder()
@@ -154,7 +127,7 @@ class SnackbarService {
 
     if (snackbarConfig == null) {
       throw CustomSnackbarException(
-        'No config found for $snackbarVariant make sure you have called registerCustomConfig with a config or a builder. See [https://pub.dev/packages/stacked_services#custom-styles] for implementation details.',
+        'No config found for $variant make sure you have called registerCustomConfig with a config or a builder. See [https://pub.dev/packages/stacked_services#custom-styles] for implementation details.',
       );
     }
 

@@ -1,5 +1,8 @@
-## 0.8.26
-- Added transition on navigateTo
+## 0.9.0
+- ⚠️ Break Change ⚠️: Removed the following deprecated code from snackbar_service
+  - `navigatorKey` getter
+  - `registerCustomSnackbarconfig` method
+  - `customData` parameter from `showCustomSnackBar` method
 ## 0.8.25
 - Added clearStackAndShowView to clear stack and show widget directly 
 ## 0.8.24
