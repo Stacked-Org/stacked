@@ -13,6 +13,11 @@ class NonReactiveView extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Non Reactive View'),
           centerTitle: true,
+          leading: IconButton(
+              onPressed: () {
+                viewModel.navigateBackHome();
+              },
+              icon: const Icon(Icons.arrow_back_ios)),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: viewModel.updateTitle,

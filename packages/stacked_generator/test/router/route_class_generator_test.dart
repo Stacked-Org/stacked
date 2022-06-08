@@ -26,7 +26,7 @@ void main() {
       );
     }
 
-    /// To copy the a test result(Snapshot):
+    /// How to copy a test result(Snapshot):
     /// 1. Pass true to verbose argument
     /// 2. Run the test
     /// 3. Open the debug console in your IDE and copy the result
