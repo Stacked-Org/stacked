@@ -102,6 +102,7 @@ class _SkeletonLoaderState extends State<SkeletonLoader>
               ? AnimatedSize(
                   /// TODO: This field is depreacted but I'm adding it
                   /// to support older versions for flutter
+                  // ignore: deprecated_member_use
                   vsync: this,
                   duration: Duration(milliseconds: 450),
                   curve: Curves.easeOut,
