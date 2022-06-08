@@ -118,11 +118,6 @@ class SnackbarService {
     Function? onTap,
     Duration duration = const Duration(seconds: 1),
   }) async {
-    assert(
-      variant != null,
-      'No variant defined, you should provide the variant property to show a custom snackbar',
-    );
-
     final snackbarConfigSupplied = _customSnackbarConfigs[variant];
     final snackbarConfigBuilder = _customSnackbarConfigBuilders[variant];
 
