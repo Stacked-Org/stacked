@@ -198,7 +198,7 @@ void main() {
       await tester.tap(find.text('11'));
       await tester.tap(find.text('OK'));
       // Trigger a frame.
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Verify the dob button has been updated.
       tester.printToConsole('Verify the dob button has been updated');
@@ -278,7 +278,7 @@ void main() {
           'Emulating tap on the bottom navigation bar item two');
       await tester.tap(bottomNavigationBarItemTwo);
       // Trigger a frame.
-      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
 
       // Verify circular progress indicator is present.
       tester.printToConsole('Verify circular progress indicator is present');

@@ -14,6 +14,9 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../ui/bottom_nav/bottom_nav_example.dart';
+import '../ui/bottom_nav/favorites/favorites_view.dart';
+import '../ui/bottom_nav/history/history_view.dart';
+import '../ui/bottom_nav/profile/profile_view.dart';
 import '../ui/details/details_view.dart';
 import '../ui/form/example_form_view.dart';
 import '../ui/home/home_view.dart';
@@ -42,7 +45,11 @@ class StackedRouter extends RouterBase {
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.homeView, page: HomeView),
-    RouteDef(Routes.bottomNavExample, page: BottomNavExample),
+    RouteDef(
+      Routes.bottomNavExample,
+      page: BottomNavExample,
+      generator: BottomNavExampleRouter(),
+    ),
     RouteDef(Routes.streamCounterView, page: StreamCounterView),
     RouteDef(Routes.detailsView, page: DetailsView),
     RouteDef(Routes.exampleFormView, page: ExampleFormView),
@@ -129,6 +136,53 @@ class ExampleFormViewArguments {
   ExampleFormViewArguments({this.key});
 }
 
+class BottomNavExampleRoutes {
+  static const String favoritesView = '/favorites-view';
+  static const String historyView = '/history-view';
+  static const String profileView = '/profile-view';
+  static const all = <String>{
+    favoritesView,
+    historyView,
+    profileView,
+  };
+}
+
+class BottomNavExampleRouter extends RouterBase {
+  @override
+  List<RouteDef> get routes => _routes;
+  final _routes = <RouteDef>[
+    RouteDef(BottomNavExampleRoutes.favoritesView, page: FavoritesView),
+    RouteDef(BottomNavExampleRoutes.historyView, page: HistoryView),
+    RouteDef(BottomNavExampleRoutes.profileView, page: ProfileView),
+  ];
+  @override
+  Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+  final _pagesMap = <Type, StackedRouteFactory>{
+    FavoritesView: (data) {
+      return buildAdaptivePageRoute<dynamic>(
+        builder: (context) => const FavoritesView(),
+        settings: data,
+      );
+    },
+    HistoryView: (data) {
+      return PageRouteBuilder<dynamic>(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const HistoryView(),
+          settings: data,
+          transitionsBuilder: data.transition ??
+              (context, animation, secondaryAnimation, child) {
+                return child;
+              });
+    },
+    ProfileView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const ProfileView(),
+        settings: data,
+      );
+    },
+  };
+}
+
 /// ************************************************************************
 /// Extension for strongly typed navigation
 /// *************************************************************************
@@ -162,6 +216,54 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       Routes.bottomNavExample,
+      id: id,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToNestedFavoritesView({
+    int? id,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo(
+      BottomNavExampleRoutes.favoritesView,
+      id: id,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToNestedHistoryView({
+    int? id,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo(
+      BottomNavExampleRoutes.historyView,
+      id: id,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToNestedProfileView({
+    int? id,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo(
+      BottomNavExampleRoutes.profileView,
       id: id,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
