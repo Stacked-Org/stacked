@@ -8,13 +8,10 @@ environment:
 
 dependencies:
   build: ^2.2.1
-  analyzer: ^3.1.0
   path: ^1.8.0
   recase: ^4.0.0
   source_gen: ^1.2.2
   meta: ^1.7.0
-  freezed: ^2.0.3
-  freezed_annotation: ^2.0.3
   logger: ^1.1.0
   stacked_core:
   
