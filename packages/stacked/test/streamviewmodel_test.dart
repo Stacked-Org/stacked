@@ -26,7 +26,7 @@ class TestStreamViewModel extends StreamViewModel<int> {
 
   @override
   void onData(int? data) {
-    loadedData = data;
+    if (data != null) loadedData = data;
   }
 }
 
@@ -84,7 +84,7 @@ void main() async {
     test('When stream data is fetched data should be set and ready', () async {
       var streamViewModel = TestStreamViewModel();
       streamViewModel.initialise();
-      await Future.delayed(Duration(milliseconds: 1));
+      await Future.delayed(Duration(milliseconds: 5));
       expect(streamViewModel.data, 1);
       expect(streamViewModel.dataReady, true);
     });
