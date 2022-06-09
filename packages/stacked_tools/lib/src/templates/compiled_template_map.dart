@@ -11,10 +11,6 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
         content: kAppTemplateHomeViewmodelTestContent,
       ),
       TemplateFile(
-        relativeOutputPath: kAppTemplateWidgetTestPath,
-        content: kAppTemplateWidgetTestContent,
-      ),
-      TemplateFile(
         relativeOutputPath: kAppTemplateTestHelpersPath,
         content: kAppTemplateTestHelpersContent,
       ),
