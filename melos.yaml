@@ -50,23 +50,22 @@ scripts:
         --fail-fast \
         -- \
           "if grep -q build_runner "pubspec.yaml"; then
-              flutter pub run build_runner build --delete-conflicting-outputs
+              flutter pub run build_runner build --delete-conflicting-outputs  && exit
           fi"
     description: |
       Execute "build_runner build" to every Flutter project and packages under the monorepo.
   test:
     run: |
-      melos run build &
-      wait
       melos exec \
         -c 8 \
         --fail-fast \
         --ignore "*stacked_localisation*" \
         --ignore "*stacked_tools/playground" \
-        --ignore "*integration_test*" \
         -- \
-          "if [ -d "test" ] && [ -s "test" ]; then 
-              flutter test
+          "if grep -q flutter "pubspec.yaml"; then
+            flutter test
+          elif [ -d "test" ]; then
+            dart test
           fi"
     description: |
       Execute test on every project.
