@@ -1,3 +1,7 @@
+## 0.7.5
+- Fixes Strongly Typed id param never allowing id as a view param
+## 0.7.4
+- Prevent throwing an error when routes is not provided in StackedApp
 ## 0.7.3
 - Fixes Import for Adaptive Route
 ## 0.7.2

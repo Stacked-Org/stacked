@@ -33,6 +33,6 @@ class ExampleFormViewModel extends FormViewModel {
   }
 
   void navigateToNewView() {
-    _navigationService.navigateTo(Routes.bottomNavExample);
+    _navigationService.replaceWith(Routes.bottomNavExample);
   }
 }

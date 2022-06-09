@@ -12,6 +12,14 @@ mixin RouteGeneratorHelper on BaseGenerator {
       return {...previousValue, ...element};
     });
 
+    /// TODO: Remove this when find better solution
+    /// We can't remove this unnissary import because we are using routes
+    /// from stacked_core like MaterialRoute, CupertinoRoute... which import through
+    /// stacked_annotations file
+    /// We didn't have this problem before cause the routes were in stacked package
+    /// which is already imported
+    validImports.remove('package:stacked/stacked_annotations.dart');
+
     final dartImports =
         validImports.where((element) => element.startsWith('dart')).toSet();
     sortAndGenerate(dartImports);
@@ -304,7 +312,7 @@ mixin RouteGeneratorHelper on BaseGenerator {
       });
     }
     writeLine('''
-      int? id,
+      int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
@@ -323,7 +331,7 @@ arguments: ${route.argumentsHolderClassName}(
       ''');
     }
     writeLine(''' 
-        id:id,
+        id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
   transition: transition,
