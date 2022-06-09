@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:stacked_tools/src/constants/config_constants.dart';
 import 'package:stacked_tools/src/constants/message_constants.dart';
 import 'package:stacked_tools/src/exceptions/config_file_not_found_exception.dart';
@@ -24,13 +25,13 @@ class ConfigService {
   bool get hasCustomConfig => _hasCustomConfig;
 
   /// Relative services path for import statements.
-  String get serviceImportPath => _getImportPath(_customConfig.servicesPath);
+  String get serviceImportPath => getImportPath(_customConfig.servicesPath);
 
   /// Relative path where services will be genereated.
   String get servicePath => _customConfig.servicesPath;
 
   /// Relative import path related to services of test helpers and mock services.
-  String get serviceTestHelpersImportPath => _getRelativePathToHelpersAndMocks(
+  String get serviceTestHelpersImportPath => getRelativePathToHelpersAndMocks(
         _customConfig.testServicesPath,
       );
 
@@ -48,13 +49,13 @@ class ConfigService {
   String get testViewsPath => _customConfig.testViewsPath;
 
   /// Relative views path for import statements.
-  String get viewImportPath => _getImportPath(_customConfig.viewsPath);
+  String get viewImportPath => getImportPath(_customConfig.viewsPath);
 
   /// Relative path where views and viewmodels will be genereated.
   String get viewPath => _customConfig.viewsPath;
 
   /// Relative import path related to viewmodels of test helpers and mock services.
-  String get viewTestHelpersImportPath => _getRelativePathToHelpersAndMocks(
+  String get viewTestHelpersImportPath => getRelativePathToHelpersAndMocks(
         _customConfig.testViewsPath,
       );
 
@@ -109,18 +110,19 @@ class ConfigService {
   }
 
   /// Returns import path of [path].
-  String _getImportPath(String path) {
+  @visibleForTesting
+  String getImportPath(String path) {
     if (!path.startsWith('lib/')) return path;
 
     return path.replaceFirst('lib/', '');
   }
 
   /// Returns import path relative to [path] of test helpers and mock services.
-  String _getRelativePathToHelpersAndMocks(
+  @visibleForTesting
+  String getRelativePathToHelpersAndMocks(
     /// Relative path of file where test helpers and mocks will be imported.
     String path,
   ) {
-    _log.warn(message: 'path:$path testHelperPath:$testHelpersPath');
     if (!path.startsWith('test/')) {
       throw Exception(
         'Any test file should be placed inside "test" folder on root of the project. Please, correct your test location.',
