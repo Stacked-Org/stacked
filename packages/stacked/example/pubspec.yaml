@@ -27,7 +27,7 @@ dependencies:
 
   # state management
   stacked:
-  stacked_services: 0.8.24
+  stacked_services:
   stacked_hooks:
   stacked_themes:
   stacked_crashlytics:
@@ -40,8 +40,8 @@ dependencies:
 dependency_overrides:
   stacked:
     path: ../
-  # stacked_services:
-  #   path: ../../stacked_services/
+  stacked_services:
+    path: ../../stacked_services/
   stacked_hooks:
     path: ../../stacked_hooks/
   stacked_themes:
