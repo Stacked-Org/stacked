@@ -26,7 +26,7 @@ class TestStreamViewModel extends StreamViewModel<int> {
 
   @override
   void onData(int? data) {
-    loadedData = data;
+    if (data != null) loadedData = data;
   }
 }
 

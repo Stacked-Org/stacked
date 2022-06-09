@@ -13,7 +13,7 @@ packages:
   - packages/stacked_themes/**
 
 ignore:
-  - packages/**/example/**
+  - packages/stacked_generator/test/**/integration_test/**
 
 command:
   version:
@@ -45,24 +45,29 @@ scripts:
       Upgrade Flutter dependencies
   build:
     run: |
-      melos exec \
+        melos exec \
         -c 8 \
         --fail-fast \
         -- \
-          "flutter pub run build_runner build --delete-conflicting-outputs"
+          "if grep -q build_runner "pubspec.yaml"; then
+              flutter pub run build_runner build --delete-conflicting-outputs
+          fi"
     description: |
       Execute "build_runner build" to every Flutter project and packages under the monorepo.
   test:
     run: |
+      melos run build &
+      wait
       melos exec \
         -c 8 \
         --fail-fast \
-        --ignore "*stacked_generator*" \
-        --ignore "*stacked_firebase_auth*" \
-        --ignore "*stacked_hooks*" \
-        --ignore "*stacked_services*" \
+        --ignore "*stacked_localisation*" \
+        --ignore "*stacked_tools/playground" \
+        --ignore "*integration_test*" \
         -- \
-          "flutter test"
+          "if [ -d "test" ] && [ -s "test" ]; then 
+              flutter test
+          fi"
     description: |
       Execute test on every project.
   # Additional cleanup lifecycle script, executed when `melos clean` is run.

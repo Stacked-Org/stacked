@@ -1,5 +1,6 @@
+import 'package:stacked_services_example/ui/setup_dialog_ui.dart';
+
 import '../../app/app.locator.dart';
-import 'package:example/ui/setup_dialog_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 

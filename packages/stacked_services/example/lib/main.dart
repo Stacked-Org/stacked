@@ -1,10 +1,11 @@
-import 'package:example/app/app.locator.dart';
-import 'package:example/app/app.router.dart';
-import 'package:example/ui/setup_bottom_sheet_ui.dart';
-import 'package:example/ui/setup_dialog_ui.dart';
-import 'package:example/ui/setup_snackbar_ui.dart';
+
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:stacked_services_example/app/app.locator.dart';
+import 'package:stacked_services_example/app/app.router.dart';
+import 'package:stacked_services_example/ui/setup_bottom_sheet_ui.dart';
+import 'package:stacked_services_example/ui/setup_dialog_ui.dart';
+import 'package:stacked_services_example/ui/setup_snackbar_ui.dart';
 
 void main() {
   setupLocator();
