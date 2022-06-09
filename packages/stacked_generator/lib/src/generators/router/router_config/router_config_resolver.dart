@@ -8,9 +8,13 @@ import 'router_config.dart';
 class RouterConfigResolver {
   final ImportResolver _importResolver;
 
-  RouterConfigResolver(this._importResolver);
+  const RouterConfigResolver(this._importResolver);
 
-  Future<RouterConfig> resolve(ConstantReader stackedApp) async {
+  Future<RouterConfig?> resolve(ConstantReader stackedApp) async {
+    /// If routes is not provided return null
+    if (!stackedApp.read('routes').isList) return null;
+
+    final routesDartObjects = stackedApp.read('routes').listValue;
     final generateNavigationExt =
         stackedApp.peek('generateNavigationHelperExtension')?.boolValue ??
             false;
@@ -18,17 +22,17 @@ class RouterConfigResolver {
     final routesClassName =
         stackedApp.peek('routesClassName')?.stringValue ?? 'Routes';
 
-    final nestedRoutes = stackedApp.read('routes').listValue;
-
-    var routerConfig = RouterConfig(
+    final routerConfig = RouterConfig(
       routerClassName: 'StackedRouter',
       routesClassName: routesClassName,
       routeNamePrefix: routeNamePrefix,
       generateNavigationHelper: generateNavigationExt,
     );
 
-    final routes = await _resolveRoutes(routerConfig, nestedRoutes);
-    return routerConfig.copyWith(routes: routes);
+    final extractedRoutes =
+        await _resolveRoutes(routerConfig, routesDartObjects);
+
+    return routerConfig.copyWith(routes: extractedRoutes);
   }
 
   Future<List<RouteConfig>> _resolveRoutes(
