@@ -12,9 +12,6 @@ packages:
   - packages/stacked_services/**
   - packages/stacked_themes/**
 
-ignore:
-  - packages/stacked_generator/test/**/integration_test/**
-
 command:
   version:
     # Generate commit links in package changelogs.
