@@ -64,9 +64,14 @@ jobs:
       name: Run stacked app integration tests
       runs-on: ubuntu-latest
       if: github.event.pull_request.draft == false
-      defaults:
-        run:
-          working-directory: packages/stacked/example
+
+      strategy:
+        matrix:
+          package:
+            - packages/stacked/example
+          channel:
+            - stable
+
       steps:
         - uses: actions/checkout@v2
 
@@ -82,6 +87,7 @@ jobs:
 
         - name: Install dependencies
           run: flutter pub get
+          working-directory: ${{ matrix.package }}
 
         - name: Generate
           run: |
@@ -97,3 +103,5 @@ jobs:
               --driver=test_driver/integration_test.dart \
               --target=integration_test/app_test.dart \
               -d web-server
+          working-directory: ${{ matrix.package }}
+ 
