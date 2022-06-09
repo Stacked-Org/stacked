@@ -332,7 +332,7 @@ arguments: ${route.argumentsHolderClassName}(
     }
     writeLine(''' 
         id:routerId,
-  preventDuplicates: preventDuplicate,
+  preventDuplicates: preventDuplicates,
   parameters: parameters,
   transition: transition,
         ''');
