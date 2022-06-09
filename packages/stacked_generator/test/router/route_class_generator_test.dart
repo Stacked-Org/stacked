@@ -34,7 +34,7 @@ void main() {
     /// Note: It usually adds an extra line in the bottom of the result
     void generateRouteAndExpectResult(
         List<RouteConfig> routes, dynamic expectedResult,
-        {bool verbose = false}) {
+        {bool verbose = false, String variable = ""}) async {
       final routerBaseGenerator = RouterClassGenerator(RouterConfig(
           routesClassName: 'RoutesTestClassName',
           routerClassName: 'RouterTestClassName',
@@ -52,6 +52,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterWithEmptyRoutes,
+          variable: "kRouterWithEmptyRoutes",
         );
       });
 
@@ -63,8 +64,8 @@ void main() {
             className: 'TestClass',
           )
         ];
-
-        generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
+        generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName,
+            variable: "kRouterWithNamePathNameClassName");
       });
       test('Given the following three RouteConfig, Generate output', () {
         final routes = [
@@ -88,6 +89,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterWithThreeNamePathNameClassName,
+          variable: "kRouterWithThreeNamePathNameClassName",
         );
       });
 
@@ -102,7 +104,8 @@ void main() {
         ];
 
         generateRouteAndExpectResult(
-            routes, kRouterWithNamePathNameClassNameFullScreenDialogIsTrue);
+            routes, kRouterWithNamePathNameClassNameFullScreenDialogIsTrue,
+            variable: "kRouterWithNamePathNameClassNameFullScreenDialogIsTrue");
       });
       test(
           'When fullscreenDialog is false, Should add nothing cause it is default',
@@ -116,7 +119,8 @@ void main() {
           )
         ];
 
-        generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
+        generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName,
+            variable: "kRouterWithNamePathNameClassName");
       });
       test('When adding one RouteGuardConfig', () {
         final routes = [
@@ -129,7 +133,8 @@ void main() {
               ])
         ];
 
-        generateRouteAndExpectResult(routes, kRouterWithOneGuard);
+        generateRouteAndExpectResult(routes, kRouterWithOneGuard,
+            variable: "kRouterWithOneGuard");
       });
       test('When adding two RouteGuardConfig', () {
         final routes = [
@@ -149,7 +154,8 @@ void main() {
               ])
         ];
 
-        generateRouteAndExpectResult(routes, kRouterWithTwoGuards);
+        generateRouteAndExpectResult(routes, kRouterWithTwoGuards,
+            variable: "kRouterWithTwoGuards");
       });
       test('When hasConstConstructor is false have no effect ', () {
         final routes = [
@@ -160,7 +166,8 @@ void main() {
               hasConstConstructor: false)
         ];
 
-        generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
+        generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName,
+            variable: "kRouterWithNamePathNameClassName");
       });
       test('When hasConstConstructor is true', () {
         final routes = [
@@ -172,7 +179,8 @@ void main() {
         ];
 
         generateRouteAndExpectResult(
-            routes, kRouterWithHasConstConstructorIsTrue);
+            routes, kRouterWithHasConstConstructorIsTrue,
+            variable: "kRouterWithHasConstConstructorIsTrue");
       });
       test('When hasWrapper is false have no effect ', () {
         final routes = [
@@ -183,7 +191,8 @@ void main() {
               hasWrapper: false)
         ];
 
-        generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
+        generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName,
+            variable: "kRouterWithNamePathNameClassName");
       });
       test('When hasConstConstructor is true', () {
         final routes = [
@@ -194,7 +203,8 @@ void main() {
               hasWrapper: true)
         ];
 
-        generateRouteAndExpectResult(routes, kRouterWithHasWrapperIsTrue);
+        generateRouteAndExpectResult(routes, kRouterWithHasWrapperIsTrue,
+            variable: "kRouterWithHasWrapperIsTrue");
       });
       test('When has two imports', () {
         final routes = [
@@ -204,7 +214,8 @@ void main() {
               className: 'TestClass',
               imports: {'import one', 'import two'})
         ];
-        generateRouteAndExpectResult(routes, kRouterWithImports);
+        generateRouteAndExpectResult(routes, kRouterWithImports,
+            variable: "kRouterWithImports");
       });
       test('When maintainstate is true, Should add nothing cause it is default',
           () {
@@ -215,7 +226,8 @@ void main() {
               className: 'TestClass',
               maintainState: true)
         ];
-        generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
+        generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName,
+            variable: "kRouterWithNamePathNameClassName");
       });
       test('When maintainstate is false', () {
         final routes = [
@@ -225,7 +237,8 @@ void main() {
               className: 'TestClass',
               maintainState: false)
         ];
-        generateRouteAndExpectResult(routes, kRouterWithMaintainStateIsFalse);
+        generateRouteAndExpectResult(routes, kRouterWithMaintainStateIsFalse,
+            variable: "kRouterWithMaintainStateIsFalse");
       });
       test(
           'When adding an empty parameter, SHould throw InvalidGeneratorInputException ',
@@ -253,7 +266,8 @@ void main() {
         ];
 
         generateRouteAndExpectResult(
-            routes, kRouterWithParameterPathFalseQueryFalse);
+            routes, kRouterWithParameterPathFalseQueryFalse,
+            variable: "kRouterWithParameterPathFalseQueryFalse");
       });
       test('When adding a parameter with PathParam: true, isQueryParam: false',
           () {
@@ -268,7 +282,8 @@ void main() {
         ];
 
         generateRouteAndExpectResult(
-            routes, kRouterWithParameterPathTrueQueryFalse);
+            routes, kRouterWithParameterPathTrueQueryFalse,
+            variable: "kRouterWithParameterPathTrueQueryFalse");
       });
       test('When adding a parameter with PathParam: true, isQueryParam: true',
           () {
@@ -283,7 +298,8 @@ void main() {
         ];
 
         generateRouteAndExpectResult(
-            routes, kRouterWithParameterPathTrueQueryFalse);
+            routes, kRouterWithParameterPathTrueQueryFalse,
+            variable: "kRouterWithParameterPathTrueQueryFalse");
       });
       test('When adding a parameter with PathParam: false, isQueryParam: true',
           () {
@@ -298,7 +314,8 @@ void main() {
         ];
 
         generateRouteAndExpectResult(
-            routes, kRouterWithParameterPathFalseQueryTrue);
+            routes, kRouterWithParameterPathFalseQueryTrue,
+            variable: "kRouterWithParameterPathFalseQueryTrue");
       });
       test(
           'When adding a parameter with PathParam: false, isQueryParam: true, alias: aliaso',
@@ -315,7 +332,8 @@ void main() {
         ];
 
         generateRouteAndExpectResult(
-            routes, kRouterWithParameterPathFalseQueryTrueAlias);
+            routes, kRouterWithParameterPathFalseQueryTrueAlias,
+            variable: "kRouterWithParameterPathFalseQueryTrueAlias");
       });
       test(
           'When adding a parameter with PathParam: false, isQueryParam: true, defaultValueCode: 2',
@@ -334,7 +352,8 @@ void main() {
         ];
 
         generateRouteAndExpectResult(
-            routes, kRouterWithParameterPathFalseQueryTrueDefaultCode2);
+            routes, kRouterWithParameterPathFalseQueryTrueDefaultCode2,
+            variable: "kRouterWithParameterPathFalseQueryTrueDefaultCode2");
       });
       test(
           'When adding a parameter with PathParam: false, isQueryParam: true, imports',
@@ -353,7 +372,8 @@ void main() {
         ];
 
         generateRouteAndExpectResult(
-            routes, kRouterWithParameterPathFalseQueryTrueImports);
+            routes, kRouterWithParameterPathFalseQueryTrueImports,
+            variable: "kRouterWithParameterPathFalseQueryTrueImports");
       });
       test(
           'When adding a parameter with PathParam: false, isQueryParam: true, isPositional: true',
@@ -373,7 +393,8 @@ void main() {
         ];
 
         generateRouteAndExpectResult(
-            routes, kRouterWithParameterPathFalseQueryTrueIsPositionalTrue);
+            routes, kRouterWithParameterPathFalseQueryTrueIsPositionalTrue,
+            variable: "kRouterWithParameterPathFalseQueryTrueIsPositionalTrue");
       });
       test(
           'When adding a parameter with PathParam: false, isQueryParam: true, isRequired: true',
@@ -393,7 +414,8 @@ void main() {
         ];
 
         generateRouteAndExpectResult(
-            routes, kRouterWithParameterPathFalseQueryTrueIsRequiredTrue);
+            routes, kRouterWithParameterPathFalseQueryTrueIsRequiredTrue,
+            variable: "kRouterWithParameterPathFalseQueryTrueIsRequiredTrue");
       });
       test(
           'When adding a parameter with PathParam: false, isQueryParam: true, isRequired: true,name: ebra',
@@ -413,7 +435,9 @@ void main() {
         ];
 
         generateRouteAndExpectResult(
-            routes, kRouterWithParameterPathFalseQueryTrueIsRequiredTrueName);
+            routes, kRouterWithParameterPathFalseQueryTrueIsRequiredTrueName,
+            variable:
+                "kRouterWithParameterPathFalseQueryTrueIsRequiredTrueName");
       });
       test(
           'When adding a parameter with PathParam: false, isQueryParam: false, type: newType',
@@ -433,7 +457,8 @@ void main() {
         ];
 
         generateRouteAndExpectResult(
-            routes, kRouterWithParameterPathFalseQueryFalseType);
+            routes, kRouterWithParameterPathFalseQueryFalseType,
+            variable: "kRouterWithParameterPathFalseQueryFalseType");
       });
       test('When adding returnType = returnYpe', () {
         final routes = [
@@ -444,7 +469,8 @@ void main() {
               returnType: 'returnYpe')
         ];
 
-        generateRouteAndExpectResult(routes, kRouterWithRetrunType);
+        generateRouteAndExpectResult(routes, kRouterWithRetrunType,
+            variable: "kRouterWithRetrunType");
       });
       test('When adding returnType = <CupertinoRoute>', () {
         final routes = [
@@ -456,7 +482,8 @@ void main() {
         ];
 
         generateRouteAndExpectResult(
-            routes, kRouterWithRetrunTypeCupertinoRoute);
+            routes, kRouterWithRetrunTypeCupertinoRoute,
+            variable: "kRouterWithRetrunTypeCupertinoRoute");
       });
       test('When adding NestedRouter with one child', () {
         final routes = [
@@ -478,6 +505,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterWithNestedRouter,
+          variable: "kRouterWithNestedRouter",
         );
       });
       test('When adding multiple NestedRouter with one child each', () {
@@ -505,6 +533,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterWithMultipleNestedRouter,
+          variable: "kRouterWithMultipleNestedRouter",
         );
       });
       test('When adding NestedRouter with three different childs', () {
@@ -536,6 +565,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterWithThreeNestedRouter,
+          variable: "kRouterWithThreeNestedRouter",
         );
       });
       test('When adding NestedRouter with six different childs', () {
@@ -589,6 +619,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterWithSixNestedRouter,
+          variable: "kRouterWithSixNestedRouter",
         );
       });
     });
@@ -603,7 +634,8 @@ void main() {
         ];
 
         generateRouteAndExpectResult(
-            routes, kRouterTypeCupertinoWithNamePathNameClassName);
+            routes, kRouterTypeCupertinoWithNamePathNameClassName,
+            variable: "kRouterTypeCupertinoWithNamePathNameClassName");
       });
       test('With cupertinoNavTitle', () {
         final routes = [
@@ -617,6 +649,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterTypeCupertinoWithCupertinoNavTitle,
+          variable: "kRouterTypeCupertinoWithCupertinoNavTitle",
         );
       });
     });
@@ -631,7 +664,8 @@ void main() {
         ];
 
         generateRouteAndExpectResult(
-            routes, kRouterTypeCupertinoWithNamePathNameClassName);
+            routes, kRouterTypeCupertinoWithNamePathNameClassName,
+            variable: "kRouterTypeCupertinoWithNamePathNameClassName");
       });
       test('With cupertinoNavTitle', () {
         final routes = [
@@ -645,6 +679,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterTypeCupertinoWithCupertinoNavTitle,
+          variable: "kRouterTypeCupertinoWithCupertinoNavTitle",
         );
       });
       test('With parameters path = false, query = false', () {
@@ -665,6 +700,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterTypeCupertinoWithParametersPathFalseQueryFalse,
+          variable: "kRouterTypeCupertinoWithParametersPathFalseQueryFalse",
         );
       });
     });
@@ -678,7 +714,8 @@ void main() {
           )
         ];
 
-        generateRouteAndExpectResult(routes, kRouterTypeAdaptive);
+        generateRouteAndExpectResult(routes, kRouterTypeAdaptive,
+            variable: "kRouterTypeAdaptive");
       });
       test('With cupertinoNavTitle', () {
         final routes = [
@@ -692,6 +729,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterTypeAdaptiveWithCupertinoNavTitle,
+          variable: "kRouterTypeAdaptiveWithCupertinoNavTitle",
         );
       });
       test('With parameters path = false, query = false', () {
@@ -712,6 +750,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterTypeAdaptiveWithParametersPathFalseQueryFalse,
+          variable: "kRouterTypeAdaptiveWithParametersPathFalseQueryFalse",
         );
       });
     });
@@ -728,6 +767,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterTypeCustom,
+          variable: "kRouterTypeCustom",
         );
       });
 
@@ -743,6 +783,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterTypeCustomWithbarrierDismissible,
+          variable: "kRouterTypeCustomWithbarrierDismissible",
         );
       });
       test('With durationInMilliseconds', () {
@@ -757,6 +798,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterTypeCustomWithTransitionDuration,
+          variable: "kRouterTypeCustomWithTransitionDuration",
         );
       });
       test('With reverseDurationInMilliseconds', () {
@@ -771,6 +813,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterTypeCustomWithReverseDurationInMilliseconds,
+          variable: "kRouterTypeCustomWithReverseDurationInMilliseconds",
         );
       });
       test(
@@ -787,6 +830,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterTypeCustom,
+          variable: "kRouterTypeCustom",
         );
       });
       test('With customRouteOpaque false', () {
@@ -801,6 +845,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterTypeCustomWithCustomRouteOpaqueFalse,
+          variable: "kRouterTypeCustomWithCustomRouteOpaqueFalse",
         );
       });
       test('With parameters path = false, query = false', () {
@@ -821,6 +866,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterTypeCustomWithParametersPathFalseQueryFalse,
+          variable: "kRouterTypeCustomWithParametersPathFalseQueryFalse",
         );
       });
       test('With parameters path = false, query = true', () {
@@ -841,6 +887,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterTypeCustomWithParametersPathFalseQueryTrue,
+          variable: "kRouterTypeCustomWithParametersPathFalseQueryTrue",
         );
       });
     });
@@ -894,6 +941,7 @@ void main() {
         generateRouteAndExpectResult(
           routes,
           kRouterMixin,
+          variable: "kRouterMixin",
         );
       });
     });
