@@ -1,3 +1,5 @@
+## 2.3.11
+- Fix [#546](https://github.com/FilledStacks/stacked/issues/546) 
 ## 2.3.10
 - Fixes issues on navigation 
 ## 2.3.9
