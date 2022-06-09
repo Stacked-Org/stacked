@@ -190,7 +190,7 @@ extension NavigatorStateExtension on NavigationService {
   Future<dynamic> navigateToHomeView({
     Key? key,
     String? title,
-    int? id,
+    int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
@@ -199,7 +199,7 @@ extension NavigatorStateExtension on NavigationService {
     return navigateTo(
       Routes.homeView,
       arguments: HomeViewArguments(key: key, title: title),
-      id: id,
+      id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
       transition: transition,
@@ -207,7 +207,7 @@ extension NavigatorStateExtension on NavigationService {
   }
 
   Future<dynamic> navigateToBottomNavExample({
-    int? id,
+    int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
@@ -215,7 +215,7 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       Routes.bottomNavExample,
-      id: id,
+      id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
       transition: transition,
@@ -223,7 +223,7 @@ extension NavigatorStateExtension on NavigationService {
   }
 
   Future<dynamic> navigateToNestedFavoritesView({
-    int? id,
+    int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
@@ -231,7 +231,7 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       BottomNavExampleRoutes.favoritesView,
-      id: id,
+      id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
       transition: transition,
@@ -239,7 +239,7 @@ extension NavigatorStateExtension on NavigationService {
   }
 
   Future<dynamic> navigateToNestedHistoryView({
-    int? id,
+    int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
@@ -247,7 +247,7 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       BottomNavExampleRoutes.historyView,
-      id: id,
+      id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
       transition: transition,
@@ -255,7 +255,7 @@ extension NavigatorStateExtension on NavigationService {
   }
 
   Future<dynamic> navigateToNestedProfileView({
-    int? id,
+    int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
@@ -263,7 +263,7 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       BottomNavExampleRoutes.profileView,
-      id: id,
+      id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
       transition: transition,
@@ -271,7 +271,7 @@ extension NavigatorStateExtension on NavigationService {
   }
 
   Future<dynamic> navigateToStreamCounterView({
-    int? id,
+    int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
@@ -279,7 +279,7 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       Routes.streamCounterView,
-      id: id,
+      id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
       transition: transition,
@@ -289,7 +289,7 @@ extension NavigatorStateExtension on NavigationService {
   Future<Map<String, List<String>>?> navigateToDetailsView({
     Key? key,
     required String name,
-    int? id,
+    int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
@@ -298,7 +298,7 @@ extension NavigatorStateExtension on NavigationService {
     return navigateTo(
       Routes.detailsView,
       arguments: DetailsViewArguments(key: key, name: name),
-      id: id,
+      id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
       transition: transition,
@@ -307,7 +307,7 @@ extension NavigatorStateExtension on NavigationService {
 
   Future<dynamic> navigateToExampleFormView({
     Key? key,
-    int? id,
+    int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
@@ -316,7 +316,7 @@ extension NavigatorStateExtension on NavigationService {
     return navigateTo(
       Routes.exampleFormView,
       arguments: ExampleFormViewArguments(key: key),
-      id: id,
+      id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
       transition: transition,
@@ -324,7 +324,7 @@ extension NavigatorStateExtension on NavigationService {
   }
 
   Future<dynamic> navigateToNonReactiveView({
-    int? id,
+    int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
@@ -332,7 +332,7 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       Routes.nonReactiveView,
-      id: id,
+      id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
       transition: transition,

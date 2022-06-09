@@ -312,7 +312,7 @@ mixin RouteGeneratorHelper on BaseGenerator {
       });
     }
     writeLine('''
-      int? id,
+      int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
@@ -331,7 +331,7 @@ arguments: ${route.argumentsHolderClassName}(
       ''');
     }
     writeLine(''' 
-        id:id,
+        id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
   transition: transition,
