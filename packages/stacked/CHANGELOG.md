@@ -1,3 +1,5 @@
+## 2.3.2
+- Fix [#486](https://github.com/FilledStacks/stacked/issues/486) 
 ## 2.3.11
 - Fix [#546](https://github.com/FilledStacks/stacked/issues/546) 
 ## 2.3.10

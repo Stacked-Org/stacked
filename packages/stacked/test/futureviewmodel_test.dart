@@ -24,6 +24,10 @@ class TestFutureViewModel extends FutureViewModel<int?> {
     return numberToReturn;
   }
 
+  void setErrorManually() {
+    setError('my error');
+  }
+
   @override
   void onData(int? data) {
     dataCalled = true;
@@ -67,6 +71,12 @@ class TestMultipleFutureViewModel extends MultipleFutureViewModel {
 
 void main() {
   group('FutureViewModel', () {
+    test('When error is manually set, hasError should be true', () async {
+      var futureViewModel = TestFutureViewModel();
+      futureViewModel.setErrorManually();
+
+      expect(futureViewModel.hasError, isTrue);
+    });
     test('When future is complete data should be set and ready', () async {
       var futureViewModel = TestFutureViewModel();
       await futureViewModel.initialise();
