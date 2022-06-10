@@ -20,6 +20,9 @@ class TestStreamViewModel extends StreamViewModel<int> {
   final int delay;
   TestStreamViewModel({this.fail = false, this.delay = 0});
   int? loadedData;
+  void setErrorManually() {
+    setError('my error');
+  }
 
   @override
   get stream => numberStream(1, fail: fail, delay: delay);
@@ -95,7 +98,13 @@ void main() async {
       await Future.delayed(Duration(milliseconds: 1));
       expect(streamViewModel.loadedData, 1);
     });
-
+    test('When error is manually set, hasError should be true', () async {
+      var streamViewModel = TestStreamViewModel();
+      streamViewModel.initialise();
+      await Future.delayed(Duration(milliseconds: 1));
+      streamViewModel.setErrorManually();
+      expect(streamViewModel.hasError, isTrue);
+    });
     test('When a stream fails it should indicate there\'s an error and no data',
         () async {
       var streamViewModel = TestStreamViewModel(fail: true);
