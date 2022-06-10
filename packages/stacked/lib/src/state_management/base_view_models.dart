@@ -226,7 +226,13 @@ class _SingleDataSourceViewModel<T> extends DynamicSourceViewModel {
 
   @override
   dynamic error([Object? object]) => _error;
+  @override
+  void setError(error) {
+    _error = error;
+    super.setError(error);
+  }
 
+  bool get hasError => error(this) != null;
   bool get dataReady => _data != null && !hasError;
 }
 
