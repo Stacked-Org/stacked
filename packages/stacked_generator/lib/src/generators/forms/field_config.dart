@@ -29,7 +29,7 @@ class TextFieldConfig extends FieldConfig {
 }
 
 class DateFieldConfig extends FieldConfig {
-  DateFieldConfig({required String name}) : super(name: name);
+  const DateFieldConfig({required String name}) : super(name: name);
 }
 
 class DropdownFieldConfig extends FieldConfig {
@@ -42,7 +42,7 @@ class DropdownFieldItem {
   final String title;
   final String value;
 
-  DropdownFieldItem({required this.title, required this.value});
+  const DropdownFieldItem({required this.title, required this.value});
 }
 
 extension ListOfFieldConfigs on List<FieldConfig> {

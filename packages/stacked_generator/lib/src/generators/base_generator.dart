@@ -1,5 +1,9 @@
 /// Provides functionality common to all Generators
 abstract class BaseGenerator {
+  String generate();
+}
+
+mixin StringBufferUtils {
   final StringBuffer _stringBuffer = StringBuffer();
   String get serializeStringBuffer => _stringBuffer.toString();
 
@@ -33,6 +37,4 @@ abstract class BaseGenerator {
     writeLine();
     writeLine();
   }
-
-  String generate();
 }

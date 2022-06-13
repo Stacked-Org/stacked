@@ -5,8 +5,8 @@ import 'package:stacked_generator/src/generators/dialogs/generate/dialog_class_g
 import 'dialog_class_content.dart';
 
 /// Generates the app.logger.dart file in the users code base.
-class DialogClassGenerator extends BaseGenerator
-    with DialogClassGeneratorHelper {
+class DialogClassGenerator extends DialogClassGeneratorHelper
+    implements BaseGenerator {
   final List<DialogConfig> dialogConfigs;
   final String? locatorName;
   DialogClassGenerator(this.dialogConfigs, {this.locatorName});

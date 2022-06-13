@@ -3,7 +3,9 @@ import 'package:stacked_generator/src/generators/getit/dependency_config/factory
 
 import 'dependency_config/dependency_config.dart';
 
-class StackedLocatorContentGenerator extends BaseGenerator {
+class StackedLocatorContentGenerator
+    with StringBufferUtils
+    implements BaseGenerator {
   final String locatorName;
   final String locatorSetupName;
   final List<DependencyConfig> dependencies;

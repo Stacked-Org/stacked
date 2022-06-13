@@ -6,7 +6,7 @@ import 'package:stacked_generator/src/generators/logging/logger_config.dart';
 import 'logger_class_content.dart';
 
 /// Generates the app.logger.dart file in the users code base.
-class LoggerClassGenerator extends BaseGenerator {
+class LoggerClassGenerator with StringBufferUtils implements BaseGenerator {
   final LoggerConfig _loggerConfig;
 
   LoggerClassGenerator(this._loggerConfig);

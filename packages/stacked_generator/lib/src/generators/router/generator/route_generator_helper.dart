@@ -2,7 +2,7 @@ import 'package:stacked_generator/src/generators/base_generator.dart';
 import 'package:stacked_generator/src/generators/router/route_config/route_config.dart';
 import 'package:stacked_generator/utils.dart';
 
-mixin RouteGeneratorHelper on BaseGenerator {
+class RouteGeneratorHelper with StringBufferUtils {
   void generateImports(List<RouteConfig> routes) {
     final validImports = routes.map((rc) {
       return rc.registerImports();

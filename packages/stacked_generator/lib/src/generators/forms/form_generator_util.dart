@@ -3,14 +3,13 @@ import 'package:stacked_generator/src/generators/base_generator.dart';
 import 'package:stacked_generator/src/generators/forms/field_config.dart';
 import 'package:stacked_generator/src/generators/forms/form_view_config.dart';
 
-class FormGeneratorUtil extends BaseGenerator {
+class FormGeneratorUtil with StringBufferUtils {
   final FormViewConfig formViewConfig;
   FormGeneratorUtil({required this.formViewConfig});
 
   List<FieldConfig> get fields => formViewConfig.fields;
   String get viewName => formViewConfig.viewName;
 
-  @override
   String generate() {
     writeLine(
         "// ignore_for_file: public_member_api_docs,  constant_identifier_names, non_constant_identifier_names,unnecessary_this");
@@ -21,14 +20,7 @@ class FormGeneratorUtil extends BaseGenerator {
     generateTextEditingControllerItemsMap();
     generateFocusNodeItemsMap();
     generateValidationFunctionsFromAnnotation();
-    generateFormMixin();
-    generateFormViewModelExtensions();
-    return serializeStringBuffer;
-  }
-
-  void generateFormMixin() {
     writeLine("mixin \$${viewName} on StatelessWidget {");
-
     generateTextEditingControllersForTextFields();
     generateFocusNodesForTextFields();
     generateGetTextEditinController();
@@ -38,13 +30,10 @@ class FormGeneratorUtil extends BaseGenerator {
     generateValidationDataUpdateFunctionTorTextControllers();
     generateGetValidationMessageForTextController();
     generateDisposeForTextControllers();
-
     writeLine('}');
-  }
-
-  void generateFormViewModelExtensions() {
     generateFormViewModelExtensionForGetters();
     generateFormViewModelExtensionForMethods();
+    return serializeStringBuffer;
   }
 
   void generateImports() {
@@ -69,16 +58,6 @@ class FormGeneratorUtil extends BaseGenerator {
     var rest = validImports.difference({...dartImports, ...packageImports});
     sortAndGenerate(rest);
     newLine();
-  }
-
-  List<String> get validationFileImports {
-    List<String> paths = [];
-    for (var textFields in fields.onlyTextFieldConfigs) {
-      if (textFields.validatorPath != null) {
-        paths.add(textFields.validatorPath!);
-      }
-    }
-    return paths;
   }
 
   void generateValueMapKeys() {
@@ -371,6 +350,16 @@ class FormGeneratorUtil extends BaseGenerator {
     return field is TextFieldConfig || field is DropdownFieldConfig
         ? 'String'
         : 'DateTime';
+  }
+
+  List<String> get validationFileImports {
+    List<String> paths = [];
+    for (var textFields in fields.onlyTextFieldConfigs) {
+      if (textFields.validatorPath != null) {
+        paths.add(textFields.validatorPath!);
+      }
+    }
+    return paths;
   }
 
   String _getFocusNodeName(FieldConfig field) => '${field.name}FocusNode';
