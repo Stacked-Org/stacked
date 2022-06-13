@@ -20,11 +20,13 @@ class FormTextField extends FormField {
   final String? initialValue;
 
   final String? Function(String?)? validator;
+  final dynamic Function()? customTextEditingController;
 
   const FormTextField({
     String? name,
     this.initialValue,
     this.validator,
+    this.customTextEditingController,
   }) : super(name: name);
 }
 
