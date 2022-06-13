@@ -105,7 +105,8 @@ class FormGeneratorUtil with StringBufferUtils {
         "final Map<String, String? Function(String?)?> _${viewName}TextValidations = {");
     for (var field in fields.onlyTextFieldConfigs) {
       final caseName = ReCase(field.name);
-      writeLine("${_getFormKeyName(caseName)}: ${field.validatorName},");
+      writeLine(
+          "${_getFormKeyName(caseName)}: ${field.validatorFunction?.validatorName},");
     }
     writeLine("};");
     newLine();
@@ -365,8 +366,8 @@ class FormGeneratorUtil with StringBufferUtils {
   List<String> get validationFileImports {
     List<String> paths = [];
     for (var textFields in fields.onlyTextFieldConfigs) {
-      if (textFields.validatorPath != null) {
-        paths.add(textFields.validatorPath!);
+      if (textFields.validatorFunction?.validatorPath != null) {
+        paths.add(textFields.validatorFunction!.validatorPath!);
       }
     }
     return paths;
