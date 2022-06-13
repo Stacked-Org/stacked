@@ -1,7 +1,6 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_core/stacked_core.dart';
-
 import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/utils.dart';
 
@@ -21,7 +20,8 @@ class RouteConfigResolver {
     this._importResolver,
   );
 
-  Future<RouteConfig> resolve(ConstantReader stackedRoute) async {
+  Future<RouteConfig> resolve(ConstantReader stackedRoute,
+      {bool isChild = false}) async {
     final dartType = stackedRoute.read('page').typeValue;
     throwIf(
       dartType.element is! ClassElement,
@@ -57,19 +57,21 @@ class RouteConfigResolver {
     final returnType = stackedRoute.objectValue.type;
 
     var baseRouteConfig = RouteConfig(
-        hasWrapper: classElement.allSupertypes
-            .map<String>((el) => toDisplayString(el))
-            .contains('StackedRouteWrapper'),
-        returnType: toDisplayString(returnType!),
-        pathName: pathName,
-        name: stackedRoute.peek('name')?.stringValue ??
-            toLowerCamelCase(className),
-        maintainState: stackedRoute.peek('maintainState')?.boolValue ?? true,
-        imports: imports,
-        guards: extractedGuards ?? [],
-        className: className,
-        fullscreenDialog:
-            stackedRoute.peek('fullscreenDialog')?.boolValue ?? false);
+      hasWrapper: classElement.allSupertypes
+          .map<String>((el) => toDisplayString(el))
+          .contains('StackedRouteWrapper'),
+      returnType: toDisplayString(returnType!),
+      pathName: pathName,
+      name:
+          stackedRoute.peek('name')?.stringValue ?? toLowerCamelCase(className),
+      maintainState: stackedRoute.peek('maintainState')?.boolValue ?? true,
+      imports: imports,
+      guards: extractedGuards ?? [],
+      className: className,
+      fullscreenDialog:
+          stackedRoute.peek('fullscreenDialog')?.boolValue ?? false,
+      isChild: isChild,
+    );
 
     /// Check if a return type is provided for example [MaterialRoute<int>()]
     /// and adds the import for that type other wise is will default to dynamic which

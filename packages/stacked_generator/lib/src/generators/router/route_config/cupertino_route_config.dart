@@ -15,7 +15,7 @@ class CupertinoRouteConfig extends RouteConfig {
   final bool hasConstConstructor;
   final List<RouteConfig> children;
   final Set<String> imports;
-
+  final bool isChild;
   final String? cupertinoNavTitle;
 
   const CupertinoRouteConfig({
@@ -32,6 +32,7 @@ class CupertinoRouteConfig extends RouteConfig {
     this.children = const [],
     this.imports = const {},
     this.cupertinoNavTitle,
+    this.isChild = false,
   }) : super(
           imports: imports,
           hasConstConstructor: hasConstConstructor,
@@ -45,6 +46,7 @@ class CupertinoRouteConfig extends RouteConfig {
           guards: guards,
           hasWrapper: hasWrapper,
           children: children,
+          isChild: isChild,
         );
 
   @override
@@ -79,6 +81,7 @@ class CupertinoRouteConfig extends RouteConfig {
     List<RouteConfig>? children,
     Set<String>? imports,
     String? cupertinoNavTitle,
+    bool? isChild,
   }) {
     return CupertinoRouteConfig(
       name: name ?? this.name,
@@ -94,6 +97,7 @@ class CupertinoRouteConfig extends RouteConfig {
       children: children ?? this.children,
       imports: imports ?? this.imports,
       cupertinoNavTitle: cupertinoNavTitle ?? this.cupertinoNavTitle,
+      isChild: isChild ?? this.isChild,
     );
   }
 }

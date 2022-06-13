@@ -470,6 +470,7 @@ void main() {
                 name: 'nestedView1',
                 pathName: 'nestedPath1',
                 className: 'nestedClass1',
+                isChild: true,
               )
             ],
           )
@@ -492,11 +493,13 @@ void main() {
                     name: 'nestedView1',
                     pathName: 'nestedPath1',
                     className: 'nestedClass1',
+                    isChild: true,
                     children: [
                       MaterialRouteConfig(
                         name: 'multiNestedmultiNestedView1',
                         pathName: 'multiNestedmultiNestedPath1',
                         className: 'multiNestedmultiNestedClass1',
+                        isChild: true,
                       )
                     ])
               ])
@@ -519,16 +522,19 @@ void main() {
                   name: 'firstView',
                   pathName: 'firstPath',
                   className: 'firstClass',
+                  isChild: true,
                 ),
                 CupertinoRouteConfig(
                   name: 'secondView',
                   pathName: 'secondPath',
                   className: 'secondClass',
+                  isChild: true,
                 ),
                 CustomRouteConfig(
                   name: 'thirdView',
                   pathName: 'thirdPath',
                   className: 'thirdClass',
+                  isChild: true,
                 ),
               ])
         ];
@@ -550,16 +556,19 @@ void main() {
                   name: 'firstView',
                   pathName: 'firstPath',
                   className: 'firstClass',
+                  isChild: true,
                 ),
                 CupertinoRouteConfig(
                   name: 'secondView',
                   pathName: 'secondPath',
                   className: 'secondClass',
+                  isChild: true,
                 ),
                 AdaptiveRouteConfig(
                   name: 'thirdView',
                   pathName: 'thirdPath',
                   className: 'thirdClass',
+                  isChild: true,
                 ),
               ]),
           AdaptiveRouteConfig(
@@ -572,16 +581,19 @@ void main() {
                   name: 'fourthView',
                   pathName: 'fourthPath',
                   className: 'fourthClass',
+                  isChild: true,
                 ),
                 CupertinoRouteConfig(
                   name: 'fifthView',
                   pathName: 'fifthPath',
                   className: 'fifthClass',
+                  isChild: true,
                 ),
                 CustomRouteConfig(
                   name: 'sixthView',
                   pathName: 'sixthPath',
                   className: 'sixthClass',
+                  isChild: true,
                 ),
               ]),
         ];

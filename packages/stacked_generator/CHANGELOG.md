@@ -1,3 +1,5 @@
+## 0.7.6
+- Fixes [#664](https://github.com/FilledStacks/stacked/issues/664)
 ## 0.7.5
 - Fixes Strongly Typed id param never allowing id as a view param
 ## 0.7.4

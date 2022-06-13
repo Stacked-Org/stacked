@@ -16,7 +16,7 @@ class CustomRouteConfig extends RouteConfig {
   final List<RouteConfig> children;
   final bool hasConstConstructor;
   final Set<String> imports;
-
+  final bool isChild;
   final int? durationInMilliseconds;
   final int? reverseDurationInMilliseconds;
   final bool customRouteOpaque;
@@ -40,6 +40,7 @@ class CustomRouteConfig extends RouteConfig {
     this.customRouteOpaque = true,
     this.customRouteBarrierDismissible = false,
     this.transitionBuilder,
+    this.isChild = false,
   }) : super(
           imports: imports,
           hasConstConstructor: hasConstConstructor,
@@ -53,6 +54,7 @@ class CustomRouteConfig extends RouteConfig {
           guards: guards,
           hasWrapper: hasWrapper,
           children: children,
+          isChild: isChild,
         );
   @override
   Set<String> registerImports() {
@@ -118,6 +120,7 @@ class CustomRouteConfig extends RouteConfig {
     bool? customRouteOpaque,
     bool? customRouteBarrierDismissible,
     CustomTransitionBuilder? transitionBuilder,
+    bool? isChild,
   }) {
     return CustomRouteConfig(
       name: name ?? this.name,
@@ -140,6 +143,8 @@ class CustomRouteConfig extends RouteConfig {
       customRouteBarrierDismissible:
           customRouteBarrierDismissible ?? this.customRouteBarrierDismissible,
       transitionBuilder: transitionBuilder ?? this.transitionBuilder,
+      isChild: isChild ?? this.isChild,
+
     );
   }
 }
