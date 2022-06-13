@@ -15,7 +15,6 @@ import 'example_form_viewmodel.dart';
   ),
   FormTextField(
     name: 'password',
-    isPassword: true,
     validator: FormValidators.passwordValidator,
   ),
   FormTextField(name: 'shortBio'),
