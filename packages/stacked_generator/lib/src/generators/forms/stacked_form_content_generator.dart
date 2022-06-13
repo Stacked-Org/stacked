@@ -9,6 +9,28 @@ class StackedFormContentGenerator implements BaseGenerator {
 
   @override
   String generate() {
-    return FormGeneratorUtil(formViewConfig: _formViewConfig).generate();
+    final formGeneratorUtil = FormGeneratorUtil(formViewConfig: _formViewConfig)
+      ..writeHeaderComment()
+      ..generateImports()
+      ..generateValueMapKeys()
+      ..generateDropdownItemsMap()
+      ..generateTextEditingControllerItemsMap()
+      ..generateFocusNodeItemsMap()
+      ..generateValidationFunctionsFromAnnotation()
+      ..writeMixinSignature()
+      ..generateTextEditingControllersForTextFields()
+      ..generateFocusNodesForTextFields()
+      ..generateGetTextEditinController()
+      ..generateGetFocuNode()
+      ..generateListenerRegistrationsForTextFields()
+      ..generateFormDataUpdateFunctionTorTextControllers()
+      ..generateValidationDataUpdateFunctionTorTextControllers()
+      ..generateGetValidationMessageForTextController()
+      ..generateDisposeForTextControllers()
+      ..closeBracket()
+      ..generateFormViewModelExtensionForGetters()
+      ..generateFormViewModelExtensionForMethods();
+
+    return formGeneratorUtil.serializeStringBuffer;
   }
 }
