@@ -96,12 +96,12 @@ class FormGeneratorUtil extends BaseGenerator {
     for (final field in fields.onlyDropdownFieldConfigs) {
       final caseName = ReCase(field.name);
       writeLine(
-        "const Map<String, String> ${caseName.pascalCase}ValueToTitleMap = {",
+        "final Map<String, String> ${caseName.pascalCase}ValueToTitleMap = {",
       );
       for (final item in field.items) {
         writeLine("'${item.value}': '${item.title}',");
       }
-      if (field.items.isNotEmpty) writeLine('};');
+      writeLine('};');
     }
     newLine();
   }

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:example/ui/form/validators.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -44,6 +44,7 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
       onModelReady: (viewModel) {
         // #3: Listen to text updates by calling listenToFormUpdated(model);
         listenToFormUpdated(viewModel);
+        DoYouLoveFoodValueToTitleMap.addAll({'MaybeDr': 'Maybe'});
         viewModel.setDoYouLoveFood(DoYouLoveFoodValueToTitleMap.keys.first);
       },
       onDispose: (model) => disposeForm(),
