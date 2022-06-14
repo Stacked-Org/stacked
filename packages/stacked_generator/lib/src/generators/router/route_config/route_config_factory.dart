@@ -20,6 +20,7 @@ class RouteConfigFactory {
   final bool maintainState;
   final bool fullscreenDialog;
   final bool hasConstConstructor;
+  final bool isChild;
   final List<RouteGuardConfig> guards;
   final Set<String> imports;
   final List<RouteParamConfig> parameters;
@@ -35,40 +36,44 @@ class RouteConfigFactory {
     required this.guards,
     required this.imports,
     required this.parameters,
+    required this.isChild,
   });
 
   RouteConfig fromResolver(
       ConstantReader stackedRoute, ImportResolver importResolver) {
     if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CupertinoRoute))) {
       return CupertinoRouteConfig(
-          className: className,
-          name: name,
-          pathName: pathName,
-          fullscreenDialog: fullscreenDialog,
-          guards: guards,
-          hasConstConstructor: hasConstConstructor,
-          hasWrapper: hasWrapper,
-          imports: imports,
-          maintainState: maintainState,
-          parameters: parameters,
-          returnType: returnType,
-          cupertinoNavTitle: stackedRoute.peek('title')?.stringValue);
+        className: className,
+        name: name,
+        pathName: pathName,
+        fullscreenDialog: fullscreenDialog,
+        guards: guards,
+        hasConstConstructor: hasConstConstructor,
+        hasWrapper: hasWrapper,
+        imports: imports,
+        maintainState: maintainState,
+        parameters: parameters,
+        returnType: returnType,
+        cupertinoNavTitle: stackedRoute.peek('title')?.stringValue,
+        isChild: isChild,
+      );
     } else if (stackedRoute
         .instanceOf(TypeChecker.fromRuntime(AdaptiveRoute))) {
       return AdaptiveRouteConfig(
-          className: className,
-          name: name,
-          pathName: pathName,
-          fullscreenDialog: fullscreenDialog,
-          guards: guards,
-          hasConstConstructor: hasConstConstructor,
-          hasWrapper: hasWrapper,
-          imports: imports,
-          maintainState: maintainState,
-          parameters: parameters,
-          returnType: returnType,
-          cupertinoNavTitle:
-              stackedRoute.peek('cupertinoPageTitle')?.stringValue);
+        className: className,
+        name: name,
+        pathName: pathName,
+        fullscreenDialog: fullscreenDialog,
+        guards: guards,
+        hasConstConstructor: hasConstConstructor,
+        hasWrapper: hasWrapper,
+        imports: imports,
+        maintainState: maintainState,
+        parameters: parameters,
+        returnType: returnType,
+        cupertinoNavTitle: stackedRoute.peek('cupertinoPageTitle')?.stringValue,
+        isChild: isChild,
+      );
     } else if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CustomRoute))) {
       var customRouteConfig = CustomRouteConfig(
         className: className,
@@ -89,6 +94,7 @@ class RouteConfigFactory {
         customRouteOpaque: stackedRoute.peek('opaque')?.boolValue ?? true,
         customRouteBarrierDismissible:
             stackedRoute.peek('barrierDismissible')?.boolValue ?? false,
+        isChild: isChild,
       );
       final function = stackedRoute
           .peek('transitionsBuilder')
@@ -102,7 +108,7 @@ class RouteConfigFactory {
 
         var import;
         if (function.enclosingElement.name != 'TransitionsBuilders') {
-          import = importResolver.resolve(function);
+          import = function.source.uri.toString();
         }
         customRouteConfig = customRouteConfig.copyWith(
             transitionBuilder: CustomTransitionBuilder(functionName, import));
@@ -122,6 +128,7 @@ class RouteConfigFactory {
         maintainState: maintainState,
         parameters: parameters,
         returnType: returnType,
+        isChild: isChild,
       );
     }
   }

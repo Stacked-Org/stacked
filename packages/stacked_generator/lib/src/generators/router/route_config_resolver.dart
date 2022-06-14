@@ -57,27 +57,10 @@ class RouteConfigResolver {
 
     final returnType = stackedRoute.objectValue.type;
 
-    var baseRouteConfig = RouteConfig(
-      hasWrapper: classElement.allSupertypes
-          .map<String>((el) => toDisplayString(el))
-          .contains('StackedRouteWrapper'),
-      returnType: toDisplayString(returnType!),
-      pathName: pathName,
-      name:
-          stackedRoute.peek('name')?.stringValue ?? toLowerCamelCase(className),
-      maintainState: stackedRoute.peek('maintainState')?.boolValue ?? true,
-      imports: imports,
-      guards: extractedGuards ?? [],
-      className: className,
-      fullscreenDialog:
-          stackedRoute.peek('fullscreenDialog')?.boolValue ?? false,
-      isChild: isChild,
-    );
-
     /// Check if a return type is provided for example [MaterialRoute<int>()]
     /// and adds the import for that type other wise is will default to dynamic which
     /// doesn't needs an import
-    if (baseRouteConfig.processedReturnType != 'dynamic') {
+    if (processedReturnType(toDisplayString(returnType!)) != 'dynamic') {
       imports.addAll(_importResolver.resolveAll(returnType));
     }
 
@@ -100,6 +83,7 @@ class RouteConfigResolver {
       }
     }
     return RouteConfigFactory(
+            isChild: isChild,
             parameters: parameters,
             hasWrapper: classElement.allSupertypes
                 .map<String>((el) => toDisplayString(el))
