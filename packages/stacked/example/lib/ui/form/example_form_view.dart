@@ -45,6 +45,7 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
       onModelReady: (viewModel) {
         // #3: Listen to text updates by calling listenToFormUpdated(model);
         listenToFormUpdated(viewModel);
+        DoYouLoveFoodValueToTitleMap.addAll({'MaybeDr': 'Maybe'});
         viewModel.setDoYouLoveFood(DoYouLoveFoodValueToTitleMap.keys.first);
       },
       onDispose: (model) => disposeForm(),

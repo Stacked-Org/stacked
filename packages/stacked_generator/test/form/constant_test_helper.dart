@@ -16,7 +16,7 @@ const String ${dropDown[0].toUpperCase()}${dropDown.substring(1)}ValueKey = \'${
 
 String ksDropdownItemsMap = '''
 
-const Map<String, String> DropDownValueToTitleMap = {
+final Map<String, String> DropDownValueToTitleMap = {
 '1': 'one',
 '2': 'two',
 };

@@ -13,7 +13,7 @@ class RouteGeneratorHelper with StringBufferUtils {
     });
 
     /// TODO: Remove this when find better solution
-    /// We can't remove this unnissary import because we are using routes
+    /// We can't remove this unnecessary import because we are using routes
     /// from stacked_core like MaterialRoute, CupertinoRoute... which import through
     /// stacked_annotations file
     /// We didn't have this problem before cause the routes were in stacked package
@@ -198,12 +198,13 @@ class RouteGeneratorHelper with StringBufferUtils {
     writeLine('}');
   }
 
-  void _generateArgsHolder(RouteConfig routeConfig, {bool isChild = false}) {
+  void _generateArgsHolder(RouteConfig routeConfig) {
     writeLine('/// ${routeConfig.className} arguments holder class');
     final argsClassName = '${routeConfig.argumentsHolderClassName}';
 
     // generate fields
-    final className = isChild ? 'Nested$argsClassName' : '$argsClassName';
+    final className =
+        routeConfig.isChild ? 'Nested$argsClassName' : '$argsClassName';
     writeLine('class $className{');
     final params = routeConfig.notQueryAndNotPath;
     params.forEach((param) {
@@ -211,7 +212,7 @@ class RouteGeneratorHelper with StringBufferUtils {
     });
 
     // generate constructor
-    writeLine('$argsClassName({');
+    writeLine('$className({');
     params.asMap().forEach((i, param) {
       if (param.isRequired || param.isPositional) {
         write('required ');
@@ -229,8 +230,7 @@ class RouteGeneratorHelper with StringBufferUtils {
     writeLine('}');
   }
 
-  void generateArgumentHolders(List<RouteConfig> routes,
-      {bool isChild = false}) {
+  void generateArgumentHolders(List<RouteConfig> routes) {
     final routesWithArgsHolders = Map<String, RouteConfig>();
 
     // make sure we only generated holder classes for
@@ -243,15 +243,13 @@ class RouteGeneratorHelper with StringBufferUtils {
 
     if (routesWithArgsHolders.isNotEmpty) {
       write(_generateCommentBoxWithMessage('Arguments holder classes'));
-      routesWithArgsHolders.values.forEach(
-          ((element) => _generateArgsHolder(element, isChild: isChild)));
+      routesWithArgsHolders.values
+          .forEach(((element) => _generateArgsHolder(element)));
     }
   }
 
-  void generateExtensionForStronglyTypedNavigation(
-    List<RouteConfig> routes,
-  ) {
-    if (routes.isEmpty) return;
+  void generateExtensionForStronglyTypedNavigation(List<RouteConfig> routes) {
+    if (routes.isEmpty || routes.every((element) => element.isChild)) return;
     write(_generateCommentBoxWithMessage(
         'Extension for strongly typed navigation'));
 
@@ -320,11 +318,14 @@ class RouteGeneratorHelper with StringBufferUtils {
     writeLine('}');
   }
 
-  void generateStronglyTypedNavigationRouteArguments(RouteConfig route) {
-    final params = route.notQueryAndNotPath;
+  void generateStronglyTypedNavigationRouteArguments(RouteConfig routeConfig) {
+    final params = routeConfig.notQueryAndNotPath;
+    final String className = routeConfig.isChild
+        ? 'Nested${routeConfig.argumentsHolderClassName}'
+        : routeConfig.argumentsHolderClassName;
     if (params.isNotEmpty) {
       writeLine('''
-arguments: ${route.argumentsHolderClassName}(
+arguments: $className(
       ${params.map((param) => '${param.name}: ${param.name}').join(',')}
     ),
      

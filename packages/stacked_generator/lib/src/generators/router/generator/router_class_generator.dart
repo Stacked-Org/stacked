@@ -28,9 +28,8 @@ class RouterClassGenerator extends RouteGeneratorHelper
     List<RouteConfig> routes,
     String routerClassName,
     String routesClassName,
-    bool generateNavigationHelper, {
-    bool isChild = false,
-  }) {
+    bool generateNavigationHelper,
+  ) {
     generateRoutesConstantsMap(
       routes,
       routesClassName,
@@ -50,19 +49,16 @@ class RouterClassGenerator extends RouteGeneratorHelper
       );
     }
 
-    generateArgumentHolders(routes, isChild: isChild);
+    generateArgumentHolders(routes);
     routes.where((element) => element.children.isNotEmpty).forEach((element) {
       generateAllRoutersIncludingNestedOnes(
         element.children,
         capitalize(element.name + 'Router'),
         capitalize(element.name + 'Routes'),
         generateNavigationHelper,
-        isChild: true,
       );
     });
 
-    if (!isChild) {
-      generateExtensionForStronglyTypedNavigation(routes);
-    }
+    generateExtensionForStronglyTypedNavigation(routes);
   }
 }

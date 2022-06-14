@@ -12,11 +12,11 @@ import 'package:stacked/stacked.dart';
 const String CountryValueKey = 'country';
 const String ProvinceValueKey = 'province';
 
-const Map<String, String> CountryValueToTitleMap = {
+final Map<String, String> CountryValueToTitleMap = {
   'ZAR': 'South Africa',
   'UK': 'United Kingdom',
 };
-const Map<String, String> ProvinceValueToTitleMap = {
+final Map<String, String> ProvinceValueToTitleMap = {
   'Western Cape': 'Western Cape',
   'Easter Cape': 'Easter Cape',
   'Free State': 'Free State',

@@ -17,7 +17,7 @@ const String ShortBioValueKey = 'shortBio';
 const String BirthDateValueKey = 'birthDate';
 const String DoYouLoveFoodValueKey = 'doYouLoveFood';
 
-const Map<String, String> DoYouLoveFoodValueToTitleMap = {
+final Map<String, String> DoYouLoveFoodValueToTitleMap = {
   'YesDr': 'Yes',
   'NoDr': 'No',
 };

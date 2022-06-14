@@ -158,8 +158,14 @@ class BottomNavExampleRouter extends RouterBase {
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, StackedRouteFactory>{
     FavoritesView: (data) {
+      var args = data.getArgs<NestedFavoritesViewArguments>(
+        orElse: () => NestedFavoritesViewArguments(),
+      );
       return buildAdaptivePageRoute<dynamic>(
-        builder: (context) => const FavoritesView(),
+        builder: (context) => FavoritesView(
+          key: args.key,
+          id: args.id,
+        ),
         settings: data,
       );
     },
@@ -180,6 +186,17 @@ class BottomNavExampleRouter extends RouterBase {
       );
     },
   };
+}
+
+/// ************************************************************************
+/// Arguments holder classes
+/// *************************************************************************
+
+/// FavoritesView arguments holder class
+class NestedFavoritesViewArguments {
+  final Key? key;
+  final String? id;
+  NestedFavoritesViewArguments({this.key, this.id});
 }
 
 /// ************************************************************************
@@ -223,6 +240,8 @@ extension NavigatorStateExtension on NavigationService {
   }
 
   Future<dynamic> navigateToNestedFavoritesView({
+    Key? key,
+    String? id,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -231,6 +250,7 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       BottomNavExampleRoutes.favoritesView,
+      arguments: NestedFavoritesViewArguments(key: key, id: id),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

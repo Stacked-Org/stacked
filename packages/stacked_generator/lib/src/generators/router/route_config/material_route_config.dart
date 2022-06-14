@@ -15,6 +15,7 @@ class MaterialRouteConfig extends RouteConfig {
   final bool hasConstConstructor;
   final List<RouteConfig> children;
   final Set<String> imports;
+  final bool isChild;
   MaterialRouteConfig({
     required this.name,
     required this.pathName,
@@ -28,6 +29,7 @@ class MaterialRouteConfig extends RouteConfig {
     this.hasConstConstructor = false,
     this.children = const [],
     this.imports = const {},
+    this.isChild = false,
   }) : super(
           imports: imports,
           hasConstConstructor: hasConstConstructor,
@@ -41,6 +43,7 @@ class MaterialRouteConfig extends RouteConfig {
           guards: guards,
           hasWrapper: hasWrapper,
           children: children,
+          isChild: isChild,
         );
 
   @override
@@ -72,6 +75,7 @@ class MaterialRouteConfig extends RouteConfig {
     bool? hasConstConstructor,
     List<RouteConfig>? children,
     Set<String>? imports,
+    bool? isChild,
   }) {
     return MaterialRouteConfig(
       name: name ?? this.name,
@@ -86,6 +90,7 @@ class MaterialRouteConfig extends RouteConfig {
       hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
       children: children ?? this.children,
       imports: imports ?? this.imports,
+      isChild: isChild ?? this.isChild,
     );
   }
 }
