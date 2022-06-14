@@ -55,9 +55,9 @@ class ExecutableElementData {
   });
 
   factory ExecutableElementData.fromExecutableElement(
-      ExecutableElement? executableElement) {
+      ExecutableElement executableElement) {
     return ExecutableElementData(
-        returnType: executableElement!.declaration.returnType.toString(),
+        returnType: executableElement.declaration.returnType.toString(),
         enclosingElementName: executableElement.enclosingElementName,
         hasEnclosingElementName: executableElement.hasEnclosingElementName,
         validatorName: executableElement.validatorName,

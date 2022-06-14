@@ -82,14 +82,16 @@ FieldConfig _readTextFieldConfig({
   final ExecutableElement? customTextEditingController =
       (fieldReader.peek('customTextEditingController')?.objectValue)
           ?.toFunctionValue();
-
   return TextFieldConfig(
     name: name,
     initialValue: initialValue,
-    validatorFunction:
-        ExecutableElementData.fromExecutableElement(validatorFunction),
-    customTextEditingController: ExecutableElementData.fromExecutableElement(
-        customTextEditingController),
+    validatorFunction: validatorFunction == null
+        ? null
+        : ExecutableElementData.fromExecutableElement(validatorFunction),
+    customTextEditingController: customTextEditingController == null
+        ? null
+        : ExecutableElementData.fromExecutableElement(
+            customTextEditingController),
   );
 }
 

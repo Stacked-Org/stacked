@@ -161,10 +161,13 @@ class FormGeneratorUtil with StringBufferUtils {
   }
 
   FormGeneratorUtil generateGetCustomTextEditingController() {
-    final textFieldsConfigs = fields.onlyTextFieldConfigs;
+    final textFieldsConfigs = fields.onlyTextFieldConfigs
+        .where((element) => element.customTextEditingController != null);
+
+    /// If there is no field that has a [customTextEditingController]
+    /// abort this function
     if (textFieldsConfigs.isEmpty) return this;
-    for (var tf in textFieldsConfigs
-        .where((element) => element.customTextEditingController != null)) {
+    for (var tf in textFieldsConfigs) {
       final customTextEditingClassNameAndCallingFunction =
           tf.customTextEditingController!.validatorName;
       final customTextEditingClassName =
@@ -395,6 +398,8 @@ class FormGeneratorUtil with StringBufferUtils {
     for (var textFields in fields.onlyTextFieldConfigs) {
       if (textFields.validatorFunction?.validatorPath != null) {
         paths.add(textFields.validatorFunction!.validatorPath!);
+      }
+      if (textFields.customTextEditingController?.validatorPath != null) {
         paths.add(textFields.customTextEditingController!.validatorPath!);
       }
     }
