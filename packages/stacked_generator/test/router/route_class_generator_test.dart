@@ -513,7 +513,7 @@ void main() {
       });
       test('When adding NestedRouter with three different childs', () {
         final List<RouteConfig> routes = [
-          CupertinoRouteConfig(
+          MaterialRouteConfig(
               name: 'loginView2',
               pathName: 'pathNamaw2',
               className: 'TestClass2',
