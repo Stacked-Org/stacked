@@ -153,6 +153,32 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
+  FormGeneratorUtil generateGetCustomTextEditingController() {
+    final textFieldsConfigs = fields.onlyTextFieldConfigs;
+    if (textFieldsConfigs.isEmpty) return this;
+    for (var tf in textFieldsConfigs
+        .where((element) => element.customTextEditingController != null)) {
+      final customTextEditingClassNameAndCallingFunction =
+          tf.customTextEditingController!.validatorName;
+      final customTextEditingClassName =
+          tf.customTextEditingController!.returnType;
+      newLine();
+      writeLine('''
+      $customTextEditingClassName _getCustomFormTextEditingController(String key,) {
+          if (_${viewName}TextEditingControllers.containsKey(key)) {
+        return _${viewName}TextEditingControllers[key]! as $customTextEditingClassName;
+      }
+      _${viewName}TextEditingControllers[key] =
+         ${customTextEditingClassNameAndCallingFunction}();
+      return _${viewName}TextEditingControllers[key]! 
+      as $customTextEditingClassName; }
+    ''');
+      newLine();
+    }
+
+    return this;
+  }
+
   FormGeneratorUtil generateGetFocuNode() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     writeLine(''' 
@@ -357,20 +383,21 @@ class FormGeneratorUtil with StringBufferUtils {
     return field.initialValue != null && field.initialValue!.isNotEmpty;
   }
 
-  String _getFormFieldValueType(FieldConfig field) {
-    return field is TextFieldConfig || field is DropdownFieldConfig
-        ? 'String'
-        : 'DateTime';
-  }
-
   List<String> get validationFileImports {
     List<String> paths = [];
     for (var textFields in fields.onlyTextFieldConfigs) {
       if (textFields.validatorFunction?.validatorPath != null) {
         paths.add(textFields.validatorFunction!.validatorPath!);
+        paths.add(textFields.customTextEditingController!.validatorPath!);
       }
     }
     return paths;
+  }
+
+  String _getFormFieldValueType(FieldConfig field) {
+    return field is TextFieldConfig || field is DropdownFieldConfig
+        ? 'String'
+        : 'DateTime';
   }
 
   String _getFocusNodeName(FieldConfig field) => '${field.name}FocusNode';

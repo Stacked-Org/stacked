@@ -45,17 +45,19 @@ class ExecutableElementData {
   final String? validatorName;
   final String? enclosingElementName;
   final bool hasEnclosingElementName;
-
+  final String? returnType;
   const ExecutableElementData({
     this.validatorPath,
     this.validatorName,
     this.enclosingElementName,
     this.hasEnclosingElementName = false,
+    this.returnType,
   });
 
   factory ExecutableElementData.fromExecutableElement(
       ExecutableElement? executableElement) {
     return ExecutableElementData(
+        returnType: executableElement!.declaration.returnType.toString(),
         enclosingElementName: executableElement.enclosingElementName,
         hasEnclosingElementName: executableElement.hasEnclosingElementName,
         validatorName: executableElement.validatorName,

@@ -17,6 +17,7 @@ class StackedFormContentGenerator implements BaseGenerator {
       ..generateTextEditingControllerItemsMap()
       ..generateFocusNodeItemsMap()
       ..generateValidationFunctionsFromAnnotation()
+      ..generateGetCustomTextEditingController()
       ..writeMixinSignature()
       ..generateTextEditingControllersForTextFields()
       ..generateFocusNodesForTextFields()
