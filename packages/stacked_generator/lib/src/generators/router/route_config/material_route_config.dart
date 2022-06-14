@@ -3,20 +3,20 @@ import '../models/route_parameter_config.dart';
 import 'route_config.dart';
 
 class MaterialRouteConfig extends RouteConfig {
-  const MaterialRouteConfig({
-    required super.name,
-    required super.pathName,
-    required super.className,
-    super.fullscreenDialog,
-    super.maintainState,
-    super.returnType,
-    super.parameters,
-    super.guards,
-    super.hasWrapper,
-    super.hasConstConstructor,
-    super.children,
-    super.imports,
-  });
+  const MaterialRouteConfig(
+      {required super.name,
+      required super.pathName,
+      required super.className,
+      super.fullscreenDialog,
+      super.maintainState,
+      super.returnType,
+      super.parameters,
+      super.guards,
+      super.hasWrapper,
+      super.hasConstConstructor,
+      super.children,
+      super.imports,
+      super.isChild});
 
   @override
   Set<String> registerImports() {
@@ -47,6 +47,7 @@ class MaterialRouteConfig extends RouteConfig {
     bool? hasConstConstructor,
     List<RouteConfig>? children,
     Set<String>? imports,
+    bool? isChild,
   }) {
     return MaterialRouteConfig(
       name: name ?? this.name,

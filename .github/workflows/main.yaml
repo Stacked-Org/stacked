@@ -1,0 +1,107 @@
+name: Build
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+
+jobs:
+  unit_tests:
+    name: Run stacked packages unit tests
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    
+    strategy:
+      matrix:
+        package:
+          - packages/stacked
+          - packages/stacked_generator
+        channel:
+          - stable
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: ${{ matrix.channel }}
+          
+      # It is executed separatly
+      - name: Removing example folder
+        run: rm -rf example
+        working-directory: ${{ matrix.package }}
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: ${{ matrix.package }}
+
+      # - name: Check format
+      #   run: flutter format --set-exit-if-changed .
+      #   working-directory: ${{ matrix.package }}
+
+      - name: Generate
+        run: |
+          if grep -q build_runner "pubspec.yaml"; then
+            flutter pub run build_runner build --delete-conflicting-outputs
+          fi
+        working-directory: ${{ matrix.package }}
+
+      - name: Analyze
+        run: flutter analyze
+        working-directory: ${{ matrix.package }}
+
+      - name: Run tests
+        run: |
+          if grep -q "name: stacked_generator" "pubspec.yaml"; then
+            dart test
+          else
+            flutter test
+          fi
+        working-directory: ${{ matrix.package }}
+        
+  integration_tests:
+      name: Run stacked app integration tests
+      runs-on: ubuntu-latest
+      if: github.event.pull_request.draft == false
+
+      strategy:
+        matrix:
+          package:
+            - packages/stacked/example
+          channel:
+            - stable
+
+      steps:
+        - uses: actions/checkout@v2
+
+        - name: Setup Flutter
+          uses: subosito/flutter-action@v1
+          with:
+            channel: "stable"
+
+        - name: Setup chrome driver
+          uses: nanasess/setup-chromedriver@v1
+          with:
+            chromedriver-version: "101.0.4951.41"
+
+        - name: Install dependencies
+          run: flutter pub get
+          working-directory: ${{ matrix.package }}
+
+        - name: Generate
+          run: |
+            if grep -q build_runner "pubspec.yaml"; then
+              flutter pub run build_runner build --delete-conflicting-outputs
+            fi
+          working-directory: ${{ matrix.package }}
+
+        - name: Launch web driver & run tests
+          run: |
+            chromedriver --port=4444 & 
+            flutter drive \
+              --driver=test_driver/integration_test.dart \
+              --target=integration_test/app_test.dart \
+              -d web-server
+          working-directory: ${{ matrix.package }}
+ 

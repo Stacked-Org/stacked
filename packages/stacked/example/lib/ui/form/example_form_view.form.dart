@@ -4,10 +4,10 @@
 // StackedFormGenerator
 // **************************************************************************
 
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs,  constant_identifier_names, non_constant_identifier_names,unnecessary_this
 
+import 'package:example/ui/form/validators.dart';
 import 'package:flutter/material.dart';
-import 'package:new_architecture/ui/form/validators.dart';
 import 'package:stacked/stacked.dart';
 
 const String EmailValueKey = 'email';
@@ -16,23 +16,15 @@ const String ShortBioValueKey = 'shortBio';
 const String BirthDateValueKey = 'birthDate';
 const String DoYouLoveFoodValueKey = 'doYouLoveFood';
 
-const Map<String, String> DoYouLoveFoodValueToTitleMap = {
+final Map<String, String> DoYouLoveFoodValueToTitleMap = {
   'YesDr': 'Yes',
   'NoDr': 'No',
 };
 
 final Map<String, TextEditingController>
-    _ExampleFormViewTextEditingControllers = {
-  EmailValueKey: TextEditingController(text: 'Lorem'),
-  PasswordValueKey: TextEditingController(),
-  ShortBioValueKey: TextEditingController(),
-};
+    _ExampleFormViewTextEditingControllers = {};
 
-final Map<String, FocusNode> _ExampleFormViewFocusNodes = {
-  EmailValueKey: FocusNode(),
-  PasswordValueKey: FocusNode(),
-  ShortBioValueKey: FocusNode(),
-};
+final Map<String, FocusNode> _ExampleFormViewFocusNodes = {};
 
 final Map<String, String? Function(String?)?> _ExampleFormViewTextValidations =
     {
@@ -43,16 +35,32 @@ final Map<String, String? Function(String?)?> _ExampleFormViewTextValidations =
 
 mixin $ExampleFormView on StatelessWidget {
   TextEditingController get emailController =>
-      _ExampleFormViewTextEditingControllers[EmailValueKey]!;
+      _getFormTextEditingController(EmailValueKey, initialValue: 'Lorem');
   TextEditingController get passwordController =>
-      _ExampleFormViewTextEditingControllers[PasswordValueKey]!;
+      _getFormTextEditingController(PasswordValueKey);
   TextEditingController get shortBioController =>
-      _ExampleFormViewTextEditingControllers[ShortBioValueKey]!;
-  FocusNode get emailFocusNode => _ExampleFormViewFocusNodes[EmailValueKey]!;
-  FocusNode get passwordFocusNode =>
-      _ExampleFormViewFocusNodes[PasswordValueKey]!;
-  FocusNode get shortBioFocusNode =>
-      _ExampleFormViewFocusNodes[ShortBioValueKey]!;
+      _getFormTextEditingController(ShortBioValueKey);
+  FocusNode get emailFocusNode => _getFormFocusNode(EmailValueKey);
+  FocusNode get passwordFocusNode => _getFormFocusNode(PasswordValueKey);
+  FocusNode get shortBioFocusNode => _getFormFocusNode(ShortBioValueKey);
+
+  TextEditingController _getFormTextEditingController(String key,
+      {String? initialValue}) {
+    if (_ExampleFormViewTextEditingControllers.containsKey(key)) {
+      return _ExampleFormViewTextEditingControllers[key]!;
+    }
+    _ExampleFormViewTextEditingControllers[key] =
+        TextEditingController(text: initialValue);
+    return _ExampleFormViewTextEditingControllers[key]!;
+  }
+
+  FocusNode _getFormFocusNode(String key) {
+    if (_ExampleFormViewFocusNodes.containsKey(key)) {
+      return _ExampleFormViewFocusNodes[key]!;
+    }
+    _ExampleFormViewFocusNodes[key] = FocusNode();
+    return _ExampleFormViewFocusNodes[key]!;
+  }
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
@@ -96,12 +104,15 @@ mixin $ExampleFormView on StatelessWidget {
   void disposeForm() {
     // The dispose function for a TextEditingController sets all listeners to null
 
-    emailController.dispose();
-    emailFocusNode.dispose();
-    passwordController.dispose();
-    passwordFocusNode.dispose();
-    shortBioController.dispose();
-    shortBioFocusNode.dispose();
+    for (var controller in _ExampleFormViewTextEditingControllers.values) {
+      controller.dispose();
+    }
+    for (var focusNode in _ExampleFormViewFocusNodes.values) {
+      focusNode.dispose();
+    }
+
+    _ExampleFormViewTextEditingControllers.clear();
+    _ExampleFormViewFocusNodes.clear();
   }
 }
 

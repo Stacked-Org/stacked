@@ -6,8 +6,10 @@ import '../smart_widgets/widget_two/widget_two.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
+  final String? title;
   const HomeView({
     Key? key,
+    this.title,
   }) : super(key: key);
 
   @override
@@ -21,16 +23,17 @@ class HomeView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(viewModel.title),
+              const SizedBox(height: 20),
               Row(
                 mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
+                children: const <Widget>[
                   WidgetOne(),
-                  SizedBox(
-                    width: 50,
-                  ),
+                  SizedBox(width: 50),
                   WidgetTwo(id: 2),
                 ],
               ),
+              const SizedBox(height: 20),
+              if (title != null) Text(title!),
             ],
           ),
         ),

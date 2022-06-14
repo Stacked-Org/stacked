@@ -100,6 +100,10 @@ class _SkeletonLoaderState extends State<SkeletonLoader>
           // We only want to show this if the widget is loading OR if the widget is busy with the transition.
           child: widget.loading || _transitionToNewWidget
               ? AnimatedSize(
+                  /// TODO: This field is depreacted but I'm adding it
+                  /// to support older versions for flutter
+                  // ignore: deprecated_member_use
+                  vsync: this,
                   duration: Duration(milliseconds: 450),
                   curve: Curves.easeOut,
                   child: ShaderMask(

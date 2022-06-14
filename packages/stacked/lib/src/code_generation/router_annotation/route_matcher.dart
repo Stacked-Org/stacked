@@ -93,8 +93,6 @@ class RouteMatch extends RouteSettings {
 
   bool get hasRest => !rest.hasEmptyPath;
 
-  bool get hasGuards => routeDef.guards?.isNotEmpty == true;
-
   bool get isParent => routeDef.generator != null;
 
   String get template => routeDef.template;

@@ -9,25 +9,25 @@ class CustomRouteConfig extends RouteConfig {
   final bool customRouteOpaque;
   final bool customRouteBarrierDismissible;
   final CustomTransitionBuilder? transitionBuilder;
-  CustomRouteConfig({
-    required super.name,
-    required super.pathName,
-    required super.className,
-    super.fullscreenDialog,
-    super.maintainState,
-    super.returnType,
-    super.parameters,
-    super.guards,
-    super.hasWrapper,
-    super.hasConstConstructor,
-    super.children,
-    super.imports,
-    this.durationInMilliseconds,
-    this.reverseDurationInMilliseconds,
-    this.customRouteOpaque = true,
-    this.customRouteBarrierDismissible = false,
-    this.transitionBuilder,
-  });
+  CustomRouteConfig(
+      {required super.name,
+      required super.pathName,
+      required super.className,
+      super.fullscreenDialog,
+      super.maintainState,
+      super.returnType,
+      super.parameters,
+      super.guards,
+      super.hasWrapper,
+      super.hasConstConstructor,
+      super.children,
+      super.imports,
+      this.durationInMilliseconds,
+      this.reverseDurationInMilliseconds,
+      this.customRouteOpaque = true,
+      this.customRouteBarrierDismissible = false,
+      this.transitionBuilder,
+      super.isChild});
   @override
   Set<String> registerImports() {
     return {
@@ -53,7 +53,14 @@ class CustomRouteConfig extends RouteConfig {
           'barrierDismissible:${customRouteBarrierDismissible.toString()},');
     }
     if (transitionBuilder != null) {
-      stringBuffer.write('transitionsBuilder: ${transitionBuilder!.name},');
+      stringBuffer.write(
+          'transitionsBuilder: data.transition ?? ${transitionBuilder!.name},');
+    }
+    if (transitionBuilder == null) {
+      stringBuffer.write('''transitionsBuilder: data.transition??
+              (context, animation, secondaryAnimation, child) {
+            return child;
+          }''');
     }
     if (durationInMilliseconds != null) {
       stringBuffer.write(
@@ -85,6 +92,7 @@ class CustomRouteConfig extends RouteConfig {
     bool? customRouteOpaque,
     bool? customRouteBarrierDismissible,
     CustomTransitionBuilder? transitionBuilder,
+    bool? isChild,
   }) {
     return CustomRouteConfig(
       name: name ?? this.name,

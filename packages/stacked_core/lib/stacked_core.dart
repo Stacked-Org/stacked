@@ -11,5 +11,6 @@ export 'src/code_generation/locator/stacked_locator_annotations.dart';
 export 'src/code_generation/logger/stacked_logger_annotations.dart';
 export 'src/code_generation/router/stacked_router_annotations.dart';
 export 'src/code_generation/stacked_app.dart';
+export 'src/code_generation/dialogs/stacked_dialog.dart';
 
 // TODO: Export any libraries intended for clients of this package.

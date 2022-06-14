@@ -15,10 +15,12 @@ class RouteConfig {
   final List<RouteConfig> children;
   final bool hasConstConstructor;
   final Set<String> imports;
+  final bool isChild;
   const RouteConfig({
     required this.name,
     required this.pathName,
     required this.className,
+    this.isChild = false,
     this.fullscreenDialog = false,
     this.maintainState = true,
     this.returnType,
@@ -60,7 +62,9 @@ class RouteConfig {
       // show an error page  if passed args are not the same as declared args
 
       if (notQueryAndNotPath.isNotEmpty) {
-        final argsType = argumentsHolderClassName;
+        final argsType = isChild
+            ? 'Nested$argumentsHolderClassName'
+            : argumentsHolderClassName;
         stringBuffer.writeln('var args = data.getArgs<$argsType>(');
         if (!nullOk) {
           stringBuffer.write('nullOk: false');
@@ -126,6 +130,8 @@ class RouteConfig {
     return constructor;
   }
 
+  bool get isProcessedReturnTypeDynamic => processedReturnType == 'dynamic';
+
   String get processedReturnType {
     final returnTypeContainsBiggerOperatorWithOneOfRouteNames = returnType !=
             null &&
@@ -156,6 +162,7 @@ class RouteConfig {
     List<RouteConfig>? children,
     bool? hasConstConstructor,
     Set<String>? imports,
+    bool? isChild,
   }) {
     return RouteConfig(
       name: name ?? this.name,
@@ -170,6 +177,7 @@ class RouteConfig {
       children: children ?? this.children,
       hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
       imports: imports ?? this.imports,
+      isChild: isChild ?? this.isChild,
     );
   }
 }

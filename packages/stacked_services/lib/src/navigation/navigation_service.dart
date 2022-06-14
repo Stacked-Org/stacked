@@ -187,10 +187,11 @@ class NavigationService {
     int? id,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
+    RouteTransitionsBuilder? transition,
   }) {
     return G.Get.toNamed<T?>(
       routeName,
-      arguments: arguments,
+      arguments: {'arguments': arguments, 'transition': transition},
       id: id,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -273,6 +274,19 @@ class NavigationService {
       arguments: arguments,
       id: id,
       parameters: parameters,
+    );
+  }
+
+  /// Clears the entire back stack and shows [view]
+  Future<T?>? clearStackAndShowView<T>(
+    Widget view, {
+    dynamic arguments,
+    int? id,
+  }) {
+    return G.Get.offAll<T?>(
+      view,
+      arguments: arguments,
+      id: id,
     );
   }
 

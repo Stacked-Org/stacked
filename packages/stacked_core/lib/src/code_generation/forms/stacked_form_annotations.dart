@@ -16,9 +16,6 @@ class FormField {
 
 /// Describes an entry field on the form that takes text
 class FormTextField extends FormField {
-  /// Indicates if the [FormField] is a password field or not
-  final bool? isPassword;
-
   /// Assigns initial value, `text` parameter in `TextEditingController`
   final String? initialValue;
 
@@ -26,7 +23,6 @@ class FormTextField extends FormField {
 
   const FormTextField({
     String? name,
-    this.isPassword,
     this.initialValue,
     this.validator,
   }) : super(name: name);

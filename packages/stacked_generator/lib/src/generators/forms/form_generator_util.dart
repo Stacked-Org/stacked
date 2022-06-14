@@ -12,7 +12,8 @@ class FormGeneratorUtil extends BaseGenerator {
 
   @override
   String generate() {
-    writeLine("// ignore_for_file: public_member_api_docs");
+    writeLine(
+        "// ignore_for_file: public_member_api_docs,  constant_identifier_names, non_constant_identifier_names,unnecessary_this");
 
     generateImports();
     generateValueMapKeys();
@@ -30,6 +31,8 @@ class FormGeneratorUtil extends BaseGenerator {
 
     generateTextEditingControllersForTextFields();
     generateFocusNodesForTextFields();
+    generateGetTextEditinController();
+    generateGetFocuNode();
     generateListenerRegistrationsForTextFields();
     generateFormDataUpdateFunctionTorTextControllers();
     generateValidationDataUpdateFunctionTorTextControllers();
@@ -93,14 +96,13 @@ class FormGeneratorUtil extends BaseGenerator {
     for (final field in fields.onlyDropdownFieldConfigs) {
       final caseName = ReCase(field.name);
       writeLine(
-        "const Map<String, String> ${caseName.pascalCase}ValueToTitleMap = {",
+        "final Map<String, String> ${caseName.pascalCase}ValueToTitleMap = {",
       );
       for (final item in field.items) {
         writeLine("'${item.value}': '${item.title}',");
       }
-      if (field.items.isNotEmpty) writeLine('};');
+      writeLine('};');
     }
-    // if (fields.isNotEmpty) writeLine('};');
     newLine();
   }
 
@@ -108,25 +110,14 @@ class FormGeneratorUtil extends BaseGenerator {
     if (fields.onlyTextFieldConfigs.isEmpty) return;
     newLine();
     writeLine(
-        "final Map<String, TextEditingController> _${viewName}TextEditingControllers = {");
-    for (var field in fields.onlyTextFieldConfigs) {
-      final caseName = ReCase(field.name);
-      writeLine(
-          "${_getFormKeyName(caseName)}: TextEditingController(${_getControllerInitialValue(field)}),");
-    }
-    writeLine("};");
+        "final Map<String, TextEditingController> _${viewName}TextEditingControllers = {};");
     newLine();
   }
 
   void generateFocusNodeItemsMap() {
     if (fields.onlyTextFieldConfigs.isEmpty) return;
     newLine();
-    writeLine("final Map<String, FocusNode> _${viewName}FocusNodes = {");
-    for (var field in fields.onlyTextFieldConfigs) {
-      final caseName = ReCase(field.name);
-      writeLine("${_getFormKeyName(caseName)}: FocusNode(),");
-    }
-    writeLine("};");
+    writeLine("final Map<String, FocusNode> _${viewName}FocusNodes = {};");
     newLine();
   }
 
@@ -147,8 +138,11 @@ class FormGeneratorUtil extends BaseGenerator {
     if (fields.onlyTextFieldConfigs.isEmpty) return;
     for (final field in fields.onlyTextFieldConfigs) {
       final caseName = ReCase(field.name);
+      final initialValue = hasFieldInitialValue(field)
+          ? ",initialValue: '${field.initialValue!}'"
+          : '';
       writeLine(
-          'TextEditingController get ${_getControllerName(field)} => _${viewName}TextEditingControllers[${_getFormKeyName(caseName)}]!;');
+          'TextEditingController get ${_getControllerName(field)} => _getFormTextEditingController(${_getFormKeyName(caseName)}$initialValue);');
     }
   }
 
@@ -157,8 +151,37 @@ class FormGeneratorUtil extends BaseGenerator {
     for (final field in fields.onlyTextFieldConfigs) {
       final caseName = ReCase(field.name);
       writeLine(
-          'FocusNode get ${field.name}FocusNode => _${viewName}FocusNodes[${_getFormKeyName(caseName)}]!;');
+          'FocusNode get ${_getFocusNodeName(field)} => _getFormFocusNode(${_getFormKeyName(caseName)});');
     }
+  }
+
+  void generateGetTextEditinController() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return;
+    newLine();
+    writeLine(''' 
+      TextEditingController _getFormTextEditingController(String key,
+        {String? initialValue}) {
+          if (_${viewName}TextEditingControllers.containsKey(key)) {
+        return _${viewName}TextEditingControllers[key]!;
+      }
+      _${viewName}TextEditingControllers[key] =
+          TextEditingController(text: initialValue);
+      return _${viewName}TextEditingControllers[key]!; }
+    ''');
+    newLine();
+  }
+
+  void generateGetFocuNode() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return;
+    writeLine(''' 
+      FocusNode _getFormFocusNode(String key) {
+        if (_${viewName}FocusNodes.containsKey(key)) {
+        return _${viewName}FocusNodes[key]!;}
+        _${viewName}FocusNodes[key] = FocusNode();
+      return _${viewName}FocusNodes[key]!;
+      }
+    ''');
+    newLine();
   }
 
   void generateListenerRegistrationsForTextFields() {
@@ -238,10 +261,17 @@ class FormGeneratorUtil extends BaseGenerator {
       void disposeForm() {
         // The dispose function for a TextEditingController sets all listeners to null
           ''');
-
-    for (final field in fields.onlyTextFieldConfigs) {
-      writeLine('${_getControllerName(field)}.dispose();');
-      writeLine('${_getFocusNodeName(field)}.dispose();');
+    if (fields.onlyTextFieldConfigs.isNotEmpty) {
+      writeLine('''
+      for (var controller in _${viewName}TextEditingControllers.values) {
+      controller.dispose();
+    }
+    for (var focusNode in _${viewName}FocusNodes.values) {
+      focusNode.dispose();
+    }
+    ''');
+      writeLine('_${viewName}TextEditingControllers.clear();');
+      writeLine('_${viewName}FocusNodes.clear();');
     }
 
     writeLine('}');
@@ -333,6 +363,10 @@ class FormGeneratorUtil extends BaseGenerator {
     writeLine('}');
   }
 
+  bool hasFieldInitialValue(TextFieldConfig field) {
+    return field.initialValue != null && field.initialValue!.isNotEmpty;
+  }
+
   String _getFormFieldValueType(FieldConfig field) {
     return field is TextFieldConfig || field is DropdownFieldConfig
         ? 'String'
@@ -341,7 +375,5 @@ class FormGeneratorUtil extends BaseGenerator {
 
   String _getFocusNodeName(FieldConfig field) => '${field.name}FocusNode';
   String _getControllerName(FieldConfig field) => '${field.name}Controller';
-  String _getControllerInitialValue(TextFieldConfig field) =>
-      field.initialValue != null ? "text:'${field.initialValue!}'" : "";
   String _getFormKeyName(ReCase caseName) => '${caseName.pascalCase}ValueKey';
 }

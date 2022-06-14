@@ -8,6 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 
 import '../ui/views/first_screen.dart';
 import '../ui/views/home_screen.dart';
@@ -65,6 +66,6 @@ class StackedRouter extends RouterBase {
 
 /// HomeScreen arguments holder class
 class HomeScreenArguments {
-  final Key key;
+  final Key? key;
   HomeScreenArguments({this.key});
 }

@@ -1,7 +1,8 @@
-import '../../app/app.locator.dart';
-import 'package:example/enums/bottomsheet_type.dart';
-import 'package:stacked_services/stacked_services.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:stacked_services_example/enums/bottomsheet_type.dart';
+
+import '../../app/app.locator.dart';
 
 void setupBottomSheetUi() {
   final bottomSheetService = locator<BottomSheetService>();
@@ -30,9 +31,9 @@ class _FloatingBoxBottomSheet extends StatelessWidget {
   final SheetRequest request;
   final Function(SheetResponse) completer;
   const _FloatingBoxBottomSheet({
-    Key key,
-    this.request,
-    this.completer,
+    Key? key,
+    required this.request,
+    required this.completer,
   }) : super(key: key);
 
   @override
@@ -48,7 +49,7 @@ class _FloatingBoxBottomSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            request.title,
+            request.title ?? '',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -57,7 +58,7 @@ class _FloatingBoxBottomSheet extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Text(
-            request.description,
+            request.description ?? '',
             style: TextStyle(color: Colors.grey),
           ),
           Row(
@@ -67,14 +68,14 @@ class _FloatingBoxBottomSheet extends StatelessWidget {
               MaterialButton(
                 onPressed: () => completer(SheetResponse(confirmed: true)),
                 child: Text(
-                  request.secondaryButtonTitle,
+                  request.secondaryButtonTitle ?? '',
                   style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
               ),
               TextButton(
                 onPressed: () => completer(SheetResponse(confirmed: true)),
                 child: Text(
-                  request.mainButtonTitle,
+                  request.mainButtonTitle ?? '',
                   style: TextStyle(color: Colors.white),
                 ),
                 style: ButtonStyle(
@@ -112,9 +113,9 @@ class GenericBottomSheet extends StatelessWidget {
   final Function(SheetResponse<GenericBottomSheetResponse>) completer;
 
   const GenericBottomSheet({
-    Key key,
-    this.request,
-    this.completer,
+    Key? key,
+    required this.request,
+    required this.completer,
   }) : super(key: key);
 
   @override
@@ -139,7 +140,7 @@ class GenericBottomSheet extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Text(
-            request.description,
+            request.description ?? '',
             style: TextStyle(color: Colors.grey),
           ),
           Row(
@@ -152,7 +153,7 @@ class GenericBottomSheet extends StatelessWidget {
                   data: GenericBottomSheetResponse(message: 'SecondaryButton'),
                 )),
                 child: Text(
-                  request.secondaryButtonTitle,
+                  request.secondaryButtonTitle ?? '',
                   style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
               ),
@@ -162,7 +163,7 @@ class GenericBottomSheet extends StatelessWidget {
                   data: GenericBottomSheetResponse(message: 'MainButton'),
                 )),
                 child: Text(
-                  request.mainButtonTitle,
+                  request.mainButtonTitle ?? '',
                   style: TextStyle(color: Colors.white),
                 ),
                 style: ButtonStyle(

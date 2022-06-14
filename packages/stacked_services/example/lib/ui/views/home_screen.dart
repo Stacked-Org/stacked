@@ -1,14 +1,15 @@
+import 'package:stacked_services_example/ui/views/bottom_sheet_view.dart';
+import 'package:stacked_services_example/ui/views/dialog_view.dart';
+import 'package:stacked_services_example/ui/views/snackbar_view.dart';
+
 import '../../app/app.locator.dart';
-import 'package:example/ui/views/bottom_sheet_view.dart';
-import 'package:example/ui/views/dialog_view.dart';
-import 'package:example/ui/views/snackbar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../app/app.router.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'route_data.dart';
-import 'route_guard.dart';
 import 'router_base.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -23,8 +22,6 @@ extension BuildContextX on BuildContext {
       ExtendedNavigator.of(this, rootRouter: true, nullOk: true);
 }
 
-typedef OnNavigationRejected = void Function(RouteGuard? guard);
-
 class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
   static TransitionBuilder builder<T extends RouterBase>({
     GlobalKey<NavigatorState>? navigatorKey,
@@ -33,7 +30,6 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
     String? initialRoute,
     Object? initialRouteArgs,
     required T router,
-    List<RouteGuard> guards = const [],
     String? name,
     TransitionBuilder? builder,
   }) =>
@@ -46,7 +42,6 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
           initialRoute: initialRoute,
           initialRouteArgs: initialRouteArgs,
           router: router,
-          guards: guards,
           name: name,
         );
         if (builder != null) {
@@ -57,7 +52,6 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
 
   ExtendedNavigator({
     this.router,
-    this.guards = const [],
     this.name,
     this.initialRoute,
     this.onUnknownRoute,
@@ -73,7 +67,6 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
   final String? initialRoute;
   final Object? initialRouteArgs;
   final T? router;
-  final List<RouteGuard> guards;
   final String? name;
 
   @override
@@ -101,12 +94,7 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
       var rootRoute =
           navigator.widget.onGenerateRoute!(RouteSettings(name: root));
       if (rootRoute != null) {
-        if ((rootRoute.settings as RouteData).routeMatch.hasGuards) {
-          initialRoutes.add(_placeHolderRoute);
-          router._guardedInitialRoutes.add(rootRoute);
-        } else {
-          initialRoutes.add(rootRoute);
-        }
+        initialRoutes.add(rootRoute);
       }
     }
 
@@ -115,9 +103,7 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
     var route = navigator.widget.onGenerateRoute!(settings);
 
     if (route != null) {
-      var data = route.settings as RouteData;
-      if (router._guardedInitialRoutes.isNotEmpty ||
-          data.routeMatch.hasGuards) {
+      if (router._guardedInitialRoutes.isNotEmpty) {
         router._guardedInitialRoutes.add(route);
         if (initialRoutes.isEmpty) {
           initialRoutes.add(_placeHolderRoute);
@@ -139,7 +125,6 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
   ExtendedNavigator<T> call(_, navigator) => this;
 
   static ExtendedNavigatorState? named(String name) {
-    assert(name != null);
     return _NavigatorsContainer._instance.get(name);
   }
 
@@ -169,7 +154,6 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
 
 class ExtendedNavigatorState<T extends RouterBase?>
     extends State<ExtendedNavigator<T>> with WidgetsBindingObserver {
-  final _registeredGuards = <Type, RouteGuard>{};
   T? router;
   List<Route> _guardedInitialRoutes = [];
 
@@ -207,15 +191,12 @@ class ExtendedNavigatorState<T extends RouterBase?>
   Future<void> _pushAllGuarded(Iterable<Route> routes) async {
     for (var route in routes) {
       var data = (route.settings as RouteData);
-      if (await _canNavigate(data.template)) {
-        if (data.template == Navigator.defaultRouteName) {
-          _navigator!
-              .pushAndRemoveUntil(route, RouteData.withPath(data.template));
-        } else {
-          _navigator!.push(route);
-        }
+
+      if (data.template == Navigator.defaultRouteName) {
+        _navigator!
+            .pushAndRemoveUntil(route, RouteData.withPath(data.template));
       } else {
-        break;
+        _navigator!.push(route);
       }
     }
   }
@@ -292,11 +273,7 @@ class ExtendedNavigatorState<T extends RouterBase?>
     _parent = context.findAncestorStateOfType<ExtendedNavigatorState>();
     if (_parent != null) {
       _parent!.children.add(this);
-      if (_parent!._registeredGuards != null) {
-        _registeredGuards.addAll(_parent!._registeredGuards);
-      }
     }
-    widget.guards.forEach(_registerGuard);
 
     if (routerName != null) {
       _NavigatorsContainer._instance.register(this, name: routerName);
@@ -309,23 +286,14 @@ class ExtendedNavigatorState<T extends RouterBase?>
     }
   }
 
-  void _registerGuard(RouteGuard guard) {
-    _registeredGuards[guard.runtimeType] = guard;
-  }
-
   @optionalTypeArgs
-  Future<T?>? push<T extends Object>(String routeName,
-      {Object? arguments,
-      Map<String, String>? queryParams,
-      OnNavigationRejected? onReject}) async {
-    return await _canNavigate(
-      routeName,
-      arguments: arguments,
-      onReject: onReject,
-    )
-        ? _navigator!.pushNamed<T>(_buildPath(routeName, queryParams),
-            arguments: arguments)
-        : null;
+  Future<T?>? push<T extends Object>(
+    String routeName, {
+    Object? arguments,
+    Map<String, String>? queryParams,
+  }) async {
+    return _navigator!
+        .pushNamed<T>(_buildPath(routeName, queryParams), arguments: arguments);
   }
 
   String _buildPath(String routeName, Map<String, String>? queryParams) {
@@ -344,15 +312,11 @@ class ExtendedNavigatorState<T extends RouterBase?>
     TO? result,
     Object? arguments,
     Map<String, String>? queryParams,
-    OnNavigationRejected? onReject,
   }) async {
-    return await _canNavigate(routeName,
-            arguments: arguments, onReject: onReject)
-        ? _navigator!.pushReplacementNamed<T, TO>(
-            _buildPath(routeName, queryParams),
-            arguments: arguments,
-            result: result)
-        : null;
+    return _navigator!.pushReplacementNamed<T, TO>(
+        _buildPath(routeName, queryParams),
+        arguments: arguments,
+        result: result);
   }
 
   @optionalTypeArgs
@@ -361,16 +325,12 @@ class ExtendedNavigatorState<T extends RouterBase?>
     RoutePredicate predicate, {
     Object? arguments,
     Map<String, String>? queryParams,
-    OnNavigationRejected? onReject,
   }) async {
-    return await _canNavigate(newRouteName,
-            arguments: arguments, onReject: onReject)
-        ? _navigator!.pushNamedAndRemoveUntil<T>(
-            _buildPath(newRouteName, queryParams),
-            predicate,
-            arguments: arguments,
-          )
-        : null;
+    return _navigator!.pushNamedAndRemoveUntil<T>(
+      _buildPath(newRouteName, queryParams),
+      predicate,
+      arguments: arguments,
+    );
   }
 
   @optionalTypeArgs
@@ -379,14 +339,12 @@ class ExtendedNavigatorState<T extends RouterBase?>
     String anchorPath, {
     Object? arguments,
     Map<String, String>? queryParams,
-    OnNavigationRejected? onReject,
   }) {
     return pushAndRemoveUntil(
       newRouteName,
       RouteData.withPath(anchorPath),
       arguments: arguments,
       queryParams: queryParams,
-      onReject: onReject,
     );
   }
 
@@ -396,11 +354,13 @@ class ExtendedNavigatorState<T extends RouterBase?>
     TO? result,
     Object? arguments,
     Map<String, String>? queryParams,
-    OnNavigationRejected? onReject,
   }) {
     pop<TO>(result);
-    return push<T>(routeName,
-        arguments: arguments, queryParams: queryParams, onReject: onReject);
+    return push<T>(
+      routeName,
+      arguments: arguments,
+      queryParams: queryParams,
+    );
   }
 
   void popUntilPath(String path) {
@@ -426,35 +386,6 @@ class ExtendedNavigatorState<T extends RouterBase?>
 
   bool canPop() {
     return _navigator!.canPop();
-  }
-
-  Future<bool> canNavigate(String routeName) => _canNavigate(routeName);
-
-  Future<bool> _canNavigate(String routeName,
-      {Object? arguments, OnNavigationRejected? onReject}) async {
-    var match = router!.findMatch(RouteSettings(name: routeName));
-    if (match == null || !match.hasGuards) {
-      return true;
-    }
-
-    for (Type guardType in match.routeDef.guards!) {
-      if (!await _getGuard(guardType)!
-          .canNavigate(this, routeName, arguments)) {
-        if (onReject != null) {
-          onReject(_getGuard(guardType));
-        }
-        return false;
-      }
-    }
-    return true;
-  }
-
-  RouteGuard? _getGuard(Type guardType) {
-    if (_registeredGuards[guardType] == null) {
-      throw ('$guardType is not registered!'
-          '\nYou have to add your guards to ExtendedNavigator widget');
-    }
-    return _registeredGuards[guardType];
   }
 
   @override

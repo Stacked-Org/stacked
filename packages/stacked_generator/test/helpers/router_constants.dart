@@ -1,8 +1,9 @@
 const kRouterWithNamePathNameClassName = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -36,11 +37,37 @@ Future pushLoginView()
  => push(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
+
 const kRouterWithEmptyRoutes = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const all = <String>{
@@ -67,10 +94,11 @@ extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 }
 ''';
 const kRouterWithThreeNamePathNameClassName = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView1 = 'pathNamaw1';
@@ -122,13 +150,72 @@ Future pushLoginView3()
  => push(RoutesTestClassName.loginView3);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass1( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView1, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToTestClass2( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView2, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToTestClass3( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView3, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 
 const kRouterWithNamePathNameClassNameFullScreenDialogIsTrue = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -162,13 +249,38 @@ Future pushLoginView()
  => push(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 
 const kRouterWithOneGuard = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import 'guard/import.dart';
 class RoutesTestClassName {
@@ -204,12 +316,37 @@ Future pushLoginView()
  => push(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterWithTwoGuards = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import 'guard/import.dart';
 import 'guard/import2.dart';
@@ -246,12 +383,37 @@ Future pushLoginView()
  => push(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterWithHasConstConstructorIsTrue = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -285,12 +447,37 @@ Future pushLoginView()
  => push(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterWithHasWrapperIsTrue = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -324,12 +511,37 @@ Future pushLoginView()
  => push(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterWithImports = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import 'import one';
 import 'import two';
@@ -365,12 +577,37 @@ Future pushLoginView()
  => push(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterWithMaintainStateIsFalse = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -404,13 +641,38 @@ Future pushLoginView()
  => push(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 
 const kRouterWithParameterPathFalseQueryFalse = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -456,13 +718,44 @@ final null null;
 TestClassArguments({
 this.null});
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+null null
+,      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+arguments: TestClassArguments(
+      null: null
+    ),
+     
+      
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 
 const kRouterWithParameterPathTrueQueryFalse = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -496,12 +789,37 @@ Future pushLoginView({null null,})
  => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterWithParameterPathFalseQueryTrue = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -535,13 +853,38 @@ Future pushLoginView({null null,})
  => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 
 const kRouterWithParameterPathFalseQueryTrueAlias = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -575,12 +918,37 @@ Future pushLoginView({null null,})
  => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterWithParameterPathFalseQueryTrueDefaultCode2 = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -614,12 +982,37 @@ Future pushLoginView({null null = 2,})
  => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterWithParameterPathFalseQueryTrueImports = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import 'parameter/import1';
 import 'parameter/import2';
@@ -655,12 +1048,37 @@ Future pushLoginView({null null,})
  => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterWithParameterPathFalseQueryTrueIsPositionalTrue = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -694,12 +1112,37 @@ Future pushLoginView({@required null null,})
  => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterWithParameterPathFalseQueryTrueIsRequiredTrue = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -733,12 +1176,37 @@ Future pushLoginView({@required null null,})
  => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterWithParameterPathFalseQueryTrueIsRequiredTrueName = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -772,13 +1240,38 @@ Future pushLoginView({null ebra,})
  => push(RoutesTestClassName.loginView,arguments: TestClassArguments(ebra: ebra),);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 
 const kRouterWithParameterPathFalseQueryFalseType = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -824,12 +1317,43 @@ final newType null;
 TestClassArguments({
 this.null});
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+newType null
+,      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+arguments: TestClassArguments(
+      null: null
+    ),
+     
+      
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterWithRetrunType = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -863,12 +1387,37 @@ Future<returnYpe> pushLoginView()
  => push<returnYpe>(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<returnYpe?>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterWithRetrunTypeCupertinoRoute = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -902,12 +1451,37 @@ Future<<CupertinoRoute>> pushLoginView()
  => push<<CupertinoRoute>>(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<CupertinoRoute?>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterWithNestedRouter = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView1 = 'pathNamaw1';
@@ -974,13 +1548,55 @@ Future pushNestedView1()
  => push(LoginView1Routes.nestedView1);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<returnYpe1?>
+        navigateToTestClass1( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView1, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToNestednestedClass1( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(LoginView1Routes.nestedView1, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 
 const kRouterWithMultipleNestedRouter = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView1 = 'pathNamaw1';
@@ -1080,13 +1696,72 @@ Future pushMultiNestedmultiNestedView1()
  => push(NestedView1Routes.multiNestedmultiNestedView1);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<returnYpe1?>
+        navigateToTestClass1( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView1, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToNestednestedClass1( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(LoginView1Routes.nestedView1, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToNestedmultiNestedmultiNestedClass1( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(NestedView1Routes.multiNestedmultiNestedView1, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterWithThreeNestedRouter = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView2 = 'pathNamaw2';
@@ -1153,7 +1828,10 @@ return MaterialPageRoute<dynamic>(builder: (context) =>   firstClass(), settings
 },secondClass: (data) {
 return CupertinoPageRoute<dynamic>(builder: (context) =>   secondClass(), settings: data,);
 },thirdClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   thirdClass(), settings: data,);
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   thirdClass(), settings: data,transitionsBuilder: data.transition??
+              (context, animation, secondaryAnimation, child) {
+            return child;
+          });
 },};}
 
 /// ************************************************************************
@@ -1171,13 +1849,89 @@ Future pushThirdView()
  => push(LoginView2Routes.thirdView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<returnYpe2?>
+        navigateToTestClass2( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView2, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToNestedfirstClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(LoginView2Routes.firstView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToNestedsecondClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(LoginView2Routes.secondView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToNestedthirdClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(LoginView2Routes.thirdView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterWithSixNestedRouter = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView3 = 'pathNamaw3';
@@ -1304,7 +2058,10 @@ return MaterialPageRoute<dynamic>(builder: (context) =>   fourthClass(), setting
 },fifthClass: (data) {
 return CupertinoPageRoute<dynamic>(builder: (context) =>   fifthClass(), settings: data,);
 },sixthClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   sixthClass(), settings: data,);
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   sixthClass(), settings: data,transitionsBuilder: data.transition??
+              (context, animation, secondaryAnimation, child) {
+            return child;
+          });
 },};}
 
 /// ************************************************************************
@@ -1322,13 +2079,158 @@ Future pushSixthView()
  => push(LoginView4Routes.sixthView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<returnYpe3?>
+        navigateToTestClass3( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView3, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToNestedfirstClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(LoginView3Routes.firstView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToNestedsecondClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(LoginView3Routes.secondView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToNestedthirdClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(LoginView3Routes.thirdView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<returnYpe4?>
+        navigateToTestClass4( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView4, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToNestedfourthClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(LoginView4Routes.fourthView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToNestedfifthClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(LoginView4Routes.fifthView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToNestedsixthClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(LoginView4Routes.sixthView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 
 const kRouterTypeCupertinoWithNamePathNameClassName = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -1362,13 +2264,39 @@ Future pushLoginView()
  => push(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 
 const kRouterTypeCupertinoWithCupertinoNavTitle = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -1402,12 +2330,38 @@ Future pushLoginView()
  => push(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterTypeCupertinoWithParametersPathFalseQueryFalse = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -1453,11 +2407,43 @@ final null null;
 TestClassArguments({
 this.null});
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+null null
+,      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+arguments: TestClassArguments(
+      null: null
+    ),
+     
+      
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterTypeAdaptive = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -1491,11 +2477,37 @@ Future pushLoginView()
  => push(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterTypeAdaptiveWithCupertinoNavTitle = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -1529,11 +2541,37 @@ Future pushLoginView()
  => push(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterTypeAdaptiveWithParametersPathFalseQueryFalse = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -1579,12 +2617,43 @@ final null null;
 TestClassArguments({
 this.null});
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+null null
+,      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+arguments: TestClassArguments(
+      null: null
+    ),
+     
+      
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterTypeCustom = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -1606,7 +2675,10 @@ RouteDef(RoutesTestClassName.loginView
         
 
 TestClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,);
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,transitionsBuilder: data.transition??
+              (context, animation, secondaryAnimation, child) {
+            return child;
+          });
 },};}
 
 /// ************************************************************************
@@ -1618,12 +2690,37 @@ Future pushLoginView()
  => push(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterTypeCustomWithbarrierDismissible = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -1645,7 +2742,10 @@ RouteDef(RoutesTestClassName.loginView
         
 
 TestClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,);
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,transitionsBuilder: data.transition??
+              (context, animation, secondaryAnimation, child) {
+            return child;
+          });
 },};}
 
 /// ************************************************************************
@@ -1655,15 +2755,40 @@ return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnim
 extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
  => push(RoutesTestClassName.loginView);
+
+}
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
 
 }
 ''';
 
 const kRouterTypeCustomWithTransitionDuration = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -1685,7 +2810,10 @@ RouteDef(RoutesTestClassName.loginView
         
 
 TestClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,transitionDuration: const Duration(milliseconds: 22),);
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,transitionsBuilder: data.transition??
+              (context, animation, secondaryAnimation, child) {
+            return child;
+          }transitionDuration: const Duration(milliseconds: 22),);
 },};}
 
 /// ************************************************************************
@@ -1697,12 +2825,37 @@ Future pushLoginView()
  => push(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterTypeCustomWithReverseDurationInMilliseconds = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -1724,7 +2877,10 @@ RouteDef(RoutesTestClassName.loginView
         
 
 TestClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,reverseTransitionDuration: const Duration(milliseconds: 2),);
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,transitionsBuilder: data.transition??
+              (context, animation, secondaryAnimation, child) {
+            return child;
+          }reverseTransitionDuration: const Duration(milliseconds: 2),);
 },};}
 
 /// ************************************************************************
@@ -1734,15 +2890,40 @@ return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnim
 extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
 Future pushLoginView()
  => push(RoutesTestClassName.loginView);
+
+}
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
 
 }
 ''';
 
 const kRouterTypeCustomWithCustomRouteOpaqueFalse = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -1764,7 +2945,10 @@ RouteDef(RoutesTestClassName.loginView
         
 
 TestClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,opaque:false,);
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,opaque:false,transitionsBuilder: data.transition??
+              (context, animation, secondaryAnimation, child) {
+            return child;
+          });
 },};}
 
 /// ************************************************************************
@@ -1776,13 +2960,38 @@ Future pushLoginView()
  => push(RoutesTestClassName.loginView);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 
 const kRouterTypeCustomWithParametersPathFalseQueryFalse = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -1805,7 +3014,10 @@ RouteDef(RoutesTestClassName.loginView
 
 TestClass: (data) {
 var args = data.getArgs<TestClassArguments>(
-orElse: ()=> TestClassArguments(),);return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(null:args.null), settings: data,);
+orElse: ()=> TestClassArguments(),);return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(null:args.null), settings: data,transitionsBuilder: data.transition??
+              (context, animation, secondaryAnimation, child) {
+            return child;
+          });
 },};}
 
 /// ************************************************************************
@@ -1828,12 +3040,43 @@ final null null;
 TestClassArguments({
 this.null});
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+null null
+,      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+arguments: TestClassArguments(
+      null: null
+    ),
+     
+      
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterTypeCustomWithParametersPathFalseQueryTrue = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView = 'pathNamaw';
@@ -1855,7 +3098,10 @@ RouteDef(RoutesTestClassName.loginView
         
 
 TestClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(null:data.queryParams['null'].value()), settings: data,);
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(null:data.queryParams['null'].value()), settings: data,transitionsBuilder: data.transition??
+              (context, animation, secondaryAnimation, child) {
+            return child;
+          });
 },};}
 
 /// ************************************************************************
@@ -1867,13 +3113,38 @@ Future pushLoginView({null null,})
  => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
 
 }
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+}
 ''';
 const kRouterMixin = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RoutesTestClassName {
 static const String loginView1 = 'pathNamaw1';
@@ -1915,7 +3186,10 @@ RouteDef(RoutesTestClassName.loginView6
         
 
 TestClass1: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass1(), settings: data,transitionDuration: const Duration(milliseconds: 22),reverseTransitionDuration: const Duration(milliseconds: 2),);
+return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass1(), settings: data,transitionsBuilder: data.transition??
+              (context, animation, secondaryAnimation, child) {
+            return child;
+          }transitionDuration: const Duration(milliseconds: 22),reverseTransitionDuration: const Duration(milliseconds: 2),);
 },TestClass2: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass2(null:data.queryParams['null'].value()), settings: data,);
 },TestClass3: (data) {
@@ -1963,5 +3237,120 @@ class TestClass3Arguments{
 final null null;
 TestClass3Arguments({
 this.null});
+}
+
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+
+Future<dynamic>
+        navigateToTestClass1( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView1, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToTestClass2( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView2, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToTestClass3( {
+null null
+,      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView3, 
+arguments: TestClass3Arguments(
+      null: null
+    ),
+     
+      
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToTestClass4( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView4, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToTestClass5( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView5, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
+
+Future<dynamic>
+        navigateToTestClass6( {
+      int? routerId,
+  bool preventDuplicates = true,
+  Map<String, String>? parameters,
+  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
+      
+}
+) async { return navigateTo(Routes.loginView6, 
+        id:routerId,
+  preventDuplicates: preventDuplicates,
+  parameters: parameters,
+  transition: transition,
+        
+); }
+
 }
 ''';

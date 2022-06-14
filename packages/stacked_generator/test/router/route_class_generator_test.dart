@@ -27,6 +27,12 @@ void main() {
       );
     }
 
+    /// How to copy a test result(Snapshot):
+    /// 1. Pass true to verbose argument
+    /// 2. Run the test
+    /// 3. Open the debug console in your IDE and copy the result
+    ///
+    /// Note: It usually adds an extra line in the bottom of the result
     void generateRouteAndExpectResult(
         List<RouteConfig> routes, dynamic expectedResult,
         {bool verbose = false}) {
@@ -35,8 +41,9 @@ void main() {
           routerClassName: 'RouterTestClassName',
           generateNavigationHelper: true,
           routes: routes));
-      if (verbose) print(routerBaseGenerator.generate());
-      expect(routerBaseGenerator.generate(), expectedResult);
+      final result = routerBaseGenerator.generate();
+      if (verbose) print(result);
+      expect(result, expectedResult);
     }
 
     group('RouteType.material - default -', () {
@@ -464,6 +471,7 @@ void main() {
                 name: 'nestedView1',
                 pathName: 'nestedPath1',
                 className: 'nestedClass1',
+                isChild: true,
               )
             ],
           )
@@ -486,11 +494,13 @@ void main() {
                     name: 'nestedView1',
                     pathName: 'nestedPath1',
                     className: 'nestedClass1',
+                    isChild: true,
                     children: [
                       MaterialRouteConfig(
                         name: 'multiNestedmultiNestedView1',
                         pathName: 'multiNestedmultiNestedPath1',
                         className: 'multiNestedmultiNestedClass1',
+                        isChild: true,
                       )
                     ])
               ])
@@ -513,16 +523,19 @@ void main() {
                   name: 'firstView',
                   pathName: 'firstPath',
                   className: 'firstClass',
+                  isChild: true,
                 ),
                 CupertinoRouteConfig(
                   name: 'secondView',
                   pathName: 'secondPath',
                   className: 'secondClass',
+                  isChild: true,
                 ),
                 CustomRouteConfig(
                   name: 'thirdView',
                   pathName: 'thirdPath',
                   className: 'thirdClass',
+                  isChild: true,
                 ),
               ])
         ];
@@ -544,16 +557,19 @@ void main() {
                   name: 'firstView',
                   pathName: 'firstPath',
                   className: 'firstClass',
+                  isChild: true,
                 ),
                 CupertinoRouteConfig(
                   name: 'secondView',
                   pathName: 'secondPath',
                   className: 'secondClass',
+                  isChild: true,
                 ),
                 AdaptiveRouteConfig(
                   name: 'thirdView',
                   pathName: 'thirdPath',
                   className: 'thirdClass',
+                  isChild: true,
                 ),
               ]),
           AdaptiveRouteConfig(
@@ -566,16 +582,19 @@ void main() {
                   name: 'fourthView',
                   pathName: 'fourthPath',
                   className: 'fourthClass',
+                  isChild: true,
                 ),
                 CupertinoRouteConfig(
                   name: 'fifthView',
                   pathName: 'fifthPath',
                   className: 'fifthClass',
+                  isChild: true,
                 ),
                 CustomRouteConfig(
                   name: 'sixthView',
                   pathName: 'sixthPath',
                   className: 'sixthClass',
+                  isChild: true,
                 ),
               ]),
         ];

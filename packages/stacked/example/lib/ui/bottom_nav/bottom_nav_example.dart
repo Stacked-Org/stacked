@@ -1,63 +1,49 @@
+import 'package:example/app/app.router.dart';
 import 'package:flutter/material.dart';
-import 'package:new_architecture/ui/bottom_nav/profile/profile_view.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import 'bottom_nav_example_viewmodel.dart';
-import 'favorites/favorites_view.dart';
-import 'history/history_view.dart';
 
 class BottomNavExample extends StatefulWidget {
   const BottomNavExample({Key? key}) : super(key: key);
 
   @override
-  _BottomNavExampleState createState() => _BottomNavExampleState();
+  BottomNavExampleState createState() => BottomNavExampleState();
 }
 
-class _BottomNavExampleState extends State<BottomNavExample> {
-  final Map<int, Widget> _viewCache = Map<int, Widget>();
-
+class BottomNavExampleState extends State<BottomNavExample> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BottomNavExampleViewModel>.reactive(
       builder: (context, viewModel, child) => Scaffold(
-        body: getViewForIndex(viewModel.currentTabIndex),
+        body: ExtendedNavigator(
+          navigatorKey: StackedService.nestedNavigationKey(1),
+          initialRoute: BottomNavExampleRoutes.favoritesView,
+          router: BottomNavExampleRouter(),
+        ),
         bottomNavigationBar: BottomNavigationBar(
           elevation: 6,
           backgroundColor: Colors.white,
-          currentIndex: viewModel.currentTabIndex,
-          onTap: viewModel.setTabIndex,
-          items: [
+          currentIndex: viewModel.currentIndex,
+          onTap: viewModel.handleNavigation,
+          items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.ac_unit),
+              icon: Icon(Icons.favorite),
+              label: 'Favorites',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.access_alarm),
+              icon: Icon(Icons.history),
+              label: 'History',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.access_alarms),
+              icon: Icon(Icons.person),
+              label: 'Profile',
             ),
           ],
         ),
       ),
       viewModelBuilder: () => BottomNavExampleViewModel(),
     );
-  }
-
-  Widget getViewForIndex(int index) {
-    if (!_viewCache.containsKey(index)) {
-      switch (index) {
-        case 0:
-          _viewCache[index] = FavoritesView();
-          break;
-        case 1:
-          _viewCache[index] = HistoryView();
-          break;
-        case 2:
-          _viewCache[index] = ProfileView();
-          break;
-      }
-    }
-
-    return _viewCache[index]!;
   }
 }
