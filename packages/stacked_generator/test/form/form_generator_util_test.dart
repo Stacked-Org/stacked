@@ -89,5 +89,25 @@ void main() {
             ksTextEditingControllerGettersForTextFields);
       });
     });
+    group('generateCustomTextEditingController -', () {
+      test(
+          'When provide a customTextEditingController, Should replace the default one',
+          () {
+        FormGeneratorUtil util = FormGeneratorUtil(
+          formViewConfig: FormViewConfig(
+            viewName: 'Test',
+            fields: [
+              TextFieldConfig(
+                name: 'firstName',
+              ),
+              TextFieldConfig(name: 'lastName'),
+            ],
+          ),
+        );
+        util.generateTextEditingControllersForTextFields();
+        expect(util.serializeStringBuffer,
+            ksTextEditingControllerGettersForTextFields);
+      });
+    });
   });
 }
