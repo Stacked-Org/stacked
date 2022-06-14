@@ -5,7 +5,6 @@ import 'package:stacked_generator/src/generators/router/route_config/adaptive_ro
 import 'package:stacked_generator/src/generators/router/route_config/cupertino_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/custom_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/material_route_config.dart';
-import 'package:stacked_generator/src/generators/router/route_config/route_config.dart';
 import 'package:stacked_generator/src/generators/router/router_config/router_config.dart';
 import 'package:test/test.dart';
 
