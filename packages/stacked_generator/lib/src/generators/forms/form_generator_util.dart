@@ -116,6 +116,13 @@ class FormGeneratorUtil with StringBufferUtils {
   FormGeneratorUtil generateTextEditingControllersForTextFields() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     for (final field in fields.onlyTextFieldConfigs) {
+      /// if the field needs a custom TextEditingController not a regular one
+      if (field.customTextEditingController != null) {
+        final caseName = ReCase(field.name);
+        writeLine(
+            '${field.customTextEditingController!.returnType} get ${_getControllerName(field)} => _getCustomFormTextEditingController(${_getFormKeyName(caseName)});');
+        continue;
+      }
       final caseName = ReCase(field.name);
       final initialValue = hasFieldInitialValue(field)
           ? ",initialValue: '${field.initialValue!}'"
