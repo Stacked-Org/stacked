@@ -1,3 +1,6 @@
+## 0.7.7
+- Add [customTextEditingController] to [FormTextField]
+- Fixes [#384](https://github.com/FilledStacks/stacked/issues/384)
 ## 0.7.6
 - Fixes [#664](https://github.com/FilledStacks/stacked/issues/664)
 - Fixes [#591](https://github.com/FilledStacks/stacked/issues/591)
