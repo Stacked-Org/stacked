@@ -10,15 +10,15 @@ import 'example_form_viewmodel.dart';
 // #1: Add the annotation
 @FormView(fields: [
   FormTextField(
-      name: 'email',
-      initialValue: "Lorem",
-      validator: FormValidators.emailValidator,
+    name: 'email',
+    initialValue: "Lorem",
+    validator: FormValidators.emailValidator,
+  ),
+  FormTextField(
+      name: 'password',
+      validator: FormValidators.passwordValidator,
       customTextEditingController:
           CustomEditingController.getCustomEditingController),
-  FormTextField(
-    name: 'password',
-    validator: FormValidators.passwordValidator,
-  ),
   FormTextField(name: 'shortBio'),
   FormDateField(name: 'birthDate'),
   FormDropdownField(

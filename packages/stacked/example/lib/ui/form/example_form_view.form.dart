@@ -35,10 +35,10 @@ final Map<String, String? Function(String?)?> _ExampleFormViewTextValidations =
 };
 
 mixin $ExampleFormView on StatelessWidget {
-  CustomEditingController get emailController =>
-      _getCustomFormTextEditingController(EmailValueKey);
-  TextEditingController get passwordController =>
-      _getFormTextEditingController(PasswordValueKey);
+  TextEditingController get emailController =>
+      _getFormTextEditingController(EmailValueKey, initialValue: 'Lorem');
+  CustomEditingController get passwordController =>
+      _getCustomFormTextEditingController(PasswordValueKey);
   TextEditingController get shortBioController =>
       _getFormTextEditingController(ShortBioValueKey);
 
