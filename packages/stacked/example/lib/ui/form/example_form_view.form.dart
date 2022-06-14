@@ -6,6 +6,7 @@
 
 // ignore_for_file: public_member_api_docs,  constant_identifier_names, non_constant_identifier_names,unnecessary_this
 
+import 'package:example/ui/form/custom_text_field.dart';
 import 'package:example/ui/form/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -34,12 +35,26 @@ final Map<String, String? Function(String?)?> _ExampleFormViewTextValidations =
 };
 
 mixin $ExampleFormView on StatelessWidget {
-  TextEditingController get emailController =>
-      _getFormTextEditingController(EmailValueKey, initialValue: 'Lorem');
+  CustomEditingController get emailController =>
+      _getCustomFormTextEditingController(EmailValueKey);
   TextEditingController get passwordController =>
       _getFormTextEditingController(PasswordValueKey);
   TextEditingController get shortBioController =>
       _getFormTextEditingController(ShortBioValueKey);
+
+  CustomEditingController _getCustomFormTextEditingController(
+    String key,
+  ) {
+    if (_ExampleFormViewTextEditingControllers.containsKey(key)) {
+      return _ExampleFormViewTextEditingControllers[key]!
+          as CustomEditingController;
+    }
+    _ExampleFormViewTextEditingControllers[key] =
+        CustomEditingController.getCustomEditingController();
+    return _ExampleFormViewTextEditingControllers[key]!
+        as CustomEditingController;
+  }
+
   FocusNode get emailFocusNode => _getFormFocusNode(EmailValueKey);
   FocusNode get passwordFocusNode => _getFormFocusNode(PasswordValueKey);
   FocusNode get shortBioFocusNode => _getFormFocusNode(ShortBioValueKey);
