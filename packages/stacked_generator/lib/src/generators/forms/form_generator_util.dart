@@ -222,7 +222,8 @@ class FormBuilder with StringBufferUtils {
 
   FormBuilder addManualValidation() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
-    writeLine("final bool autoTextFieldValidation = $autoTextFieldValidation;");
+    writeLine(
+        "final bool _autoTextFieldValidation = $autoTextFieldValidation;");
     writeLine("""
     bool validateFormFields(FormViewModel model) {
       _updateFormData(model, forceValidate: true);
@@ -250,7 +251,7 @@ class FormBuilder with StringBufferUtils {
     writeLine('''
               }),
           );
-    if (autoTextFieldValidation || forceValidate) {
+    if (_autoTextFieldValidation || forceValidate) {
           _updateValidationData(model);}}
               ''');
     return this;

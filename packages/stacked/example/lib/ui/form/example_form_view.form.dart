@@ -85,7 +85,7 @@ mixin $ExampleFormView on StatelessWidget {
     shortBioController.addListener(() => _updateFormData(model));
   }
 
-  final bool autoTextFieldValidation = false;
+  final bool _autoTextFieldValidation = false;
   bool validateFormFields(FormViewModel model) {
     _updateFormData(model, forceValidate: true);
     return model.isFormValid;
@@ -101,7 +101,7 @@ mixin $ExampleFormView on StatelessWidget {
           ShortBioValueKey: shortBioController.text,
         }),
     );
-    if (autoTextFieldValidation || forceValidate) {
+    if (_autoTextFieldValidation || forceValidate) {
       _updateValidationData(model);
     }
   }

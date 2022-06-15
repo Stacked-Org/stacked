@@ -2,6 +2,8 @@
 class FormView {
   /// The list of form fields to generate
   final List<FormField>? fields;
+
+  /// A flag to enable/disable auto validation of text fields. defauls to `true`
   final bool autoTextFieldValidation;
   const FormView({
     this.fields,
