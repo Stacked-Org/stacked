@@ -133,7 +133,7 @@ class FormBuilder with StringBufferUtils {
     return this;
   }
 
-  FormBuilder generateFocusNodesForTextFields() {
+  FormBuilder addFocusNodesForTextFields() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     for (final field in fields.onlyTextFieldConfigs) {
       final caseName = ReCase(field.name);
