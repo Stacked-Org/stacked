@@ -5,33 +5,33 @@ import 'package:stacked_generator/src/generators/forms/form_view_config.dart';
 /// A generator that creates the form code based on the configs passed in
 class StackedFormContentGenerator implements BaseGenerator {
   final FormViewConfig _formViewConfig;
-  StackedFormContentGenerator(this._formViewConfig);
+  const StackedFormContentGenerator(this._formViewConfig);
 
   @override
   String generate() {
-    final formGeneratorUtil = FormGeneratorUtil(formViewConfig: _formViewConfig)
-      ..writeHeaderComment()
-      ..generateImports()
-      ..generateValueMapKeys()
-      ..generateDropdownItemsMap()
-      ..generateTextEditingControllerItemsMap()
-      ..generateFocusNodeItemsMap()
-      ..generateValidationFunctionsFromAnnotation()
-      ..writeMixinSignature()
-      ..generateTextEditingControllersForTextFields()
-      ..generateGetCustomTextEditingController()
-      ..generateFocusNodesForTextFields()
-      ..generateGetTextEditinController()
-      ..generateGetFocuNode()
-      ..generateListenerRegistrationsForTextFields()
-      ..generateFormDataUpdateFunctionTorTextControllers()
-      ..generateValidationDataUpdateFunctionTorTextControllers()
-      ..generateGetValidationMessageForTextController()
-      ..generateDisposeForTextControllers()
-      ..closeBracket()
-      ..generateFormViewModelExtensionForGetters()
-      ..generateFormViewModelExtensionForMethods();
+    final formBuilder = FormBuilder(formViewConfig: _formViewConfig)
+        .addHeaderComment()
+        .addImports()
+        .addValueMapKeys()
+        .addDropdownItemsMap()
+        .addTextEditingControllerItemsMap()
+        .addFocusNodeItemsMap()
+        .addValidationFunctionsFromAnnotation()
+        .addMixinSignature()
+        .addTextEditingControllersForTextFields()
+        .addGetCustomTextEditingController()
+        .generateFocusNodesForTextFields()
+        .addGetTextEditinController()
+        .addGetFocuNode()
+        .addListenerRegistrationsForTextFields()
+        .addFormDataUpdateFunctionTorTextControllers()
+        .addValidationDataUpdateFunctionTorTextControllers()
+        .addGetValidationMessageForTextController()
+        .addDisposeForTextControllers()
+        .addClosingBracket()
+        .addFormViewModelExtensionForGetters()
+        .addFormViewModelExtensionForMethods();
 
-    return formGeneratorUtil.serializeStringBuffer;
+    return formBuilder.serializeStringBuffer;
   }
 }

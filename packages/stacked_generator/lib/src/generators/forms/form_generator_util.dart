@@ -3,30 +3,30 @@ import 'package:stacked_generator/src/generators/base_generator.dart';
 import 'package:stacked_generator/src/generators/forms/field_config.dart';
 import 'package:stacked_generator/src/generators/forms/form_view_config.dart';
 
-class FormGeneratorUtil with StringBufferUtils {
+class FormBuilder with StringBufferUtils {
   final FormViewConfig formViewConfig;
-  FormGeneratorUtil({required this.formViewConfig});
+  FormBuilder({required this.formViewConfig});
 
   List<FieldConfig> get fields => formViewConfig.fields;
   String get viewName => formViewConfig.viewName;
 
-  FormGeneratorUtil writeHeaderComment() {
+  FormBuilder addHeaderComment() {
     writeLine(
         "// ignore_for_file: public_member_api_docs,  constant_identifier_names, non_constant_identifier_names,unnecessary_this");
     return this;
   }
 
-  FormGeneratorUtil writeMixinSignature() {
+  FormBuilder addMixinSignature() {
     writeLine("mixin \$${viewName} on StatelessWidget {");
     return this;
   }
 
-  FormGeneratorUtil closeBracket() {
+  FormBuilder addClosingBracket() {
     writeLine('}');
     return this;
   }
 
-  FormGeneratorUtil generateImports() {
+  FormBuilder addImports() {
     // write route imports
     final imports = <String>{
       "package:flutter/material.dart",
@@ -52,7 +52,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateValueMapKeys() {
+  FormBuilder addValueMapKeys() {
     newLine();
     for (var field in fields) {
       final caseName = ReCase(field.name);
@@ -64,7 +64,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateDropdownItemsMap() {
+  FormBuilder addDropdownItemsMap() {
     newLine();
     for (final field in fields.onlyDropdownFieldConfigs) {
       final caseName = ReCase(field.name);
@@ -80,7 +80,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateTextEditingControllerItemsMap() {
+  FormBuilder addTextEditingControllerItemsMap() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     newLine();
     writeLine(
@@ -89,7 +89,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateFocusNodeItemsMap() {
+  FormBuilder addFocusNodeItemsMap() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     ;
     newLine();
@@ -98,7 +98,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateValidationFunctionsFromAnnotation() {
+  FormBuilder addValidationFunctionsFromAnnotation() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     newLine();
     writeLine(
@@ -113,7 +113,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateTextEditingControllersForTextFields() {
+  FormBuilder addTextEditingControllersForTextFields() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     for (final field in fields.onlyTextFieldConfigs) {
       /// if the field needs a custom TextEditingController not a regular one
@@ -133,7 +133,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateFocusNodesForTextFields() {
+  FormBuilder generateFocusNodesForTextFields() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     for (final field in fields.onlyTextFieldConfigs) {
       final caseName = ReCase(field.name);
@@ -143,7 +143,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateGetTextEditinController() {
+  FormBuilder addGetTextEditinController() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     newLine();
     writeLine(''' 
@@ -160,7 +160,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateGetCustomTextEditingController() {
+  FormBuilder addGetCustomTextEditingController() {
     final textFieldsConfigs = fields.onlyTextFieldConfigs
         .where((element) => element.customTextEditingController != null);
 
@@ -189,7 +189,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateGetFocuNode() {
+  FormBuilder addGetFocuNode() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     writeLine(''' 
       FocusNode _getFormFocusNode(String key) {
@@ -203,7 +203,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateListenerRegistrationsForTextFields() {
+  FormBuilder addListenerRegistrationsForTextFields() {
     writeLine('''
               /// Registers a listener on every generated controller that calls [model.setData()]
               /// with the latest textController values
@@ -219,7 +219,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateFormDataUpdateFunctionTorTextControllers() {
+  FormBuilder addFormDataUpdateFunctionTorTextControllers() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     writeLine('''
         /// Updates the formData on the FormViewModel
@@ -242,7 +242,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateValidationDataUpdateFunctionTorTextControllers() {
+  FormBuilder addValidationDataUpdateFunctionTorTextControllers() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     writeLine('''
         /// Updates the fieldsValidationMessages on the FormViewModel
@@ -262,7 +262,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateGetValidationMessageForTextController() {
+  FormBuilder addGetValidationMessageForTextController() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     writeLine('''
         /// Returns the validation message for the given key
@@ -277,7 +277,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateDisposeForTextControllers() {
+  FormBuilder addDisposeForTextControllers() {
     newLine();
     writeLine('''
       /// Calls dispose on all the generated controllers and focus nodes
@@ -301,7 +301,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateFormViewModelExtensionForGetters() {
+  FormBuilder addFormViewModelExtensionForGetters() {
     newLine();
     writeLine('extension ValueProperties on FormViewModel {');
     for (final field in fields) {
@@ -339,7 +339,7 @@ class FormGeneratorUtil with StringBufferUtils {
     return this;
   }
 
-  FormGeneratorUtil generateFormViewModelExtensionForMethods() {
+  FormBuilder addFormViewModelExtensionForMethods() {
     newLine();
     writeLine('extension Methods on FormViewModel {');
 

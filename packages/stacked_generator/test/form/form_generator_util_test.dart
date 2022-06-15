@@ -9,19 +9,19 @@ void main() {
   group('FormGeneratorTest -', () {
     group('generateImport -', () {
       test('when called should generate imports', () {
-        FormGeneratorUtil util = FormGeneratorUtil(
+        FormBuilder util = FormBuilder(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [],
           ),
         );
-        util.generateImports();
+        util.addImports();
         expect(util.serializeStringBuffer, ksFormImports);
       });
     });
     group('generateValueMapKeys -', () {
       test('when called should generate keys for fields', () {
-        FormGeneratorUtil util = FormGeneratorUtil(
+        FormBuilder util = FormBuilder(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
@@ -31,14 +31,14 @@ void main() {
             ],
           ),
         );
-        util.generateValueMapKeys();
+        util.addValueMapKeys();
         expect(
             util.serializeStringBuffer, ksFormKeys('name', 'date', 'dropDown'));
       });
     });
     group(' generateDropdownItemsMap-', () {
       test('when called should generate drop down options map', () {
-        FormGeneratorUtil util = FormGeneratorUtil(
+        FormBuilder util = FormBuilder(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
@@ -52,14 +52,14 @@ void main() {
             ],
           ),
         );
-        util.generateDropdownItemsMap();
+        util.addDropdownItemsMap();
         expect(util.serializeStringBuffer, ksDropdownItemsMap);
       });
     });
 
     group('generateTextEditingControllerItemsMap -', () {
       test('when called should generate textEditing controllers map', () {
-        FormGeneratorUtil util = FormGeneratorUtil(
+        FormBuilder util = FormBuilder(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
@@ -68,14 +68,14 @@ void main() {
             ],
           ),
         );
-        util.generateTextEditingControllerItemsMap();
+        util.addTextEditingControllerItemsMap();
         expect(util.serializeStringBuffer, ksTextEditingControllerItemsMap);
       });
     });
     group('generateTextEdittingControllersForTextFields -', () {
       test('when called should generate the getters for textEditingControllers',
           () {
-        FormGeneratorUtil util = FormGeneratorUtil(
+        FormBuilder util = FormBuilder(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
@@ -84,7 +84,7 @@ void main() {
             ],
           ),
         );
-        util.generateTextEditingControllersForTextFields();
+        util.addTextEditingControllersForTextFields();
         expect(util.serializeStringBuffer,
             ksTextEditingControllerGettersForTextFields);
       });
@@ -93,7 +93,7 @@ void main() {
       test(
           'When provide a customTextEditingController, Should replace the default one',
           () {
-        FormGeneratorUtil util = FormGeneratorUtil(
+        FormBuilder util = FormBuilder(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
@@ -104,7 +104,7 @@ void main() {
             ],
           ),
         );
-        util.generateTextEditingControllersForTextFields();
+        util.addTextEditingControllersForTextFields();
         expect(util.serializeStringBuffer,
             ksTextEditingControllerGettersForTextFields);
       });
