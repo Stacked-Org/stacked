@@ -21,6 +21,23 @@ String toDisplayString(DartType e, {bool withNullability = false}) {
   return e.getDisplayString(withNullability: withNullability);
 }
 
+String processedReturnType(String? returnType) {
+  final returnTypeContainsBiggerOperatorWithOneOfRouteNames =
+      returnType != null &&
+          returnType.contains('<') &&
+          returnType.contains(
+              RegExp('CustomRoute|MaterialRoute|CupertinoRoute|AdaptiveRoute'));
+
+  if (returnTypeContainsBiggerOperatorWithOneOfRouteNames) {
+    final afterRemovingArrowHeads = returnType.substring(
+        returnType.indexOf('<') + 1, returnType.lastIndexOf('>'));
+
+    return afterRemovingArrowHeads;
+  } else {
+    return returnType ?? 'dynamic';
+  }
+}
+
 void throwIf(bool condition, String message,
     {Element? element, String todo = ''}) {
   if (condition) {

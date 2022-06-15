@@ -4,58 +4,30 @@ import '../models/route_parameter_config.dart';
 import 'route_config.dart';
 
 class CustomRouteConfig extends RouteConfig {
-  final String name;
-  final String pathName;
-  final String className;
-  final bool fullscreenDialog;
-  final bool maintainState;
-  final String? returnType;
-  final List<RouteParamConfig> parameters;
-  final List<RouteGuardConfig> guards;
-  final bool hasWrapper;
-  final List<RouteConfig> children;
-  final bool hasConstConstructor;
-  final Set<String> imports;
-  final bool isChild;
   final int? durationInMilliseconds;
   final int? reverseDurationInMilliseconds;
   final bool customRouteOpaque;
   final bool customRouteBarrierDismissible;
   final CustomTransitionBuilder? transitionBuilder;
-  CustomRouteConfig({
-    required this.name,
-    required this.pathName,
-    required this.className,
-    this.fullscreenDialog = false,
-    this.maintainState = true,
-    this.returnType,
-    this.parameters = const [],
-    this.guards = const [],
-    this.hasWrapper = false,
-    this.hasConstConstructor = false,
-    this.children = const [],
-    this.imports = const {},
-    this.durationInMilliseconds,
-    this.reverseDurationInMilliseconds,
-    this.customRouteOpaque = true,
-    this.customRouteBarrierDismissible = false,
-    this.transitionBuilder,
-    this.isChild = false,
-  }) : super(
-          imports: imports,
-          hasConstConstructor: hasConstConstructor,
-          name: name,
-          pathName: pathName,
-          className: className,
-          fullscreenDialog: fullscreenDialog,
-          maintainState: maintainState,
-          returnType: returnType,
-          parameters: parameters,
-          guards: guards,
-          hasWrapper: hasWrapper,
-          children: children,
-          isChild: isChild,
-        );
+  CustomRouteConfig(
+      {required super.name,
+      required super.pathName,
+      required super.className,
+      super.fullscreenDialog,
+      super.maintainState,
+      super.returnType,
+      super.parameters,
+      super.guards,
+      super.hasWrapper,
+      super.hasConstConstructor,
+      super.children,
+      super.imports,
+      this.durationInMilliseconds,
+      this.reverseDurationInMilliseconds,
+      this.customRouteOpaque = true,
+      this.customRouteBarrierDismissible = false,
+      this.transitionBuilder,
+      super.isChild});
   @override
   Set<String> registerImports() {
     return {
@@ -143,8 +115,6 @@ class CustomRouteConfig extends RouteConfig {
       customRouteBarrierDismissible:
           customRouteBarrierDismissible ?? this.customRouteBarrierDismissible,
       transitionBuilder: transitionBuilder ?? this.transitionBuilder,
-      isChild: isChild ?? this.isChild,
-
     );
   }
 }

@@ -1,14 +1,6 @@
-import 'package:source_gen/source_gen.dart';
-import 'package:stacked_core/stacked_core.dart';
-import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/exceptions/invalid_generator_input_exception.dart';
 import 'package:stacked_generator/utils.dart';
-
-import 'adaptive_route_config.dart';
-import 'cupertino_route_config.dart';
-import 'custom_route_config.dart';
-import 'material_route_config.dart';
 
 class RouteConfig {
   final String name;
@@ -154,104 +146,6 @@ class RouteConfig {
       return afterRemovingArrowHeads;
     } else {
       return returnType ?? 'dynamic';
-    }
-  }
-
-  RouteConfig toSpecificType(
-      ConstantReader stackedRoute, ImportResolver importResolver) {
-    if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CupertinoRoute))) {
-      return CupertinoRouteConfig(
-        className: className,
-        name: name,
-        pathName: pathName,
-        fullscreenDialog: fullscreenDialog,
-        guards: guards,
-        hasConstConstructor: hasConstConstructor,
-        hasWrapper: hasWrapper,
-        imports: imports,
-        maintainState: maintainState,
-        parameters: parameters,
-        returnType: returnType,
-        children: children,
-        cupertinoNavTitle: stackedRoute.peek('title')?.stringValue,
-        isChild: isChild,
-      );
-    } else if (stackedRoute
-        .instanceOf(TypeChecker.fromRuntime(AdaptiveRoute))) {
-      return AdaptiveRouteConfig(
-        className: className,
-        name: name,
-        pathName: pathName,
-        fullscreenDialog: fullscreenDialog,
-        guards: guards,
-        hasConstConstructor: hasConstConstructor,
-        hasWrapper: hasWrapper,
-        imports: imports,
-        maintainState: maintainState,
-        parameters: parameters,
-        returnType: returnType,
-        children: children,
-        cupertinoNavTitle: stackedRoute.peek('cupertinoPageTitle')?.stringValue,
-        isChild: isChild,
-      );
-    } else if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CustomRoute))) {
-      var customRouteConfig = CustomRouteConfig(
-        className: className,
-        name: name,
-        pathName: pathName,
-        fullscreenDialog: fullscreenDialog,
-        guards: guards,
-        hasConstConstructor: hasConstConstructor,
-        hasWrapper: hasWrapper,
-        imports: imports,
-        maintainState: maintainState,
-        parameters: parameters,
-        returnType: returnType,
-        children: children,
-        durationInMilliseconds:
-            stackedRoute.peek('durationInMilliseconds')?.intValue,
-        reverseDurationInMilliseconds:
-            stackedRoute.peek('reverseDurationInMilliseconds')?.intValue,
-        customRouteOpaque: stackedRoute.peek('opaque')?.boolValue ?? true,
-        customRouteBarrierDismissible:
-            stackedRoute.peek('barrierDismissible')?.boolValue ?? false,
-        isChild: isChild,
-      );
-      final function = stackedRoute
-          .peek('transitionsBuilder')
-          ?.objectValue
-          .toFunctionValue();
-      if (function != null) {
-        final displayName = function.displayName.replaceFirst(RegExp('^_'), '');
-        final functionName = function.isStatic
-            ? '${function.enclosingElement.displayName}.$displayName'
-            : displayName;
-
-        var import;
-        if (function.enclosingElement.name != 'TransitionsBuilders') {
-          import = function.source.uri.toString();
-        }
-        customRouteConfig = customRouteConfig.copyWith(
-            transitionBuilder: CustomTransitionBuilder(functionName, import));
-      }
-
-      return customRouteConfig;
-    } else {
-      return MaterialRouteConfig(
-        className: className,
-        name: name,
-        pathName: pathName,
-        fullscreenDialog: fullscreenDialog,
-        guards: guards,
-        hasConstConstructor: hasConstConstructor,
-        hasWrapper: hasWrapper,
-        imports: imports,
-        maintainState: maintainState,
-        parameters: parameters,
-        returnType: returnType,
-        children: children,
-        isChild: isChild,
-      );
     }
   }
 
