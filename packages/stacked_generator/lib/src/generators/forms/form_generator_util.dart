@@ -9,6 +9,7 @@ class FormBuilder with StringBufferUtils {
 
   List<FieldConfig> get fields => formViewConfig.fields;
   String get viewName => formViewConfig.viewName;
+  bool get autoTextFieldValidation => formViewConfig.autoTextFieldValidation;
 
   FormBuilder addHeaderComment() {
     writeLine(
@@ -219,11 +220,23 @@ class FormBuilder with StringBufferUtils {
     return this;
   }
 
+  FormBuilder addManualValidation() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return this;
+    writeLine("final bool autoTextFieldValidation = $autoTextFieldValidation;");
+    writeLine("""
+    bool validateFormFields(FormViewModel model) {
+      _updateFormData(model, forceValidate: true);
+      return model.isFormValid;
+    }
+    """);
+    return this;
+  }
+
   FormBuilder addFormDataUpdateFunctionTorTextControllers() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     writeLine('''
         /// Updates the formData on the FormViewModel
-        void _updateFormData(FormViewModel model) { model.setData(
+        void _updateFormData(FormViewModel model, {bool forceValidate = false}) { model.setData(
               model.formValueMap
                 ..addAll({
             ''');
@@ -237,7 +250,8 @@ class FormBuilder with StringBufferUtils {
     writeLine('''
               }),
           );
-          _updateValidationData(model);}
+    if (autoTextFieldValidation || forceValidate) {
+          _updateValidationData(model);}}
               ''');
     return this;
   }
@@ -304,6 +318,8 @@ class FormBuilder with StringBufferUtils {
   FormBuilder addFormViewModelExtensionForGetters() {
     newLine();
     writeLine('extension ValueProperties on FormViewModel {');
+    writeLine("""bool get isFormValid =>
+      this.fieldsValidationMessages.values.every((element) => element == null);""");
     for (final field in fields) {
       final caseName = ReCase(field.name);
       final type = _getFormFieldValueType(field);

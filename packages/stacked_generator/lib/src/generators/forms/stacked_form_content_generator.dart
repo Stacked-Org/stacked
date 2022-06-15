@@ -24,6 +24,7 @@ class StackedFormContentGenerator implements BaseGenerator {
         .addGetTextEditinController()
         .addGetFocuNode()
         .addListenerRegistrationsForTextFields()
+        .addManualValidation()
         .addFormDataUpdateFunctionTorTextControllers()
         .addValidationDataUpdateFunctionTorTextControllers()
         .addGetValidationMessageForTextController()

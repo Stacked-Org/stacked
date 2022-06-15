@@ -1,6 +1,6 @@
 import 'package:example/ui/form/custom_text_field.dart';
-import 'package:flutter/material.dart';
 import 'package:example/ui/form/validators.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -8,33 +8,36 @@ import 'example_form_view.form.dart';
 import 'example_form_viewmodel.dart';
 
 // #1: Add the annotation
-@FormView(fields: [
-  FormTextField(
-    name: 'email',
-    initialValue: "Lorem",
-    validator: FormValidators.emailValidator,
-  ),
-  FormTextField(
-      name: 'password',
-      validator: FormValidators.passwordValidator,
-      customTextEditingController:
-          CustomEditingController.getCustomEditingController),
-  FormTextField(name: 'shortBio'),
-  FormDateField(name: 'birthDate'),
-  FormDropdownField(
-    name: 'doYouLoveFood',
-    items: [
-      StaticDropdownItem(
-        title: 'Yes',
-        value: 'YesDr',
-      ),
-      StaticDropdownItem(
-        title: 'No',
-        value: 'NoDr',
-      ),
-    ],
-  )
-])
+@FormView(
+  fields: [
+    FormTextField(
+      name: 'email',
+      initialValue: "Lorem",
+      validator: FormValidators.emailValidator,
+    ),
+    FormTextField(
+        name: 'password',
+        validator: FormValidators.passwordValidator,
+        customTextEditingController:
+            CustomEditingController.getCustomEditingController),
+    FormTextField(name: 'shortBio'),
+    FormDateField(name: 'birthDate'),
+    FormDropdownField(
+      name: 'doYouLoveFood',
+      items: [
+        StaticDropdownItem(
+          title: 'Yes',
+          value: 'YesDr',
+        ),
+        StaticDropdownItem(
+          title: 'No',
+          value: 'NoDr',
+        ),
+      ],
+    )
+  ],
+  autoTextFieldValidation: false,
+)
 // #2: with $ExampleFormView
 class ExampleFormView extends StatelessWidget with $ExampleFormView {
   ExampleFormView({Key? key}) : super(key: key);
@@ -54,9 +57,11 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
           title: const Text('Example Form View'),
           centerTitle: true,
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: viewModel.navigateToNewView,
-        ),
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          if (validateFormFields(viewModel)) {
+            viewModel.navigateToNewView();
+          }
+        }),
         body: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Form(

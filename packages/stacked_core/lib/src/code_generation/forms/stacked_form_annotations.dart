@@ -2,8 +2,11 @@
 class FormView {
   /// The list of form fields to generate
   final List<FormField>? fields;
-
-  const FormView({this.fields});
+  final bool autoTextFieldValidation;
+  const FormView({
+    this.fields,
+    this.autoTextFieldValidation = true,
+  });
 }
 
 /// Describes a form field to be generated
@@ -26,12 +29,14 @@ class FormTextField extends FormField {
   ///
   /// When providing this field [initialValue] will be ignored
   final dynamic Function()? customTextEditingController;
+  final bool autoTextFieldValidation;
 
   const FormTextField({
     String? name,
     this.initialValue,
     this.validator,
     this.customTextEditingController,
+    this.autoTextFieldValidation = true,
   }) : super(name: name);
 }
 
