@@ -31,14 +31,12 @@ class FormTextField extends FormField {
   ///
   /// When providing this field [initialValue] will be ignored
   final dynamic Function()? customTextEditingController;
-  final bool autoTextFieldValidation;
 
   const FormTextField({
     String? name,
     this.initialValue,
     this.validator,
     this.customTextEditingController,
-    this.autoTextFieldValidation = true,
   }) : super(name: name);
 }
 
