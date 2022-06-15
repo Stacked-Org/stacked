@@ -1,3 +1,5 @@
+## 1.2.2
+- Adds `autoTextFieldValidation` flag on FormView annotation
 ## 1.2.1
 - Remove unused isPassword field from `FormTextField`
 ## 1.2.0
