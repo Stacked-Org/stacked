@@ -10,7 +10,7 @@ import 'package:stacked_tools/src/templates/template_constants.dart';
 import '../../services/pubspec_service.dart';
 
 class CreateServiceCommand extends Command with ProjectStructureValidator {
-  final _templateService = locator<RenderTemplateService>();
+  final _renderTemplateService = locator<RenderTemplateService>();
   final _pubspecService = locator<PubspecService>();
   final _processService = locator<ProcessService>();
 
@@ -35,7 +35,7 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
     await _pubspecService.initialise(workingDirectory: outputPath);
     await validateStructure(outputPath: outputPath);
 
-    await _templateService.renderTemplate(
+    await _renderTemplateService.renderTemplate(
       templateName: kTemplateNameService,
       name: argResults!.rest.first,
       outputPath: outputPath,

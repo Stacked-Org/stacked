@@ -7,7 +7,7 @@ import 'package:stacked_tools/src/services/revert_template_service.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 
 class DeleteServiceCommand extends Command with ProjectStructureValidator {
-  final _templateService = locator<RevertTemplateService>();
+  final _revertTemplateService = locator<RevertTemplateService>();
 
   @override
   String get description =>
@@ -26,7 +26,7 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
 
   @override
   Future<void> run() async {
-    await _templateService.purgeTemplate(
+    await _revertTemplateService.purgeTemplate(
         kTemplateNameService, argResults!, this);
   }
 }

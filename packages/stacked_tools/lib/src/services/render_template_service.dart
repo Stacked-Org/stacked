@@ -15,7 +15,7 @@ import 'package:stacked_tools/src/templates/template_constants.dart';
 class RenderTemplateService {
   final _fileService = locator<FileService>();
   final _clog = locator<ColorizedLogService>();
-  final _utils = locator<TemplateServiceUtils>();
+  final _templateServiceUtils = locator<TemplateServiceUtils>();
 
   /// Using the [templateName] this function will write out the template
   /// files in the directory the cli is currently running.
@@ -102,7 +102,7 @@ class RenderTemplateService {
         templateName: templateName,
       );
 
-      final verboseMessage = _utils.templateModificationName(
+      final verboseMessage = _templateServiceUtils.templateModificationName(
         modificationName: fileToModify.modificationName,
         name: name,
         templateName: templateName,
@@ -126,7 +126,7 @@ class RenderTemplateService {
     required String name,
     required String templateName,
   }) {
-    final renderedTemplate = _utils.getRenderedTemplateData(
+    final renderedTemplate = _templateServiceUtils.getRenderedTemplateData(
         modificationTemplate, templateName, name);
 
     // Take the content, replace the identifier in the file with the new code
@@ -150,7 +150,8 @@ class RenderTemplateService {
         name: name,
       );
 
-      final templateFileOutputPath = _utils.getTemplateOutputPath(
+      final templateFileOutputPath =
+          _templateServiceUtils.getTemplateOutputPath(
         inputTemplatePath: templateFile.relativeOutputPath,
         name: name,
         outputFolder: outputFolder,
@@ -173,7 +174,7 @@ class RenderTemplateService {
   }) {
     var viewTemplate = Template(content, lenient: true);
 
-    final renderData = _utils.getTemplateRenderData(
+    final renderData = _templateServiceUtils.getTemplateRenderData(
       templateName: templateName,
       name: name,
       testRenderFunctions: null,

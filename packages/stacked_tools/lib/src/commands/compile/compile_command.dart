@@ -4,7 +4,7 @@ import 'package:stacked_tools/src/services/template_service_utils.dart';
 
 /// The command to run
 class CompileCommand extends Command {
-  final _templateService = locator<TemplateServiceUtils>();
+  final _templateServiceUtils = locator<TemplateServiceUtils>();
 
   @override
   String get description =>
@@ -17,6 +17,6 @@ class CompileCommand extends Command {
 
   @override
   Future<void> run() async {
-    await _templateService.compileTemplateInformation();
+    await _templateServiceUtils.compileTemplateInformation();
   }
 }

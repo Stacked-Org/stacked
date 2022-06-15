@@ -8,7 +8,7 @@ import 'package:stacked_tools/src/services/render_template_service.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 
 class CreateAppCommand extends Command {
-  final _templateService = locator<RenderTemplateService>();
+  final _renderTemplateService = locator<RenderTemplateService>();
   final _processService = locator<ProcessService>();
   final _cLog = locator<ColorizedLogService>();
 
@@ -26,7 +26,7 @@ class CreateAppCommand extends Command {
     await _processService.runCreateApp(appName: appName);
 
     _cLog.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
-    await _templateService.renderTemplate(
+    await _renderTemplateService.renderTemplate(
       templateName: kTemplateNameApp,
       name: appName,
       verbose: true,

@@ -4,15 +4,13 @@ import 'package:stacked_tools/src/exceptions/invalid_stacked_structure_exception
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/models/template_models.dart';
 import 'package:stacked_tools/src/services/render_template_service.dart';
-import 'package:stacked_tools/src/services/revert_template_service.dart';
-import 'package:stacked_tools/src/services/template_service_utils.dart';
 import 'package:stacked_tools/src/templates/compiled_template_map.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 import 'package:test/test.dart';
 
 import '../helpers/test_helpers.dart';
 
-RenderTemplateService _getRenderService() => RenderTemplateService();
+RenderTemplateService _getService() => RenderTemplateService();
 
 void main() {
   group('RenderTemplateServiceTest -', () {
@@ -34,7 +32,7 @@ void main() {
         new_viewmodel.dart
     ''';
 
-        final templateService = _getRenderService();
+        final templateService = _getService();
         final result = templateService.renderContentForTemplate(
           content: content,
           templateName: kTemplateNameView,
@@ -50,7 +48,7 @@ void main() {
         final content = '{{viewModelFileName}}';
         final expected = 'order_details_viewmodel.dart';
 
-        final templateService = _getRenderService();
+        final templateService = _getService();
         final result = templateService.renderContentForTemplate(
           content: content,
           templateName: kTemplateNameView,
@@ -65,7 +63,7 @@ void main() {
       test(
           'Given file content with STACKED identifier only, Should return template followed by STACKED in different lines',
           () {
-        final service = _getRenderService();
+        final service = _getService();
         final result = service.templateModificationFileContent(
           fileContent: 'STACKED',
           modificationTemplate: 'MaterialRoute(page: {{viewName}}),',
@@ -82,7 +80,7 @@ void main() {
       test(
           'Given modificationTemplate with $kTemplatePropertyViewFolderName and name orderDetails, Should return snake_case order_details',
           () {
-        final service = _getRenderService();
+        final service = _getService();
         final result = service.templateModificationFileContent(
           fileContent: 'STACKED',
           modificationTemplate: '{{$kTemplatePropertyViewFolderName}}',
@@ -99,7 +97,7 @@ void main() {
       test(
           'Given modificationTemplate with $kTemplatePropertyViewFileName and name orderDetails, Should return snake_case order_details_view.dart',
           () {
-        final service = _getRenderService();
+        final service = _getService();
         final result = service.templateModificationFileContent(
           fileContent: 'STACKED',
           modificationTemplate: '{{$kTemplatePropertyViewFileName}}',
@@ -118,7 +116,7 @@ void main() {
       test('Given templateName view, should write 3 files to the fileSystem',
           () async {
         final fileService = getAndRegisterMockFileService();
-        final service = _getRenderService();
+        final service = _getService();
         await service.writeOutTemplateFiles(
           template: kCompiledStackedTemplates[kTemplateNameView]!,
           templateName: kTemplateNameView,
@@ -138,7 +136,7 @@ void main() {
           'Given the view template with a modification file for lib/app/app.dart, should check if the file exists',
           () async {
         final fileService = getAndRegisterMockFileService();
-        final service = _getRenderService();
+        final service = _getService();
         await service.modifyExistingFiles(
           template: kCompiledStackedTemplates[kTemplateNameView]!,
           templateName: kTemplateNameView,
@@ -151,7 +149,7 @@ void main() {
           'Given the view template with a modification file for lib/app/app.dart and outputPath playground, should check if the file exists in playground',
           () async {
         final fileService = getAndRegisterMockFileService();
-        final service = _getRenderService();
+        final service = _getService();
         await service.modifyExistingFiles(
           template: kCompiledStackedTemplates[kTemplateNameView]!,
           templateName: kTemplateNameView,
@@ -165,7 +163,7 @@ void main() {
           'Given the view template with a modification file for lib/app/app.dart, should get file data if it exists',
           () async {
         final fileService = getAndRegisterMockFileService();
-        final service = _getRenderService();
+        final service = _getService();
         await service.modifyExistingFiles(
           template: kCompiledStackedTemplates[kTemplateNameView]!,
           templateName: kTemplateNameView,
@@ -180,7 +178,7 @@ void main() {
         getAndRegisterMockFileService(
           fileExistsResult: false,
         );
-        final service = _getRenderService();
+        final service = _getService();
 
         expect(
             () async => await service.modifyExistingFiles(
@@ -201,7 +199,7 @@ void main() {
           'Given the a template with a 3 file modifications, should check if the file exists 3 times',
           () async {
         final fileService = getAndRegisterMockFileService();
-        final service = _getRenderService();
+        final service = _getService();
         await service.modifyExistingFiles(
           template: StackedTemplate(templateFiles: [], modificationFiles: [
             ModificationFile(
@@ -239,7 +237,7 @@ void main() {
           'When called with template view and excludeRoutes, should not check if any file exists for file modification',
           () async {
         final fileService = getAndRegisterMockFileService();
-        final service = _getRenderService();
+        final service = _getService();
         await service.renderTemplate(
           templateName: kTemplateNameView,
           excludeRoute: true,
@@ -253,7 +251,7 @@ void main() {
           'When called with template service and excludeRoutes, should check if file exists for file modification',
           () async {
         final fileService = getAndRegisterMockFileService();
-        final service = _getRenderService();
+        final service = _getService();
         await service.renderTemplate(
           templateName: kTemplateNameService,
           excludeRoute: true,

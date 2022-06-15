@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 
 import '../helpers/test_helpers.dart';
 
-RevertTemplateService _getRevertService() => RevertTemplateService();
+RevertTemplateService _getService() => RevertTemplateService();
 
 void main() {
   group('RevertTemplateServiceTest -', () {
@@ -23,7 +23,7 @@ void main() {
 // @revertIdentifier''';
           final expected = '\n// @revertIdentifier';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -44,7 +44,7 @@ void main() {
 // @revertIdentifier''';
           final expected = '\n// @revertIdentifier';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -65,7 +65,7 @@ void main() {
 // @revertIdentifier''';
           final expected = '\n// @revertIdentifier';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -87,7 +87,7 @@ Revert This part
 // @revertIdentifier''';
           final expected = '\n// @revertIdentifier';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -116,7 +116,7 @@ Revert This part
 // @revertIdentifier''';
           final expected = '''// @revertIdentifier''';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -146,7 +146,7 @@ int getSomeInt() {
 // @revertIdentifier''';
           final expected = '''// @revertIdentifier''';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -176,7 +176,7 @@ return 1;
 // @revertIdentifier''';
           final expected = '''// @revertIdentifier''';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -205,7 +205,7 @@ return 1;
 // @revertIdentifier''';
           final expected = '''// @revertIdentifier''';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -235,7 +235,7 @@ import '../serviced/service_2.dart';
 // @revertIdentifier''';
           final expected = '''// @revertIdentifier''';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -263,7 +263,7 @@ import '../serviced/service_2.dart';
 // @revertIdentifier''';
           final expected = '''// @revertIdentifier''';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -291,7 +291,7 @@ import '../serviced/service_2.dart';
 // @revertIdentifier''';
           final expected = '''// @revertIdentifier''';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -318,7 +318,7 @@ import '../serviced/service_2.dart';
 // @revertIdentifier''';
           final expected = '''// @revertIdentifier''';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -345,7 +345,7 @@ import '../serviced/service_2.dart';''',
 // @revertIdentifier''';
           final expected = '\n// @revertIdentifier';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -366,7 +366,7 @@ import '../serviced/service_2.dart';''',
 // @revertIdentifier''';
           final expected = '\n// @revertIdentifier';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -387,7 +387,7 @@ import '../serviced/service_2.dart';''',
 // @revertIdentifier''';
           final expected = '\n// @revertIdentifier';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -409,7 +409,7 @@ Revert the service: Service1
 // @revertIdentifier''';
           final expected = '\n// @revertIdentifier';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -439,7 +439,7 @@ Revert the service: Service1
 // @revertIdentifier''';
           final expected = '''// @revertIdentifier''';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -471,7 +471,7 @@ int getSomeInt() {
 // @revertIdentifier''';
           final expected = '''// @revertIdentifier''';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -503,7 +503,7 @@ return service.getInt();
 // @revertIdentifier''';
           final expected = '''// @revertIdentifier''';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -534,7 +534,7 @@ return service.getInt();
 // @revertIdentifier''';
           final expected = '''// @revertIdentifier''';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -567,7 +567,7 @@ class ImportantService {}
 // @revertIdentifier''';
           final expected = '''// @revertIdentifier''';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -599,7 +599,7 @@ class ImportantService {}
 // @revertIdentifier''';
           final expected = '''// @revertIdentifier''';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -631,7 +631,7 @@ class ImportantService {}
 // @revertIdentifier''';
           final expected = '''// @revertIdentifier''';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -662,7 +662,7 @@ class ImportantService {}
 // @revertIdentifier''';
           final expected = '''// @revertIdentifier''';
 
-          final templateService = _getRevertService();
+          final templateService = _getService();
           final result =
               await templateService.templateWithoutModifiedFileContent(
             fileContent: content,
@@ -698,7 +698,7 @@ class ImportantService {}
         final expected = '''
 // @revertIdentifier''';
 
-        final templateService = _getRevertService();
+        final templateService = _getService();
         final result = await templateService.templateWithoutModifiedFileContent(
           fileContent: content,
           modificationIdentifier: '// @revertIdentifier',
@@ -722,7 +722,7 @@ Revert the service: Service1
 // @revertIdentifier''';
         final expected = '\n// @revertIdentifier';
 
-        final templateService = _getRevertService();
+        final templateService = _getService();
         final result = await templateService.templateWithoutModifiedFileContent(
           fileContent: content,
           modificationIdentifier: '// @revertIdentifier',
@@ -751,7 +751,7 @@ int getSomeInt() {
         final expected = '''
 // @revertIdentifier''';
 
-        final templateService = _getRevertService();
+        final templateService = _getService();
         final result = await templateService.templateWithoutModifiedFileContent(
           fileContent: content,
           modificationIdentifier: '// @revertIdentifier',
@@ -783,7 +783,7 @@ class Service {}
         final expected = '''
 // @revertIdentifier''';
 
-        final templateService = _getRevertService();
+        final templateService = _getService();
         final result = await templateService.templateWithoutModifiedFileContent(
           fileContent: content,
           modificationIdentifier: '// @revertIdentifier',
@@ -807,7 +807,7 @@ Revert the service: Service1
 // @revertIdentifier''';
         final expected = '\n// @revertIdentifier';
 
-        final templateService = _getRevertService();
+        final templateService = _getService();
         final result = await templateService.templateWithoutModifiedFileContent(
           fileContent: content,
           modificationIdentifier: '// @revertIdentifier',
@@ -836,7 +836,7 @@ int getSomeInt() {
         final expected = '''
 // @revertIdentifier''';
 
-        final templateService = _getRevertService();
+        final templateService = _getService();
         final result = await templateService.templateWithoutModifiedFileContent(
           fileContent: content,
           modificationIdentifier: '// @revertIdentifier',

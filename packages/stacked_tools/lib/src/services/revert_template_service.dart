@@ -20,7 +20,7 @@ class RevertTemplateService {
   final _pubspecService = locator<PubspecService>();
   final _clog = locator<ColorizedLogService>();
   final _processService = locator<ProcessService>();
-  final _utils = locator<TemplateServiceUtils>();
+  final _templateServiceUtils = locator<TemplateServiceUtils>();
 
   /// Using the [templateName] this function will delete out the template
   /// files in the directory the cli is currently running and revert the modifications applied by this template.
@@ -62,7 +62,8 @@ class RevertTemplateService {
   }) async {
     // Delete all the template generated files
     for (final templateFile in template.templateFiles) {
-      final templateFileOutputPath = _utils.getTemplateOutputPath(
+      final templateFileOutputPath =
+          _templateServiceUtils.getTemplateOutputPath(
         inputTemplatePath: templateFile.relativeOutputPath,
         name: name,
         outputFolder: outputFolder,
@@ -117,7 +118,7 @@ class RevertTemplateService {
         templateName: templateName,
       );
 
-      final verboseMessage = _utils.templateModificationName(
+      final verboseMessage = _templateServiceUtils.templateModificationName(
         modificationName: fileToModify.modificationName,
         name: name,
         templateName: templateName,
@@ -135,7 +136,7 @@ class RevertTemplateService {
     // The template being deleted is a view template, and thus we have to delete the created folders as well.
     if (templateName == "view") {
       /// Deleting the view folder.
-      String directoryPath = _utils.getTemplateOutputPath(
+      String directoryPath = _templateServiceUtils.getTemplateOutputPath(
         inputTemplatePath: 'lib/ui/views/generic/',
 
         ///TODO: Change this 👆 to the config file view path when it's added.
@@ -154,7 +155,7 @@ class RevertTemplateService {
     required String name,
     required String templateName,
   }) async {
-    String renderedTemplate = _utils.getRenderedTemplateData(
+    String renderedTemplate = _templateServiceUtils.getRenderedTemplateData(
         modificationTemplate, templateName, name);
 
     //Replace generated io.File content with modifier, to remove the generated content
