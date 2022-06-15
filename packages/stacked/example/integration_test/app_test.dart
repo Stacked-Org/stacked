@@ -217,23 +217,19 @@ void main() {
       tester.printToConsole('Verify the drop down button has been updated');
       expect(dropDownButtonNo, findsOneWidget);
 
+      // Verify the password text field has been updated to empty string.
+      tester.printToConsole('Verify the password text field has empty string');
+
+      expect(find.text('password123'), findsNothing);
+      //verify error for password is shown when form is submitted and password is empty.
+      await tester.tap(fab);
+      await tester.pumpAndSettle();
+      expect(passwordErrorText, findsOneWidget);
+
       // Emulate entering text into the password text field.
       tester.printToConsole(
           'Emulating entering text into the password text field');
       await tester.enterText(formPasswordTextField, 'password123');
-      // Enter empty string in password text field.
-      tester.printToConsole(
-          'Emulating entering empty string into the password text field');
-      await tester.enterText(formPasswordTextField, '');
-      // Trigger a frame.
-      await tester.pumpAndSettle();
-
-      // Verify the password text field has been updated to empty string.
-      tester.printToConsole(
-          'Verify the password text field has been updated to empty string');
-
-      expect(find.text('password123'), findsNothing);
-      expect(passwordErrorText, findsOneWidget);
 
       // Emulate navigating to bottom navigation bar view.
       tester
