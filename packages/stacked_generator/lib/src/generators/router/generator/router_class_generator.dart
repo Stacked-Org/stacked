@@ -5,7 +5,8 @@ import '../route_config/route_config.dart';
 import '../router_config/router_config.dart';
 import 'route_generator_helper.dart';
 
-class RouterClassGenerator extends BaseGenerator with RouteGeneratorHelper {
+class RouterClassGenerator extends RouteGeneratorHelper
+    implements BaseGenerator {
   final RouterConfig _rootRouterConfig;
 
   RouterClassGenerator(this._rootRouterConfig);

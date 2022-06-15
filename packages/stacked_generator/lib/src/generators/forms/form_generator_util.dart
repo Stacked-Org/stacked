@@ -3,51 +3,30 @@ import 'package:stacked_generator/src/generators/base_generator.dart';
 import 'package:stacked_generator/src/generators/forms/field_config.dart';
 import 'package:stacked_generator/src/generators/forms/form_view_config.dart';
 
-class FormGeneratorUtil extends BaseGenerator {
+class FormBuilder with StringBufferUtils {
   final FormViewConfig formViewConfig;
-  FormGeneratorUtil({required this.formViewConfig});
+  FormBuilder({required this.formViewConfig});
 
   List<FieldConfig> get fields => formViewConfig.fields;
   String get viewName => formViewConfig.viewName;
 
-  @override
-  String generate() {
+  FormBuilder addHeaderComment() {
     writeLine(
         "// ignore_for_file: public_member_api_docs,  constant_identifier_names, non_constant_identifier_names,unnecessary_this");
-
-    generateImports();
-    generateValueMapKeys();
-    generateDropdownItemsMap();
-    generateTextEditingControllerItemsMap();
-    generateFocusNodeItemsMap();
-    generateValidationFunctionsFromAnnotation();
-    generateFormMixin();
-    generateFormViewModelExtensions();
-    return serializeStringBuffer;
+    return this;
   }
 
-  void generateFormMixin() {
+  FormBuilder addMixinSignature() {
     writeLine("mixin \$${viewName} on StatelessWidget {");
+    return this;
+  }
 
-    generateTextEditingControllersForTextFields();
-    generateFocusNodesForTextFields();
-    generateGetTextEditinController();
-    generateGetFocuNode();
-    generateListenerRegistrationsForTextFields();
-    generateFormDataUpdateFunctionTorTextControllers();
-    generateValidationDataUpdateFunctionTorTextControllers();
-    generateGetValidationMessageForTextController();
-    generateDisposeForTextControllers();
-
+  FormBuilder addClosingBracket() {
     writeLine('}');
+    return this;
   }
 
-  void generateFormViewModelExtensions() {
-    generateFormViewModelExtensionForGetters();
-    generateFormViewModelExtensionForMethods();
-  }
-
-  void generateImports() {
+  FormBuilder addImports() {
     // write route imports
     final imports = <String>{
       "package:flutter/material.dart",
@@ -69,19 +48,11 @@ class FormGeneratorUtil extends BaseGenerator {
     var rest = validImports.difference({...dartImports, ...packageImports});
     sortAndGenerate(rest);
     newLine();
+
+    return this;
   }
 
-  List<String> get validationFileImports {
-    List<String> paths = [];
-    for (var textFields in fields.onlyTextFieldConfigs) {
-      if (textFields.validatorPath != null) {
-        paths.add(textFields.validatorPath!);
-      }
-    }
-    return paths;
-  }
-
-  void generateValueMapKeys() {
+  FormBuilder addValueMapKeys() {
     newLine();
     for (var field in fields) {
       final caseName = ReCase(field.name);
@@ -89,9 +60,11 @@ class FormGeneratorUtil extends BaseGenerator {
           "const String ${_getFormKeyName(caseName)} = '${caseName.camelCase}';");
     }
     newLine();
+
+    return this;
   }
 
-  void generateDropdownItemsMap() {
+  FormBuilder addDropdownItemsMap() {
     newLine();
     for (final field in fields.onlyDropdownFieldConfigs) {
       final caseName = ReCase(field.name);
@@ -104,39 +77,52 @@ class FormGeneratorUtil extends BaseGenerator {
       writeLine('};');
     }
     newLine();
+    return this;
   }
 
-  void generateTextEditingControllerItemsMap() {
-    if (fields.onlyTextFieldConfigs.isEmpty) return;
+  FormBuilder addTextEditingControllerItemsMap() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return this;
     newLine();
     writeLine(
         "final Map<String, TextEditingController> _${viewName}TextEditingControllers = {};");
     newLine();
+    return this;
   }
 
-  void generateFocusNodeItemsMap() {
-    if (fields.onlyTextFieldConfigs.isEmpty) return;
+  FormBuilder addFocusNodeItemsMap() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return this;
+    ;
     newLine();
     writeLine("final Map<String, FocusNode> _${viewName}FocusNodes = {};");
     newLine();
+    return this;
   }
 
-  void generateValidationFunctionsFromAnnotation() {
-    if (fields.onlyTextFieldConfigs.isEmpty) return;
+  FormBuilder addValidationFunctionsFromAnnotation() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return this;
     newLine();
     writeLine(
         "final Map<String, String? Function(String?)?> _${viewName}TextValidations = {");
     for (var field in fields.onlyTextFieldConfigs) {
       final caseName = ReCase(field.name);
-      writeLine("${_getFormKeyName(caseName)}: ${field.validatorName},");
+      writeLine(
+          "${_getFormKeyName(caseName)}: ${field.validatorFunction?.validatorName},");
     }
     writeLine("};");
     newLine();
+    return this;
   }
 
-  void generateTextEditingControllersForTextFields() {
-    if (fields.onlyTextFieldConfigs.isEmpty) return;
+  FormBuilder addTextEditingControllersForTextFields() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return this;
     for (final field in fields.onlyTextFieldConfigs) {
+      /// if the field needs a custom TextEditingController not a regular one
+      if (field.customTextEditingController != null) {
+        final caseName = ReCase(field.name);
+        writeLine(
+            '${field.customTextEditingController!.returnType} get ${_getControllerName(field)} => _getCustomFormTextEditingController(${_getFormKeyName(caseName)});');
+        continue;
+      }
       final caseName = ReCase(field.name);
       final initialValue = hasFieldInitialValue(field)
           ? ",initialValue: '${field.initialValue!}'"
@@ -144,19 +130,21 @@ class FormGeneratorUtil extends BaseGenerator {
       writeLine(
           'TextEditingController get ${_getControllerName(field)} => _getFormTextEditingController(${_getFormKeyName(caseName)}$initialValue);');
     }
+    return this;
   }
 
-  void generateFocusNodesForTextFields() {
-    if (fields.onlyTextFieldConfigs.isEmpty) return;
+  FormBuilder generateFocusNodesForTextFields() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return this;
     for (final field in fields.onlyTextFieldConfigs) {
       final caseName = ReCase(field.name);
       writeLine(
           'FocusNode get ${_getFocusNodeName(field)} => _getFormFocusNode(${_getFormKeyName(caseName)});');
     }
+    return this;
   }
 
-  void generateGetTextEditinController() {
-    if (fields.onlyTextFieldConfigs.isEmpty) return;
+  FormBuilder addGetTextEditinController() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return this;
     newLine();
     writeLine(''' 
       TextEditingController _getFormTextEditingController(String key,
@@ -169,10 +157,40 @@ class FormGeneratorUtil extends BaseGenerator {
       return _${viewName}TextEditingControllers[key]!; }
     ''');
     newLine();
+    return this;
   }
 
-  void generateGetFocuNode() {
-    if (fields.onlyTextFieldConfigs.isEmpty) return;
+  FormBuilder addGetCustomTextEditingController() {
+    final textFieldsConfigs = fields.onlyTextFieldConfigs
+        .where((element) => element.customTextEditingController != null);
+
+    /// If there is no field that has a [customTextEditingController]
+    /// abort this function
+    if (textFieldsConfigs.isEmpty) return this;
+    for (var tf in textFieldsConfigs) {
+      final customTextEditingClassNameAndCallingFunction =
+          tf.customTextEditingController!.validatorName;
+      final customTextEditingClassName =
+          tf.customTextEditingController!.returnType;
+      newLine();
+      writeLine('''
+      $customTextEditingClassName _getCustomFormTextEditingController(String key,) {
+          if (_${viewName}TextEditingControllers.containsKey(key)) {
+        return _${viewName}TextEditingControllers[key]! as $customTextEditingClassName;
+      }
+      _${viewName}TextEditingControllers[key] =
+         ${customTextEditingClassNameAndCallingFunction}();
+      return _${viewName}TextEditingControllers[key]! 
+      as $customTextEditingClassName; }
+    ''');
+      newLine();
+    }
+
+    return this;
+  }
+
+  FormBuilder addGetFocuNode() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return this;
     writeLine(''' 
       FocusNode _getFormFocusNode(String key) {
         if (_${viewName}FocusNodes.containsKey(key)) {
@@ -182,9 +200,10 @@ class FormGeneratorUtil extends BaseGenerator {
       }
     ''');
     newLine();
+    return this;
   }
 
-  void generateListenerRegistrationsForTextFields() {
+  FormBuilder addListenerRegistrationsForTextFields() {
     writeLine('''
               /// Registers a listener on every generated controller that calls [model.setData()]
               /// with the latest textController values
@@ -197,10 +216,11 @@ class FormGeneratorUtil extends BaseGenerator {
     }
     writeLine('}');
     newLine();
+    return this;
   }
 
-  void generateFormDataUpdateFunctionTorTextControllers() {
-    if (fields.onlyTextFieldConfigs.isEmpty) return;
+  FormBuilder addFormDataUpdateFunctionTorTextControllers() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return this;
     writeLine('''
         /// Updates the formData on the FormViewModel
         void _updateFormData(FormViewModel model) { model.setData(
@@ -219,10 +239,11 @@ class FormGeneratorUtil extends BaseGenerator {
           );
           _updateValidationData(model);}
               ''');
+    return this;
   }
 
-  void generateValidationDataUpdateFunctionTorTextControllers() {
-    if (fields.onlyTextFieldConfigs.isEmpty) return;
+  FormBuilder addValidationDataUpdateFunctionTorTextControllers() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return this;
     writeLine('''
         /// Updates the fieldsValidationMessages on the FormViewModel
         void _updateValidationData(FormViewModel model) => model.setValidationMessages(
@@ -238,10 +259,11 @@ class FormGeneratorUtil extends BaseGenerator {
               }
           );
               ''');
+    return this;
   }
 
-  void generateGetValidationMessageForTextController() {
-    if (fields.onlyTextFieldConfigs.isEmpty) return;
+  FormBuilder addGetValidationMessageForTextController() {
+    if (fields.onlyTextFieldConfigs.isEmpty) return this;
     writeLine('''
         /// Returns the validation message for the given key
         String? _getValidationMessage(String key) {
@@ -252,9 +274,10 @@ class FormGeneratorUtil extends BaseGenerator {
       return validationMessageForKey;
       }
     ''');
+    return this;
   }
 
-  void generateDisposeForTextControllers() {
+  FormBuilder addDisposeForTextControllers() {
     newLine();
     writeLine('''
       /// Calls dispose on all the generated controllers and focus nodes
@@ -275,9 +298,10 @@ class FormGeneratorUtil extends BaseGenerator {
     }
 
     writeLine('}');
+    return this;
   }
 
-  void generateFormViewModelExtensionForGetters() {
+  FormBuilder addFormViewModelExtensionForGetters() {
     newLine();
     writeLine('extension ValueProperties on FormViewModel {');
     for (final field in fields) {
@@ -312,9 +336,10 @@ class FormGeneratorUtil extends BaseGenerator {
     }
 
     writeLine('}');
+    return this;
   }
 
-  void generateFormViewModelExtensionForMethods() {
+  FormBuilder addFormViewModelExtensionForMethods() {
     newLine();
     writeLine('extension Methods on FormViewModel {');
 
@@ -361,10 +386,24 @@ class FormGeneratorUtil extends BaseGenerator {
     }
 
     writeLine('}');
+    return this;
   }
 
   bool hasFieldInitialValue(TextFieldConfig field) {
     return field.initialValue != null && field.initialValue!.isNotEmpty;
+  }
+
+  List<String> get validationFileImports {
+    List<String> paths = [];
+    for (var textFields in fields.onlyTextFieldConfigs) {
+      if (textFields.validatorFunction?.validatorPath != null) {
+        paths.add(textFields.validatorFunction!.validatorPath!);
+      }
+      if (textFields.customTextEditingController?.validatorPath != null) {
+        paths.add(textFields.customTextEditingController!.validatorPath!);
+      }
+    }
+    return paths;
   }
 
   String _getFormFieldValueType(FieldConfig field) {

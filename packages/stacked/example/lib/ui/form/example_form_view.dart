@@ -1,5 +1,6 @@
-import 'package:example/ui/form/validators.dart';
+import 'package:example/ui/form/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:example/ui/form/validators.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -14,9 +15,10 @@ import 'example_form_viewmodel.dart';
     validator: FormValidators.emailValidator,
   ),
   FormTextField(
-    name: 'password',
-    validator: FormValidators.passwordValidator,
-  ),
+      name: 'password',
+      validator: FormValidators.passwordValidator,
+      customTextEditingController:
+          CustomEditingController.getCustomEditingController),
   FormTextField(name: 'shortBio'),
   FormDateField(name: 'birthDate'),
   FormDropdownField(

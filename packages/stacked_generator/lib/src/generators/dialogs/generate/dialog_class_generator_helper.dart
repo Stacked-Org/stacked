@@ -4,7 +4,7 @@ import '../../../../utils.dart';
 import '../dialog_config.dart';
 import 'dialog_class_content.dart';
 
-mixin DialogClassGeneratorHelper on BaseGenerator {
+class DialogClassGeneratorHelper with StringBufferUtils {
   void writeDialogTypeEnum(List<DialogConfig> dialogConfigs) {
     writeLine("enum DialogType{");
     for (var dialogConfig in dialogConfigs) {

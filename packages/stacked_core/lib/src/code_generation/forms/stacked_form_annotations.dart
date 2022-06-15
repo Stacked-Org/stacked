@@ -21,10 +21,17 @@ class FormTextField extends FormField {
 
   final String? Function(String?)? validator;
 
+  /// Replace the default flutter [TextEditingController] with
+  /// another controller that extends the [TextEditingController]
+  ///
+  /// When providing this field [initialValue] will be ignored
+  final dynamic Function()? customTextEditingController;
+
   const FormTextField({
     String? name,
     this.initialValue,
     this.validator,
+    this.customTextEditingController,
   }) : super(name: name);
 }
 

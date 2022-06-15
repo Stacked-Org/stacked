@@ -13,23 +13,18 @@ abstract class FieldConfig {
 
 class TextFieldConfig extends FieldConfig {
   final String? initialValue;
-  final ExecutableElement? validatorFunction;
+  final ExecutableElementData? validatorFunction;
+  final ExecutableElementData? customTextEditingController;
   const TextFieldConfig({
     required String name,
     this.initialValue,
     this.validatorFunction,
+    this.customTextEditingController,
   }) : super(name: name);
-
-  String? get validatorPath => validatorFunction?.source.uri.toString();
-  String? get validatorName => hasEnclosingElementName
-      ? '${enclosingElementName}.${validatorFunction?.name}'
-      : validatorFunction?.name;
-  bool get hasEnclosingElementName => enclosingElementName != null;
-  String? get enclosingElementName => validatorFunction?.enclosingElement.name;
 }
 
 class DateFieldConfig extends FieldConfig {
-  DateFieldConfig({required String name}) : super(name: name);
+  const DateFieldConfig({required String name}) : super(name: name);
 }
 
 class DropdownFieldConfig extends FieldConfig {
@@ -42,7 +37,32 @@ class DropdownFieldItem {
   final String title;
   final String value;
 
-  DropdownFieldItem({required this.title, required this.value});
+  const DropdownFieldItem({required this.title, required this.value});
+}
+
+class ExecutableElementData {
+  final String? validatorPath;
+  final String? validatorName;
+  final String? enclosingElementName;
+  final bool hasEnclosingElementName;
+  final String? returnType;
+  const ExecutableElementData({
+    this.validatorPath,
+    this.validatorName,
+    this.enclosingElementName,
+    this.hasEnclosingElementName = false,
+    this.returnType,
+  });
+
+  factory ExecutableElementData.fromExecutableElement(
+      ExecutableElement executableElement) {
+    return ExecutableElementData(
+        returnType: executableElement.declaration.returnType.toString(),
+        enclosingElementName: executableElement.enclosingElementName,
+        hasEnclosingElementName: executableElement.hasEnclosingElementName,
+        validatorName: executableElement.validatorName,
+        validatorPath: executableElement.validatorPath);
+  }
 }
 
 extension ListOfFieldConfigs on List<FieldConfig> {
@@ -60,4 +80,13 @@ extension ListOfFieldConfigs on List<FieldConfig> {
       .where((fieldConfig) => fieldConfig is DropdownFieldConfig)
       .map((t) => t as DropdownFieldConfig)
       .toList();
+}
+
+extension ExecutableElementDataExtension on ExecutableElement? {
+  String? get validatorPath => this?.source.uri.toString();
+  String? get validatorName => hasEnclosingElementName
+      ? '${enclosingElementName}.${this?.name}'
+      : this?.name;
+  bool get hasEnclosingElementName => enclosingElementName != null;
+  String? get enclosingElementName => this?.enclosingElement.name;
 }
