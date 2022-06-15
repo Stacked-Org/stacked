@@ -6,22 +6,22 @@ import 'package:test/test.dart';
 import 'constant_test_helper.dart';
 
 void main() {
-  group('FormGeneratorTest -', () {
-    group('generateImport -', () {
+  group('FormBuilderTest -', () {
+    group('addImports -', () {
       test('when called should generate imports', () {
-        FormBuilder util = FormBuilder(
+        FormBuilder builder = FormBuilder(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [],
           ),
         );
-        util.addImports();
-        expect(util.serializeStringBuffer, ksFormImports);
+        builder.addImports();
+        expect(builder.serializeStringBuffer, ksFormImports);
       });
     });
-    group('generateValueMapKeys -', () {
+    group('addValueMapKeys -', () {
       test('when called should generate keys for fields', () {
-        FormBuilder util = FormBuilder(
+        FormBuilder builder = FormBuilder(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
@@ -31,14 +31,14 @@ void main() {
             ],
           ),
         );
-        util.addValueMapKeys();
-        expect(
-            util.serializeStringBuffer, ksFormKeys('name', 'date', 'dropDown'));
+        builder.addValueMapKeys();
+        expect(builder.serializeStringBuffer,
+            ksFormKeys('name', 'date', 'dropDown'));
       });
     });
-    group(' generateDropdownItemsMap-', () {
+    group('addDropdownItemsMap -', () {
       test('when called should generate drop down options map', () {
-        FormBuilder util = FormBuilder(
+        FormBuilder builder = FormBuilder(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
@@ -52,14 +52,14 @@ void main() {
             ],
           ),
         );
-        util.addDropdownItemsMap();
-        expect(util.serializeStringBuffer, ksDropdownItemsMap);
+        builder.addDropdownItemsMap();
+        expect(builder.serializeStringBuffer, ksDropdownItemsMap);
       });
     });
 
-    group('generateTextEditingControllerItemsMap -', () {
+    group('addTextEditingControllerItemsMap -', () {
       test('when called should generate textEditing controllers map', () {
-        FormBuilder util = FormBuilder(
+        FormBuilder builder = FormBuilder(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
@@ -68,14 +68,14 @@ void main() {
             ],
           ),
         );
-        util.addTextEditingControllerItemsMap();
-        expect(util.serializeStringBuffer, ksTextEditingControllerItemsMap);
+        builder.addTextEditingControllerItemsMap();
+        expect(builder.serializeStringBuffer, ksTextEditingControllerItemsMap);
       });
     });
-    group('generateTextEdittingControllersForTextFields -', () {
+    group('addTextEditingControllersForTextFields -', () {
       test('when called should generate the getters for textEditingControllers',
           () {
-        FormBuilder util = FormBuilder(
+        FormBuilder builder = FormBuilder(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
@@ -84,16 +84,16 @@ void main() {
             ],
           ),
         );
-        util.addTextEditingControllersForTextFields();
-        expect(util.serializeStringBuffer,
+        builder.addTextEditingControllersForTextFields();
+        expect(builder.serializeStringBuffer,
             ksTextEditingControllerGettersForTextFields);
       });
     });
-    group('generateCustomTextEditingController -', () {
+    group('addTextEditingControllersForTextFields -', () {
       test(
           'When provide a customTextEditingController, Should replace the default one',
           () {
-        FormBuilder util = FormBuilder(
+        FormBuilder builder = FormBuilder(
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
@@ -104,8 +104,8 @@ void main() {
             ],
           ),
         );
-        util.addTextEditingControllersForTextFields();
-        expect(util.serializeStringBuffer,
+        builder.addTextEditingControllersForTextFields();
+        expect(builder.serializeStringBuffer,
             ksTextEditingControllerGettersForTextFields);
       });
     });
