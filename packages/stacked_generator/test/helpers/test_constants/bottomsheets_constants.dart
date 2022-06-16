@@ -7,13 +7,13 @@ import 'app.locator.dart';
 enum BottomsheetType{
 }
 void setupBottomsheetUi() {
-  var bottomsheetService = locator<BottomsheetService>();
+  var bottomsheetService = locator<BottomSheetService>();
 
   final builders = {
   
   };
 
-  bottomsheetService.registerCustomBottomsheetBuilders(builders);
+  bottomsheetService.setCustomSheetBuilders(builders);
 }
 ''';
 const kBottomsheetsWithCustomNamedLocator = '''
@@ -25,13 +25,13 @@ import 'app.locator.dart';
 enum BottomsheetType{
 }
 void setupBottomsheetUi() {
-  var bottomsheetService = customLocator<BottomsheetService>();
+  var bottomsheetService = customLocator<BottomSheetService>();
 
   final builders = {
   
   };
 
-  bottomsheetService.registerCustomBottomsheetBuilders(builders);
+  bottomsheetService.setCustomSheetBuilders(builders);
 }
 ''';
 const kOneBottomsheet = '''
@@ -45,15 +45,15 @@ enum BottomsheetType{
 basicBottomsheet,
 }
 void setupBottomsheetUi() {
-  var bottomsheetService = locator<BottomsheetService>();
+  var bottomsheetService = locator<BottomSheetService>();
 
   final builders = {
   
-  BottomsheetType.basicBottomsheet: (context, BottomsheetRequest request, void Function(BottomsheetResponse) completer) =>
+  BottomsheetType.basicBottomsheet: (context, SheetRequest request, void Function(SheetResponse) completer) =>
         BasicBottomsheet(request: request,completer: completer),
   };
 
-  bottomsheetService.registerCustomBottomsheetBuilders(builders);
+  bottomsheetService.setCustomSheetBuilders(builders);
 }
 ''';
 const kTwoBottomsheets = '''
@@ -69,16 +69,16 @@ basicBottomsheet,
 complexBottomsheet,
 }
 void setupBottomsheetUi() {
-  var bottomsheetService = locator<BottomsheetService>();
+  var bottomsheetService = locator<BottomSheetService>();
 
   final builders = {
   
-  BottomsheetType.basicBottomsheet: (context, BottomsheetRequest request, void Function(BottomsheetResponse) completer) =>
+  BottomsheetType.basicBottomsheet: (context, SheetRequest request, void Function(SheetResponse) completer) =>
         BasicBottomsheet(request: request,completer: completer),
-  BottomsheetType.complexBottomsheet: (context, BottomsheetRequest request, void Function(BottomsheetResponse) completer) =>
+  BottomsheetType.complexBottomsheet: (context, SheetRequest request, void Function(SheetResponse) completer) =>
         ComplexBottomsheet(request: request,completer: completer),
   };
 
-  bottomsheetService.registerCustomBottomsheetBuilders(builders);
+  bottomsheetService.setCustomSheetBuilders(builders);
 }
 ''';
