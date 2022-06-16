@@ -13,6 +13,7 @@ void main() {
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [],
+            autoTextFieldValidation: false,
           ),
         );
         builder.addImports();
@@ -29,6 +30,7 @@ void main() {
               DateFieldConfig(name: 'date'),
               DropdownFieldConfig(name: 'dropDown', items: []),
             ],
+            autoTextFieldValidation: true,
           ),
         );
         builder.addValueMapKeys();
@@ -50,6 +52,7 @@ void main() {
                 ],
               ),
             ],
+            autoTextFieldValidation: false,
           ),
         );
         builder.addDropdownItemsMap();
@@ -66,6 +69,7 @@ void main() {
               TextFieldConfig(name: 'firstName'),
               TextFieldConfig(name: 'lastName'),
             ],
+            autoTextFieldValidation: false,
           ),
         );
         builder.addTextEditingControllerItemsMap();
@@ -82,6 +86,7 @@ void main() {
               TextFieldConfig(name: 'firstName'),
               TextFieldConfig(name: 'lastName'),
             ],
+            autoTextFieldValidation: false,
           ),
         );
         builder.addTextEditingControllersForTextFields();
@@ -102,6 +107,7 @@ void main() {
               ),
               TextFieldConfig(name: 'lastName'),
             ],
+            autoTextFieldValidation: false,
           ),
         );
         builder.addTextEditingControllersForTextFields();
