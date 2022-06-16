@@ -1,3 +1,5 @@
+## 0.7.8
+- Adds a method to manually validate fields on FormViewModel
 ## 0.7.7
 - Add [customTextEditingController] to [FormTextField]
 - Fixes [#384](https://github.com/FilledStacks/stacked/issues/384)

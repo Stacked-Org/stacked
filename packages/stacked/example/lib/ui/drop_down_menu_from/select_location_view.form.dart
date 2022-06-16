@@ -40,6 +40,8 @@ mixin $SelectLocationView on StatelessWidget {
 }
 
 extension ValueProperties on FormViewModel {
+  bool get isFormValid =>
+      this.fieldsValidationMessages.values.every((element) => element == null);
   String? get countryValue => this.formValueMap[CountryValueKey] as String?;
   String? get provinceValue => this.formValueMap[ProvinceValueKey] as String?;
 

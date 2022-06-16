@@ -24,6 +24,7 @@ class StackedFormGenerator extends GeneratorForAnnotation<FormView> {
     final viewName = classForAnnotation.displayName;
 
     final fieldsConfig = formView.peek('fields')?.listValue;
+    final autoTextValidateConfig = formView.peek('autoTextFieldValidation')?.boolValue;
     List<FieldConfig> fields = <FieldConfig>[];
 
     if (fieldsConfig != null) {
@@ -38,6 +39,7 @@ class StackedFormGenerator extends GeneratorForAnnotation<FormView> {
     final formViewConfig = FormViewConfig(
       fields: fields,
       viewName: viewName,
+      autoTextFieldValidation: autoTextValidateConfig ?? true,
     );
 
     return StackedFormContentGenerator(formViewConfig).generate();

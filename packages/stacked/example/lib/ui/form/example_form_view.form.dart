@@ -85,8 +85,14 @@ mixin $ExampleFormView on StatelessWidget {
     shortBioController.addListener(() => _updateFormData(model));
   }
 
+  final bool _autoTextFieldValidation = false;
+  bool validateFormFields(FormViewModel model) {
+    _updateFormData(model, forceValidate: true);
+    return model.isFormValid;
+  }
+
   /// Updates the formData on the FormViewModel
-  void _updateFormData(FormViewModel model) {
+  void _updateFormData(FormViewModel model, {bool forceValidate = false}) {
     model.setData(
       model.formValueMap
         ..addAll({
@@ -95,7 +101,9 @@ mixin $ExampleFormView on StatelessWidget {
           ShortBioValueKey: shortBioController.text,
         }),
     );
-    _updateValidationData(model);
+    if (_autoTextFieldValidation || forceValidate) {
+      _updateValidationData(model);
+    }
   }
 
   /// Updates the fieldsValidationMessages on the FormViewModel
@@ -132,6 +140,8 @@ mixin $ExampleFormView on StatelessWidget {
 }
 
 extension ValueProperties on FormViewModel {
+  bool get isFormValid =>
+      this.fieldsValidationMessages.values.every((element) => element == null);
   String? get emailValue => this.formValueMap[EmailValueKey] as String?;
   String? get passwordValue => this.formValueMap[PasswordValueKey] as String?;
   String? get shortBioValue => this.formValueMap[ShortBioValueKey] as String?;
