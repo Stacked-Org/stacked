@@ -5,7 +5,10 @@ abstract class BaseGenerator {
 
 mixin StringBufferUtils {
   final StringBuffer _stringBuffer = StringBuffer();
-  String get serializeStringBuffer => _stringBuffer.toString();
+  String get serializeStringBuffer {
+    print(_stringBuffer.toString());
+    return _stringBuffer.toString();
+  }
 
   /// Writes the object supplied next to what was written before without adding a new line
   void write(Object obj) => _stringBuffer.write(obj);

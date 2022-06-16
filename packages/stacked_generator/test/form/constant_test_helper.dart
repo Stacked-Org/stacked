@@ -65,7 +65,7 @@ final Map<String, FocusNode> _TestViewFocusNodes = {};
 ''';
 const kExample1UpdateFormData = '''
         /// Updates the formData on the FormViewModel
-        void _updateFormData(FormViewModel model) { model.setData(
+        void _updateFormData(FormViewModel model, {bool forceValidate = false}) { model.setData(
               model.formValueMap
                 ..addAll({
             
@@ -73,12 +73,15 @@ NameValueKey: nameController.text,
 EmailValueKey: emailController.text,
               }),
           );
-          _updateValidationData(model);}
+    if (_autoTextFieldValidation || forceValidate) {
+          _updateValidationData(model);}}
               
 ''';
 const kExample1ViewModelExtensionForGetters = '''
 
 extension ValueProperties on FormViewModel {
+bool get isFormValid =>
+      this.fieldsValidationMessages.values.every((element) => element == null);
 String? get nameValue => this.formValueMap[NameValueKey] as String?;
 String? get emailValue => this.formValueMap[EmailValueKey] as String?;
 DateTime? get dateValue => this.formValueMap[DateValueKey] as DateTime?;
