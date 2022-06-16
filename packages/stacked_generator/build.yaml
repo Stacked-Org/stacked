@@ -71,3 +71,11 @@ builders:
     build_extensions: { ".dart": [".dialog.dart"] }
     auto_apply: dependents
     build_to: source
+
+  # Generator the bottomsheets
+  stackedBottomsheetGenerator:
+    import: "package:stacked_generator/builder.dart"
+    builder_factories: ["stackedBottomsheetGenerator"]
+    build_extensions: { ".dart": [".bottomsheets.dart"] }
+    auto_apply: dependents
+    build_to: source
