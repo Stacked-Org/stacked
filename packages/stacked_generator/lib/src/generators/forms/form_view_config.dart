@@ -9,5 +9,8 @@ class FormViewConfig {
   final List<FieldConfig> fields;
   final bool autoTextFieldValidation;
 
-  FormViewConfig({required this.viewName, required this.fields, required this.autoTextFieldValidation});
+  FormViewConfig(
+      {required this.viewName,
+      required this.fields,
+      this.autoTextFieldValidation = true});
 }
