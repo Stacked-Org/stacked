@@ -2,7 +2,7 @@ import 'package:stacked_generator/src/generators/dialogs/dialog_config.dart';
 import 'package:stacked_generator/src/generators/dialogs/generate/dialog_class_generator.dart';
 import 'package:test/test.dart';
 
-import '../helpers/dialog_constant.dart';
+import '../helpers/test_constants/dialog_constant.dart';
 
 void main() {
   group('DialogClassGeneratorTest -', () {

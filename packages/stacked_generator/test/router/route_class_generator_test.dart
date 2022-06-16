@@ -8,7 +8,7 @@ import 'package:stacked_generator/src/generators/router/route_config/material_ro
 import 'package:stacked_generator/src/generators/router/router_config/router_config.dart';
 import 'package:test/test.dart';
 
-import '../helpers/router_constants.dart';
+import '../helpers/test_constants/router_constants.dart';
 
 void main() {
   group('RouteClassGeneratorTest -', () {
