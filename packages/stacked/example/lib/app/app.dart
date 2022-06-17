@@ -7,6 +7,7 @@ import 'package:example/ui/bottom_nav/favorites/favorites_viewmodel.dart';
 import 'package:example/ui/bottom_nav/history/history_view.dart';
 import 'package:example/ui/bottom_nav/history/history_viewmodel.dart';
 import 'package:example/ui/bottom_nav/profile/profile_view.dart';
+import 'package:example/ui/bottomsheets/generic_bottomsheet.dart';
 import 'package:example/ui/details/details_view.dart';
 import 'package:example/ui/form/example_form_view.dart';
 import 'package:example/ui/home/home_view.dart';
@@ -20,17 +21,19 @@ import '../ui/dialogs/basic_dialog.dart';
 import 'custom_route_transition.dart';
 
 @StackedApp(
-  dialogs: [StackedDialog(classType: BasicDialog)],
+  bottomsheets: [
+    StackedBottomsheet(classType: GenericBottomSheet),
+  ],
+  dialogs: [
+    StackedDialog(classType: BasicDialog),
+  ],
   routes: [
     MaterialRoute(page: HomeView, initial: true),
-    MaterialRoute(
-      page: BottomNavExample,
-      children: [
-        AdaptiveRoute(page:FavoritesView ),
-        CustomRoute(page: HistoryView),
-        CupertinoRoute(page: ProfileView),
-      ]
-    ),
+    MaterialRoute(page: BottomNavExample, children: [
+      AdaptiveRoute(page: FavoritesView),
+      CustomRoute(page: HistoryView),
+      CupertinoRoute(page: ProfileView),
+    ]),
     MaterialRoute(page: StreamCounterView),
     CupertinoRoute<Map<String, List<String>>?>(page: DetailsView),
     // TODO: Change the name of the FormView to avoid type clashing

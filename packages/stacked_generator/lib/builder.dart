@@ -5,6 +5,7 @@ import 'package:stacked_generator/src/generators/getit/stacked_locator_generator
 import 'package:stacked_generator/src/generators/logging/stacked_logger_generator.dart';
 import 'package:stacked_generator/src/generators/router/stacked_router_generator.dart';
 
+import 'src/generators/bottomsheets/resolve/stacked_bottomsheet_generator.dart';
 import 'src/generators/dialogs/resolve/stacked_dialog_generator.dart';
 
 Builder stackedRouterGenerator(BuilderOptions options) {
@@ -39,5 +40,12 @@ Builder stackedDialogGenerator(BuilderOptions options) {
   return LibraryBuilder(
     StackedDialogGenerator(),
     generatedExtension: '.dialog.dart',
+  );
+}
+
+Builder stackedBottomsheetGenerator(BuilderOptions options) {
+  return LibraryBuilder(
+    StackedBottomsheetGenerator(),
+    generatedExtension: '.bottomsheets.dart',
   );
 }
