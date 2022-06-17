@@ -1,3 +1,5 @@
+## 0.7.9
+- Add bottomsheets generator
 ## 0.7.8
 - Adds a method to manually validate fields on FormViewModel
 ## 0.7.7
