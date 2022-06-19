@@ -317,6 +317,23 @@ class FirebaseAuthenticationService {
     );
   }
 
+    /// Phone Number Login
+  Future<ConfirmationResult> signInWithPhoneNumber(String phoneNumber) async {
+    return firebaseAuth.signInWithPhoneNumber(phoneNumber);
+  }
+
+  Future<FirebaseAuthenticationResult> verifyOtp(
+      ConfirmationResult confirmationResult, String otp) async {
+    try {
+      UserCredential userCredential = await confirmationResult.confirm(otp);
+      return FirebaseAuthenticationResult(user: userCredential.user);
+    } catch (e) {}
+    return FirebaseAuthenticationResult.error(
+      errorMessage:
+          'We could not verify the otp at this time. Please try again.',
+    );
+  }
+  
   /// Sign out of the social accounts that have been used
   Future logout() async {
     log?.i('');
