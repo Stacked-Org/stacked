@@ -317,9 +317,17 @@ class FirebaseAuthenticationService {
     );
   }
 
-    /// Phone Number Login
+  /// Phone Number Login
   Future<ConfirmationResult> signInWithPhoneNumber(String phoneNumber) async {
-    return firebaseAuth.signInWithPhoneNumber(phoneNumber);
+    try {
+      return firebaseAuth.signInWithPhoneNumber(phoneNumber);
+    } catch (e) {
+      throw FirebaseAuthenticationResult.error(
+        errorMessage:
+            'We could not send a verification code to your phone number. Please try again.',
+        exceptionCode: e.toString(),
+      );
+    }
   }
 
   Future<FirebaseAuthenticationResult> verifyOtp(
@@ -327,13 +335,15 @@ class FirebaseAuthenticationService {
     try {
       UserCredential userCredential = await confirmationResult.confirm(otp);
       return FirebaseAuthenticationResult(user: userCredential.user);
-    } catch (e) {}
-    return FirebaseAuthenticationResult.error(
-      errorMessage:
-          'We could not verify the otp at this time. Please try again.',
-    );
+    } catch (e) {
+      throw FirebaseAuthenticationResult.error(
+        errorMessage:
+            'We could not verify the otp at this time. Please try again.',
+        exceptionCode: e.toString(),
+      );
+    }
   }
-  
+
   /// Sign out of the social accounts that have been used
   Future logout() async {
     log?.i('');
