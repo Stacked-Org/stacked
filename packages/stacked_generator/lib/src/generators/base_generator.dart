@@ -6,7 +6,6 @@ abstract class BaseGenerator {
 mixin StringBufferUtils {
   final StringBuffer _stringBuffer = StringBuffer();
   String get serializeStringBuffer {
-    print(_stringBuffer.toString());
     return _stringBuffer.toString();
   }
 
