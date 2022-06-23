@@ -369,6 +369,38 @@ class FirebaseAuthenticationService {
     );
   }
 
+  /// Authenticate the user using SMS code [otp]
+  Future<FirebaseAuthenticationResult> authenticateWithOtp(String otp) async {
+    if (_mobileVerificationId == null) {
+      throw 'The _mobileVerificationId should not be null here. Verification was probably skipped.';
+    }
+
+    try {
+      final phoneAuthCredential = PhoneAuthProvider.credential(
+        verificationId: _mobileVerificationId!,
+        smsCode: otp,
+      );
+
+      final userCredential = await firebaseAuth.signInWithCredential(
+        phoneAuthCredential,
+      );
+
+      return FirebaseAuthenticationResult(user: userCredential.user);
+    } on FirebaseAuthException catch (e) {
+      log?.e('A Firebase exception has occured. $e');
+      return FirebaseAuthenticationResult.error(
+        exceptionCode: e.code.toLowerCase(),
+        errorMessage: getErrorMessageFromFirebaseException(e),
+      );
+    } on Exception catch (e) {
+      log?.e('A general exception has occured. $e');
+      return FirebaseAuthenticationResult.error(
+        errorMessage:
+            'We could not authenticate with OTP at this time. Please try again.',
+      );
+    }
+  }
+
   /// Sign out of the social accounts that have been used
   Future logout() async {
     log?.i('');
