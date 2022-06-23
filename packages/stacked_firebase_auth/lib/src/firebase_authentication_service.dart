@@ -37,6 +37,8 @@ class FirebaseAuthenticationService {
   })  : _appleRedirectUri = appleRedirectUri,
         _appleClientId = appleClientId;
 
+  String? _mobileVerificationId;
+  int? _mobileResendToken;
   String? _pendingEmail;
   AuthCredential? _pendingCredential;
 
@@ -314,6 +316,56 @@ class FirebaseAuthenticationService {
     return FirebaseAuthenticationResult.error(
       errorMessage:
           'We could not log into your account but we noticed you have a ${userSignInMethods.first} account with the same details. Please try to login with that instead.',
+    );
+  }
+
+  /// Request a SMS verification code for [phoneNumber] sign-in.
+  Future<void> requestVerificationCode({
+    required String phoneNumber,
+    void Function(FirebaseAuthenticationResult authenticationResult)?
+        onVerificationCompleted,
+    void Function(FirebaseAuthException exception)? onVerificationFailed,
+    void Function(String verificationId)? onCodeSent,
+    void Function(String verificationId)? onCodeTimeout,
+    String? autoRetrievedSmsCodeForTesting,
+    Duration timeout = const Duration(seconds: 30),
+    int? forceResendingToken,
+  }) async {
+    await firebaseAuth.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+
+      /// Automatic handling of the SMS code on Android devices.
+      verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
+        final userCredential = await firebaseAuth.signInWithCredential(
+          phoneAuthCredential,
+        );
+
+        onVerificationCompleted?.call(
+          FirebaseAuthenticationResult(user: userCredential.user),
+        );
+      },
+
+      /// Handle failure events such as invalid phone numbers or whether the SMS
+      /// quota has been exceeded.
+      verificationFailed: (FirebaseAuthException firebaseAuthException) {
+        onVerificationFailed?.call(firebaseAuthException);
+      },
+
+      /// Handle when a code has been sent to the device from Firebase, used to
+      /// prompt users to enter the code.
+      codeSent: (String verificationId, int? resendToken) async {
+        _mobileVerificationId = verificationId;
+        _mobileResendToken = resendToken;
+        onCodeSent?.call(verificationId);
+      },
+
+      /// Handle a timeout of when automatic SMS code handling fails.
+      codeAutoRetrievalTimeout: (String verificationId) {
+        _mobileVerificationId = verificationId;
+        onCodeTimeout?.call(verificationId);
+      },
+      forceResendingToken: forceResendingToken,
+      timeout: timeout,
     );
   }
 
