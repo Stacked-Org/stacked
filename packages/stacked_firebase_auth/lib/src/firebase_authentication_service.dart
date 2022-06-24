@@ -319,6 +319,33 @@ class FirebaseAuthenticationService {
     );
   }
 
+  /// Phone Number Login
+  Future<ConfirmationResult> signInWithPhoneNumber(String phoneNumber) async {
+    try {
+      return firebaseAuth.signInWithPhoneNumber(phoneNumber);
+    } catch (e) {
+      throw FirebaseAuthenticationResult.error(
+        errorMessage:
+            'We could not send a verification code to your phone number. Please try again.',
+        exceptionCode: e.toString(),
+      );
+    }
+  }
+
+  Future<FirebaseAuthenticationResult> verifyOtp(
+      ConfirmationResult confirmationResult, String otp) async {
+    try {
+      UserCredential userCredential = await confirmationResult.confirm(otp);
+      return FirebaseAuthenticationResult(user: userCredential.user);
+    } catch (e) {
+      throw FirebaseAuthenticationResult.error(
+        errorMessage:
+            'We could not verify the otp at this time. Please try again.',
+        exceptionCode: e.toString(),
+      );
+    }
+  }
+
   /// Request a SMS verification code for [phoneNumber] sign-in.
   Future<void> requestVerificationCode({
     required String phoneNumber,
