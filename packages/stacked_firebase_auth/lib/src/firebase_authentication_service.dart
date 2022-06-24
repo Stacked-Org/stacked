@@ -320,6 +320,8 @@ class FirebaseAuthenticationService {
   }
 
   /// Phone Number Login
+  ///
+  /// Web Platform support
   Future<ConfirmationResult> signInWithPhoneNumber(String phoneNumber) async {
     try {
       return firebaseAuth.signInWithPhoneNumber(phoneNumber);
@@ -332,6 +334,9 @@ class FirebaseAuthenticationService {
     }
   }
 
+  /// Verify SMS code using [confirmationResult] and [otp]
+  ///
+  /// Web Platform support
   Future<FirebaseAuthenticationResult> verifyOtp(
       ConfirmationResult confirmationResult, String otp) async {
     try {
@@ -347,6 +352,8 @@ class FirebaseAuthenticationService {
   }
 
   /// Request a SMS verification code for [phoneNumber] sign-in.
+  ///
+  /// Native Platform support
   Future<void> requestVerificationCode({
     required String phoneNumber,
     void Function(FirebaseAuthenticationResult authenticationResult)?
@@ -397,6 +404,8 @@ class FirebaseAuthenticationService {
   }
 
   /// Authenticate the user using SMS code [otp]
+  ///
+  /// Native Platform support
   Future<FirebaseAuthenticationResult> authenticateWithOtp(String otp) async {
     if (_mobileVerificationId == null) {
       throw 'The _mobileVerificationId should not be null here. Verification was probably skipped.';
