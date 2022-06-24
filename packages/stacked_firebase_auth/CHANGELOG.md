@@ -1,3 +1,9 @@
+## 0.2.13
+- Remove signInWithPhoneNumber (implements Web Platform)
+- Remove verifyOtp (Implements Web Platform)
+- Add requestVerificationCode (Implements Native Platform)
+- Add authenticateWithOtp (Implements Native Platform)
+
 ## 0.2.12
 - Adds sign in with phone number
 - Adds verify otp 
