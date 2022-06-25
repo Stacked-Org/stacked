@@ -13,9 +13,9 @@ import 'package:mockito/mockito.dart';
 import 'package:{{packageName}}/app/app.locator.dart';
 import 'package:{{packageName}}/enums/bottom_sheet_type.dart';
 import 'package:{{packageName}}/ui/common/app_strings.dart';
-import 'package:{{packageName}}/ui/views/home/home_viewmodel.dart';
+import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_viewmodel.dart';
 
-import '../helpers/test_helpers.dart';
+import '{{{viewTestHelpersImportPath}}}/test_helpers.dart';
 
 void main() {
   HomeViewModel _getModel() => HomeViewModel();
@@ -839,8 +839,8 @@ const String kAppTemplateAppPath =
 
 const String kAppTemplateAppContent = '''
 import 'package:stacked/stacked_annotations.dart';
-import 'package:{{packageName}}/ui/views/home/home_view.dart';
-import 'package:{{packageName}}/ui/views/startup/startup_view.dart';
+import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_view.dart';
+import 'package:{{packageName}}/{{{viewImportPath}}}/startup/startup_view.dart';
 import 'package:stacked_services/stacked_services.dart';
 // @stacked-import
 
