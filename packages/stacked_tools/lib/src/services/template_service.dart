@@ -253,9 +253,12 @@ class TemplateService {
   }) async {
     final hasOutputPath = outputPath != null;
     for (final fileToModify in template.modificationFiles) {
+      final customRelativeModificationPath = _configService.replaceCustomPaths(
+        fileToModify.relativeModificationPath,
+      );
       final modificationPath = hasOutputPath
-          ? path.join(outputPath, fileToModify.relativeModificationPath)
-          : fileToModify.relativeModificationPath;
+          ? path.join(outputPath, customRelativeModificationPath)
+          : customRelativeModificationPath;
 
       final fileExists = await _fileService.fileExists(
         filePath: modificationPath,
