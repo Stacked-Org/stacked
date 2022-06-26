@@ -12,5 +12,6 @@ import 'package:stacked_services/stacked_services.dart';
   LazySingleton(classType: NavigationService),
   LazySingleton(classType: DialogService),
   LazySingleton(classType: BottomSheetService),
+  // @stacked-service
 ])
 class App {}
