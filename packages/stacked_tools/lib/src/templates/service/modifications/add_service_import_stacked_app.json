@@ -1,0 +1,8 @@
+{
+    "description": "When a service is generated, one of the boilerplate tasks is to add a service to the app.dart file for the new service. This modification performs that action.",
+    "path": "lib/app/app.dart",
+    "identifier": "// @stacked-import",
+    "template": "import \\'package:{{packageName}}/{{{serviceImportPath}}}/{{serviceFilename}}\\';",
+    "error": "The service registration should be stored in lib/app/app.dart",
+    "name": "Add {{serviceName}} import to StackedApp annotations file"
+}
