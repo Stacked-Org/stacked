@@ -5,8 +5,9 @@ const String kTemplateNameApp = 'app';
 
 // ------- File Modification identifiers --------
 
-const String kModificationIdentifierAppRoutes = '// @stacked-route';
 const String kModificationIdentifierAppImports = '// @stacked-import';
+const String kModificationIdentifierAppRoutes = '// @stacked-route';
+const String kModificationIdentifierAppServices = '// @stacked-service';
 const String kModificationIdentifierServiceMock = '// @stacked-service-mock';
 const String kModificationIdentifierServiceMockHelper =
     '// @stacked-mock-create';
