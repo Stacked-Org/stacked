@@ -14,6 +14,7 @@ dependencies:
   # Firebase
   firebase_core: ^1.17.0
   firebase_auth: ^3.3.18
+  firebase_auth_platform_interface: ^6.2.7
 
   # Firebase Authentications
   google_sign_in: ^5.3.1
