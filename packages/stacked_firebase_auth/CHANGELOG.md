@@ -1,3 +1,7 @@
+## 0.2.13
+- Add requestVerificationCode (Implements Native Platform)
+- Add authenticateWithOtp (Implements Native Platform)
+
 ## 0.2.12
 - Adds sign in with phone number
 - Adds verify otp 

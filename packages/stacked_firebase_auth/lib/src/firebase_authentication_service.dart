@@ -37,6 +37,8 @@ class FirebaseAuthenticationService {
   })  : _appleRedirectUri = appleRedirectUri,
         _appleClientId = appleClientId;
 
+  String? _mobileVerificationId;
+  int? _mobileResendToken;
   String? _pendingEmail;
   AuthCredential? _pendingCredential;
 
@@ -318,6 +320,8 @@ class FirebaseAuthenticationService {
   }
 
   /// Phone Number Login
+  ///
+  /// Web Platform support
   Future<ConfirmationResult> signInWithPhoneNumber(String phoneNumber) async {
     try {
       return firebaseAuth.signInWithPhoneNumber(phoneNumber);
@@ -330,6 +334,9 @@ class FirebaseAuthenticationService {
     }
   }
 
+  /// Verify SMS code using [confirmationResult] and [otp]
+  ///
+  /// Web Platform support
   Future<FirebaseAuthenticationResult> verifyOtp(
       ConfirmationResult confirmationResult, String otp) async {
     try {
@@ -340,6 +347,92 @@ class FirebaseAuthenticationService {
         errorMessage:
             'We could not verify the otp at this time. Please try again.',
         exceptionCode: e.toString(),
+      );
+    }
+  }
+
+  /// Request a SMS verification code for [phoneNumber] sign-in.
+  ///
+  /// Native Platform support
+  Future<void> requestVerificationCode({
+    required String phoneNumber,
+    void Function(FirebaseAuthenticationResult authenticationResult)?
+        onVerificationCompleted,
+    void Function(FirebaseAuthException exception)? onVerificationFailed,
+    void Function(String verificationId)? onCodeSent,
+    void Function(String verificationId)? onCodeTimeout,
+    String? autoRetrievedSmsCodeForTesting,
+    Duration timeout = const Duration(seconds: 30),
+    int? forceResendingToken,
+  }) async {
+    await firebaseAuth.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+
+      /// Automatic handling of the SMS code on Android devices.
+      verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
+        final userCredential = await firebaseAuth.signInWithCredential(
+          phoneAuthCredential,
+        );
+
+        onVerificationCompleted?.call(
+          FirebaseAuthenticationResult(user: userCredential.user),
+        );
+      },
+
+      /// Handle failure events such as invalid phone numbers or whether the SMS
+      /// quota has been exceeded.
+      verificationFailed: (FirebaseAuthException firebaseAuthException) {
+        onVerificationFailed?.call(firebaseAuthException);
+      },
+
+      /// Handle when a code has been sent to the device from Firebase, used to
+      /// prompt users to enter the code.
+      codeSent: (String verificationId, int? resendToken) async {
+        _mobileVerificationId = verificationId;
+        _mobileResendToken = resendToken;
+        onCodeSent?.call(verificationId);
+      },
+
+      /// Handle a timeout of when automatic SMS code handling fails.
+      codeAutoRetrievalTimeout: (String verificationId) {
+        _mobileVerificationId = verificationId;
+        onCodeTimeout?.call(verificationId);
+      },
+      forceResendingToken: forceResendingToken,
+      timeout: timeout,
+    );
+  }
+
+  /// Authenticate the user using SMS code [otp]
+  ///
+  /// Native Platform support
+  Future<FirebaseAuthenticationResult> authenticateWithOtp(String otp) async {
+    if (_mobileVerificationId == null) {
+      throw 'The _mobileVerificationId should not be null here. Verification was probably skipped.';
+    }
+
+    try {
+      final phoneAuthCredential = PhoneAuthProvider.credential(
+        verificationId: _mobileVerificationId!,
+        smsCode: otp,
+      );
+
+      final userCredential = await firebaseAuth.signInWithCredential(
+        phoneAuthCredential,
+      );
+
+      return FirebaseAuthenticationResult(user: userCredential.user);
+    } on FirebaseAuthException catch (e) {
+      log?.e('A Firebase exception has occured. $e');
+      return FirebaseAuthenticationResult.error(
+        exceptionCode: e.code.toLowerCase(),
+        errorMessage: getErrorMessageFromFirebaseException(e),
+      );
+    } on Exception catch (e) {
+      log?.e('A general exception has occured. $e');
+      return FirebaseAuthenticationResult.error(
+        errorMessage:
+            'We could not authenticate with OTP at this time. Please try again.',
       );
     }
   }
