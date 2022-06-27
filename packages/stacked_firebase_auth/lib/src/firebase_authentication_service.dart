@@ -166,15 +166,27 @@ class FirebaseAuthenticationService {
         rawNonce: rawNonce,
       );
 
-      final result = await _signInWithCredential(credential);
+      final appleCredential = await _signInWithCredential(credential);
 
       // Link the pending credential with the existing account
       if (_pendingCredential != null) {
-        await result.user?.linkWithCredential(_pendingCredential!);
+        await appleCredential.user?.linkWithCredential(_pendingCredential!);
+
         _clearPendingData();
       }
 
-      return FirebaseAuthenticationResult(user: result.user);
+      // Update the display name using the name from
+      final givenName = appleIdCredential.givenName;
+      final hasGivenName = givenName != null;
+      final familyName = appleIdCredential.familyName;
+      final hasFamilyName = familyName != null;
+
+      // print('Apple Sign in complete: ${appleIdCredential.toString()}');
+
+      await appleCredential.user?.updateDisplayName(
+          '${hasGivenName ? givenName : ''}${hasFamilyName ? ' $familyName' : ''}');
+
+      return FirebaseAuthenticationResult(user: appleCredential.user);
     } on FirebaseAuthException catch (e) {
       log?.e(e);
       return await _handleAccountExists(e);
