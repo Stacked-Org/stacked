@@ -8,7 +8,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../ui/views/home/home_view.dart';
@@ -54,7 +53,7 @@ class StackedRouter extends RouterBase {
 
 extension NavigatorStateExtension on NavigationService {
   Future<dynamic> navigateToStartupView({
-    int? id,
+    int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
@@ -62,7 +61,7 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       Routes.startupView,
-      id: id,
+      id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
       transition: transition,
@@ -70,7 +69,7 @@ extension NavigatorStateExtension on NavigationService {
   }
 
   Future<dynamic> navigateToHomeView({
-    int? id,
+    int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
@@ -78,7 +77,7 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       Routes.homeView,
-      id: id,
+      id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
       transition: transition,
