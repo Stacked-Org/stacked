@@ -1,3 +1,5 @@
+## 0.9.1
+- Hide the `message` widget in `showCustomSnackBar` when the message color is null and message is empty 
 ## 0.9.0
 - ⚠️ Break Change ⚠️: Removed the following deprecated code from snackbar_service
   - `navigatorKey` getter
