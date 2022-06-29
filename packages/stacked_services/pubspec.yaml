@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  stacked_core:
+  stacked_core: ^1.2.2
 
   # navigation
   get: ^4.5.1
