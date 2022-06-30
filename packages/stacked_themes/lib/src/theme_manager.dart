@@ -196,9 +196,16 @@ You can supply either a list of ThemeData objects to the themes property or a li
   }
 
   /// Swaps between the light and dark ThemeMode
-  void toggleDarkLightTheme() {
+  ///
+  /// If [disablePersistence] is set to true, the selected theme will
+  /// not persist across app restarts.
+  void toggleDarkLightTheme([bool disablePersistence = false]) {
     _selectedThemeMode =
         _selectedThemeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+
+    if (disablePersistence == false) {
+      _sharedPreferences.userThemeMode = _selectedThemeMode;
+    }
 
     updateOverlayColors(
         _selectedThemeMode == ThemeMode.dark ? darkTheme : lightTheme);
