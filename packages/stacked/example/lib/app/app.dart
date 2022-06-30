@@ -11,6 +11,7 @@ import 'package:example/ui/bottomsheets/generic_bottomsheet.dart';
 import 'package:example/ui/details/details_view.dart';
 import 'package:example/ui/form/example_form_view.dart';
 import 'package:example/ui/home/home_view.dart';
+import 'package:example/ui/multiple_futures_example/multiple_futures_example_view.dart';
 import 'package:example/ui/nonreactive/nonreactive_view.dart';
 import 'package:example/ui/stream_view/stream_counter_view.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -30,7 +31,13 @@ import 'custom_route_transition.dart';
   routes: [
     MaterialRoute(page: HomeView, initial: true),
     MaterialRoute(page: BottomNavExample, children: [
-      AdaptiveRoute(page: FavoritesView),
+      AdaptiveRoute(
+        page: FavoritesView,
+        children: [
+          MaterialRoute(page: MultipleFuturesExampleView),
+          CustomRoute(page: HistoryView),
+        ],
+      ),
       CustomRoute(page: HistoryView),
       CupertinoRoute(page: ProfileView),
     ]),
