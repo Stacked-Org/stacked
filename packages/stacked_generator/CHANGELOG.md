@@ -1,4 +1,9 @@
 
+## 0.7.10
+
+- Fixes issue with imports for deeply nested views
+- Removes duplicate strongly typed methods
+
 ## 0.7.9+1
 
 - Removes print statement that clutters the logs

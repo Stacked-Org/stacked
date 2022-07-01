@@ -261,19 +261,21 @@ class RouteGeneratorHelper with StringBufferUtils {
     writeLine('}');
   }
 
+  // to prevent duplicates we store the generated method names here
+  final List<String> _generatedRoutes = [];
+
   void generateStronglyTypedNavigationForRoutesAndChildren(
       List<RouteConfig> routes,
       {String? parentClassName}) {
     for (var route in routes) {
       final name = parentClassName != null ? parentClassName : 'Routes';
+      final methodName = (parentClassName != null)
+          ? 'navigateToNested${route.className}'
+          : 'navigateTo${route.className}';
+      if (_generatedRoutes.contains(methodName)) continue;
       generateStronglyTypedNavigationReturnType(route);
-      if (parentClassName != null) {
-        write('''
-        navigateToNested${route.className}( ''');
-      } else {
-        write('''
-        navigateTo${route.className}( ''');
-      }
+      write('''$methodName( ''');
+      _generatedRoutes.add(methodName);
       generateStronglyTypedNavigationParameters(route);
       writeLine(') async { return navigateTo(${name}.${route.name}, ');
       generateStronglyTypedNavigationRouteArguments(route);

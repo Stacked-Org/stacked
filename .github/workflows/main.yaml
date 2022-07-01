@@ -83,7 +83,7 @@ jobs:
         - name: Setup chrome driver
           uses: nanasess/setup-chromedriver@v1
           with:
-            chromedriver-version: "101.0.4951.41"
+            chromedriver-version: "103.0.5060.53"
 
         - name: Install dependencies
           run: flutter pub get

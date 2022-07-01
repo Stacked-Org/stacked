@@ -14,13 +14,18 @@ class RouterClassGenerator extends RouteGeneratorHelper
   String generate() {
     writeLine(
         "// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names");
-    generateImports(
-        [..._rootRouterConfig.routes, ..._rootRouterConfig.subRouters]);
+    generateImports([
+      ..._rootRouterConfig.routes,
+      ..._rootRouterConfig.subRouters,
+    ]);
     generateAllRoutersIncludingNestedOnes(
         _rootRouterConfig.routes,
         _rootRouterConfig.routerClassName,
         _rootRouterConfig.routesClassName,
         _rootRouterConfig.generateNavigationHelper);
+
+    generateExtensionForStronglyTypedNavigation(_rootRouterConfig.routes);
+
     return serializeStringBuffer;
   }
 
@@ -58,7 +63,5 @@ class RouterClassGenerator extends RouteGeneratorHelper
         generateNavigationHelper,
       );
     });
-
-    generateExtensionForStronglyTypedNavigation(routes);
   }
 }
