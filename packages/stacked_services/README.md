@@ -76,7 +76,7 @@ MaterialApp(
   navigatorKey: StackedService.navigatorKey,
   // home: AddCardView(), // Used when testing a view
   initialRoute: Routes.startupViewRoute,
-  onGenerateRoute: Router().onGenerateRoute,
+  onGenerateRoute: StackedRouter().onGenerateRoute,
 );
 ```
 
@@ -270,8 +270,8 @@ class MyApp extends StatelessWidget {
       ),
       navigatorObservers: [StackedService.routeObserver], ///<- Here
       navigatorKey: StackedService.navigatorKey,
-      initialRoute: auto_router.Routes.homeScreenRoute,
-      onGenerateRoute: auto_router.Router().onGenerateRoute,
+      initialRoute: Routes.homeScreenRoute,
+      onGenerateRoute: StackedRouter().onGenerateRoute,
     );
   }
 }
