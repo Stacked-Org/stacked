@@ -19,6 +19,7 @@ import '../ui/bottom_nav/profile/profile_view.dart';
 import '../ui/details/details_view.dart';
 import '../ui/form/example_form_view.dart';
 import '../ui/home/home_view.dart';
+import '../ui/multiple_futures_example/multiple_futures_example_view.dart';
 import '../ui/nonreactive/nonreactive_view.dart';
 import '../ui/stream_view/stream_counter_view.dart';
 
@@ -150,7 +151,11 @@ class BottomNavExampleRouter extends RouterBase {
   @override
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
-    RouteDef(BottomNavExampleRoutes.favoritesView, page: FavoritesView),
+    RouteDef(
+      BottomNavExampleRoutes.favoritesView,
+      page: FavoritesView,
+      generator: FavoritesViewRouter(),
+    ),
     RouteDef(BottomNavExampleRoutes.historyView, page: HistoryView),
     RouteDef(BottomNavExampleRoutes.profileView, page: ProfileView),
   ];
@@ -158,8 +163,8 @@ class BottomNavExampleRouter extends RouterBase {
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, StackedRouteFactory>{
     FavoritesView: (data) {
-      var args = data.getArgs<NestedFavoritesViewArguments>(
-        orElse: () => NestedFavoritesViewArguments(),
+      var args = data.getArgs<FavoritesViewArguments>(
+        orElse: () => FavoritesViewArguments(),
       );
       return buildAdaptivePageRoute<dynamic>(
         builder: (context) => FavoritesView(
@@ -193,10 +198,50 @@ class BottomNavExampleRouter extends RouterBase {
 /// *************************************************************************
 
 /// FavoritesView arguments holder class
-class NestedFavoritesViewArguments {
+class FavoritesViewArguments {
   final Key? key;
   final String? id;
-  NestedFavoritesViewArguments({this.key, this.id});
+  FavoritesViewArguments({this.key, this.id});
+}
+
+class FavoritesViewRoutes {
+  static const String multipleFuturesExampleView =
+      '/multiple-futures-example-view';
+  static const String historyView = '/history-view';
+  static const all = <String>{
+    multipleFuturesExampleView,
+    historyView,
+  };
+}
+
+class FavoritesViewRouter extends RouterBase {
+  @override
+  List<RouteDef> get routes => _routes;
+  final _routes = <RouteDef>[
+    RouteDef(FavoritesViewRoutes.multipleFuturesExampleView,
+        page: MultipleFuturesExampleView),
+    RouteDef(FavoritesViewRoutes.historyView, page: HistoryView),
+  ];
+  @override
+  Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+  final _pagesMap = <Type, StackedRouteFactory>{
+    MultipleFuturesExampleView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const MultipleFuturesExampleView(),
+        settings: data,
+      );
+    },
+    HistoryView: (data) {
+      return PageRouteBuilder<dynamic>(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const HistoryView(),
+          settings: data,
+          transitionsBuilder: data.transition ??
+              (context, animation, secondaryAnimation, child) {
+                return child;
+              });
+    },
+  };
 }
 
 /// ************************************************************************
@@ -250,7 +295,23 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       BottomNavExampleRoutes.favoritesView,
-      arguments: NestedFavoritesViewArguments(key: key, id: id),
+      arguments: FavoritesViewArguments(key: key, id: id),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToNestedMultipleFuturesExampleView({
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo(
+      FavoritesViewRoutes.multipleFuturesExampleView,
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -266,7 +327,7 @@ extension NavigatorStateExtension on NavigationService {
         transition,
   }) async {
     return navigateTo(
-      BottomNavExampleRoutes.historyView,
+      FavoritesViewRoutes.historyView,
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

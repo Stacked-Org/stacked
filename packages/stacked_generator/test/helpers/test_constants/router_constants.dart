@@ -45,7 +45,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -158,7 +158,7 @@ Future pushLoginView3()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass1( {
+navigateToTestClass1( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -175,7 +175,7 @@ Future<dynamic>
 
 
 Future<dynamic>
-        navigateToTestClass2( {
+navigateToTestClass2( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -192,7 +192,7 @@ Future<dynamic>
 
 
 Future<dynamic>
-        navigateToTestClass3( {
+navigateToTestClass3( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -257,7 +257,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -324,7 +324,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -391,7 +391,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -455,7 +455,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -519,7 +519,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -585,7 +585,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -649,7 +649,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -726,7 +726,7 @@ this.null});
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
 null null
 ,      int? routerId,
   bool preventDuplicates = true,
@@ -797,7 +797,7 @@ Future pushLoginView({null null,})
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -861,7 +861,7 @@ Future pushLoginView({null null,})
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -926,7 +926,7 @@ Future pushLoginView({null null,})
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -990,7 +990,7 @@ Future pushLoginView({null null = 2,})
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -1056,7 +1056,7 @@ Future pushLoginView({null null,})
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -1120,7 +1120,7 @@ Future pushLoginView({@required null null,})
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -1184,7 +1184,7 @@ Future pushLoginView({@required null null,})
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -1248,7 +1248,7 @@ Future pushLoginView({null ebra,})
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -1325,7 +1325,7 @@ this.null});
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
 newType null
 ,      int? routerId,
   bool preventDuplicates = true,
@@ -1395,7 +1395,7 @@ Future<returnYpe> pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<returnYpe?>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -1459,7 +1459,7 @@ Future<<CupertinoRoute>> pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<CupertinoRoute?>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -1556,7 +1556,7 @@ Future pushNestedView1()
 extension NavigatorStateExtension on NavigationService {
 
 Future<returnYpe1?>
-        navigateToTestClass1( {
+navigateToTestClass1( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -1573,7 +1573,7 @@ Future<returnYpe1?>
 
 
 Future<dynamic>
-        navigateToNestednestedClass1( {
+navigateToNestednestedClass1( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -1704,7 +1704,7 @@ Future pushMultiNestedmultiNestedView1()
 extension NavigatorStateExtension on NavigationService {
 
 Future<returnYpe1?>
-        navigateToTestClass1( {
+navigateToTestClass1( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -1721,7 +1721,7 @@ Future<returnYpe1?>
 
 
 Future<dynamic>
-        navigateToNestednestedClass1( {
+navigateToNestednestedClass1( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -1738,7 +1738,7 @@ Future<dynamic>
 
 
 Future<dynamic>
-        navigateToNestedmultiNestedmultiNestedClass1( {
+navigateToNestedmultiNestedmultiNestedClass1( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -1857,7 +1857,7 @@ Future pushThirdView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<returnYpe2?>
-        navigateToTestClass2( {
+navigateToTestClass2( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -1874,7 +1874,7 @@ Future<returnYpe2?>
 
 
 Future<dynamic>
-        navigateToNestedfirstClass( {
+navigateToNestedfirstClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -1891,7 +1891,7 @@ Future<dynamic>
 
 
 Future<dynamic>
-        navigateToNestedsecondClass( {
+navigateToNestedsecondClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -1908,7 +1908,7 @@ Future<dynamic>
 
 
 Future<dynamic>
-        navigateToNestedthirdClass( {
+navigateToNestedthirdClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2087,7 +2087,7 @@ Future pushSixthView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<returnYpe3?>
-        navigateToTestClass3( {
+navigateToTestClass3( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2104,7 +2104,7 @@ Future<returnYpe3?>
 
 
 Future<dynamic>
-        navigateToNestedfirstClass( {
+navigateToNestedfirstClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2121,7 +2121,7 @@ Future<dynamic>
 
 
 Future<dynamic>
-        navigateToNestedsecondClass( {
+navigateToNestedsecondClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2138,7 +2138,7 @@ Future<dynamic>
 
 
 Future<dynamic>
-        navigateToNestedthirdClass( {
+navigateToNestedthirdClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2155,7 +2155,7 @@ Future<dynamic>
 
 
 Future<returnYpe4?>
-        navigateToTestClass4( {
+navigateToTestClass4( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2172,7 +2172,7 @@ Future<returnYpe4?>
 
 
 Future<dynamic>
-        navigateToNestedfourthClass( {
+navigateToNestedfourthClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2189,7 +2189,7 @@ Future<dynamic>
 
 
 Future<dynamic>
-        navigateToNestedfifthClass( {
+navigateToNestedfifthClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2206,7 +2206,7 @@ Future<dynamic>
 
 
 Future<dynamic>
-        navigateToNestedsixthClass( {
+navigateToNestedsixthClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2272,7 +2272,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2338,7 +2338,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2415,7 +2415,7 @@ this.null});
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
 null null
 ,      int? routerId,
   bool preventDuplicates = true,
@@ -2485,7 +2485,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2549,7 +2549,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2625,7 +2625,7 @@ this.null});
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
 null null
 ,      int? routerId,
   bool preventDuplicates = true,
@@ -2698,7 +2698,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2765,7 +2765,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2833,7 +2833,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2900,7 +2900,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -2968,7 +2968,7 @@ Future pushLoginView()
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -3048,7 +3048,7 @@ this.null});
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
 null null
 ,      int? routerId,
   bool preventDuplicates = true,
@@ -3121,7 +3121,7 @@ Future pushLoginView({null null,})
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass( {
+navigateToTestClass( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -3246,7 +3246,7 @@ this.null});
 extension NavigatorStateExtension on NavigationService {
 
 Future<dynamic>
-        navigateToTestClass1( {
+navigateToTestClass1( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -3263,7 +3263,7 @@ Future<dynamic>
 
 
 Future<dynamic>
-        navigateToTestClass2( {
+navigateToTestClass2( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -3280,7 +3280,7 @@ Future<dynamic>
 
 
 Future<dynamic>
-        navigateToTestClass3( {
+navigateToTestClass3( {
 null null
 ,      int? routerId,
   bool preventDuplicates = true,
@@ -3303,7 +3303,7 @@ arguments: TestClass3Arguments(
 
 
 Future<dynamic>
-        navigateToTestClass4( {
+navigateToTestClass4( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -3320,7 +3320,7 @@ Future<dynamic>
 
 
 Future<dynamic>
-        navigateToTestClass5( {
+navigateToTestClass5( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,
@@ -3337,7 +3337,7 @@ Future<dynamic>
 
 
 Future<dynamic>
-        navigateToTestClass6( {
+navigateToTestClass6( {
       int? routerId,
   bool preventDuplicates = true,
   Map<String, String>? parameters,

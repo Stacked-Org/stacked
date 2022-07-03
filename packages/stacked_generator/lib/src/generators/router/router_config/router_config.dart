@@ -10,7 +10,7 @@ class RouterConfig {
   final String? routeNamePrefix;
   final String routerClassName;
 
-  const RouterConfig({
+   RouterConfig({
     this.generateNavigationHelper = false,
     this.routes = const [],
     required this.routesClassName,
@@ -35,11 +35,18 @@ class RouterConfig {
     );
   }
 
-  List<RouteConfig> get subRouters => routes
-      .where((route) => route.children.isNotEmpty)
-      .map((route) => route.children)
-      .fold<List<RouteConfig>>([],
-          (previousValue, element) => [...previousValue, ...element]).toList();
+  List<RouteConfig> get subRouters => nestedRoutes(routes);
+
+  List<RouteConfig> _allRoutes = [];
+  List<RouteConfig> nestedRoutes(List<RouteConfig> routes) {
+    if (routes.isEmpty) return [];
+    _allRoutes.addAll(routes);
+    routes.where((element) => element.children.isNotEmpty).forEach((element) {
+      nestedRoutes(element.children);
+    });
+
+    return _allRoutes;
+  }
 
   @override
   String toString() {
