@@ -169,9 +169,9 @@ Logger ebraLogger(
       exludeLogsFromClasses: exludeLogsFromClasses,
     ),
     output: MultipleLoggerOutput([
-      if(!_isReleaseMode)
+      if(!kReleaseMode)
       ConsoleOutput(),
-       if(_isReleaseMode) outputOne(), if(_isReleaseMode) outputTwo(),
+       if(kReleaseMode) outputOne(), if(kReleaseMode) outputTwo(),
     ]),
   );
 }
@@ -349,7 +349,7 @@ Logger ebraLogger(
     output: MultipleLoggerOutput([
       
       ConsoleOutput(),
-       if(_isReleaseMode) outputOne(), if(_isReleaseMode) outputTwo(),
+       if(kReleaseMode) outputOne(), if(kReleaseMode) outputTwo(),
     ]),
   );
 }
@@ -402,7 +402,7 @@ Logger ebraLogger(
     output: MultipleLoggerOutput([
       
       ConsoleOutput(),
-       if(_isReleaseMode) outputOne(), if(_isReleaseMode) outputTwo(),
+       if(kReleaseMode) outputOne(), if(kReleaseMode) outputTwo(),
     ]),
   );
 }
@@ -439,7 +439,7 @@ Logger getLogger(
       exludeLogsFromClasses: exludeLogsFromClasses,
     ),
     output: MultipleLoggerOutput([
-      if(!_isReleaseMode)
+      if(!kReleaseMode)
       ConsoleOutput(),
       
     ]),
