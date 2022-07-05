@@ -2,7 +2,7 @@ import 'package:stacked_generator/src/generators/logging/logger_class_generator.
 import 'package:stacked_generator/src/generators/logging/logger_config.dart';
 import 'package:test/test.dart';
 
-import '../../helpers/test_constants/logger_constants.dart';
+import '../helpers/test_constants/logger_constants.dart';
 
 void main() {
   group('LoggerClassGeneratorTest -', () {

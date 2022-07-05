@@ -34,7 +34,7 @@ class LoggerBuilder with StringBufferUtils {
 
     String withConditionalLoggerInPlace = withHelperNameInPlace.replaceFirst(
         DisableConsoleOutputInRelease,
-        loggerConfig.disableReleaseConsoleOutput ? 'if(!_isReleaseMode)' : '');
+        loggerConfig.disableReleaseConsoleOutput ? 'if(!kReleaseMode)' : '');
 
     String loggerOutputsInPlace = withConditionalLoggerInPlace.replaceFirst(
         MultipleLoggerOutput,
