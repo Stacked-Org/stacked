@@ -31,15 +31,9 @@ void main() {
         final loggerBuilder = LoggerBuilder(loggerConfig: LoggerConfig())
             .addLoggerNameAndOutputs();
 
-        print(loggerBuilder.serializeStringBuffer);
         expect(
             loggerBuilder.serializeStringBuffer, addLoggerClassNameAndOutput);
       });
-    });
-    group('convertClassNameToFileName -', () {
-      test(
-          'When class name is UserService, Should return two words [user, service]',
-          () {});
     });
   });
 }
