@@ -347,3 +347,41 @@ Logger ebraLogger(
   );
 }
 ''';
+const String addLoggerClassImports = '''
+// ignore_for_file: avoid_print
+
+/// Maybe this should be generated for the user as well?
+///
+/// import 'package:customer_app/services/stackdriver/stackdriver_service.dart';
+import 'package:logger/logger.dart';
+
+import 'packageX/importOne.dart';
+import 'packageY/importTwo.dart';
+
+
+
+''';
+const String addLoggerClassNameAndOutput = '''
+Logger getLogger(
+  String className, {
+  bool printCallingFunctionName = true,
+  bool printCallstack = false,
+  List<String> exludeLogsFromClasses = const [],
+  String? showOnlyClass,
+}) {
+  return Logger(
+    printer: SimpleLogPrinter(
+      className,
+      printCallingFunctionName: printCallingFunctionName,
+      printCallStack: printCallstack,
+      showOnlyClass: showOnlyClass,
+      exludeLogsFromClasses: exludeLogsFromClasses,
+    ),
+    output: MultipleLoggerOutput([
+      if(!_isReleaseMode)
+      ConsoleOutput(),
+      
+    ]),
+  );
+}
+''';

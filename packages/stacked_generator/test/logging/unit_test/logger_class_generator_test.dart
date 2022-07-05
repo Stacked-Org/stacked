@@ -28,19 +28,5 @@ void main() {
             generatedCode, kloggerClassContentWithDisableReleaseConsoleOutput);
       });
     });
-    group('customizeLoggerNameAndOutputs -', () {
-      test('When calling it, ', () {
-        final loggerConfig = LoggerConfig(
-            disableReleaseConsoleOutput: false,
-            imports: {'importOne', 'importTwo'},
-            logHelperName: 'ebraLogger',
-            loggerOutputs: ['outputOne', 'outputTwo']);
-        final loggerGenerator = LoggerClassGenerator(loggerConfig)
-          ..customizeLoggerNameAndOutputs(kloggerClassNameAndOutputs);
-
-        expect(loggerGenerator.serializeStringBuffer,
-            kCustomizedloggerClassNameAndOutputs);
-      });
-    });
   });
 }
