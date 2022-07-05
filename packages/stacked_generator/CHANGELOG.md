@@ -1,4 +1,7 @@
 
+## 0.7.2
+
+- Add flutter web support to the logger
 ## 0.7.10
 
 - Fixes issue with imports for deeply nested views
