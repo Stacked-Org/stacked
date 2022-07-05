@@ -1,4 +1,8 @@
 
+## 0.7.11
+
+- Fixes missing comma on default transition builder
+
 ## 0.7.10
 
 - Fixes issue with imports for deeply nested views
