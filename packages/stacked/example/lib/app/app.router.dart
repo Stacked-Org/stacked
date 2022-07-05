@@ -191,13 +191,14 @@ class BottomNavExampleRouter extends RouterBase {
     },
     HistoryView: (data) {
       return PageRouteBuilder<dynamic>(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              const HistoryView(),
-          settings: data,
-          transitionsBuilder: data.transition ??
-              (context, animation, secondaryAnimation, child) {
-                return child;
-              });
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const HistoryView(),
+        settings: data,
+        transitionsBuilder: data.transition ??
+            (context, animation, secondaryAnimation, child) {
+              return child;
+            },
+      );
     },
     ProfileView: (data) {
       return CupertinoPageRoute<dynamic>(
@@ -248,13 +249,14 @@ class FavoritesViewRouter extends RouterBase {
     },
     HistoryView: (data) {
       return PageRouteBuilder<dynamic>(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              const HistoryView(),
-          settings: data,
-          transitionsBuilder: data.transition ??
-              (context, animation, secondaryAnimation, child) {
-                return child;
-              });
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const HistoryView(),
+        settings: data,
+        transitionsBuilder: data.transition ??
+            (context, animation, secondaryAnimation, child) {
+              return child;
+            },
+      );
     },
   };
 }
