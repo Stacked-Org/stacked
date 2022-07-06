@@ -64,7 +64,7 @@ class SimpleLogPrinter extends LogPrinter {
       final currentStack = StackTrace.current;
       final formattedStacktrace = _formatStackTrace(currentStack, 3);
       if (kIsWeb) {
-        final classNameParts = _spliteClassNameWords(className);
+        final classNameParts = _splitClassNameWords(className);
         return _findMostMatchedTrace(formattedStacktrace!, classNameParts)
             .split(' ')
             .last;
@@ -81,7 +81,7 @@ class SimpleLogPrinter extends LogPrinter {
     }
   }
 
-  List<String> _spliteClassNameWords(String className) {
+  List<String> _splitClassNameWords(String className) {
     return className
         .split(RegExp(r"(?=[A-Z])"))
         .map((e) => e.toLowerCase())
