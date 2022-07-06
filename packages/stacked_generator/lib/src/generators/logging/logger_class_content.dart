@@ -9,11 +9,11 @@ const String loggerClassPrefex = '''
 /// Maybe this should be generated for the user as well?
 ///
 /// import 'package:customer_app/services/stackdriver/stackdriver_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 ''';
 
 const String loggerClassConstantBody = '''
-const bool _isReleaseMode = bool.fromEnvironment("dart.vm.product");
 
 class SimpleLogPrinter extends LogPrinter {
   final String className;
@@ -51,7 +51,7 @@ class SimpleLogPrinter extends LogPrinter {
 
     for (var line in output.split('\\n')) {
       result.addAll(pattern.allMatches(line).map((match) {
-        if (_isReleaseMode) {
+        if (kReleaseMode) {
           return match.group(0)!;
         } else {
           return color!(match.group(0)!);
@@ -62,20 +62,50 @@ class SimpleLogPrinter extends LogPrinter {
     return result;
   }
 
-  String? _getMethodName() {
+ String? _getMethodName() {
     try {
-      var currentStack = StackTrace.current;
-      var formattedStacktrace = _formatStackTrace(currentStack, 3);
+      final currentStack = StackTrace.current;
+      final formattedStacktrace = _formatStackTrace(currentStack, 3);
+      if (kIsWeb) {
+        final classNameParts = _splitClassNameWords(className);
+        return _findMostMatchedTrace(formattedStacktrace!, classNameParts)
+            .split(' ')
+            .last;
+      } else {
+        final realFirstLine = formattedStacktrace
+            ?.firstWhere((line) => line.contains(className), orElse: () => "");
 
-      var realFirstLine = formattedStacktrace
-          ?.firstWhere((line) => line.contains(className), orElse: () => "");
-
-      var methodName = realFirstLine?.replaceAll('\$className.', '');
-      return methodName;
+        final methodName = realFirstLine?.replaceAll('\$className.', '');
+        return methodName;
+      }
     } catch (e) {
       // There's no deliberate function call from our code so we return null;
       return null;
     }
+  }
+
+  List<String> _splitClassNameWords(String className) {
+  return className
+      .split(RegExp(r"(?=[A-Z])"))
+      .map((e) => e.toLowerCase())
+      .toList();
+  }
+
+  /// When the faulty word exists in the begging this method will not be very usefull
+  String _findMostMatchedTrace(List<String> stackTraces, List<String> keyWords) {
+    String match = stackTraces.firstWhere(
+        (trace) => _doesTraceContainsAllKeywords(trace, keyWords),
+        orElse: () => '');
+    if (match.isEmpty) {
+      match = _findMostMatchedTrace(
+          stackTraces, keyWords.sublist(0, keyWords.length - 1));
+    }
+    return match;
+  }
+
+  bool _doesTraceContainsAllKeywords(String stackTrace, List<String> keywords) {
+    final formattedKeywordsAsRegex = RegExp("\${keywords.join('.*')}");
+    return stackTrace.contains(formattedKeywordsAsRegex);
   }
 }
 

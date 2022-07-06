@@ -1831,7 +1831,7 @@ return CupertinoPageRoute<dynamic>(builder: (context) =>   secondClass(), settin
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   thirdClass(), settings: data,transitionsBuilder: data.transition??
               (context, animation, secondaryAnimation, child) {
             return child;
-          });
+          },);
 },};}
 
 /// ************************************************************************
@@ -2061,7 +2061,7 @@ return CupertinoPageRoute<dynamic>(builder: (context) =>   fifthClass(), setting
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   sixthClass(), settings: data,transitionsBuilder: data.transition??
               (context, animation, secondaryAnimation, child) {
             return child;
-          });
+          },);
 },};}
 
 /// ************************************************************************
@@ -2678,7 +2678,7 @@ TestClass: (data) {
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,transitionsBuilder: data.transition??
               (context, animation, secondaryAnimation, child) {
             return child;
-          });
+          },);
 },};}
 
 /// ************************************************************************
@@ -2745,7 +2745,7 @@ TestClass: (data) {
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,transitionsBuilder: data.transition??
               (context, animation, secondaryAnimation, child) {
             return child;
-          });
+          },);
 },};}
 
 /// ************************************************************************
@@ -2813,7 +2813,7 @@ TestClass: (data) {
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,transitionsBuilder: data.transition??
               (context, animation, secondaryAnimation, child) {
             return child;
-          }transitionDuration: const Duration(milliseconds: 22),);
+          },transitionDuration: const Duration(milliseconds: 22),);
 },};}
 
 /// ************************************************************************
@@ -2880,7 +2880,7 @@ TestClass: (data) {
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,transitionsBuilder: data.transition??
               (context, animation, secondaryAnimation, child) {
             return child;
-          }reverseTransitionDuration: const Duration(milliseconds: 2),);
+          },reverseTransitionDuration: const Duration(milliseconds: 2),);
 },};}
 
 /// ************************************************************************
@@ -2948,7 +2948,7 @@ TestClass: (data) {
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(), settings: data,opaque:false,transitionsBuilder: data.transition??
               (context, animation, secondaryAnimation, child) {
             return child;
-          });
+          },);
 },};}
 
 /// ************************************************************************
@@ -3017,7 +3017,7 @@ var args = data.getArgs<TestClassArguments>(
 orElse: ()=> TestClassArguments(),);return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(null:args.null), settings: data,transitionsBuilder: data.transition??
               (context, animation, secondaryAnimation, child) {
             return child;
-          });
+          },);
 },};}
 
 /// ************************************************************************
@@ -3101,7 +3101,7 @@ TestClass: (data) {
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(null:data.queryParams['null'].value()), settings: data,transitionsBuilder: data.transition??
               (context, animation, secondaryAnimation, child) {
             return child;
-          });
+          },);
 },};}
 
 /// ************************************************************************
@@ -3189,7 +3189,7 @@ TestClass1: (data) {
 return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass1(), settings: data,transitionsBuilder: data.transition??
               (context, animation, secondaryAnimation, child) {
             return child;
-          }transitionDuration: const Duration(milliseconds: 22),reverseTransitionDuration: const Duration(milliseconds: 2),);
+          },transitionDuration: const Duration(milliseconds: 22),reverseTransitionDuration: const Duration(milliseconds: 2),);
 },TestClass2: (data) {
 return MaterialPageRoute<dynamic>(builder: (context) =>   TestClass2(null:data.queryParams['null'].value()), settings: data,);
 },TestClass3: (data) {

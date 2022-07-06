@@ -9,7 +9,7 @@ Given two items one,two , Should return
 if(kReleaseMode) one(),if(kReleaseMode) two(),
 ''', () {
         expect(['one', 'two'].addCheckForReleaseModeToEachLogger,
-            " if(_isReleaseMode) one(), if(_isReleaseMode) two(),");
+            " if(kReleaseMode) one(), if(kReleaseMode) two(),");
       });
     });
   });

@@ -60,7 +60,7 @@ class CustomRouteConfig extends RouteConfig {
       stringBuffer.write('''transitionsBuilder: data.transition??
               (context, animation, secondaryAnimation, child) {
             return child;
-          }''');
+          },''');
     }
     if (durationInMilliseconds != null) {
       stringBuffer.write(
