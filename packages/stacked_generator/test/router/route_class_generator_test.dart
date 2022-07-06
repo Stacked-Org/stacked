@@ -118,39 +118,7 @@ void main() {
 
         generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
       });
-      test('When adding one RouteGuardConfig', () {
-        final List<RouteConfig> routes = [
-          MaterialRouteConfig(
-              name: 'loginView',
-              pathName: 'pathNamaw',
-              className: 'TestClass',
-              guards: [
-                RouteGuardConfig(import: 'guard/import.dart', type: 'GuardType')
-              ])
-        ];
 
-        generateRouteAndExpectResult(routes, kRouterWithOneGuard);
-      });
-      test('When adding two RouteGuardConfig', () {
-        final List<RouteConfig> routes = [
-          MaterialRouteConfig(
-              name: 'loginView',
-              pathName: 'pathNamaw',
-              className: 'TestClass',
-              guards: [
-                RouteGuardConfig(
-                  import: 'guard/import.dart',
-                  type: 'GuardType',
-                ),
-                RouteGuardConfig(
-                  import: 'guard/import2.dart',
-                  type: 'GuardType2?',
-                ),
-              ])
-        ];
-
-        generateRouteAndExpectResult(routes, kRouterWithTwoGuards);
-      });
       test('When hasConstConstructor is false have no effect ', () {
         final List<RouteConfig> routes = [
           MaterialRouteConfig(

@@ -5,7 +5,6 @@ import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/src/generators/router/route_config/route_config_factory.dart';
 import 'package:stacked_generator/utils.dart';
 
-import 'models/route_guard_config.dart';
 import 'models/route_parameter_config.dart';
 import 'route_config/route_config.dart';
 
@@ -30,16 +29,6 @@ class RouteConfigResolver {
       element: dartType.element!,
     );
     Set<String> imports = {};
-
-    final extractedGuards = stackedRoute.peek('guards')?.listValue.where((g) {
-      final guard = g.toTypeValue();
-      return guard != null && guard.element != null;
-    }).map((g) {
-      final guard = g.toTypeValue();
-      return RouteGuardConfig(
-          type: toDisplayString(guard!),
-          import: _importResolver.resolve((guard.element)!));
-    }).toList();
 
     final classElement = dartType.element as ClassElement;
     final className = toDisplayString(dartType);
@@ -95,7 +84,6 @@ class RouteConfigResolver {
             maintainState:
                 stackedRoute.peek('maintainState')?.boolValue ?? true,
             imports: imports,
-            guards: extractedGuards ?? [],
             className: className,
             fullscreenDialog:
                 stackedRoute.peek('fullscreenDialog')?.boolValue ?? false,

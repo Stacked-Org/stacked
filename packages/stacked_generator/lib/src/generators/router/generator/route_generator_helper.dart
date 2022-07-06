@@ -117,10 +117,7 @@ class RouteGeneratorHelper with StringBufferUtils {
     write("RouteDef(${routesClassName}.${route.templateName}");
     writeLine();
     writeLine(",page: ${route.className}");
-    if (route.guards.isNotEmpty == true) {
-      writeLine(
-          ",guards:${route.guards.map((e) => e.type).toList().toString()}");
-    }
+
     if (route.children.isNotEmpty) {
       writeLine(",generator: ${capitalize(route.name)}Router(),");
     }
@@ -158,9 +155,7 @@ class RouteGeneratorHelper with StringBufferUtils {
         }
         write(',');
       });
-      if (route.guards.isNotEmpty == true) {
-        write('OnNavigationRejected onReject');
-      }
+
       write('}');
     }
     writeLine(')');
@@ -170,10 +165,6 @@ class RouteGeneratorHelper with StringBufferUtils {
       write('${route.argumentsHolderClassName}(');
       write(route.parameters.map((p) => '${p.name}: ${p.name}').join(','));
       write('),');
-
-      if (route.guards.isNotEmpty == true) {
-        write('onReject:onReject,');
-      }
     }
     writeLine(');\n');
   }
