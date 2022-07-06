@@ -10,7 +10,6 @@ class RouteConfig {
   final bool maintainState;
   final String? returnType;
   final List<RouteParamConfig> parameters;
-  final List<RouteGuardConfig> guards;
   final bool hasWrapper;
   final List<RouteConfig> children;
   final bool hasConstConstructor;
@@ -25,7 +24,6 @@ class RouteConfig {
     this.maintainState = true,
     this.returnType,
     this.parameters = const [],
-    this.guards = const [],
     this.hasWrapper = false,
     this.children = const [],
     this.hasConstConstructor = false,
@@ -37,11 +35,6 @@ class RouteConfig {
   }
 
   Set<String> registerImports() {
-    final guardsImports = guards
-        .where((guard) => guard.import != null)
-        .map((guard) => guard.import!)
-        .toSet();
-
     final paramertersImports = this
         .parameters
         .map((parameter) => parameter.imports)
@@ -49,7 +42,7 @@ class RouteConfig {
       return {...previousValue, ...?element};
     });
 
-    return {...this.imports, ...guardsImports, ...paramertersImports};
+    return {...this.imports, ...paramertersImports};
   }
 
   String registerArgs() {
@@ -157,7 +150,6 @@ class RouteConfig {
     bool? maintainState,
     String? returnType,
     List<RouteParamConfig>? parameters,
-    List<RouteGuardConfig>? guards,
     bool? hasWrapper,
     List<RouteConfig>? children,
     bool? hasConstConstructor,
@@ -172,7 +164,6 @@ class RouteConfig {
       maintainState: maintainState ?? this.maintainState,
       returnType: returnType ?? this.returnType,
       parameters: parameters ?? this.parameters,
-      guards: guards ?? this.guards,
       hasWrapper: hasWrapper ?? this.hasWrapper,
       children: children ?? this.children,
       hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,

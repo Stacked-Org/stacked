@@ -1,4 +1,3 @@
-import '../models/route_guard_config.dart';
 import '../models/route_parameter_config.dart';
 import 'route_config.dart';
 
@@ -13,7 +12,6 @@ class AdaptiveRouteConfig extends RouteConfig {
       super.maintainState,
       super.returnType,
       super.parameters,
-      super.guards,
       super.hasWrapper,
       super.hasConstConstructor,
       super.children,
@@ -48,7 +46,6 @@ class AdaptiveRouteConfig extends RouteConfig {
     bool? maintainState,
     String? returnType,
     List<RouteParamConfig>? parameters,
-    List<RouteGuardConfig>? guards,
     bool? hasWrapper,
     bool? hasConstConstructor,
     List<RouteConfig>? children,
@@ -64,7 +61,6 @@ class AdaptiveRouteConfig extends RouteConfig {
       maintainState: maintainState ?? this.maintainState,
       returnType: returnType ?? this.returnType,
       parameters: parameters ?? this.parameters,
-      guards: guards ?? this.guards,
       hasWrapper: hasWrapper ?? this.hasWrapper,
       hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
       children: children ?? this.children,
