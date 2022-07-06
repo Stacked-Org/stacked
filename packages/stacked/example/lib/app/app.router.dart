@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../datamodels/clashable_one.dart';
+import '../datamodels/clashable_two.dart';
 import '../ui/bottom_nav/bottom_nav_example.dart';
 import '../ui/bottom_nav/favorites/favorites_view.dart';
 import '../ui/bottom_nav/history/history_view.dart';
@@ -77,8 +79,12 @@ class StackedRouter extends RouterBase {
       );
     },
     StreamCounterView: (data) {
+      var args = data.getArgs<StreamCounterViewArguments>(nullOk: false);
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const StreamCounterView(),
+        builder: (context) => StreamCounterView(
+          key: args.key,
+          clashableTwo: args.clashableTwo,
+        ),
         settings: data,
       );
     },
@@ -93,11 +99,12 @@ class StackedRouter extends RouterBase {
       );
     },
     ExampleFormView: (data) {
-      var args = data.getArgs<ExampleFormViewArguments>(
-        orElse: () => ExampleFormViewArguments(),
-      );
+      var args = data.getArgs<ExampleFormViewArguments>(nullOk: false);
       return MaterialPageRoute<dynamic>(
-        builder: (context) => ExampleFormView(key: args.key),
+        builder: (context) => ExampleFormView(
+          key: args.key,
+          clashableOne: args.clashableOne,
+        ),
         settings: data,
       );
     },
@@ -123,6 +130,13 @@ class HomeViewArguments {
   HomeViewArguments({this.key, this.title});
 }
 
+/// StreamCounterView arguments holder class
+class StreamCounterViewArguments {
+  final Key? key;
+  final Clashable clashableTwo;
+  StreamCounterViewArguments({this.key, required this.clashableTwo});
+}
+
 /// DetailsView arguments holder class
 class DetailsViewArguments {
   final Key? key;
@@ -133,7 +147,8 @@ class DetailsViewArguments {
 /// ExampleFormView arguments holder class
 class ExampleFormViewArguments {
   final Key? key;
-  ExampleFormViewArguments({this.key});
+  final Clashable clashableOne;
+  ExampleFormViewArguments({this.key, required this.clashableOne});
 }
 
 class BottomNavExampleRoutes {
@@ -352,6 +367,8 @@ extension NavigatorStateExtension on NavigationService {
   }
 
   Future<dynamic> navigateToStreamCounterView({
+    Key? key,
+    required Clashable clashableTwo,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -360,6 +377,8 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       Routes.streamCounterView,
+      arguments:
+          StreamCounterViewArguments(key: key, clashableTwo: clashableTwo),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -388,6 +407,7 @@ extension NavigatorStateExtension on NavigationService {
 
   Future<dynamic> navigateToExampleFormView({
     Key? key,
+    required Clashable clashableOne,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -396,7 +416,7 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       Routes.exampleFormView,
-      arguments: ExampleFormViewArguments(key: key),
+      arguments: ExampleFormViewArguments(key: key, clashableOne: clashableOne),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

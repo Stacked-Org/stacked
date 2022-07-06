@@ -1,3 +1,4 @@
+import 'package:example/datamodels/clashable_one.dart';
 import 'package:example/ui/form/custom_text_field.dart';
 import 'package:example/ui/form/validators.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,8 @@ import 'example_form_viewmodel.dart';
 )
 // #2: with $ExampleFormView
 class ExampleFormView extends StatelessWidget with $ExampleFormView {
-  ExampleFormView({Key? key}) : super(key: key);
+  final Clashable clashableOne;
+  ExampleFormView({Key? key, required this.clashableOne}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
