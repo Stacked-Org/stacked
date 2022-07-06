@@ -2,7 +2,7 @@ import 'package:stacked_generator/src/generators/logging/logger_class_generator.
 import 'package:stacked_generator/src/generators/logging/logger_config.dart';
 import 'package:test/test.dart';
 
-import '../../helpers/test_constants/logger_constants.dart';
+import '../helpers/test_constants/logger_constants.dart';
 
 void main() {
   group('LoggerClassGeneratorTest -', () {
@@ -26,20 +26,6 @@ void main() {
         final generatedCode = LoggerClassGenerator(loggerConfig).generate();
         expect(
             generatedCode, kloggerClassContentWithDisableReleaseConsoleOutput);
-      });
-    });
-    group('customizeLoggerNameAndOutputs -', () {
-      test('When calling it, ', () {
-        final loggerConfig = LoggerConfig(
-            disableReleaseConsoleOutput: false,
-            imports: {'importOne', 'importTwo'},
-            logHelperName: 'ebraLogger',
-            loggerOutputs: ['outputOne', 'outputTwo']);
-        final loggerGenerator = LoggerClassGenerator(loggerConfig)
-          ..customizeLoggerNameAndOutputs(kloggerClassNameAndOutputs);
-
-        expect(loggerGenerator.serializeStringBuffer,
-            kCustomizedloggerClassNameAndOutputs);
       });
     });
   });

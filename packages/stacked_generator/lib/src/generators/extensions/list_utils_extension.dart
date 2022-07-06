@@ -3,7 +3,7 @@ extension LoggerClassGeneratorExtension on List<String> {
     final _multiLoggers = StringBuffer();
 
     this.forEach((element) {
-      _multiLoggers.write(" if(_isReleaseMode) $element(),");
+      _multiLoggers.write(" if(kReleaseMode) $element(),");
     });
     return _multiLoggers.toString();
   }
