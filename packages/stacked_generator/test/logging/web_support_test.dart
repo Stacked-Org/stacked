@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 
-List<String> _spliteClassNameWords(String className) {
+List<String> _splitClassNameWords(String className) {
   return className
       .split(RegExp(r"(?=[A-Z])"))
       .map((e) => e.toLowerCase())
@@ -52,11 +52,11 @@ void main() {
       "packages/intake/services/user_service.dart 26:9                      syncUserAccount",
       "packages/intake/services/user_service.dart 22:31                     syncUserAccount",
     ];
-    group('convertClassNameToFileName -', () {
+    group('_splitClassNameWords -', () {
       test(
           'When class name is UserService, Should return two words [user, service]',
           () {
-        expect(_spliteClassNameWords('UserService'), ['user', 'service']);
+        expect(_splitClassNameWords('UserService'), ['user', 'service']);
       });
       group('_doesTraceContainsAllKeywords -', () {
         test(
