@@ -1,4 +1,5 @@
 import 'package:stacked_generator/src/generators/base_generator.dart';
+import 'package:stacked_generator/src/generators/router/generator/route_builder.dart';
 import 'package:stacked_generator/utils.dart';
 
 import '../route_config/route_config.dart';
@@ -12,12 +13,11 @@ class RouterClassGenerator extends RouteGeneratorHelper
   RouterClassGenerator(this._rootRouterConfig);
   @override
   String generate() {
-    writeLine(
-        "// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names");
-    generateImports([
+    final routeGeneratorBuilder = RouteGeneratorBuilder([
       ..._rootRouterConfig.routes,
       ..._rootRouterConfig.subRouters,
-    ]);
+    ]).addHeaderComment().sortAndaddImports();
+
     generateAllRoutersIncludingNestedOnes(
         _rootRouterConfig.routes,
         _rootRouterConfig.routerClassName,
@@ -26,7 +26,7 @@ class RouterClassGenerator extends RouteGeneratorHelper
 
     generateExtensionForStronglyTypedNavigation(_rootRouterConfig.routes);
 
-    return serializeStringBuffer;
+    return routeGeneratorBuilder.serializeStringBuffer + serializeStringBuffer;
   }
 
   void generateAllRoutersIncludingNestedOnes(

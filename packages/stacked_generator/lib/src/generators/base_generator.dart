@@ -19,8 +19,26 @@ mixin StringBufferUtils {
   void newLine() => _stringBuffer.writeln();
 
   /// Sorts the imports and then writed it to the current [StringBuffer]
-  void sortAndGenerate(Set<String> imports) {
+  void sortAndGenerate(Iterable<String> imports) {
     var sorted = imports.toList()..sort();
     sorted.forEach((import) => writeLine("import '$import';"));
   }
+
+  void generateAndAddNewLines(Iterable<String> imports,
+      {int preLines = 0, int postlines = 0}) {
+    List.generate(preLines, (index) => writeLine());
+    imports.forEach((import) => writeLine("import '$import';"));
+    List.generate(postlines, (index) => writeLine());
+  }
 }
+
+  // void sortAndGenerate(Set<String> imports, {bool withAlias = false}) {
+  //   var sorted = imports.toList()..sort();
+
+  //   if (withAlias) {
+  //     sorted.asMap().forEach(
+  //         (index, import) => writeLine("import '$import' as i_$index;"));
+  //   } else {
+  //     sorted.forEach((import) => writeLine("import '$import';"));
+  //   }
+  // }

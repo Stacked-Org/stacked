@@ -1625,8 +1625,8 @@ navigateToNestedmultiNestedmultiNestedClass1( {
 const kRouterWithThreeNestedRouter = '''
 // ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -1795,8 +1795,8 @@ navigateToNestedthirdClass( {
 const kRouterWithSixNestedRouter = '''
 // ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -2095,7 +2095,6 @@ const kRouterTypeCupertinoWithNamePathNameClassName = '''
 // ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -2161,7 +2160,6 @@ const kRouterTypeCupertinoWithCupertinoNavTitle = '''
 // ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -2226,7 +2224,6 @@ const kRouterTypeCupertinoWithParametersPathFalseQueryFalse = '''
 // ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -2308,7 +2305,6 @@ arguments: TestClassArguments(
 const kRouterTypeAdaptive = '''
 // ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -2372,7 +2368,6 @@ navigateToTestClass( {
 const kRouterTypeAdaptiveWithCupertinoNavTitle = '''
 // ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -2436,7 +2431,6 @@ navigateToTestClass( {
 const kRouterTypeAdaptiveWithParametersPathFalseQueryFalse = '''
 // ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -3008,8 +3002,8 @@ navigateToTestClass( {
 const kRouterMixin = '''
 // ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -3220,4 +3214,49 @@ navigateToTestClass6( {
 ); }
 
 }
+''';
+const kImportsWithAliasesTest = '''
+
+import 'package:ClashTypeOne/ClashType.dart' as i_0;
+import 'package:ClashTypeTwo/ClashType.dart' as i_1;
+import 'package:flutter/material.dart' as i_2;
+import 'package:importone.dart' as i_3;
+import 'package:importtwo.dart' as i_4;
+import 'package:stacked/stacked.dart' as i_5;
+import 'package:stacked_services/stacked_services.dart' as i_6;
+
+''';
+const kConstantsMap = '''
+class RoutesClassName {
+static const String loginView = 'pathNamaw';
+static const String homeView = 'pathNamaw';
+static const all = <String>{
+loginView,homeView,};}
+''';
+const kRouterClass = '''
+
+class RouterClassName extends RouterBase {
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     
+
+RouteDef(RoutesClassName.loginView
+,page: LoginClass
+),
+RouteDef(RoutesClassName.homeView
+,page: HomeClass
+),
+];       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        
+
+LoginClass: (data) {
+var args = data.getArgs<LoginClassArguments>(
+orElse: ()=> LoginClassArguments(),);return MaterialPageRoute<dynamic>(builder: (context) =>   LoginClass(loginArg:args.loginArg), settings: data,);
+},HomeClass: (data) {
+var args = data.getArgs<HomeClassArguments>(
+orElse: ()=> HomeClassArguments(),);return MaterialPageRoute<dynamic>(builder: (context) =>   HomeClass(homeArg:args.homeArg), settings: data,);
+},};}
 ''';
