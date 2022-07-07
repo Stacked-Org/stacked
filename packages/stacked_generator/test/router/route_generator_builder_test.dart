@@ -26,7 +26,7 @@ void main() {
           ]),
       MaterialRouteConfig(
           name: 'homeView',
-          pathName: 'pathNamaw',
+          pathName: '/family/:fid',
           className: 'HomeClass',
           imports: {
             '../ui/bottom_nav/profile/profile_view.dart',

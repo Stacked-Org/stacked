@@ -14,10 +14,7 @@ class RouterClassGenerator extends RouteGeneratorHelper
   @override
   String generate() {
     final routeGeneratorBuilder = RouteGeneratorBuilder(
-      routes: [
-        ..._rootRouterConfig.routes,
-        ..._rootRouterConfig.subRouters,
-      ],
+      routes: _rootRouterConfig.routes,
       routesClassName: _rootRouterConfig.routesClassName,
     ).addHeaderComment().sortAndAddImports().addRoutesClassName();
 

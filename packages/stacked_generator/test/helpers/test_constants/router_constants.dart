@@ -3245,9 +3245,10 @@ import 'package:stacked_services/stacked_services.dart' as i_6;
 const routeClassNames = '''
 class RoutesClassName {
 static const String loginView = 'pathNamaw';
-static const String homeView = 'pathNamaw';
+static const String _homeView = '/family/:fid';
+static String homeView({@required dynamic fid}) => '/family/\$fid';
 static const all = <String>{
-loginView,homeView,};}
+loginView,_homeView,};}
 ''';
 const kRouterClass = '''
 
