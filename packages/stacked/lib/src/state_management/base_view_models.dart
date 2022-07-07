@@ -7,6 +7,7 @@ import 'package:stacked/src/state_management/reactive_service_mixin.dart';
 class BaseViewModel extends ChangeNotifier {
   Map<int, bool> _busyStates = Map<int, bool>();
   Map<int, dynamic> _errorStates = Map<int, dynamic>();
+  Map<int, String?> _messageStates = Map<int, String>();
 
   bool _initialised = false;
   bool get initialised => _initialised;
@@ -22,14 +23,23 @@ class BaseViewModel extends ChangeNotifier {
 
   dynamic error(Object object) => _errorStates[object.hashCode];
 
+  /// Returns the message for an object if it exists. Returns null if not present
+  String? message(Object object) => _messageStates[object.hashCode];
+
   /// Returns the busy status of the ViewModel
   bool get isBusy => busy(this);
 
-  /// Returns the error status of the ViewModel
+  /// Returns the error existence status of the ViewModel
   bool get hasError => error(this) != null;
 
   /// Returns the error status of the ViewModel
   dynamic get modelError => error(this);
+
+  /// Returns the message status of the ViewModel
+  bool get hasMessage => message(this) != null;
+
+  /// Returns the message status of the ViewModel
+  String? get modelMessage => message(this);
 
   // Returns true if any objects still have a busy status that is true.
   bool get anyObjectsBusy => _busyStates.values.any((busy) => busy);
@@ -42,6 +52,11 @@ class BaseViewModel extends ChangeNotifier {
   /// Sets the error for the ViewModel
   void setError(dynamic error) {
     setErrorForObject(this, error);
+  }
+
+  /// Sets the message for the ViewModel
+  void setMessage(String? message) {
+    setMessageForObject(this, message);
   }
 
   /// returns real data passed if neither the model is busy nor the object passed is busy
@@ -60,9 +75,16 @@ class BaseViewModel extends ChangeNotifier {
   /// Returns a boolean that indicates if the ViewModel has an error for the key
   bool hasErrorForKey(Object key) => error(key) != null;
 
+  /// Returns a boolean that indicates if the ViewModel has an message for the key
+  bool hasMessageForKey(Object key) => message(key) != null;
+
   /// Clears all the errors
   void clearErrors() {
     _errorStates.clear();
+  }
+
+  void clearMessages() {
+    _messageStates.clear();
   }
 
   /// Sets the busy state for the object equal to the value passed in and notifies Listeners
@@ -76,6 +98,13 @@ class BaseViewModel extends ChangeNotifier {
   /// If you're using a primitive type the value SHOULD NOT BE CHANGED, since Hashcode uses == value
   void setErrorForObject(Object object, dynamic value) {
     _errorStates[object.hashCode] = value;
+    notifyListeners();
+  }
+
+  /// Sets the message for the object equal to the value passed in and notifies Listeners
+  /// If you're using a primitive type the value SHOULD NOT BE CHANGED, since Hashcode uses == value
+  void setMessageForObject(Object object, String? value) {
+    _messageStates[object.hashCode] = value;
     notifyListeners();
   }
 
@@ -255,6 +284,7 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
   // TODO: Add retry functionality - default 1
   // TODO: Add retry lifecycle hooks to override in the viewmodel
 
+  /// The future that fetches the data and sets the view to busy
   Future<T> futureToRun();
 
   /// Indicates if you want the error caught in futureToRun to be rethrown
@@ -262,6 +292,7 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
 
   Future initialise() async {
     setError(null);
+    setMessage(null);
     _error = null;
     // We set busy manually as well because when notify listeners is called to clear error messages the
     // ui is rebuilt and if you expect busy to be true it's not.
@@ -488,6 +519,7 @@ abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T>
     _streamSubscription = stream.listen(
       (incomingData) {
         setError(null);
+        setMessage(null);
         _error = null;
         notifyListeners();
         // Extra security in case transformData isnt sent
@@ -577,6 +609,7 @@ class StreamData<T> extends _SingleDataSourceViewModel<T> {
     _streamSubscription = stream.listen(
       (incomingData) {
         setError(null);
+        setMessage(null);
         _error = null;
         notifyListeners();
         // Extra security in case transformData isnt sent
