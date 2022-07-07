@@ -26,9 +26,9 @@ mixin StringBufferUtils {
 
   void generateAndAddNewLines(Iterable<String> imports,
       {int preLines = 0, int postlines = 0}) {
-    List.generate(preLines, (index) => writeLine());
+    List.generate(preLines, (_) => writeLine());
     imports.forEach((import) => writeLine("import '$import';"));
-    List.generate(postlines, (index) => writeLine());
+    List.generate(postlines, (_) => writeLine());
   }
 }
 

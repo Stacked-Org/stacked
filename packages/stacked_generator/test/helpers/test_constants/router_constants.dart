@@ -3215,6 +3215,22 @@ navigateToTestClass6( {
 
 }
 ''';
+const kImportsWithoutAliasesTest = '''
+
+
+import 'package:importone.dart';
+import 'package:importtwo.dart';
+import 'package:ClashTypeOne/ClashType.dart';
+import 'package:flutter/material.dart';
+import 'package:ClashTypeTwo/ClashType.dart';
+import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+
+import '../ui/bottom_nav/profile/profile_view.dart';
+import '../ui/details/details_view.dart';
+import '../ui/form/example_form_view.dart';
+import '../ui/home/home_view.dart';
+''';
 const kImportsWithAliasesTest = '''
 
 import 'package:ClashTypeOne/ClashType.dart' as i_0;
@@ -3226,7 +3242,7 @@ import 'package:stacked/stacked.dart' as i_5;
 import 'package:stacked_services/stacked_services.dart' as i_6;
 
 ''';
-const kConstantsMap = '''
+const routeClassNames = '''
 class RoutesClassName {
 static const String loginView = 'pathNamaw';
 static const String homeView = 'pathNamaw';

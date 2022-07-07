@@ -1,5 +1,5 @@
 import 'package:stacked_generator/route_config_resolver.dart';
-import 'package:stacked_generator/src/generators/router/generator/route_generator_helper.dart';
+import 'package:stacked_generator/src/generators/router/generator/route_generator_builder.dart';
 import 'package:stacked_generator/src/generators/router/route_config/material_route_config.dart';
 import 'package:test/test.dart';
 
@@ -28,6 +28,12 @@ void main() {
           name: 'homeView',
           pathName: 'pathNamaw',
           className: 'HomeClass',
+          imports: {
+            '../ui/bottom_nav/profile/profile_view.dart',
+            '../ui/details/details_view.dart',
+            '../ui/form/example_form_view.dart',
+            '../ui/home/home_view.dart',
+          },
           parameters: [
             RouteParamConfig(
                 imports: {'package:ClashTypeTwo/ClashType.dart'},
@@ -38,22 +44,23 @@ void main() {
           ])
     ];
 
-    group('generateRoutesConstantsMap -', () {
-      test('Should generate route constant map', () {
-        final routeGeneratorHelper = RouteGeneratorHelper()
-          ..generateRoutesConstantsMap(routes, 'RoutesClassName');
-        expect(routeGeneratorHelper.serializeStringBuffer, kConstantsMap);
+    group('sortAndAddImports -', () {
+      test('Should add and sort imports', () {
+        final routeGeneratorHelper = RouteGeneratorBuilder(
+                routes: routes, routesClassName: 'RoutesClassName')
+            .sortAndAddImports();
+        expect(
+          routeGeneratorHelper.serializeStringBuffer,
+          kImportsWithoutAliasesTest,
+        );
       });
     });
-    group('generateRoutesConstantsMap -', () {
-      test('Should generate route constant map', () {
-        final routeGeneratorHelper = RouteGeneratorHelper()
-          ..generateRouterClass(
-            routes,
-            'RouterClassName',
-            'RoutesClassName',
-          );
-        expect(routeGeneratorHelper.serializeStringBuffer, kRouterClass);
+    group('addRoutesClassName -', () {
+      test('Should generate route class names', () {
+        final routeGeneratorHelper = RouteGeneratorBuilder(
+                routes: routes, routesClassName: 'RoutesClassName')
+            .addRoutesClassName();
+        expect(routeGeneratorHelper.serializeStringBuffer, routeClassNames);
       });
     });
   });
