@@ -1,11 +1,15 @@
 
+## 0.7.13
+
+- Fixes dublicated types imports not added
+
 ## 0.7.12
 
 - Fixes missing comma on default transition builder
 
 ## 0.7.11
 
-- Fix the logger not printing method name on flutter web
+- Fixes the logger not printing method name on flutter web
 - Cleanup and refactor the logger code
 ## 0.7.10
 
