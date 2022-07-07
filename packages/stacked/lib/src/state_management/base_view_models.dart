@@ -7,7 +7,7 @@ import 'package:stacked/src/state_management/reactive_service_mixin.dart';
 class BaseViewModel extends ChangeNotifier {
   Map<int, bool> _busyStates = Map<int, bool>();
   Map<int, dynamic> _errorStates = Map<int, dynamic>();
-  Map<int, String?> _messageStates = Map<int, String>();
+  Map<int, String?> _messageStates = Map<int, String?>();
 
   bool _initialised = false;
   bool get initialised => _initialised;
