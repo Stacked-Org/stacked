@@ -1,3 +1,5 @@
+## 2.3.13
+- Adds Message state functionality for view models
 ## 2.3.12
 - Fix [#486](https://github.com/FilledStacks/stacked/issues/486) 
 ## 2.3.11
