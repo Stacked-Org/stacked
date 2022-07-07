@@ -19,13 +19,13 @@ class RouteGeneratorBuilder with StringBufferUtils {
 
   /// Example result
   ///
-  /// import 'package:importone.dart';
-  /// import 'package:importtwo.dart';
-  /// import 'package:ClashTypeOne/ClashType.dart';
-  /// import 'package:flutter/material.dart';
-  /// import 'package:ClashTypeTwo/ClashType.dart';
   /// import 'package:stacked/stacked.dart';
   /// import 'package:stacked_services/stacked_services.dart';
+  ///
+  /// import '../ui/bottom_nav/profile/profile_view.dart';
+  /// import '../ui/details/details_view.dart';
+  /// import '../ui/form/example_form_view.dart';
+  /// import '../ui/home/home_view.dart';
   RouteGeneratorBuilder sortAndAddImports() {
     final allImports = routes
         .map((route) => route.registerImports())
@@ -51,21 +51,27 @@ class RouteGeneratorBuilder with StringBufferUtils {
   ///
   /// class RoutesClassName {
   /// static const String loginView = 'pathNamaw';
-  /// static const String homeView = 'pathNamaw';
+  /// static const String _homeView = '/family/:fid';
+  /// static String homeView({@required dynamic fid}) => '/family/\$fid';
   /// static const all = <String>{
-  /// loginView,homeView,};}
+  /// loginView,_homeView,};}
   ///
   RouteGeneratorBuilder addRoutesClassName() {
     writeLine('class $routesClassName {');
 
     for (var route in routes) {
-      writeLine("static const String ${route.name} = '${route.pathName}';");
+      writeLine(
+          "static const String ${_convertToPrivateNameWhenRouteHasPathParameter(route)} = '${route.pathName}';");
+      if (route.pathName.contains(':')) {
+        _addRouteWithPathParameter(
+            routeName: route.name, routePath: route.pathName);
+      }
     }
 
     writeLine("static const all = <String>{");
 
     for (var route in routes) {
-      write('${route.name},');
+      write('${_convertToPrivateNameWhenRouteHasPathParameter(route)},');
     }
 
     // Closes the [all] map
@@ -76,28 +82,28 @@ class RouteGeneratorBuilder with StringBufferUtils {
     return this;
   }
 
-  _addRouteWithPath(String routePath, String routeName) {
-    if (routePath.contains(':')) {
-      // handle template paths
-      writeLine("static const String _$routeName = '$routePath';");
-      // allNames.add('_$routeName');
-      var params = RegExp(r':([^/]+)').allMatches(routePath).map((m) {
-        var match = m.group(1);
-        if (match!.endsWith('?')) {
-          return "dynamic  ${match.substring(0, match.length - 1)} = ''";
+  String _convertToPrivateNameWhenRouteHasPathParameter(RouteConfig route) {
+    return route.pathName.contains(':') ? '_${route.name}' : route.name;
+  }
+
+  void _addRouteWithPathParameter(
+      {required String routePath, required String routeName}) {
+    final params = RegExp(r':([^/]+)').allMatches(routePath).map((m) {
+      final match = m.group(1);
+      if (match!.endsWith('?')) {
+        return "dynamic ${match.substring(0, match.length - 1)} = ''";
+      } else {
+        return "@required dynamic $match";
+      }
+    });
+    writeLine(
+      "static String $routeName({${params.join(',')}}) => '${routePath.replaceAllMapped(RegExp(r'([:])|([?])'), (m) {
+        if (m[1] != null) {
+          return '\$';
         } else {
-          return "@required  dynamic $match";
+          return '';
         }
-      });
-      writeLine(
-        "static String $routeName({${params.join(',')}}) => '${routePath.replaceAllMapped(RegExp(r'([:])|([?])'), (m) {
-          if (m[1] != null) {
-            return '\$';
-          } else {
-            return '';
-          }
-        })}';",
-      );
-    }
+      })}';",
+    );
   }
 }
