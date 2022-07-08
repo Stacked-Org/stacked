@@ -10,7 +10,11 @@ mixin StringBufferUtils {
   }
 
   /// Writes the object supplied next to what was written before without adding a new line
-  void write(Object obj) => _stringBuffer.write(obj);
+  void write(Object obj, {int preLines = 0, int postlines = 0}) {
+    List.generate(preLines, (_) => writeLine());
+    _stringBuffer.write(obj);
+    List.generate(postlines, (_) => writeLine());
+  }
 
   /// Writes a line of text into the current [StringBuffer] and adds a space new line after it
   void writeLine([Object obj = '']) => _stringBuffer.writeln(obj);
@@ -24,7 +28,7 @@ mixin StringBufferUtils {
     sorted.forEach((import) => writeLine("import '$import';"));
   }
 
-  void generateAndAddNewLines(Iterable<String> imports,
+  void generateIterableWithPaddingLines(Iterable<String> imports,
       {int preLines = 0, int postlines = 0}) {
     List.generate(preLines, (_) => writeLine());
     imports.forEach((import) => writeLine("import '$import';"));

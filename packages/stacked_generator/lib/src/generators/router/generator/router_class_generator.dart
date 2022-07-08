@@ -16,7 +16,12 @@ class RouterClassGenerator extends RouteGeneratorHelper
     final routeGeneratorBuilder = RouteGeneratorBuilder(
       routes: _rootRouterConfig.routes,
       routesClassName: _rootRouterConfig.routesClassName,
-    ).addHeaderComment().sortAndAddImports().addRoutesClassName();
+      routerClassName: _rootRouterConfig.routerClassName,
+    )
+        .addHeaderComment()
+        .sortAndAddImports()
+        .addRoutesClassName()
+        .addRouterClass();
 
     generateAllRoutersIncludingNestedOnes(
         _rootRouterConfig.routes,
@@ -35,12 +40,6 @@ class RouterClassGenerator extends RouteGeneratorHelper
     String routesClassName,
     bool generateNavigationHelper,
   ) {
-    generateRouterClass(
-      routes,
-      routerClassName,
-      routesClassName,
-    );
-
     if (_rootRouterConfig.generateNavigationHelper) {
       generateNavigationHelpers(
         routes,

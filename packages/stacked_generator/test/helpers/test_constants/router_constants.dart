@@ -3250,9 +3250,10 @@ static String homeView({@required dynamic fid}) => '/family/\$fid';
 static const all = <String>{
 loginView,_homeView,};}
 ''';
+
 const kRouterClass = '''
 
-class RouterClassName extends RouterBase {
+class routerClassName extends RouterBase {
      @override
      List<RouteDef> get routes => _routes;
      final _routes = <RouteDef>[
@@ -3261,7 +3262,7 @@ class RouterClassName extends RouterBase {
 RouteDef(RoutesClassName.loginView
 ,page: LoginClass
 ),
-RouteDef(RoutesClassName.homeView
+RouteDef(RoutesClassName._homeView
 ,page: HomeClass
 ),
 ];       @override
