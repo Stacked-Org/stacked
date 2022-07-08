@@ -3,7 +3,6 @@ import 'package:stacked_core/stacked_core.dart';
 
 import '../../../../import_resolver.dart';
 import '../models/custom_transition_builder.dart';
-import '../models/route_guard_config.dart';
 import '../models/route_parameter_config.dart';
 import 'adaptive_route_config.dart';
 import 'cupertino_route_config.dart';
@@ -21,7 +20,6 @@ class RouteConfigFactory {
   final bool fullscreenDialog;
   final bool hasConstConstructor;
   final bool isChild;
-  final List<RouteGuardConfig> guards;
   final Set<String> imports;
   final List<RouteParamConfig> parameters;
   const RouteConfigFactory({
@@ -33,7 +31,6 @@ class RouteConfigFactory {
     required this.maintainState,
     required this.fullscreenDialog,
     required this.hasConstConstructor,
-    required this.guards,
     required this.imports,
     required this.parameters,
     required this.isChild,
@@ -47,7 +44,6 @@ class RouteConfigFactory {
         name: name,
         pathName: pathName,
         fullscreenDialog: fullscreenDialog,
-        guards: guards,
         hasConstConstructor: hasConstConstructor,
         hasWrapper: hasWrapper,
         imports: imports,
@@ -64,7 +60,6 @@ class RouteConfigFactory {
         name: name,
         pathName: pathName,
         fullscreenDialog: fullscreenDialog,
-        guards: guards,
         hasConstConstructor: hasConstConstructor,
         hasWrapper: hasWrapper,
         imports: imports,
@@ -80,7 +75,6 @@ class RouteConfigFactory {
         name: name,
         pathName: pathName,
         fullscreenDialog: fullscreenDialog,
-        guards: guards,
         hasConstConstructor: hasConstConstructor,
         hasWrapper: hasWrapper,
         imports: imports,
@@ -121,7 +115,6 @@ class RouteConfigFactory {
         name: name,
         pathName: pathName,
         fullscreenDialog: fullscreenDialog,
-        guards: guards,
         hasConstConstructor: hasConstConstructor,
         hasWrapper: hasWrapper,
         imports: imports,
