@@ -20,7 +20,7 @@ class ImportResolver {
         var package = lib.source.uri.pathSegments.first;
         if (targetFilePath.startsWith(new RegExp('^$package\/'))) {
           return p.posix
-              .relative(lib.source.uri.path, from: targetFilePath)
+              .relative(element?.source?.uri.path ?? '', from: targetFilePath)
               .replaceFirst('../', '');
         } else {
           return lib.source.uri.toString();

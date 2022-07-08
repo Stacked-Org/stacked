@@ -1,5 +1,4 @@
 import '../models/custom_transition_builder.dart';
-import '../models/route_guard_config.dart';
 import '../models/route_parameter_config.dart';
 import 'route_config.dart';
 
@@ -17,7 +16,6 @@ class CustomRouteConfig extends RouteConfig {
       super.maintainState,
       super.returnType,
       super.parameters,
-      super.guards,
       super.hasWrapper,
       super.hasConstConstructor,
       super.children,
@@ -82,7 +80,6 @@ class CustomRouteConfig extends RouteConfig {
     bool? maintainState,
     String? returnType,
     List<RouteParamConfig>? parameters,
-    List<RouteGuardConfig>? guards,
     bool? hasWrapper,
     List<RouteConfig>? children,
     bool? hasConstConstructor,
@@ -102,7 +99,6 @@ class CustomRouteConfig extends RouteConfig {
       maintainState: maintainState ?? this.maintainState,
       returnType: returnType ?? this.returnType,
       parameters: parameters ?? this.parameters,
-      guards: guards ?? this.guards,
       hasWrapper: hasWrapper ?? this.hasWrapper,
       children: children ?? this.children,
       hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
