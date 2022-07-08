@@ -43,12 +43,14 @@ void main() {
                 isQueryParam: false)
           ])
     ];
-
+    RouteGeneratorBuilder getBuilderInstance() => RouteGeneratorBuilder(
+          routes: routes,
+          routesClassName: 'RoutesClassName',
+          routerClassName: 'routerClassName',
+        );
     group('sortAndAddImports -', () {
       test('Should add and sort imports', () {
-        final routeGeneratorHelper = RouteGeneratorBuilder(
-                routes: routes, routesClassName: 'RoutesClassName')
-            .sortAndAddImports();
+        final routeGeneratorHelper = getBuilderInstance().sortAndAddImports();
         expect(
           routeGeneratorHelper.serializeStringBuffer,
           kImportsWithoutAliasesTest,
@@ -57,10 +59,14 @@ void main() {
     });
     group('addRoutesClassName -', () {
       test('Should generate route class names', () {
-        final routeGeneratorHelper = RouteGeneratorBuilder(
-                routes: routes, routesClassName: 'RoutesClassName')
-            .addRoutesClassName();
+        final routeGeneratorHelper = getBuilderInstance().addRoutesClassName();
         expect(routeGeneratorHelper.serializeStringBuffer, routeClassNames);
+      });
+    });
+    group('addRouterClass -', () {
+      test('Should generate router class', () {
+        final routeGeneratorHelper = getBuilderInstance().addRouterClass();
+        expect(routeGeneratorHelper.serializeStringBuffer, kRouterClass);
       });
     });
   });

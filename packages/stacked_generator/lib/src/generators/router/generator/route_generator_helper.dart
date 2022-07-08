@@ -3,67 +3,6 @@ import 'package:stacked_generator/src/generators/router/route_config/route_confi
 import 'package:stacked_generator/utils.dart';
 
 class RouteGeneratorHelper with StringBufferUtils {
-  void generateRouterClass(
-    List<RouteConfig> routes,
-    String routerClassName,
-    String routesClassName,
-  ) {
-    writeLine('\nclass $routerClassName extends RouterBase {');
-
-    writeLine('''
-     @override
-     List<RouteDef> get routes => _routes;
-     final _routes = <RouteDef>[
-     ''');
-    for (var route in routes) {
-      _generateRouteTemplates(route, routesClassName);
-    }
-    writeLine();
-    write('];');
-
-    writeLine('''
-       @override
-       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
-        final _pagesMap = <Type, StackedRouteFactory>{
-        ''');
-    writeLine();
-
-    for (var route in routes) {
-      _generateRouteGeneratorFunction(route);
-    }
-
-    write('};');
-
-    writeLine('}');
-  }
-
-  void _generateRouteTemplates(RouteConfig route, String routesClassName) {
-    writeLine();
-
-    write("RouteDef(${routesClassName}.${route.templateName}");
-    writeLine();
-    writeLine(",page: ${route.className}");
-
-    if (route.children.isNotEmpty) {
-      writeLine(",generator: ${capitalize(route.name)}Router(),");
-    }
-    write('),');
-  }
-
-  void _generateRouteGeneratorFunction(RouteConfig route) {
-    var routesMap = <String, RouteConfig>{};
-
-    routesMap[route.className] = route;
-
-    routesMap.forEach((name, route) {
-      writeLine('$name: (data) {');
-
-      write(route.registerRoutes());
-
-      write("},");
-    });
-  }
-
   void _generateHelperMethod(RouteConfig route, String routesClassName) {
     final genericType = route.returnType == null ? '' : '<${route.returnType}>';
     write('Future$genericType push${capitalize(route.name)}(');

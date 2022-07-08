@@ -1,5 +1,6 @@
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/base_generator.dart';
+import 'package:stacked_generator/utils.dart';
 
 const _constImports = [
   "package:stacked/stacked.dart",
@@ -9,7 +10,12 @@ const _constImports = [
 class RouteGeneratorBuilder with StringBufferUtils {
   final List<RouteConfig> routes;
   final String routesClassName;
-  RouteGeneratorBuilder({required this.routes, required this.routesClassName});
+  final String routerClassName;
+  RouteGeneratorBuilder({
+    required this.routes,
+    required this.routesClassName,
+    required this.routerClassName,
+  });
 
   RouteGeneratorBuilder addHeaderComment() {
     write(
@@ -34,15 +40,16 @@ class RouteGeneratorBuilder with StringBufferUtils {
 
     final dartImports =
         allImports.where((element) => element.startsWith('dart'));
-    generateAndAddNewLines(dartImports, preLines: 1, postlines: 1);
+    generateIterableWithPaddingLines(dartImports, preLines: 1, postlines: 1);
 
     final packageImports =
         allImports.where((element) => element.startsWith('package'));
-    generateAndAddNewLines([...packageImports, ..._constImports], postlines: 1);
+    generateIterableWithPaddingLines([...packageImports, ..._constImports],
+        postlines: 1);
 
     final remainingImports =
         allImports.difference({...dartImports, ...packageImports});
-    generateAndAddNewLines(remainingImports);
+    generateIterableWithPaddingLines(remainingImports);
 
     return this;
   }
@@ -105,5 +112,93 @@ class RouteGeneratorBuilder with StringBufferUtils {
         }
       })}';",
     );
+  }
+
+  /// Example result
+  ///
+  /// class routerClassName extends RouterBase {
+  ///      @override
+  ///      List<RouteDef> get routes => _routes;
+  ///      final _routes = <RouteDef>[
+  ///
+  ///
+  /// RouteDef(RoutesClassName.loginView
+  /// ,page: LoginClass
+  /// ),
+  /// RouteDef(RoutesClassName._homeView
+  /// ,page: HomeClass
+  /// ),
+  /// ];       @override
+  ///        Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+  ///         final _pagesMap = <Type, StackedRouteFactory>{
+  ///
+  ///
+  /// LoginClass: (data) {
+  /// var args = data.getArgs<LoginClassArguments>(
+  /// orElse: ()=> LoginClassArguments(),);return MaterialPageRoute<dynamic>(builder: (context) =>   LoginClass(loginArg:args.loginArg), settings: data,);
+  /// },HomeClass: (data) {
+  /// var args = data.getArgs<HomeClassArguments>(
+  /// orElse: ()=> HomeClassArguments(),);return MaterialPageRoute<dynamic>(builder: (context) =>   HomeClass(homeArg:args.homeArg), settings: data,);
+  /// },};}
+  RouteGeneratorBuilder addRouterClass() {
+    writeLine('\nclass $routerClassName extends RouterBase {');
+
+    writeLine('''
+     @override
+     List<RouteDef> get routes => _routes;
+     final _routes = <RouteDef>[
+     ''');
+    for (var route in routes) {
+      _addRouteTemplates(route, routesClassName);
+    }
+    newLine();
+    write('];');
+
+    write(
+      '''
+       @override
+       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+        final _pagesMap = <Type, StackedRouteFactory>{
+        ''',
+      postlines: 2,
+    );
+
+    for (var route in routes) {
+      _addRouteGeneratorFunction(route);
+    }
+
+    write('};');
+
+    writeLine('}');
+    return this;
+  }
+
+  /// RouteDef(RoutesClassName._homeView
+  /// ,page: HomeClass
+  /// ),
+  void _addRouteTemplates(RouteConfig route, String routesClassName) {
+    write(
+      "RouteDef(${routesClassName}.${route.templateName}",
+      preLines: 1,
+      postlines: 1,
+    );
+    writeLine(",page: ${route.className}");
+
+    if (route.children.isNotEmpty) {
+      writeLine(",generator: ${capitalize(route.name)}Router(),");
+    }
+    write('),');
+  }
+
+  /// HomeClass: (data) {
+  /// var args = data.getArgs<HomeClassArguments>(
+  /// orElse: ()=> HomeClassArguments(),);return MaterialPageRoute<dynamic>(builder: (context) =>   HomeClass(homeArg:args.homeArg), settings: data,);
+  /// },
+  void _addRouteGeneratorFunction(RouteConfig route) {
+    writeLine('${route.className}: (data) {');
+
+    write(route.registerRoutes());
+
+    write("},");
   }
 }
