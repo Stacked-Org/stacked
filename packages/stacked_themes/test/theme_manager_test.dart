@@ -6,6 +6,8 @@ import 'package:stacked_themes/src/theme_manager.dart';
 import 'test_setup.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group('ThemeManagerTest -', () {
     setUp(() => registerServices());
 

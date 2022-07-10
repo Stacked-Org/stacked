@@ -1,3 +1,15 @@
+## 0.2.14
+
+- Extracts first and last name from apple credential to create displayName on FirebaseAuth user
+
+## 0.2.13
+- Add requestVerificationCode (Implements Native Platform)
+- Add authenticateWithOtp (Implements Native Platform)
+
+## 0.2.12
+- Adds sign in with phone number
+- Adds verify otp 
+
 ## 0.2.11
 
 - Updates firebase_core to ^1.17.0

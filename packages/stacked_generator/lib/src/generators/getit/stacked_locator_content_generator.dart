@@ -3,7 +3,9 @@ import 'package:stacked_generator/src/generators/getit/dependency_config/factory
 
 import 'dependency_config/dependency_config.dart';
 
-class StackedLocatorContentGenerator extends BaseGenerator {
+class StackedLocatorContentGenerator
+    with StringBufferUtils
+    implements BaseGenerator {
   final String locatorName;
   final String locatorSetupName;
   final List<DependencyConfig> dependencies;
@@ -44,12 +46,15 @@ class StackedLocatorContentGenerator extends BaseGenerator {
 
     writeLine('}');
 
-    return stringBuffer.toString();
+    return serializeStringBuffer;
   }
 
   void _generateImports(List<DependencyConfig> services) {
     // write route imports
-    final imports = <String?>{"package:stacked_core/stacked_core.dart"};
+    final imports = <String?>{
+      // "package:stacked/stacked.dart",
+      "package:stacked_core/stacked_core.dart"
+    };
 
     imports.addAll(services.map((service) => service.import));
     imports.addAll(services.map((service) => service.abstractedImport));

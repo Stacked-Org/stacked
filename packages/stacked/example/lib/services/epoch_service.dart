@@ -1,5 +1,3 @@
-import 'package:new_architecture/services/iepoch_service.dart';
-
 class EpochService {
   Stream<int> epochUpdatesNumbers() async* {
     while (true) {

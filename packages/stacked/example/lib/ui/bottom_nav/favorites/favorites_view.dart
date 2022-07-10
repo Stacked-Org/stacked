@@ -1,12 +1,13 @@
+import 'package:example/app/app.locator.dart';
 import 'package:flutter/material.dart';
-import 'package:new_architecture/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../app/app.locator.dart';
 import 'favorites_viewmodel.dart';
 
 class FavoritesView extends StatelessWidget {
-  const FavoritesView({Key? key}) : super(key: key);
+  final String? id;
+  const FavoritesView({Key? key, this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class FavoritesView extends StatelessWidget {
           body: Center(
               child: Text(
             viewModel.counter.toString(),
-            style: TextStyle(fontSize: 30),
+            style: const TextStyle(fontSize: 30),
           ))),
       viewModelBuilder: () => exampleLocator<FavoritesViewModel>(),
       onModelReady: (viewModel) => viewModel.setCounterTo999(),

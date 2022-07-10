@@ -76,7 +76,7 @@ MaterialApp(
   navigatorKey: StackedService.navigatorKey,
   // home: AddCardView(), // Used when testing a view
   initialRoute: Routes.startupViewRoute,
-  onGenerateRoute: Router().onGenerateRoute,
+  onGenerateRoute: StackedRouter().onGenerateRoute,
 );
 ```
 
@@ -122,7 +122,7 @@ void setupDialogUi() {
 class _BasicDialog extends StatelessWidget {
   final DialogRequest request;
   final Function(DialogResponse) completer;
-  const _BasicDialog({Key key, this.request, this.completer}) : super(key: key);
+  const _BasicDialog({Key? key, this.request, this.completer}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +135,7 @@ class _BasicDialog extends StatelessWidget {
 class _FormDialog extends StatelessWidget {
   final DialogRequest request;
   final Function(DialogResponse) completer;
-  const _FormDialog({Key key, this.request, this.completer}) : super(key: key);
+  const _FormDialog({Key? key, this.request, this.completer}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -270,8 +270,8 @@ class MyApp extends StatelessWidget {
       ),
       navigatorObservers: [StackedService.routeObserver], ///<- Here
       navigatorKey: StackedService.navigatorKey,
-      initialRoute: auto_router.Routes.homeScreenRoute,
-      onGenerateRoute: auto_router.Router().onGenerateRoute,
+      initialRoute: Routes.homeScreenRoute,
+      onGenerateRoute: StackedRouter().onGenerateRoute,
     );
   }
 }
@@ -455,7 +455,7 @@ class _FloatingBoxBottomSheet extends StatelessWidget {
   final SheetRequest request;
   final Function(SheetResponse) completer;
   const _FloatingBoxBottomSheet({
-    Key key,
+    Key? key,
     this.request,
     this.completer,
   }) : super(key: key);

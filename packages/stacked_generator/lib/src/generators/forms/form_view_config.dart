@@ -7,6 +7,10 @@ class FormViewConfig {
 
   /// Contains a list of configs to use when generating the form data
   final List<FieldConfig> fields;
+  final bool autoTextFieldValidation;
 
-  FormViewConfig({required this.viewName, required this.fields});
+  FormViewConfig(
+      {required this.viewName,
+      required this.fields,
+      this.autoTextFieldValidation = true});
 }

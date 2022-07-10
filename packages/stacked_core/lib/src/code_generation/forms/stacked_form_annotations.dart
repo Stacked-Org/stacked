@@ -3,7 +3,12 @@ class FormView {
   /// The list of form fields to generate
   final List<FormField>? fields;
 
-  const FormView({this.fields});
+  /// A flag to enable/disable auto validation of text fields. defauls to `true`
+  final bool autoTextFieldValidation;
+  const FormView({
+    this.fields,
+    this.autoTextFieldValidation = true,
+  });
 }
 
 /// Describes a form field to be generated
@@ -16,19 +21,22 @@ class FormField {
 
 /// Describes an entry field on the form that takes text
 class FormTextField extends FormField {
-  /// Indicates if the [FormField] is a password field or not
-  final bool? isPassword;
-
   /// Assigns initial value, `text` parameter in `TextEditingController`
   final String? initialValue;
 
   final String? Function(String?)? validator;
 
+  /// Replace the default flutter [TextEditingController] with
+  /// another controller that extends the [TextEditingController]
+  ///
+  /// When providing this field [initialValue] will be ignored
+  final dynamic Function()? customTextEditingController;
+
   const FormTextField({
     String? name,
-    this.isPassword,
     this.initialValue,
     this.validator,
+    this.customTextEditingController,
   }) : super(name: name);
 }
 

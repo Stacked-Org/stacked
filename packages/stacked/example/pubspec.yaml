@@ -1,4 +1,4 @@
-name: new_architecture
+name: example
 description: A new Flutter project.
 publish_to: none
 
@@ -35,10 +35,11 @@ dependencies:
   flutter_hooks: ^0.18.4
   # navigation
   get: ^4.6.3
+  animations: ^2.0.3
 
-dependency_overrides: 
+dependency_overrides:
   stacked:
-      path: ../
+    path: ../
   stacked_services:
     path: ../../stacked_services/
   stacked_hooks:
@@ -48,20 +49,22 @@ dependency_overrides:
   stacked_crashlytics:
     path: ../../stacked_crashlytics/
   stacked_generator:
-    path: ../../stacked_generator
+    path: ../../stacked_generator/
   stacked_core:
     path: ../../stacked_core/
 
-
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
 
   # dependency injection
   build_runner:
   stacked_generator:
     # path: ../../stacked_generator
-  
+
+  flutter_lints:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

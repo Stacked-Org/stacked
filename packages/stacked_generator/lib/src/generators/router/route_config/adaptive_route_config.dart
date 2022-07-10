@@ -1,141 +1,41 @@
-import 'package:analyzer/dart/element/element.dart';
-import 'package:source_gen/source_gen.dart';
-import 'package:source_gen/src/constants/reader.dart';
-
-import 'package:stacked_generator/import_resolver.dart';
-import 'package:stacked_generator/route_config_resolver.dart';
-import 'package:stacked_generator/src/generators/router/router_config.dart';
-
-import '../../../../utils.dart';
-import '../router_config.dart';
+import '../models/route_parameter_config.dart';
+import 'route_config.dart';
 
 class AdaptiveRouteConfig extends RouteConfig {
-  final String name;
-  final String pathName;
-  final String className;
-  final bool fullscreenDialog;
-  final bool maintainState;
-  final String? returnType;
-  final List<RouteParamConfig> parameters;
-  final List<RouteGuardConfig> guards;
-  final bool hasWrapper;
-  final bool hasConstConstructor;
-  final RouterConfig? routerConfig;
-  final Set<String> imports;
-
   final String? cupertinoNavTitle;
 
-  const AdaptiveRouteConfig({
-    required this.name,
-    required this.pathName,
-    required this.className,
-    this.fullscreenDialog = false,
-    this.maintainState = true,
-    this.returnType,
-    this.parameters = const [],
-    this.guards = const [],
-    this.hasWrapper = false,
-    this.hasConstConstructor = false,
-    this.routerConfig,
-    this.imports = const {},
-    this.cupertinoNavTitle,
-  }) : super(
-          imports: imports,
-          hasConstConstructor: hasConstConstructor,
-          name: name,
-          pathName: pathName,
-          className: className,
-          fullscreenDialog: fullscreenDialog,
-          maintainState: maintainState,
-          returnType: returnType,
-          parameters: parameters,
-          guards: guards,
-          hasWrapper: hasWrapper,
-          routerConfig: routerConfig,
-        );
+  const AdaptiveRouteConfig(
+      {required super.name,
+      required super.pathName,
+      required super.className,
+      super.fullscreenDialog,
+      super.maintainState,
+      super.returnType,
+      super.parameters,
+      super.hasWrapper,
+      super.hasConstConstructor,
+      super.children,
+      super.imports,
+      this.cupertinoNavTitle,
+      super.isChild});
 
   @override
   Set<String> registerImports() {
     return {...super.registerImports()};
   }
-  // TODO: move this code to the routeconfig super class
 
-  factory AdaptiveRouteConfig.fromStackedApp(ConstantReader stackedRoute,
-      ImportResolver importResolver, RouterConfig routerConfig) {
-    final dartType = stackedRoute.read('page').typeValue;
-    throwIf(
-      dartType.element is! ClassElement,
-      '${toDisplayString(dartType)} is not a class element',
-      element: dartType.element!,
-    );
-    Set<String> imports = {};
-
-    final extractedGuards = stackedRoute.peek('guards')?.listValue.where((g) {
-      final guard = g.toTypeValue();
-      return guard != null && guard.element != null;
-    }).map((g) {
-      final guard = g.toTypeValue();
-      return RouteGuardConfig(
-          type: toDisplayString(guard!),
-          import: importResolver.resolve((guard.element)!));
-    }).toList();
-
-    final classElement = dartType.element as ClassElement;
-    final className = toDisplayString(dartType);
-
-    final import = importResolver.resolve(classElement);
-    if (import != null) imports.add(import);
-
-    String? pathName = stackedRoute.peek('path')?.stringValue;
-    if (pathName == null) {
-      if (stackedRoute.peek('initial')?.boolValue == true) {
-        pathName = '/';
-      } else {
-        pathName = '${routerConfig.routeNamePrefix}${toKababCase(className)}';
-      }
+  @override
+  String registerRoutes() {
+    StringBuffer stringBuffer = StringBuffer();
+    stringBuffer.write(super.registerArgs());
+    stringBuffer.write(
+        'return buildAdaptivePageRoute<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,');
+    if (cupertinoNavTitle != null) {
+      stringBuffer.write("cupertinoTitle:'${cupertinoNavTitle}',");
     }
+    stringBuffer.write(super.registerRoutes());
 
-    final returnType = stackedRoute.objectValue.type;
-
-    if (returnType != null && returnType != 'dynamic') {
-      imports.addAll(importResolver.resolveAll(returnType));
-    }
-
-    var adaptiveRouteConfig = AdaptiveRouteConfig(
-        cupertinoNavTitle: stackedRoute.peek('cupertinoPageTitle')?.stringValue,
-        hasWrapper: classElement.allSupertypes
-            .map<String>((el) => toDisplayString(el))
-            .contains('StackedRouteWrapper'),
-        returnType: toDisplayString(returnType!),
-        pathName: pathName,
-        name: stackedRoute.peek('name')?.stringValue ??
-            toLowerCamelCase(className),
-        maintainState: stackedRoute.peek('maintainState')?.boolValue ?? false,
-        imports: imports,
-        guards: extractedGuards ?? [],
-        className: className,
-        fullscreenDialog:
-            stackedRoute.peek('fullscreenDialog')?.boolValue ?? false);
-    final constructor = classElement.unnamedConstructor;
-
-    var params = constructor?.parameters;
-    if (params?.isNotEmpty == true) {
-      if (constructor!.isConst &&
-          params!.length == 1 &&
-          toDisplayString(params.first.type) == 'Key') {
-        adaptiveRouteConfig =
-            adaptiveRouteConfig.copyWith(hasConstConstructor: true);
-      } else {
-        final paramResolver = RouteParameterResolver(importResolver);
-        for (ParameterElement p in constructor.parameters) {
-          adaptiveRouteConfig.copyWith(parameters: [
-            ...adaptiveRouteConfig.parameters,
-            paramResolver.resolve(p)
-          ]);
-        }
-      }
-    }
-    return adaptiveRouteConfig;
+    return stringBuffer.toString();
   }
 
   AdaptiveRouteConfig copyWith({
@@ -146,12 +46,12 @@ class AdaptiveRouteConfig extends RouteConfig {
     bool? maintainState,
     String? returnType,
     List<RouteParamConfig>? parameters,
-    List<RouteGuardConfig>? guards,
     bool? hasWrapper,
     bool? hasConstConstructor,
-    RouterConfig? routerConfig,
+    List<RouteConfig>? children,
     Set<String>? imports,
     String? cupertinoNavTitle,
+    bool? isChild,
   }) {
     return AdaptiveRouteConfig(
       name: name ?? this.name,
@@ -161,10 +61,9 @@ class AdaptiveRouteConfig extends RouteConfig {
       maintainState: maintainState ?? this.maintainState,
       returnType: returnType ?? this.returnType,
       parameters: parameters ?? this.parameters,
-      guards: guards ?? this.guards,
       hasWrapper: hasWrapper ?? this.hasWrapper,
       hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
-      routerConfig: routerConfig ?? this.routerConfig,
+      children: children ?? this.children,
       imports: imports ?? this.imports,
       cupertinoNavTitle: cupertinoNavTitle ?? this.cupertinoNavTitle,
     );

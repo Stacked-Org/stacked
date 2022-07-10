@@ -1,3 +1,14 @@
+## 2.3.12
+- Fix [#486](https://github.com/FilledStacks/stacked/issues/486) 
+## 2.3.11
+- Fix [#546](https://github.com/FilledStacks/stacked/issues/546) 
+## 2.3.10
+- Fixes issues on navigation 
+## 2.3.9
+- Pump stacked_core version
+- Update example app
+## 2.3.8
+- Remove dublicate code and Clean up 
 ## 2.3.7
 ### Flutter v3 compatibility
 - Use [ambiguate](https://docs.flutter.dev/development/tools/sdk/release-notes/release-notes-3.0.0#your-code) to ensure v3 (and backward) compatibility

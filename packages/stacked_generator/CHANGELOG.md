@@ -1,3 +1,79 @@
+
+## 0.7.13
+
+- Fixes dublicated types imports not added
+
+## 0.7.12
+
+- Fixes missing comma on default transition builder
+
+## 0.7.11
+
+- Fixes the logger not printing method name on flutter web
+- Cleanup and refactor the logger code
+  
+## 0.7.10
+
+- Fixes issue with imports for deeply nested views
+- Removes duplicate strongly typed methods
+
+## 0.7.9+1
+
+- Removes print statement that clutters the logs
+
+## 0.7.9
+
+- Add bottomsheets generator
+
+## 0.7.8
+
+- Adds a method to manually validate fields on FormViewModel
+
+## 0.7.7
+
+- Add [customTextEditingController] to [FormTextField]
+- Fixes [#384](https://github.com/FilledStacks/stacked/issues/384)
+
+## 0.7.6
+
+- Fixes [#664](https://github.com/FilledStacks/stacked/issues/664)
+- Fixes [#591](https://github.com/FilledStacks/stacked/issues/591)
+
+## 0.7.5
+
+- Fixes Strongly Typed id param never allowing id as a view param
+
+## 0.7.4
+
+- Prevent throwing an error when routes is not provided in StackedApp
+
+## 0.7.3
+
+- Fixes Import for Adaptive Route
+
+## 0.7.2
+
+- Add default values to Strong Type Navigation parameters
+
+## 0.7.1
+
+- Add Strong Type Navigation parameters
+
+## 0.7.0
+
+- Add dialogs generator
+
+## 0.6.6+1
+
+- Readme update 
+  
+## 0.6.6
+- Fixes bug [#627](https://github.com/FilledStacks/stacked/issues/627)
+- TextEditingControllers are now created and disposed better.
+  
+## 0.6.5
+- Major refacor to the router_generator but no changes
+  
 ## 0.6.3
 
 - Replace dependency on stacked with stacked_core
