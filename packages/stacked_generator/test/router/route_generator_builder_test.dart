@@ -69,5 +69,10 @@ void main() {
         expect(routeGeneratorHelper.serializeStringBuffer, kRouterClass);
       });
     });
+    group('CodeBuilder -', () {
+      test('build', () {
+        final routeGeneratorHelper = getBuilderInstance().addRoutesClassName();
+      });
+    });
   });
 }

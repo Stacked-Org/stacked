@@ -1,6 +1,10 @@
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:code_builder/code_builder.dart';
+import 'package:dart_style/dart_style.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/base_generator.dart';
 import 'package:stacked_generator/utils.dart';
+import 'package:collection/collection.dart';
 
 const _constImports = [
   "package:stacked/stacked.dart",
@@ -64,28 +68,66 @@ class RouteGeneratorBuilder with StringBufferUtils {
   /// loginView,_homeView,};}
   ///
   RouteGeneratorBuilder addRoutesClassName() {
-    writeLine('class $routesClassName {');
+    final assignPathsToRouteNames = routes
+        .whereNot((route) => route.pathName.contains(':'))
+        .map((route) => Field(
+              (b) => b
+                ..modifier = FieldModifier.constant
+                ..static = true
+                ..name = _convertToPrivateNameWhenRouteHasPathParameter(route)
+                ..assignment = literalString(route.pathName).code,
+            ));
 
-    for (var route in routes) {
-      writeLine(
-          "static const String ${_convertToPrivateNameWhenRouteHasPathParameter(route)} = '${route.pathName}';");
-      if (route.pathName.contains(':')) {
-        _addRouteWithPathParameter(
-            routeName: route.name, routePath: route.pathName);
-      }
-    }
+    final pathMethods =
+        routes.where((route) => route.pathName.contains(':')).map((route) {
+      return Method(
+        (b) => b
+          ..static = true
+          ..lambda = true
+          ..optionalParameters
+              .addAll(RegExp(r':([^/]+)').allMatches(route.pathName).map((m) {
+            final match = m.group(1);
+            if (match!.endsWith('?')) {
+              return Parameter((b) => b
+                ..named = true
+                ..type = Reference('dynamic')
+                ..name = match.substring(0, match.length - 1));
+            } else {
+              return Parameter((b) => b
+                ..required = true
+                ..named = true
+                ..type = Reference('dynamic')
+                ..name = match);
+            }
+          }))
+          ..name = _convertToPrivateNameWhenRouteHasPathParameter(route)
+          ..body = Code(_addRouteWithPathParameter(
+              routeName: route.name, routePath: route.pathName)),
+      );
+    });
 
-    writeLine("static const all = <String>{");
+    final allField = Field(
+      (b) => b
+        ..modifier = FieldModifier.constant
+        ..static = true
+        ..name = 'all'
+        ..assignment = literalSet(
+                routes.map((route) => Reference(
+                    _convertToPrivateNameWhenRouteHasPathParameter(route))),
+                Reference('String'))
+            .code,
+    );
 
-    for (var route in routes) {
-      write('${_convertToPrivateNameWhenRouteHasPathParameter(route)},');
-    }
+    final library = Library((b) => b.body.addAll([
+          Class((b) => b
+            ..name = 'Routes'
+            ..methods.addAll(pathMethods)
+            ..fields.addAll([...assignPathsToRouteNames, allField])),
+        ]));
 
-    // Closes the [all] map
-    write("};");
+    final emitter = DartEmitter.scoped();
+    print(DartFormatter().format('${library.accept(emitter)}'));
 
-    // Closes the [routesClassName] class
-    writeLine('}');
     return this;
   }
 
@@ -93,25 +135,17 @@ class RouteGeneratorBuilder with StringBufferUtils {
     return route.pathName.contains(':') ? '_${route.name}' : route.name;
   }
 
-  void _addRouteWithPathParameter(
+  String _addRouteWithPathParameter(
       {required String routePath, required String routeName}) {
-    final params = RegExp(r':([^/]+)').allMatches(routePath).map((m) {
-      final match = m.group(1);
-      if (match!.endsWith('?')) {
-        return "dynamic ${match.substring(0, match.length - 1)} = ''";
+    final pathAfterRemovingDollarSigns =
+        routePath.replaceAllMapped(RegExp(r'([:])|([?])'), (m) {
+      if (m[1] != null) {
+        return '\$';
       } else {
-        return "@required dynamic $match";
+        return '';
       }
     });
-    writeLine(
-      "static String $routeName({${params.join(',')}}) => '${routePath.replaceAllMapped(RegExp(r'([:])|([?])'), (m) {
-        if (m[1] != null) {
-          return '\$';
-        } else {
-          return '';
-        }
-      })}';",
-    );
+    return "'${pathAfterRemovingDollarSigns}'";
   }
 
   /// Example result
@@ -200,5 +234,21 @@ class RouteGeneratorBuilder with StringBufferUtils {
     write(route.registerRoutes());
 
     write("},");
+  }
+
+  build() {
+    // final library = Library((b) => b.body.addAll([
+    //       Class((b) => b..name = 'Routes'..fields.add(value)),
+    // Method((b) => b
+    //   ..body = const Code('')
+    //   ..name = 'doThing'
+    //   ..returns = refer('Thing', 'package:a/a.dart')),
+    // Method((b) => b
+    //   ..body = const Code('')
+    //   ..name = 'doOther'
+    //   ..returns = refer('Other', 'package:b/b.dart')),
+    // ]));
+    // final emitter = DartEmitter.scoped();
+    // print(DartFormatter().format('${library.accept(emitter)}'));
   }
 }
