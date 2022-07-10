@@ -2,6 +2,8 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:build_test/build_test.dart';
+import 'package:code_builder/code_builder.dart';
+import 'package:dart_style/dart_style.dart';
 import 'package:test/test.dart';
 
 final throwsCompileError = throwsA(isA<CompileError>());
@@ -56,4 +58,16 @@ Future<void> checkCodeForCompilationError(
       as ErrorsResult;
 
   expect(errorResult.errors, isEmpty);
+}
+
+String buildLibraryForClass(Class classBuilder) {
+  final library = Library((b) => b
+    ..body.addAll([
+      classBuilder,
+    ]));
+
+  final emitter = DartEmitter.scoped();
+  final result = DartFormatter().format('${library.accept(emitter)}');
+  print(result);
+  return result;
 }

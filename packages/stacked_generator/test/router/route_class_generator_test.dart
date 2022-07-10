@@ -1,6 +1,6 @@
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/exceptions/invalid_generator_input_exception.dart';
-import 'package:stacked_generator/src/generators/router/generator/router_class_generator.dart';
+import 'package:stacked_generator/src/generators/router/generator/router_generator.dart';
 import 'package:stacked_generator/src/generators/router/route_config/adaptive_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/cupertino_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/custom_route_config.dart';
@@ -14,7 +14,7 @@ void main() {
   group('RouteClassGeneratorTest -', () {
     void generateRoutesAndExpectException<T>(List<RouteConfig> routes,
         [String? exceptionMessage]) {
-      final routerBaseGenerator = RouterClassGenerator(RouterConfig(
+      final routerBaseGenerator = RouterGenerator(RouterConfig(
           routesClassName: 'RoutesTestClassName',
           routerClassName: 'RouterTestClassName',
           routes: routes));
@@ -35,7 +35,7 @@ void main() {
     void generateRouteAndExpectResult(
         List<RouteConfig> routes, dynamic expectedResult,
         {bool verbose = false}) {
-      final routerBaseGenerator = RouterClassGenerator(RouterConfig(
+      final routerBaseGenerator = RouterGenerator(RouterConfig(
           routesClassName: 'RoutesTestClassName',
           routerClassName: 'RouterTestClassName',
           generateNavigationHelper: true,

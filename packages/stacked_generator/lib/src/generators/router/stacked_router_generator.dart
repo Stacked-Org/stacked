@@ -7,7 +7,7 @@ import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 
-import 'generator/router_class_generator.dart';
+import 'generator/router_generator.dart';
 
 class StackedRouterGenerator extends GeneratorForAnnotation<StackedApp> {
   @override
@@ -23,7 +23,7 @@ class StackedRouterGenerator extends GeneratorForAnnotation<StackedApp> {
         await RouterConfigResolver(importResolver).resolve(annotation);
 
     if (routerConfig != null)
-      return RouterClassGenerator(routerConfig).generate();
+      return RouterGenerator(routerConfig).generate();
     else
       return '';
   }
