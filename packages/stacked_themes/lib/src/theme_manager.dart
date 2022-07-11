@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -10,7 +9,6 @@ import 'package:stacked_themes/src/locator_setup.dart';
 import 'package:stacked_themes/src/services/platform_service.dart';
 import 'package:stacked_themes/src/services/shared_preferences_service.dart';
 import 'package:stacked_themes/src/services/statusbar_service.dart';
-import 'package:stacked_themes/src/theme_service.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
 const String SelectedTheme = 'selected-theme';
