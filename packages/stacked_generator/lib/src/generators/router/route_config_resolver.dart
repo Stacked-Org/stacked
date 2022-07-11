@@ -28,19 +28,17 @@ class RouteConfigResolver {
       '${toDisplayString(dartType)} is not a class element',
       element: dartType.element!,
     );
-    Set<String> imports = {};
 
     final classElement = dartType.element as ClassElement;
-    final className = toDisplayString(dartType);
     final import = _importResolver.resolve(classElement);
-    if (import != null) imports.add(import);
+    final classNameWithImport = MapEntry(toDisplayString(dartType), import!);
 
     String? pathName = stackedRoute.peek('path')?.stringValue;
     if (pathName == null) {
       if (stackedRoute.peek('initial')?.boolValue == true) {
         pathName = '/';
       } else {
-        pathName = '${routeNamePrefex}${toKababCase(className)}';
+        pathName = '${routeNamePrefex}${toKababCase(classNameWithImport.key)}';
       }
     }
 
@@ -49,9 +47,9 @@ class RouteConfigResolver {
     /// Check if a return type is provided for example [MaterialRoute<int>()]
     /// and adds the import for that type other wise is will default to dynamic which
     /// doesn't needs an import
-    if (processedReturnType(toDisplayString(returnType!)) != 'dynamic') {
-      imports.addAll(_importResolver.resolveAll(returnType));
-    }
+    // if (processedReturnType(toDisplayString(returnType!)) != 'dynamic') {
+    //   imports.addAll(_importResolver.resolveAll(returnType));
+    // }
 
     final constructor = classElement.unnamedConstructor;
 
@@ -77,14 +75,13 @@ class RouteConfigResolver {
             hasWrapper: classElement.allSupertypes
                 .map<String>((el) => toDisplayString(el))
                 .contains('StackedRouteWrapper'),
-            returnType: toDisplayString(returnType),
+            returnType: toDisplayString(returnType!),
             pathName: pathName,
             name: stackedRoute.peek('name')?.stringValue ??
-                toLowerCamelCase(className),
+                toLowerCamelCase(classNameWithImport.key),
             maintainState:
                 stackedRoute.peek('maintainState')?.boolValue ?? true,
-            imports: imports,
-            className: className,
+            className: classNameWithImport,
             fullscreenDialog:
                 stackedRoute.peek('fullscreenDialog')?.boolValue ?? false,
             hasConstConstructor: hasConstConstructor)

@@ -1,5 +1,4 @@
 import '../models/custom_transition_builder.dart';
-import '../models/route_parameter_config.dart';
 import 'route_config.dart';
 
 class CustomRouteConfig extends RouteConfig {
@@ -8,7 +7,7 @@ class CustomRouteConfig extends RouteConfig {
   final bool customRouteOpaque;
   final bool customRouteBarrierDismissible;
   final CustomTransitionBuilder? transitionBuilder;
-  CustomRouteConfig(
+  const CustomRouteConfig(
       {required super.name,
       required super.pathName,
       required super.className,
@@ -26,14 +25,6 @@ class CustomRouteConfig extends RouteConfig {
       this.customRouteBarrierDismissible = false,
       this.transitionBuilder,
       super.isChild});
-  @override
-  Set<String> registerImports() {
-    return {
-      ...super.registerImports(),
-      "package:flutter/material.dart",
-      this.transitionBuilder?.import ?? ''
-    }.takeWhile((value) => value.isNotEmpty).toSet();
-  }
 
   @override
   String registerRoutes() {
@@ -70,47 +61,5 @@ class CustomRouteConfig extends RouteConfig {
     }
     stringBuffer.write(super.registerRoutes());
     return stringBuffer.toString();
-  }
-
-  CustomRouteConfig copyWith({
-    String? name,
-    String? pathName,
-    String? className,
-    bool? fullscreenDialog,
-    bool? maintainState,
-    String? returnType,
-    List<RouteParamConfig>? parameters,
-    bool? hasWrapper,
-    List<RouteConfig>? children,
-    bool? hasConstConstructor,
-    Set<String>? imports,
-    int? durationInMilliseconds,
-    int? reverseDurationInMilliseconds,
-    bool? customRouteOpaque,
-    bool? customRouteBarrierDismissible,
-    CustomTransitionBuilder? transitionBuilder,
-    bool? isChild,
-  }) {
-    return CustomRouteConfig(
-      name: name ?? this.name,
-      pathName: pathName ?? this.pathName,
-      className: className ?? this.className,
-      fullscreenDialog: fullscreenDialog ?? this.fullscreenDialog,
-      maintainState: maintainState ?? this.maintainState,
-      returnType: returnType ?? this.returnType,
-      parameters: parameters ?? this.parameters,
-      hasWrapper: hasWrapper ?? this.hasWrapper,
-      children: children ?? this.children,
-      hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
-      imports: imports ?? this.imports,
-      durationInMilliseconds:
-          durationInMilliseconds ?? this.durationInMilliseconds,
-      reverseDurationInMilliseconds:
-          reverseDurationInMilliseconds ?? this.reverseDurationInMilliseconds,
-      customRouteOpaque: customRouteOpaque ?? this.customRouteOpaque,
-      customRouteBarrierDismissible:
-          customRouteBarrierDismissible ?? this.customRouteBarrierDismissible,
-      transitionBuilder: transitionBuilder ?? this.transitionBuilder,
-    );
   }
 }

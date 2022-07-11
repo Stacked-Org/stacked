@@ -15,12 +15,11 @@ class RouteConfigFactory {
   final String? returnType;
   final String pathName;
   final String name;
-  final String className;
+  final MapEntry<String, String> className;
   final bool maintainState;
   final bool fullscreenDialog;
   final bool hasConstConstructor;
   final bool isChild;
-  final Set<String> imports;
   final List<RouteParamConfig> parameters;
   const RouteConfigFactory({
     required this.hasWrapper,
@@ -31,7 +30,6 @@ class RouteConfigFactory {
     required this.maintainState,
     required this.fullscreenDialog,
     required this.hasConstConstructor,
-    required this.imports,
     required this.parameters,
     required this.isChild,
   });
@@ -46,7 +44,6 @@ class RouteConfigFactory {
         fullscreenDialog: fullscreenDialog,
         hasConstConstructor: hasConstConstructor,
         hasWrapper: hasWrapper,
-        imports: imports,
         maintainState: maintainState,
         parameters: parameters,
         returnType: returnType,
@@ -62,7 +59,6 @@ class RouteConfigFactory {
         fullscreenDialog: fullscreenDialog,
         hasConstConstructor: hasConstConstructor,
         hasWrapper: hasWrapper,
-        imports: imports,
         maintainState: maintainState,
         parameters: parameters,
         returnType: returnType,
@@ -70,14 +66,33 @@ class RouteConfigFactory {
         isChild: isChild,
       );
     } else if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CustomRoute))) {
+      final function = stackedRoute
+          .peek('transitionsBuilder')
+          ?.objectValue
+          .toFunctionValue();
+
+      CustomTransitionBuilder? customTransitionBuilder;
+      if (function != null) {
+        final displayName = function.displayName.replaceFirst(RegExp('^_'), '');
+        final functionName = function.isStatic
+            ? '${function.enclosingElement.displayName}.$displayName'
+            : displayName;
+
+        String? import;
+        if (function.enclosingElement.name != 'TransitionsBuilders') {
+          import = function.source.uri.toString();
+        }
+        customTransitionBuilder = CustomTransitionBuilder(functionName, import);
+      }
+
       var customRouteConfig = CustomRouteConfig(
+        transitionBuilder: customTransitionBuilder,
         className: className,
         name: name,
         pathName: pathName,
         fullscreenDialog: fullscreenDialog,
         hasConstConstructor: hasConstConstructor,
         hasWrapper: hasWrapper,
-        imports: imports,
         maintainState: maintainState,
         parameters: parameters,
         returnType: returnType,
@@ -90,23 +105,6 @@ class RouteConfigFactory {
             stackedRoute.peek('barrierDismissible')?.boolValue ?? false,
         isChild: isChild,
       );
-      final function = stackedRoute
-          .peek('transitionsBuilder')
-          ?.objectValue
-          .toFunctionValue();
-      if (function != null) {
-        final displayName = function.displayName.replaceFirst(RegExp('^_'), '');
-        final functionName = function.isStatic
-            ? '${function.enclosingElement.displayName}.$displayName'
-            : displayName;
-
-        var import;
-        if (function.enclosingElement.name != 'TransitionsBuilders') {
-          import = function.source.uri.toString();
-        }
-        customRouteConfig = customRouteConfig.copyWith(
-            transitionBuilder: CustomTransitionBuilder(functionName, import));
-      }
 
       return customRouteConfig;
     } else {
@@ -117,7 +115,6 @@ class RouteConfigFactory {
         fullscreenDialog: fullscreenDialog,
         hasConstConstructor: hasConstConstructor,
         hasWrapper: hasWrapper,
-        imports: imports,
         maintainState: maintainState,
         parameters: parameters,
         returnType: returnType,
