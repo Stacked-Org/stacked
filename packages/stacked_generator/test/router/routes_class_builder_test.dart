@@ -11,28 +11,28 @@ final List<RouteConfig> _routes = [
   MaterialRouteConfig(
     name: 'loginView',
     pathName: 'pathNamaw',
-    className: 'LoginClass',
+    className: MapEntry('LoginClass', 'ui/login_class.dart'),
   ),
   MaterialRouteConfig(
     name: 'homeView',
     pathName: '/family/:fid',
-    className: 'HomeClass',
+    className: MapEntry('HomeClass', 'ui/home_class.dart'),
   )
 ];
 
 void main() {
-  group('RouteClassBuilderTest -', () {
+  group('RoutesClassBuilderTest -', () {
     Class getBuilderInstance() => RoutesClassBuilder(
           routes: _routes,
         ).buildRoutesClass();
 
     group('addRoutesClassName -', () {
-      test('Should generate route class names', () {
+      test('Should generate routes class', () {
         final builder = getBuilderInstance();
 
         expect(
           buildLibraryForClass(builder),
-          routeClassNames,
+          kRoutesClass,
         );
       });
     });

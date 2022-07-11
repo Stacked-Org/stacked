@@ -3242,7 +3242,7 @@ import 'package:stacked/stacked.dart' as i_5;
 import 'package:stacked_services/stacked_services.dart' as i_6;
 
 ''';
-const routeClassNames = '''
+const kRoutesClass = '''
 class Routes {
   static const loginView = 'pathNamaw';
 
@@ -3255,29 +3255,17 @@ class Routes {
 ''';
 
 const kRouterClass = '''
+import 'package:stacked/stacked.dart' as _i1;
+import 'ui/login_class.dart' as _i2;
+import 'ui/home_class.dart' as _i3;
 
-class routerClassName extends RouterBase {
-     @override
-     List<RouteDef> get routes => _routes;
-     final _routes = <RouteDef>[
-     
+class routerClassName extends _i1.RouterBase {
+  final _routes = <_i1.RouteDef>[
+    _i1.RouteDef(Routes.loginView, page: _i2.LoginClass),
+    _i1.RouteDef(Routes.homeView, page: _i3.HomeClass)
+  ];
 
-RouteDef(RoutesClassName.loginView
-,page: LoginClass
-),
-RouteDef(RoutesClassName._homeView
-,page: HomeClass
-),
-];       @override
-       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
-        final _pagesMap = <Type, StackedRouteFactory>{
-        
-
-LoginClass: (data) {
-var args = data.getArgs<LoginClassArguments>(
-orElse: ()=> LoginClassArguments(),);return MaterialPageRoute<dynamic>(builder: (context) =>   LoginClass(loginArg:args.loginArg), settings: data,);
-},HomeClass: (data) {
-var args = data.getArgs<HomeClassArguments>(
-orElse: ()=> HomeClassArguments(),);return MaterialPageRoute<dynamic>(builder: (context) =>   HomeClass(homeArg:args.homeArg), settings: data,);
-},};}
+  @override
+  List<_i1.RouteDef> get routes => _routes;
+}
 ''';
