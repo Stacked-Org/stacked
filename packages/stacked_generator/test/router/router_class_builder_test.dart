@@ -11,12 +11,12 @@ final List<RouteConfig> _routes = [
   MaterialRouteConfig(
     name: 'loginView',
     pathName: 'pathNamaw',
-    className: 'LoginClass',
+    className: MapEntry('LoginClass', 'ui/login_class.dart'),
   ),
   MaterialRouteConfig(
     name: 'homeView',
     pathName: '/family/:fid',
-    className: 'HomeClass',
+    className: MapEntry('HomeClass', 'ui/home_class.dart'),
   )
 ];
 
@@ -33,7 +33,7 @@ void main() {
 
         expect(
           buildLibraryForClass(builder),
-          routeClassNames,
+          kRouterClass,
         );
       });
     });
