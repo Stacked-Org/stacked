@@ -95,7 +95,7 @@ class RouteGeneratorHelper with StringBufferUtils {
 
     routes
         .where((r) => r.notQueryAndNotPath.isNotEmpty)
-        .forEach((r) => routesWithArgsHolders[r.className] = r);
+        .forEach((r) => routesWithArgsHolders[r.className.key] = r); // EBRA
 
     if (routesWithArgsHolders.isNotEmpty) {
       write(_generateCommentBoxWithMessage('Arguments holder classes'));

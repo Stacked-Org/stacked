@@ -5,7 +5,7 @@ import 'package:stacked_generator/utils.dart';
 class RouteConfig {
   final String name;
   final String pathName;
-  final String className;
+  final MapEntry<String, String> className;
   final bool fullscreenDialog;
   final bool maintainState;
   final String? returnType;
@@ -32,17 +32,6 @@ class RouteConfig {
 
   String get argumentsHolderClassName {
     return '${className}Arguments';
-  }
-
-  Set<String> registerImports() {
-    final paramertersImports = this
-        .parameters
-        .map((parameter) => parameter.imports)
-        .fold<Set<String>>({}, (previousValue, element) {
-      return {...previousValue, ...?element};
-    });
-
-    return {...this.imports, ...paramertersImports};
   }
 
   String registerArgs() {
@@ -145,7 +134,7 @@ class RouteConfig {
   RouteConfig copyWith({
     String? name,
     String? pathName,
-    String? className,
+    MapEntry<String, String>? className,
     bool? fullscreenDialog,
     bool? maintainState,
     String? returnType,

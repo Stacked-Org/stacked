@@ -36,14 +36,12 @@ class RouterClassBuilder {
   /// },};}
   Class BuildRouterClass() {
     final routesDef = routes.map((route) =>
-        Reference('RouteDef', 'package:stacked/stacked.dart').newInstance([
-          Reference('Routes').property(route.name)
-        ], {
-          'page': Reference(
-            route.className,
-            // className should be a map its key is the class name and value is the import
-          )
-        }));
+        Reference('RouteDef', 'package:stacked/stacked.dart').newInstance(
+          [Reference('Routes').property(route.name)],
+          {
+            'page': Reference(route.className.key, route.className.value),
+          },
+        ));
 
     final routesField = Field((b) => b
       ..name = '_routes'

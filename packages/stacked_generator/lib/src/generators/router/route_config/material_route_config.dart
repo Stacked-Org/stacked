@@ -17,11 +17,6 @@ class MaterialRouteConfig extends RouteConfig {
       super.isChild});
 
   @override
-  Set<String> registerImports() {
-    return {...super.registerImports(), "package:flutter/material.dart"};
-  }
-
-  @override
   String registerRoutes() {
     StringBuffer stringBuffer = StringBuffer();
 
@@ -30,34 +25,5 @@ class MaterialRouteConfig extends RouteConfig {
         'return MaterialPageRoute<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,');
     stringBuffer.write(super.registerRoutes());
     return stringBuffer.toString();
-  }
-
-  MaterialRouteConfig copyWith({
-    String? name,
-    String? pathName,
-    String? className,
-    bool? fullscreenDialog,
-    bool? maintainState,
-    String? returnType,
-    List<RouteParamConfig>? parameters,
-    bool? hasWrapper,
-    bool? hasConstConstructor,
-    List<RouteConfig>? children,
-    Set<String>? imports,
-    bool? isChild,
-  }) {
-    return MaterialRouteConfig(
-      name: name ?? this.name,
-      pathName: pathName ?? this.pathName,
-      className: className ?? this.className,
-      fullscreenDialog: fullscreenDialog ?? this.fullscreenDialog,
-      maintainState: maintainState ?? this.maintainState,
-      returnType: returnType ?? this.returnType,
-      parameters: parameters ?? this.parameters,
-      hasWrapper: hasWrapper ?? this.hasWrapper,
-      hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
-      children: children ?? this.children,
-      imports: imports ?? this.imports,
-    );
   }
 }
