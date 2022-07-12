@@ -1,4 +1,3 @@
-import '../models/route_parameter_config.dart';
 import 'route_config.dart';
 
 class MaterialRouteConfig extends RouteConfig {

@@ -43,14 +43,14 @@ class RouterClassBuilder {
           },
         ));
 
-    final routesField = Field((b) => b
+    final listOfRoutes = Field((b) => b
       ..name = '_routes'
       ..modifier = FieldModifier.final$
       ..assignment = literalList(
               routesDef, Reference('RouteDef', 'package:stacked/stacked.dart'))
           .code);
 
-    final routesGetterField = Method((b) => b
+    final routesGetter = Method((b) => b
       ..name = 'routes'
       ..annotations.add(Reference('override'))
       ..type = MethodType.getter
@@ -62,11 +62,32 @@ class RouterClassBuilder {
           ..isNullable = true)))
       ..body = Reference('_routes').code);
 
+    final pagesMapGetter = Method((b) => b
+      ..name = 'pagesMap'
+      ..annotations.add(Reference('override'))
+      ..type = MethodType.getter
+      ..returns = TypeReference((b) => b
+        ..symbol = 'Map'
+        ..types.addAll([
+          TypeReference(
+            (b) => b..symbol = 'Type',
+          ),
+          TypeReference(
+            (b) => b
+              ..symbol = 'StackedRouteFactory'
+              ..url = 'package:stacked/stacked.dart',
+          ),
+        ]))
+      ..body = Reference('_pagesMap').code);
+
     return Class((b) => b
       ..name = routerClassName
       ..extend = Reference('RouterBase', 'package:stacked/stacked.dart')
-      ..fields.add(routesField)
-      ..methods.add(routesGetterField));
+      ..fields.add(listOfRoutes)
+      ..methods.addAll([
+        routesGetter,
+        pagesMapGetter,
+      ]));
 
     // write(
     //   '''
