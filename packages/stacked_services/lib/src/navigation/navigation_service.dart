@@ -199,7 +199,9 @@ class NavigationService {
   }) {
     return G.Get.toNamed<T?>(
       routeName,
-      arguments: {'arguments': arguments, 'transition': transition},
+      arguments: transition != null
+          ? {'arguments': arguments, 'transition': transition}
+          : arguments,
       id: id,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -258,10 +260,13 @@ class NavigationService {
     int? id,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
+    RouteTransitionsBuilder? transition,
   }) {
     return G.Get.offNamed<T?>(
       routeName,
-      arguments: arguments,
+      arguments: transition != null
+          ? {'arguments': arguments, 'transition': transition}
+          : arguments,
       id: id,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
