@@ -1,3 +1,6 @@
+## 0.9.3
+- Only make arguments map when transition is available
+- Fixes [#656](https://github.com/FilledStacks/stacked/issues/656)
 ## 0.9.2
 - Expose the `routeName` property in `navigateWithTransition` and `replaceWithTransition` methods to allow route naming to conform with the routes in the navigation stack
 ## 0.9.1
