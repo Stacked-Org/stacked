@@ -15,7 +15,10 @@ class RouterClassBuilder with RouterClassBuilderHelper {
     return Class((b) => b
       ..name = routerClassName
       ..extend = Reference('RouterBase', 'package:stacked/stacked.dart')
-      ..fields.add(listOfRoutes(routes))
+      ..fields.addAll([
+        listOfRoutes(routes),
+        mapOfPages(routes),
+      ])
       ..methods.addAll([
         routesGetter,
         pagesMapGetter,

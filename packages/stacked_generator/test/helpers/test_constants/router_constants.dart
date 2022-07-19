@@ -3265,13 +3265,15 @@ class routerClassName extends _i1.RouterBase {
     _i1.RouteDef(Routes.homeView, page: _i3.HomeClass)
   ];
 
+  final _pagesMap = <Type, _i1.StackedRouteFactory>{};
+
   @override
   List<_i1.RouteDef> get routes => _routes;
   @override
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 ''';
-//  final _pagesMap = <Type, _i1.StackedRouteFactory>{};
+
 const kListOfRoutes = '''
 import 'package:stacked/stacked.dart' as _i1;
 import 'ui/login_class.dart' as _i2;
@@ -3293,4 +3295,17 @@ import 'package:stacked/stacked.dart' as _i1;
 
 @override
 Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
+''';
+const kMapOfPagesForEmptyRoutes = '''
+import 'package:stacked/stacked.dart' as _i1;
+
+final _pagesMap = <Type, _i1.StackedRouteFactory>{};
+''';
+const kMapOfPages = '''
+import 'package:stacked/stacked.dart' as _i1;
+
+final _pagesMap = <Type, _i1.StackedRouteFactory>{
+  LoginClass: (data) {},
+  HomeClass: (data) {}
+};
 ''';

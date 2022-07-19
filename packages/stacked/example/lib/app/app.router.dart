@@ -60,7 +60,7 @@ class StackedRouter extends RouterBase {
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, StackedRouteFactory>{
-    HomeView: (data) {
+    HomeView: (RouteData data) {
       var args = data.getArgs<HomeViewArguments>(
         orElse: () => HomeViewArguments(),
       );
