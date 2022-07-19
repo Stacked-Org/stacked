@@ -3267,5 +3267,30 @@ class routerClassName extends _i1.RouterBase {
 
   @override
   List<_i1.RouteDef> get routes => _routes;
+  @override
+  Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
+''';
+//  final _pagesMap = <Type, _i1.StackedRouteFactory>{};
+const kListOfRoutes = '''
+import 'package:stacked/stacked.dart' as _i1;
+import 'ui/login_class.dart' as _i2;
+import 'ui/home_class.dart' as _i3;
+
+final _routes = <_i1.RouteDef>[
+  _i1.RouteDef(Routes.loginView, page: _i2.LoginClass),
+  _i1.RouteDef(Routes.homeView, page: _i3.HomeClass)
+];
+''';
+const kRoutesGetter = '''
+import 'package:stacked/stacked.dart' as _i1;
+
+@override
+List<_i1.RouteDef> get routes => _routes;
+''';
+const kPagesMapGetter = '''
+import 'package:stacked/stacked.dart' as _i1;
+
+@override
+Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 ''';

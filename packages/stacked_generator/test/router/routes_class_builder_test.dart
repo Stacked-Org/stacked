@@ -4,7 +4,7 @@ import 'package:stacked_generator/src/generators/router/generator/routes_class_b
 import 'package:stacked_generator/src/generators/router/route_config/material_route_config.dart';
 import 'package:test/test.dart';
 
-import '../helpers/common.dart';
+import '../helpers/class_extension.dart';
 import '../helpers/test_constants/router_constants.dart';
 
 final List<RouteConfig> _routes = [
@@ -31,7 +31,7 @@ void main() {
         final builder = getBuilderInstance();
 
         expect(
-          buildLibraryForClass(builder),
+          builder.buildLibraryForClass,
           kRoutesClass,
         );
       });
