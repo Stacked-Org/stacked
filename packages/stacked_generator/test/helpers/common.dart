@@ -59,15 +59,3 @@ Future<void> checkCodeForCompilationError(
 
   expect(errorResult.errors, isEmpty);
 }
-
-String buildLibraryForClass(Class classBuilder) {
-  final library = Library((b) => b
-    ..body.addAll([
-      classBuilder,
-    ]));
-
-  final emitter = DartEmitter.scoped();
-  final result = DartFormatter().format('${library.accept(emitter)}');
-  print(result);
-  return result;
-}
