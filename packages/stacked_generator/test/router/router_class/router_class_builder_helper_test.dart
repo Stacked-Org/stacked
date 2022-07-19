@@ -21,23 +21,37 @@ final List<RouteConfig> _routes = [
 ];
 void main() {
   group('RouterClassBuilderHelperTest -', () {
+    late RouterClassBuilderHelper routerClassBuilderHelper;
+
+    setUp(() => routerClassBuilderHelper = RouterClassBuilderHelper());
     group('listOfRoutes -', () {
       test('list of routes that will assigned to the routes field', () {
-        final helper = RouterClassBuilderHelper();
         expect(
-            helper.listOfRoutes(_routes).buildLibraryForClass, kListOfRoutes);
+            routerClassBuilderHelper.listOfRoutes(_routes).buildLibraryForClass,
+            kListOfRoutes);
       });
     });
     group('routesGetter -', () {
       test('generate the routesGetter field', () {
-        final helper = RouterClassBuilderHelper();
-        expect(helper.routesGetter.buildLibraryForClass, kRoutesGetter);
+        expect(routerClassBuilderHelper.routesGetter.buildLibraryForClass,
+            kRoutesGetter);
       });
     });
     group('pagesMapGetter -', () {
       test('generate the pagesMapGetter field', () {
-        final helper = RouterClassBuilderHelper();
-        expect(helper.pagesMapGetter.buildLibraryForClass, kPagesMapGetter);
+        expect(routerClassBuilderHelper.pagesMapGetter.buildLibraryForClass,
+            kPagesMapGetter);
+      });
+    });
+    group('mapOfPages -', () {
+      test('generate the mapOfPages field for empty routes', () {
+        expect(routerClassBuilderHelper.mapOfPages([]).buildLibraryForClass,
+            kMapOfPagesForEmptyRoutes);
+      });
+      test('generate the mapOfPages field for 2 routes', () {
+        expect(
+            routerClassBuilderHelper.mapOfPages(_routes).buildLibraryForClass,
+            kMapOfPages);
       });
     });
   });

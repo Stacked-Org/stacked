@@ -22,14 +22,12 @@ final List<RouteConfig> _routes = [
 
 void main() {
   group('RoutsClassBuilderTest -', () {
-    Class getBuilderInstance() => RouterClassBuilder(
+    group('addRoutesClassName -', () {
+      test('Should generate route class names', () {
+        final builder = RouterClassBuilder(
           routes: _routes,
           routerClassName: 'routerClassName',
         ).BuildRouterClass();
-
-    group('addRoutesClassName -', () {
-      test('Should generate route class names', () {
-        final builder = getBuilderInstance();
 
         expect(
           builder.buildLibraryForClass,

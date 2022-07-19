@@ -2,7 +2,7 @@ import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/src/generators/router/route_config/route_config.dart';
 
 class RouterClassBuilderHelper {
-  ///   Example
+  /// Example
   ///
   /// final _routes = <_i1.RouteDef>[
   ///   _i1.RouteDef(Routes.loginView, page: _i2.LoginClass),
@@ -12,11 +12,10 @@ class RouterClassBuilderHelper {
         (b) => b
           ..name = '_routes'
           ..modifier = FieldModifier.final$
-          ..assignment = _assigneeListOfRoutes(routes),
+          ..assignment = _routes(routes),
       );
 
-  Code _assigneeListOfRoutes(List<RouteConfig> routes) => literalList(
-          _routesDef(routes),
+  Code _routes(List<RouteConfig> routes) => literalList(_routesDef(routes),
           Reference('RouteDef', 'package:stacked/stacked.dart'))
       .code;
 
@@ -68,4 +67,37 @@ class RouterClassBuilderHelper {
       ..symbol = 'RouteDef'
       ..url = 'package:stacked/stacked.dart'
       ..isNullable = true)));
+
+  /// Example
+  ///
+  ///  final _pagesMap = <Type, _i1.StackedRouteFactory>{};
+  Field mapOfPages(List<RouteConfig> routes) => Field(
+        (b) => b
+          ..name = '_pagesMap'
+          ..modifier = FieldModifier.final$
+          ..assignment = literalMap(
+              _pages(routes),
+              Reference(
+                'Type',
+              ),
+              Reference(
+                'StackedRouteFactory',
+                'package:stacked/stacked.dart',
+              )).code,
+      );
+
+  Map<Reference, Method> _pages(List<RouteConfig> routes) =>
+      Map.fromEntries(routes.map((route) => MapEntry(
+          Reference(route.className.key), _getRouteRegisteration(route))));
+
+  Method _getRouteRegisteration(RouteConfig route) {
+    return Method((b) => b
+          ..requiredParameters.add(Parameter(
+            (b) => b..name = 'data',
+          ))
+          ..body = Code('')
+        // ..returns =
+        //     Reference('StackedRouteFactory', 'package:stacked/stacked.dart'),
+        );
+  }
 }
