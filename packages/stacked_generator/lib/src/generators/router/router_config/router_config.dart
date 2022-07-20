@@ -10,7 +10,7 @@ class RouterConfig {
   final String? routeNamePrefix;
   final String routerClassName;
 
-   RouterConfig({
+  RouterConfig({
     this.generateNavigationHelper = false,
     this.routes = const [],
     required this.routesClassName,

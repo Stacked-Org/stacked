@@ -25,7 +25,8 @@ void main() {
       test('Should generate route class names', () {
         final builder = RouterClassBuilder(
           routes: _routes,
-          routerClassName: 'routerClassName',
+          routesClassName: 'RoutesClassName',
+          routerClassName: 'RouterClassName',
         ).BuildRouterClass();
 
         expect(
