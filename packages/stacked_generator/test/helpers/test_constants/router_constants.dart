@@ -3309,9 +3309,17 @@ final _pagesMap = <Type, _i1.StackedRouteFactory>{
     final args = data.getArgs<LoginClassArguments>(
       orElse: () => LoginClassArguments(),
     );
+    return MaterialPageRoute<dynamic>(
+      builder: (context) => LoginClass(),
+      settings: data,
+    );
   },
   HomeClass: (data) {
     final args = data.getArgs<HomeClassArguments>(nullOk: false);
+    return MaterialPageRoute<dynamic>(
+      builder: (context) => HomeClass(name: args.name),
+      settings: data,
+    );
   }
 };
 ''';

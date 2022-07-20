@@ -17,7 +17,10 @@ final List<RouteConfig> _routes = [
     pathName: '/family/:fid',
     parameters: [
       RouteParamConfig(
-          isRequired: true, isPathParam: false, isQueryParam: false)
+          name: 'name',
+          isRequired: true,
+          isPathParam: false,
+          isQueryParam: false)
     ],
     className: MapEntry('HomeClass', 'ui/home_class.dart'),
   )
