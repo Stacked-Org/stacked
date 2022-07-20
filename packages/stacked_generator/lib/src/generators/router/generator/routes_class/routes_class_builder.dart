@@ -3,9 +3,10 @@ import 'package:stacked_generator/route_config_resolver.dart';
 
 class RoutesClassBuilder {
   final List<RouteConfig> routes;
-
+  final String routesClassName;
   const RoutesClassBuilder({
     required this.routes,
+    required this.routesClassName,
   });
 
   /// Example result
@@ -54,7 +55,7 @@ class RoutesClassBuilder {
     );
 
     return Class((b) => b
-      ..name = 'Routes'
+      ..name = routesClassName
       ..methods.addAll(pathMethods)
       ..fields.addAll([...assignPathsToRouteNames, allField]));
   }

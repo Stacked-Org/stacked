@@ -6,9 +6,11 @@ import '../../../../../route_config_resolver.dart';
 class RouterClassBuilder with RouterClassBuilderHelper {
   final List<RouteConfig> routes;
   final String routerClassName;
+  final String routesClassName;
   const RouterClassBuilder({
     required this.routes,
     required this.routerClassName,
+    required this.routesClassName,
   });
 
   Class BuildRouterClass() {
@@ -16,7 +18,7 @@ class RouterClassBuilder with RouterClassBuilderHelper {
       ..name = routerClassName
       ..extend = Reference('RouterBase', 'package:stacked/stacked.dart')
       ..fields.addAll([
-        listOfRoutes(routes),
+        listOfRoutes(routes, routesClassName),
         mapOfPages(routes),
       ])
       ..methods.addAll([

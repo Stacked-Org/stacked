@@ -4,8 +4,8 @@ import 'package:stacked_generator/src/generators/router/generator/routes_class/r
 import 'package:stacked_generator/src/generators/router/route_config/material_route_config.dart';
 import 'package:test/test.dart';
 
-import '../helpers/class_extension.dart';
-import '../helpers/test_constants/router_constants.dart';
+import '../../helpers/class_extension.dart';
+import '../../helpers/test_constants/router_constants.dart';
 
 final List<RouteConfig> _routes = [
   MaterialRouteConfig(
@@ -23,6 +23,7 @@ final List<RouteConfig> _routes = [
 void main() {
   group('RoutesClassBuilderTest -', () {
     Class getBuilderInstance() => RoutesClassBuilder(
+          routesClassName: 'RoutesClassName',
           routes: _routes,
         ).buildRoutesClass();
 

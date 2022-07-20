@@ -33,7 +33,9 @@ void main() {
     group('listOfRoutes -', () {
       test('list of routes that will assigned to the routes field', () {
         expect(
-            routerClassBuilderHelper.listOfRoutes(_routes).buildLibraryForClass,
+            routerClassBuilderHelper
+                .listOfRoutes(_routes, 'RoutesClassName')
+                .buildLibraryForClass,
             kListOfRoutes);
       });
     });

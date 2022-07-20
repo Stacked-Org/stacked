@@ -10,21 +10,23 @@ class RouterClassBuilderHelper {
   ///   _i1.RouteDef(Routes.loginView, page: _i2.LoginClass),
   ///   _i1.RouteDef(Routes.homeView, page: _i3.HomeClass)
   /// ];
-  Field listOfRoutes(List<RouteConfig> routes) => Field(
+  Field listOfRoutes(List<RouteConfig> routes, String routesClassName) => Field(
         (b) => b
           ..name = '_routes'
           ..modifier = FieldModifier.final$
-          ..assignment = _routes(routes),
+          ..assignment = _routes(routes, routesClassName),
       );
 
-  Code _routes(List<RouteConfig> routes) => literalList(_routesDef(routes),
+  Code _routes(List<RouteConfig> routes, String routesClassName) => literalList(
+          _routesDef(routes, routesClassName),
           Reference('RouteDef', 'package:stacked/stacked.dart'))
       .code;
 
-  Iterable<Expression> _routesDef(List<RouteConfig> routes) =>
+  Iterable<Expression> _routesDef(
+          List<RouteConfig> routes, String routesClassName) =>
       routes.map((route) =>
           Reference('RouteDef', 'package:stacked/stacked.dart').newInstance(
-            [Reference('Routes').property(route.name)],
+            [Reference(routesClassName).property(route.name)],
             {
               'page': Reference(route.className.key, route.className.value),
             },
