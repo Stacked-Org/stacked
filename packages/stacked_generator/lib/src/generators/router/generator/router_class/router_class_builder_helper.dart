@@ -110,7 +110,8 @@ class RouterClassBuilderHelper {
         ))
         ..body = Block.of([
           _prepareArgs(argsType),
-          _eitherNullOkOrElse(route.parameters, argsType)
+          _eitherNullOkOrElse(route.parameters, argsType),
+          _returnRouteRegistration(route)
         ]),
     );
   }
@@ -138,5 +139,18 @@ class RouterClassBuilderHelper {
           ExceptionMessages.isPathParamAndIsQueryParamShouldNotBeNull);
       return !p.isPathParam! && !p.isQueryParam!;
     }).toList();
+  }
+
+  /// Example
+  ///
+  /// return MaterialPageRoute<dynamic>(
+  ///   builder: (context) => HomeView(
+  ///     key: args.key,
+  ///     title: args.title,
+  ///   ),
+  ///   settings: data,
+  /// );
+  Code _returnRouteRegistration(RouteConfig route) {
+    return Code(route.registerRoutes());
   }
 }

@@ -30,7 +30,6 @@ class CustomRouteConfig extends RouteConfig {
   String registerRoutes() {
     StringBuffer stringBuffer = StringBuffer();
 
-    stringBuffer.write(super.registerArgs());
     stringBuffer.write(
         'return PageRouteBuilder<$processedReturnType>(pageBuilder: (context, animation, secondaryAnimation) => $joinedConstructerParams, settings: data,');
 

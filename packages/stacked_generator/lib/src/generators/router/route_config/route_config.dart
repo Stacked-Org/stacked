@@ -1,6 +1,4 @@
 import 'package:stacked_generator/route_config_resolver.dart';
-import 'package:stacked_generator/src/generators/exceptions/invalid_generator_input_exception.dart';
-import 'package:stacked_generator/utils.dart';
 
 class RouteConfig {
   final String name;
@@ -32,39 +30,6 @@ class RouteConfig {
 
   String get argumentsHolderClassName {
     return '${className.key}Arguments';
-  }
-
-  String registerArgs() {
-    StringBuffer stringBuffer = StringBuffer();
-
-    if (parameters.isNotEmpty) {
-      // if router has any required or positional params the argument class holder becomes required.
-      final nullOk =
-          !notQueryNorPath.any((p) => p.isRequired || p.isPositional);
-      // show an error page  if passed args are not the same as declared args
-
-      if (notQueryNorPath.isNotEmpty) {
-        final argsType = isChild
-            ? 'Nested$argumentsHolderClassName'
-            : argumentsHolderClassName;
-        stringBuffer.writeln('var args = data.getArgs<$argsType>(');
-        if (!nullOk) {
-          stringBuffer.write('nullOk: false');
-        } else {
-          stringBuffer.write("orElse: ()=> $argsType(),");
-        }
-        stringBuffer.write(");");
-      }
-    }
-    return stringBuffer.toString();
-  }
-
-  List<RouteParamConfig> get notQueryNorPath {
-    return parameters.where((p) {
-      throwIf(p.isPathParam == null || p.isQueryParam == null,
-          ExceptionMessages.isPathParamAndIsQueryParamShouldNotBeNull);
-      return !p.isPathParam! && !p.isQueryParam!;
-    }).toList();
   }
 
   String registerRoutes() {
@@ -108,7 +73,7 @@ class RouteConfig {
       constructorParams.add('');
     }
     final constructor =
-        "${hasConstConstructor == true ? 'const' : ''}  ${className}(${constructorParams.join(',')})${(hasWrapper) ? ".wrappedRoute(context)" : ""}";
+        "${hasConstConstructor == true ? 'const' : ''}  ${className.key}(${constructorParams.join(',')})${(hasWrapper) ? ".wrappedRoute(context)" : ""}";
     return constructor;
   }
 

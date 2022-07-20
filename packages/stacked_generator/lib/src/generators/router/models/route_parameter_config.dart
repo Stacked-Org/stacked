@@ -11,7 +11,7 @@ final queryParamChecker = TypeChecker.fromRuntime(QueryParam);
 /// in generating route parameters.
 class RouteParamConfig {
   final String? type;
-  final String? name;
+  final String name;
   final String? alias;
   final bool isPositional;
   final bool isRequired;
@@ -22,7 +22,7 @@ class RouteParamConfig {
 
   RouteParamConfig({
     this.type,
-    this.name,
+    required this.name,
     this.alias,
     this.isPositional = false,
     this.isRequired = false,

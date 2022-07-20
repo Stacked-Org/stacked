@@ -19,7 +19,6 @@ class MaterialRouteConfig extends RouteConfig {
   String registerRoutes() {
     StringBuffer stringBuffer = StringBuffer();
 
-    stringBuffer.write(super.registerArgs());
     stringBuffer.write(
         'return MaterialPageRoute<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,');
     stringBuffer.write(super.registerRoutes());
