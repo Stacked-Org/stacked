@@ -1,5 +1,7 @@
 import 'package:code_builder/code_builder.dart';
-import 'package:stacked_generator/src/generators/router/route_config/route_config.dart';
+import 'package:stacked_generator/route_config_resolver.dart';
+import 'package:stacked_generator/src/generators/exceptions/invalid_generator_input_exception.dart';
+import 'package:stacked_generator/utils.dart';
 
 class RouterClassBuilderHelper {
   /// Example
@@ -86,18 +88,55 @@ class RouterClassBuilderHelper {
               )).code,
       );
 
-  Map<Reference, Method> _pages(List<RouteConfig> routes) =>
-      Map.fromEntries(routes.map((route) => MapEntry(
-          Reference(route.className.key), _getRouteRegisteration(route))));
+  Map<Reference, Method> _pages(List<RouteConfig> routes) {
+    return Map.fromEntries(
+      routes.map(
+        (route) => MapEntry(
+          Reference(route.className.key),
+          _getRouteRegisteration(route),
+        ),
+      ),
+    );
+  }
 
   Method _getRouteRegisteration(RouteConfig route) {
-    return Method((b) => b
-          ..requiredParameters.add(Parameter(
-            (b) => b..name = 'data',
-          ))
-          ..body = Code('')
-        // ..returns =
-        //     Reference('StackedRouteFactory', 'package:stacked/stacked.dart'),
-        );
+    final argsType = route.isChild
+        ? 'Nested${route.argumentsHolderClassName}'
+        : route.argumentsHolderClassName;
+    return Method(
+      (b) => b
+        ..requiredParameters.add(Parameter(
+          (b) => b..name = 'data',
+        ))
+        ..body = Block.of([
+          _prepareArgs(argsType),
+          _eitherNullOkOrElse(route.parameters, argsType)
+        ]),
+    );
+  }
+
+  Code _prepareArgs(String argsType) =>
+      Code('final args = data.getArgs<$argsType>(');
+
+  Code _eitherNullOkOrElse(List<RouteParamConfig> parameters, String argsType) {
+    /// if router has any required or positional params
+    /// the argument class holder becomes required.
+    final notQueryNorPathParameters = _notQueryNorPath(parameters);
+    final nullOk =
+        notQueryNorPathParameters.any((p) => p.isRequired || p.isPositional);
+
+    if (nullOk) {
+      return Code('nullOk: false);');
+    } else {
+      return Code('orElse: ()=> $argsType(),);');
+    }
+  }
+
+  List<RouteParamConfig> _notQueryNorPath(List<RouteParamConfig> parameters) {
+    return parameters.where((p) {
+      throwIf(p.isPathParam == null || p.isQueryParam == null,
+          ExceptionMessages.isPathParamAndIsQueryParamShouldNotBeNull);
+      return !p.isPathParam! && !p.isQueryParam!;
+    }).toList();
   }
 }

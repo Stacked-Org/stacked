@@ -31,7 +31,7 @@ class RouteConfig {
   });
 
   String get argumentsHolderClassName {
-    return '${className}Arguments';
+    return '${className.key}Arguments';
   }
 
   String registerArgs() {
@@ -40,10 +40,10 @@ class RouteConfig {
     if (parameters.isNotEmpty) {
       // if router has any required or positional params the argument class holder becomes required.
       final nullOk =
-          !notQueryAndNotPath.any((p) => p.isRequired || p.isPositional);
+          !notQueryNorPath.any((p) => p.isRequired || p.isPositional);
       // show an error page  if passed args are not the same as declared args
 
-      if (notQueryAndNotPath.isNotEmpty) {
+      if (notQueryNorPath.isNotEmpty) {
         final argsType = isChild
             ? 'Nested$argumentsHolderClassName'
             : argumentsHolderClassName;
@@ -57,6 +57,14 @@ class RouteConfig {
       }
     }
     return stringBuffer.toString();
+  }
+
+  List<RouteParamConfig> get notQueryNorPath {
+    return parameters.where((p) {
+      throwIf(p.isPathParam == null || p.isQueryParam == null,
+          ExceptionMessages.isPathParamAndIsQueryParamShouldNotBeNull);
+      return !p.isPathParam! && !p.isQueryParam!;
+    }).toList();
   }
 
   String registerRoutes() {
@@ -74,14 +82,6 @@ class RouteConfig {
 
   String? get templateName {
     return pathName.contains(":") ? '_$name' : name;
-  }
-
-  List<RouteParamConfig> get notQueryAndNotPath {
-    return parameters.where((p) {
-      throwIf(p.isPathParam == null || p.isQueryParam == null,
-          ExceptionMessages.isPathParamAndIsQueryParamShouldNotBeNull);
-      return !p.isPathParam! && !p.isQueryParam!;
-    }).toList();
   }
 
   String get joinedConstructerParams {

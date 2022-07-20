@@ -3305,7 +3305,13 @@ const kMapOfPages = '''
 import 'package:stacked/stacked.dart' as _i1;
 
 final _pagesMap = <Type, _i1.StackedRouteFactory>{
-  LoginClass: (data) {},
-  HomeClass: (data) {}
+  LoginClass: (data) {
+    final args = data.getArgs<LoginClassArguments>(
+      orElse: () => LoginClassArguments(),
+    );
+  },
+  HomeClass: (data) {
+    final args = data.getArgs<HomeClassArguments>(nullOk: false);
+  }
 };
 ''';
