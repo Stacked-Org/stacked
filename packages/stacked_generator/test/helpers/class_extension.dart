@@ -1,9 +1,20 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 
-extension ClassExtension on Spec {
+extension SpecExtension on Spec {
   String get buildLibraryForClass {
     final library = Library((b) => b..body.add(this));
+
+    final emitter = DartEmitter.scoped();
+    final result = DartFormatter().format('${library.accept(emitter)}');
+    print(result);
+    return result;
+  }
+}
+
+extension SpecsExtension on List<Spec> {
+  String get buildLibraryForClass {
+    final library = Library((b) => b..body.addAll(this));
 
     final emitter = DartEmitter.scoped();
     final result = DartFormatter().format('${library.accept(emitter)}');
