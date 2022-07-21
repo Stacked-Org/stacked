@@ -1,0 +1,52 @@
+import 'package:code_builder/code_builder.dart';
+import 'package:stacked_generator/route_config_resolver.dart';
+
+class ArgumentClassBuilderHelper {
+  final RouteConfig route;
+
+  const ArgumentClassBuilderHelper(this.route);
+
+  String get argumentClassName => route.isChild
+      ? 'Nested${route.argumentsHolderClassName}'
+      : route.argumentsHolderClassName;
+
+  List<Field> get convertParametersToClassFields {
+    return route.parameters
+        .map((param) => Field(
+              (b) => b
+                ..modifier = FieldModifier.final$
+                ..name = param.name
+                ..type = Reference(param.type, param.imports?.first),
+            ))
+        .toList();
+  }
+
+  Constructor get argumentConstructer {
+    return Constructor((b) => _composeConstructer(b));
+  }
+
+  void _composeConstructer(ConstructorBuilder b) {
+    b..constant = true;
+
+    route.parameters.forEach((param) {
+      // Add the name and the default value
+      final codeBuilderParameter = Parameter((parameterBuilder) {
+        parameterBuilder
+          ..name = param.name
+          ..toThis = true
+          ..named = true;
+
+        // Assign default value
+        if (param.defaultValueCode != null) {
+          parameterBuilder..defaultTo = literal(param.defaultValueCode!).code;
+        }
+
+        // Add required keyword
+        if (param.isRequired || param.isPositional) {
+          parameterBuilder..required = true;
+        }
+      });
+      b..optionalParameters.add(codeBuilderParameter);
+    });
+  }
+}

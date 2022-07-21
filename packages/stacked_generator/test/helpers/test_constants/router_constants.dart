@@ -2754,88 +2754,47 @@ navigateToTestClass( {
 ''';
 
 const kRouterTypeCustomWithParametersPathFalseQueryFalse = '''
-// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
-
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
+import 'package:stacked/stacked.dart' as _i1;
+import 'test.dart' as _i2;
 
 class RoutesTestClassName {
-static const String loginView = 'pathNamaw';
-static const all = <String>{
-loginView,};}
+  static const loginView = 'pathNamaw';
 
-class RouterTestClassName extends RouterBase {
-     @override
-     List<RouteDef> get routes => _routes;
-     final _routes = <RouteDef>[
-     
-
-RouteDef(RoutesTestClassName.loginView
-,page: TestClass
-),
-];       @override
-       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
-        final _pagesMap = <Type, StackedRouteFactory>{
-        
-
-TestClass: (data) {
-var args = data.getArgs<TestClassArguments>(
-orElse: ()=> TestClassArguments(),);return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(null:args.null), settings: data,transitionsBuilder: data.transition??
-              (context, animation, secondaryAnimation, child) {
-            return child;
-          },);
-},};}
-
-/// ************************************************************************
-/// Navigation helper methods extension
-/// *************************************************************************
-
-extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
-Future pushLoginView({null null,})
- => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
-
+  static const all = <String>{loginView};
 }
 
-/// ************************************************************************
-/// Arguments holder classes
-/// *************************************************************************
+class RouterTestClassName extends _i1.RouterBase {
+  final _routes = <_i1.RouteDef>[
+    _i1.RouteDef(RoutesTestClassName.loginView, page: _i2.TestClass)
+  ];
 
-/// TestClass arguments holder class
-class TestClassArguments{
-final null null;
-TestClassArguments({
-this.null});
+  final _pagesMap = <Type, _i1.StackedRouteFactory>{
+    TestClass: (data) {
+      final args = data.getArgs<TestClassArguments>(
+        orElse: () => TestClassArguments(),
+      );
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            TestClass(name: args.name),
+        settings: data,
+        transitionsBuilder: data.transition ??
+            (context, animation, secondaryAnimation, child) {
+              return child;
+            },
+      );
+    }
+  };
+
+  @override
+  List<_i1.RouteDef> get routes => _routes;
+  @override
+  Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-/// ************************************************************************
-/// Extension for strongly typed navigation
-/// *************************************************************************
+class TestClassArguments {
+  const TestClassArguments({this.name});
 
-extension NavigatorStateExtension on NavigationService {
-
-Future<dynamic>
-navigateToTestClass( {
-null null
-,      int? routerId,
-  bool preventDuplicates = true,
-  Map<String, String>? parameters,
-  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
-      
-}
-) async { return navigateTo(Routes.loginView, 
-arguments: TestClassArguments(
-      null: null
-    ),
-     
-      
-        id:routerId,
-  preventDuplicates: preventDuplicates,
-  parameters: parameters,
-  transition: transition,
-        
-); }
-
+  final String name;
 }
 ''';
 const kRouterTypeCustomWithParametersPathFalseQueryTrue = '''
@@ -3247,4 +3206,24 @@ final _pagesMap = <Type, _i1.StackedRouteFactory>{
     );
   }
 };
+''';
+const kRouteClassArguments = '''
+import 'marker.dart' as _i1;
+import 'car.dart' as _i2;
+
+class LoginClassArguments {
+  const LoginClassArguments({required this.position, this.age});
+
+  final _i1.Marker position;
+
+  final int age;
+}
+
+class HomeClassArguments {
+  const HomeClassArguments({required this.car = 'TOYOTA', this.age});
+
+  final _i2.Car car;
+
+  final int age;
+}
 ''';

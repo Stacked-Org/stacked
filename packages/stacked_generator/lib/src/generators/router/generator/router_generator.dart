@@ -5,6 +5,7 @@ import 'package:stacked_generator/src/generators/extensions/routes_extension.dar
 import 'package:stacked_generator/src/generators/router/generator/routes_class/routes_class_builder.dart';
 
 import '../router_config/router_config.dart';
+import 'arguments_class/arguments_class_builder.dart';
 import 'router_class/router_class_builder.dart';
 
 class RouterGenerator implements BaseGenerator {
@@ -33,7 +34,11 @@ class RouterGenerator implements BaseGenerator {
       routes: routerConfig.routes,
       routerClassName: routerConfig.routerClassName,
     ).BuildRouterClass();
+    final argumentsClassBuilder = ArgumentsClassBuilder(
+      routes: routerConfig.routes,
+    ).buildViewsArguments();
 
-    classes.addAll([routesClassBuilder, routerClassBuilder]);
+    classes.addAll(
+        [routesClassBuilder, routerClassBuilder, ...argumentsClassBuilder]);
   }
 }

@@ -18,6 +18,7 @@ final List<RouteConfig> _routes = [
     parameters: [
       RouteParamConfig(
           name: 'name',
+          type: 'String',
           isRequired: true,
           isPathParam: false,
           isQueryParam: false)

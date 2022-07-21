@@ -783,26 +783,27 @@ void main() {
       //       kRouterTypeCustomWithCustomRouteOpaqueFalse,
       //     );
       //   });
-      //   test('With parameters path = false, query = false', () {
-      //     final List<RouteConfig> routes = [
-      //       CustomRouteConfig(
-      //         name: 'loginView',
-      //         pathName: 'pathNamaw',
-      //         className: 'TestClass',
-      //         parameters: [
-      //           RouteParamConfig(
-      //             isPathParam: false,
-      //             isQueryParam: false,
-      //           ),
-      //         ],
-      //       )
-      //     ];
+      test('With parameters path = false, query = false', () {
+        final List<RouteConfig> routes = [
+          CustomRouteConfig(
+            name: 'loginView',
+            pathName: 'pathNamaw',
+            className: MapEntry('TestClass', 'test.dart'),
+            parameters: [
+              RouteParamConfig(
+                  isPathParam: false,
+                  isQueryParam: false,
+                  name: 'name',
+                  type: 'String'),
+            ],
+          )
+        ];
 
-      //     generateRouteAndExpectResult(
-      //       routes,
-      //       kRouterTypeCustomWithParametersPathFalseQueryFalse,
-      //     );
-      //   });
+        generateRouteAndExpectResult(
+          routes,
+          kRouterTypeCustomWithParametersPathFalseQueryFalse,
+        );
+      });
       //   test('With parameters path = false, query = true', () {
       //     final List<RouteConfig> routes = [
       //       CustomRouteConfig(

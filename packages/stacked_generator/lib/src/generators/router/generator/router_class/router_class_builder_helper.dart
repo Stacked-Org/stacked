@@ -1,6 +1,5 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
-import 'package:stacked_generator/src/generators/exceptions/invalid_generator_input_exception.dart';
 import 'package:stacked_generator/utils.dart';
 
 class RouterClassBuilderHelper {
@@ -124,7 +123,7 @@ class RouterClassBuilderHelper {
   Code _eitherNullOkOrElse(List<RouteParamConfig> parameters, String argsType) {
     /// if router has any required or positional params
     /// the argument class holder becomes required.
-    final notQueryNorPathParameters = _notQueryNorPath(parameters);
+    final notQueryNorPathParameters = notQueryNorPath(parameters);
     final nullOk =
         notQueryNorPathParameters.any((p) => p.isRequired || p.isPositional);
 
@@ -133,14 +132,6 @@ class RouterClassBuilderHelper {
     } else {
       return Code('orElse: ()=> $argsType(),);');
     }
-  }
-
-  List<RouteParamConfig> _notQueryNorPath(List<RouteParamConfig> parameters) {
-    return parameters.where((p) {
-      throwIf(p.isPathParam == null || p.isQueryParam == null,
-          ExceptionMessages.isPathParamAndIsQueryParamShouldNotBeNull);
-      return !p.isPathParam! && !p.isQueryParam!;
-    }).toList();
   }
 
   /// Example
