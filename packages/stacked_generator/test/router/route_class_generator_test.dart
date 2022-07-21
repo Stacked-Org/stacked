@@ -438,7 +438,7 @@ void main() {
                 name: 'nestedView1',
                 pathName: 'nestedPath1',
                 className: MapEntry('nestedClass1', 'nested_test1.dart'),
-                isChild: true,
+                parentClassName: 'ParentClass',
               )
             ],
           )

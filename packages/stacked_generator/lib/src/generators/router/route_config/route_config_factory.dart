@@ -19,7 +19,7 @@ class RouteConfigFactory {
   final bool maintainState;
   final bool fullscreenDialog;
   final bool hasConstConstructor;
-  final bool isChild;
+  final String? parentClassName;
   final List<RouteParamConfig> parameters;
   const RouteConfigFactory({
     required this.hasWrapper,
@@ -31,7 +31,7 @@ class RouteConfigFactory {
     required this.fullscreenDialog,
     required this.hasConstConstructor,
     required this.parameters,
-    required this.isChild,
+    required this.parentClassName,
   });
 
   RouteConfig fromResolver(
@@ -48,7 +48,7 @@ class RouteConfigFactory {
         parameters: parameters,
         returnType: returnType,
         cupertinoNavTitle: stackedRoute.peek('title')?.stringValue,
-        isChild: isChild,
+        parentClassName: parentClassName,
       );
     } else if (stackedRoute
         .instanceOf(TypeChecker.fromRuntime(AdaptiveRoute))) {
@@ -63,7 +63,7 @@ class RouteConfigFactory {
         parameters: parameters,
         returnType: returnType,
         cupertinoNavTitle: stackedRoute.peek('cupertinoPageTitle')?.stringValue,
-        isChild: isChild,
+        parentClassName: parentClassName,
       );
     } else if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CustomRoute))) {
       final function = stackedRoute
@@ -103,7 +103,7 @@ class RouteConfigFactory {
         customRouteOpaque: stackedRoute.peek('opaque')?.boolValue ?? true,
         customRouteBarrierDismissible:
             stackedRoute.peek('barrierDismissible')?.boolValue ?? false,
-        isChild: isChild,
+        parentClassName: parentClassName,
       );
 
       return customRouteConfig;
@@ -118,7 +118,7 @@ class RouteConfigFactory {
         maintainState: maintainState,
         parameters: parameters,
         returnType: returnType,
-        isChild: isChild,
+        parentClassName: parentClassName,
       );
     }
   }

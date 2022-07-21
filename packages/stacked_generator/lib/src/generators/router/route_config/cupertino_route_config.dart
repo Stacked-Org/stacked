@@ -16,7 +16,7 @@ class CupertinoRouteConfig extends RouteConfig {
       super.children,
       super.imports,
       this.cupertinoNavTitle,
-      super.isChild});
+      super.parentClassName});
 
   @override
   String registerRoutes() {
