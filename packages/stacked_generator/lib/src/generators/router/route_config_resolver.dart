@@ -21,7 +21,7 @@ class RouteConfigResolver {
   );
 
   Future<RouteConfig> resolve(ConstantReader stackedRoute,
-      {bool isChild = false}) async {
+      {String? parentClassName}) async {
     final dartType = stackedRoute.read('page').typeValue;
     throwIf(
       dartType.element is! ClassElement,
@@ -70,7 +70,7 @@ class RouteConfigResolver {
       }
     }
     return RouteConfigFactory(
-            isChild: isChild,
+            parentClassName: parentClassName,
             parameters: parameters,
             hasWrapper: classElement.allSupertypes
                 .map<String>((el) => toDisplayString(el))

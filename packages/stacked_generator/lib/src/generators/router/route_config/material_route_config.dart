@@ -13,7 +13,7 @@ class MaterialRouteConfig extends RouteConfig {
       super.hasConstConstructor,
       super.children,
       super.imports,
-      super.isChild});
+      super.parentClassName});
 
   @override
   String registerRoutes() {

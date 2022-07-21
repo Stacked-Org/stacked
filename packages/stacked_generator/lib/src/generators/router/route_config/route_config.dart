@@ -12,12 +12,12 @@ class RouteConfig {
   final List<RouteConfig> children;
   final bool hasConstConstructor;
   final Set<String> imports;
-  final bool isChild;
+  final String? parentClassName;
   const RouteConfig({
     required this.name,
     required this.pathName,
     required this.className,
-    this.isChild = false,
+    this.parentClassName,
     this.fullscreenDialog = false,
     this.maintainState = true,
     this.returnType,
@@ -108,7 +108,7 @@ class RouteConfig {
     List<RouteConfig>? children,
     bool? hasConstConstructor,
     Set<String>? imports,
-    bool? isChild,
+    String? parentClassName,
   }) {
     return RouteConfig(
       name: name ?? this.name,
@@ -122,7 +122,7 @@ class RouteConfig {
       children: children ?? this.children,
       hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
       imports: imports ?? this.imports,
-      isChild: isChild ?? this.isChild,
+      parentClassName: parentClassName ?? this.parentClassName,
     );
   }
 }

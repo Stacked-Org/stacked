@@ -6,7 +6,7 @@ class ArgumentClassBuilderHelper {
 
   const ArgumentClassBuilderHelper(this.route);
 
-  String get argumentClassName => route.isChild
+  String get argumentClassName => route.parentClassName != null
       ? 'Nested${route.argumentsHolderClassName}'
       : route.argumentsHolderClassName;
 

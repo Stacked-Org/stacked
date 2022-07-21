@@ -24,7 +24,7 @@ class CustomRouteConfig extends RouteConfig {
       this.customRouteOpaque = true,
       this.customRouteBarrierDismissible = false,
       this.transitionBuilder,
-      super.isChild});
+      super.parentClassName});
 
   @override
   String registerRoutes() {

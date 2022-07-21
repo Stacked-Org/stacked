@@ -101,7 +101,7 @@ class RouterClassBuilderHelper {
   }
 
   Method _getRouteRegisteration(RouteConfig route) {
-    final argsType = route.isChild
+    final argsType = route.parentClassName != null
         ? 'Nested${route.argumentsHolderClassName}'
         : route.argumentsHolderClassName;
     return Method(
