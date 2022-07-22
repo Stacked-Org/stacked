@@ -1,6 +1,6 @@
 import 'package:stacked_generator/route_config_resolver.dart';
 
-class RouteConfig {
+abstract class RouteConfig {
   final String name;
   final String pathName;
   final MapEntry<String, String> className;
@@ -34,7 +34,7 @@ class RouteConfig {
 
   String registerRoutes() {
     StringBuffer stringBuffer = StringBuffer();
-
+    print('Enter registerRoutes - ${this.name} - ${this.runtimeType}');
     if (fullscreenDialog) {
       stringBuffer.write('fullscreenDialog:true,');
     }
@@ -43,10 +43,6 @@ class RouteConfig {
     }
     stringBuffer.writeln(');');
     return stringBuffer.toString();
-  }
-
-  String? get templateName {
-    return pathName.contains(":") ? '_$name' : name;
   }
 
   String get joinedConstructerParams {
@@ -109,20 +105,5 @@ class RouteConfig {
     bool? hasConstConstructor,
     Set<String>? imports,
     String? parentClassName,
-  }) {
-    return RouteConfig(
-      name: name ?? this.name,
-      pathName: pathName ?? this.pathName,
-      className: className ?? this.className,
-      fullscreenDialog: fullscreenDialog ?? this.fullscreenDialog,
-      maintainState: maintainState ?? this.maintainState,
-      returnType: returnType ?? this.returnType,
-      parameters: parameters ?? this.parameters,
-      hasWrapper: hasWrapper ?? this.hasWrapper,
-      children: children ?? this.children,
-      hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
-      imports: imports ?? this.imports,
-      parentClassName: parentClassName ?? this.parentClassName,
-    );
-  }
+  });
 }

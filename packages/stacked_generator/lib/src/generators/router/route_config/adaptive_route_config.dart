@@ -1,3 +1,5 @@
+import 'package:stacked_generator/src/generators/router/models/route_parameter_config.dart';
+
 import 'route_config.dart';
 
 class AdaptiveRouteConfig extends RouteConfig {
@@ -29,5 +31,35 @@ class AdaptiveRouteConfig extends RouteConfig {
     stringBuffer.write(super.registerRoutes());
 
     return stringBuffer.toString();
+  }
+
+  @override
+  RouteConfig copyWith(
+      {String? name,
+      String? pathName,
+      MapEntry<String, String>? className,
+      bool? fullscreenDialog,
+      bool? maintainState,
+      String? returnType,
+      List<RouteParamConfig>? parameters,
+      bool? hasWrapper,
+      List<RouteConfig>? children,
+      bool? hasConstConstructor,
+      Set<String>? imports,
+      String? parentClassName}) {
+    return AdaptiveRouteConfig(
+      name: name ?? this.name,
+      pathName: pathName ?? this.pathName,
+      className: className ?? this.className,
+      fullscreenDialog: fullscreenDialog ?? this.fullscreenDialog,
+      maintainState: maintainState ?? this.maintainState,
+      returnType: returnType ?? this.returnType,
+      parameters: parameters ?? this.parameters,
+      hasWrapper: hasWrapper ?? this.hasWrapper,
+      children: children ?? this.children,
+      hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
+      imports: imports ?? this.imports,
+      parentClassName: parentClassName ?? this.parentClassName,
+    );
   }
 }
