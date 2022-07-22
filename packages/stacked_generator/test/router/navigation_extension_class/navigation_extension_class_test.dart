@@ -62,7 +62,7 @@ void main() {
 
         expect(
           builder.buildLibraryForClass,
-          kRouteClassArguments,
+          kRouteNavigationExtension,
         );
       });
     });

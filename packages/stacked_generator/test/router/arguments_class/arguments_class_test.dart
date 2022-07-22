@@ -51,7 +51,7 @@ final List<RouteConfig> _routes = [
 
 void main() {
   group('ArgumentClassBuilderHelperTest -', () {
-    List<Class> getBuilderInstance() => ArgumentsClassBuilder(
+    Iterable<Class> getBuilderInstance() => ArgumentsClassBuilder(
           routes: _routes,
         ).buildViewsArguments();
 
