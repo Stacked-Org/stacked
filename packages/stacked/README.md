@@ -201,6 +201,51 @@ class BuilderWidgetExampleView extends ViewModelBuilderWidget<HomeViewModel> {
 
 This is to help with removing some boilerplate code.
 
+### SelectorViewModelBuilderWidget
+
+Similar to `ViewModelBuilderWidget` but with the selector function. You can provide a selector, and if the the selector returns a new value, then the widget will be rebuilt.
+You can wrap this with a `ViewModel.nonReactive` to supply the ViewModel from provider.
+
+```dart
+class SelectorIntWidget
+    extends SelectorViewModelBuilderWidget<SomeAwesomeViewModel, int> {
+  const SelectorIntWidget({super.key});
+
+  @override
+  Widget build(BuildContext context, int value) {
+    return Text(
+      'Likes:$value',
+      style: Theme.of(context).textTheme.headline4,
+    );
+  }
+
+  @override
+  int selector(SelectorViewModel model) => model.user.likes ?? 0;
+}
+```
+
+### SelectorViewModelBuilder
+
+This will be run every time when the selector function returns a new value.
+
+```dart
+  SelectorViewModelBuilder<SomeAwesomeViewModel, String>(
+    builder: (
+      BuildContext context,
+      String name,
+      Widget? child,
+    ) {
+      return Text(
+        name,
+        style: Theme.of(context).textTheme.headline4,
+      );
+    },
+    selector: (model) => model.user.name ?? '',
+  ),
+```
+
+Wrap this with a ViewModel.nonReactive to supply the ViewModel from provider.
+
 ### Disable ViewModel Dispose
 
 An example of how to disable the dispose of a ViewModel.
@@ -1260,7 +1305,7 @@ logger: StackedLogger(
 
 Now the function to get your logger will be called `getStackedLogger`. If you want a more detailed guide on how to effectively log in your application read [this guide](https://www.filledstacks.com/post/flutter-logging-a-guide-to-use-it-effectively/) that we use for our production apps.
 
-## Forms 
+## Forms
 
 ### Form Generation
 
@@ -1303,28 +1348,29 @@ This will listen to the changes to the form and update the form value map. To ge
 
 Now that your FormView is setup, we can add validation. Validation offers both a security layer to avoid wrong data in forms and a rapid feedback for user to fix the input.
 
-Stacked gives you two ways (that can be combined) to achieve that: global form validation or per-field validation.  
+Stacked gives you two ways (that can be combined) to achieve that: global form validation or per-field validation.
 
 #### Global form validation
 
-By extending FormViewModel, you have access to the following methods that will help you setup the global form validation: 
+By extending FormViewModel, you have access to the following methods that will help you setup the global form validation:
+
 - `setFormValidationMessage` (`setValidationMessage` prior v2.3.0): to be called in the `setFormStatus` to set a global validation message in case of error ;
 - `showFormValidationMessage` (`showValidation` prior v2.3.0): to be called from the View to know if any validation message should be displayed ;
-- `formValidationMessage` (`validationMessage` prior v2.3.0): to be called from the view to display the actual validation message for the entire form if any. 
+- `formValidationMessage` (`validationMessage` prior v2.3.0): to be called from the view to display the actual validation message for the entire form if any.
 
 ```dart
 class ExampleFormViewModel extends FormViewModel {
 
   @override
   void setFormStatus() {
-    
+
     // Set a validation message for the entire form
     if (<any unmet condition>) {
       setFormValidationMessage('Error in the form, please check again');
     }
   }
 
-(...) 
+(...)
 
 class ExampleFormView extends StatelessWidget with $ExampleFormView {
   ExampleFormView({Key? key}) : super(key: key);
@@ -1333,7 +1379,7 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ExampleFormViewModel>.reactive(
       builder: (context, viewModel, child) => Scaffold(
-        (...) 
+        (...)
         if (viewModel.showFormValidationMessage)
           Text(
             viewModel.formValidationMessage!,
@@ -1344,9 +1390,10 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
 
 #### Per-field validation
 
-To achieve per-field validation, you can follow the same simple logic. By using the `@FormView` annotation to generate you form, Stacked also generates the following methods for each form field to help you: 
+To achieve per-field validation, you can follow the same simple logic. By using the `@FormView` annotation to generate you form, Stacked also generates the following methods for each form field to help you:
+
 - `set[FieldName]ValidationMessage`: to be called in the `setFormStatus` to set a validation message for this field only ;
-- `has[FieldName]ValidationMessage`: to be called from the View to know if any validation message should be displayed regarding this field ; 
+- `has[FieldName]ValidationMessage`: to be called from the View to know if any validation message should be displayed regarding this field ;
 - `[fieldName]ValidationMessage`: to be called from the view to display the actual validation message for this field.
 
 ```dart
@@ -1378,7 +1425,7 @@ class ExampleFormViewModel extends FormViewModel {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ExampleFormViewModel>.reactive(
       builder: (context, viewModel, child) => Scaffold(
-        (...) 
+        (...)
         TextFormField(
           controller: passwordController,
           focusNode: passwordFocusNode,
@@ -1391,9 +1438,10 @@ class ExampleFormViewModel extends FormViewModel {
         (...)
 ```
 
-**Hint**: in this example `passwordValidator` has been defined to return 
+**Hint**: in this example `passwordValidator` has been defined to return
+
 - a `String` describing the validation message to be shown if any ;
-- `null` if everything is fine, then no error will be shown.  
+- `null` if everything is fine, then no error will be shown.
 
 ```dart
 String? passwordValidator({String? value, int minimumLength = 6}) {
@@ -1403,10 +1451,10 @@ String? passwordValidator({String? value, int minimumLength = 6}) {
     return null;
 }
 ```
-But feel free to implement your own logic and call `set[FieldName]ValidationMessage` when you need it. 
+
+But feel free to implement your own logic and call `set[FieldName]ValidationMessage` when you need it.
 
 A complete example can be found in [./example/lib/ui/form/example_form_view.dart](./example/lib/ui/form/example_form_view.dart).
-
 
 ## Migrating from provider_architecture to Stacked
 
