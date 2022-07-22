@@ -12,7 +12,7 @@ class SelectorViewModelBuilder<T extends ChangeNotifier, K>
   }) : super(key: key);
 
   final K Function(T model) selector;
-  final Widget Function(BuildContext context, K value) builder;
+  final Widget Function(BuildContext context, K value, Widget? child) builder;
   final Widget? child;
   final bool Function(K, K)? shouldRebuild;
   @override
@@ -21,7 +21,8 @@ class SelectorViewModelBuilder<T extends ChangeNotifier, K>
       key: key,
       shouldRebuild: shouldRebuild,
       selector: (BuildContext context, T model) => selector(model),
-      builder: (BuildContext _, K value, Widget? child) => builder(_, value),
+      builder: (BuildContext _, K value, Widget? child) =>
+          builder(_, value, child),
       child: child,
     );
   }
