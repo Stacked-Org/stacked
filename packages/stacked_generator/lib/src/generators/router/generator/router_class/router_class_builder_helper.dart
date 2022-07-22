@@ -93,7 +93,7 @@ class RouterClassBuilderHelper {
     return Map.fromEntries(
       routes.map(
         (route) => MapEntry(
-          Reference(route.className.key),
+          Reference(route.className.key, route.className.value),
           _getRouteRegisteration(route),
         ),
       ),
@@ -113,11 +113,11 @@ class RouterClassBuilderHelper {
           (b) => b..name = 'data',
         ))
         ..body = Block.of([
-          if (notQueryNorPathParameters.isNotEmpty) ...[
-            _prepareArgs(argsType),
-            _eitherNullOkOrElse(route.parameters, argsType),
-          ],
-          _returnRouteRegistration(route)
+          // if (notQueryNorPathParameters.isNotEmpty) ...[
+          //   _prepareArgs(argsType),
+          //   _eitherNullOkOrElse(route.parameters, argsType),
+          // ],
+          _returnRouteRegistration(route),
         ]),
     );
   }
