@@ -32,7 +32,8 @@ class NavigateExtensionClassBuilderHelper {
     return Parameter((parameterBuilder) {
       parameterBuilder
         ..name = param.name
-        ..type = Reference(param.type, param.imports?.first)
+        ..type = Reference(
+            param.type, param.imports!.isNotEmpty ? param.imports?.first : null)
         ..toThis = true
         ..named = true;
 
