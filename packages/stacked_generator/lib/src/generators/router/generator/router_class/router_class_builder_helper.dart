@@ -104,14 +104,19 @@ class RouterClassBuilderHelper {
     final argsType = route.parentClassName != null
         ? 'Nested${route.argumentsHolderClassName}'
         : route.argumentsHolderClassName;
+
+    final notQueryNorPathParameters = notQueryNorPath(route.parameters);
+
     return Method(
       (b) => b
         ..requiredParameters.add(Parameter(
           (b) => b..name = 'data',
         ))
         ..body = Block.of([
-          _prepareArgs(argsType),
-          _eitherNullOkOrElse(route.parameters, argsType),
+          if (notQueryNorPathParameters.isNotEmpty) ...[
+            _prepareArgs(argsType),
+            _eitherNullOkOrElse(route.parameters, argsType),
+          ],
           _returnRouteRegistration(route)
         ]),
     );
@@ -123,9 +128,7 @@ class RouterClassBuilderHelper {
   Code _eitherNullOkOrElse(List<RouteParamConfig> parameters, String argsType) {
     /// if router has any required or positional params
     /// the argument class holder becomes required.
-    final notQueryNorPathParameters = notQueryNorPath(parameters);
-    final nullOk =
-        notQueryNorPathParameters.any((p) => p.isRequired || p.isPositional);
+    final nullOk = parameters.any((p) => p.isRequired || p.isPositional);
 
     if (nullOk) {
       return Code('nullOk: false);');

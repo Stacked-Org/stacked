@@ -12,7 +12,7 @@ extension SpecExtension on Spec {
   }
 }
 
-extension SpecsExtension on List<Spec> {
+extension SpecsExtension on Iterable<Spec> {
   String get buildLibraryForClass {
     final library = Library((b) => b..body.addAll(this));
 

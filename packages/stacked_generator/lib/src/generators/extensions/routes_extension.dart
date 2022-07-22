@@ -6,7 +6,7 @@ extension RoutesExtension on RouterConfig {
     performAction(this);
 
     for (var route in this.routes) {
-      if (route.children.isEmpty) continue;
+      // if (route.children.isEmpty) continue;
 
       RouterConfig(
               routes: route.children,

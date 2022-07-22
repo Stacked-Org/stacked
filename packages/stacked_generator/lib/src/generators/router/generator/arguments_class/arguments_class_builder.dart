@@ -9,7 +9,7 @@ class ArgumentsClassBuilder {
 
   const ArgumentsClassBuilder({required this.routes});
 
-  List<Class> buildViewsArguments() {
+  Iterable<Class> buildViewsArguments() {
     final routesWithParameters =
         routes.where((route) => notQueryNorPath(route.parameters).isNotEmpty);
 
@@ -21,6 +21,6 @@ class ArgumentsClassBuilder {
           ..fields.addAll(argumentsBuilderHelper.convertParametersToClassFields)
           ..constructors.add(argumentsBuilderHelper.argumentConstructer),
       );
-    }).toList();
+    });
   }
 }

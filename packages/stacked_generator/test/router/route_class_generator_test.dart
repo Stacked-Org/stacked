@@ -825,58 +825,65 @@ void main() {
       //     );
       //   });
       // });
-      // group('Mixed -', () {
-      //   test('Given random routing system', () {
-      //     final List<RouteConfig> routes = [
-      //       CustomRouteConfig(
-      //         name: 'loginView1',
-      //         pathName: 'pathNamaw1',
-      //         className: 'TestClass1',
-      //         reverseDurationInMilliseconds: 2,
-      //         durationInMilliseconds: 22,
-      //       ),
-      //       MaterialRouteConfig(
-      //           name: 'loginView2',
-      //           pathName: 'pathNamaw2',
-      //           className: 'TestClass2',
-      //           parameters: [
-      //             RouteParamConfig(
-      //               isPathParam: false,
-      //               isQueryParam: true,
-      //             ),
-      //           ]),
-      //       MaterialRouteConfig(
-      //           name: 'loginView3',
-      //           pathName: 'pathNamaw3',
-      //           className: 'TestClass3',
-      //           parameters: [
-      //             RouteParamConfig(
-      //               isPathParam: false,
-      //               isQueryParam: false,
-      //             ),
-      //           ]),
-      //       MaterialRouteConfig(
-      //           name: 'loginView4',
-      //           pathName: 'pathNamaw4',
-      //           className: 'TestClass4',
-      //           maintainState: false),
-      //       AdaptiveRouteConfig(
-      //           name: 'loginView5',
-      //           pathName: 'pathNamaw5',
-      //           className: 'TestClass5',
-      //           cupertinoNavTitle: 'cupertinooo'),
-      //       CupertinoRouteConfig(
-      //         name: 'loginView6',
-      //         pathName: 'pathNamaw6',
-      //         className: 'TestClass6',
-      //       ),
-      //     ];
+      group('Mixed -', () {
+        test('Given random routing system', () {
+          final List<RouteConfig> routes = [
+            CustomRouteConfig(
+              name: 'loginView1',
+              pathName: 'pathNamaw1',
+              className: MapEntry('TestClass1', 'test1.dart'),
+              reverseDurationInMilliseconds: 2,
+              durationInMilliseconds: 22,
+            ),
+            MaterialRouteConfig(
+                name: 'loginView2',
+                pathName: 'pathNamaw2',
+                className: MapEntry('TestClass2', 'test2.dart'),
+                parameters: [
+                  RouteParamConfig(
+                    name: 'test2paramName',
+                    type: 'Test2Type',
+                    imports: {'test2type.dart'},
+                    isPathParam: false,
+                    isQueryParam: true,
+                  ),
+                ]),
+            MaterialRouteConfig(
+                name: 'loginView3',
+                pathName: 'pathNamaw3',
+                className: MapEntry('TestClass3', 'test3.dart'),
+                parameters: [
+                  RouteParamConfig(
+                    name: 'test3paramName',
+                    type: 'Test3Type',
+                    imports: {'test3type.dart'},
+                    isPathParam: false,
+                    isQueryParam: false,
+                  ),
+                ]),
+            MaterialRouteConfig(
+                name: 'loginView4',
+                pathName: 'pathNamaw4',
+                className: MapEntry('TestClass4', 'test4.dart'),
+                maintainState: false),
+            AdaptiveRouteConfig(
+                name: 'loginView5',
+                pathName: 'pathNamaw5',
+                className: MapEntry('TestClass5', 'test5.dart'),
+                cupertinoNavTitle: 'cupertinooo'),
+            CupertinoRouteConfig(
+              name: 'loginView6',
+              pathName: 'pathNamaw6',
+              className: MapEntry('TestClass6', 'test6.dart'),
+            ),
+          ];
 
-      //     generateRouteAndExpectResult(
-      //       routes,
-      //       kRouterMixin,
-      //     );
-      //   });
+          generateRouteAndExpectResult(
+            routes,
+            kRouterMixin,
+          );
+        });
+      });
     });
   });
 }
