@@ -3,19 +3,11 @@ import 'package:provider/provider.dart';
 
 abstract class SelectorViewModelBuilderWidget<T extends ChangeNotifier, K>
     extends Widget {
-  const SelectorViewModelBuilderWidget({
-    required this.selector,
-    required this.builder,
-    this.child,
-    this.shouldRebuild,
-    Key? key,
-  }) : super(key: key);
+  const SelectorViewModelBuilderWidget({Key? key}) : super(key: key);
 
-  final K Function(T model) selector;
-  final Widget Function(BuildContext context, K value) builder;
-  final Widget? child;
-  final bool Function(K, K)? shouldRebuild;
-  @protected
+  K selector(T model);
+  Widget? get staticChild => null;
+  bool shouldRebuild(K v1, K v2) => v1 != v2;
   Widget build(BuildContext context, K value);
 
   @override
@@ -39,7 +31,7 @@ class _DataProviderElement<T extends ChangeNotifier, K>
       selector: (BuildContext context, T model) => widget.selector(model),
       builder: (BuildContext _, K value, Widget? child) =>
           widget.build(this, value),
-      child: widget.child,
+      child: widget.staticChild,
     );
   }
 
