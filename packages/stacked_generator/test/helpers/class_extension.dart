@@ -7,7 +7,7 @@ extension SpecExtension on Spec {
 
     final emitter = DartEmitter.scoped();
     final result = DartFormatter().format('${library.accept(emitter)}');
-    print(result);
+
     return result;
   }
 }
@@ -18,7 +18,7 @@ extension SpecsExtension on Iterable<Spec> {
 
     final emitter = DartEmitter.scoped();
     final result = DartFormatter().format('${library.accept(emitter)}');
-    print(result);
+
     return result;
   }
 }
@@ -29,7 +29,7 @@ extension ListExpressionExtension on Iterable<Expression> {
 
     final emitter = DartEmitter.scoped();
     final result = DartFormatter().format('${library.accept(emitter)}');
-    print(result);
+
     return result;
   }
 }

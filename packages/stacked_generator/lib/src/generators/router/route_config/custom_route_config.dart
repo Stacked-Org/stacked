@@ -1,3 +1,4 @@
+import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/src/generators/router/models/route_parameter_config.dart';
 
 import '../models/custom_transition_builder.dart';
@@ -29,39 +30,31 @@ class CustomRouteConfig extends RouteConfig {
       super.parentClassName});
 
   @override
-  String registerRoutes() {
-    StringBuffer stringBuffer = StringBuffer();
-
-    stringBuffer.write(
-        'return PageRouteBuilder<$processedReturnType>(pageBuilder: (context, animation, secondaryAnimation) => $joinedConstructerParams, settings: data,');
-
-    if (!customRouteOpaque)
-      stringBuffer.write('opaque:${customRouteOpaque.toString()},');
-
-    if (customRouteBarrierDismissible) {
-      stringBuffer.write(
-          'barrierDismissible:${customRouteBarrierDismissible.toString()},');
-    }
-    if (transitionBuilder != null) {
-      stringBuffer.write(
-          'transitionsBuilder: data.transition ?? ${transitionBuilder!.name},');
-    }
-    if (transitionBuilder == null) {
-      stringBuffer.write('''transitionsBuilder: data.transition??
+  Code registerRoutes() {
+    return Block.of([
+      Code('return '),
+      Reference('PageRouteBuilder', 'package:flutter/material.dart').code,
+      Code(
+          '<$processedReturnType>(pageBuilder: (context, animation, secondaryAnimation) => $joinedConstructerParams, settings: data,'),
+      if (!customRouteOpaque) Code('opaque:${customRouteOpaque.toString()},'),
+      if (customRouteBarrierDismissible)
+        Code('barrierDismissible:${customRouteBarrierDismissible.toString()},'),
+      if (transitionBuilder != null)
+        Code(
+            'transitionsBuilder: data.transition ?? ${transitionBuilder!.name},'),
+      if (transitionBuilder == null)
+        Code('''transitionsBuilder: data.transition??
               (context, animation, secondaryAnimation, child) {
             return child;
-          },''');
-    }
-    if (durationInMilliseconds != null) {
-      stringBuffer.write(
-          'transitionDuration: const Duration(milliseconds: ${durationInMilliseconds}),');
-    }
-    if (reverseDurationInMilliseconds != null) {
-      stringBuffer.write(
-          'reverseTransitionDuration: const Duration(milliseconds: ${reverseDurationInMilliseconds}),');
-    }
-    stringBuffer.write(super.registerRoutes());
-    return stringBuffer.toString();
+          },'''),
+      if (durationInMilliseconds != null)
+        Code(
+            'transitionDuration: const Duration(milliseconds: ${durationInMilliseconds}),'),
+      if (reverseDurationInMilliseconds != null)
+        Code(
+            'reverseTransitionDuration: const Duration(milliseconds: ${reverseDurationInMilliseconds}),'),
+      super.registerRoutes()
+    ]);
   }
 
   @override

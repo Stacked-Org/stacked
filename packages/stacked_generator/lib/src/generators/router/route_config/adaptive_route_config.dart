@@ -1,3 +1,4 @@
+import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/src/generators/router/models/route_parameter_config.dart';
 
 import 'route_config.dart';
@@ -19,18 +20,17 @@ class AdaptiveRouteConfig extends RouteConfig {
       super.imports,
       this.cupertinoNavTitle,
       super.parentClassName});
-
   @override
-  String registerRoutes() {
-    StringBuffer stringBuffer = StringBuffer();
-    stringBuffer.write(
-        'return buildAdaptivePageRoute<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,');
-    if (cupertinoNavTitle != null) {
-      stringBuffer.write("cupertinoTitle:'${cupertinoNavTitle}',");
-    }
-    stringBuffer.write(super.registerRoutes());
-
-    return stringBuffer.toString();
+  Code registerRoutes() {
+    return Block.of([
+      Code('return '),
+      Reference('buildAdaptivePageRoute', 'package:stacked/stacked.dart').code,
+      Code(
+          '<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,'),
+      if (cupertinoNavTitle != null)
+        Code("cupertinoTitle:'${cupertinoNavTitle}',"),
+      super.registerRoutes()
+    ]);
   }
 
   @override

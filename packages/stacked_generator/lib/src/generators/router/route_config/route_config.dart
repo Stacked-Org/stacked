@@ -1,3 +1,4 @@
+import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
 
 abstract class RouteConfig {
@@ -32,17 +33,12 @@ abstract class RouteConfig {
     return '${className.key}Arguments';
   }
 
-  String registerRoutes() {
-    StringBuffer stringBuffer = StringBuffer();
-    print('Enter registerRoutes - ${this.name} - ${this.runtimeType}');
-    if (fullscreenDialog) {
-      stringBuffer.write('fullscreenDialog:true,');
-    }
-    if (!maintainState) {
-      stringBuffer.write('maintainState:false,');
-    }
-    stringBuffer.writeln(');');
-    return stringBuffer.toString();
+  Code registerRoutes() {
+    return Block.of([
+      if (fullscreenDialog) Code('fullscreenDialog:true,'),
+      if (!maintainState) Code('maintainState:false,'),
+      Code(');')
+    ]);
   }
 
   String get joinedConstructerParams {

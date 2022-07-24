@@ -113,10 +113,10 @@ class RouterClassBuilderHelper {
           (b) => b..name = 'data',
         ))
         ..body = Block.of([
-          // if (notQueryNorPathParameters.isNotEmpty) ...[
-          //   _prepareArgs(argsType),
-          //   _eitherNullOkOrElse(route.parameters, argsType),
-          // ],
+          if (notQueryNorPathParameters.isNotEmpty) ...[
+            _prepareArgs(argsType),
+            _eitherNullOkOrElse(route.parameters, argsType),
+          ],
           _returnRouteRegistration(route),
         ]),
     );
@@ -147,6 +147,6 @@ class RouterClassBuilderHelper {
   ///   settings: data,
   /// );
   Code _returnRouteRegistration(RouteConfig route) {
-    return Code(route.registerRoutes());
+    return route.registerRoutes();
   }
 }
