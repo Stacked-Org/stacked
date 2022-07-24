@@ -13,13 +13,14 @@ import '../ui/form/example_form_view.dart' as _i6;
 import '../ui/nonreactive/nonreactive_view.dart' as _i7;
 import 'package:flutter/material.dart' as _i8;
 import 'package:flutter/cupertino.dart' as _i9;
-import '../datamodels/clashable_two.dart' as _i10;
-import '../datamodels/clashable_one.dart' as _i11;
-import '../ui/bottom_nav/favorites/favorites_view.dart' as _i12;
-import '../ui/bottom_nav/history/history_view.dart' as _i13;
-import '../ui/bottom_nav/profile/profile_view.dart' as _i14;
+import 'package:example/app/custom_route_transition.dart' as _i10;
+import '../datamodels/clashable_two.dart' as _i11;
+import '../datamodels/clashable_one.dart' as _i12;
+import '../ui/bottom_nav/favorites/favorites_view.dart' as _i13;
+import '../ui/bottom_nav/history/history_view.dart' as _i14;
+import '../ui/bottom_nav/profile/profile_view.dart' as _i15;
 import '../ui/multiple_futures_example/multiple_futures_example_view.dart'
-    as _i15;
+    as _i16;
 
 class Routes {
   static const homeView = '/';
@@ -60,55 +61,46 @@ class StackedRouter extends _i1.RouterBase {
         orElse: () => HomeViewArguments(),
       );
       return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => HomeView(
-          key: args.key,
-          title: args.title,
-        ),
+        builder: (context) => _i2.HomeView(key: args.key, title: args.title),
         settings: data,
       );
     },
     _i3.BottomNavExample: (data) {
       return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => const BottomNavExample(),
+        builder: (context) => const _i3.BottomNavExample(),
         settings: data,
       );
     },
     _i4.StreamCounterView: (data) {
       final args = data.getArgs<StreamCounterViewArguments>(nullOk: false);
       return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => StreamCounterView(
-          key: args.key,
-          clashableTwo: args.clashableTwo,
-        ),
+        builder: (context) => _i4.StreamCounterView(
+            key: args.key, clashableTwo: args.clashableTwo),
         settings: data,
       );
     },
     _i5.DetailsView: (data) {
       final args = data.getArgs<DetailsViewArguments>(nullOk: false);
       return _i9.CupertinoPageRoute<Map<String, List<String>>>(
-        builder: (context) => DetailsView(
-          key: args.key,
-          name: args.name,
-        ),
+        builder: (context) => _i5.DetailsView(key: args.key, name: args.name),
         settings: data,
       );
     },
     _i6.ExampleFormView: (data) {
       final args = data.getArgs<ExampleFormViewArguments>(nullOk: false);
       return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => ExampleFormView(
-          key: args.key,
-          clashableOne: args.clashableOne,
-        ),
+        builder: (context) =>
+            _i6.ExampleFormView(key: args.key, clashableOne: args.clashableOne),
         settings: data,
       );
     },
     _i7.NonReactiveView: (data) {
       return _i8.PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const NonReactiveView(),
+            const _i7.NonReactiveView(),
         settings: data,
-        transitionsBuilder: data.transition ?? CustomRouteTransition.sharedAxis,
+        transitionsBuilder:
+            data.transition ?? _i10.CustomRouteTransition.sharedAxis,
       );
     }
   };
@@ -132,7 +124,7 @@ class StreamCounterViewArguments {
 
   final _i8.Key? key;
 
-  final _i10.Clashable clashableTwo;
+  final _i11.Clashable clashableTwo;
 }
 
 class DetailsViewArguments {
@@ -148,7 +140,7 @@ class ExampleFormViewArguments {
 
   final _i8.Key? key;
 
-  final _i11.Clashable clashableOne;
+  final _i12.Clashable clashableOne;
 }
 
 class BottomNavExampleRoutes {
@@ -164,28 +156,25 @@ class BottomNavExampleRoutes {
 class BottomNavExampleRouter extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
     _i1.RouteDef(BottomNavExampleRoutes.favoritesView,
-        page: _i12.FavoritesView),
-    _i1.RouteDef(BottomNavExampleRoutes.historyView, page: _i13.HistoryView),
-    _i1.RouteDef(BottomNavExampleRoutes.profileView, page: _i14.ProfileView)
+        page: _i13.FavoritesView),
+    _i1.RouteDef(BottomNavExampleRoutes.historyView, page: _i14.HistoryView),
+    _i1.RouteDef(BottomNavExampleRoutes.profileView, page: _i15.ProfileView)
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
-    _i12.FavoritesView: (data) {
+    _i13.FavoritesView: (data) {
       final args = data.getArgs<NestedFavoritesViewArguments>(
         orElse: () => NestedFavoritesViewArguments(),
       );
       return _i1.buildAdaptivePageRoute<dynamic>(
-        builder: (context) => FavoritesView(
-          key: args.key,
-          id: args.id,
-        ),
+        builder: (context) => _i13.FavoritesView(key: args.key, id: args.id),
         settings: data,
       );
     },
-    _i13.HistoryView: (data) {
+    _i14.HistoryView: (data) {
       return _i8.PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const HistoryView(),
+            const _i14.HistoryView(),
         settings: data,
         transitionsBuilder: data.transition ??
             (context, animation, secondaryAnimation, child) {
@@ -193,9 +182,9 @@ class BottomNavExampleRouter extends _i1.RouterBase {
             },
       );
     },
-    _i14.ProfileView: (data) {
+    _i15.ProfileView: (data) {
       return _i9.CupertinoPageRoute<dynamic>(
-        builder: (context) => const ProfileView(),
+        builder: (context) => const _i15.ProfileView(),
         settings: data,
       );
     }
@@ -226,21 +215,21 @@ class FavoritesViewRoutes {
 class FavoritesViewRouter extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
     _i1.RouteDef(FavoritesViewRoutes.multipleFuturesExampleView,
-        page: _i15.MultipleFuturesExampleView),
-    _i1.RouteDef(FavoritesViewRoutes.historyView, page: _i13.HistoryView)
+        page: _i16.MultipleFuturesExampleView),
+    _i1.RouteDef(FavoritesViewRoutes.historyView, page: _i14.HistoryView)
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
-    _i15.MultipleFuturesExampleView: (data) {
+    _i16.MultipleFuturesExampleView: (data) {
       return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => const MultipleFuturesExampleView(),
+        builder: (context) => const _i16.MultipleFuturesExampleView(),
         settings: data,
       );
     },
-    _i13.HistoryView: (data) {
+    _i14.HistoryView: (data) {
       return _i8.PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const HistoryView(),
+            const _i14.HistoryView(),
         settings: data,
         transitionsBuilder: data.transition ??
             (context, animation, secondaryAnimation, child) {

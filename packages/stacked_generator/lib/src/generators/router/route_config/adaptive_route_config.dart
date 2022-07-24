@@ -20,17 +20,16 @@ class AdaptiveRouteConfig extends RouteConfig {
       super.imports,
       this.cupertinoNavTitle,
       super.parentClassName});
+
   @override
-  Code registerRoutes() {
-    return Block.of([
-      Code('return '),
-      Reference('buildAdaptivePageRoute', 'package:stacked/stacked.dart').code,
-      Code(
-          '<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,'),
-      if (cupertinoNavTitle != null)
-        Code("cupertinoTitle:'${cupertinoNavTitle}',"),
-      super.registerRoutes()
-    ]);
+  Code registerRoute() {
+    return super.registerRouteBloc(
+      routeType: 'buildAdaptivePageRoute',
+      routeTypeImport: 'package:stacked/stacked.dart',
+      extra: cupertinoNavTitle != null
+          ? Code("cupertinoTitle:'${cupertinoNavTitle}',")
+          : null,
+    );
   }
 
   @override
