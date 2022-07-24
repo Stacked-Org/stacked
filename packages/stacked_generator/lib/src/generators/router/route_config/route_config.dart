@@ -33,16 +33,43 @@ abstract class RouteConfig {
     return '${className.key}Arguments';
   }
 
-  Code registerRoutes() {
+  Code get joinedConstructerParams {
+    final constructorParams = _extractViewConstructerParametersNames();
+
+    final constructor = Block.of([
+      Code("${hasConstConstructor == true ? 'const' : ''}  "),
+      Reference(className.key, className.value).code,
+      Code(
+          "(${constructorParams.join(',')})${(hasWrapper) ? ".wrappedRoute(context)" : ""}")
+    ]);
+    return constructor;
+  }
+
+  Code registerRoute();
+
+  Code registerRouteBloc(
+      {required String routeType,
+      required String routeTypeImport,
+      Code? extra,
+      bool usePageBuilder = false}) {
     return Block.of([
+      Code('return '),
+      Reference(routeType, routeTypeImport).code,
+      usePageBuilder
+          ? Code(
+              '<$processedReturnType>(pageBuilder: (context, animation, secondaryAnimation) => ')
+          : Code('<$processedReturnType>(builder: (context) => '),
+      joinedConstructerParams,
+      Code(', settings: data,'),
+      if (extra != null) extra,
       if (fullscreenDialog) Code('fullscreenDialog:true,'),
       if (!maintainState) Code('maintainState:false,'),
       Code(');')
     ]);
   }
 
-  String get joinedConstructerParams {
-    List<String>? constructorParams = parameters.map<String>((param) {
+  Iterable<String> _extractViewConstructerParametersNames() {
+    return parameters.map<String>((param) {
       String getterName;
       if (param.isPathParam ?? false) {
         getterName =
@@ -58,15 +85,7 @@ abstract class RouteConfig {
       } else {
         return '${param.name}:$getterName';
       }
-    }).toList();
-    // add any empty item to add a comma at end
-    // when join(',') is called
-    if (constructorParams.length > 1) {
-      constructorParams.add('');
-    }
-    final constructor =
-        "${hasConstConstructor == true ? 'const' : ''}  ${className.key}(${constructorParams.join(',')})${(hasWrapper) ? ".wrappedRoute(context)" : ""}";
-    return constructor;
+    });
   }
 
   bool get isProcessedReturnTypeDynamic => processedReturnType == 'dynamic';

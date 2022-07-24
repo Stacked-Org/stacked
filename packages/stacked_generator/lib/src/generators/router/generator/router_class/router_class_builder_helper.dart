@@ -147,6 +147,6 @@ class RouterClassBuilderHelper {
   ///   settings: data,
   /// );
   Code _returnRouteRegistration(RouteConfig route) {
-    return route.registerRoutes();
+    return route.registerRoute();
   }
 }

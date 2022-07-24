@@ -30,31 +30,34 @@ class CustomRouteConfig extends RouteConfig {
       super.parentClassName});
 
   @override
-  Code registerRoutes() {
-    return Block.of([
-      Code('return '),
-      Reference('PageRouteBuilder', 'package:flutter/material.dart').code,
-      Code(
-          '<$processedReturnType>(pageBuilder: (context, animation, secondaryAnimation) => $joinedConstructerParams, settings: data,'),
-      if (!customRouteOpaque) Code('opaque:${customRouteOpaque.toString()},'),
-      if (customRouteBarrierDismissible)
-        Code('barrierDismissible:${customRouteBarrierDismissible.toString()},'),
-      if (transitionBuilder != null)
-        Code(
-            'transitionsBuilder: data.transition ?? ${transitionBuilder!.name},'),
-      if (transitionBuilder == null)
-        Code('''transitionsBuilder: data.transition??
+  Code registerRoute() {
+    return super.registerRouteBloc(
+      routeType: 'PageRouteBuilder',
+      routeTypeImport: 'package:flutter/material.dart',
+      usePageBuilder: true,
+      extra: Block.of([
+        if (!customRouteOpaque) Code('opaque:${customRouteOpaque.toString()},'),
+        if (customRouteBarrierDismissible)
+          Code(
+              'barrierDismissible:${customRouteBarrierDismissible.toString()},'),
+        if (transitionBuilder != null) ...[
+          Code('transitionsBuilder: data.transition ?? '),
+          Reference(transitionBuilder!.name, transitionBuilder!.import).code,
+          Code(',')
+        ],
+        if (transitionBuilder == null)
+          Code('''transitionsBuilder: data.transition??
               (context, animation, secondaryAnimation, child) {
             return child;
           },'''),
-      if (durationInMilliseconds != null)
-        Code(
-            'transitionDuration: const Duration(milliseconds: ${durationInMilliseconds}),'),
-      if (reverseDurationInMilliseconds != null)
-        Code(
-            'reverseTransitionDuration: const Duration(milliseconds: ${reverseDurationInMilliseconds}),'),
-      super.registerRoutes()
-    ]);
+        if (durationInMilliseconds != null)
+          Code(
+              'transitionDuration: const Duration(milliseconds: ${durationInMilliseconds}),'),
+        if (reverseDurationInMilliseconds != null)
+          Code(
+              'reverseTransitionDuration: const Duration(milliseconds: ${reverseDurationInMilliseconds}),'),
+      ]),
+    );
   }
 
   @override

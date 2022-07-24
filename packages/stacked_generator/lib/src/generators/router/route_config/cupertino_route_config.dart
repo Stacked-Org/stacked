@@ -22,15 +22,13 @@ class CupertinoRouteConfig extends RouteConfig {
       super.parentClassName});
 
   @override
-  Code registerRoutes() {
-    return Block.of([
-      Code('return '),
-      Reference('CupertinoPageRoute', 'package:flutter/cupertino.dart').code,
-      Code(
-          '<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,'),
-      if (cupertinoNavTitle != null) Code("title:'$cupertinoNavTitle',"),
-      super.registerRoutes()
-    ]);
+  Code registerRoute() {
+    return super.registerRouteBloc(
+        routeType: 'CupertinoPageRoute',
+        routeTypeImport: 'package:flutter/cupertino.dart',
+        extra: cupertinoNavTitle != null
+            ? Code("title:'$cupertinoNavTitle',")
+            : null);
   }
 
   @override

@@ -19,14 +19,10 @@ class MaterialRouteConfig extends RouteConfig {
       super.parentClassName});
 
   @override
-  Code registerRoutes() {
-    return Block.of([
-      Code('return '),
-      Reference('MaterialPageRoute', 'package:flutter/material.dart').code,
-      Code(
-          '<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,'),
-      super.registerRoutes(),
-    ]);
+  Code registerRoute() {
+    return super.registerRouteBloc(
+        routeType: 'MaterialPageRoute',
+        routeTypeImport: 'package:flutter/material.dart');
   }
 
   @override
