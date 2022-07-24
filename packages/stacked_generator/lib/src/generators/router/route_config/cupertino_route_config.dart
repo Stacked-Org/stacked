@@ -1,3 +1,4 @@
+import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/src/generators/router/models/route_parameter_config.dart';
 
 import 'route_config.dart';
@@ -21,15 +22,15 @@ class CupertinoRouteConfig extends RouteConfig {
       super.parentClassName});
 
   @override
-  String registerRoutes() {
-    StringBuffer stringBuffer = StringBuffer();
-    stringBuffer.write(
-        'return CupertinoPageRoute<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,');
-    if (cupertinoNavTitle != null) {
-      stringBuffer.write("title:'$cupertinoNavTitle',");
-    }
-    stringBuffer.write(super.registerRoutes());
-    return stringBuffer.toString();
+  Code registerRoutes() {
+    return Block.of([
+      Code('return '),
+      Reference('CupertinoPageRoute', 'package:flutter/cupertino.dart').code,
+      Code(
+          '<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,'),
+      if (cupertinoNavTitle != null) Code("title:'$cupertinoNavTitle',"),
+      super.registerRoutes()
+    ]);
   }
 
   @override

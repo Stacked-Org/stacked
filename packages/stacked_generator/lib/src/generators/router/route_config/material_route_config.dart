@@ -1,3 +1,4 @@
+import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/src/generators/router/models/route_parameter_config.dart';
 
 import 'route_config.dart';
@@ -18,13 +19,14 @@ class MaterialRouteConfig extends RouteConfig {
       super.parentClassName});
 
   @override
-  String registerRoutes() {
-    StringBuffer stringBuffer = StringBuffer();
-
-    stringBuffer.write(
-        'return MaterialPageRoute<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,');
-    stringBuffer.write(super.registerRoutes());
-    return stringBuffer.toString();
+  Code registerRoutes() {
+    return Block.of([
+      Code('return '),
+      Reference('MaterialPageRoute', 'package:flutter/material.dart').code,
+      Code(
+          '<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,'),
+      super.registerRoutes(),
+    ]);
   }
 
   @override

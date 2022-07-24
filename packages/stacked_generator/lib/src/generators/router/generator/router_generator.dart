@@ -2,7 +2,6 @@ import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:stacked_generator/src/generators/base_generator.dart';
 import 'package:stacked_generator/src/generators/extensions/routes_extension.dart';
-import 'package:stacked_generator/src/generators/router/generator/navigate_extension_class/navigate_extension_class_builder.dart';
 import 'package:stacked_generator/src/generators/router/generator/routes_class/routes_class_builder.dart';
 
 import '../router_config/router_config.dart';
@@ -24,6 +23,7 @@ class RouterGenerator implements BaseGenerator {
     );
 
     final emitter = DartEmitter.scoped();
+
     return DartFormatter().format('${library.accept(emitter)}');
   }
 
@@ -45,15 +45,15 @@ class RouterGenerator implements BaseGenerator {
       routes: routerConfig.routes,
     ).buildViewsArguments();
 
-    final navigationExtensionClassBuilder = NavigateExtensionClassBuilder(
-      routes: routerConfig.routes,
-    ).build();
+    // final navigationExtensionClassBuilder = NavigateExtensionClassBuilder(
+    //   routes: routerConfig.routes,
+    // ).build();
 
     classes.addAll([
       routesClassBuilder,
       routerClassBuilder,
       ...argumentsClassBuilder,
-      navigationExtensionClassBuilder
+      // navigationExtensionClassBuilder
     ]);
   }
 }
