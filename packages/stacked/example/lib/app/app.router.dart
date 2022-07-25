@@ -16,11 +16,12 @@ import 'package:flutter/cupertino.dart' as _i9;
 import 'package:example/app/custom_route_transition.dart' as _i10;
 import '../datamodels/clashable_two.dart' as _i11;
 import '../datamodels/clashable_one.dart' as _i12;
-import '../ui/bottom_nav/favorites/favorites_view.dart' as _i13;
-import '../ui/bottom_nav/history/history_view.dart' as _i14;
-import '../ui/bottom_nav/profile/profile_view.dart' as _i15;
+import 'package:stacked_services/stacked_services.dart' as _i13;
+import '../ui/bottom_nav/favorites/favorites_view.dart' as _i14;
+import '../ui/bottom_nav/history/history_view.dart' as _i15;
+import '../ui/bottom_nav/profile/profile_view.dart' as _i16;
 import '../ui/multiple_futures_example/multiple_futures_example_view.dart'
-    as _i16;
+    as _i17;
 
 class Routes {
   static const homeView = '/';
@@ -143,6 +144,100 @@ class ExampleFormViewArguments {
   final _i12.Clashable clashableOne;
 }
 
+extension NavigatorStateExtension on _i13.NavigationService {
+  Future<dynamic> navigateToHomeView(
+      {_i8.Key? this.key,
+      String? this.title,
+      int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition}) async {
+    navigateTo(Routes.homeView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToBottomNavExample(
+      [int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition]) async {
+    navigateTo(Routes.bottomNavExample,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToStreamCounterView(
+      {_i8.Key? this.key,
+      required _i11.Clashable this.clashableTwo,
+      int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition}) async {
+    navigateTo(Routes.streamCounterView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<Map<String, List<String>>?> navigateToDetailsView(
+      {_i8.Key? this.key,
+      required String this.name,
+      int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition}) async {
+    navigateTo(Routes.detailsView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToExampleFormView(
+      {_i8.Key? this.key,
+      required _i12.Clashable this.clashableOne,
+      int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition}) async {
+    navigateTo(Routes.exampleFormView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToNonReactiveView(
+      [int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition]) async {
+    navigateTo(Routes.nonReactiveView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+}
+
 class BottomNavExampleRoutes {
   static const favoritesView = '/favorites-view';
 
@@ -156,25 +251,25 @@ class BottomNavExampleRoutes {
 class BottomNavExampleRouter extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
     _i1.RouteDef(BottomNavExampleRoutes.favoritesView,
-        page: _i13.FavoritesView),
-    _i1.RouteDef(BottomNavExampleRoutes.historyView, page: _i14.HistoryView),
-    _i1.RouteDef(BottomNavExampleRoutes.profileView, page: _i15.ProfileView)
+        page: _i14.FavoritesView),
+    _i1.RouteDef(BottomNavExampleRoutes.historyView, page: _i15.HistoryView),
+    _i1.RouteDef(BottomNavExampleRoutes.profileView, page: _i16.ProfileView)
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
-    _i13.FavoritesView: (data) {
+    _i14.FavoritesView: (data) {
       final args = data.getArgs<NestedFavoritesViewArguments>(
         orElse: () => NestedFavoritesViewArguments(),
       );
       return _i1.buildAdaptivePageRoute<dynamic>(
-        builder: (context) => _i13.FavoritesView(key: args.key, id: args.id),
+        builder: (context) => _i14.FavoritesView(key: args.key, id: args.id),
         settings: data,
       );
     },
-    _i14.HistoryView: (data) {
+    _i15.HistoryView: (data) {
       return _i8.PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const _i14.HistoryView(),
+            const _i15.HistoryView(),
         settings: data,
         transitionsBuilder: data.transition ??
             (context, animation, secondaryAnimation, child) {
@@ -182,9 +277,9 @@ class BottomNavExampleRouter extends _i1.RouterBase {
             },
       );
     },
-    _i15.ProfileView: (data) {
+    _i16.ProfileView: (data) {
       return _i9.CupertinoPageRoute<dynamic>(
-        builder: (context) => const _i15.ProfileView(),
+        builder: (context) => const _i16.ProfileView(),
         settings: data,
       );
     }
@@ -204,6 +299,52 @@ class NestedFavoritesViewArguments {
   final String? id;
 }
 
+extension NavigatorStateExtension on _i13.NavigationService {
+  Future<dynamic> navigateToNestedFavoritesView(
+      {_i8.Key? this.key,
+      String? this.id,
+      int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition}) async {
+    navigateTo(BottomNavExample.favoritesView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToNestedHistoryView(
+      [int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition]) async {
+    navigateTo(BottomNavExample.historyView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToNestedProfileView(
+      [int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition]) async {
+    navigateTo(BottomNavExample.profileView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+}
+
 class FavoritesViewRoutes {
   static const multipleFuturesExampleView = '/multiple-futures-example-view';
 
@@ -215,21 +356,21 @@ class FavoritesViewRoutes {
 class FavoritesViewRouter extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
     _i1.RouteDef(FavoritesViewRoutes.multipleFuturesExampleView,
-        page: _i16.MultipleFuturesExampleView),
-    _i1.RouteDef(FavoritesViewRoutes.historyView, page: _i14.HistoryView)
+        page: _i17.MultipleFuturesExampleView),
+    _i1.RouteDef(FavoritesViewRoutes.historyView, page: _i15.HistoryView)
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
-    _i16.MultipleFuturesExampleView: (data) {
+    _i17.MultipleFuturesExampleView: (data) {
       return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i16.MultipleFuturesExampleView(),
+        builder: (context) => const _i17.MultipleFuturesExampleView(),
         settings: data,
       );
     },
-    _i14.HistoryView: (data) {
+    _i15.HistoryView: (data) {
       return _i8.PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const _i14.HistoryView(),
+            const _i15.HistoryView(),
         settings: data,
         transitionsBuilder: data.transition ??
             (context, animation, secondaryAnimation, child) {
@@ -243,4 +384,34 @@ class FavoritesViewRouter extends _i1.RouterBase {
   List<_i1.RouteDef> get routes => _routes;
   @override
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
+}
+
+extension NavigatorStateExtension on _i13.NavigationService {
+  Future<dynamic> navigateToNestedMultipleFuturesExampleView(
+      [int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition]) async {
+    navigateTo(FavoritesView.multipleFuturesExampleView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToNestedHistoryView(
+      [int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition]) async {
+    navigateTo(FavoritesView.historyView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
 }

@@ -1303,7 +1303,9 @@ navigateToTestClass( {
 const kRouterWithNestedRouter = '''
 import 'package:stacked/stacked.dart' as _i1;
 import 'test1.dart' as _i2;
-import 'nested_test1.dart' as _i3;
+import 'package:flutter/material.dart' as _i3;
+import 'nested_test1.dart' as _i4;
+import 'package:stacked_services/stacked_services.dart' as _i5;
 
 class RoutesTestClassName {
   static const loginView1 = 'pathNamaw1';
@@ -1317,12 +1319,9 @@ class RouterTestClassName extends _i1.RouterBase {
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
-    TestClass1: (data) {
-      final args = data.getArgs<TestClass1Arguments>(
-        orElse: () => TestClass1Arguments(),
-      );
-      return MaterialPageRoute<returnYpe1>(
-        builder: (context) => TestClass1(),
+    _i2.TestClass1: (data) {
+      return _i3.MaterialPageRoute<returnYpe1>(
+        builder: (context) => _i2.TestClass1(),
         settings: data,
       );
     }
@@ -1342,16 +1341,13 @@ class LoginView1Routes {
 
 class LoginView1Router extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
-    _i1.RouteDef(LoginView1Routes.nestedView1, page: _i3.nestedClass1)
+    _i1.RouteDef(LoginView1Routes.nestedView1, page: _i4.nestedClass1)
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
-    nestedClass1: (data) {
-      final args = data.getArgs<NestednestedClass1Arguments>(
-        orElse: () => NestednestedClass1Arguments(),
-      );
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => nestedClass1(),
+    _i4.nestedClass1: (data) {
+      return _i3.MaterialPageRoute<dynamic>(
+        builder: (context) => _i4.nestedClass1(),
         settings: data,
       );
     }
@@ -1361,6 +1357,36 @@ class LoginView1Router extends _i1.RouterBase {
   List<_i1.RouteDef> get routes => _routes;
   @override
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
+}
+
+extension NavigatorStateExtension on _i5.NavigationService {
+  Future<returnYpe1?> navigateToTestClass1(
+      [int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition]) async {
+    navigateTo(Routes.loginView1,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToNestednestedClass1(
+      [int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition]) async {
+    navigateTo(ParentClass.nestedView1,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
 }
 ''';
 
@@ -2872,6 +2898,10 @@ import 'test3.dart' as _i4;
 import 'test4.dart' as _i5;
 import 'test5.dart' as _i6;
 import 'test6.dart' as _i7;
+import 'package:flutter/material.dart' as _i8;
+import 'package:flutter/cupertino.dart' as _i9;
+import 'test3type.dart' as _i10;
+import 'package:stacked_services/stacked_services.dart' as _i11;
 
 class RoutesTestClassName {
   static const loginView1 = 'pathNamaw1';
@@ -2907,9 +2937,10 @@ class RouterTestClassName extends _i1.RouterBase {
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
-    TestClass1: (data) {
-      return PageRouteBuilder<dynamic>(
-        pageBuilder: (context, animation, secondaryAnimation) => TestClass1(),
+    _i2.TestClass1: (data) {
+      return _i8.PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            _i2.TestClass1(),
         settings: data,
         transitionsBuilder: data.transition ??
             (context, animation, secondaryAnimation, child) {
@@ -2919,39 +2950,40 @@ class RouterTestClassName extends _i1.RouterBase {
         reverseTransitionDuration: const Duration(milliseconds: 2),
       );
     },
-    TestClass2: (data) {
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => TestClass2(
+    _i3.TestClass2: (data) {
+      return _i8.MaterialPageRoute<dynamic>(
+        builder: (context) => _i3.TestClass2(
             test2paramName: data.queryParams['test2paramName'].value()),
         settings: data,
       );
     },
-    TestClass3: (data) {
+    _i4.TestClass3: (data) {
       final args = data.getArgs<TestClass3Arguments>(
         orElse: () => TestClass3Arguments(),
       );
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => TestClass3(test3paramName: args.test3paramName),
+      return _i8.MaterialPageRoute<dynamic>(
+        builder: (context) =>
+            _i4.TestClass3(test3paramName: args.test3paramName),
         settings: data,
       );
     },
-    TestClass4: (data) {
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => TestClass4(),
+    _i5.TestClass4: (data) {
+      return _i8.MaterialPageRoute<dynamic>(
+        builder: (context) => _i5.TestClass4(),
         settings: data,
         maintainState: false,
       );
     },
-    TestClass5: (data) {
-      return buildAdaptivePageRoute<dynamic>(
-        builder: (context) => TestClass5(),
+    _i6.TestClass5: (data) {
+      return _i1.buildAdaptivePageRoute<dynamic>(
+        builder: (context) => _i6.TestClass5(),
         settings: data,
         cupertinoTitle: 'cupertinooo',
       );
     },
-    TestClass6: (data) {
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => TestClass6(),
+    _i7.TestClass6: (data) {
+      return _i9.CupertinoPageRoute<dynamic>(
+        builder: (context) => _i7.TestClass6(),
         settings: data,
       );
     }
@@ -2962,6 +2994,101 @@ class RouterTestClassName extends _i1.RouterBase {
   @override
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
+
+class TestClass3Arguments {
+  const TestClass3Arguments({this.test3paramName});
+
+  final _i10.Test3Type test3paramName;
+}
+
+extension NavigatorStateExtension on _i11.NavigationService {
+  Future<dynamic> navigateToTestClass1(
+      [int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition]) async {
+    navigateTo(Routes.loginView1,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToTestClass2(
+      [int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition]) async {
+    navigateTo(Routes.loginView2,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToTestClass3(
+      {_i10.Test3Type this.test3paramName,
+      int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition}) async {
+    navigateTo(Routes.loginView3,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToTestClass4(
+      [int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition]) async {
+    navigateTo(Routes.loginView4,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToTestClass5(
+      [int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition]) async {
+    navigateTo(Routes.loginView5,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToTestClass6(
+      [int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition]) async {
+    navigateTo(Routes.loginView6,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+}
+
+
 ''';
 const kImportsWithoutAliasesTest = '''
 
