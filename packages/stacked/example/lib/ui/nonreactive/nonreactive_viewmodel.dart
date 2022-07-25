@@ -3,6 +3,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../../app/app.locator.dart';
 import '../../app/app.router.dart';
+import '../../datamodels/clashable_two.dart';
 
 class NonReactiveViewModel extends BaseViewModel {
   final _navigationService = exampleLocator<NavigationService>();
@@ -14,7 +15,7 @@ class NonReactiveViewModel extends BaseViewModel {
   }
 
   void navigateToNewView() {
-    _navigationService.navigateTo(Routes.streamCounterView);
+    _navigationService.navigateToStreamCounterView(clashableTwo: Clashable(22));
   }
 
   void navigateBackHome() {
