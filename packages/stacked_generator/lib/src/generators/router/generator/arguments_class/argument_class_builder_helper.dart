@@ -11,15 +11,17 @@ class ArgumentClassBuilderHelper {
       : route.argumentsHolderClassName;
 
   List<Field> get convertParametersToClassFields {
-    return route.parameters
-        .map((param) => Field(
-              (b) => b
-                ..modifier = FieldModifier.final$
-                ..name = param.name
-                ..type = Reference(param.type,
-                    param.imports!.isNotEmpty ? param.imports?.first : null),
-            ))
-        .toList();
+    return route.parameters.map((param) {
+      print(
+          'Parameter name : ${param.name}, type : ${param.type}, import : ${param.imports}');
+      return Field(
+        (b) => b
+          ..modifier = FieldModifier.final$
+          ..name = param.name
+          ..type = Reference(param.type,
+              param.imports!.isNotEmpty ? param.imports?.first : null),
+      );
+    }).toList();
   }
 
   Constructor get argumentConstructer {
