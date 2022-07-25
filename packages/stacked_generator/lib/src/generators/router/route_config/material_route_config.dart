@@ -21,8 +21,8 @@ class MaterialRouteConfig extends RouteConfig {
   @override
   Code registerRoute() {
     return super.registerRouteBloc(
-        routeType: 'MaterialPageRoute',
-        routeTypeImport: 'package:flutter/material.dart');
+      routeType: 'MaterialPageRoute',
+    );
   }
 
   @override

@@ -49,7 +49,7 @@ abstract class RouteConfig {
 
   Code registerRouteBloc(
       {required String routeType,
-      required String routeTypeImport,
+      String? routeTypeImport,
       Code? extra,
       bool usePageBuilder = false}) {
     return Block.of([
