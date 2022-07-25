@@ -249,8 +249,8 @@ class FavoritesViewRouter extends _i1.RouterBase {
 
 extension NavigatorStateExtension on _i17.NavigationService {
   Future<dynamic> navigateToHomeView(
-      {_i10.Key? this.key,
-      String? this.title,
+      {_i10.Key? key,
+      String? title,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
@@ -279,8 +279,8 @@ extension NavigatorStateExtension on _i17.NavigationService {
   }
 
   Future<dynamic> navigateToStreamCounterView(
-      {_i10.Key? this.key,
-      required _i11.Clashable this.clashableTwo,
+      {_i10.Key? key,
+      required _i11.Clashable clashableTwo,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
@@ -295,8 +295,8 @@ extension NavigatorStateExtension on _i17.NavigationService {
   }
 
   Future<Map<String, List<String>>?> navigateToDetailsView(
-      {_i10.Key? this.key,
-      required String this.name,
+      {_i10.Key? key,
+      required String name,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
@@ -311,8 +311,8 @@ extension NavigatorStateExtension on _i17.NavigationService {
   }
 
   Future<dynamic> navigateToExampleFormView(
-      {_i10.Key? this.key,
-      required _i12.Clashable this.clashableOne,
+      {_i10.Key? key,
+      required _i12.Clashable clashableOne,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
@@ -340,72 +340,72 @@ extension NavigatorStateExtension on _i17.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedFavoritesView(
-      {_i10.Key? this.key,
-      String? this.id,
+  Future<dynamic> navigateToNestedFavoritesViewInBottomNavExample(
+      {_i10.Key? key,
+      String? id,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
-    navigateTo(BottomNavExample.favoritesView,
+    navigateTo(BottomNavExampleRoutes.favoritesView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedHistoryView(
+  Future<dynamic> navigateToNestedHistoryViewInBottomNavExample(
       [int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(BottomNavExample.historyView,
+    navigateTo(BottomNavExampleRoutes.historyView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedProfileView(
+  Future<dynamic> navigateToNestedProfileViewInBottomNavExample(
       [int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(BottomNavExample.profileView,
+    navigateTo(BottomNavExampleRoutes.profileView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedMultipleFuturesExampleView(
+  Future<dynamic> navigateToNestedMultipleFuturesExampleViewInFavoritesView(
       [int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(FavoritesView.multipleFuturesExampleView,
+    navigateTo(FavoritesViewRoutes.multipleFuturesExampleView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedHistoryView(
+  Future<dynamic> navigateToNestedHistoryViewInFavoritesView(
       [int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(FavoritesView.historyView,
+    navigateTo(FavoritesViewRoutes.historyView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

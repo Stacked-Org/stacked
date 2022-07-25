@@ -9,7 +9,7 @@ class NavigateExtensionClassBuilderHelper {
 
   Method extractNavigationMethodFromRoute(RouteConfig route) {
     final methodName = route.parentClassName != null
-        ? 'navigateToNested${route.className.key}'
+        ? 'navigateToNested${route.className.key}In${route.parentClassName}'
         : 'navigateTo${route.className.key}';
 
     final methodReturnType = route.isProcessedReturnTypeDynamic
@@ -34,7 +34,6 @@ class NavigateExtensionClassBuilderHelper {
         ..name = param.name
         ..type = Reference(
             param.type, param.imports!.isNotEmpty ? param.imports?.first : null)
-        ..toThis = true
         ..named = true;
 
       // Assign default value
@@ -75,7 +74,9 @@ class NavigateExtensionClassBuilderHelper {
       ];
 
   Code _body(RouteConfig route) {
-    final routesClassName = route.parentClassName ?? 'Routes';
+    final routesClassName = route.parentClassName != null
+        ? route.parentClassName! + 'Routes'
+        : 'Routes';
     return Block.of([
       Code('navigateTo(${routesClassName}.${route.name}, '),
       ..._constMethodBodyParameters,
