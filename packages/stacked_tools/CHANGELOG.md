@@ -1,3 +1,7 @@
+
+## 0.1.5
+- Updates dependencies 
+  
 ## 0.1.4
 
 - Adds colorized outputs on command line
