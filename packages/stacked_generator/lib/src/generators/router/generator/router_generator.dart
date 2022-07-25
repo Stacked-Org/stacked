@@ -23,7 +23,11 @@ class RouterGenerator implements BaseGenerator {
     ).build();
 
     final library = Library(
-      (b) => b..body.addAll([...classes, navigationExtensionClassBuilder]),
+      (b) => b
+        ..directives.add(
+          Directive.import('package:flutter/material.dart'),
+        )
+        ..body.addAll([...classes, navigationExtensionClassBuilder]),
     );
 
     final emitter = DartEmitter.scoped();

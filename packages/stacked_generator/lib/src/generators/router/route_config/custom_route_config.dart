@@ -33,7 +33,6 @@ class CustomRouteConfig extends RouteConfig {
   Code registerRoute() {
     return super.registerRouteBloc(
       routeType: 'PageRouteBuilder',
-      routeTypeImport: 'package:flutter/material.dart',
       usePageBuilder: true,
       extra: Block.of([
         if (!customRouteOpaque) Code('opaque:${customRouteOpaque.toString()},'),
