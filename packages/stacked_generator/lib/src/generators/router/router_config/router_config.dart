@@ -35,7 +35,7 @@ class RouterConfig {
     );
   }
 
-  List<RouteConfig> get subRouters => nestedRoutes(routes);
+  List<RouteConfig> get routesIncludingTheirChildren => nestedRoutes(routes);
 
   List<RouteConfig> _allRoutes = [];
   List<RouteConfig> nestedRoutes(List<RouteConfig> routes) {

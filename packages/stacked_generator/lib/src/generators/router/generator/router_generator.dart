@@ -6,6 +6,7 @@ import 'package:stacked_generator/src/generators/router/generator/routes_class/r
 
 import '../router_config/router_config.dart';
 import 'arguments_class/arguments_class_builder.dart';
+import 'navigate_extension_class/navigate_extension_class_builder.dart';
 import 'router_class/router_class_builder.dart';
 
 class RouterGenerator implements BaseGenerator {
@@ -16,10 +17,13 @@ class RouterGenerator implements BaseGenerator {
 
   @override
   String generate() {
-    _rootRouterConfig.traverseRoutes(_generateRoutes);
+    _rootRouterConfig.traverseRoutes(_generateClasses);
+    final navigationExtensionClassBuilder = NavigateExtensionClassBuilder(
+      routes: _rootRouterConfig.routesIncludingTheirChildren,
+    ).build();
 
     final library = Library(
-      (b) => b..body.addAll(classes),
+      (b) => b..body.addAll([...classes, navigationExtensionClassBuilder]),
     );
 
     final emitter = DartEmitter.scoped();
@@ -27,7 +31,7 @@ class RouterGenerator implements BaseGenerator {
     return DartFormatter().format('${library.accept(emitter)}');
   }
 
-  void _generateRoutes(RouterConfig routerConfig) {
+  void _generateClasses(RouterConfig routerConfig) {
     if (routerConfig.routes.isEmpty) return;
 
     final routesClassBuilder = RoutesClassBuilder(
@@ -45,15 +49,10 @@ class RouterGenerator implements BaseGenerator {
       routes: routerConfig.routes,
     ).buildViewsArguments();
 
-    // final navigationExtensionClassBuilder = NavigateExtensionClassBuilder(
-    //   routes: routerConfig.routes,
-    // ).build();
-
     classes.addAll([
       routesClassBuilder,
       routerClassBuilder,
       ...argumentsClassBuilder,
-      // navigationExtensionClassBuilder
     ]);
   }
 }
