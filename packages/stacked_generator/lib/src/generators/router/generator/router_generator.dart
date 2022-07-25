@@ -17,6 +17,7 @@ class RouterGenerator implements BaseGenerator {
 
   @override
   String generate() {
+    if (_rootRouterConfig.routes.isEmpty) return '';
     _rootRouterConfig.traverseRoutes(_generateClasses);
     final navigationExtensionClassBuilder = NavigateExtensionClassBuilder(
       routes: _rootRouterConfig.routesIncludingTheirChildren,
