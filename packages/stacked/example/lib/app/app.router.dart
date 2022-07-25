@@ -259,6 +259,7 @@ extension NavigatorStateExtension on _i17.NavigationService {
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
     navigateTo(Routes.homeView,
+        arguments: HomeViewArguments(key: key, title: title),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -289,6 +290,8 @@ extension NavigatorStateExtension on _i17.NavigationService {
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
     navigateTo(Routes.streamCounterView,
+        arguments:
+            StreamCounterViewArguments(key: key, clashableTwo: clashableTwo),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -305,6 +308,7 @@ extension NavigatorStateExtension on _i17.NavigationService {
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
     navigateTo(Routes.detailsView,
+        arguments: DetailsViewArguments(key: key, name: name),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -321,6 +325,8 @@ extension NavigatorStateExtension on _i17.NavigationService {
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
     navigateTo(Routes.exampleFormView,
+        arguments:
+            ExampleFormViewArguments(key: key, clashableOne: clashableOne),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -351,6 +357,7 @@ extension NavigatorStateExtension on _i17.NavigationService {
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
     navigateTo(BottomNavExampleRoutes.favoritesView,
+        arguments: NestedFavoritesViewArguments(key: key, id: id),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

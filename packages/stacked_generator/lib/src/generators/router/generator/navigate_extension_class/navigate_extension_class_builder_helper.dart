@@ -79,6 +79,7 @@ class NavigateExtensionClassBuilderHelper {
         : 'Routes';
     return Block.of([
       Code('navigateTo(${routesClassName}.${route.name}, '),
+      _assignArgumentClass(route),
       ..._constMethodBodyParameters,
     ]);
   }
@@ -90,4 +91,16 @@ class NavigateExtensionClassBuilderHelper {
         Code('transition: transition'),
         Code(');'),
       ];
+
+  Code _assignArgumentClass(RouteConfig route) {
+    if (route.parameters.isNotEmpty) {
+      final argumentClassName = route.parentClassName != null
+          ? 'Nested' + route.argumentsHolderClassName
+          : route.argumentsHolderClassName;
+
+      return Code(
+          'arguments: ${argumentClassName}(${route.parameters.map((p) => '${p.name}: ${p.name}').join(',')}),');
+    }
+    return Code('');
+  }
 }
