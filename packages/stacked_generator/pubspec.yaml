@@ -15,7 +15,7 @@ dependencies:
   logger: ^1.1.0
   stacked_core: ^1.2.3
   # Removing this will cause issues when publish the package
-  analyzer: ^4.1.0
+  analyzer: ^4.3.0
   code_builder: ^4.1.0
 
 dev_dependencies:
