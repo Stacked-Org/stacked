@@ -2773,6 +2773,7 @@ extension NavigatorStateExtension on _i3.NavigationService {
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
     navigateTo(Routes.loginView,
+        arguments: TestClassArguments(name: name),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -2982,6 +2983,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
     navigateTo(Routes.loginView2,
+        arguments: TestClass2Arguments(test2paramName: test2paramName),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -2997,6 +2999,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
     navigateTo(Routes.loginView3,
+        arguments: TestClass3Arguments(test3paramName: test3paramName),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -3182,6 +3185,7 @@ extension NavigatorStateExtension on _i1.NavigationService {
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
     navigateTo(Routes.loginView,
+        arguments: LoginClassArguments(position: position, age: age),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -3198,6 +3202,7 @@ extension NavigatorStateExtension on _i1.NavigationService {
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
     navigateTo(Routes.homeView,
+        arguments: HomeClassArguments(car: car, age: age),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
