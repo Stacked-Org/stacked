@@ -1,6 +1,7 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/utils.dart';
+import 'package:collection/collection.dart';
 
 class NavigateExtensionClassBuilderHelper {
   Iterable<Method> buildNavigateToExtensionMethods(List<RouteConfig> routes) {
@@ -32,7 +33,7 @@ class NavigateExtensionClassBuilderHelper {
     return Parameter((parameterBuilder) {
       parameterBuilder
         ..name = param.name
-        ..type = Reference(param.type, param.imports?.first)
+        ..type = Reference(param.type, param.imports?.firstOrNull)
         ..named = true;
 
       // Assign default value
