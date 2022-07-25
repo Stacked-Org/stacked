@@ -1,28 +1,52 @@
+## 2.3.14
+
+- Adds `SelectorViewModelBuilder` and `SelectorViewModelBuilderWidget`
+
+## 2.3.13
+
+- Adds Message state functionality for view models
+
 ## 2.3.12
-- Fix [#486](https://github.com/FilledStacks/stacked/issues/486) 
+
+- Fix [#486](https://github.com/FilledStacks/stacked/issues/486)
+
 ## 2.3.11
-- Fix [#546](https://github.com/FilledStacks/stacked/issues/546) 
+
+- Fix [#546](https://github.com/FilledStacks/stacked/issues/546)
+
 ## 2.3.10
-- Fixes issues on navigation 
+
+- Fixes issues on navigation
+
 ## 2.3.9
+
 - Pump stacked_core version
 - Update example app
+
 ## 2.3.8
-- Remove dublicate code and Clean up 
+
+- Remove duplicate code and Clean up
+
 ## 2.3.7
+
 ### Flutter v3 compatibility
+
 - Use [ambiguate](https://docs.flutter.dev/development/tools/sdk/release-notes/release-notes-3.0.0#your-code) to ensure v3 (and backward) compatibility
 
 ### Fixes
-- Add move in left route transtion
+
+- Add move in left route transition
 
 ## 2.3.6
+
 - Reverts 2.3.4
 
 ## 2.3.5
+
 - Use the stacked_core package to expose the stacked_annotation
 
 ## 2.3.4
+
 - Updates MultipleStreamViewModel to take generic type for key
 
 ## 2.3.3+1

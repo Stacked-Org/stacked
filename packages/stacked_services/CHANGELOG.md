@@ -1,14 +1,19 @@
+## 0.9.3
+- Only make arguments map when transition is available
+- Fixes [#656](https://github.com/FilledStacks/stacked/issues/656)
+## 0.9.2
+- Expose the `routeName` property in `navigateWithTransition` and `replaceWithTransition` methods to allow route naming to conform with the routes in the navigation stack
 ## 0.9.1
-- Hide the `message` widget in `showCustomSnackBar` when the message color is null and message is empty 
+- Hide the `message` widget in `showCustomSnackBar` when the message color is null and message is empty
 ## 0.9.0
 - ⚠️ Break Change ⚠️: Removed the following deprecated code from snackbar_service
   - `navigatorKey` getter
   - `registerCustomSnackbarconfig` method
   - `customData` parameter from `showCustomSnackBar` method
 ## 0.8.25
-- Added clearStackAndShowView to clear stack and show widget directly 
+- Added clearStackAndShowView to clear stack and show widget directly
 ## 0.8.24
-- Flutter v3 compatibility 
+- Flutter v3 compatibility
 ## 0.8.22+2
 - Update documentation.
 ## 0.8.22+1
@@ -36,7 +41,7 @@
 
 - Updates Example's kotlin version to 1.4.10
 - Updates Example's Android Embedding to Version 2
-  
+
 ## 0.8.17
 
 - Add `buttonTitleColor` and `cancelTitleColor` to showDialog method when a dialogPlatform is passed.
