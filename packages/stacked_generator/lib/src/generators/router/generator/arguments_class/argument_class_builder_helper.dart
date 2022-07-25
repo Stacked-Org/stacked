@@ -18,8 +18,7 @@ class ArgumentClassBuilderHelper {
         (b) => b
           ..modifier = FieldModifier.final$
           ..name = param.name
-          ..type = Reference(param.type,
-              param.imports!.isNotEmpty ? param.imports?.first : null),
+          ..type = Reference(param.type, param.imports?.first),
       );
     }).toList();
   }

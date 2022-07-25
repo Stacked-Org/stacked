@@ -1,5 +1,4 @@
 import 'package:stacked_generator/route_config_resolver.dart';
-import 'package:stacked_generator/src/generators/exceptions/invalid_generator_input_exception.dart';
 import 'package:stacked_generator/src/generators/router/generator/router_generator.dart';
 import 'package:stacked_generator/src/generators/router/route_config/adaptive_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/cupertino_route_config.dart';
@@ -12,19 +11,19 @@ import '../helpers/test_constants/router_constants.dart';
 
 void main() {
   group('RouteClassGeneratorTest -', () {
-    void generateRoutesAndExpectException<T>(List<RouteConfig> routes,
-        [String? exceptionMessage]) {
-      final routerBaseGenerator = RouterGenerator(RouterConfig(
-          routesClassName: 'RoutesTestClassName',
-          routerClassName: 'RouterTestClassName',
-          routes: routes));
-      expect(
-        () => routerBaseGenerator.generate(),
-        throwsA(predicate<dynamic>((e) => e is T && exceptionMessage == null
-            ? true
-            : e.message == exceptionMessage)),
-      );
-    }
+    // void generateRoutesAndExpectException<T>(List<RouteConfig> routes,
+    //     [String? exceptionMessage]) {
+    //   final routerBaseGenerator = RouterGenerator(RouterConfig(
+    //       routesClassName: 'RoutesTestClassName',
+    //       routerClassName: 'RouterTestClassName',
+    //       routes: routes));
+    //   expect(
+    //     () => routerBaseGenerator.generate(),
+    //     throwsA(predicate<dynamic>((e) => e is T && exceptionMessage == null
+    //         ? true
+    //         : e.message == exceptionMessage)),
+    //   );
+    // }
 
     /// How to copy a test result(Snapshot):
     /// 1. Pass true to verbose argument
@@ -51,7 +50,7 @@ void main() {
 
         generateRouteAndExpectResult(
           routes,
-          kRouterWithEmptyRoutes,
+          '',
         );
       });
 
