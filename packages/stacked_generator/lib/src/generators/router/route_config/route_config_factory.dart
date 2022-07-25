@@ -97,11 +97,11 @@ class RouteConfigFactory {
       if (function != null) {
         final displayName = function.displayName.replaceFirst(RegExp('^_'), '');
         final functionName = function.isStatic
-            ? '${function.enclosingElement.displayName}.$displayName'
+            ? '${function.enclosingElement2.displayName}.$displayName'
             : displayName;
 
         var import;
-        if (function.enclosingElement.name != 'TransitionsBuilders') {
+        if (function.enclosingElement2.name != 'TransitionsBuilders') {
           import = function.source.uri.toString();
         }
         customRouteConfig = customRouteConfig.copyWith(
