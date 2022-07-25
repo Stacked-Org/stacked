@@ -4,25 +4,26 @@
 // StackedRouterGenerator
 // **************************************************************************
 
-import 'package:stacked/stacked.dart' as _i1;
-import '../ui/home/home_view.dart' as _i2;
-import '../ui/bottom_nav/bottom_nav_example.dart' as _i3;
-import '../ui/stream_view/stream_counter_view.dart' as _i4;
-import '../ui/details/details_view.dart' as _i5;
-import '../ui/form/example_form_view.dart' as _i6;
-import '../ui/nonreactive/nonreactive_view.dart' as _i7;
-import 'package:flutter/cupertino.dart' as _i8;
 import 'package:example/app/custom_route_transition.dart' as _i9;
+import 'package:flutter/cupertino.dart' as _i8;
 import 'package:flutter/material.dart' as _i10;
-import '../datamodels/clashable_two.dart' as _i11;
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart' as _i1;
+import 'package:stacked_services/stacked_services.dart' as _i17;
+
 import '../datamodels/clashable_one.dart' as _i12;
+import '../datamodels/clashable_two.dart' as _i11;
+import '../ui/bottom_nav/bottom_nav_example.dart' as _i3;
 import '../ui/bottom_nav/favorites/favorites_view.dart' as _i13;
 import '../ui/bottom_nav/history/history_view.dart' as _i14;
 import '../ui/bottom_nav/profile/profile_view.dart' as _i15;
+import '../ui/details/details_view.dart' as _i5;
+import '../ui/form/example_form_view.dart' as _i6;
+import '../ui/home/home_view.dart' as _i2;
 import '../ui/multiple_futures_example/multiple_futures_example_view.dart'
     as _i16;
-import 'package:stacked_services/stacked_services.dart' as _i17;
-import 'package:flutter/material.dart';
+import '../ui/nonreactive/nonreactive_view.dart' as _i7;
+import '../ui/stream_view/stream_counter_view.dart' as _i4;
 
 class Routes {
   static const homeView = '/';
