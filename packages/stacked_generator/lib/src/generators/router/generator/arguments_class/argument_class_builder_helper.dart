@@ -1,5 +1,6 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
+import 'package:collection/collection.dart';
 
 class ArgumentClassBuilderHelper {
   final RouteConfig route;
@@ -11,16 +12,14 @@ class ArgumentClassBuilderHelper {
       : route.argumentsHolderClassName;
 
   List<Field> get convertParametersToClassFields {
-    return route.parameters.map((param) {
-      print(
-          'Parameter name : ${param.name}, type : ${param.type}, import : ${param.imports}');
-      return Field(
-        (b) => b
-          ..modifier = FieldModifier.final$
-          ..name = param.name
-          ..type = Reference(param.type, param.imports?.first),
-      );
-    }).toList();
+    return route.parameters
+        .map((param) => Field(
+              (b) => b
+                ..modifier = FieldModifier.final$
+                ..name = param.name
+                ..type = Reference(param.type, param.imports?.firstOrNull),
+            ))
+        .toList();
   }
 
   Constructor get argumentConstructer {
