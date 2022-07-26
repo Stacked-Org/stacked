@@ -23,7 +23,7 @@ class ImportResolver {
               .relative(element?.source?.uri.path ?? '', from: targetFilePath)
               .replaceFirst('../', '');
         } else {
-          return lib.source.uri.toString();
+          return element?.source?.uri.toString();
         }
       }
     }

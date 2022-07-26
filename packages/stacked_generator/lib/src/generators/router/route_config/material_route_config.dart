@@ -1,4 +1,6 @@
-import '../models/route_parameter_config.dart';
+import 'package:code_builder/code_builder.dart';
+import 'package:stacked_generator/src/generators/router/models/route_parameter_config.dart';
+
 import 'route_config.dart';
 
 class MaterialRouteConfig extends RouteConfig {
@@ -14,38 +16,29 @@ class MaterialRouteConfig extends RouteConfig {
       super.hasConstConstructor,
       super.children,
       super.imports,
-      super.isChild});
+      super.parentClassName});
 
   @override
-  Set<String> registerImports() {
-    return {...super.registerImports(), "package:flutter/material.dart"};
+  Code registerRoute() {
+    return super.registerRouteBloc(
+      routeType: 'MaterialPageRoute',
+    );
   }
 
   @override
-  String registerRoutes() {
-    StringBuffer stringBuffer = StringBuffer();
-
-    stringBuffer.write(super.registerArgs());
-    stringBuffer.write(
-        'return MaterialPageRoute<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,');
-    stringBuffer.write(super.registerRoutes());
-    return stringBuffer.toString();
-  }
-
-  MaterialRouteConfig copyWith({
-    String? name,
-    String? pathName,
-    String? className,
-    bool? fullscreenDialog,
-    bool? maintainState,
-    String? returnType,
-    List<RouteParamConfig>? parameters,
-    bool? hasWrapper,
-    bool? hasConstConstructor,
-    List<RouteConfig>? children,
-    Set<String>? imports,
-    bool? isChild,
-  }) {
+  RouteConfig copyWith(
+      {String? name,
+      String? pathName,
+      MapEntry<String, String>? className,
+      bool? fullscreenDialog,
+      bool? maintainState,
+      String? returnType,
+      List<RouteParamConfig>? parameters,
+      bool? hasWrapper,
+      List<RouteConfig>? children,
+      bool? hasConstConstructor,
+      Set<String>? imports,
+      String? parentClassName}) {
     return MaterialRouteConfig(
       name: name ?? this.name,
       pathName: pathName ?? this.pathName,
@@ -55,9 +48,10 @@ class MaterialRouteConfig extends RouteConfig {
       returnType: returnType ?? this.returnType,
       parameters: parameters ?? this.parameters,
       hasWrapper: hasWrapper ?? this.hasWrapper,
-      hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
       children: children ?? this.children,
+      hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
       imports: imports ?? this.imports,
+      parentClassName: parentClassName ?? this.parentClassName,
     );
   }
 }
