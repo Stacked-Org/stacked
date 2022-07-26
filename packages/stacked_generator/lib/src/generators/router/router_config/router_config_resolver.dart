@@ -37,20 +37,20 @@ class RouterConfigResolver {
 
   Future<List<RouteConfig>> _resolveRoutes(
       RouterConfig routerConfig, List<DartObject> routesList,
-      {bool isChild = false}) async {
+      {String? parentClassName}) async {
     final List<RouteConfig> allRoutes = [];
 
     for (var routeDartObject in routesList) {
       final routeReader = ConstantReader(routeDartObject);
       var route = await RouteConfigResolver(
               routerConfig.routeNamePrefix, _importResolver)
-          .resolve(routeReader, isChild: isChild);
+          .resolve(routeReader, parentClassName: parentClassName);
 
       final children = routeReader.peek('children')?.listValue;
 
       if (children?.isNotEmpty ?? false) {
-        final childrenRoutes =
-            await _resolveRoutes(routerConfig, children!, isChild: true);
+        final childrenRoutes = await _resolveRoutes(routerConfig, children!,
+            parentClassName: route.className.key);
         route = route.copyWith(children: childrenRoutes);
       }
       allRoutes.add(route);

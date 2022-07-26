@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:stacked_generator/src/generators/exceptions/invalid_generator_input_exception.dart';
+import 'package:stacked_generator/src/generators/router/models/route_parameter_config.dart';
 
 String toLowerCamelCase(String s) {
   if (s.length < 2) return s.toLowerCase();
@@ -51,4 +52,12 @@ void throwError(String message, {Element? element, String todo = ''}) {
     todo: todo,
     element: element,
   );
+}
+
+List<RouteParamConfig> notQueryNorPath(List<RouteParamConfig> parameters) {
+  return parameters.where((p) {
+    throwIf(p.isPathParam == null || p.isQueryParam == null,
+        ExceptionMessages.isPathParamAndIsQueryParamShouldNotBeNull);
+    return !p.isPathParam! && !p.isQueryParam!;
+  }).toList();
 }
