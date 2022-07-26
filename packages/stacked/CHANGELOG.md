@@ -1,3 +1,7 @@
+## 2.3.15
+
+- Rename `SelectorViewModelBuilderWidget` and `SelectorViewModelWidget` similar to `ViewModelWidget`
+
 ## 2.3.14
 
 - Adds `SelectorViewModelBuilder` and `SelectorViewModelBuilderWidget`

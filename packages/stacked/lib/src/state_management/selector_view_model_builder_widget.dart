@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-abstract class SelectorViewModelBuilderWidget<T extends ChangeNotifier, K>
+abstract class SelectorViewModelWidget<T extends ChangeNotifier, K>
     extends Widget {
-  const SelectorViewModelBuilderWidget({Key? key}) : super(key: key);
+  const SelectorViewModelWidget({Key? key}) : super(key: key);
 
   K selector(T model);
   Widget? get staticChild => null;
@@ -17,11 +17,11 @@ abstract class SelectorViewModelBuilderWidget<T extends ChangeNotifier, K>
 
 class _DataProviderElement<T extends ChangeNotifier, K>
     extends ComponentElement {
-  _DataProviderElement(SelectorViewModelBuilderWidget widget) : super(widget);
+  _DataProviderElement(SelectorViewModelWidget widget) : super(widget);
 
   @override
-  SelectorViewModelBuilderWidget get widget =>
-      super.widget as SelectorViewModelBuilderWidget<T, K>;
+  SelectorViewModelWidget get widget =>
+      super.widget as SelectorViewModelWidget<T, K>;
 
   @override
   Widget build() {
@@ -36,7 +36,7 @@ class _DataProviderElement<T extends ChangeNotifier, K>
   }
 
   @override
-  void update(SelectorViewModelBuilderWidget newWidget) {
+  void update(SelectorViewModelWidget newWidget) {
     super.update(newWidget);
     assert(widget == newWidget);
     rebuild();

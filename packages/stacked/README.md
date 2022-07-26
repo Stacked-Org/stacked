@@ -201,14 +201,14 @@ class BuilderWidgetExampleView extends ViewModelBuilderWidget<HomeViewModel> {
 
 This is to help with removing some boilerplate code.
 
-### SelectorViewModelBuilderWidget
+### SelectorViewModelWidget
 
 Similar to `ViewModelBuilderWidget` but with the selector function. You can provide a selector, and if the the selector returns a new value, then the widget will be rebuilt.
 You can wrap this with a `ViewModel.nonReactive` to supply the ViewModel from provider.
 
 ```dart
 class SelectorIntWidget
-    extends SelectorViewModelBuilderWidget<SomeAwesomeViewModel, int> {
+    extends SelectorViewModelWidget<SomeAwesomeViewModel, int> {
   const SelectorIntWidget({super.key});
 
   @override
