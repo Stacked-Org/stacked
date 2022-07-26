@@ -1,4 +1,8 @@
 
+## 0.8.0-beta.0
+
+- Migrate the router generator to use [code_builder](https://pub.dev/packages/code_builder)
+- Fixes [#690](https://github.com/FilledStacks/stacked/issues/690)
 ## 0.7.13
 
 - Fixes dublicated types imports not added
