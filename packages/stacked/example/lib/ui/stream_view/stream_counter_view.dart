@@ -4,7 +4,7 @@ import 'package:example/ui/stream_view/stream_counter_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class StreamCounterView extends StatelessWidget {
-  final Clashable clashableTwo;
+  final List<Clashable> clashableTwo;
   const StreamCounterView({Key? key, required this.clashableTwo})
       : super(key: key);
 

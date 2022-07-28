@@ -15,7 +15,8 @@ class NonReactiveViewModel extends BaseViewModel {
   }
 
   void navigateToNewView() {
-    _navigationService.navigateToStreamCounterView(clashableTwo: Clashable(22));
+    _navigationService
+        .navigateToStreamCounterView(clashableTwo: [Clashable(22)]);
   }
 
   void navigateBackHome() {

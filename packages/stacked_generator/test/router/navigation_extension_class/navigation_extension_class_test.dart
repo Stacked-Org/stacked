@@ -45,7 +45,13 @@ final List<RouteConfig> _routes = [
           isQueryParam: false,
           name: 'age',
           type: 'int',
-        )
+        ),
+        RouteParamConfig(
+            isPathParam: false,
+            isQueryParam: false,
+            name: 'markers',
+            imports: {'map.dart'},
+            type: 'List<Marker>'),
       ])
 ];
 

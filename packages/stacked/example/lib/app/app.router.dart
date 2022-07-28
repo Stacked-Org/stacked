@@ -127,7 +127,7 @@ class StreamCounterViewArguments {
 
   final _i10.Key? key;
 
-  final _i11.Clashable clashableTwo;
+  final List<_i11.Clashable> clashableTwo;
 }
 
 class DetailsViewArguments {
@@ -282,7 +282,7 @@ extension NavigatorStateExtension on _i17.NavigationService {
 
   Future<dynamic> navigateToStreamCounterView(
       {_i10.Key? key,
-      required _i11.Clashable clashableTwo,
+      required List<_i11.Clashable> clashableTwo,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,

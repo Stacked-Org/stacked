@@ -1,4 +1,5 @@
 const kRouterWithNamePathNameClassName = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i3;
@@ -1317,6 +1318,7 @@ navigateToTestClass( {
 }
 ''';
 const kRouterWithNestedRouter = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i4;
@@ -2716,11 +2718,80 @@ navigateToTestClass( {
 }
 ''';
 
-const kRouterTypeCustomWithParametersPathFalseQueryFalse = '''
+const kRouterWithAliasedImport = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i3;
+import 'package:stacked_services/stacked_services.dart' as _i4;
 
+import 'map.dart' as _i3;
+import 'test.dart' as _i2;
+
+class RoutesTestClassName {
+  static const loginView = 'pathNamaw';
+
+  static const all = <String>{loginView};
+}
+
+class RouterTestClassName extends _i1.RouterBase {
+  final _routes = <_i1.RouteDef>[
+    _i1.RouteDef(RoutesTestClassName.loginView, page: _i2.TestClass)
+  ];
+
+  final _pagesMap = <Type, _i1.StackedRouteFactory>{
+    _i2.TestClass: (data) {
+      final args = data.getArgs<TestClassArguments>(
+        orElse: () => TestClassArguments(),
+      );
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            _i2.TestClass(markers: args.markers),
+        settings: data,
+        transitionsBuilder: data.transition ??
+            (context, animation, secondaryAnimation, child) {
+              return child;
+            },
+      );
+    }
+  };
+
+  @override
+  List<_i1.RouteDef> get routes => _routes;
+  @override
+  Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
+}
+
+class TestClassArguments {
+  const TestClassArguments({this.markers});
+
+  final List<_i3.Marker> markers;
+}
+
+extension NavigatorStateExtension on _i4.NavigationService {
+  Future<dynamic> navigateToTestClass(
+      {List<_i3.Marker> markers,
+      int? routerId,
+      bool preventDuplicates = true,
+      Map<String, String>? parameters,
+      Widget Function(
+              BuildContext, Animation<double>, Animation<double>, Widget)?
+          transition}) async {
+    navigateTo(Routes.loginView,
+        arguments: TestClassArguments(markers: markers),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+}
+''';
+const kParameterTypeString = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart' as _i1;
+import 'package:stacked_services/stacked_services.dart' as _i4;
+
+import 'map.dart' as _i3;
 import 'test.dart' as _i2;
 
 class RoutesTestClassName {
@@ -2760,12 +2831,12 @@ class RouterTestClassName extends _i1.RouterBase {
 class TestClassArguments {
   const TestClassArguments({this.name});
 
-  final String name;
+  final _i3.String name;
 }
 
-extension NavigatorStateExtension on _i3.NavigationService {
+extension NavigatorStateExtension on _i4.NavigationService {
   Future<dynamic> navigateToTestClass(
-      {String name,
+      {_i3.String name,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
@@ -2781,74 +2852,8 @@ extension NavigatorStateExtension on _i3.NavigationService {
   }
 }
 ''';
-const kRouterTypeCustomWithParametersPathFalseQueryTrue = '''
-// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
-
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-
-class RoutesTestClassName {
-static const String loginView = 'pathNamaw';
-static const all = <String>{
-loginView,};}
-
-class RouterTestClassName extends RouterBase {
-     @override
-     List<RouteDef> get routes => _routes;
-     final _routes = <RouteDef>[
-     
-
-RouteDef(RoutesTestClassName.loginView
-,page: TestClass
-),
-];       @override
-       Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
-        final _pagesMap = <Type, StackedRouteFactory>{
-        
-
-TestClass: (data) {
-return PageRouteBuilder<dynamic>(pageBuilder: (context, animation, secondaryAnimation) =>   TestClass(null:data.queryParams['null'].value()), settings: data,transitionsBuilder: data.transition??
-              (context, animation, secondaryAnimation, child) {
-            return child;
-          },);
-},};}
-
-/// ************************************************************************
-/// Navigation helper methods extension
-/// *************************************************************************
-
-extension RouterTestClassNameExtendedNavigatorStateX on ExtendedNavigatorState {
-Future pushLoginView({null null,})
- => push(RoutesTestClassName.loginView,arguments: TestClassArguments(null: null),);
-
-}
-
-/// ************************************************************************
-/// Extension for strongly typed navigation
-/// *************************************************************************
-
-extension NavigatorStateExtension on NavigationService {
-
-Future<dynamic>
-navigateToTestClass( {
-      int? routerId,
-  bool preventDuplicates = true,
-  Map<String, String>? parameters,
-  Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
-      
-}
-) async { return navigateTo(Routes.loginView, 
-        id:routerId,
-  preventDuplicates: preventDuplicates,
-  parameters: parameters,
-  transition: transition,
-        
-); }
-
-}
-''';
 const kRouterMixin = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/cupertino.dart' as _i8;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
@@ -3089,6 +3094,7 @@ class RoutesClassName {
 ''';
 
 const kRouterClass = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:stacked/stacked.dart' as _i1;
 import 'ui/login_class.dart' as _i2;
 import 'ui/home_class.dart' as _i3;
@@ -3122,6 +3128,7 @@ class RouterClassName extends _i1.RouterBase {
 ''';
 
 const kListOfRoutes = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:stacked/stacked.dart' as _i1;
 import 'ui/login_class.dart' as _i2;
 import 'ui/home_class.dart' as _i3;
@@ -3132,23 +3139,27 @@ final _routes = <_i1.RouteDef>[
 ];
 ''';
 const kRoutesGetter = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:stacked/stacked.dart' as _i1;
 
 @override
 List<_i1.RouteDef> get routes => _routes;
 ''';
 const kPagesMapGetter = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:stacked/stacked.dart' as _i1;
 
 @override
 Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 ''';
 const kMapOfPagesForEmptyRoutes = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:stacked/stacked.dart' as _i1;
 
 final _pagesMap = <Type, _i1.StackedRouteFactory>{};
 ''';
 const kMapOfPages = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:stacked/stacked.dart' as _i1;
 import 'ui/login_class.dart' as _i2;
 import 'ui/home_class.dart' as _i3;
@@ -3170,9 +3181,11 @@ final _pagesMap = <Type, _i1.StackedRouteFactory>{
 };
 ''';
 const kRouteNavigationExtension = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:stacked_services/stacked_services.dart' as _i1;
 import 'marker.dart' as _i2;
 import 'car.dart' as _i3;
+import 'map.dart' as _i4;
 
 extension NavigatorStateExtension on _i1.NavigationService {
   Future<dynamic> navigateToLoginClass(
@@ -3195,6 +3208,7 @@ extension NavigatorStateExtension on _i1.NavigationService {
   Future<dynamic> navigateToHomeClass(
       {required _i3.Car car = 'TOYOTA',
       int age,
+      List<_i4.Marker> markers,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
@@ -3202,7 +3216,7 @@ extension NavigatorStateExtension on _i1.NavigationService {
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
     navigateTo(Routes.homeView,
-        arguments: HomeClassArguments(car: car, age: age),
+        arguments: HomeClassArguments(car: car, age: age, markers: markers),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -3211,6 +3225,7 @@ extension NavigatorStateExtension on _i1.NavigationService {
 }
 ''';
 const kRouteClassArguments = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'marker.dart' as _i1;
 import 'car.dart' as _i2;
 

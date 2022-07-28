@@ -1,5 +1,6 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
+import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
 import 'package:stacked_generator/utils.dart';
 import 'package:collection/collection.dart';
 
@@ -33,7 +34,23 @@ class NavigateExtensionClassBuilderHelper {
     return Parameter((parameterBuilder) {
       parameterBuilder
         ..name = param.name
-        ..type = Reference(param.type, param.imports?.firstOrNull)
+        ..type = param.type.getTypeInsideList == null
+            ? Reference(
+                param.type,
+                param.imports?.firstOrNull,
+              )
+            : TypeReference(
+                (b) => b
+                  ..symbol = param.type.getTypeInsideList?.group(1)
+                  ..types.addAll([
+                    if (param.type.getTypeInsideList != null) ...[
+                      Reference(
+                        param.type.getTypeInsideList?.group(2),
+                        param.imports?.firstOrNull,
+                      ),
+                    ],
+                  ]),
+              )
         ..named = true;
 
       // Assign default value
