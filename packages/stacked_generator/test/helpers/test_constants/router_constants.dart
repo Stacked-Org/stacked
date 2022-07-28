@@ -1,4 +1,5 @@
 const kRouterWithNamePathNameClassName = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i3;
@@ -1317,6 +1318,7 @@ navigateToTestClass( {
 }
 ''';
 const kRouterWithNestedRouter = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i4;
@@ -2717,6 +2719,7 @@ navigateToTestClass( {
 ''';
 
 const kRouterWithAliasedImport = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i4;
@@ -2783,6 +2786,7 @@ extension NavigatorStateExtension on _i4.NavigationService {
 }
 ''';
 const kParameterTypeString = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i4;
@@ -2849,6 +2853,7 @@ extension NavigatorStateExtension on _i4.NavigationService {
 }
 ''';
 const kRouterMixin = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/cupertino.dart' as _i8;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
@@ -3089,6 +3094,7 @@ class RoutesClassName {
 ''';
 
 const kRouterClass = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:stacked/stacked.dart' as _i1;
 import 'ui/login_class.dart' as _i2;
 import 'ui/home_class.dart' as _i3;
@@ -3122,6 +3128,7 @@ class RouterClassName extends _i1.RouterBase {
 ''';
 
 const kListOfRoutes = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:stacked/stacked.dart' as _i1;
 import 'ui/login_class.dart' as _i2;
 import 'ui/home_class.dart' as _i3;
@@ -3132,23 +3139,27 @@ final _routes = <_i1.RouteDef>[
 ];
 ''';
 const kRoutesGetter = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:stacked/stacked.dart' as _i1;
 
 @override
 List<_i1.RouteDef> get routes => _routes;
 ''';
 const kPagesMapGetter = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:stacked/stacked.dart' as _i1;
 
 @override
 Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 ''';
 const kMapOfPagesForEmptyRoutes = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:stacked/stacked.dart' as _i1;
 
 final _pagesMap = <Type, _i1.StackedRouteFactory>{};
 ''';
 const kMapOfPages = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:stacked/stacked.dart' as _i1;
 import 'ui/login_class.dart' as _i2;
 import 'ui/home_class.dart' as _i3;
@@ -3170,6 +3181,7 @@ final _pagesMap = <Type, _i1.StackedRouteFactory>{
 };
 ''';
 const kRouteNavigationExtension = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:stacked_services/stacked_services.dart' as _i1;
 import 'marker.dart' as _i2;
 import 'car.dart' as _i3;
@@ -3213,6 +3225,7 @@ extension NavigatorStateExtension on _i1.NavigationService {
 }
 ''';
 const kRouteClassArguments = '''
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'marker.dart' as _i1;
 import 'car.dart' as _i2;
 
