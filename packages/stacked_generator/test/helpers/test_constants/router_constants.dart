@@ -2766,7 +2766,7 @@ class TestClassArguments {
 
 extension NavigatorStateExtension on _i4.NavigationService {
   Future<dynamic> navigateToTestClass(
-      {_i3.List<Marker> markers,
+      {List<_i3.Marker> markers,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
