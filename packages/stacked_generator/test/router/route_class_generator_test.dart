@@ -33,7 +33,7 @@ void main() {
     /// Note: It usually adds an extra line in the bottom of the result
     void generateRouteAndExpectResult(
         List<RouteConfig> routes, dynamic expectedResult,
-        {bool verbose = true}) {
+        {bool verbose = false}) {
       final routerBaseGenerator = RouterGenerator(RouterConfig(
           routesClassName: 'RoutesTestClassName',
           routerClassName: 'RouterTestClassName',
