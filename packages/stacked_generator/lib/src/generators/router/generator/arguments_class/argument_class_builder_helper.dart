@@ -1,6 +1,7 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:collection/collection.dart';
+import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
 
 class ArgumentClassBuilderHelper {
   final RouteConfig route;
@@ -17,7 +18,23 @@ class ArgumentClassBuilderHelper {
               (b) => b
                 ..modifier = FieldModifier.final$
                 ..name = param.name
-                ..type = Reference(param.type, param.imports?.firstOrNull),
+                ..type = param.type.getTypeInsideList == null
+                    ? Reference(
+                        param.type,
+                        param.imports?.firstOrNull,
+                      )
+                    : TypeReference(
+                        (b) => b
+                          ..symbol = param.type.getTypeInsideList?.group(1)
+                          ..types.addAll([
+                            if (param.type.getTypeInsideList != null) ...[
+                              Reference(
+                                param.type.getTypeInsideList?.group(2),
+                                param.imports?.firstOrNull,
+                              ),
+                            ],
+                          ]),
+                      ),
             ))
         .toList();
   }

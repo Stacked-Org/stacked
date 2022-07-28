@@ -782,7 +782,31 @@ void main() {
       //       kRouterTypeCustomWithCustomRouteOpaqueFalse,
       //     );
       //   });
-      test('With parameters path = false, query = false', () {
+      test('''
+When a view parameter inside another data structure,
+ Should assign the aliased import to the appropriate type''', () {
+        final List<RouteConfig> routes = [
+          CustomRouteConfig(
+            name: 'loginView',
+            pathName: 'pathNamaw',
+            className: MapEntry('TestClass', 'test.dart'),
+            parameters: [
+              RouteParamConfig(
+                  isPathParam: false,
+                  isQueryParam: false,
+                  name: 'markers',
+                  imports: {'map.dart'},
+                  type: 'List<Marker>'),
+            ],
+          )
+        ];
+
+        generateRouteAndExpectResult(
+          routes,
+          kRouterWithAliasedImport,
+        );
+      });
+      test('When a parameter type is String', () {
         final List<RouteConfig> routes = [
           CustomRouteConfig(
             name: 'loginView',
@@ -793,6 +817,7 @@ void main() {
                   isPathParam: false,
                   isQueryParam: false,
                   name: 'name',
+                  imports: {'map.dart'},
                   type: 'String'),
             ],
           )
@@ -800,29 +825,9 @@ void main() {
 
         generateRouteAndExpectResult(
           routes,
-          kRouterTypeCustomWithParametersPathFalseQueryFalse,
+          kParameterTypeString,
         );
       });
-      //   test('With parameters path = false, query = true', () {
-      //     final List<RouteConfig> routes = [
-      //       CustomRouteConfig(
-      //         name: 'loginView',
-      //         pathName: 'pathNamaw',
-      //         className: 'TestClass',
-      //         parameters: [
-      //           RouteParamConfig(
-      //             isPathParam: false,
-      //             isQueryParam: true,
-      //           ),
-      //         ],
-      //       )
-      //     ];
-
-      //     generateRouteAndExpectResult(
-      //       routes,
-      //       kRouterTypeCustomWithParametersPathFalseQueryTrue,
-      //     );
-      //   });
       // });
       group('Mixed -', () {
         test('Given random routing system', () {
