@@ -14,6 +14,18 @@ mixin BusyState on ChangeNotifier {
 
   // Returns true if any objects still have a busy status that is true.
   bool get anyObjectsBusy => _busyStates.values.any((busy) => busy);
+
+  /// Sets the busy state for the object equal to the value passed in and notifies Listeners
+  /// If you're using a primitive type the value SHOULD NOT BE CHANGED, since Hashcode uses == value
+  void setBusyForObject(Object? object, bool value) {
+    _busyStates[object.hashCode] = value;
+    notifyListeners();
+  }
+
+  /// Marks the ViewModel as busy and calls notify listeners
+  void setBusy(bool value) {
+    setBusyForObject(this, value);
+  }
 }
 
 mixin ErrorState on ChangeNotifier {
@@ -33,6 +45,26 @@ mixin ErrorState on ChangeNotifier {
 
   /// Returns a boolean that indicates if the ViewModel has an error for the key
   bool hasErrorForKey(Object key) => error(key) != null;
+
+  /// Sets the error for the ViewModel
+  void setError(dynamic error) {
+    setErrorForObject(this, error);
+  }
+
+  void _setErrorForModelOrObject(dynamic value, {Object? key}) {
+    if (key != null) {
+      setErrorForObject(key, value);
+    } else {
+      setErrorForObject(this, value);
+    }
+  }
+
+  /// Sets the error state for the object equal to the value passed in and notifies Listeners
+  /// If you're using a primitive type the value SHOULD NOT BE CHANGED, since Hashcode uses == value
+  void setErrorForObject(Object object, dynamic value) {
+    _errorStates[object.hashCode] = value;
+    notifyListeners();
+  }
 }
 mixin MessageState on ChangeNotifier {
   Map<int, String?> _messageStates = Map<int, String?>();
@@ -52,60 +84,10 @@ mixin MessageState on ChangeNotifier {
   void clearMessages() {
     _messageStates.clear();
   }
-}
-
-/// Contains ViewModel functionality for busy state management
-class BaseViewModel extends ChangeNotifier
-    with BusyState, ErrorState, MessageState {
-  bool _initialised = false;
-  bool get initialised => _initialised;
-
-  bool _onModelReadyCalled = false;
-  bool get onModelReadyCalled => _onModelReadyCalled;
-
-  bool _disposed = false;
-  bool get disposed => _disposed;
-
-  /// Marks the ViewModel as busy and calls notify listeners
-  void setBusy(bool value) {
-    setBusyForObject(this, value);
-  }
-
-  /// Sets the error for the ViewModel
-  void setError(dynamic error) {
-    setErrorForObject(this, error);
-  }
 
   /// Sets the message for the ViewModel
   void setMessage(String? message) {
     setMessageForObject(this, message);
-  }
-
-  /// returns real data passed if neither the model is busy nor the object passed is busy
-  T skeletonData<T>(
-      {required T? realData, required T busyData, Object? busyKey}) {
-    /// If busyKey is supplied we check busy(busyKey) to see if that property is busy
-    /// If it is we return busyData, else realData
-    bool isBusyKeySupplied = busyKey != null;
-    if ((isBusyKeySupplied && busy(busyKey)) || realData == null)
-      return busyData;
-    else if (!isBusyKeySupplied && isBusy) return busyData;
-
-    return realData;
-  }
-
-  /// Sets the busy state for the object equal to the value passed in and notifies Listeners
-  /// If you're using a primitive type the value SHOULD NOT BE CHANGED, since Hashcode uses == value
-  void setBusyForObject(Object? object, bool value) {
-    _busyStates[object.hashCode] = value;
-    notifyListeners();
-  }
-
-  /// Sets the error state for the object equal to the value passed in and notifies Listeners
-  /// If you're using a primitive type the value SHOULD NOT BE CHANGED, since Hashcode uses == value
-  void setErrorForObject(Object object, dynamic value) {
-    _errorStates[object.hashCode] = value;
-    notifyListeners();
   }
 
   /// Sets the message for the object equal to the value passed in and notifies Listeners
@@ -114,10 +96,32 @@ class BaseViewModel extends ChangeNotifier
     _messageStates[object.hashCode] = value;
     notifyListeners();
   }
+}
 
-  /// Function that is called when a future throws an error
-  void onFutureError(dynamic error, Object? key) {}
+mixin Initialisable2 {
+  bool _initialised = false;
+  bool get initialised => _initialised;
 
+  /// Sets the initialised value for the ViewModel to true. This is called after
+  /// the first initialise special ViewModel call
+  void setInitialised(bool value) {
+    _initialised = value;
+  }
+}
+mixin ModelReady {
+  bool _onModelReadyCalled = false;
+  bool get onModelReadyCalled => _onModelReadyCalled;
+
+  /// Sets the onModelReadyCalled value to true. This is called after this first onModelReady call
+  void setOnModelReadyCalled(bool value) {
+    _onModelReadyCalled = value;
+  }
+}
+mixin Disposable {
+  bool _disposed = false;
+  bool get disposed => _disposed;
+}
+mixin FutureUtils on ErrorState, BusyState {
   /// Sets the ViewModel to busy, runs the future and then sets it to not busy when complete.
   ///
   /// rethrows [Exception] after setting busy to false for object or class
@@ -149,16 +153,8 @@ class BaseViewModel extends ChangeNotifier
     }
   }
 
-  /// Sets the initialised value for the ViewModel to true. This is called after
-  /// the first initialise special ViewModel call
-  void setInitialised(bool value) {
-    _initialised = value;
-  }
-
-  /// Sets the onModelReadyCalled value to true. This is called after this first onModelReady call
-  void setOnModelReadyCalled(bool value) {
-    _onModelReadyCalled = value;
-  }
+  /// Function that is called when a future throws an error
+  void onFutureError(dynamic error, Object? key) {}
 
   void _setBusyForModelOrObject(bool value, {Object? busyObject}) {
     if (busyObject != null) {
@@ -167,13 +163,29 @@ class BaseViewModel extends ChangeNotifier
       setBusyForObject(this, value);
     }
   }
+}
 
-  void _setErrorForModelOrObject(dynamic value, {Object? key}) {
-    if (key != null) {
-      setErrorForObject(key, value);
-    } else {
-      setErrorForObject(this, value);
-    }
+/// Contains ViewModel functionality for busy state management
+class BaseViewModel extends ChangeNotifier
+    with
+        BusyState,
+        ErrorState,
+        MessageState,
+        Initialisable2,
+        ModelReady,
+        Disposable,
+        FutureUtils {
+  /// returns real data passed if neither the model is busy nor the object passed is busy
+  T skeletonData<T>(
+      {required T? realData, required T busyData, Object? busyKey}) {
+    /// If busyKey is supplied we check busy(busyKey) to see if that property is busy
+    /// If it is we return busyData, else realData
+    bool isBusyKeySupplied = busyKey != null;
+    if ((isBusyKeySupplied && busy(busyKey)) || realData == null)
+      return busyData;
+    else if (!isBusyKeySupplied && isBusy) return busyData;
+
+    return realData;
   }
 
   // Sets up streamData property to hold data, busy, and lifecycle events
@@ -214,7 +226,7 @@ class BaseViewModel extends ChangeNotifier
 }
 
 /// A [BaseViewModel] that provides functionality to subscribe to a reactive service.
-abstract class ReactiveViewModel extends BaseViewModel {
+abstract class ReactiveViewModel extends ChangeNotifier {
   late List<ReactiveServiceMixin> _reactiveServices;
 
   List<ReactiveServiceMixin> get reactiveServices;
@@ -254,7 +266,8 @@ class DynamicSourceViewModel<T> extends ReactiveViewModel {
   List<ReactiveServiceMixin> get reactiveServices => [];
 }
 
-class _SingleDataSourceViewModel<T> extends DynamicSourceViewModel {
+class _SingleDataSourceViewModel<T> extends DynamicSourceViewModel
+    with ErrorState {
   T? _data;
   T? get data => _data;
 
@@ -272,8 +285,8 @@ class _SingleDataSourceViewModel<T> extends DynamicSourceViewModel {
   bool get dataReady => _data != null && !hasError;
 }
 
-class _MultiDataSourceViewModel<K extends Object>
-    extends DynamicSourceViewModel {
+class _MultiDataSourceViewModel<K extends Object> extends DynamicSourceViewModel
+    with ErrorState {
   Map<K, dynamic>? _dataMap;
   Map<K, dynamic>? get dataMap => _dataMap;
 
@@ -282,6 +295,7 @@ class _MultiDataSourceViewModel<K extends Object>
 
 /// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
 abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
+    with MessageState, BusyState
     implements Initialisable {
   /// The future that fetches the data and sets the view to busy
   @Deprecated('Use the futureToRun function')
