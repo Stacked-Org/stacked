@@ -3,12 +3,60 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:stacked/src/state_management/reactive_service_mixin.dart';
 
-/// Contains ViewModel functionality for busy state management
-class BaseViewModel extends ChangeNotifier {
+mixin BusyState on ChangeNotifier {
   Map<int, bool> _busyStates = Map<int, bool>();
+
+  /// Returns the busy status for an object if it exists. Returns false if not present
+  bool busy(Object? object) => _busyStates[object.hashCode] ?? false;
+
+  /// Returns the busy status of the ViewModel
+  bool get isBusy => busy(this);
+
+  // Returns true if any objects still have a busy status that is true.
+  bool get anyObjectsBusy => _busyStates.values.any((busy) => busy);
+}
+
+mixin ErrorState on ChangeNotifier {
   Map<int, dynamic> _errorStates = Map<int, dynamic>();
+  dynamic error(Object object) => _errorStates[object.hashCode];
+
+  /// Returns the error existence status of the ViewModel
+  bool get hasError => error(this) != null;
+
+  /// Returns the error status of the ViewModel
+  dynamic get modelError => error(this);
+
+  /// Clears all the errors
+  void clearErrors() {
+    _errorStates.clear();
+  }
+
+  /// Returns a boolean that indicates if the ViewModel has an error for the key
+  bool hasErrorForKey(Object key) => error(key) != null;
+}
+mixin MessageState on ChangeNotifier {
   Map<int, String?> _messageStates = Map<int, String?>();
 
+  /// Returns the message for an object if it exists. Returns null if not present
+  String? message(Object object) => _messageStates[object.hashCode];
+
+  /// Returns the message status of the ViewModel
+  bool get hasMessage => message(this) != null;
+
+  /// Returns the message status of the ViewModel
+  String? get modelMessage => message(this);
+
+  /// Returns a boolean that indicates if the ViewModel has an message for the key
+  bool hasMessageForKey(Object key) => message(key) != null;
+
+  void clearMessages() {
+    _messageStates.clear();
+  }
+}
+
+/// Contains ViewModel functionality for busy state management
+class BaseViewModel extends ChangeNotifier
+    with BusyState, ErrorState, MessageState {
   bool _initialised = false;
   bool get initialised => _initialised;
 
@@ -17,32 +65,6 @@ class BaseViewModel extends ChangeNotifier {
 
   bool _disposed = false;
   bool get disposed => _disposed;
-
-  /// Returns the busy status for an object if it exists. Returns false if not present
-  bool busy(Object? object) => _busyStates[object.hashCode] ?? false;
-
-  dynamic error(Object object) => _errorStates[object.hashCode];
-
-  /// Returns the message for an object if it exists. Returns null if not present
-  String? message(Object object) => _messageStates[object.hashCode];
-
-  /// Returns the busy status of the ViewModel
-  bool get isBusy => busy(this);
-
-  /// Returns the error existence status of the ViewModel
-  bool get hasError => error(this) != null;
-
-  /// Returns the error status of the ViewModel
-  dynamic get modelError => error(this);
-
-  /// Returns the message status of the ViewModel
-  bool get hasMessage => message(this) != null;
-
-  /// Returns the message status of the ViewModel
-  String? get modelMessage => message(this);
-
-  // Returns true if any objects still have a busy status that is true.
-  bool get anyObjectsBusy => _busyStates.values.any((busy) => busy);
 
   /// Marks the ViewModel as busy and calls notify listeners
   void setBusy(bool value) {
@@ -70,21 +92,6 @@ class BaseViewModel extends ChangeNotifier {
     else if (!isBusyKeySupplied && isBusy) return busyData;
 
     return realData;
-  }
-
-  /// Returns a boolean that indicates if the ViewModel has an error for the key
-  bool hasErrorForKey(Object key) => error(key) != null;
-
-  /// Returns a boolean that indicates if the ViewModel has an message for the key
-  bool hasMessageForKey(Object key) => message(key) != null;
-
-  /// Clears all the errors
-  void clearErrors() {
-    _errorStates.clear();
-  }
-
-  void clearMessages() {
-    _messageStates.clear();
   }
 
   /// Sets the busy state for the object equal to the value passed in and notifies Listeners
