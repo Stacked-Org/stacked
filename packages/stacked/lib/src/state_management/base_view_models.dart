@@ -144,10 +144,6 @@ class _MultiDataSourceViewModel<K extends Object> extends DynamicSourceViewModel
 abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
     with MessageStateHelper, BusyStateHelper, FutureRunnerHelper
     implements Initialisable {
-  /// The future that fetches the data and sets the view to busy
-  @Deprecated('Use the futureToRun function')
-  Future<T>? get future => null;
-
   // TODO: Add timeout functionality
   // TODO: Add retry functionality - default 1
   // TODO: Add retry lifecycle hooks to override in the viewmodel
