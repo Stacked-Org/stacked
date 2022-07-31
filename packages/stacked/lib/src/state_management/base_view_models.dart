@@ -80,17 +80,14 @@ abstract class ReactiveViewModel extends BaseViewModel {
 }
 
 @protected
-class DynamicSourceViewModel<T> extends ReactiveViewModel {
+class DynamicSourceViewModel<T> extends BaseViewModel {
   bool changeSource = false;
-  void notifySourceChanged({bool clearOldData = false}) {
+  void notifySourceChanged() {
     changeSource = true;
   }
-
-  @override
-  List<ReactiveServiceMixin> get reactiveServices => [];
 }
 
-class _SingleDataSourceViewModel<T> extends DynamicSourceViewModel {
+class _SingleDataSourceViewModel<T> extends DynamicSourceViewModel<T> {
   T? _data;
   T? get data => _data;
 
@@ -336,7 +333,7 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel
 
 abstract class StreamViewModel<T> extends _SingleDataSourceViewModel<T>
     with MessageStateHelper
-    implements DynamicSourceViewModel, Initialisable {
+    implements DynamicSourceViewModel<T>, Initialisable {
   /// Stream to listen to
   Stream<T> get stream;
 
