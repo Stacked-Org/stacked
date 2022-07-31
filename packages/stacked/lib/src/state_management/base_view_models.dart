@@ -3,38 +3,15 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:stacked/src/state_management/reactive_service_mixin.dart';
 
+import 'helpers/builders_helpers.dart';
 import 'helpers/busy_state_helper.dart';
 import 'helpers/error_state_helper.dart';
 import 'helpers/future_runner_helper.dart';
 import 'helpers/message_state_helper.dart';
 
-mixin _InitialisableHelper {
-  bool _initialised = false;
-  bool get initialised => _initialised;
-
-  /// Sets the initialised value for the ViewModel to true. This is called after
-  /// the first initialise special ViewModel call
-  void setInitialised(bool value) {
-    _initialised = value;
-  }
-}
-mixin _ModalReadyHelper {
-  bool _onModelReadyCalled = false;
-  bool get onModelReadyCalled => _onModelReadyCalled;
-
-  /// Sets the onModelReadyCalled value to true. This is called after this first onModelReady call
-  void setOnModelReadyCalled(bool value) {
-    _onModelReadyCalled = value;
-  }
-}
-mixin _DisposableHelper {
-  bool _disposed = false;
-  bool get disposed => _disposed;
-}
-
 /// Contains ViewModel functionality for busy state management
 class BaseViewModel extends ChangeNotifier
-    with _DisposableHelper, _ModalReadyHelper, _InitialisableHelper {
+    with BuilderHelpers, BusyStateHelper, ErrorStateHelper {
   // Sets up streamData property to hold data, busy, and lifecycle events
   @protected
   StreamData setupStream<T>(
@@ -67,7 +44,7 @@ class BaseViewModel extends ChangeNotifier
 
   @override
   void dispose() {
-    _disposed = true;
+    disposed = true;
     super.dispose();
   }
 }
@@ -113,8 +90,7 @@ class DynamicSourceViewModel<T> extends ReactiveViewModel {
   List<ReactiveServiceMixin> get reactiveServices => [];
 }
 
-class _SingleDataSourceViewModel<T> extends DynamicSourceViewModel
-    with ErrorStateHelper {
+class _SingleDataSourceViewModel<T> extends DynamicSourceViewModel {
   T? _data;
   T? get data => _data;
 
@@ -132,8 +108,8 @@ class _SingleDataSourceViewModel<T> extends DynamicSourceViewModel
   bool get dataReady => _data != null && !hasError;
 }
 
-class _MultiDataSourceViewModel<K extends Object> extends DynamicSourceViewModel
-    with ErrorStateHelper {
+class _MultiDataSourceViewModel<K extends Object>
+    extends DynamicSourceViewModel {
   Map<K, dynamic>? _dataMap;
   Map<K, dynamic>? get dataMap => _dataMap;
 
@@ -142,7 +118,7 @@ class _MultiDataSourceViewModel<K extends Object> extends DynamicSourceViewModel
 
 /// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
 abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
-    with MessageStateHelper, BusyStateHelper, FutureRunnerHelper
+    with MessageStateHelper, FutureRunnerHelper
     implements Initialisable {
   // TODO: Add timeout functionality
   // TODO: Add retry functionality - default 1
@@ -193,7 +169,7 @@ abstract class FutureViewModel<T> extends _SingleDataSourceViewModel<T>
 
 /// Provides functionality for a ViewModel to run and fetch data using multiple future
 abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel
-    with BusyStateHelper, FutureRunnerHelper
+    with FutureRunnerHelper
     implements Initialisable {
   Map<String, Future Function()> get futuresMap;
 

@@ -2,8 +2,7 @@ import 'package:example/app/app.locator.dart';
 import 'package:example/services/information_service.dart';
 import 'package:stacked/stacked.dart';
 
-class WidgetOneViewModel extends ReactiveViewModel
-    with BusyStateHelper, ErrorStateHelper, FutureRunnerHelper {
+class WidgetOneViewModel extends ReactiveViewModel with FutureRunnerHelper {
   final InformationService _informationService =
       exampleLocator<InformationService>();
   int get postCount => _informationService.postCount;
