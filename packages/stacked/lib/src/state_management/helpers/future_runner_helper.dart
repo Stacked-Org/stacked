@@ -1,10 +1,12 @@
+import 'package:stacked/stacked.dart';
+
 import 'busy_state_helper.dart';
 import 'error_state_helper.dart';
 
 /// [FutureRunnerHelper] depends on [ErrorStateHelper] and [BusyStateHelper] to reflect the result of
 /// the future into the view model, you have to add [ErrorStateHelper], [BusyStateHelper] mixins
 /// before you can add the [FutureRunnerHelper] mixin.
-mixin FutureRunnerHelper on ErrorStateHelper, BusyStateHelper {
+mixin FutureRunnerHelper on BaseViewModel {
   /// Sets the ViewModel to busy, runs the future and then sets it to not busy when complete.
   ///
   /// rethrows [Exception] after setting busy to false for object or class
