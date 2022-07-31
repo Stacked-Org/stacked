@@ -1,7 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:stacked/src/state_management/helpers/busy_state_helper.dart';
+import 'package:stacked/src/state_management/helpers/error_state_helper.dart';
+import 'package:stacked/src/state_management/helpers/future_runner_helper.dart';
 import 'package:stacked/stacked.dart';
 
-class TestViewModel extends BaseViewModel {
+class TestViewModel extends BaseViewModel
+    with BusyStateHelper, ErrorStateHelper, FutureRunnerHelper {
   bool onErrorCalled = false;
   Future runFuture(
       {String? busyKey, bool fail = false, bool throwException = false}) {
