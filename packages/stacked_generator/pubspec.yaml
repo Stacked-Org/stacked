@@ -13,7 +13,7 @@ dependencies:
   source_gen: ^1.2.2
   meta: ^1.7.0
   logger: ^1.1.0
-  stacked_core: ^1.2.3
+  stacked_core: ^1.2.4
   # Removing this will cause issues when publish the package
   analyzer: ^4.3.0
   dart_style: ^2.2.3
