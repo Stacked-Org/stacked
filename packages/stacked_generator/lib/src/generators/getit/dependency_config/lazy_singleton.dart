@@ -13,7 +13,9 @@ class LazySingletonDependency extends DependencyConfig {
     String? abstractedTypeClassName,
     Set<String>? environments,
     this.resolveFunction,
+    String? instanceName,
   }) : super(
+            instanceName: instanceName,
             import: import,
             className: className,
             abstractedImport: abstractedImport,
@@ -25,6 +27,6 @@ class LazySingletonDependency extends DependencyConfig {
     final singletonInstanceToReturn = resolveFunction != null
         ? '$className.$resolveFunction()'
         : '$className()';
-    return '$locatorName.registerLazySingleton${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}(() => $singletonInstanceToReturn ${environments.getFromatedEnvs});';
+    return '$locatorName.registerLazySingleton${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}(() => $singletonInstanceToReturn ${environments.getFromatedEnvs}${instanceName.addInstanceNameIfNotNull});';
   }
 }

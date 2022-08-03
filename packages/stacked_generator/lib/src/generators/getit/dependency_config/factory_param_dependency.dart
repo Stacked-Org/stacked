@@ -15,7 +15,9 @@ class FactoryParamDependency extends DependencyConfig {
     String? abstractedTypeClassName,
     Set<String>? environments,
     this.params,
+    String? instanceName,
   }) : super(
+            instanceName: instanceName,
             import: import,
             className: className,
             abstractedImport: abstractedImport,
@@ -69,7 +71,7 @@ class FactoryParamDependency extends DependencyConfig {
     final constructerParams = constructorParams.join(',');
     final constructerParamtypes = constructorParamTypes.join(',');
 
-    return '$locatorName.registerFactoryParam<$className,$constructerParamtypes>${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}((param1, param2) => $className($constructerParams)  ${environments.getFromatedEnvs});';
+    return '$locatorName.registerFactoryParam<$className,$constructerParamtypes>${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}((param1, param2) => $className($constructerParams)  ${environments.getFromatedEnvs}${instanceName.addInstanceNameIfNotNull});';
   }
 }
 

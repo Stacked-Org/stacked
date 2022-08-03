@@ -9,7 +9,9 @@ class FactoryDependency extends DependencyConfig {
     String? abstractedImport,
     String? abstractedTypeClassName,
     Set<String>? environments,
+    String? instanceName,
   }) : super(
+            instanceName: instanceName,
             import: import,
             className: className,
             abstractedImport: abstractedImport,
@@ -18,6 +20,6 @@ class FactoryDependency extends DependencyConfig {
 
   @override
   String registerDependencies(String locatorName) {
-    return '$locatorName.registerFactory${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}(() => $className()  ${environments.getFromatedEnvs});';
+    return '$locatorName.registerFactory${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}(() => $className()  ${environments.getFromatedEnvs}${instanceName.addInstanceNameIfNotNull});';
   }
 }
