@@ -13,7 +13,9 @@ class PresolveSingletonDependency extends DependencyConfig {
     String? abstractedTypeClassName,
     Set<String>? environments,
     this.presolveFunction,
+    String? instanceName,
   }) : super(
+            instanceName: instanceName,
             import: import,
             className: className,
             abstractedImport: abstractedImport,
@@ -24,7 +26,7 @@ class PresolveSingletonDependency extends DependencyConfig {
   String registerDependencies(String locatorName) {
     return '''
         final $camelCaseClassName = await $className.$presolveFunction();
-        $locatorName.registerSingleton${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}($camelCaseClassName  ${environments.getFromatedEnvs});
+        $locatorName.registerSingleton${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}($camelCaseClassName  ${environments.getFromatedEnvs}${instanceName.addInstanceNameIfNotNull});
         ''';
   }
 }
