@@ -1,3 +1,5 @@
+## 0.9.4
+- Adds `id` to the `popUntil` function in `NavigationService` to allow for nested navigation
 ## 0.9.3
 - Only make arguments map when transition is available
 - Fixes [#656](https://github.com/FilledStacks/stacked/issues/656)
