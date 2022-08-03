@@ -29,11 +29,12 @@ Future<void> setupExampleLocator(
 // Register dependencies
   exampleLocator.registerLazySingleton(() => DialogService());
   exampleLocator.registerLazySingleton(() => BottomSheetService());
-  exampleLocator
-      .registerLazySingleton(() => NavigationService(), registerFor: {"dev"});
+  exampleLocator.registerLazySingleton(() => NavigationService(),
+      registerFor: {"dev"}, instanceName: 'instance1');
   exampleLocator.registerLazySingleton(() => EpochService());
   exampleLocator.registerLazySingleton(() => ThemeService.getInstance());
-  exampleLocator.registerLazySingleton(() => InformationService());
+  exampleLocator.registerLazySingleton(() => InformationService(),
+      instanceName: 'infoInstance1');
   exampleLocator.registerFactoryParam<FactoryService, String?, double?>(
       (param1, param2) => FactoryService(param1, data2: param2));
   exampleLocator.registerSingleton(HistoryViewModel());
