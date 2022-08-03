@@ -23,6 +23,10 @@ class DependencyConfigFactory {
     final DartType? dependencyClassType =
         dependencyReader.read('classType').typeValue;
 
+    final String? instanceName = dependencyReader.read('instanceName').isNull
+        ? null
+        : dependencyReader.read('instanceName').stringValue;
+
     final DartType? dependencyAbstractedClassType =
         dependencyReader.peek('asType')?.typeValue;
 
@@ -65,6 +69,7 @@ class DependencyConfigFactory {
 
     if (dependencyReader.instanceOf(TypeChecker.fromRuntime(Factory))) {
       return FactoryDependency(
+        instanceName: instanceName,
         import: import!,
         className: className,
         abstractedTypeClassName: abstractedTypeClassName,
@@ -78,6 +83,7 @@ class DependencyConfigFactory {
       final resolveObject = resolveUsing?.objectValue.toFunctionValue();
 
       return SingletonDependency(
+          instanceName: instanceName,
           import: import!,
           className: className,
           abstractedTypeClassName: abstractedTypeClassName,
@@ -91,6 +97,7 @@ class DependencyConfigFactory {
       final resolveObject = resolveUsing?.objectValue.toFunctionValue();
 
       return LazySingletonDependency(
+          instanceName: instanceName,
           import: import!,
           className: className,
           abstractedTypeClassName: abstractedTypeClassName,
@@ -102,6 +109,7 @@ class DependencyConfigFactory {
           dependencyReader.peek('presolveUsing');
       final presolveObject = presolveUsing?.objectValue.toFunctionValue();
       return PresolveSingletonDependency(
+          instanceName: instanceName,
           import: import!,
           className: className,
           abstractedTypeClassName: abstractedTypeClassName,
@@ -118,6 +126,7 @@ class DependencyConfigFactory {
         }
       }
       return FactoryParamDependency(
+          instanceName: instanceName,
           import: import!,
           className: className,
           abstractedTypeClassName: abstractedTypeClassName,
