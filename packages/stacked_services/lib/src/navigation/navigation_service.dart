@@ -174,8 +174,10 @@ class NavigationService {
   }
 
   /// Pops the back stack until the predicate is satisfied
-  void popUntil(RoutePredicate predicate) {
-    G.Get.key.currentState?.popUntil(predicate);
+  ///
+  /// [id] is for when you are using nested navigation, as explained in documentation.
+  void popUntil(RoutePredicate predicate, {int? id}) {
+    G.Get.until(predicate, id: id);
   }
 
   /// Pops the back stack the number of times you indicate with [popTimes]
