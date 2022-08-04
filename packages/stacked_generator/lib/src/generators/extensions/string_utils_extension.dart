@@ -1,6 +1,11 @@
 extension NullableStringUtilsExtension on String? {
   String get surroundWithAngleBracketsOrReturnEmptyIfNull =>
       this != null ? '<$this>' : '';
+  String get addInstanceNameIfNotNull {
+    if (this == null) return '';
+
+    return ", instanceName: '$this'";
+  }
 }
 
 extension StringUtilsExtension on String {

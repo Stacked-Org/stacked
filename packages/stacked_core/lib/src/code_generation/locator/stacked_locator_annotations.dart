@@ -23,6 +23,7 @@ class DependencyRegistration {
   final Type? asType;
 
   final Function? resolveUsing;
+  final String? instanceName;
 
   final Set<String>? environments;
   final Function? dispose;
@@ -30,6 +31,7 @@ class DependencyRegistration {
   final Type? param2;
 
   const DependencyRegistration({
+    this.instanceName,
     this.environments,
     this.classType,
     this.asType,
@@ -47,7 +49,9 @@ class Singleton extends DependencyRegistration {
     Type? asType,
     Function? resolveUsing,
     Set<String>? environments,
+    String? instanceName,
   }) : super(
+          instanceName: instanceName,
           classType: classType,
           asType: asType,
           resolveUsing: resolveUsing,
@@ -62,7 +66,9 @@ class LazySingleton<T> extends DependencyRegistration {
     Type? asType,
     Function? resolveUsing,
     Set<String>? environments,
+    String? instanceName,
   }) : super(
+          instanceName: instanceName,
           classType: classType,
           asType: asType,
           resolveUsing: resolveUsing,
@@ -76,7 +82,9 @@ class Factory extends DependencyRegistration {
     Type? classType,
     Type? asType,
     Set<String>? environments,
+    String? instanceName,
   }) : super(
+          instanceName: instanceName,
           classType: classType,
           asType: asType,
           environments: environments,
@@ -89,7 +97,9 @@ class FactoryWithParam extends DependencyRegistration {
     Type? asType,
     Type? classType,
     Set<String>? environments,
+    String? instanceName,
   }) : super(
+          instanceName: instanceName,
           asType: asType,
           classType: classType,
           environments: environments,
@@ -117,5 +127,10 @@ class Presolve extends DependencyRegistration {
     Type? asType,
     this.presolveUsing,
     Set<String>? environments,
-  }) : super(classType: classType, asType: asType, environments: environments);
+    String? instanceName,
+  }) : super(
+            instanceName: instanceName,
+            classType: classType,
+            asType: asType,
+            environments: environments);
 }

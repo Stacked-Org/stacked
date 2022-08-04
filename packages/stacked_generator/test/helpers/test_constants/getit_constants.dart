@@ -51,7 +51,7 @@ Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFil
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-filledstacksLocator.registerSingleton(GeolocaorService()  );
+filledstacksLocator.registerSingleton(GeolocaorService()  , instanceName: 'instance1');
 }
 ''';
 
@@ -107,7 +107,7 @@ Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFil
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-filledstacksLocator.registerSingleton(GeolocaorService()  ,registerFor:{"dev","prod"});
+filledstacksLocator.registerSingleton(GeolocaorService()  ,registerFor:{"dev","prod"}, instanceName: 'instance1');
 }
 ''';
 final kStackedLocaterWithOneDependencyOutputWithPresolveFunctionAndDependencyTypePresolvedSingleton =
@@ -127,7 +127,7 @@ filledstacksLocator.registerEnvironment(environment: environment, environmentFil
 
 // Register dependencies
         final geolocaorService = await GeolocaorService.staticPresolveFunction();
-        filledstacksLocator.registerSingleton(geolocaorService  );
+        filledstacksLocator.registerSingleton(geolocaorService  , instanceName: 'instance1');
         
 }
 ''';
@@ -146,7 +146,7 @@ Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFil
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-filledstacksLocator.registerFactory(() => GeolocaorService()  );
+filledstacksLocator.registerFactory(() => GeolocaorService()  , instanceName: 'instance1');
 }
 ''';
 final kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParams =
@@ -260,7 +260,7 @@ Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFil
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,freshType?>((param1, param2) => GeolocaorService(hello:param1,helloThere:param2)  );
+filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,freshType?>((param1, param2) => GeolocaorService(hello:param1,helloThere:param2)  , instanceName: 'instance1');
 }
 ''';
 final kStackedLocaterWithOneDependencyOutputWithDependencyTypeSinglton = '''
@@ -296,6 +296,6 @@ Future<void> filledstacksLocatorSetupName ({String? environment , EnvironmentFil
 filledstacksLocator.registerEnvironment(environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-filledstacksLocator.registerLazySingleton(() => GeolocaorService() );
+filledstacksLocator.registerLazySingleton(() => GeolocaorService() , instanceName: 'instance1');
 }
 ''';
