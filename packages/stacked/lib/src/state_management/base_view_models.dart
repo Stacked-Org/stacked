@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:stacked/src/state_management/helpers/data_state_helper.dart';
 import 'package:stacked/src/state_management/reactive_service_mixin.dart';
 
 import 'helpers/builders_helpers.dart';
@@ -8,7 +9,7 @@ import 'helpers/busy_state_helper.dart';
 import 'helpers/error_state_helper.dart';
 import 'helpers/message_state_helper.dart';
 
-/// Contains ViewModel functionality for busy state management
+/// Contains ViewModel functionality for busy and error state management
 class BaseViewModel extends ChangeNotifier
     with BuilderHelpers, BusyStateHelper, ErrorStateHelper {
   // Sets up streamData property to hold data, busy, and lifecycle events
@@ -79,11 +80,14 @@ abstract class ReactiveViewModel extends BaseViewModel {
 }
 
 @protected
-class DynamicSourceViewModel<T> extends BaseViewModel {
+class DynamicSourceViewModel<T> extends ReactiveViewModel {
   bool changeSource = false;
   void notifySourceChanged() {
     changeSource = true;
   }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [];
 }
 
 /// Interface: Additional actions that should be implemented by spcialised ViewModels
@@ -91,8 +95,8 @@ abstract class Initialisable {
   void initialise();
 }
 
-class StreamData<T> extends SingleDataSourceViewModel<T>
-    with MessageStateHelper {
+class StreamData<T> extends DynamicSourceViewModel<T>
+    with MessageStateHelper, DataStateHelper {
   Stream<T> stream;
 
   /// Called when the new data arrives
@@ -130,24 +134,22 @@ class StreamData<T> extends SingleDataSourceViewModel<T>
       (incomingData) {
         setError(null);
         setMessage(null);
-        _error = null;
-        notifyListeners();
         // Extra security in case transformData isnt sent
         var interceptedData =
             transformData == null ? incomingData : transformData!(incomingData);
 
         if (interceptedData != null) {
-          _data = interceptedData;
+          data = interceptedData;
         } else {
-          _data = incomingData;
+          data = incomingData;
         }
 
         notifyListeners();
-        onData!(_data);
+        onData!(data);
       },
       onError: (error) {
         setError(error);
-        _data = null;
+        data = null;
         onError!(error);
         notifyListeners();
       },
@@ -163,17 +165,4 @@ class StreamData<T> extends SingleDataSourceViewModel<T>
 
     super.dispose();
   }
-}
-
-class SingleDataSourceViewModel<T> extends DynamicSourceViewModel<T> {
-  dynamic _error;
-  @override
-  dynamic error([Object? object]) => _error;
-  @override
-  void setError(error) {
-    _error = error;
-    super.setError(error);
-  }
-
-  bool get hasError => error(this) != null;
 }
