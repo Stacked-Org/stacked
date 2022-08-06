@@ -1,3 +1,11 @@
+## 2.4.0
+
+- Refactor `BaseViewModel` by extracting the different functionalities to mixins.
+- Remove the inconsistency between the `BaseViewModel` and `FutureViewModel`, `StreamViewModel` when setting the error, data values.
+- Now we have three mixins that can be mix with any viewmodel and they are:
+  - `FutureRunnerHelper` that has `runBusyFuture` and `runErrorFuture` functions
+  - `MessageStateHelper` that adds message proberty to the viewmodel
+  - `DataStateHelper` that adds data proberty to the viewmodel
 ## 2.3.15
 
 - Rename `SelectorViewModelBuilderWidget` and `SelectorViewModelWidget` similar to `ViewModelWidget`
