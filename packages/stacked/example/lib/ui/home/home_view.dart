@@ -23,6 +23,7 @@ class HomeView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(viewModel.title),
+              if (viewModel.hasMessage) Text(viewModel.modelMessage!),
               const SizedBox(height: 20),
               Row(
                 mainAxisSize: MainAxisSize.min,
