@@ -87,7 +87,9 @@ class FirebaseAuthenticationService {
       if (googleSignInAccount == null) {
         log?.i('Process is canceled by the user');
         return FirebaseAuthenticationResult.error(
-            errorMessage: 'Google Sign In has been cancelled by the user');
+          errorMessage: 'Google Sign In has been canceled by the user',
+          exceptionCode: 'canceled',
+        );
       }
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
@@ -108,7 +110,10 @@ class FirebaseAuthenticationService {
       return FirebaseAuthenticationResult(user: result.user);
     } on FirebaseAuthException catch (e) {
       log?.e(e);
-      return await _handleAccountExists(e);
+      return FirebaseAuthenticationResult.error(
+        errorMessage: getErrorMessageFromFirebaseException(e),
+        exceptionCode: e.code,
+      );
     } catch (e) {
       log?.e(e);
       return FirebaseAuthenticationResult.error(errorMessage: e.toString());
@@ -189,9 +194,15 @@ class FirebaseAuthenticationService {
       return FirebaseAuthenticationResult(user: appleCredential.user);
     } on FirebaseAuthException catch (e) {
       log?.e(e);
-      return await _handleAccountExists(e);
+      return FirebaseAuthenticationResult.error(
+        errorMessage: getErrorMessageFromFirebaseException(e),
+        exceptionCode: e.code,
+      );
     } on SignInWithAppleAuthorizationException catch (e) {
-      return FirebaseAuthenticationResult.error(errorMessage: e.toString());
+      return FirebaseAuthenticationResult.error(
+        errorMessage: e.toString(),
+        exceptionCode: e.code.name,
+      );
     } catch (e) {
       log?.e(e);
       return FirebaseAuthenticationResult.error(errorMessage: e.toString());
@@ -303,6 +314,7 @@ class FirebaseAuthenticationService {
     // Check if the recommended account is email then tell them to sign up with email
     if (userSignInMethods.first == 'password') {
       return FirebaseAuthenticationResult.error(
+        exceptionCode: e.code,
         errorMessage:
             // 'We don’t have the ability to merge social accounts with existing Delivery Dudes accounts. Log in using the same email as this social platform.',
             'To link your Facebook account with your existing account, please sign in with your email address and password.',
@@ -311,6 +323,7 @@ class FirebaseAuthenticationService {
 
     if (userSignInMethods.first == 'google.com') {
       return FirebaseAuthenticationResult.error(
+        exceptionCode: e.code,
         errorMessage:
             'We could not log into your account but we noticed you have a Google account with the same details. Please try to login with Google.',
       );
@@ -318,6 +331,7 @@ class FirebaseAuthenticationService {
 
     if (userSignInMethods.first == 'apple') {
       return FirebaseAuthenticationResult.error(
+        exceptionCode: e.code,
         errorMessage:
             'We could not log into your account but we noticed you have a Apple account with the same details. Please try to login with your Apple account instead.',
       );
@@ -326,6 +340,7 @@ class FirebaseAuthenticationService {
     // This is here to ensure if we ever get into this function we HAVE to give the user feedback on this error. So we use the sign In methods recommended account
     // and the throw the user an exception.
     return FirebaseAuthenticationResult.error(
+      exceptionCode: e.code,
       errorMessage:
           'We could not log into your account but we noticed you have a ${userSignInMethods.first} account with the same details. Please try to login with that instead.',
     );

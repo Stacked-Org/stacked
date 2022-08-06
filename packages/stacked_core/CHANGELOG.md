@@ -1,3 +1,5 @@
+## 1.2.4
+- Add `instanceName` to DependencyRegistration annotations
 ## 1.2.3
 - Add `bottomsheets` to StackedApp annotations
 ## 1.2.2

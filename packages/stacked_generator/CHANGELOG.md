@@ -1,4 +1,7 @@
 
+## 0.7.14
+
+- Add `instanceName` parameter to the DependencyRegistration annotation
 ## 0.8.0-beta.1
 - Fixes assign import alias to view with a list parameter 
 ## 0.8.0-beta.0

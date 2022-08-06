@@ -42,13 +42,14 @@ void main() {
 
       group('PresolvedSingleton -', () {
         test(
-            'with one DependencyConfig that has presolveFunction and type = DependencyType.PresolvedSingleton',
+            'with one DependencyConfig that has presolveFunction and type = DependencyType.PresolvedSingleton and instanceName',
             () {
           final dependencies = [
             PresolveSingletonDependency(
               import: 'importOne',
               className: 'GeolocaorService',
               presolveFunction: 'staticPresolveFunction',
+              instanceName: 'instance1',
             ),
           ];
 
@@ -58,12 +59,13 @@ void main() {
       });
       group('Factory -', () {
         test(
-            'with one DependencyConfig that has presolveFunction and [type=DependencyType.Factory]',
+            'with one DependencyConfig that has presolveFunction and [type=DependencyType.Factory] and instanceName',
             () {
           final dependencies = [
             FactoryDependency(
               import: 'importOne',
               className: 'GeolocaorService',
+              instanceName: 'instance1',
             ),
           ];
 
@@ -242,11 +244,12 @@ type is newType? and name is hello, Should generate code''', () {
               kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndIsNameIsHello);
         });
         test('''
-When provide two FactoryParamDependency, Should generate code''', () {
+When provide two FactoryParamDependency and instanceName''', () {
           final dependencies = [
             FactoryParamDependency(
                 import: 'importOne',
                 className: 'GeolocaorService',
+                instanceName: 'instance1',
                 params: {
                   FactoryParameter(
                     type: 'newType?',
@@ -293,12 +296,14 @@ When provide two FactoryParamDependency, Should generate code''', () {
           callGeneratorWithServicesConfigAndExpectResult(
               dependencies, kStackedLocaterWithTwoDependenciesOutput);
         });
-        test('with two dependencies and added DependencyParamConfig imports',
+        test(
+            'with two dependencies and added DependencyParamConfig imports and instanceName',
             () {
           final dependencies = [
             SingletonDependency(
               import: 'importOne',
               className: 'GeolocaorService',
+              instanceName: 'instance1',
             ),
           ];
 
@@ -330,12 +335,14 @@ When provide two FactoryParamDependency, Should generate code''', () {
           callGeneratorWithServicesConfigAndExpectResult(dependencies,
               kStackedLocaterWithOneDependencyOutputWithAbstractedTypeClassName);
         });
-        test('with one DependencyConfig that has environments', () {
+        test('with one DependencyConfig that has environments and instanceName',
+            () {
           final dependencies = [
             SingletonDependency(
               import: 'importOne',
               className: 'GeolocaorService',
               environments: {'dev', 'prod'},
+              instanceName: 'instance1',
             ),
           ];
 
@@ -369,11 +376,13 @@ with one DependencyConfig that has [type=DependencyType.Singleton],
       });
       group('LazySingleton -', () {
         test('''
-with one DependencyConfig that has [type=DependencyType.LazySingleton],
- Should generate code''', () {
+with one DependencyConfig that has [type=DependencyType.LazySingleton]''', () {
           final dependencies = [
             LazySingletonDependency(
-                import: 'importOne', className: 'GeolocaorService'),
+              import: 'importOne',
+              className: 'GeolocaorService',
+              instanceName: 'instance1',
+            ),
           ];
 
           callGeneratorWithServicesConfigAndExpectResult(dependencies,

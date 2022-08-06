@@ -4,6 +4,7 @@
 // StackedRouterGenerator
 // **************************************************************************
 
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:example/app/custom_route_transition.dart' as _i9;
 import 'package:flutter/cupertino.dart' as _i8;
 import 'package:flutter/material.dart';

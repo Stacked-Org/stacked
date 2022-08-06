@@ -59,13 +59,20 @@ import 'custom_route_transition.dart';
     //   dispose: disposeInformationService,
     // ),
     LazySingleton(
-        classType: NavigationService, environments: {Environment.dev}),
+      classType: NavigationService,
+      environments: {Environment.dev},
+    ),
+    LazySingleton(
+        classType: NavigationService,
+        environments: {Environment.dev},
+        instanceName: 'instance1'),
     LazySingleton(classType: EpochService),
     LazySingleton(
       classType: ThemeService,
       resolveUsing: ThemeService.getInstance,
     ),
     LazySingleton(classType: InformationService),
+    LazySingleton(classType: InformationService, instanceName: 'infoInstance1'),
     FactoryWithParam(classType: FactoryService),
     // singletons
     Singleton(classType: HistoryViewModel),

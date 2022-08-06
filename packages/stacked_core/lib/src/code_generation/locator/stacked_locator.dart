@@ -16,10 +16,7 @@ class StackedLocator {
   /// access to the Singleton instance of GetIt
   static StackedLocator get instance {
     // ignore: join_return_with_assignment
-    if (_instance == null) {
-      // TODO: Add new instance ability here
-      _instance = StackedLocator._(GetIt.instance);
-    }
+    _instance ??= StackedLocator._(GetIt.instance);
 
     return _instance!;
   }
