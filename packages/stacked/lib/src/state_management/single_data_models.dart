@@ -1,12 +1,14 @@
 import 'dart:async';
 
+import 'package:stacked/src/state_management/helpers/data_state_helper.dart';
+
 import 'base_view_models.dart';
 import 'helpers/future_runner_helper.dart';
 import 'helpers/message_state_helper.dart';
 
 /// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
-abstract class FutureViewModel<T> extends SingleDataSourceViewModel<T>
-    with MessageStateHelper, FutureRunnerHelper
+abstract class FutureViewModel<T> extends DynamicSourceViewModel<T>
+    with MessageStateHelper, FutureRunnerHelper, DataStateHelper
     implements Initialisable {
   // TODO: Add timeout functionality
   // TODO: Add retry functionality - default 1
@@ -21,18 +23,14 @@ abstract class FutureViewModel<T> extends SingleDataSourceViewModel<T>
   Future initialise() async {
     setError(null);
     setMessage(null);
-    _error = null;
-    // We set busy manually as well because when notify listeners is called to clear error messages the
-    // ui is rebuilt and if you expect busy to be true it's not.
     setBusy(true);
-    notifyListeners();
 
     data = await runBusyFuture<T?>(futureToRun(), throwException: true)
         .catchError((error) {
       setError(error);
-      _error = error;
       setBusy(false);
       onError(error);
+
       notifyListeners();
       if (rethrowException) {
         throw error;
@@ -55,9 +53,9 @@ abstract class FutureViewModel<T> extends SingleDataSourceViewModel<T>
   void onData(T? data) {}
 }
 
-abstract class StreamViewModel<T> extends SingleDataSourceViewModel<T>
-    with MessageStateHelper
-    implements DynamicSourceViewModel<T>, Initialisable {
+abstract class StreamViewModel<T> extends DynamicSourceViewModel<T>
+    with MessageStateHelper, DataStateHelper
+    implements Initialisable {
   /// Stream to listen to
   Stream<T> get stream;
 
@@ -83,8 +81,6 @@ abstract class StreamViewModel<T> extends SingleDataSourceViewModel<T>
       (incomingData) {
         setError(null);
         setMessage(null);
-        _error = null;
-        notifyListeners();
         // Extra security in case transformData isnt sent
         var interceptedData = transformData(incomingData);
 
@@ -99,7 +95,6 @@ abstract class StreamViewModel<T> extends SingleDataSourceViewModel<T>
       },
       onError: (error) {
         setError(error);
-        _error = error;
         data = null;
         onError(error);
         notifyListeners();
