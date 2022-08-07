@@ -18,23 +18,7 @@ class ArgumentClassBuilderHelper {
               (b) => b
                 ..modifier = FieldModifier.final$
                 ..name = param.name
-                ..type = param.type.getTypeInsideList == null
-                    ? Reference(
-                        param.type,
-                        param.imports?.firstOrNull,
-                      )
-                    : TypeReference(
-                        (b) => b
-                          ..symbol = param.type.getTypeInsideList?.group(1)
-                          ..types.addAll([
-                            if (param.type.getTypeInsideList != null) ...[
-                              Reference(
-                                param.type.getTypeInsideList?.group(2),
-                                param.imports?.firstOrNull,
-                              ),
-                            ],
-                          ]),
-                      ),
+                ..type = Reference(param.type, param.imports?.firstOrNull),
             ))
         .toList();
   }
