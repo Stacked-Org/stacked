@@ -92,7 +92,6 @@ class SnackbarService {
               textAlign: _snackbarConfig?.messageTextAlign ?? TextAlign.left,
             )
           : SizedBox.shrink(),
-      colorText: _snackbarConfig?.textColor ?? Colors.white,
       shouldIconPulse: _snackbarConfig?.shouldIconPulse,
       onTap: onTap,
       barBlur: _snackbarConfig?.barBlur,
