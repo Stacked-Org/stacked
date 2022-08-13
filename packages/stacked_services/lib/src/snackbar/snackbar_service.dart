@@ -73,7 +73,7 @@ class SnackbarService {
               title,
               key: Key('snackbar_text_title'),
               style: TextStyle(
-                color: _snackbarConfig?.titleColor,
+                color: _snackbarConfig?.titleColor ?? _snackbarConfig?.textColor ?? Colors.white,
                 fontWeight: FontWeight.w800,
                 fontSize: 16,
               ),
@@ -85,7 +85,7 @@ class SnackbarService {
               message,
               key: Key('snackbar_text_message'),
               style: TextStyle(
-                color: _snackbarConfig?.messageColor,
+                color: _snackbarConfig?.messageColor ?? _snackbarConfig?.textColor ?? Colors.white,
                 fontWeight: FontWeight.w300,
                 fontSize: 14,
               ),
