@@ -48,7 +48,7 @@ class SnackbarService {
   }
 
   /// Check if snackbar is open
-  bool? get isSnackbarOpen => Get.isSnackbarOpen;
+  bool get isSnackbarOpen => Get.isSnackbarOpen;
 
   /// Shows a snack bar with the details passed in
   void showSnackbar({
