@@ -220,6 +220,13 @@ class SnackbarService {
     }
   }
 
+  /// Close the current snack bar
+  Future<void> closeSnackbar() async{
+    if(isSnackbarOpen){
+      return Get.closeCurrentSnackbar();
+    }
+  }
+
   TextButton? _getMainButtonWidget({
     String? mainButtonTitle,
     ButtonStyle? mainButtonStyle,
