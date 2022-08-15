@@ -15,7 +15,7 @@ dependencies:
   logger: ^1.1.0
   stacked_core: ^1.2.4
   # Removing this will cause issues when publish the package
-  analyzer: ^4.3.0
+  analyzer: ^4.6.0
   dart_style: ^2.2.3
   code_builder: ^4.2.0
   collection: ^1.16.0
