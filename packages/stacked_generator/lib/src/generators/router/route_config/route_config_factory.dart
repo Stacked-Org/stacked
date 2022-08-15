@@ -75,11 +75,11 @@ class RouteConfigFactory {
       if (function != null) {
         final displayName = function.displayName.replaceFirst(RegExp('^_'), '');
         final functionName = function.isStatic
-            ? '${function.enclosingElement2.displayName}.$displayName'
+            ? '${function.enclosingElement3.displayName}.$displayName'
             : displayName;
 
         String? import;
-        if (function.enclosingElement2.name != 'TransitionsBuilders') {
+        if (function.enclosingElement3.name != 'TransitionsBuilders') {
           import = function.source.uri.toString();
         }
         customTransitionBuilder = CustomTransitionBuilder(functionName, import);
