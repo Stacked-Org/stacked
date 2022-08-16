@@ -88,5 +88,5 @@ extension ExecutableElementDataExtension on ExecutableElement? {
       ? '${enclosingElementName}.${this?.name}'
       : this?.name;
   bool get hasEnclosingElementName => enclosingElementName != null;
-  String? get enclosingElementName => this?.enclosingElement2.name;
+  String? get enclosingElementName => this?.enclosingElement3.name;
 }
