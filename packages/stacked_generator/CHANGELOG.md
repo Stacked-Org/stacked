@@ -1,4 +1,5 @@
-
+## 0.8.0-beta.2
+- Apply a more general fix to the aliased imports in stacked generator
 ## 0.7.16-beta.0
 - Replace `FormViewModel` to `FormStateHelper`
 ## 0.7.15
