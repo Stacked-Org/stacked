@@ -7,9 +7,11 @@ import 'home_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
   final String? title;
+  final bool? isLoggedIn;
   const HomeView({
     Key? key,
     this.title,
+    this.isLoggedIn = false,
   }) : super(key: key);
 
   @override

@@ -1,8 +1,8 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_core/stacked_core.dart';
-import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/src/generators/router/route_config/route_config_factory.dart';
+import 'package:stacked_generator/type_resolver.dart';
 import 'package:stacked_generator/utils.dart';
 
 import 'models/route_parameter_config.dart';
@@ -13,11 +13,11 @@ const TypeChecker stackedRouteChecker = TypeChecker.fromRuntime(StackedRoute);
 // extracts route configs from class fields
 class RouteConfigResolver {
   final String? routeNamePrefex;
-  final ImportResolver _importResolver;
+  final TypeResolver _typeResolver;
 
   const RouteConfigResolver(
     this.routeNamePrefex,
-    this._importResolver,
+    this._typeResolver,
   );
 
   Future<RouteConfig> resolve(ConstantReader stackedRoute,
@@ -29,8 +29,8 @@ class RouteConfigResolver {
       element: dartType.element2!,
     );
 
-    final classElement = dartType.element2 as ClassElement;
-    final import = _importResolver.resolve(classElement);
+    final classElement = dartType.element as ClassElement;
+    final import = _typeResolver.resolveImport(classElement);
     final classNameWithImport = MapEntry(toDisplayString(dartType), import!);
 
     String? pathName = stackedRoute.peek('path')?.stringValue;
@@ -63,7 +63,7 @@ class RouteConfigResolver {
           toDisplayString(params.first.type) == 'Key') {
         hasConstConstructor = true;
       } else {
-        final paramResolver = RouteParameterResolver(_importResolver);
+        final paramResolver = RouteParameterResolver(_typeResolver);
         for (ParameterElement p in constructor.parameters) {
           parameters.add(paramResolver.resolve(p));
         }
@@ -85,6 +85,6 @@ class RouteConfigResolver {
             fullscreenDialog:
                 stackedRoute.peek('fullscreenDialog')?.boolValue ?? false,
             hasConstConstructor: hasConstConstructor)
-        .fromResolver(stackedRoute, _importResolver);
+        .fromResolver(stackedRoute);
   }
 }
