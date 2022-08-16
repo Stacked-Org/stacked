@@ -116,19 +116,19 @@ class StackedRouter extends _i1.RouterBase {
 }
 
 class HomeViewArguments {
-  const HomeViewArguments({this.key, this.title, this.isLoggedIn = 'false'});
+  const HomeViewArguments({this.key, this.title, this.isLoggedIn = false});
 
-  final _i10.Key key;
+  final _i10.Key? key;
 
-  final String title;
+  final String? title;
 
-  final bool isLoggedIn;
+  final bool? isLoggedIn;
 }
 
 class StreamCounterViewArguments {
   const StreamCounterViewArguments({this.key, required this.clashableTwo});
 
-  final _i10.Key key;
+  final _i10.Key? key;
 
   final List<_i11.Clashable> clashableTwo;
 }
@@ -136,7 +136,7 @@ class StreamCounterViewArguments {
 class DetailsViewArguments {
   const DetailsViewArguments({this.key, required this.name});
 
-  final _i10.Key key;
+  final _i10.Key? key;
 
   final String name;
 }
@@ -144,7 +144,7 @@ class DetailsViewArguments {
 class ExampleFormViewArguments {
   const ExampleFormViewArguments({this.key, required this.clashableOne});
 
-  final _i10.Key key;
+  final _i10.Key? key;
 
   final _i12.Clashable clashableOne;
 }
@@ -205,9 +205,9 @@ class BottomNavExampleRouter extends _i1.RouterBase {
 class NestedFavoritesViewArguments {
   const NestedFavoritesViewArguments({this.key, this.id});
 
-  final _i10.Key key;
+  final _i10.Key? key;
 
-  final String id;
+  final String? id;
 }
 
 class FavoritesViewRoutes {
@@ -253,9 +253,9 @@ class FavoritesViewRouter extends _i1.RouterBase {
 
 extension NavigatorStateExtension on _i17.NavigationService {
   Future<dynamic> navigateToHomeView(
-      {_i10.Key key,
-      String title,
-      bool isLoggedIn = 'false',
+      {_i10.Key? key,
+      String? title,
+      bool? isLoggedIn = false,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
@@ -286,7 +286,7 @@ extension NavigatorStateExtension on _i17.NavigationService {
   }
 
   Future<dynamic> navigateToStreamCounterView(
-      {_i10.Key key,
+      {_i10.Key? key,
       required List<_i11.Clashable> clashableTwo,
       int? routerId,
       bool preventDuplicates = true,
@@ -304,7 +304,7 @@ extension NavigatorStateExtension on _i17.NavigationService {
   }
 
   Future<Map<String, List<String>>?> navigateToDetailsView(
-      {_i10.Key key,
+      {_i10.Key? key,
       required String name,
       int? routerId,
       bool preventDuplicates = true,
@@ -321,7 +321,7 @@ extension NavigatorStateExtension on _i17.NavigationService {
   }
 
   Future<dynamic> navigateToExampleFormView(
-      {_i10.Key key,
+      {_i10.Key? key,
       required _i12.Clashable clashableOne,
       int? routerId,
       bool preventDuplicates = true,
@@ -353,8 +353,8 @@ extension NavigatorStateExtension on _i17.NavigationService {
   }
 
   Future<dynamic> navigateToNestedFavoritesViewInBottomNavExample(
-      {_i10.Key key,
-      String id,
+      {_i10.Key? key,
+      String? id,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
