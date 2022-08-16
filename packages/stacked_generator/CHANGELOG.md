@@ -1,4 +1,5 @@
-
+## 0.8.0-beta.2
+- Apply a more general fix to the aliased imports in stacked generator
 ## 0.7.14
 
 - Add `instanceName` parameter to the DependencyRegistration annotation
