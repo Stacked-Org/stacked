@@ -16,10 +16,11 @@ class ResolvedType {
   String get identity => "$import#$name";
 
   TypeReference get refer {
+    /// When this (bug)[https://github.com/dart-lang/code_builder/issues/315] is fixed
+    /// use the isNullable flag instead of adding '?' expicitly
     return TypeReference((b) => b
-      ..symbol = name
+      ..symbol = isNullable ? name + '?' : name
       ..url = import
-      ..isNullable = isNullable
       ..types.addAll(typeArguments.map((e) => e.refer)));
   }
 

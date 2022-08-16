@@ -38,7 +38,7 @@ class ArgumentClassBuilderHelper {
 
         // Assign default value
         if (param.defaultValueCode != null) {
-          parameterBuilder..defaultTo = literal(param.defaultValueCode).code;
+          parameterBuilder..defaultTo = Code(param.defaultValueCode!);
         }
 
         // Add required keyword
