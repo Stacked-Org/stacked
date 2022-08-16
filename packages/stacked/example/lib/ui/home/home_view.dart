@@ -10,7 +10,7 @@ class HomeView extends StatelessWidget {
   final bool? isLoggedIn;
   const HomeView({
     Key? key,
-    this.title,
+    this.title = 'hello',
     this.isLoggedIn = false,
   }) : super(key: key);
 

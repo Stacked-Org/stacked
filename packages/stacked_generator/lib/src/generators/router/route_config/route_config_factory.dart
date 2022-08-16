@@ -1,8 +1,6 @@
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_core/stacked_core.dart';
-import 'package:stacked_generator/type_resolver.dart';
 
-import '../../../../import_resolver.dart';
 import '../models/custom_transition_builder.dart';
 import '../models/route_parameter_config.dart';
 import 'adaptive_route_config.dart';

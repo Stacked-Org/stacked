@@ -116,7 +116,8 @@ class StackedRouter extends _i1.RouterBase {
 }
 
 class HomeViewArguments {
-  const HomeViewArguments({this.key, this.title, this.isLoggedIn = false});
+  const HomeViewArguments(
+      {this.key, this.title = 'hello', this.isLoggedIn = false});
 
   final _i10.Key? key;
 
@@ -254,7 +255,7 @@ class FavoritesViewRouter extends _i1.RouterBase {
 extension NavigatorStateExtension on _i17.NavigationService {
   Future<dynamic> navigateToHomeView(
       {_i10.Key? key,
-      String? title,
+      String? title = 'hello',
       bool? isLoggedIn = false,
       int? routerId,
       bool preventDuplicates = true,

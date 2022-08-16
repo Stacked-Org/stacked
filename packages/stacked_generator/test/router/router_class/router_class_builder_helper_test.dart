@@ -1,3 +1,4 @@
+import 'package:stacked_generator/resolved_type.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/router/generator/router_class/router_class_builder_helper.dart';
 import 'package:stacked_generator/src/generators/router/route_config/material_route_config.dart';
@@ -18,7 +19,7 @@ final List<RouteConfig> _routes = [
     parameters: [
       RouteParamConfig(
           name: 'name',
-          type: 'String',
+          type: ResolvedType(name: 'String'),
           isRequired: true,
           isPathParam: false,
           isQueryParam: false)
