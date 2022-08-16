@@ -23,3 +23,12 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+# pub.dev was not able to automatically detects the supporting platforms, so here are listed explicitly
+platforms:
+  android:
+  ios:
+  linux:
+  macos:
+  web:
+  windows:
