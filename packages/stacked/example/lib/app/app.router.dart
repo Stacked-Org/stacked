@@ -6,25 +6,24 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:example/app/custom_route_transition.dart' as _i9;
+import 'package:example/datamodels/clashable_one.dart' as _i12;
+import 'package:example/datamodels/clashable_two.dart' as _i11;
+import 'package:example/ui/bottom_nav/bottom_nav_example.dart' as _i3;
+import 'package:example/ui/bottom_nav/favorites/favorites_view.dart' as _i13;
+import 'package:example/ui/bottom_nav/history/history_view.dart' as _i14;
+import 'package:example/ui/bottom_nav/profile/profile_view.dart' as _i15;
+import 'package:example/ui/details/details_view.dart' as _i5;
+import 'package:example/ui/form/example_form_view.dart' as _i6;
+import 'package:example/ui/home/home_view.dart' as _i2;
+import 'package:example/ui/multiple_futures_example/multiple_futures_example_view.dart'
+    as _i16;
+import 'package:example/ui/nonreactive/nonreactive_view.dart' as _i7;
+import 'package:example/ui/stream_view/stream_counter_view.dart' as _i4;
 import 'package:flutter/cupertino.dart' as _i8;
+import 'package:flutter/material.dart' as _i10;
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart' as _i10;
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i17;
-
-import '../datamodels/clashable_one.dart' as _i12;
-import '../datamodels/clashable_two.dart' as _i11;
-import '../ui/bottom_nav/bottom_nav_example.dart' as _i3;
-import '../ui/bottom_nav/favorites/favorites_view.dart' as _i13;
-import '../ui/bottom_nav/history/history_view.dart' as _i14;
-import '../ui/bottom_nav/profile/profile_view.dart' as _i15;
-import '../ui/details/details_view.dart' as _i5;
-import '../ui/form/example_form_view.dart' as _i6;
-import '../ui/home/home_view.dart' as _i2;
-import '../ui/multiple_futures_example/multiple_futures_example_view.dart'
-    as _i16;
-import '../ui/nonreactive/nonreactive_view.dart' as _i7;
-import '../ui/stream_view/stream_counter_view.dart' as _i4;
 
 class Routes {
   static const homeView = '/';
@@ -65,7 +64,8 @@ class StackedRouter extends _i1.RouterBase {
         orElse: () => HomeViewArguments(),
       );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => _i2.HomeView(key: args.key, title: args.title),
+        builder: (context) => _i2.HomeView(
+            key: args.key, title: args.title, isLoggedIn: args.isLoggedIn),
         settings: data,
       );
     },
@@ -116,17 +116,19 @@ class StackedRouter extends _i1.RouterBase {
 }
 
 class HomeViewArguments {
-  const HomeViewArguments({this.key, this.title});
+  const HomeViewArguments({this.key, this.title, this.isLoggedIn = 'false'});
 
-  final _i10.Key? key;
+  final _i10.Key key;
 
-  final String? title;
+  final String title;
+
+  final bool isLoggedIn;
 }
 
 class StreamCounterViewArguments {
   const StreamCounterViewArguments({this.key, required this.clashableTwo});
 
-  final _i10.Key? key;
+  final _i10.Key key;
 
   final List<_i11.Clashable> clashableTwo;
 }
@@ -134,7 +136,7 @@ class StreamCounterViewArguments {
 class DetailsViewArguments {
   const DetailsViewArguments({this.key, required this.name});
 
-  final _i10.Key? key;
+  final _i10.Key key;
 
   final String name;
 }
@@ -142,7 +144,7 @@ class DetailsViewArguments {
 class ExampleFormViewArguments {
   const ExampleFormViewArguments({this.key, required this.clashableOne});
 
-  final _i10.Key? key;
+  final _i10.Key key;
 
   final _i12.Clashable clashableOne;
 }
@@ -203,9 +205,9 @@ class BottomNavExampleRouter extends _i1.RouterBase {
 class NestedFavoritesViewArguments {
   const NestedFavoritesViewArguments({this.key, this.id});
 
-  final _i10.Key? key;
+  final _i10.Key key;
 
-  final String? id;
+  final String id;
 }
 
 class FavoritesViewRoutes {
@@ -251,8 +253,9 @@ class FavoritesViewRouter extends _i1.RouterBase {
 
 extension NavigatorStateExtension on _i17.NavigationService {
   Future<dynamic> navigateToHomeView(
-      {_i10.Key? key,
-      String? title,
+      {_i10.Key key,
+      String title,
+      bool isLoggedIn = 'false',
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
@@ -260,7 +263,8 @@ extension NavigatorStateExtension on _i17.NavigationService {
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
     navigateTo(Routes.homeView,
-        arguments: HomeViewArguments(key: key, title: title),
+        arguments:
+            HomeViewArguments(key: key, title: title, isLoggedIn: isLoggedIn),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -282,7 +286,7 @@ extension NavigatorStateExtension on _i17.NavigationService {
   }
 
   Future<dynamic> navigateToStreamCounterView(
-      {_i10.Key? key,
+      {_i10.Key key,
       required List<_i11.Clashable> clashableTwo,
       int? routerId,
       bool preventDuplicates = true,
@@ -300,7 +304,7 @@ extension NavigatorStateExtension on _i17.NavigationService {
   }
 
   Future<Map<String, List<String>>?> navigateToDetailsView(
-      {_i10.Key? key,
+      {_i10.Key key,
       required String name,
       int? routerId,
       bool preventDuplicates = true,
@@ -317,7 +321,7 @@ extension NavigatorStateExtension on _i17.NavigationService {
   }
 
   Future<dynamic> navigateToExampleFormView(
-      {_i10.Key? key,
+      {_i10.Key key,
       required _i12.Clashable clashableOne,
       int? routerId,
       bool preventDuplicates = true,
@@ -349,8 +353,8 @@ extension NavigatorStateExtension on _i17.NavigationService {
   }
 
   Future<dynamic> navigateToNestedFavoritesViewInBottomNavExample(
-      {_i10.Key? key,
-      String? id,
+      {_i10.Key key,
+      String id,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,

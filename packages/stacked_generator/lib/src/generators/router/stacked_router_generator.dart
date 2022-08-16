@@ -7,6 +7,7 @@ import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 
+import '../../../type_resolver.dart';
 import 'generator/router_generator.dart';
 
 class StackedRouterGenerator extends GeneratorForAnnotation<StackedApp> {
@@ -17,10 +18,10 @@ class StackedRouterGenerator extends GeneratorForAnnotation<StackedApp> {
     BuildStep buildStep,
   ) async {
     final libs = await buildStep.resolver.libraries.toList();
-    final importResolver = ImportResolver(libs, element.source?.uri.path ?? '');
+    final typeResolver = TypeResolver(libs);
 
     final routerConfig =
-        await RouterConfigResolver(importResolver).resolve(annotation);
+        await RouterConfigResolver(typeResolver).resolve(annotation);
 
     if (routerConfig != null)
       return RouterGenerator(routerConfig).generate();

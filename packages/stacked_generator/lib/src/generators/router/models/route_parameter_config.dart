@@ -1,8 +1,8 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:stacked_core/stacked_core.dart';
-import 'package:stacked_generator/import_resolver.dart';
 import 'package:source_gen/source_gen.dart';
-import 'package:stacked_generator/utils.dart';
+import 'package:stacked_generator/resolved_type.dart';
+import 'package:stacked_generator/type_resolver.dart';
 
 final pathParamChecker = TypeChecker.fromRuntime(PathParam);
 final queryParamChecker = TypeChecker.fromRuntime(QueryParam);
@@ -10,7 +10,7 @@ final queryParamChecker = TypeChecker.fromRuntime(QueryParam);
 /// holds constructor parameter info to be used
 /// in generating route parameters.
 class RouteParamConfig {
-  final String type;
+  final ResolvedType type;
   final String name;
   final String? alias;
   final bool isPositional;
@@ -19,7 +19,6 @@ class RouteParamConfig {
   final bool? isQueryParam;
   // TODO: this support only [String] type for now, should make it dynamic
   final String? defaultValueCode;
-  final Set<String>? imports;
 
   RouteParamConfig({
     required this.type,
@@ -30,31 +29,10 @@ class RouteParamConfig {
     this.isPathParam,
     this.isQueryParam,
     this.defaultValueCode,
-    this.imports,
   });
 
   String get getterName {
     switch (type) {
-      case 'String':
-        return 'getString';
-      case 'int':
-        return 'getInt';
-      case 'double':
-        return 'getDouble';
-      case 'num':
-        return 'getNum';
-      case 'bool':
-        return 'getBool';
-      case 'String?':
-        return 'optString';
-      case 'int?':
-        return 'optInt';
-      case 'double?':
-        return 'optDouble';
-      case 'num?':
-        return 'optNum';
-      case 'bool?':
-        return 'optBool';
       default:
         return 'value';
     }
@@ -64,10 +42,10 @@ class RouteParamConfig {
 }
 
 class RouteParameterResolver {
-  final ImportResolver _importResolver;
+  final TypeResolver _typeResolver;
   final Set<String> imports = {};
 
-  RouteParameterResolver(this._importResolver);
+  RouteParameterResolver(this._typeResolver);
 
   RouteParamConfig resolve(ParameterElement parameterElement) {
     final paramType = parameterElement.type;
@@ -89,14 +67,14 @@ class RouteParameterResolver {
     }
 
     return RouteParamConfig(
-        type: toDisplayString(paramType, withNullability: true),
-        name: parameterElement.name.replaceFirst("_", ''),
-        alias: paramAlias,
-        isPositional: parameterElement.isPositional,
-        isRequired: !parameterElement.isOptional,
-        isPathParam: pathParam,
-        isQueryParam: isQuery,
-        defaultValueCode: parameterElement.defaultValueCode,
-        imports: _importResolver.resolveAll(paramType));
+      type: _typeResolver.resolveType(paramType),
+      name: parameterElement.name.replaceFirst("_", ''),
+      alias: paramAlias,
+      isPositional: parameterElement.isPositional,
+      isRequired: !parameterElement.isOptional,
+      isPathParam: pathParam,
+      isQueryParam: isQuery,
+      defaultValueCode: parameterElement.defaultValueCode,
+    );
   }
 }
