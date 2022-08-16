@@ -1,3 +1,6 @@
+## 0.9.5
+- Adds `closeSnackbar` method to be able to close the snackbar programmatically
+- Removes nullability on the `isSnackbarOpen` getter
 ## 0.9.4
 - Adds `id` to the `popUntil` function in `NavigationService` to allow for nested navigation
 ## 0.9.3
