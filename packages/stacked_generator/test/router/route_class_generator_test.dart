@@ -1,3 +1,4 @@
+import 'package:stacked_generator/resolved_type.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/router/generator/router_generator.dart';
 import 'package:stacked_generator/src/generators/router/route_config/adaptive_route_config.dart';
@@ -792,11 +793,13 @@ When a view parameter inside another data structure,
             className: MapEntry('TestClass', 'test.dart'),
             parameters: [
               RouteParamConfig(
-                  isPathParam: false,
-                  isQueryParam: false,
-                  name: 'markers',
-                  imports: {'map.dart'},
-                  type: 'List<Marker>'),
+                isPathParam: false,
+                isQueryParam: false,
+                name: 'markers',
+                type: ResolvedType(name: 'List', typeArguments: [
+                  ResolvedType(name: 'Marker', import: 'map.dart')
+                ]),
+              ),
             ],
           )
         ];
@@ -814,11 +817,11 @@ When a view parameter inside another data structure,
             className: MapEntry('TestClass', 'test.dart'),
             parameters: [
               RouteParamConfig(
-                  isPathParam: false,
-                  isQueryParam: false,
-                  name: 'name',
-                  imports: {'map.dart'},
-                  type: 'String'),
+                isPathParam: false,
+                isQueryParam: false,
+                name: 'name',
+                type: ResolvedType(name: 'String', import: 'map.dart'),
+              ),
             ],
           )
         ];
@@ -846,8 +849,8 @@ When a view parameter inside another data structure,
                 parameters: [
                   RouteParamConfig(
                     name: 'test2paramName',
-                    type: 'Test2Type',
-                    imports: {'test2type.dart'},
+                    type: ResolvedType(
+                        name: 'Test2Type', import: 'test2type.dart'),
                     isPathParam: false,
                     isQueryParam: true,
                   ),
@@ -859,8 +862,8 @@ When a view parameter inside another data structure,
                 parameters: [
                   RouteParamConfig(
                     name: 'test3paramName',
-                    type: 'Test3Type',
-                    imports: {'test3type.dart'},
+                    type: ResolvedType(
+                        name: 'Test3Type', import: 'test3type.dart'),
                     isPathParam: false,
                     isQueryParam: false,
                   ),

@@ -16,6 +16,8 @@ class ResolvedType {
   String get identity => "$import#$name";
 
   TypeReference get refer {
+    print('name: $name, typeArguments: ${typeArguments}');
+
     /// When this (bug)[https://github.com/dart-lang/code_builder/issues/315] is fixed
     /// use the isNullable flag instead of adding '?' expicitly
     return TypeReference((b) => b
