@@ -16,7 +16,9 @@ class ArgumentClassBuilderHelper {
               (b) => b
                 ..modifier = FieldModifier.final$
                 ..name = param.name
-                ..type = param.type.refer,
+                ..type = param is FunctionParamConfig
+                    ? param.funRefer
+                    : param.type.refer,
             ))
         .toList();
   }

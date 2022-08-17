@@ -6,8 +6,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:example/app/custom_route_transition.dart' as _i9;
-import 'package:example/datamodels/clashable_one.dart' as _i12;
-import 'package:example/datamodels/clashable_two.dart' as _i11;
+import 'package:example/datamodels/clashable_one.dart' as _i11;
+import 'package:example/datamodels/clashable_two.dart' as _i12;
 import 'package:example/ui/bottom_nav/bottom_nav_example.dart' as _i3;
 import 'package:example/ui/bottom_nav/favorites/favorites_view.dart' as _i13;
 import 'package:example/ui/bottom_nav/history/history_view.dart' as _i14;
@@ -65,7 +65,10 @@ class StackedRouter extends _i1.RouterBase {
       );
       return MaterialPageRoute<dynamic>(
         builder: (context) => _i2.HomeView(
-            key: args.key, title: args.title, isLoggedIn: args.isLoggedIn),
+            key: args.key,
+            title: args.title,
+            isLoggedIn: args.isLoggedIn,
+            clashableGetter: args.clashableGetter),
         settings: data,
       );
     },
@@ -117,13 +120,18 @@ class StackedRouter extends _i1.RouterBase {
 
 class HomeViewArguments {
   const HomeViewArguments(
-      {this.key, this.title = 'hello', this.isLoggedIn = false});
+      {this.key,
+      this.title = 'hello',
+      this.isLoggedIn = false,
+      this.clashableGetter});
 
   final _i10.Key? key;
 
   final String? title;
 
   final bool? isLoggedIn;
+
+  final _i11.Clashable Function(String)? clashableGetter;
 }
 
 class StreamCounterViewArguments {
@@ -131,7 +139,7 @@ class StreamCounterViewArguments {
 
   final _i10.Key? key;
 
-  final List<_i11.Clashable> clashableTwo;
+  final List<_i12.Clashable> clashableTwo;
 }
 
 class DetailsViewArguments {
@@ -147,7 +155,7 @@ class ExampleFormViewArguments {
 
   final _i10.Key? key;
 
-  final _i12.Clashable clashableOne;
+  final _i11.Clashable clashableOne;
 }
 
 class BottomNavExampleRoutes {
@@ -257,6 +265,7 @@ extension NavigatorStateExtension on _i17.NavigationService {
       {_i10.Key? key,
       String? title = 'hello',
       bool? isLoggedIn = false,
+      _i11.Clashable Function(String)? clashableGetter,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
@@ -264,8 +273,11 @@ extension NavigatorStateExtension on _i17.NavigationService {
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
     navigateTo(Routes.homeView,
-        arguments:
-            HomeViewArguments(key: key, title: title, isLoggedIn: isLoggedIn),
+        arguments: HomeViewArguments(
+            key: key,
+            title: title,
+            isLoggedIn: isLoggedIn,
+            clashableGetter: clashableGetter),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -288,7 +300,7 @@ extension NavigatorStateExtension on _i17.NavigationService {
 
   Future<dynamic> navigateToStreamCounterView(
       {_i10.Key? key,
-      required List<_i11.Clashable> clashableTwo,
+      required List<_i12.Clashable> clashableTwo,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
@@ -323,7 +335,7 @@ extension NavigatorStateExtension on _i17.NavigationService {
 
   Future<dynamic> navigateToExampleFormView(
       {_i10.Key? key,
-      required _i12.Clashable clashableOne,
+      required _i11.Clashable clashableOne,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,

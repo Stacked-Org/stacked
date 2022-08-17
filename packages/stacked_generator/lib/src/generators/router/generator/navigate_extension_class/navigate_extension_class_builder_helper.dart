@@ -32,7 +32,8 @@ class NavigateExtensionClassBuilderHelper {
     return Parameter((parameterBuilder) {
       parameterBuilder
         ..name = param.name
-        ..type = param.type.refer
+        ..type =
+            param is FunctionParamConfig ? param.funRefer : param.type.refer
         ..named = true;
 
       // Assign default value

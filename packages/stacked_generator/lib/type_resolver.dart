@@ -4,6 +4,7 @@ import 'package:analyzer/dart/element/nullability_suffix.dart'
 import 'package:analyzer/dart/element/type.dart'
     show DartType, ParameterizedType;
 import 'package:path/path.dart' as p;
+import 'package:analyzer/dart/element/type.dart';
 
 import 'resolved_type.dart';
 
