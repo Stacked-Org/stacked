@@ -76,11 +76,8 @@ class RouteConfigFactory {
             ? '${function.enclosingElement2.displayName}.$displayName'
             : displayName;
 
-        String? import;
-        if (function.enclosingElement2.name != 'TransitionsBuilders') {
-          import = function.source.uri.toString();
-        }
-        customTransitionBuilder = CustomTransitionBuilder(functionName, import);
+        customTransitionBuilder = CustomTransitionBuilder(
+            functionName, function.source.uri.toString());
       }
 
       var customRouteConfig = CustomRouteConfig(
