@@ -17,14 +17,16 @@ import 'package:example/ui/form/example_form_view.dart' as _i6;
 import 'package:example/ui/home/home_view.dart' as _i2;
 import 'package:example/ui/home/home_viewmodel.dart' as _i10;
 import 'package:example/ui/multiple_futures_example/multiple_futures_example_view.dart'
-    as _i17;
+    as _i18;
 import 'package:example/ui/nonreactive/nonreactive_view.dart' as _i7;
 import 'package:example/ui/stream_view/stream_counter_view.dart' as _i4;
 import 'package:flutter/cupertino.dart' as _i8;
 import 'package:flutter/material.dart' as _i11;
 import 'package:flutter/material.dart';
+import 'package:stacked/src/code_generation/router_annotation/transitions_builders.dart'
+    as _i17;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i18;
+import 'package:stacked_services/stacked_services.dart' as _i19;
 
 class Routes {
   static const homeView = '/';
@@ -196,10 +198,7 @@ class BottomNavExampleRouter extends _i1.RouterBase {
         pageBuilder: (context, animation, secondaryAnimation) =>
             const _i15.HistoryView(),
         settings: data,
-        transitionsBuilder: data.transition ??
-            (context, animation, secondaryAnimation, child) {
-              return child;
-            },
+        transitionsBuilder: data.transition ?? _i17.TransitionsBuilders.fadeIn,
       );
     },
     _i16.ProfileView: (data) {
@@ -235,14 +234,14 @@ class FavoritesViewRoutes {
 class FavoritesViewRouter extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
     _i1.RouteDef(FavoritesViewRoutes.multipleFuturesExampleView,
-        page: _i17.MultipleFuturesExampleView),
+        page: _i18.MultipleFuturesExampleView),
     _i1.RouteDef(FavoritesViewRoutes.historyView, page: _i15.HistoryView)
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
-    _i17.MultipleFuturesExampleView: (data) {
+    _i18.MultipleFuturesExampleView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const _i17.MultipleFuturesExampleView(),
+        builder: (context) => const _i18.MultipleFuturesExampleView(),
         settings: data,
       );
     },
@@ -265,7 +264,7 @@ class FavoritesViewRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i18.NavigationService {
+extension NavigatorStateExtension on _i19.NavigationService {
   Future<dynamic> navigateToHomeView(
       {_i11.Key? key,
       String? title = 'hello',
