@@ -1,3 +1,5 @@
+## 0.8.0-beta.4
+- Support providing enums as route arguments
 ## 0.8.0-beta.3
 - Support providing functions as route arguments
 ## 0.8.0-beta.2
