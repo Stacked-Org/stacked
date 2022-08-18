@@ -4,6 +4,8 @@ import 'package:example/app/app.router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+enum HomeType { caravan, appartment }
+
 class HomeViewModel extends BaseViewModel {
   final log = getLogger('HomeViewModel');
   final NavigationService _navigationService =
