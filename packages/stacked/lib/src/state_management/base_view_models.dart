@@ -12,29 +12,6 @@ import 'helpers/message_state_helper.dart';
 /// Contains ViewModel functionality for busy and error state management
 class BaseViewModel extends ChangeNotifier
     with BuilderHelpers, BusyStateHelper, ErrorStateHelper {
-  // Sets up streamData property to hold data, busy, and lifecycle events
-  @protected
-  StreamData setupStream<T>(
-    Stream<T> stream, {
-    onData,
-    onSubscribed,
-    onError,
-    onCancel,
-    transformData,
-  }) {
-    StreamData<T> streamData = StreamData<T>(
-      stream,
-      onData: onData,
-      onSubscribed: onSubscribed,
-      onError: onError,
-      onCancel: onCancel,
-      transformData: transformData,
-    );
-    streamData.initialise();
-
-    return streamData;
-  }
-
   @override
   void notifyListeners() {
     if (!disposed) {
