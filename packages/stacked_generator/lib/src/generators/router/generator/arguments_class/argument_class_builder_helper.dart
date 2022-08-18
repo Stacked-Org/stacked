@@ -40,7 +40,9 @@ class ArgumentClassBuilderHelper {
 
         // Assign default value
         if (param.defaultValueCode != null) {
-          parameterBuilder..defaultTo = Code(param.defaultValueCode!);
+          parameterBuilder
+            ..defaultTo =
+                refer(param.defaultValueCode!, param.type.import).code;
         }
 
         // Add required keyword
