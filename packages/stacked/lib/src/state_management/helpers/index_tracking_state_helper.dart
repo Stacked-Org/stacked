@@ -1,7 +1,6 @@
-import 'package:stacked/src/state_management/base_view_models.dart';
-import 'package:stacked/src/state_management/reactive_service_mixin.dart';
+import 'package:flutter/material.dart';
 
-class IndexTrackingViewModel extends ReactiveViewModel {
+mixin IndexTrackingStateHelper on ChangeNotifier {
   int _currentIndex = 0;
   int get currentIndex => _currentIndex;
 
@@ -22,7 +21,4 @@ class IndexTrackingViewModel extends ReactiveViewModel {
   }
 
   bool isIndexSelected(int index) => _currentIndex == index;
-
-  @override
-  List<ReactiveServiceMixin> get reactiveServices => [];
 }
