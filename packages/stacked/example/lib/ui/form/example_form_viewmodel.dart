@@ -8,7 +8,7 @@ import '../../app/app.locator.dart';
 import 'example_form_view.form.dart';
 
 // #5: extend from FormViewModel
-class ExampleFormViewModel extends FormViewModel {
+class ExampleFormViewModel extends BaseViewModel with FormStateHelper {
   final log = getLogger('FormViewModel');
   final _navigationService = exampleLocator<NavigationService>();
 

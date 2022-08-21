@@ -79,20 +79,20 @@ mixin $ExampleFormView on StatelessWidget {
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
-  void listenToFormUpdated(FormViewModel model) {
+  void listenToFormUpdated(FormStateHelper model) {
     emailController.addListener(() => _updateFormData(model));
     passwordController.addListener(() => _updateFormData(model));
     shortBioController.addListener(() => _updateFormData(model));
   }
 
   final bool _autoTextFieldValidation = false;
-  bool validateFormFields(FormViewModel model) {
+  bool validateFormFields(FormStateHelper model) {
     _updateFormData(model, forceValidate: true);
     return model.isFormValid;
   }
 
-  /// Updates the formData on the FormViewModel
-  void _updateFormData(FormViewModel model, {bool forceValidate = false}) {
+  /// Updates the formData on the FormStateHelper
+  void _updateFormData(FormStateHelper model, {bool forceValidate = false}) {
     model.setData(
       model.formValueMap
         ..addAll({
@@ -106,8 +106,8 @@ mixin $ExampleFormView on StatelessWidget {
     }
   }
 
-  /// Updates the fieldsValidationMessages on the FormViewModel
-  void _updateValidationData(FormViewModel model) =>
+  /// Updates the fieldsValidationMessages on the FormStateHelper
+  void _updateValidationData(FormStateHelper model) =>
       model.setValidationMessages({
         EmailValueKey: _getValidationMessage(EmailValueKey),
         PasswordValueKey: _getValidationMessage(PasswordValueKey),
@@ -139,7 +139,7 @@ mixin $ExampleFormView on StatelessWidget {
   }
 }
 
-extension ValueProperties on FormViewModel {
+extension ValueProperties on FormStateHelper {
   bool get isFormValid =>
       this.fieldsValidationMessages.values.every((element) => element == null);
   String? get emailValue => this.formValueMap[EmailValueKey] as String?;
@@ -180,7 +180,7 @@ extension ValueProperties on FormViewModel {
       this.fieldsValidationMessages[DoYouLoveFoodValueKey];
 }
 
-extension Methods on FormViewModel {
+extension Methods on FormStateHelper {
   Future<void> selectBirthDate(
       {required BuildContext context,
       required DateTime initialDate,
