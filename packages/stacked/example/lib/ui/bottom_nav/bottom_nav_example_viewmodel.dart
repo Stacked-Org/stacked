@@ -6,7 +6,8 @@ import 'package:example/ui/bottom_nav/history/history_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class BottomNavExampleViewModel extends IndexTrackingViewModel {
+class BottomNavExampleViewModel extends BaseViewModel
+    with IndexTrackingStateHelper {
   final log = getLogger('BottomNavExampleViewModel');
   final _navigationService = exampleLocator<NavigationService>();
 
