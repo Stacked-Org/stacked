@@ -35,7 +35,7 @@ class DependencyConfigFactory {
       '🛑 No dependency class Type defined for ${dependencyConfig.toString()}. Please make sure that any of the services provided to the services list in the StackedApp annotation has a service provided. Please see the documentation for stacked_generator if you don\'t know what this means.',
     );
 
-    final classElement = dependencyClassType!.element as ClassElement?;
+    final classElement = dependencyClassType!.element2 as ClassElement?;
 
     throwIf(
       classElement == null,
@@ -54,7 +54,7 @@ class DependencyConfigFactory {
     final import = importResolver.resolve(classElement!);
 
     final abstractedClassElement =
-        dependencyAbstractedClassType?.element as ClassElement?;
+        dependencyAbstractedClassType?.element2 as ClassElement?;
 
     final abstractedImport = importResolver.resolve(abstractedClassElement);
 

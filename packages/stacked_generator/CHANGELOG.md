@@ -1,4 +1,8 @@
 
+## 0.7.15
+
+- Updates analyzer package
+- Fixes deprecated element and enclosingElement2
 ## 0.7.14
 
 - Add `instanceName` parameter to the DependencyRegistration annotation
