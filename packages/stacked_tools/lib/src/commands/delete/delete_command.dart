@@ -1,4 +1,5 @@
 import 'package:args/command_runner.dart';
+import 'package:stacked_tools/src/commands/delete/delete_service_command.dart';
 
 import 'delete_view_commad.dart';
 
@@ -14,7 +15,6 @@ class DeleteCommand extends Command {
 
   DeleteCommand() {
     addSubcommand(DeleteViewCommand());
-
-    ///TODO: addSubCommand(DeleteServiceCommand)
+    addSubcommand(DeleteServiceCommand());
   }
 }
