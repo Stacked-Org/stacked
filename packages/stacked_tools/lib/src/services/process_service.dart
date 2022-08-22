@@ -9,6 +9,12 @@ import 'package:stacked_tools/src/services/colorized_log_service.dart';
 class ProcessService {
   final _cLog = locator<ColorizedLogService>();
 
+  String _formattingLineLength = '80';
+
+  set formattingLineLength(String? length) {
+    _formattingLineLength = length ?? '80';
+  }
+
   /// It creates a new flutter app.
   ///
   /// Args:
@@ -48,10 +54,15 @@ class ProcessService {
   ///
   /// Args:
   ///   appName (String): The name of the app.
-  Future<void> runFormat({String? appName}) async {
+  Future<void> runFormat({String? appName, String? filePath}) async {
     await _runProcessAndLogOutput(
       programName: ksFlutter,
-      arguments: [ksFormat, ksCurrentDirectory],
+      arguments: [
+        ksFormat,
+        filePath ?? ksCurrentDirectory,
+        '-l',
+        _formattingLineLength
+      ],
       workingDirectory: appName,
     );
   }
@@ -83,7 +94,7 @@ class ProcessService {
 
       final exitCode = await process.exitCode;
 
-      logSucessStatus(exitCode);
+      logSuccessStatus(exitCode);
     } on ProcessException catch (e) {
       _cLog.error(message: 'Command failed. ${e.message}');
     }
@@ -94,7 +105,7 @@ class ProcessService {
   /// Args:
   ///   exitCode (int): The exit code of the command.
   ///
-  void logSucessStatus(int exitCode) {
+  void logSuccessStatus(int exitCode) {
     if (exitCode == 0) {
       _cLog.success(
         message: 'Command complete. ExitCode: $exitCode',

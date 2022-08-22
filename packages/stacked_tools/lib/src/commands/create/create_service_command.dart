@@ -1,7 +1,7 @@
 import 'package:args/command_runner.dart';
 import 'package:stacked_tools/src/constants/command_constants.dart';
-import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/constants/message_constants.dart';
+import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/mixins/project_structure_validator_mixin.dart';
 import 'package:stacked_tools/src/services/process_service.dart';
 import 'package:stacked_tools/src/services/template_service.dart';
@@ -27,11 +27,18 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
       defaultsTo: false,
       help: kCommandHelpExcludeRoute,
     );
+    argParser.addOption(
+      ksLineLength,
+      abbr: 'l',
+      help: 'The length of the line that is used for formatting',
+      valueHelp: '80',
+    );
   }
 
   @override
   Future<void> run() async {
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
+    _processService.formattingLineLength = argResults?[ksLineLength];
     await _pubspecService.initialise(workingDirectory: outputPath);
     await validateStructure(outputPath: outputPath);
 
@@ -43,6 +50,5 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
       excludeRoute: argResults![ksExcludeDependency],
     );
     await _processService.runBuildRunner(appName: outputPath);
-    await _processService.runFormat(appName: outputPath);
   }
 }
