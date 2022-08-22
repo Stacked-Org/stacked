@@ -64,8 +64,8 @@ final Map<String, FocusNode> _TestViewFocusNodes = {};
 
 ''';
 const kExample1UpdateFormData = '''
-        /// Updates the formData on the FormViewModel
-        void _updateFormData(FormViewModel model, {bool forceValidate = false}) { model.setData(
+        /// Updates the formData on the FormStateHelper
+        void _updateFormData(FormStateHelper model, {bool forceValidate = false}) { model.setData(
               model.formValueMap
                 ..addAll({
             
@@ -79,7 +79,7 @@ EmailValueKey: emailController.text,
 ''';
 const kExample1ViewModelExtensionForGetters = '''
 
-extension ValueProperties on FormViewModel {
+extension ValueProperties on FormStateHelper {
 bool get isFormValid =>
       this.fieldsValidationMessages.values.every((element) => element == null);
 String? get nameValue => this.formValueMap[NameValueKey] as String?;
@@ -105,7 +105,7 @@ String? get dropDownValidationMessage => this.fieldsValidationMessages[DropDownV
 ''';
 const kExample1ViewModelExtensionForMethods = '''
 
-extension Methods on FormViewModel {
+extension Methods on FormStateHelper {
           Future<void> selectDate(
               {required BuildContext context,
               required DateTime initialDate,
@@ -197,7 +197,7 @@ import 'validators/path';
 const kExample1AddListenerRegistrationsForTextFields =
     '''              /// Registers a listener on every generated controller that calls [model.setData()]
               /// with the latest textController values
-              void listenToFormUpdated(FormViewModel model) {
+              void listenToFormUpdated(FormStateHelper model) {
             
 nameController.addListener(() => _updateFormData(model));
 emailController.addListener(() => _updateFormData(model));
@@ -205,8 +205,8 @@ emailController.addListener(() => _updateFormData(model));
 
 ''';
 const kExample1AddValidationDataUpdateFunctionTorTextControllers = '''
-        /// Updates the fieldsValidationMessages on the FormViewModel
-        void _updateValidationData(FormViewModel model) => model.setValidationMessages(
+        /// Updates the fieldsValidationMessages on the FormStateHelper
+        void _updateValidationData(FormStateHelper model) => model.setValidationMessages(
               {
             
 NameValueKey: _getValidationMessage(NameValueKey),
