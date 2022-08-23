@@ -31,7 +31,8 @@ class RouterGenerator implements BaseGenerator {
         ..body.addAll([...classes, navigationExtensionClassBuilder]),
     );
 
-    final emitter = DartEmitter.scoped(orderDirectives: true);
+    final emitter =
+        DartEmitter.scoped(orderDirectives: true, useNullSafetySyntax: true);
 
     return DartFormatter().format('${library.accept(emitter)}');
   }

@@ -1,3 +1,4 @@
+import 'package:example/datamodels/clashable_one.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -7,9 +8,16 @@ import 'home_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
   final String? title;
+  final bool? isLoggedIn;
+  final HomeType homeType;
+  final Clashable Function(String name)? clashableGetter;
+
   const HomeView({
     Key? key,
-    this.title,
+    this.title = 'hello',
+    this.isLoggedIn = false,
+    this.clashableGetter,
+    this.homeType = HomeType.appartment,
   }) : super(key: key);
 
   @override

@@ -14,6 +14,7 @@ import 'package:example/ui/home/home_view.dart';
 import 'package:example/ui/multiple_futures_example/multiple_futures_example_view.dart';
 import 'package:example/ui/nonreactive/nonreactive_view.dart';
 import 'package:example/ui/stream_view/stream_counter_view.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_themes/stacked_themes.dart';
@@ -38,7 +39,10 @@ import 'custom_route_transition.dart';
           CustomRoute(page: HistoryView),
         ],
       ),
-      CustomRoute(page: HistoryView),
+      CustomRoute(
+        page: HistoryView,
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+      ),
       CupertinoRoute(page: ProfileView),
     ]),
     MaterialRoute(page: StreamCounterView),

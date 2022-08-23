@@ -1,6 +1,13 @@
-
-## 0.7.16-beta.0
+## 0.8.0-beta.7
 - Replace `FormViewModel` to `FormStateHelper`
+## 0.8.0-beta.5
+- Fix `transtionBuilders` import
+## 0.8.0-beta.4
+- Support providing enums as route arguments
+## 0.8.0-beta.3
+- Support providing functions as route arguments
+## 0.8.0-beta.2
+- Apply a more general fix to the aliased imports in stacked generator
 ## 0.7.15
 
 - Updates analyzer package

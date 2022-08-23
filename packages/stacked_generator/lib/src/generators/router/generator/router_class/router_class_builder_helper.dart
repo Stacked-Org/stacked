@@ -68,8 +68,7 @@ class RouterClassBuilderHelper {
     ..symbol = 'List'
     ..types.add(TypeReference((b) => b
       ..symbol = 'RouteDef'
-      ..url = 'package:stacked/stacked.dart'
-      ..isNullable = true)));
+      ..url = 'package:stacked/stacked.dart')));
 
   /// Example
   ///
