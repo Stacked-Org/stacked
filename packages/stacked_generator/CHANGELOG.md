@@ -1,4 +1,4 @@
-## 0.8.0-beta.7
+## 0.8.0-beta.6
 - Replace `FormViewModel` to `FormStateHelper`
 ## 0.8.0-beta.5
 - Fix `transtionBuilders` import
