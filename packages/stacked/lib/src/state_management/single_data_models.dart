@@ -7,6 +7,10 @@ import 'helpers/future_runner_helper.dart';
 import 'helpers/message_state_helper.dart';
 
 /// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
+/// This class is mixed with mixins:
+/// - [MessageStateHelper]
+/// - [FutureRunnerHelper]
+/// - [DataStateHelper]
 abstract class FutureViewModel<T> extends DynamicSourceViewModel<T>
     with MessageStateHelper, FutureRunnerHelper, DataStateHelper
     implements Initialisable {
@@ -53,6 +57,10 @@ abstract class FutureViewModel<T> extends DynamicSourceViewModel<T>
   void onData(T? data) {}
 }
 
+/// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Stream]
+/// This class is mixed with mixins:
+/// - [MessageStateHelper]
+/// - [DataStateHelper]
 abstract class StreamViewModel<T> extends DynamicSourceViewModel<T>
     with MessageStateHelper, DataStateHelper
     implements Initialisable {
