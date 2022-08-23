@@ -1,4 +1,6 @@
 
+## 0.7.16-beta.0
+- Replace `FormViewModel` to `FormStateHelper`
 ## 0.7.15
 
 - Updates analyzer package
