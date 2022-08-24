@@ -55,7 +55,7 @@ class SnackbarService {
     String title = '',
     required String message,
     Function(dynamic)? onTap,
-    Duration duration = const Duration(seconds: 3),
+    Duration? duration,
     String? mainButtonTitle,
     void Function()? onMainButtonTapped,
   }) {
@@ -97,7 +97,7 @@ class SnackbarService {
       onTap: onTap,
       barBlur: _snackbarConfig?.barBlur,
       isDismissible: _snackbarConfig?.isDismissible ?? true,
-      duration: duration,
+      duration: duration ?? _snackbarConfig?.duration,
       snackPosition: _snackbarConfig?.snackPosition.toGet,
       backgroundColor: _snackbarConfig?.backgroundColor ?? Colors.grey[800],
       margin: _snackbarConfig?.margin ??
@@ -116,7 +116,7 @@ class SnackbarService {
     ButtonStyle? mainButtonStyle,
     void Function()? onMainButtonTapped,
     Function? onTap,
-    Duration duration = const Duration(seconds: 1),
+    Duration? duration,
   }) async {
     final snackbarConfigSupplied = _customSnackbarConfigs[variant];
     final snackbarConfigBuilder = _customSnackbarConfigBuilders[variant];
@@ -160,6 +160,9 @@ class SnackbarService {
               textAlign: snackbarConfig.titleTextAlign,
             )
           : snackbarConfig.titleText ?? null,
+      /// Please check if its intentionally or some typo mistake : it should be
+      // messageText: snackbarConfig.messageColor != null || message.isNotEmpty
+      /// not like current one
       messageText: _snackbarConfig?.messageColor != null || message.isNotEmpty
           ? Text(
               message,
@@ -189,7 +192,7 @@ class SnackbarService {
       backgroundGradient: snackbarConfig.backgroundGradient,
       mainButton: mainButtonWidget,
       onTap: (object) => onTap!(),
-      duration: duration,
+      duration: duration ?? snackbarConfig.duration,
       isDismissible: snackbarConfig.isDismissible,
       dismissDirection: snackbarConfig.dismissDirection,
       showProgressIndicator: snackbarConfig.showProgressIndicator,
