@@ -208,7 +208,7 @@ class FormBuilder with StringBufferUtils {
     writeLine('''
               /// Registers a listener on every generated controller that calls [model.setData()]
               /// with the latest textController values
-              void listenToFormUpdated(FormStateHelper model) {
+              void listenToFormUpdated(dynamic model) {
             ''');
 
     for (final field in fields.onlyTextFieldConfigs) {
@@ -225,7 +225,7 @@ class FormBuilder with StringBufferUtils {
     writeLine(
         "final bool _autoTextFieldValidation = $autoTextFieldValidation;");
     writeLine("""
-    bool validateFormFields(FormStateHelper model) {
+    bool validateFormFields(dynamic model) {
       _updateFormData(model, forceValidate: true);
       return model.isFormValid;
     }
@@ -236,8 +236,8 @@ class FormBuilder with StringBufferUtils {
   FormBuilder addFormDataUpdateFunctionTorTextControllers() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     writeLine('''
-        /// Updates the formData on the FormStateHelper
-        void _updateFormData(FormStateHelper model, {bool forceValidate = false}) { model.setData(
+        /// Updates the formData on the dynamic
+        void _updateFormData(dynamic model, {bool forceValidate = false}) { model.setData(
               model.formValueMap
                 ..addAll({
             ''');
@@ -260,8 +260,8 @@ class FormBuilder with StringBufferUtils {
   FormBuilder addValidationDataUpdateFunctionTorTextControllers() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     writeLine('''
-        /// Updates the fieldsValidationMessages on the FormStateHelper
-        void _updateValidationData(FormStateHelper model) => model.setValidationMessages(
+        /// Updates the fieldsValidationMessages on the dynamic
+        void _updateValidationData(dynamic model) => model.setValidationMessages(
               {
             ''');
 
@@ -318,7 +318,7 @@ class FormBuilder with StringBufferUtils {
 
   FormBuilder addFormViewModelExtensionForGetters() {
     newLine();
-    writeLine('extension ValueProperties on FormStateHelper {');
+    writeLine('extension ValueProperties on dynamic {');
     writeLine("""bool get isFormValid =>
       this.fieldsValidationMessages.values.every((element) => element == null);""");
     for (final field in fields) {
@@ -358,7 +358,7 @@ class FormBuilder with StringBufferUtils {
 
   FormBuilder addFormViewModelExtensionForMethods() {
     newLine();
-    writeLine('extension Methods on FormStateHelper {');
+    writeLine('extension Methods on dynamic {');
 
     // Generate the date pickers
     for (final field in fields.onlyDateFieldConfigs) {
