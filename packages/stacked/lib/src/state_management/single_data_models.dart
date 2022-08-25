@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:stacked/src/state_management/helpers/data_state_helper.dart';
 
 import 'base_view_models.dart';
-import 'helpers/future_runner_helper.dart';
 import 'helpers/message_state_helper.dart';
 
 /// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
@@ -12,7 +11,7 @@ import 'helpers/message_state_helper.dart';
 /// - [FutureRunnerHelper]
 /// - [DataStateHelper]
 abstract class FutureViewModel<T> extends DynamicSourceViewModel<T>
-    with MessageStateHelper, FutureRunnerHelper, DataStateHelper
+    with MessageStateHelper, DataStateHelper
     implements Initialisable {
   // TODO: Add timeout functionality
   // TODO: Add retry functionality - default 1

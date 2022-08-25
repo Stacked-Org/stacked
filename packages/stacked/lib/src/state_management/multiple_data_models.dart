@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import 'base_view_models.dart';
-import 'helpers/future_runner_helper.dart';
 
 class _MultiDataSourceViewModel<K extends Object>
     extends DynamicSourceViewModel {
@@ -15,7 +14,6 @@ class _MultiDataSourceViewModel<K extends Object>
 
 /// Provides functionality for a ViewModel to run and fetch data using multiple future
 abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel
-    with FutureRunnerHelper
     implements Initialisable {
   Map<String, Future Function()> get futuresMap;
 

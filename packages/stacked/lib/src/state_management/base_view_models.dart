@@ -5,13 +5,12 @@ import 'package:stacked/src/state_management/helpers/data_state_helper.dart';
 import 'package:stacked/src/state_management/reactive_service_mixin.dart';
 
 import 'helpers/builders_helpers.dart';
-import 'helpers/busy_state_helper.dart';
-import 'helpers/error_state_helper.dart';
+import 'helpers/busy_error_state_helper.dart';
 import 'helpers/message_state_helper.dart';
 
 /// Contains ViewModel functionality for busy and error state management
 class BaseViewModel extends ChangeNotifier
-    with BuilderHelpers, BusyStateHelper, ErrorStateHelper {
+    with BuilderHelpers, BusyAndErrorStateHelper {
   @override
   void notifyListeners() {
     if (!disposed) {

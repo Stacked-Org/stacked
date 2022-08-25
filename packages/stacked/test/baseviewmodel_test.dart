@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:stacked/stacked.dart';
 
-class TestViewModel extends BaseViewModel with FutureRunnerHelper {
+class TestViewModel extends BaseViewModel {
   bool onErrorCalled = false;
   Future runFuture(
       {String? busyKey, bool fail = false, bool throwException = false}) {
