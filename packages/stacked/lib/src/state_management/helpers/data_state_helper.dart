@@ -1,8 +1,7 @@
-import 'package:stacked/src/state_management/helpers/busy_state_helper.dart';
-import 'package:stacked/src/state_management/helpers/error_state_helper.dart';
+import 'package:stacked/src/state_management/helpers/busy_error_state_helper.dart';
 
 /// Helper class to store a data object
-mixin DataStateHelper<T> on ErrorStateHelper, BusyStateHelper {
+mixin DataStateHelper<T> on BusyAndErrorStateHelper {
   T? _data;
 
   T? get data => _data;
