@@ -1,8 +1,8 @@
 import 'package:stacked/src/state_management/base_view_models.dart';
 import 'package:stacked/src/state_management/reactive_service_mixin.dart';
 
-@Deprecated(
-    'This class will be removed in the future, Use [BaseViewModel] or [ReactiveViewModel] with a [IndexTrackingStateHelper] instead')
+/// You can use [BaseViewModel] or [ReactiveViewModel] with a [IndexTrackingStateHelper]
+/// to achive the same result incase you want to combine multiple functionalities
 class IndexTrackingViewModel extends ReactiveViewModel {
   int _currentIndex = 0;
   int get currentIndex => _currentIndex;
