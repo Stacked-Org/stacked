@@ -1,10 +1,8 @@
 import 'package:stacked/src/state_management/base_view_models.dart';
 import 'package:stacked/src/state_management/reactive_service_mixin.dart';
 
-/// Provides functionality to reduce the code required in order to move user input
-/// into the [ViewModel]
-@Deprecated(
-    'This class will be removed in the future, Use [BaseViewModel] or [ReactiveViewModel] with a [FormStateHelper] instead')
+/// You can use [BaseViewModel] or [ReactiveViewModel] with a [FormStateHelper]
+/// to achive the same result incase you want to combine multiple functionalities
 abstract class FormViewModel extends ReactiveViewModel {
   @override
   List<ReactiveServiceMixin> get reactiveServices => [];
