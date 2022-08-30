@@ -1,7 +1,5 @@
-import 'package:stacked_tools/src/constants/message_constants.dart';
 import 'package:stacked_tools/src/models/template_models.dart';
 import 'package:stacked_tools/src/templates/compiled_templates.dart';
-import 'package:stacked_tools/src/templates/template_constants.dart';
 
 Map<String, StackedTemplate> kCompiledStackedTemplates = {
   'app': StackedTemplate(
@@ -125,7 +123,7 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
         relativeModificationPath: 'lib/app/app.dart',
         modificationIdentifier: '// @stacked-import',
         modificationTemplate:
-            '''import \'package:{{packageName}}/ui/views/{{viewFolderName}}/{{viewFileName}}\';''',
+            '''import 'package:{{packageName}}/ui/views/{{viewFolderName}}/{{viewFileName}}';''',
         modificationProblemError:
             'The structure of your stacked application is invalid. The app.dart file should be located in lib/app/',
         modificationName: 'Add {{viewName}} route import to app.dart',
@@ -162,7 +160,7 @@ return service;
         relativeModificationPath: 'test/helpers/test_helpers.dart',
         modificationIdentifier: '// @stacked-import',
         modificationTemplate:
-            '''import \'package:{{packageName}}/services/{{serviceFilename}}\';''',
+            '''import 'package:{{packageName}}/services/{{serviceFilename}}';''',
         modificationProblemError:
             'The test mocks and helpers should be stored in test/helpers/test_helpers.dart',
         modificationName: 'Add {{serviceName}} import to test helpers',

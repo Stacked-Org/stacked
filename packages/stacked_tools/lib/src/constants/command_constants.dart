@@ -10,6 +10,7 @@ const String ksBuild = 'build';
 const String ksBuildRunner = 'build_runner';
 const String ksDeleteConflictingOutputs = '--delete-conflicting-outputs';
 const String ksExcludeRoute = 'exclude-route';
+const String ksLineLength = 'line-length';
 const String ksExcludeDependency = 'exclude-dependency';
 const String ksCurrentDirectory = '.';
 

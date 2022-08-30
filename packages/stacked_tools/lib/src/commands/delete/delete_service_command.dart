@@ -10,7 +10,7 @@ import 'package:stacked_tools/src/services/template_service.dart';
 import 'package:stacked_tools/src/templates/compiled_templates.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 
-class DeleteViewCommand extends Command with ProjectStructureValidator {
+class DeleteServiceCommand extends Command with ProjectStructureValidator {
   final _pubspecService = locator<PubspecService>();
   final _processService = locator<ProcessService>();
   final _fileService = locator<FileService>();
@@ -18,12 +18,12 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
 
   @override
   String get description =>
-      'Deletes a view with all associated files and makes necessary code changes for deleting a view.';
+      'Deletes a service with all associated files and makes necessary code changes for deleting a service.';
 
   @override
-  String get name => kTemplateNameView;
+  String get name => kTemplateNameService;
 
-  DeleteViewCommand() {
+  DeleteServiceCommand() {
     argParser.addFlag(
       ksExcludeRoute,
       defaultsTo: false,
@@ -43,48 +43,43 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
     _processService.formattingLineLength = argResults?[ksLineLength];
     await _pubspecService.initialise(workingDirectory: outputPath);
     await validateStructure(outputPath: outputPath);
-    await deleteViewAndTestFiles(outputPath: outputPath);
-    await removeViewFromRoute(outputPath: outputPath);
+    await deleteServiceAndTestFiles(outputPath: outputPath);
+    await removeServiceFromTestHelper(outputPath: outputPath);
     await _processService.runBuildRunner(appName: outputPath);
   }
 
-  /// It deletes the view and test files
+  /// It deletes the service and test files
   ///
   /// Args:
   ///   outputPath (String): The path to the output folder.
-  Future<void> deleteViewAndTestFiles({String? outputPath}) async {
-    /// Deleting the view folder.
-    String directoryPath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: 'lib/ui/views/generic/',
-
-      ///TODO: Change this 👆 to the config file view path when it's added.
+  Future<void> deleteServiceAndTestFiles({String? outputPath}) async {
+    /// Deleting the service file.
+    String filePath = _templateService.getTemplateOutputPath(
+      inputTemplatePath: kServiceTemplateGenericServicePath,
       name: argResults!.rest.first,
       outputFolder: outputPath,
     );
-    await _fileService.deleteFolder(directoryPath: directoryPath);
+    await _fileService.deleteFile(filePath: filePath);
 
-    /// Deleting the test file for the view.
-    String filePath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: kViewTemplateGenericViewmodelTestPath,
+    //Delete test file for service
+    filePath = _templateService.getTemplateOutputPath(
+      inputTemplatePath: kServiceTemplateGenericServiceTestPath,
       name: argResults!.rest.first,
       outputFolder: outputPath,
     );
     await _fileService.deleteFile(filePath: filePath);
   }
 
-  /// It removes the view from [app.dart]
-  ///
-  /// Args:
-  ///   outputPath (String): The path to the output folder.
-  Future<void> removeViewFromRoute({String? outputPath}) async {
+  Future<void> removeServiceFromTestHelper({String? outputPath}) async {
     String filePath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: kAppTemplateAppPath,
+      inputTemplatePath: kAppTemplateTestHelpersPath,
       name: argResults!.rest.first,
       outputFolder: outputPath,
     );
     await _fileService.removeSpecificFileLines(
       filePath: filePath,
       removedContent: argResults!.rest.first,
+      type: kTemplateNameService,
     );
     _processService.runFormat(appName: outputPath, filePath: filePath);
   }

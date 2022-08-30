@@ -1,4 +1,9 @@
 
+## 0.1.6
+- Updates Formatting to be only on specific files 
+- Adds line-length or -l option for formatting length default is 80
+- Adds delete service command 
+
 ## 0.1.5
 - Updates dependencies 
   
