@@ -59,6 +59,9 @@ class SnackbarConfig {
   TextAlign messageTextAlign;
   DismissDirection dismissDirection;
 
+  /// Sets the duration of snack bar to be visible
+  Duration duration;
+
   SnackbarConfig({
     this.titleText,
     this.messageText,
@@ -99,5 +102,6 @@ class SnackbarConfig {
     this.userInputForm,
     this.titleTextAlign = TextAlign.left,
     this.messageTextAlign = TextAlign.left,
+    this.duration = const Duration(seconds: 3),
   });
 }

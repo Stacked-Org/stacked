@@ -12,6 +12,7 @@ void setupSnackbarUi() {
     backgroundColor: Colors.red,
     textColor: Colors.white,
     mainButtonTextColor: Colors.black,
+    duration: Duration(seconds: 10),
   ));
 
   service.registerCustomSnackbarConfig(
@@ -22,6 +23,7 @@ void setupSnackbarUi() {
       textColor: Colors.yellow,
       borderRadius: 1,
       dismissDirection: DismissDirection.horizontal,
+      duration: Duration(seconds: 1),
     ),
   );
 
