@@ -1,3 +1,5 @@
+## 0.9.6
+- Fixes the snackbarConfig.textColor to work as intended - a default color for all the text in a snackbar unless otherwise specified 
 ## 0.9.5
 - Adds `closeSnackbar` method to be able to close the snackbar programmatically
 - Removes nullability on the `isSnackbarOpen` getter

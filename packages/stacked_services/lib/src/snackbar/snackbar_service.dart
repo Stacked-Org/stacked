@@ -68,31 +68,30 @@ class SnackbarService {
     Get.snackbar(
       title,
       message,
-      titleText: _snackbarConfig?.titleColor != null || title.isNotEmpty
+      titleText: title.isNotEmpty
           ? Text(
               title,
               key: Key('snackbar_text_title'),
               style: TextStyle(
-                color: _snackbarConfig?.titleColor,
+                color: _snackbarConfig?.titleColor ?? _snackbarConfig?.textColor ?? Colors.white,
                 fontWeight: FontWeight.w800,
                 fontSize: 16,
               ),
               textAlign: _snackbarConfig?.titleTextAlign ?? TextAlign.left,
             )
           : SizedBox.shrink(),
-      messageText: _snackbarConfig?.messageColor != null || message.isNotEmpty
+      messageText: message.isNotEmpty
           ? Text(
               message,
               key: Key('snackbar_text_message'),
               style: TextStyle(
-                color: _snackbarConfig?.messageColor,
+                color: _snackbarConfig?.messageColor ?? _snackbarConfig?.textColor ?? Colors.white,
                 fontWeight: FontWeight.w300,
                 fontSize: 14,
               ),
               textAlign: _snackbarConfig?.messageTextAlign ?? TextAlign.left,
             )
           : SizedBox.shrink(),
-      colorText: _snackbarConfig?.textColor ?? Colors.white,
       shouldIconPulse: _snackbarConfig?.shouldIconPulse,
       onTap: onTap,
       barBlur: _snackbarConfig?.barBlur,
@@ -160,7 +159,7 @@ class SnackbarService {
               textAlign: snackbarConfig.titleTextAlign,
             )
           : snackbarConfig.titleText ?? null,
-      messageText: _snackbarConfig?.messageColor != null || message.isNotEmpty
+      messageText: message.isNotEmpty
           ? Text(
               message,
               key: Key('snackbar_text_message'),
