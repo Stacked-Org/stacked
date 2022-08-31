@@ -2,8 +2,11 @@ name: stacked
 description: An architecture and widgets for an MVVM inspired architecture in
   Flutter. It provides common functionalities required to build a large
   application in a understandable manner.
-version: 2.3.15
+version: 2.3.15+1
 homepage: https://github.com/FilledStacks/stacked
+
+funding:
+  - https://ko-fi.com/filledstacks
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
