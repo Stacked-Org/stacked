@@ -1,3 +1,6 @@
+## 3.0.0-beta.1
+- Adds `BusyAndErrorStateHelper` to the `BaseViewModel`
+
 ## 3.0.0-beta.0
 
 - Refactor `BaseViewModel` by extracting the different functionalities to mixins.
