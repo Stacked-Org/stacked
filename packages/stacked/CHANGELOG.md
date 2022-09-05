@@ -1,3 +1,7 @@
+## 3.0.0-beta.2
+
+- User `FormStateHelper` for the `FormViewModel`
+
 ## 3.0.0-beta.1
 - Adds `BusyAndErrorStateHelper` to the `BaseViewModel`
 
