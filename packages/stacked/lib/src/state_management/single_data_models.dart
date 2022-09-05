@@ -11,7 +11,7 @@ import 'helpers/message_state_helper.dart';
 /// - [FutureRunnerHelper]
 /// - [DataStateHelper]
 abstract class FutureViewModel<T> extends DynamicSourceViewModel<T>
-    with MessageStateHelper, DataStateHelper
+    with MessageStateHelper, DataStateHelper<T>
     implements Initialisable {
   // TODO: Add timeout functionality
   // TODO: Add retry functionality - default 1
@@ -61,7 +61,7 @@ abstract class FutureViewModel<T> extends DynamicSourceViewModel<T>
 /// - [MessageStateHelper]
 /// - [DataStateHelper]
 abstract class StreamViewModel<T> extends DynamicSourceViewModel<T>
-    with MessageStateHelper, DataStateHelper
+    with MessageStateHelper, DataStateHelper<T>
     implements Initialisable {
   /// Stream to listen to
   Stream<T> get stream;

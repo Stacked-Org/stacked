@@ -72,7 +72,7 @@ abstract class Initialisable {
 }
 
 class StreamData<T> extends DynamicSourceViewModel<T>
-    with MessageStateHelper, DataStateHelper {
+    with MessageStateHelper, DataStateHelper<T> {
   Stream<T> stream;
 
   /// Called when the new data arrives
