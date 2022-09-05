@@ -1,3 +1,8 @@
+## 0.8.0-beta.7
+
+- Adds `FormStateHelper` to `FormViewModel` to remove breaking change
+- Adds value properties form generated mixing on `FormViewModel`
+
 ## 0.8.0-beta.6
 - Replace `FormViewModel` to `FormStateHelper`
 ## 0.8.0-beta.5
