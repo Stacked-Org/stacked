@@ -318,7 +318,7 @@ class FormBuilder with StringBufferUtils {
 
   FormBuilder addFormViewModelExtensionForGetters() {
     newLine();
-    writeLine('extension ValueProperties on FormStateHelper {');
+    writeLine('extension ValueProperties on FormViewModel {');
     writeLine("""bool get isFormValid =>
       this.fieldsValidationMessages.values.every((element) => element == null);""");
     for (final field in fields) {
