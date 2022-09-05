@@ -1,3 +1,7 @@
+## 3.0.0-beta.2+1
+
+- Passes generic argument to `DataStateHelper`
+
 ## 3.0.0-beta.2
 
 - User `FormStateHelper` for the `FormViewModel`
