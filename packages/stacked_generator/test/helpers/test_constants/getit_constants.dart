@@ -1,5 +1,5 @@
 const kStackedLocaterWithOneDependencyOutput = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -17,7 +17,7 @@ ebraLocator.registerSingleton(GeolocaorService()  );
 }
 ''';
 const kStackedLocaterWithTwoDependenciesOutput = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -37,7 +37,7 @@ filledstacksLocator.registerSingleton(FireService()  );
 }
 ''';
 const kStackedLocaterWithOneDependencyOutputWithImports = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -56,7 +56,7 @@ filledstacksLocator.registerSingleton(GeolocaorService()  , instanceName: 'insta
 ''';
 
 const kStackedLocaterWithOneDependencyOutputWithAbstractedImport = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -75,7 +75,7 @@ filledstacksLocator.registerSingleton(GeolocaorService()  );
 }
 ''';
 const kStackedLocaterWithOneDependencyOutputWithAbstractedTypeClassName = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -93,7 +93,7 @@ filledstacksLocator.registerSingleton<abstractedTypeClassNamee>(GeolocaorService
 }
 ''';
 const kStackedLocaterWithOneDependencyOutputWithEnviroments = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -112,7 +112,7 @@ filledstacksLocator.registerSingleton(GeolocaorService()  ,registerFor:{"dev","p
 ''';
 const kStackedLocaterWithOneDependencyOutputWithPresolveFunctionAndDependencyTypePresolvedSingleton =
     '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -132,7 +132,7 @@ filledstacksLocator.registerEnvironment(environment: environment, environmentFil
 }
 ''';
 const kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactory = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -151,7 +151,7 @@ filledstacksLocator.registerFactory(() => GeolocaorService()  , instanceName: 'i
 ''';
 const kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParams =
     '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -170,7 +170,7 @@ filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,dynamic>((par
 ''';
 const kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndDefaultValue =
     '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -189,7 +189,7 @@ filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,dynamic>((par
 ''';
 const kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndIsPositionalIsTrue =
     '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -208,7 +208,7 @@ filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,dynamic>((par
 ''';
 const kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndDefaultValueIsshitAndIsPositionalIsTrue =
     '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -227,7 +227,7 @@ filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,dynamic>((par
 ''';
 const kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndIsNameIsHello =
     '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -246,7 +246,7 @@ filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,dynamic>((par
 ''';
 const kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsAndTwoFactoryParam =
     '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -264,7 +264,7 @@ filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,freshType?>((
 }
 ''';
 const kStackedLocaterWithOneDependencyOutputWithDependencyTypeSinglton = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
 
@@ -283,7 +283,7 @@ filledstacksLocator.registerSingleton(GeolocaorService()  );
 ''';
 
 const kStackedLocaterWithOneDependencyOutputWithDependencyTypeLazySinglton = '''
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
 

@@ -1,5 +1,5 @@
 const String kloggerClassContent = """
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, depend_on_referenced_packages
 
 /// Maybe this should be generated for the user as well?
 ///
@@ -177,7 +177,7 @@ Logger ebraLogger(
 }
 """;
 const String kloggerClassContentWithDisableReleaseConsoleOutput = '''
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, depend_on_referenced_packages
 
 /// Maybe this should be generated for the user as well?
 ///
@@ -408,7 +408,7 @@ Logger ebraLogger(
 }
 ''';
 const String addLoggerClassImports = '''
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, depend_on_referenced_packages
 
 /// Maybe this should be generated for the user as well?
 ///
