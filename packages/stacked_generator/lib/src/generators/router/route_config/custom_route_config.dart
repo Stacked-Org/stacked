@@ -45,8 +45,7 @@ class CustomRouteConfig extends RouteConfig {
           const Code(',')
         ],
         if (transitionBuilder == null)
-          // ignore: prefer_const_constructors
-          Code('''transitionsBuilder: data.transition??
+          const Code('''transitionsBuilder: data.transition??
               (context, animation, secondaryAnimation, child) {
             return child;
           },'''),
