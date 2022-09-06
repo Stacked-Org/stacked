@@ -138,8 +138,7 @@ class RouterClassBuilderHelper {
     if (nullOk) {
       return const Code('nullOk: false);');
     } else {
-      return Code(
-          'orElse: ()=> ${hasConstConstructor ? 'const' : ''} $argsType(),);');
+      return Code('orElse: ()=> const $argsType(),);');
     }
   }
 

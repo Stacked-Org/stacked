@@ -4,7 +4,7 @@
 // StackedRouterGenerator
 // **************************************************************************
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes, implementation_imports
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:example/app/custom_route_transition.dart' as _i7;
 import 'package:example/datamodels/clashable_one.dart' as _i10;
 import 'package:example/datamodels/clashable_two.dart' as _i11;
@@ -59,7 +59,7 @@ class StackedRouter extends _i1.RouterBase {
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
       final args = data.getArgs<HomeViewArguments>(
-        orElse: () => const HomeViewArguments(),
+        orElse: () => HomeViewArguments(),
       );
       return MaterialPageRoute<dynamic>(
         builder: (context) => _i2.HomeView(
@@ -166,7 +166,7 @@ class BottomNavExampleRouter extends _i1.RouterBase {
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i12.FavoritesView: (data) {
       final args = data.getArgs<NestedFavoritesViewArguments>(
-        orElse: () => const NestedFavoritesViewArguments(),
+        orElse: () => NestedFavoritesViewArguments(),
       );
       return _i1.buildAdaptivePageRoute<dynamic>(
         builder: (context) => _i12.FavoritesView(key: args.key, id: args.id),
