@@ -4,7 +4,7 @@ const String multipleLoggerOutput = 'MultiLoggerList';
 const String disableConsoleOutputInRelease = 'MultiLoggerList';
 
 const String loggerClassPrefex = '''
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, depend_on_referenced_packages
 
 /// Maybe this should be generated for the user as well?
 ///

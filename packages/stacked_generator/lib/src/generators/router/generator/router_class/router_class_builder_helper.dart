@@ -115,7 +115,11 @@ class RouterClassBuilderHelper {
         ..body = Block.of([
           if (notQueryNorPathParameters.isNotEmpty) ...[
             _prepareArgs(argsType),
-            _eitherNullOkOrElse(route.parameters, argsType),
+            _eitherNullOkOrElse(
+              route.parameters,
+              argsType,
+              hasConstConstructor: route.hasConstConstructor,
+            ),
           ],
           _returnRouteRegistration(route),
         ]),
@@ -125,7 +129,8 @@ class RouterClassBuilderHelper {
   Code _prepareArgs(String argsType) =>
       Code('final args = data.getArgs<$argsType>(');
 
-  Code _eitherNullOkOrElse(List<RouteParamConfig> parameters, String argsType) {
+  Code _eitherNullOkOrElse(List<RouteParamConfig> parameters, String argsType,
+      {bool hasConstConstructor = false}) {
     /// if router has any required or positional params
     /// the argument class holder becomes required.
     final nullOk = parameters.any((p) => p.isRequired || p.isPositional);
@@ -133,7 +138,8 @@ class RouterClassBuilderHelper {
     if (nullOk) {
       return const Code('nullOk: false);');
     } else {
-      return Code('orElse: ()=> $argsType(),);');
+      return Code(
+          'orElse: ()=> ${hasConstConstructor ? 'const' : ''} $argsType(),);');
     }
   }
 

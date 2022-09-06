@@ -17,7 +17,8 @@ class StackedLocatorContentGenerator
   });
   @override
   String generate() {
-    writeLine("// ignore_for_file: public_member_api_docs");
+    writeLine(
+        "// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages");
 
     _generateImports(dependencies);
 
