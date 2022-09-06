@@ -79,14 +79,14 @@ mixin $ExampleFormView on StatelessWidget {
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
-  void listenToFormUpdated(dynamic model) {
+  void listenToFormUpdated(FormViewModel model) {
     emailController.addListener(() => _updateFormData(model));
     passwordController.addListener(() => _updateFormData(model));
     shortBioController.addListener(() => _updateFormData(model));
   }
 
   final bool _autoTextFieldValidation = false;
-  bool validateFormFields(dynamic model) {
+  bool validateFormFields(FormViewModel model) {
     _updateFormData(model, forceValidate: true);
     return model.isFormValid;
   }

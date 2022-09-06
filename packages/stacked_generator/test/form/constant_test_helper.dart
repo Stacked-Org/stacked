@@ -197,7 +197,7 @@ import 'validators/path';
 const kExample1AddListenerRegistrationsForTextFields =
     '''              /// Registers a listener on every generated controller that calls [model.setData()]
               /// with the latest textController values
-              void listenToFormUpdated(dynamic model) {
+              void listenToFormUpdated(FormViewModel model) {
             
 nameController.addListener(() => _updateFormData(model));
 emailController.addListener(() => _updateFormData(model));
