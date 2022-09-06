@@ -8,7 +8,6 @@ import 'package:example/ui/bottom_nav/history/history_view.dart';
 import 'package:example/ui/bottom_nav/history/history_viewmodel.dart';
 import 'package:example/ui/bottom_nav/profile/profile_view.dart';
 import 'package:example/ui/bottomsheets/generic_bottomsheet.dart';
-import 'package:example/ui/details/details_view.dart';
 import 'package:example/ui/form/example_form_view.dart';
 import 'package:example/ui/home/home_view.dart';
 import 'package:example/ui/multiple_futures_example/multiple_futures_example_view.dart';
@@ -46,7 +45,6 @@ import 'custom_route_transition.dart';
       CupertinoRoute(page: ProfileView),
     ]),
     MaterialRoute(page: StreamCounterView),
-    CupertinoRoute<Map<String, List<String>>?>(page: DetailsView),
     MaterialRoute(page: ExampleFormView),
     CustomRoute(
       page: NonReactiveView,

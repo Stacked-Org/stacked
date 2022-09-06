@@ -4,29 +4,28 @@
 // StackedRouterGenerator
 // **************************************************************************
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:example/app/custom_route_transition.dart' as _i9;
-import 'package:example/datamodels/clashable_one.dart' as _i12;
-import 'package:example/datamodels/clashable_two.dart' as _i13;
-import 'package:example/datamodels/home_type.dart' as _i10;
+// ignore_for_file: no_leading_underscores_for_library_prefixes, implementation_imports
+import 'package:example/app/custom_route_transition.dart' as _i7;
+import 'package:example/datamodels/clashable_one.dart' as _i10;
+import 'package:example/datamodels/clashable_two.dart' as _i11;
+import 'package:example/datamodels/home_type.dart' as _i8;
 import 'package:example/ui/bottom_nav/bottom_nav_example.dart' as _i3;
-import 'package:example/ui/bottom_nav/favorites/favorites_view.dart' as _i14;
-import 'package:example/ui/bottom_nav/history/history_view.dart' as _i15;
-import 'package:example/ui/bottom_nav/profile/profile_view.dart' as _i16;
-import 'package:example/ui/details/details_view.dart' as _i5;
-import 'package:example/ui/form/example_form_view.dart' as _i6;
+import 'package:example/ui/bottom_nav/favorites/favorites_view.dart' as _i12;
+import 'package:example/ui/bottom_nav/history/history_view.dart' as _i13;
+import 'package:example/ui/bottom_nav/profile/profile_view.dart' as _i14;
+import 'package:example/ui/form/example_form_view.dart' as _i5;
 import 'package:example/ui/home/home_view.dart' as _i2;
 import 'package:example/ui/multiple_futures_example/multiple_futures_example_view.dart'
-    as _i18;
-import 'package:example/ui/nonreactive/nonreactive_view.dart' as _i7;
+    as _i17;
+import 'package:example/ui/nonreactive/nonreactive_view.dart' as _i6;
 import 'package:example/ui/stream_view/stream_counter_view.dart' as _i4;
-import 'package:flutter/cupertino.dart' as _i8;
-import 'package:flutter/material.dart' as _i11;
+import 'package:flutter/cupertino.dart' as _i16;
+import 'package:flutter/material.dart' as _i9;
 import 'package:flutter/material.dart';
 import 'package:stacked/src/code_generation/router_annotation/transitions_builders.dart'
-    as _i17;
+    as _i15;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i19;
+import 'package:stacked_services/stacked_services.dart' as _i18;
 
 class Routes {
   static const homeView = '/';
@@ -34,8 +33,6 @@ class Routes {
   static const bottomNavExample = '/bottom-nav-example';
 
   static const streamCounterView = '/stream-counter-view';
-
-  static const detailsView = '/details-view';
 
   static const exampleFormView = '/example-form-view';
 
@@ -45,7 +42,6 @@ class Routes {
     homeView,
     bottomNavExample,
     streamCounterView,
-    detailsView,
     exampleFormView,
     nonReactiveView
   };
@@ -56,15 +52,14 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(Routes.homeView, page: _i2.HomeView),
     _i1.RouteDef(Routes.bottomNavExample, page: _i3.BottomNavExample),
     _i1.RouteDef(Routes.streamCounterView, page: _i4.StreamCounterView),
-    _i1.RouteDef(Routes.detailsView, page: _i5.DetailsView),
-    _i1.RouteDef(Routes.exampleFormView, page: _i6.ExampleFormView),
-    _i1.RouteDef(Routes.nonReactiveView, page: _i7.NonReactiveView)
+    _i1.RouteDef(Routes.exampleFormView, page: _i5.ExampleFormView),
+    _i1.RouteDef(Routes.nonReactiveView, page: _i6.NonReactiveView)
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
       final args = data.getArgs<HomeViewArguments>(
-        orElse: () => HomeViewArguments(),
+        orElse: () => const HomeViewArguments(),
       );
       return MaterialPageRoute<dynamic>(
         builder: (context) => _i2.HomeView(
@@ -90,28 +85,21 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i5.DetailsView: (data) {
-      final args = data.getArgs<DetailsViewArguments>(nullOk: false);
-      return _i8.CupertinoPageRoute<Map<String, List<String>>>(
-        builder: (context) => _i5.DetailsView(key: args.key, name: args.name),
-        settings: data,
-      );
-    },
-    _i6.ExampleFormView: (data) {
+    _i5.ExampleFormView: (data) {
       final args = data.getArgs<ExampleFormViewArguments>(nullOk: false);
       return MaterialPageRoute<dynamic>(
         builder: (context) =>
-            _i6.ExampleFormView(key: args.key, clashableOne: args.clashableOne),
+            _i5.ExampleFormView(key: args.key, clashableOne: args.clashableOne),
         settings: data,
       );
     },
-    _i7.NonReactiveView: (data) {
+    _i6.NonReactiveView: (data) {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const _i7.NonReactiveView(),
+            const _i6.NonReactiveView(),
         settings: data,
         transitionsBuilder:
-            data.transition ?? _i9.CustomRouteTransition.sharedAxis,
+            data.transition ?? _i7.CustomRouteTransition.sharedAxis,
       );
     }
   };
@@ -128,41 +116,33 @@ class HomeViewArguments {
       this.title = 'hello',
       this.isLoggedIn = false,
       this.clashableGetter,
-      this.homeType = _i10.HomeType.apartment});
+      this.homeType = _i8.HomeType.apartment});
 
-  final _i11.Key? key;
+  final _i9.Key? key;
 
   final String? title;
 
   final bool? isLoggedIn;
 
-  final _i12.Clashable Function(String)? clashableGetter;
+  final _i10.Clashable Function(String)? clashableGetter;
 
-  final _i10.HomeType homeType;
+  final _i8.HomeType homeType;
 }
 
 class StreamCounterViewArguments {
   const StreamCounterViewArguments({this.key, required this.clashableTwo});
 
-  final _i11.Key? key;
+  final _i9.Key? key;
 
-  final List<_i13.Clashable> clashableTwo;
-}
-
-class DetailsViewArguments {
-  const DetailsViewArguments({this.key, required this.name});
-
-  final _i11.Key? key;
-
-  final String name;
+  final List<_i11.Clashable> clashableTwo;
 }
 
 class ExampleFormViewArguments {
   const ExampleFormViewArguments({this.key, required this.clashableOne});
 
-  final _i11.Key? key;
+  final _i9.Key? key;
 
-  final _i12.Clashable clashableOne;
+  final _i10.Clashable clashableOne;
 }
 
 class BottomNavExampleRoutes {
@@ -178,32 +158,32 @@ class BottomNavExampleRoutes {
 class BottomNavExampleRouter extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
     _i1.RouteDef(BottomNavExampleRoutes.favoritesView,
-        page: _i14.FavoritesView),
-    _i1.RouteDef(BottomNavExampleRoutes.historyView, page: _i15.HistoryView),
-    _i1.RouteDef(BottomNavExampleRoutes.profileView, page: _i16.ProfileView)
+        page: _i12.FavoritesView),
+    _i1.RouteDef(BottomNavExampleRoutes.historyView, page: _i13.HistoryView),
+    _i1.RouteDef(BottomNavExampleRoutes.profileView, page: _i14.ProfileView)
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
-    _i14.FavoritesView: (data) {
+    _i12.FavoritesView: (data) {
       final args = data.getArgs<NestedFavoritesViewArguments>(
-        orElse: () => NestedFavoritesViewArguments(),
+        orElse: () => const NestedFavoritesViewArguments(),
       );
       return _i1.buildAdaptivePageRoute<dynamic>(
-        builder: (context) => _i14.FavoritesView(key: args.key, id: args.id),
+        builder: (context) => _i12.FavoritesView(key: args.key, id: args.id),
         settings: data,
       );
     },
-    _i15.HistoryView: (data) {
+    _i13.HistoryView: (data) {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const _i15.HistoryView(),
+            const _i13.HistoryView(),
         settings: data,
-        transitionsBuilder: data.transition ?? _i17.TransitionsBuilders.fadeIn,
+        transitionsBuilder: data.transition ?? _i15.TransitionsBuilders.fadeIn,
       );
     },
-    _i16.ProfileView: (data) {
-      return _i8.CupertinoPageRoute<dynamic>(
-        builder: (context) => const _i16.ProfileView(),
+    _i14.ProfileView: (data) {
+      return _i16.CupertinoPageRoute<dynamic>(
+        builder: (context) => const _i14.ProfileView(),
         settings: data,
       );
     }
@@ -218,7 +198,7 @@ class BottomNavExampleRouter extends _i1.RouterBase {
 class NestedFavoritesViewArguments {
   const NestedFavoritesViewArguments({this.key, this.id});
 
-  final _i11.Key? key;
+  final _i9.Key? key;
 
   final String? id;
 }
@@ -234,21 +214,21 @@ class FavoritesViewRoutes {
 class FavoritesViewRouter extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
     _i1.RouteDef(FavoritesViewRoutes.multipleFuturesExampleView,
-        page: _i18.MultipleFuturesExampleView),
-    _i1.RouteDef(FavoritesViewRoutes.historyView, page: _i15.HistoryView)
+        page: _i17.MultipleFuturesExampleView),
+    _i1.RouteDef(FavoritesViewRoutes.historyView, page: _i13.HistoryView)
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
-    _i18.MultipleFuturesExampleView: (data) {
+    _i17.MultipleFuturesExampleView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const _i18.MultipleFuturesExampleView(),
+        builder: (context) => const _i17.MultipleFuturesExampleView(),
         settings: data,
       );
     },
-    _i15.HistoryView: (data) {
+    _i13.HistoryView: (data) {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const _i15.HistoryView(),
+            const _i13.HistoryView(),
         settings: data,
         transitionsBuilder: data.transition ??
             (context, animation, secondaryAnimation, child) {
@@ -264,13 +244,13 @@ class FavoritesViewRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i19.NavigationService {
+extension NavigatorStateExtension on _i18.NavigationService {
   Future<dynamic> navigateToHomeView(
-      {_i11.Key? key,
+      {_i9.Key? key,
       String? title = 'hello',
       bool? isLoggedIn = false,
-      _i12.Clashable Function(String)? clashableGetter,
-      _i10.HomeType homeType = _i10.HomeType.apartment,
+      _i10.Clashable Function(String)? clashableGetter,
+      _i8.HomeType homeType = _i8.HomeType.apartment,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
@@ -305,8 +285,8 @@ extension NavigatorStateExtension on _i19.NavigationService {
   }
 
   Future<dynamic> navigateToStreamCounterView(
-      {_i11.Key? key,
-      required List<_i13.Clashable> clashableTwo,
+      {_i9.Key? key,
+      required List<_i11.Clashable> clashableTwo,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
@@ -322,26 +302,9 @@ extension NavigatorStateExtension on _i19.NavigationService {
         transition: transition);
   }
 
-  Future<Map<String, List<String>>?> navigateToDetailsView(
-      {_i11.Key? key,
-      required String name,
-      int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition}) async {
-    return navigateTo<Map<String, List<String>>?>(Routes.detailsView,
-        arguments: DetailsViewArguments(key: key, name: name),
-        id: routerId,
-        preventDuplicates: preventDuplicates,
-        parameters: parameters,
-        transition: transition);
-  }
-
   Future<dynamic> navigateToExampleFormView(
-      {_i11.Key? key,
-      required _i12.Clashable clashableOne,
+      {_i9.Key? key,
+      required _i10.Clashable clashableOne,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,
@@ -372,7 +335,7 @@ extension NavigatorStateExtension on _i19.NavigationService {
   }
 
   Future<dynamic> navigateToNestedFavoritesViewInBottomNavExample(
-      {_i11.Key? key,
+      {_i9.Key? key,
       String? id,
       int? routerId,
       bool preventDuplicates = true,
