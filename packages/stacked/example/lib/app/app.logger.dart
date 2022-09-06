@@ -4,7 +4,7 @@
 // StackedLoggerGenerator
 // **************************************************************************
 
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: avoid_print
 
 /// Maybe this should be generated for the user as well?
 ///
@@ -102,7 +102,7 @@ class SimpleLogPrinter extends LogPrinter {
   }
 
   bool _doesTraceContainsAllKeywords(String stackTrace, List<String> keywords) {
-    final formattedKeywordsAsRegex = RegExp(keywords.join('.*'));
+    final formattedKeywordsAsRegex = RegExp("${keywords.join('.*')}");
     return stackTrace.contains(formattedKeywordsAsRegex);
   }
 }
@@ -147,9 +147,7 @@ class MultipleLoggerOutput extends LogOutput {
       try {
         logOutput.output(event);
       } catch (e) {
-        if (kDebugMode) {
-          print('Log output failed');
-        }
+        print('Log output failed');
       }
     }
   }

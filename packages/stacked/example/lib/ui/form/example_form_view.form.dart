@@ -179,7 +179,7 @@ extension ValueProperties on FormViewModel {
       this.fieldsValidationMessages[DoYouLoveFoodValueKey];
 }
 
-extension Methods on dynamic {
+extension Methods on FormViewModel {
   Future<void> selectBirthDate(
       {required BuildContext context,
       required DateTime initialDate,

@@ -59,7 +59,7 @@ extension ValueProperties on FormViewModel {
       this.fieldsValidationMessages[ProvinceValueKey];
 }
 
-extension Methods on dynamic {
+extension Methods on FormViewModel {
   void setCountry(String country) {
     this.setData(this.formValueMap..addAll({CountryValueKey: country}));
   }

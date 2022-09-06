@@ -79,7 +79,7 @@ EmailValueKey: emailController.text,
 ''';
 const kExample1ViewModelExtensionForGetters = '''
 
-extension ValueProperties on dynamic {
+extension ValueProperties on FormViewModel {
 bool get isFormValid =>
       this.fieldsValidationMessages.values.every((element) => element == null);
 String? get nameValue => this.formValueMap[NameValueKey] as String?;
@@ -105,7 +105,7 @@ String? get dropDownValidationMessage => this.fieldsValidationMessages[DropDownV
 ''';
 const kExample1ViewModelExtensionForMethods = '''
 
-extension Methods on dynamic {
+extension Methods on FormViewModel {
           Future<void> selectDate(
               {required BuildContext context,
               required DateTime initialDate,
