@@ -1,5 +1,4 @@
 import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/dart/element/type.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_generator/src/generators/router/route_config/route_config_factory.dart';
@@ -30,7 +29,7 @@ class RouteConfigResolver {
       element: dartType.element2!,
     );
 
-    final classElement = dartType.element as ClassElement;
+    final classElement = dartType.element2 as ClassElement;
     final import = _typeResolver.resolveImport(classElement);
     final classNameWithImport = MapEntry(toDisplayString(dartType), import!);
 
