@@ -4,7 +4,7 @@ import '../../app/app.logger.dart';
 
 const String SelectLocationViewName = 'SelectLocationView';
 
-class SelectLocationViewModel extends BaseViewModel with FormStateHelper {
+class SelectLocationViewModel extends FormViewModel {
   var log = getLogger('SelectLocationViewModel');
 
   @override

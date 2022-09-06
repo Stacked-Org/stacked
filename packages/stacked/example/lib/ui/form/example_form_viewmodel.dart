@@ -4,11 +4,10 @@ import 'package:example/app/app.router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import '../../app/app.locator.dart';
 import 'example_form_view.form.dart';
 
 // #5: extend from FormViewModel
-class ExampleFormViewModel extends BaseViewModel with FormStateHelper {
+class ExampleFormViewModel extends FormViewModel {
   final log = getLogger('FormViewModel');
   final _navigationService = exampleLocator<NavigationService>();
 

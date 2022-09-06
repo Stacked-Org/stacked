@@ -1,4 +1,5 @@
 import 'package:example/datamodels/clashable_one.dart';
+import 'package:example/datamodels/home_type.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -17,7 +18,7 @@ class HomeView extends StatelessWidget {
     this.title = 'hello',
     this.isLoggedIn = false,
     this.clashableGetter,
-    this.homeType = HomeType.appartment,
+    this.homeType = HomeType.apartment,
   }) : super(key: key);
 
   @override

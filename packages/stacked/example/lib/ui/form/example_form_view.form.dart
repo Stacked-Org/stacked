@@ -79,20 +79,20 @@ mixin $ExampleFormView on StatelessWidget {
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
-  void listenToFormUpdated(FormStateHelper model) {
+  void listenToFormUpdated(dynamic model) {
     emailController.addListener(() => _updateFormData(model));
     passwordController.addListener(() => _updateFormData(model));
     shortBioController.addListener(() => _updateFormData(model));
   }
 
   final bool _autoTextFieldValidation = false;
-  bool validateFormFields(FormStateHelper model) {
+  bool validateFormFields(dynamic model) {
     _updateFormData(model, forceValidate: true);
     return model.isFormValid;
   }
 
-  /// Updates the formData on the FormStateHelper
-  void _updateFormData(FormStateHelper model, {bool forceValidate = false}) {
+  /// Updates the formData on the dynamic
+  void _updateFormData(dynamic model, {bool forceValidate = false}) {
     model.setData(
       model.formValueMap
         ..addAll({
@@ -106,9 +106,8 @@ mixin $ExampleFormView on StatelessWidget {
     }
   }
 
-  /// Updates the fieldsValidationMessages on the FormStateHelper
-  void _updateValidationData(FormStateHelper model) =>
-      model.setValidationMessages({
+  /// Updates the fieldsValidationMessages on the dynamic
+  void _updateValidationData(dynamic model) => model.setValidationMessages({
         EmailValueKey: _getValidationMessage(EmailValueKey),
         PasswordValueKey: _getValidationMessage(PasswordValueKey),
         ShortBioValueKey: _getValidationMessage(ShortBioValueKey),
@@ -139,7 +138,7 @@ mixin $ExampleFormView on StatelessWidget {
   }
 }
 
-extension ValueProperties on FormStateHelper {
+extension ValueProperties on FormViewModel {
   bool get isFormValid =>
       this.fieldsValidationMessages.values.every((element) => element == null);
   String? get emailValue => this.formValueMap[EmailValueKey] as String?;
@@ -180,7 +179,7 @@ extension ValueProperties on FormStateHelper {
       this.fieldsValidationMessages[DoYouLoveFoodValueKey];
 }
 
-extension Methods on FormStateHelper {
+extension Methods on dynamic {
   Future<void> selectBirthDate(
       {required BuildContext context,
       required DateTime initialDate,

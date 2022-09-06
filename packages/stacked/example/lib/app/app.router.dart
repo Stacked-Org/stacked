@@ -8,6 +8,7 @@
 import 'package:example/app/custom_route_transition.dart' as _i9;
 import 'package:example/datamodels/clashable_one.dart' as _i12;
 import 'package:example/datamodels/clashable_two.dart' as _i13;
+import 'package:example/datamodels/home_type.dart' as _i10;
 import 'package:example/ui/bottom_nav/bottom_nav_example.dart' as _i3;
 import 'package:example/ui/bottom_nav/favorites/favorites_view.dart' as _i14;
 import 'package:example/ui/bottom_nav/history/history_view.dart' as _i15;
@@ -15,7 +16,6 @@ import 'package:example/ui/bottom_nav/profile/profile_view.dart' as _i16;
 import 'package:example/ui/details/details_view.dart' as _i5;
 import 'package:example/ui/form/example_form_view.dart' as _i6;
 import 'package:example/ui/home/home_view.dart' as _i2;
-import 'package:example/ui/home/home_viewmodel.dart' as _i10;
 import 'package:example/ui/multiple_futures_example/multiple_futures_example_view.dart'
     as _i18;
 import 'package:example/ui/nonreactive/nonreactive_view.dart' as _i7;
@@ -128,7 +128,7 @@ class HomeViewArguments {
       this.title = 'hello',
       this.isLoggedIn = false,
       this.clashableGetter,
-      this.homeType = _i10.HomeType.appartment});
+      this.homeType = _i10.HomeType.apartment});
 
   final _i11.Key? key;
 
@@ -270,7 +270,7 @@ extension NavigatorStateExtension on _i19.NavigationService {
       String? title = 'hello',
       bool? isLoggedIn = false,
       _i12.Clashable Function(String)? clashableGetter,
-      _i10.HomeType homeType = _i10.HomeType.appartment,
+      _i10.HomeType homeType = _i10.HomeType.apartment,
       int? routerId,
       bool preventDuplicates = true,
       Map<String, String>? parameters,

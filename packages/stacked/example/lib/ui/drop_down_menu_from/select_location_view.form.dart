@@ -31,7 +31,7 @@ final Map<String, String> ProvinceValueToTitleMap = {
 mixin $SelectLocationView on StatelessWidget {
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
-  void listenToFormUpdated(FormStateHelper model) {}
+  void listenToFormUpdated(dynamic model) {}
 
   /// Calls dispose on all the generated controllers and focus nodes
   void disposeForm() {
@@ -39,7 +39,7 @@ mixin $SelectLocationView on StatelessWidget {
   }
 }
 
-extension ValueProperties on FormStateHelper {
+extension ValueProperties on FormViewModel {
   bool get isFormValid =>
       this.fieldsValidationMessages.values.every((element) => element == null);
   String? get countryValue => this.formValueMap[CountryValueKey] as String?;
@@ -59,7 +59,7 @@ extension ValueProperties on FormStateHelper {
       this.fieldsValidationMessages[ProvinceValueKey];
 }
 
-extension Methods on FormStateHelper {
+extension Methods on dynamic {
   void setCountry(String country) {
     this.setData(this.formValueMap..addAll({CountryValueKey: country}));
   }
