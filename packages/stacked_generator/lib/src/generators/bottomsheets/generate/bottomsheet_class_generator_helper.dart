@@ -8,7 +8,7 @@ class BottomsheetClassGeneratorHelper with StringBufferUtils {
   void writeBottomsheetTypeEnum(List<BottomsheetConfig> bottomsheetConfigs) {
     writeLine("enum BottomsheetType{");
     for (var bottomsheetConfig in bottomsheetConfigs) {
-      writeLine(toLowerCamelCase(bottomsheetConfig.bottomsheetClassName) + ',');
+      writeLine('${toLowerCamelCase(bottomsheetConfig.bottomsheetClassName)},');
     }
     writeLine("}");
   }

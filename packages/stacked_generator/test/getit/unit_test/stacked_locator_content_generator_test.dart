@@ -5,7 +5,6 @@ import 'package:stacked_generator/src/generators/getit/dependency_config/factory
 import 'package:stacked_generator/src/generators/getit/dependency_config/lazy_singleton.dart';
 import 'package:stacked_generator/src/generators/getit/dependency_config/presolve_singleton_dependency.dart';
 import 'package:stacked_generator/src/generators/getit/dependency_config/singleton_dependency.dart';
-
 import 'package:stacked_generator/src/generators/getit/stacked_locator_content_generator.dart';
 import 'package:test/test.dart';
 
@@ -45,7 +44,7 @@ void main() {
             'with one DependencyConfig that has presolveFunction and type = DependencyType.PresolvedSingleton and instanceName',
             () {
           final dependencies = [
-            PresolveSingletonDependency(
+            const PresolveSingletonDependency(
               import: 'importOne',
               className: 'GeolocaorService',
               presolveFunction: 'staticPresolveFunction',
@@ -62,7 +61,7 @@ void main() {
             'with one DependencyConfig that has presolveFunction and [type=DependencyType.Factory] and instanceName',
             () {
           final dependencies = [
-            FactoryDependency(
+            const FactoryDependency(
               import: 'importOne',
               className: 'GeolocaorService',
               instanceName: 'instance1',
@@ -77,7 +76,7 @@ void main() {
         test('When params is null, Should throw InvalidGeneratorInputException',
             () {
           final dependencies = [
-            FactoryParamDependency(
+            const FactoryParamDependency(
               import: 'importOne',
               className: 'GeolocaorService',
             ),
@@ -91,7 +90,7 @@ void main() {
             'When params isEmpty, Should throw a InvalidGeneratorInputException',
             () {
           final dependencies = [
-            FactoryParamDependency(
+            const FactoryParamDependency(
                 import: 'importOne', className: 'GeolocaorService', params: {}),
           ];
 
@@ -103,7 +102,7 @@ void main() {
 When params is not empty but DependencyParamConfig type is null
 , Should throw a InvalidGeneratorInputException''', () {
           final dependencies = [
-            FactoryParamDependency(
+            const FactoryParamDependency(
                 import: 'importOne',
                 className: 'GeolocaorService',
                 params: {FactoryParameter()}),
@@ -118,7 +117,7 @@ When params is not empty and DependencyParamConfig type is empty,
 , Should throw a InvalidGeneratorInputException that atleast one [DependencyParamConfig] 
 needs to have isFactoryParam needs to be true''', () {
           final dependencies = [
-            FactoryParamDependency(
+            const FactoryParamDependency(
                 import: 'importOne',
                 className: 'GeolocaorService',
                 params: {FactoryParameter(type: '')}),
@@ -133,7 +132,7 @@ When params is not empty and DependencyParamConfig type doesn't have a question 
 , Should throw a InvalidGeneratorInputException that factory needs to be nullable''',
             () {
           final dependencies = [
-            FactoryParamDependency(
+            const FactoryParamDependency(
                 import: 'importOne',
                 className: 'GeolocaorService',
                 params: {
@@ -152,7 +151,7 @@ When params is not empty and DependencyParamConfig type doesn't have a question 
 When params is not empty and DependencyParamConfig type have a question mark '?'
 , Should generate code''', () {
           final dependencies = [
-            FactoryParamDependency(
+            const FactoryParamDependency(
                 import: 'importOne',
                 className: 'GeolocaorService',
                 params: {
@@ -170,7 +169,7 @@ When params is not empty and DependencyParamConfig type have a question mark '?'
 When params is not empty and DependencyParamConfig type is newType? and default value is shit
 , Should generate code''', () {
           final dependencies = [
-            FactoryParamDependency(
+            const FactoryParamDependency(
                 import: 'importOne',
                 className: 'GeolocaorService',
                 params: {
@@ -189,7 +188,7 @@ When params is not empty and DependencyParamConfig type is newType? and default 
 When params is not empty and DependencyParamConfig type is 
 newType? and isPositional=true, Should generate code''', () {
           final dependencies = [
-            FactoryParamDependency(
+            const FactoryParamDependency(
                 import: 'importOne',
                 className: 'GeolocaorService',
                 params: {
@@ -208,7 +207,7 @@ newType? and isPositional=true, Should generate code''', () {
 When params is not empty and DependencyParamConfig type is newType? 
 and default value is shit and isPositional=true, Should generate code''', () {
           final dependencies = [
-            FactoryParamDependency(
+            const FactoryParamDependency(
                 import: 'importOne',
                 className: 'GeolocaorService',
                 params: {
@@ -228,7 +227,7 @@ and default value is shit and isPositional=true, Should generate code''', () {
 When params is not empty and DependencyParamConfig 
 type is newType? and name is hello, Should generate code''', () {
           final dependencies = [
-            FactoryParamDependency(
+            const FactoryParamDependency(
                 import: 'importOne',
                 className: 'GeolocaorService',
                 params: {
@@ -246,7 +245,7 @@ type is newType? and name is hello, Should generate code''', () {
         test('''
 When provide two FactoryParamDependency and instanceName''', () {
           final dependencies = [
-            FactoryParamDependency(
+            const FactoryParamDependency(
                 import: 'importOne',
                 className: 'GeolocaorService',
                 instanceName: 'instance1',
@@ -271,7 +270,7 @@ When provide two FactoryParamDependency and instanceName''', () {
       group('Singleton -', () {
         test('with one DependencyConfig ', () {
           final dependencies = [
-            SingletonDependency(
+            const SingletonDependency(
               import: 'importOne',
               className: 'GeolocaorService',
             )
@@ -283,11 +282,11 @@ When provide two FactoryParamDependency and instanceName''', () {
         });
         test('with two dependencies', () {
           final dependencies = [
-            SingletonDependency(
+            const SingletonDependency(
               import: 'importOne',
               className: 'GeolocaorService',
             ),
-            SingletonDependency(
+            const SingletonDependency(
               import: 'importTwo',
               className: 'FireService',
             )
@@ -300,7 +299,7 @@ When provide two FactoryParamDependency and instanceName''', () {
             'with two dependencies and added DependencyParamConfig imports and instanceName',
             () {
           final dependencies = [
-            SingletonDependency(
+            const SingletonDependency(
               import: 'importOne',
               className: 'GeolocaorService',
               instanceName: 'instance1',
@@ -313,7 +312,7 @@ When provide two FactoryParamDependency and instanceName''', () {
 
         test('with one DependencyConfig that has abstractedImport', () {
           final dependencies = [
-            SingletonDependency(
+            const SingletonDependency(
               import: 'importOne',
               className: 'GeolocaorService',
               abstractedImport: 'abstractedImportOne',
@@ -325,7 +324,7 @@ When provide two FactoryParamDependency and instanceName''', () {
         });
         test('with one DependencyConfig that has abstractedTypeClassName', () {
           final dependencies = [
-            SingletonDependency(
+            const SingletonDependency(
               import: 'importOne',
               className: 'GeolocaorService',
               abstractedTypeClassName: 'abstractedTypeClassNamee',
@@ -338,7 +337,7 @@ When provide two FactoryParamDependency and instanceName''', () {
         test('with one DependencyConfig that has environments and instanceName',
             () {
           final dependencies = [
-            SingletonDependency(
+            const SingletonDependency(
               import: 'importOne',
               className: 'GeolocaorService',
               environments: {'dev', 'prod'},
@@ -354,14 +353,14 @@ with one DependencyConfig that has [type=DependencyType.Singleton],
  Should ignors all [params] DependencyParamConfig and generate the same code''',
             () {
           final dependencies = [
-            SingletonDependency(
+            const SingletonDependency(
               import: 'importOne',
               className: 'GeolocaorService',
             ),
           ];
 
           final dependenciesWithEmptyParams = [
-            SingletonDependency(
+            const SingletonDependency(
               import: 'importOne',
               className: 'GeolocaorService',
             ),
@@ -378,7 +377,7 @@ with one DependencyConfig that has [type=DependencyType.Singleton],
         test('''
 with one DependencyConfig that has [type=DependencyType.LazySingleton]''', () {
           final dependencies = [
-            LazySingletonDependency(
+            const LazySingletonDependency(
               import: 'importOne',
               className: 'GeolocaorService',
               instanceName: 'instance1',

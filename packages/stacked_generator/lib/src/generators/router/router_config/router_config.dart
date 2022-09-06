@@ -37,7 +37,7 @@ class RouterConfig {
 
   List<RouteConfig> get routesIncludingTheirChildren => nestedRoutes(routes);
 
-  List<RouteConfig> _allRoutes = [];
+  final List<RouteConfig> _allRoutes = [];
   List<RouteConfig> nestedRoutes(List<RouteConfig> routes) {
     if (routes.isEmpty) return [];
     _allRoutes.addAll(routes);

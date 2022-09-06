@@ -1,16 +1,16 @@
 const ksFormImports = '''
 
-import \'package:flutter/material.dart\';
-import \'package:stacked/stacked.dart\';
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 
 
 ''';
 
 String ksFormKeys(String name, String date, String dropDown) => '''
 
-const String ${name[0].toUpperCase()}${name.substring(1)}ValueKey = \'${name}\';
-const String ${date[0].toUpperCase()}${date.substring(1)}ValueKey = \'${date}\';
-const String ${dropDown[0].toUpperCase()}${dropDown.substring(1)}ValueKey = \'${dropDown}\';
+const String ${name[0].toUpperCase()}${name.substring(1)}ValueKey = '$name';
+const String ${date[0].toUpperCase()}${date.substring(1)}ValueKey = '$date';
+const String ${dropDown[0].toUpperCase()}${dropDown.substring(1)}ValueKey = '$dropDown';
 
 ''';
 

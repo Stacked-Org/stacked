@@ -56,11 +56,11 @@ class StackedLocatorContentGenerator
     imports.addAll(services.map((service) => service.import));
     imports.addAll(services.map((service) => service.abstractedImport));
 
-    services.forEach((dependency) {
+    for (var dependency in services) {
       if (dependency is FactoryParamDependency) {
         imports.addAll(dependency.extraImports());
       }
-    });
+    }
 
     var validImports =
         imports.where((import) => import != null).toSet().cast<String>();

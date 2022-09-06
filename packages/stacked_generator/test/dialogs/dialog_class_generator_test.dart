@@ -17,14 +17,17 @@ void main() {
         expect(generator.generate(), kDialogsWithCustomNamedLocator);
       });
       test('One dialog', () {
-        final generator = DialogClassGenerator(
-            [DialogConfig(import: 'one.dart', dialogClassName: 'BasicDialog')]);
+        final generator = DialogClassGenerator([
+          const DialogConfig(import: 'one.dart', dialogClassName: 'BasicDialog')
+        ]);
         expect(generator.generate(), kOneDialog);
       });
       test('Two dialogs', () {
         final generator = DialogClassGenerator([
-          DialogConfig(import: 'one.dart', dialogClassName: 'BasicDialog'),
-          DialogConfig(import: 'two.dart', dialogClassName: 'ComplexDialog')
+          const DialogConfig(
+              import: 'one.dart', dialogClassName: 'BasicDialog'),
+          const DialogConfig(
+              import: 'two.dart', dialogClassName: 'ComplexDialog')
         ]);
 
         expect(generator.generate(), kTwoDialogs);

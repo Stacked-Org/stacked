@@ -53,18 +53,18 @@ abstract class RouteConfig {
       Code? extra,
       bool usePageBuilder = false}) {
     return Block.of([
-      Code('return '),
+      const Code('return '),
       Reference(routeType, routeTypeImport).code,
       usePageBuilder
           ? Code(
               '<$processedReturnType>(pageBuilder: (context, animation, secondaryAnimation) => ')
           : Code('<$processedReturnType>(builder: (context) => '),
       joinedConstructerParams,
-      Code(', settings: data,'),
+      const Code(', settings: data,'),
       if (extra != null) extra,
-      if (fullscreenDialog) Code('fullscreenDialog:true,'),
-      if (!maintainState) Code('maintainState:false,'),
-      Code(');')
+      if (fullscreenDialog) const Code('fullscreenDialog:true,'),
+      if (!maintainState) const Code('maintainState:false,'),
+      const Code(');')
     ]);
   }
 

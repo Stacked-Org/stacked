@@ -41,7 +41,7 @@ void main() {
           generateNavigationHelper: true,
           routes: routes));
       final result = routerBaseGenerator.generate();
-      if (verbose) print(result);
+      // if (verbose) print(result);
       expect(result, expectedResult);
     }
 
@@ -57,7 +57,7 @@ void main() {
 
       test('Given the following RouteConfig, Generate output', () {
         final List<RouteConfig> routes = [
-          MaterialRouteConfig(
+          const MaterialRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
             className: MapEntry('TestClass', 'test.dart'),
@@ -428,7 +428,7 @@ void main() {
       //   });
       test('When adding NestedRouter with one child', () {
         final List<RouteConfig> routes = [
-          MaterialRouteConfig(
+          const MaterialRouteConfig(
             name: 'loginView1',
             pathName: 'pathNamaw1',
             className: MapEntry('TestClass1', 'test1.dart'),
@@ -790,7 +790,7 @@ When a view parameter inside another data structure,
           CustomRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: MapEntry('TestClass', 'test.dart'),
+            className: const MapEntry('TestClass', 'test.dart'),
             parameters: [
               RouteParamConfig(
                 isPathParam: false,
@@ -814,7 +814,7 @@ When a view parameter inside another data structure,
           CustomRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: MapEntry('TestClass', 'test.dart'),
+            className: const MapEntry('TestClass', 'test.dart'),
             parameters: [
               RouteParamConfig(
                 isPathParam: false,
@@ -835,7 +835,7 @@ When a view parameter inside another data structure,
       group('Mixed -', () {
         test('Given random routing system', () {
           final List<RouteConfig> routes = [
-            CustomRouteConfig(
+            const CustomRouteConfig(
               name: 'loginView1',
               pathName: 'pathNamaw1',
               className: MapEntry('TestClass1', 'test1.dart'),
@@ -845,7 +845,7 @@ When a view parameter inside another data structure,
             MaterialRouteConfig(
                 name: 'loginView2',
                 pathName: 'pathNamaw2',
-                className: MapEntry('TestClass2', 'test2.dart'),
+                className: const MapEntry('TestClass2', 'test2.dart'),
                 parameters: [
                   RouteParamConfig(
                     name: 'test2paramName',
@@ -858,7 +858,7 @@ When a view parameter inside another data structure,
             MaterialRouteConfig(
                 name: 'loginView3',
                 pathName: 'pathNamaw3',
-                className: MapEntry('TestClass3', 'test3.dart'),
+                className: const MapEntry('TestClass3', 'test3.dart'),
                 parameters: [
                   RouteParamConfig(
                     name: 'test3paramName',
@@ -868,17 +868,17 @@ When a view parameter inside another data structure,
                     isQueryParam: false,
                   ),
                 ]),
-            MaterialRouteConfig(
+            const MaterialRouteConfig(
                 name: 'loginView4',
                 pathName: 'pathNamaw4',
                 className: MapEntry('TestClass4', 'test4.dart'),
                 maintainState: false),
-            AdaptiveRouteConfig(
+            const AdaptiveRouteConfig(
                 name: 'loginView5',
                 pathName: 'pathNamaw5',
                 className: MapEntry('TestClass5', 'test5.dart'),
                 cupertinoNavTitle: 'cupertinooo'),
-            CupertinoRouteConfig(
+            const CupertinoRouteConfig(
               name: 'loginView6',
               pathName: 'pathNamaw6',
               className: MapEntry('TestClass6', 'test6.dart'),

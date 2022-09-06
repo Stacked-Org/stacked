@@ -1,8 +1,9 @@
+// ignore_for_file: unnecessary_this
+
 import 'package:analyzer/dart/element/element.dart';
 
 /// Described a single field to be generated.
 ///
-/// TODO: Think about different field types like drop down, image selection,
 /// date pickers etc.
 abstract class FieldConfig {
   /// The name of the form field. This will be used to generate the Key mapping
@@ -66,26 +67,20 @@ class ExecutableElementData {
 }
 
 extension ListOfFieldConfigs on List<FieldConfig> {
-  List<TextFieldConfig> get onlyTextFieldConfigs => this
-      .where((fieldConfig) => fieldConfig is TextFieldConfig)
-      .map((t) => t as TextFieldConfig)
-      .toList();
+  List<TextFieldConfig> get onlyTextFieldConfigs =>
+      this.whereType<TextFieldConfig>().map((t) => t).toList();
 
-  List<DateFieldConfig> get onlyDateFieldConfigs => this
-      .where((fieldConfig) => fieldConfig is DateFieldConfig)
-      .map((t) => t as DateFieldConfig)
-      .toList();
+  List<DateFieldConfig> get onlyDateFieldConfigs =>
+      this.whereType<DateFieldConfig>().map((t) => t).toList();
 
-  List<DropdownFieldConfig> get onlyDropdownFieldConfigs => this
-      .where((fieldConfig) => fieldConfig is DropdownFieldConfig)
-      .map((t) => t as DropdownFieldConfig)
-      .toList();
+  List<DropdownFieldConfig> get onlyDropdownFieldConfigs =>
+      this.whereType<DropdownFieldConfig>().map((t) => t).toList();
 }
 
 extension ExecutableElementDataExtension on ExecutableElement? {
   String? get validatorPath => this?.source.uri.toString();
   String? get validatorName => hasEnclosingElementName
-      ? '${enclosingElementName}.${this?.name}'
+      ? '$enclosingElementName.${this?.name}'
       : this?.name;
   bool get hasEnclosingElementName => enclosingElementName != null;
   String? get enclosingElementName => this?.enclosingElement3.name;

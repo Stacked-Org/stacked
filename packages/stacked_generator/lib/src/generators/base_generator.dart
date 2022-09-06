@@ -25,13 +25,17 @@ mixin StringBufferUtils {
   /// Sorts the imports and then writed it to the current [StringBuffer]
   void sortAndGenerate(Iterable<String> imports) {
     var sorted = imports.toList()..sort();
-    sorted.forEach((import) => writeLine("import '$import';"));
+    for (var import in sorted) {
+      writeLine("import '$import';");
+    }
   }
 
   void generateIterableWithPaddingLines(Iterable<String> imports,
       {int preLines = 0, int postlines = 0}) {
     List.generate(preLines, (_) => writeLine());
-    imports.forEach((import) => writeLine("import '$import';"));
+    for (var import in imports) {
+      writeLine("import '$import';");
+    }
     List.generate(postlines, (_) => writeLine());
   }
 }

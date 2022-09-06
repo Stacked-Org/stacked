@@ -31,7 +31,7 @@ class RoutesClassBuilder {
         routes.where((route) => route.pathName.contains(':')).map((route) {
       return Method(
         (b) => b
-          ..returns = Reference('String')
+          ..returns = const Reference('String')
           ..static = true
           ..lambda = true
           ..optionalParameters
@@ -50,7 +50,7 @@ class RoutesClassBuilder {
         ..assignment = literalSet(
                 routes.map((route) => Reference(
                     _convertToPrivateNameWhenRouteHasPathParameter(route))),
-                Reference('String'))
+                const Reference('String'))
             .code,
     );
 
@@ -70,13 +70,13 @@ class RoutesClassBuilder {
       if (match!.endsWith('?')) {
         return Parameter((b) => b
           ..named = true
-          ..type = Reference('dynamic')
+          ..type = const Reference('dynamic')
           ..name = match.substring(0, match.length - 1));
       } else {
         return Parameter((b) => b
           ..required = true
           ..named = true
-          ..type = Reference('dynamic')
+          ..type = const Reference('dynamic')
           ..name = match);
       }
     });
@@ -92,6 +92,6 @@ class RoutesClassBuilder {
         return '';
       }
     });
-    return "'${pathAfterAddingDollarSigns}'";
+    return "'$pathAfterAddingDollarSigns'";
   }
 }

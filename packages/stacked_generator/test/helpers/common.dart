@@ -43,7 +43,7 @@ Future<void> checkCodeForCompilationError(
     required String fileName}) async {
   final main = await resolveSources(
     {
-      generatorName + '|' + relativePath + fileName + '.dart': useAssetReader,
+      '$generatorName|$relativePath$fileName.dart': useAssetReader,
     },
     (r) => r.libraries.firstWhere((element) {
       /// [element.source.toString()] will print the name of the file for example 'test.dart'
@@ -51,9 +51,8 @@ Future<void> checkCodeForCompilationError(
     }),
   );
 
-  final errorResult = await main.session.getErrors(
-          '/' + generatorName + '/' + relativePath + fileName + '.dart')
-      as ErrorsResult;
+  final errorResult = await main.session
+      .getErrors('/$generatorName/$relativePath$fileName.dart') as ErrorsResult;
 
   expect(errorResult.errors, isEmpty);
 }

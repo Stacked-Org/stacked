@@ -34,7 +34,8 @@ class RouteConfigFactory {
   });
 
   RouteConfig fromResolver(ConstantReader stackedRoute) {
-    if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CupertinoRoute))) {
+    if (stackedRoute
+        .instanceOf(const TypeChecker.fromRuntime(CupertinoRoute))) {
       return CupertinoRouteConfig(
         className: className,
         name: name,
@@ -49,7 +50,7 @@ class RouteConfigFactory {
         parentClassName: parentClassName,
       );
     } else if (stackedRoute
-        .instanceOf(TypeChecker.fromRuntime(AdaptiveRoute))) {
+        .instanceOf(const TypeChecker.fromRuntime(AdaptiveRoute))) {
       return AdaptiveRouteConfig(
         className: className,
         name: name,
@@ -63,7 +64,8 @@ class RouteConfigFactory {
         cupertinoNavTitle: stackedRoute.peek('cupertinoPageTitle')?.stringValue,
         parentClassName: parentClassName,
       );
-    } else if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CustomRoute))) {
+    } else if (stackedRoute
+        .instanceOf(const TypeChecker.fromRuntime(CustomRoute))) {
       final function = stackedRoute
           .peek('transitionsBuilder')
           ?.objectValue

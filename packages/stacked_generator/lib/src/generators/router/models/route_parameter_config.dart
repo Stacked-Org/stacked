@@ -1,13 +1,14 @@
 import 'package:analyzer/dart/element/element.dart';
+// ignore: library_prefixes, no_leading_underscores_for_library_prefixes
 import 'package:analyzer/dart/element/type.dart' as _dartType;
 import 'package:code_builder/code_builder.dart';
-import 'package:stacked_core/stacked_core.dart';
 import 'package:source_gen/source_gen.dart';
+import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_generator/resolved_type.dart';
 import 'package:stacked_generator/type_resolver.dart';
 
-final pathParamChecker = TypeChecker.fromRuntime(PathParam);
-final queryParamChecker = TypeChecker.fromRuntime(QueryParam);
+const pathParamChecker = TypeChecker.fromRuntime(PathParam);
+const queryParamChecker = TypeChecker.fromRuntime(QueryParam);
 
 /// holds constructor parameter info to be used
 /// in generating route parameters.
@@ -60,7 +61,7 @@ class RouteParameterResolver {
     var type = _typeResolver.resolveType(paramType);
 
     var pathParam = pathParamChecker.hasAnnotationOfExact(parameterElement);
-    var paramAlias;
+    String? paramAlias;
     if (pathParam) {
       paramAlias = pathParamChecker
           .firstAnnotationOf(parameterElement)
@@ -90,7 +91,7 @@ class RouteParameterResolver {
   }
 
   RouteParamConfig _resolveFunctionType(ParameterElement parameterElement) {
-    print('_resolveFunctionType');
+    // print('_resolveFunctionType');
     var functionType = parameterElement.type as _dartType.FunctionType;
     return FunctionParamConfig(
         returnType: _typeResolver.resolveType(functionType.returnType),

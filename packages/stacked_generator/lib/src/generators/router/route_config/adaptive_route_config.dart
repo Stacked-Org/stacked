@@ -27,7 +27,7 @@ class AdaptiveRouteConfig extends RouteConfig {
       routeType: 'buildAdaptivePageRoute',
       routeTypeImport: 'package:stacked/stacked.dart',
       extra: cupertinoNavTitle != null
-          ? Code("cupertinoTitle:'${cupertinoNavTitle}',")
+          ? Code("cupertinoTitle:'$cupertinoNavTitle',")
           : null,
     );
   }

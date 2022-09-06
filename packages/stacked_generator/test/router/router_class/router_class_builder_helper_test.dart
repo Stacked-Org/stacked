@@ -8,10 +8,11 @@ import '../../helpers/class_extension.dart';
 import '../../helpers/test_constants/router_constants.dart';
 
 final List<RouteConfig> _routes = [
+  // ignore: prefer_const_constructors
   MaterialRouteConfig(
     name: 'loginView',
     pathName: 'pathNamaw',
-    className: MapEntry('LoginClass', 'ui/login_class.dart'),
+    className: const MapEntry('LoginClass', 'ui/login_class.dart'),
   ),
   MaterialRouteConfig(
     name: 'homeView',
@@ -24,7 +25,7 @@ final List<RouteConfig> _routes = [
           isPathParam: false,
           isQueryParam: false)
     ],
-    className: MapEntry('HomeClass', 'ui/home_class.dart'),
+    className: const MapEntry('HomeClass', 'ui/home_class.dart'),
   )
 ];
 void main() {

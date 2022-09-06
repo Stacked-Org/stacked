@@ -38,13 +38,13 @@ class NavigateExtensionClassBuilderHelper {
 
       // Assign default value
       if (param.defaultValueCode != null) {
-        parameterBuilder
-          ..defaultTo = refer(param.defaultValueCode!, param.type.import).code;
+        parameterBuilder.defaultTo =
+            refer(param.defaultValueCode!, param.type.import).code;
       }
 
       // Add required keyword
       if (param.isRequired || param.isPositional) {
-        parameterBuilder..required = true;
+        parameterBuilder.required = true;
       }
     });
   }
@@ -58,18 +58,18 @@ class NavigateExtensionClassBuilderHelper {
   List<Parameter> get _constParameters => [
         Parameter((b) => b
           ..name = 'routerId'
-          ..type = Reference('int?')),
+          ..type = const Reference('int?')),
         Parameter((b) => b
           ..name = 'preventDuplicates'
-          ..type = Reference('bool')
-          ..defaultTo = Code('true')),
+          ..type = const Reference('bool')
+          ..defaultTo = const Code('true')),
         Parameter((b) => b
           ..name = 'parameters'
-          ..type = Reference('Map<String, String>?')),
+          ..type = const Reference('Map<String, String>?')),
         Parameter(
           (b) => b
             ..name = 'transition'
-            ..type = Reference(
+            ..type = const Reference(
                 'Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?'),
         )
       ];
@@ -79,33 +79,33 @@ class NavigateExtensionClassBuilderHelper {
     required String methodReturnType,
   }) {
     final routesClassName = route.parentClassName != null
-        ? route.parentClassName! + 'Routes'
+        ? '${route.parentClassName!}Routes'
         : 'Routes';
     return Block.of([
       Code(
-          'return navigateTo<$methodReturnType>(${routesClassName}.${route.name}, '),
+          'return navigateTo<$methodReturnType>($routesClassName.${route.name}, '),
       _assignArgumentClass(route),
       ..._constMethodBodyParameters,
     ]);
   }
 
   List<Code> get _constMethodBodyParameters => [
-        Code('id: routerId,'),
-        Code('preventDuplicates: preventDuplicates,'),
-        Code('parameters: parameters,'),
-        Code('transition: transition'),
-        Code(');'),
+        const Code('id: routerId,'),
+        const Code('preventDuplicates: preventDuplicates,'),
+        const Code('parameters: parameters,'),
+        const Code('transition: transition'),
+        const Code(');'),
       ];
 
   Code _assignArgumentClass(RouteConfig route) {
     if (route.parameters.isNotEmpty) {
       final argumentClassName = route.parentClassName != null
-          ? 'Nested' + route.argumentsHolderClassName
+          ? 'Nested${route.argumentsHolderClassName}'
           : route.argumentsHolderClassName;
 
       return Code(
-          'arguments: ${argumentClassName}(${route.parameters.map((p) => '${p.name}: ${p.name}').join(',')}),');
+          'arguments: $argumentClassName(${route.parameters.map((p) => '${p.name}: ${p.name}').join(',')}),');
     }
-    return Code('');
+    return const Code('');
   }
 }

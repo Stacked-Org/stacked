@@ -13,7 +13,7 @@ class NavigateExtensionClassBuilder with NavigateExtensionClassBuilderHelper {
     return Extension(
       (b) => b
         ..name = 'NavigatorStateExtension'
-        ..on = Reference(
+        ..on = const Reference(
           'NavigationService',
           'package:stacked_services/stacked_services.dart',
         )

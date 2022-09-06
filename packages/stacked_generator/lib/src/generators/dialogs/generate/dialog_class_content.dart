@@ -10,7 +10,7 @@ void setupDialogUi() {
 
 String dialogRegisterContent(String dialogClassName) => '''
   DialogType.${toLowerCamelCase(dialogClassName)}: (context, DialogRequest request, void Function(DialogResponse) completer) =>
-        ${dialogClassName}(request: request,completer: completer),
+        $dialogClassName(request: request,completer: completer),
 ''';
 
 const dialogRegisterTrailing = '''

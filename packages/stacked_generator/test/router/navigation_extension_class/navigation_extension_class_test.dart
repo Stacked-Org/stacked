@@ -12,7 +12,7 @@ final List<RouteConfig> _routes = [
   MaterialRouteConfig(
       name: 'loginView',
       pathName: 'pathNamaw',
-      className: MapEntry('LoginClass', 'ui/login_class.dart'),
+      className: const MapEntry('LoginClass', 'ui/login_class.dart'),
       parameters: [
         RouteParamConfig(
           isPathParam: false,
@@ -31,7 +31,7 @@ final List<RouteConfig> _routes = [
   MaterialRouteConfig(
       name: 'homeView',
       pathName: '/family/:fid',
-      className: MapEntry('HomeClass', 'ui/home_class.dart'),
+      className: const MapEntry('HomeClass', 'ui/home_class.dart'),
       parameters: [
         RouteParamConfig(
           isPathParam: false,

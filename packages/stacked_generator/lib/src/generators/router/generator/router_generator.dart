@@ -49,7 +49,7 @@ class RouterGenerator implements BaseGenerator {
       routesClassName: routerConfig.routesClassName,
       routes: routerConfig.routes,
       routerClassName: routerConfig.routerClassName,
-    ).BuildRouterClass();
+    ).buildRouterClass();
 
     final argumentsClassBuilder = ArgumentsClassBuilder(
       routes: routerConfig.routes,

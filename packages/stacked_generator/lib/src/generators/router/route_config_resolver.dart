@@ -38,7 +38,7 @@ class RouteConfigResolver {
       if (stackedRoute.peek('initial')?.boolValue == true) {
         pathName = '/';
       } else {
-        pathName = '${routeNamePrefex}${toKababCase(classNameWithImport.key)}';
+        pathName = '$routeNamePrefex${toKababCase(classNameWithImport.key)}';
       }
     }
 

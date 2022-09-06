@@ -28,9 +28,9 @@ class ArgumentClassBuilderHelper {
   }
 
   void _composeConstructer(ConstructorBuilder b) {
-    b..constant = true;
+    b.constant = true;
 
-    route.parameters.forEach((param) {
+    for (final param in route.parameters) {
       // Add the name and the default value
       final codeBuilderParameter = Parameter((parameterBuilder) {
         parameterBuilder
@@ -40,17 +40,16 @@ class ArgumentClassBuilderHelper {
 
         // Assign default value
         if (param.defaultValueCode != null) {
-          parameterBuilder
-            ..defaultTo =
-                refer(param.defaultValueCode!, param.type.import).code;
+          parameterBuilder.defaultTo =
+              refer(param.defaultValueCode!, param.type.import).code;
         }
 
         // Add required keyword
         if (param.isRequired || param.isPositional) {
-          parameterBuilder..required = true;
+          parameterBuilder.required = true;
         }
       });
-      b..optionalParameters.add(codeBuilderParameter);
-    });
+      b.optionalParameters.add(codeBuilderParameter);
+    }
   }
 }

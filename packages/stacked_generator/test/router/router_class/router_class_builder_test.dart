@@ -7,12 +7,12 @@ import '../../helpers/class_extension.dart';
 import '../../helpers/test_constants/router_constants.dart';
 
 final List<RouteConfig> _routes = [
-  MaterialRouteConfig(
+  const MaterialRouteConfig(
     name: 'loginView',
     pathName: 'pathNamaw',
     className: MapEntry('LoginClass', 'ui/login_class.dart'),
   ),
-  MaterialRouteConfig(
+  const MaterialRouteConfig(
     name: 'homeView',
     pathName: '/family/:fid',
     className: MapEntry('HomeClass', 'ui/home_class.dart'),
@@ -27,7 +27,7 @@ void main() {
           routes: _routes,
           routesClassName: 'RoutesClassName',
           routerClassName: 'RouterClassName',
-        ).BuildRouterClass();
+        ).buildRouterClass();
 
         expect(
           builder.buildLibraryForClass,

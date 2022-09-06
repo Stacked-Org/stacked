@@ -26,9 +26,9 @@ void main() {
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
-              TextFieldConfig(name: 'name'),
-              DateFieldConfig(name: 'date'),
-              DropdownFieldConfig(name: 'dropDown', items: []),
+              const TextFieldConfig(name: 'name'),
+              const DateFieldConfig(name: 'date'),
+              const DropdownFieldConfig(name: 'dropDown', items: []),
             ],
             autoTextFieldValidation: true,
           ),
@@ -44,7 +44,7 @@ void main() {
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
-              DropdownFieldConfig(
+              const DropdownFieldConfig(
                 name: 'dropDown',
                 items: [
                   DropdownFieldItem(value: '1', title: 'one'),
@@ -66,8 +66,8 @@ void main() {
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
-              TextFieldConfig(name: 'firstName'),
-              TextFieldConfig(name: 'lastName'),
+              const TextFieldConfig(name: 'firstName'),
+              const TextFieldConfig(name: 'lastName'),
             ],
             autoTextFieldValidation: false,
           ),
@@ -83,8 +83,8 @@ void main() {
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
-              TextFieldConfig(name: 'firstName'),
-              TextFieldConfig(name: 'lastName'),
+              const TextFieldConfig(name: 'firstName'),
+              const TextFieldConfig(name: 'lastName'),
             ],
             autoTextFieldValidation: false,
           ),
@@ -102,10 +102,10 @@ void main() {
           formViewConfig: FormViewConfig(
             viewName: 'Test',
             fields: [
-              TextFieldConfig(
+              const TextFieldConfig(
                 name: 'firstName',
               ),
-              TextFieldConfig(name: 'lastName'),
+              const TextFieldConfig(name: 'lastName'),
             ],
             autoTextFieldValidation: false,
           ),
@@ -135,7 +135,7 @@ void main() {
           formViewConfig: FormViewConfig(
             viewName: 'TestView',
             fields: [
-              TextFieldConfig(
+              const TextFieldConfig(
                   name: 'name',
                   initialValue: 'name initial value',
                   validatorFunction: ExecutableElementData(
@@ -143,7 +143,7 @@ void main() {
                       enclosingElementName: 'enclosingElementName',
                       hasEnclosingElementName: true,
                       validatorName: 'nameValidator')),
-              TextFieldConfig(
+              const TextFieldConfig(
                   name: 'email',
                   initialValue: 'email initial value',
                   customTextEditingController: ExecutableElementData(
@@ -151,8 +151,8 @@ void main() {
                       enclosingElementName: 'enclosingElementName',
                       hasEnclosingElementName: true,
                       validatorName: 'emailController')),
-              DateFieldConfig(name: 'date'),
-              DropdownFieldConfig(name: 'dropDown', items: [
+              const DateFieldConfig(name: 'date'),
+              const DropdownFieldConfig(name: 'dropDown', items: [
                 DropdownFieldItem(title: 'title1', value: 'value1'),
                 DropdownFieldItem(title: 'title2', value: 'value2'),
               ]),

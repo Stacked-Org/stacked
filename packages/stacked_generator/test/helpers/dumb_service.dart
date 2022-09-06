@@ -8,22 +8,16 @@ class DumpService implements AbstractDumpService {
   static DumpService? _instance;
 
   static DumpService getInstance() {
-    if (_instance == null) {
-      _instance = DumpService();
-    }
+    _instance ??= DumpService();
 
     return _instance!;
   }
 
   static Future<DumpService> presolve() async {
-    if (_instance == null) {
-      _instance = DumpService();
-    }
+    _instance ??= DumpService();
 
     return _instance!;
   }
-
-  static disposee(String) {}
 }
 
 class DumpServiceWithOneParam {

@@ -18,7 +18,7 @@ class FormBuilder with StringBufferUtils {
   }
 
   FormBuilder addMixinSignature() {
-    writeLine("mixin \$${viewName} on StatelessWidget {");
+    writeLine("mixin \$$viewName on StatelessWidget {");
     return this;
   }
 
@@ -92,7 +92,7 @@ class FormBuilder with StringBufferUtils {
 
   FormBuilder addFocusNodeItemsMap() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
-    ;
+
     newLine();
     writeLine("final Map<String, FocusNode> _${viewName}FocusNodes = {};");
     newLine();
@@ -180,7 +180,7 @@ class FormBuilder with StringBufferUtils {
         return _${viewName}TextEditingControllers[key]! as $customTextEditingClassName;
       }
       _${viewName}TextEditingControllers[key] =
-         ${customTextEditingClassNameAndCallingFunction}();
+         $customTextEditingClassNameAndCallingFunction();
       return _${viewName}TextEditingControllers[key]! 
       as $customTextEditingClassName; }
     ''');
