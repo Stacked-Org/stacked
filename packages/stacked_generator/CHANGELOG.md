@@ -1,25 +1,16 @@
-## 0.8.0-beta.8
+## 0.8.0
 
 - Pass generic argument to type safe route extension
 - Returns result for typesafe route extension using generic type
-
-## 0.8.0-beta.7
-
 - Adds `FormStateHelper` to `FormViewModel` to remove breaking change
 - Adds value properties form generated mixing on `FormViewModel`
-
-## 0.8.0-beta.6
 - Replace `FormViewModel` to `FormStateHelper`
-## 0.8.0-beta.5
 - Fix `transtionBuilders` import
-## 0.8.0-beta.4
 - Support providing enums as route arguments
-## 0.8.0-beta.3
 - Support providing functions as route arguments
-## 0.8.0-beta.2
 - Apply a more general fix to the aliased imports in stacked generator
-## 0.7.16-beta.0
 - Replace `FormViewModel` to `FormStateHelper`
+
 ## 0.7.15
 
 - Updates analyzer package

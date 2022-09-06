@@ -1,16 +1,7 @@
-## 3.0.0-beta.2+1
-
+## 3.0.0
 - Passes generic argument to `DataStateHelper`
-
-## 3.0.0-beta.2
-
 - User `FormStateHelper` for the `FormViewModel`
-
-## 3.0.0-beta.1
 - Adds `BusyAndErrorStateHelper` to the `BaseViewModel`
-
-## 3.0.0-beta.0
-
 - Refactor `BaseViewModel` by extracting the different functionalities to mixins.
 - Remove the inconsistency between the `BaseViewModel` and `FutureViewModel`, `StreamViewModel` when setting the error, data values.
 - Now we have three mixins that can be mix with any viewmodel and they are:
