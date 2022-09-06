@@ -3215,7 +3215,7 @@ extension NavigatorStateExtension on _i1.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
-    navigateTo(Routes.homeView,
+    return navigateTo<dynamic>(Routes.homeView,
         arguments: HomeClassArguments(car: car, age: age, markers: markers),
         id: routerId,
         preventDuplicates: preventDuplicates,

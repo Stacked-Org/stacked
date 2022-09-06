@@ -24,7 +24,7 @@ class NavigateExtensionClassBuilderHelper {
       ..returns = Reference('Future<$methodReturnType>')
       ..optionalParameters
           .addAll([...viewArgumentsParameter, ..._constParameters])
-      ..body = _body(route));
+      ..body = _body(route: route, methodReturnType: methodReturnType));
   }
 
   /// The arguments provided to the view
@@ -74,12 +74,16 @@ class NavigateExtensionClassBuilderHelper {
         )
       ];
 
-  Code _body(RouteConfig route) {
+  Code _body({
+    required RouteConfig route,
+    required String methodReturnType,
+  }) {
     final routesClassName = route.parentClassName != null
         ? route.parentClassName! + 'Routes'
         : 'Routes';
     return Block.of([
-      Code('navigateTo(${routesClassName}.${route.name}, '),
+      Code(
+          'return navigateTo<$methodReturnType>(${routesClassName}.${route.name}, '),
       _assignArgumentClass(route),
       ..._constMethodBodyParameters,
     ]);

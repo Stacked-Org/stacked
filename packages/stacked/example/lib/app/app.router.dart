@@ -4,7 +4,7 @@
 // StackedRouterGenerator
 // **************************************************************************
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes, implementation_imports
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:example/app/custom_route_transition.dart' as _i9;
 import 'package:example/datamodels/clashable_one.dart' as _i12;
 import 'package:example/datamodels/clashable_two.dart' as _i13;
@@ -277,7 +277,7 @@ extension NavigatorStateExtension on _i19.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
-    navigateTo(Routes.homeView,
+    return navigateTo<dynamic>(Routes.homeView,
         arguments: HomeViewArguments(
             key: key,
             title: title,
@@ -297,7 +297,7 @@ extension NavigatorStateExtension on _i19.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(Routes.bottomNavExample,
+    return navigateTo<dynamic>(Routes.bottomNavExample,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -313,7 +313,7 @@ extension NavigatorStateExtension on _i19.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
-    navigateTo(Routes.streamCounterView,
+    return navigateTo<dynamic>(Routes.streamCounterView,
         arguments:
             StreamCounterViewArguments(key: key, clashableTwo: clashableTwo),
         id: routerId,
@@ -331,7 +331,7 @@ extension NavigatorStateExtension on _i19.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
-    navigateTo(Routes.detailsView,
+    return navigateTo<Map<String, List<String>>?>(Routes.detailsView,
         arguments: DetailsViewArguments(key: key, name: name),
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -348,7 +348,7 @@ extension NavigatorStateExtension on _i19.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
-    navigateTo(Routes.exampleFormView,
+    return navigateTo<dynamic>(Routes.exampleFormView,
         arguments:
             ExampleFormViewArguments(key: key, clashableOne: clashableOne),
         id: routerId,
@@ -364,7 +364,7 @@ extension NavigatorStateExtension on _i19.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(Routes.nonReactiveView,
+    return navigateTo<dynamic>(Routes.nonReactiveView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -380,7 +380,7 @@ extension NavigatorStateExtension on _i19.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
-    navigateTo(BottomNavExampleRoutes.favoritesView,
+    return navigateTo<dynamic>(BottomNavExampleRoutes.favoritesView,
         arguments: NestedFavoritesViewArguments(key: key, id: id),
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -395,7 +395,7 @@ extension NavigatorStateExtension on _i19.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(BottomNavExampleRoutes.historyView,
+    return navigateTo<dynamic>(BottomNavExampleRoutes.historyView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -409,7 +409,7 @@ extension NavigatorStateExtension on _i19.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(BottomNavExampleRoutes.profileView,
+    return navigateTo<dynamic>(BottomNavExampleRoutes.profileView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -423,7 +423,7 @@ extension NavigatorStateExtension on _i19.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(FavoritesViewRoutes.multipleFuturesExampleView,
+    return navigateTo<dynamic>(FavoritesViewRoutes.multipleFuturesExampleView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -437,7 +437,7 @@ extension NavigatorStateExtension on _i19.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(FavoritesViewRoutes.historyView,
+    return navigateTo<dynamic>(FavoritesViewRoutes.historyView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

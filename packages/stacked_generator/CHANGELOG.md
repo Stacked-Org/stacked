@@ -1,3 +1,8 @@
+## 0.8.0-beta.8
+
+- Pass generic argument to type safe route extension
+- Returns result for typesafe route extension using generic type
+
 ## 0.8.0-beta.7
 
 - Adds `FormStateHelper` to `FormViewModel` to remove breaking change
