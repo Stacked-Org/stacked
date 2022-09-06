@@ -13,7 +13,7 @@ class FormBuilder with StringBufferUtils {
 
   FormBuilder addHeaderComment() {
     writeLine(
-        "// ignore_for_file: public_member_api_docs,  constant_identifier_names, non_constant_identifier_names,unnecessary_this");
+        "// ignore_for_file: public_member_api_docs, constant_identifier_names, non_constant_identifier_names,unnecessary_this");
     return this;
   }
 

@@ -183,7 +183,7 @@ const kExample1AddValidationMessageForTextEditingController = '''
     
 ''';
 const kExample1AddHeaderComment = '''
-// ignore_for_file: public_member_api_docs,  constant_identifier_names, non_constant_identifier_names,unnecessary_this
+// ignore_for_file: public_member_api_docs, constant_identifier_names, non_constant_identifier_names,unnecessary_this
 ''';
 const kExample1AddImports = '''
 

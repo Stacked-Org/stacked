@@ -2741,7 +2741,7 @@ class RouterTestClassName extends _i1.RouterBase {
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.TestClass: (data) {
       final args = data.getArgs<TestClassArguments>(
-        orElse: () => TestClassArguments(),
+        orElse: () => const TestClassArguments(),
       );
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
@@ -2808,7 +2808,7 @@ class RouterTestClassName extends _i1.RouterBase {
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.TestClass: (data) {
       final args = data.getArgs<TestClassArguments>(
-        orElse: () => TestClassArguments(),
+        orElse: () => const TestClassArguments(),
       );
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
@@ -2923,7 +2923,7 @@ class RouterTestClassName extends _i1.RouterBase {
     },
     _i4.TestClass3: (data) {
       final args = data.getArgs<TestClass3Arguments>(
-        orElse: () => TestClass3Arguments(),
+        orElse: () => const TestClass3Arguments(),
       );
       return MaterialPageRoute<dynamic>(
         builder: (context) =>

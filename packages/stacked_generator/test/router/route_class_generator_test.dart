@@ -33,13 +33,16 @@ void main() {
     ///
     /// Note: It usually adds an extra line in the bottom of the result
     void generateRouteAndExpectResult(
-        List<RouteConfig> routes, dynamic expectedResult,
-        {bool verbose = false}) {
+      List<RouteConfig> routes,
+      dynamic expectedResult, {
+      bool verbose = false,
+    }) {
       final routerBaseGenerator = RouterGenerator(RouterConfig(
-          routesClassName: 'RoutesTestClassName',
-          routerClassName: 'RouterTestClassName',
-          generateNavigationHelper: true,
-          routes: routes));
+        routesClassName: 'RoutesTestClassName',
+        routerClassName: 'RouterTestClassName',
+        generateNavigationHelper: true,
+        routes: routes,
+      ));
       final result = routerBaseGenerator.generate();
       // if (verbose) print(result);
       expect(result, expectedResult);
