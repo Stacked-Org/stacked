@@ -358,7 +358,7 @@ class FormBuilder with StringBufferUtils {
 
   FormBuilder addFormViewModelExtensionForMethods() {
     newLine();
-    writeLine('extension Methods on dynamic {');
+    writeLine('extension Methods on FormViewModel {');
 
     // Generate the date pickers
     for (final field in fields.onlyDateFieldConfigs) {
