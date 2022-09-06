@@ -102,7 +102,7 @@ class SimpleLogPrinter extends LogPrinter {
   }
 
   bool _doesTraceContainsAllKeywords(String stackTrace, List<String> keywords) {
-    final formattedKeywordsAsRegex = RegExp("\${keywords.join('.*')}");
+    final formattedKeywordsAsRegex = RegExp(\${keywords.join('.*')});
     return stackTrace.contains(formattedKeywordsAsRegex);
   }
 }
@@ -280,7 +280,7 @@ class SimpleLogPrinter extends LogPrinter {
   }
 
   bool _doesTraceContainsAllKeywords(String stackTrace, List<String> keywords) {
-    final formattedKeywordsAsRegex = RegExp("\${keywords.join('.*')}");
+    final formattedKeywordsAsRegex = RegExp(\${keywords.join('.*')});
     return stackTrace.contains(formattedKeywordsAsRegex);
   }
 }
