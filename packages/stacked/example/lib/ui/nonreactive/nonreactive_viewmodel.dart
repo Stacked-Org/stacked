@@ -16,13 +16,13 @@ class NonReactiveViewModel extends BaseViewModel {
 
   void navigateToNewView() {
     _navigationService
-        .navigateToStreamCounterView(clashableTwo: [Clashable(22)]);
+        .navigateToStreamCounterView(clashableTwo: [const Clashable(22)]);
   }
 
   void navigateBackHome() {
     _navigationService.clearStackAndShow(
       Routes.homeView,
-      arguments: HomeViewArguments(title: 'Home'),
+      arguments: const HomeViewArguments(title: 'Home'),
     );
   }
 }

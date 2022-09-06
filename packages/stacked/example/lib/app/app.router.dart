@@ -4,7 +4,7 @@
 // StackedRouterGenerator
 // **************************************************************************
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes
+// ignore_for_file: no_leading_underscores_for_library_prefixes, implementation_imports
 import 'package:example/app/custom_route_transition.dart' as _i9;
 import 'package:example/datamodels/clashable_one.dart' as _i12;
 import 'package:example/datamodels/clashable_two.dart' as _i13;

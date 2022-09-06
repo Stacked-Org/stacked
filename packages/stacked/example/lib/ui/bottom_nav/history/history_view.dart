@@ -2,7 +2,6 @@ import 'package:example/app/app.locator.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../../app/app.locator.dart';
 import 'history_viewmodel.dart';
 
 class HistoryView extends StatelessWidget {

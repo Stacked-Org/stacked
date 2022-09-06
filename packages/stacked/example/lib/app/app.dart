@@ -47,7 +47,6 @@ import 'custom_route_transition.dart';
     ]),
     MaterialRoute(page: StreamCounterView),
     CupertinoRoute<Map<String, List<String>>?>(page: DetailsView),
-    // TODO: Change the name of the FormView to avoid type clashing
     MaterialRoute(page: ExampleFormView),
     CustomRoute(
       page: NonReactiveView,

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:example/app/app.router.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class DetailsView extends StatelessWidget {
@@ -12,10 +12,8 @@ class DetailsView extends StatelessWidget {
     NavigationService navigationService = NavigationService();
     navigationService.navigateTo(
       Routes.detailsView,
-      arguments: DetailsViewArguments(name: 'FilledStacks'),
+      arguments: const DetailsViewArguments(name: 'FilledStacks'),
     );
-    return Container(
-      child: Text(name),
-    );
+    return Text(name);
   }
 }

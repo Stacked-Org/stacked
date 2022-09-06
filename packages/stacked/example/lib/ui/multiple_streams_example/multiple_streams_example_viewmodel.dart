@@ -1,15 +1,16 @@
 import 'dart:math';
+
 import 'package:stacked/stacked.dart';
 
-const String _NumbersStreamKey = 'numbers-stream';
-const String _StringStreamKey = 'string-stream';
+const String _numbersStreamKey = 'numbers-stream';
+const String _stringStreamKey = 'string-stream';
 
 class MultipleStreamsExampleViewModel extends MultipleStreamViewModel {
-  int get number => dataMap![_NumbersStreamKey];
-  bool get hasNumberData => dataReady(_NumbersStreamKey);
+  int get number => dataMap![_numbersStreamKey];
+  bool get hasNumberData => dataReady(_numbersStreamKey);
 
-  String get randomString => dataMap![_StringStreamKey];
-  bool get hasRandomString => dataReady(_StringStreamKey);
+  String get randomString => dataMap![_stringStreamKey];
+  bool get hasRandomString => dataReady(_stringStreamKey);
 
   Stream<int> numbersStream([int delay = 500]) async* {
     var random = Random();
@@ -37,8 +38,8 @@ class MultipleStreamsExampleViewModel extends MultipleStreamViewModel {
 
   @override
   Map<String, StreamData> get streamsMap => {
-        _NumbersStreamKey: StreamData<int>(numbersStream(numbersStreamDelay)),
-        _StringStreamKey: StreamData<String>(stringStream(stringStreamDelay)),
+        _numbersStreamKey: StreamData<int>(numbersStream(numbersStreamDelay)),
+        _stringStreamKey: StreamData<String>(stringStream(stringStreamDelay)),
       };
 
   void swapStreams() {
