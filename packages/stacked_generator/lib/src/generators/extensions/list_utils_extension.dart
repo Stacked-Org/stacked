@@ -5,6 +5,7 @@ extension LoggerClassGeneratorExtension on List<String> {
     for (final element in this) {
       multiLoggers.write(" if(kReleaseMode) $element(),");
     }
+
     return multiLoggers.toString();
   }
 }

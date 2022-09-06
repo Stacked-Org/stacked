@@ -39,7 +39,6 @@ final List<RouteConfig> _routes = [
           isPositional: true,
           name: 'car',
           type: ResolvedType(name: 'Car', import: 'car.dart'),
-          defaultValueCode: "'TOYOTA'",
         ),
         RouteParamConfig(
           isPathParam: false,

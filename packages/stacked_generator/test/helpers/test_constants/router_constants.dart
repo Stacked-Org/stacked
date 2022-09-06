@@ -40,7 +40,7 @@ extension NavigatorStateExtension on _i3.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(Routes.loginView,
+    return navigateTo<dynamic>(Routes.loginView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1386,7 +1386,7 @@ extension NavigatorStateExtension on _i4.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(Routes.loginView1,
+    return navigateTo<returnYpe1?>(Routes.loginView1,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1400,7 +1400,7 @@ extension NavigatorStateExtension on _i4.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(ParentClassRoutes.nestedView1,
+    return navigateTo<dynamic>(ParentClassRoutes.nestedView1,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1529,7 +1529,7 @@ navigateToTestClass1( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(Routes.loginView1, 
+) async { return navigateTo<returnYpe1?>(Routes.loginView1, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -1546,7 +1546,7 @@ navigateToNestednestedClass1( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(LoginView1Routes.nestedView1, 
+) async { return navigateTo<dynamic>(LoginView1Routes.nestedView1, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -1563,7 +1563,7 @@ navigateToNestedmultiNestedmultiNestedClass1( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(NestedView1Routes.multiNestedmultiNestedView1, 
+) async { return navigateTo<dynamic>(NestedView1Routes.multiNestedmultiNestedView1, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -1641,7 +1641,7 @@ extension NavigatorStateExtension on _i4.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(Routes.loginView1,
+    return navigateTo<returnYpe1?>(Routes.loginView1,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1655,7 +1655,7 @@ extension NavigatorStateExtension on _i4.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(ParentClassRoutes.nestedView1,
+    return navigateTo<dynamic>(ParentClassRoutes.nestedView1,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1832,7 +1832,7 @@ navigateToTestClass3( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(Routes.loginView3, 
+) async { return navigateTo<returnYpe3?>(Routes.loginView3, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -1849,7 +1849,7 @@ navigateToNestedfirstClass( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(LoginView3Routes.firstView, 
+) async { return navigateTo<dynamic>(LoginView3Routes.firstView, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -1866,7 +1866,7 @@ navigateToNestedsecondClass( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(LoginView3Routes.secondView, 
+) async { return navigateTo<dynamic>(LoginView3Routes.secondView, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -1883,7 +1883,7 @@ navigateToNestedthirdClass( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(LoginView3Routes.thirdView, 
+) async { return navigateTo<dynamic>(LoginView3Routes.thirdView, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -1900,7 +1900,7 @@ navigateToTestClass4( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(Routes.loginView4, 
+) async { return navigateTo<returnYpe4?>(Routes.loginView4, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -1917,7 +1917,7 @@ navigateToNestedfourthClass( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(LoginView4Routes.fourthView, 
+) async { return navigateTo<dynamic>(LoginView4Routes.fourthView, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -1934,7 +1934,7 @@ navigateToNestedfifthClass( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(LoginView4Routes.fifthView, 
+) async { return navigateTo<dynamic>(LoginView4Routes.fifthView, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -1951,7 +1951,7 @@ navigateToNestedsixthClass( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(LoginView4Routes.sixthView, 
+) async { return navigateTo<dynamic>(LoginView4Routes.sixthView, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -2016,7 +2016,7 @@ navigateToTestClass( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(Routes.loginView, 
+) async { return navigateTo<dynamic>(Routes.loginView, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -2081,7 +2081,7 @@ navigateToTestClass( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(Routes.loginView, 
+) async { return navigateTo<dynamic>(Routes.loginView, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -2158,7 +2158,7 @@ null null
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(Routes.loginView, 
+) async { return navigateTo<dynamic>(Routes.loginView, 
 arguments: TestClassArguments(
       null: null
     ),
@@ -2226,7 +2226,7 @@ navigateToTestClass( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(Routes.loginView, 
+) async { return navigateTo<dynamic>(Routes.loginView, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -2289,7 +2289,7 @@ navigateToTestClass( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(Routes.loginView, 
+) async { return navigateTo<dynamic>(Routes.loginView, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -2365,7 +2365,7 @@ null null
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(Routes.loginView, 
+) async { return navigateTo<dynamic>(Routes.loginView, 
 arguments: TestClassArguments(
       null: null
     ),
@@ -2437,7 +2437,7 @@ navigateToTestClass( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(Routes.loginView, 
+) async { return navigateTo<dynamic>(Routes.loginView, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -2504,7 +2504,7 @@ navigateToTestClass( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(Routes.loginView, 
+) async { return navigateTo<dynamic>(Routes.loginView, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -2572,7 +2572,7 @@ navigateToTestClass( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(Routes.loginView, 
+) async { return navigateTo<dynamic>(Routes.loginView, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -2639,7 +2639,7 @@ navigateToTestClass( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(Routes.loginView, 
+) async { return navigateTo<dynamic>(Routes.loginView, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -2707,7 +2707,7 @@ navigateToTestClass( {
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)? transition,
       
 }
-) async { return navigateTo(Routes.loginView, 
+) async { return navigateTo<dynamic>(Routes.loginView, 
         id:routerId,
   preventDuplicates: preventDuplicates,
   parameters: parameters,
@@ -2776,7 +2776,7 @@ extension NavigatorStateExtension on _i4.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
-    navigateTo(Routes.loginView,
+    return navigateTo<dynamic>(Routes.loginView,
         arguments: TestClassArguments(markers: markers),
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -2843,7 +2843,7 @@ extension NavigatorStateExtension on _i4.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
-    navigateTo(Routes.loginView,
+    return navigateTo<dynamic>(Routes.loginView,
         arguments: TestClassArguments(name: name),
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -2973,7 +2973,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(Routes.loginView1,
+    return navigateTo<dynamic>(Routes.loginView1,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -2987,7 +2987,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(Routes.loginView2,
+    return navigateTo<dynamic>(Routes.loginView2,
         arguments: TestClass2Arguments(test2paramName: test2paramName),
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -3003,7 +3003,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
-    navigateTo(Routes.loginView3,
+    return navigateTo<dynamic>(Routes.loginView3,
         arguments: TestClass3Arguments(test3paramName: test3paramName),
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -3018,7 +3018,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(Routes.loginView4,
+    return navigateTo<dynamic>(Routes.loginView4,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -3032,7 +3032,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(Routes.loginView5,
+    return navigateTo<dynamic>(Routes.loginView5,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -3046,7 +3046,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition]) async {
-    navigateTo(Routes.loginView6,
+    return navigateTo<dynamic>(Routes.loginView6,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -3197,7 +3197,7 @@ extension NavigatorStateExtension on _i1.NavigationService {
       Widget Function(
               BuildContext, Animation<double>, Animation<double>, Widget)?
           transition}) async {
-    navigateTo(Routes.loginView,
+    return navigateTo<dynamic>(Routes.loginView,
         arguments: LoginClassArguments(position: position, age: age),
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -3206,7 +3206,7 @@ extension NavigatorStateExtension on _i1.NavigationService {
   }
 
   Future<dynamic> navigateToHomeClass(
-      {required _i3.Car car = 'TOYOTA',
+      {required _i3.Car car,
       int age,
       List<_i4.Marker> markers,
       int? routerId,
@@ -3238,7 +3238,7 @@ class LoginClassArguments {
 }
 
 class HomeClassArguments {
-  const HomeClassArguments({required this.car = 'TOYOTA', this.age});
+  const HomeClassArguments({required this.car, this.age});
 
   final _i2.Car car;
 

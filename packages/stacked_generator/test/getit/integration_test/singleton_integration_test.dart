@@ -12,6 +12,7 @@ void main() {
       );
     });
   });
+
   group('singletonwithtype -', () {
     test('has no compile issue', () async {
       await checkCodeForCompilationError(
@@ -21,6 +22,7 @@ void main() {
       );
     });
   });
+
   group('singletonwithresolve -', () {
     test('has no compile issue', () async {
       await checkCodeForCompilationError(
@@ -30,6 +32,7 @@ void main() {
       );
     });
   });
+
   group('lazysingleton -', () {
     test('has no compile issue', () async {
       await checkCodeForCompilationError(
@@ -39,6 +42,7 @@ void main() {
       );
     });
   });
+
   group('presolvedsingleton -', () {
     test('has no compile issue', () async {
       await checkCodeForCompilationError(
