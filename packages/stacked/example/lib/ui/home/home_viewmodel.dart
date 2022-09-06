@@ -4,7 +4,7 @@ import 'package:example/app/app.router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class HomeViewModel extends BaseViewModel {
+class HomeViewModel extends BaseViewModel with MessageStateHelper {
   final log = getLogger('HomeViewModel');
   final NavigationService _navigationService =
       exampleLocator<NavigationService>();
@@ -17,6 +17,7 @@ class HomeViewModel extends BaseViewModel {
   }
 
   void initialise() {
+    setMessage('initialise');
     log.i('initialise');
     title = 'Initialised';
     notifyListeners();

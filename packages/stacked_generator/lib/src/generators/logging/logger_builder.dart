@@ -14,7 +14,9 @@ class LoggerBuilder with StringBufferUtils {
     writeLine();
 
     final sorted = loggerConfig.imports.toList()..sort();
-    sorted.forEach((import) => writeLine("import '$import';"));
+    for (final import in sorted) {
+      writeLine("import '$import';");
+    }
 
     writeLine();
     writeLine();
@@ -30,14 +32,14 @@ class LoggerBuilder with StringBufferUtils {
 
   LoggerBuilder addLoggerNameAndOutputs() {
     final withHelperNameInPlace = loggerClassNameAndOutputs.replaceFirst(
-        LogHelperNameKey, loggerConfig.logHelperName);
+        logHelperNameKey, loggerConfig.logHelperName);
 
     String withConditionalLoggerInPlace = withHelperNameInPlace.replaceFirst(
-        DisableConsoleOutputInRelease,
+        disableConsoleOutputInRelease,
         loggerConfig.disableReleaseConsoleOutput ? 'if(!kReleaseMode)' : '');
 
     String loggerOutputsInPlace = withConditionalLoggerInPlace.replaceFirst(
-        MultipleLoggerOutput,
+        multipleLoggerOutput,
         loggerConfig.loggerOutputs.addCheckForReleaseModeToEachLogger);
 
     write(loggerOutputsInPlace);

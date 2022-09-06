@@ -18,13 +18,14 @@ class RouterClassBuilderHelper {
 
   Code _routes(List<RouteConfig> routes, String routesClassName) => literalList(
           _routesDef(routes, routesClassName),
-          Reference('RouteDef', 'package:stacked/stacked.dart'))
+          const Reference('RouteDef', 'package:stacked/stacked.dart'))
       .code;
 
   Iterable<Expression> _routesDef(
           List<RouteConfig> routes, String routesClassName) =>
       routes.map((route) =>
-          Reference('RouteDef', 'package:stacked/stacked.dart').newInstance(
+          const Reference('RouteDef', 'package:stacked/stacked.dart')
+              .newInstance(
             [Reference(routesClassName).property(route.name)],
             {
               'page': Reference(route.className.key, route.className.value),
@@ -37,7 +38,7 @@ class RouterClassBuilderHelper {
   /// Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
   Method get pagesMapGetter => Method((b) => b
     ..name = 'pagesMap'
-    ..annotations.add(Reference('override'))
+    ..annotations.add(const Reference('override'))
     ..type = MethodType.getter
     ..returns = TypeReference((b) => b
       ..symbol = 'Map'
@@ -51,7 +52,7 @@ class RouterClassBuilderHelper {
             ..url = 'package:stacked/stacked.dart',
         ),
       ]))
-    ..body = Reference('_pagesMap').code);
+    ..body = const Reference('_pagesMap').code);
 
   /// Example
   ///
@@ -59,17 +60,16 @@ class RouterClassBuilderHelper {
   /// List<_i1.RouteDef> get routes => _routes;
   Method get routesGetter => Method((b) => b
     ..name = 'routes'
-    ..annotations.add(Reference('override'))
+    ..annotations.add(const Reference('override'))
     ..type = MethodType.getter
     ..returns = _listOfRouteDefReturnType
-    ..body = Reference('_routes').code);
+    ..body = const Reference('_routes').code);
 
   TypeReference get _listOfRouteDefReturnType => TypeReference((b) => b
     ..symbol = 'List'
     ..types.add(TypeReference((b) => b
       ..symbol = 'RouteDef'
-      ..url = 'package:stacked/stacked.dart'
-      ..isNullable = true)));
+      ..url = 'package:stacked/stacked.dart')));
 
   /// Example
   ///
@@ -80,10 +80,10 @@ class RouterClassBuilderHelper {
           ..modifier = FieldModifier.final$
           ..assignment = literalMap(
               _pages(routes),
-              Reference(
+              const Reference(
                 'Type',
               ),
-              Reference(
+              const Reference(
                 'StackedRouteFactory',
                 'package:stacked/stacked.dart',
               )).code,
@@ -115,7 +115,11 @@ class RouterClassBuilderHelper {
         ..body = Block.of([
           if (notQueryNorPathParameters.isNotEmpty) ...[
             _prepareArgs(argsType),
-            _eitherNullOkOrElse(route.parameters, argsType),
+            _eitherNullOkOrElse(
+              route.parameters,
+              argsType,
+              hasConstConstructor: route.hasConstConstructor,
+            ),
           ],
           _returnRouteRegistration(route),
         ]),
@@ -125,15 +129,16 @@ class RouterClassBuilderHelper {
   Code _prepareArgs(String argsType) =>
       Code('final args = data.getArgs<$argsType>(');
 
-  Code _eitherNullOkOrElse(List<RouteParamConfig> parameters, String argsType) {
+  Code _eitherNullOkOrElse(List<RouteParamConfig> parameters, String argsType,
+      {bool hasConstConstructor = false}) {
     /// if router has any required or positional params
     /// the argument class holder becomes required.
     final nullOk = parameters.any((p) => p.isRequired || p.isPositional);
 
     if (nullOk) {
-      return Code('nullOk: false);');
+      return const Code('nullOk: false);');
     } else {
-      return Code('orElse: ()=> $argsType(),);');
+      return Code('orElse: ()=> const $argsType(),);');
     }
   }
 

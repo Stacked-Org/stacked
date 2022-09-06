@@ -13,12 +13,12 @@ class FormBuilder with StringBufferUtils {
 
   FormBuilder addHeaderComment() {
     writeLine(
-        "// ignore_for_file: public_member_api_docs,  constant_identifier_names, non_constant_identifier_names,unnecessary_this");
+        "// ignore_for_file: public_member_api_docs, constant_identifier_names, non_constant_identifier_names,unnecessary_this");
     return this;
   }
 
   FormBuilder addMixinSignature() {
-    writeLine("mixin \$${viewName} on StatelessWidget {");
+    writeLine("mixin \$$viewName on StatelessWidget {");
     return this;
   }
 
@@ -92,7 +92,7 @@ class FormBuilder with StringBufferUtils {
 
   FormBuilder addFocusNodeItemsMap() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
-    ;
+
     newLine();
     writeLine("final Map<String, FocusNode> _${viewName}FocusNodes = {};");
     newLine();
@@ -180,7 +180,7 @@ class FormBuilder with StringBufferUtils {
         return _${viewName}TextEditingControllers[key]! as $customTextEditingClassName;
       }
       _${viewName}TextEditingControllers[key] =
-         ${customTextEditingClassNameAndCallingFunction}();
+         $customTextEditingClassNameAndCallingFunction();
       return _${viewName}TextEditingControllers[key]! 
       as $customTextEditingClassName; }
     ''');
@@ -236,8 +236,8 @@ class FormBuilder with StringBufferUtils {
   FormBuilder addFormDataUpdateFunctionTorTextControllers() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     writeLine('''
-        /// Updates the formData on the FormViewModel
-        void _updateFormData(FormViewModel model, {bool forceValidate = false}) { model.setData(
+        /// Updates the formData on the dynamic
+        void _updateFormData(dynamic model, {bool forceValidate = false}) { model.setData(
               model.formValueMap
                 ..addAll({
             ''');
@@ -260,8 +260,8 @@ class FormBuilder with StringBufferUtils {
   FormBuilder addValidationDataUpdateFunctionTorTextControllers() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     writeLine('''
-        /// Updates the fieldsValidationMessages on the FormViewModel
-        void _updateValidationData(FormViewModel model) => model.setValidationMessages(
+        /// Updates the fieldsValidationMessages on the dynamic
+        void _updateValidationData(dynamic model) => model.setValidationMessages(
               {
             ''');
 

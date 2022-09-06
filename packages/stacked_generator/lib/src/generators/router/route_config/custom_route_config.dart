@@ -40,21 +40,21 @@ class CustomRouteConfig extends RouteConfig {
           Code(
               'barrierDismissible:${customRouteBarrierDismissible.toString()},'),
         if (transitionBuilder != null) ...[
-          Code('transitionsBuilder: data.transition ?? '),
+          const Code('transitionsBuilder: data.transition ?? '),
           Reference(transitionBuilder!.name, transitionBuilder!.import).code,
-          Code(',')
+          const Code(',')
         ],
         if (transitionBuilder == null)
-          Code('''transitionsBuilder: data.transition??
+          const Code('''transitionsBuilder: data.transition??
               (context, animation, secondaryAnimation, child) {
             return child;
           },'''),
         if (durationInMilliseconds != null)
           Code(
-              'transitionDuration: const Duration(milliseconds: ${durationInMilliseconds}),'),
+              'transitionDuration: const Duration(milliseconds: $durationInMilliseconds),'),
         if (reverseDurationInMilliseconds != null)
           Code(
-              'reverseTransitionDuration: const Duration(milliseconds: ${reverseDurationInMilliseconds}),'),
+              'reverseTransitionDuration: const Duration(milliseconds: $reverseDurationInMilliseconds),'),
       ]),
     );
   }

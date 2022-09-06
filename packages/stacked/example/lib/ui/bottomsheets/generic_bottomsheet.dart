@@ -14,8 +14,8 @@ class GenericBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(25),
-      padding: EdgeInsets.all(25),
+      margin: const EdgeInsets.all(25),
+      padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
@@ -31,10 +31,10 @@ class GenericBottomSheet extends StatelessWidget {
               color: Colors.grey[900],
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text(
             request.description ?? '',
-            style: TextStyle(color: Colors.grey),
+            style: const TextStyle(color: Colors.grey),
           ),
           Row(
             mainAxisSize: MainAxisSize.max,
@@ -43,7 +43,8 @@ class GenericBottomSheet extends StatelessWidget {
               MaterialButton(
                 onPressed: () => completer(SheetResponse(
                   confirmed: true,
-                  data: GenericBottomSheetResponse(message: 'SecondaryButton'),
+                  data: const GenericBottomSheetResponse(
+                      message: 'SecondaryButton'),
                 )),
                 child: Text(
                   request.secondaryButtonTitle ?? '',
@@ -53,16 +54,16 @@ class GenericBottomSheet extends StatelessWidget {
               TextButton(
                 onPressed: () => completer(SheetResponse(
                   confirmed: true,
-                  data: GenericBottomSheetResponse(message: 'MainButton'),
+                  data: const GenericBottomSheetResponse(message: 'MainButton'),
                 )),
-                child: Text(
-                  request.mainButtonTitle ?? '',
-                  style: TextStyle(color: Colors.white),
-                ),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
                     Theme.of(context).primaryColor,
                   ),
+                ),
+                child: Text(
+                  request.mainButtonTitle ?? '',
+                  style: const TextStyle(color: Colors.white),
                 ),
               )
             ],

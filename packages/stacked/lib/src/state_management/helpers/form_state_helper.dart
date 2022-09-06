@@ -1,12 +1,8 @@
-import 'package:stacked/src/state_management/base_view_models.dart';
-import 'package:stacked/src/state_management/reactive_service_mixin.dart';
+import 'package:flutter/material.dart';
 
 /// Provides functionality to reduce the code required in order to move user input
 /// into the [ViewModel]
-abstract class FormViewModel extends ReactiveViewModel {
-  @override
-  List<ReactiveServiceMixin> get reactiveServices => [];
-
+mixin FormStateHelper on ChangeNotifier {
   bool _showValidationMessage = false;
   bool get showValidationMessage => _showValidationMessage;
 

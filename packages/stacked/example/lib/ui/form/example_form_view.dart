@@ -64,110 +64,113 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
             viewModel.navigateToNewView();
           }
         }),
-        body: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Form(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxWidth: 300,
-                  ),
-                  child: TextFormField(
-                    //#4: Set email emailController and focus node
-                    controller: emailController,
-                    decoration: const InputDecoration(hintText: 'email'),
-                    keyboardType: TextInputType.emailAddress,
-                    focusNode: emailFocusNode,
-                  ),
-                ),
-                if (viewModel.hasEmailValidationMessage)
-                  Text(
-                    viewModel.emailValidationMessage!,
-                    style: const TextStyle(color: Colors.red),
-                  ),
-                const SizedBox(height: 15),
-                ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxWidth: 300,
-                  ),
-                  child: TextFormField(
-                    //#5: Set password passwordController and focus node
-                    key: const ValueKey('passwordField'),
-                    controller: passwordController,
-                    decoration: const InputDecoration(hintText: 'password'),
-                    keyboardType: TextInputType.visiblePassword,
-                    obscureText: true,
-                    focusNode: passwordFocusNode,
-                    onFieldSubmitted: (_) => viewModel.saveData(),
-                  ),
-                ),
-                if (viewModel.hasPasswordValidationMessage)
-                  Text(
-                    viewModel.passwordValidationMessage!,
-                    style: const TextStyle(color: Colors.red),
-                  ),
-                const SizedBox(height: 15),
-                ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxWidth: 300,
-                  ),
-                  child: TextField(
-                    //#6: Set shortBio shortBioController and focus node
-                    maxLines: null,
-                    keyboardType: TextInputType.multiline,
-                    controller: shortBioController,
-                    decoration: const InputDecoration(
-                      hintText: 'Tell us a bit more about yourself',
+        body: SingleChildScrollView(
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Form(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxWidth: 300,
                     ),
-                    focusNode: shortBioFocusNode,
+                    child: TextFormField(
+                      //#4: Set email emailController and focus node
+                      controller: emailController,
+                      decoration: const InputDecoration(hintText: 'email'),
+                      keyboardType: TextInputType.emailAddress,
+                      focusNode: emailFocusNode,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 15),
-                ElevatedButton(
-                  onPressed: () => viewModel.selectBirthDate(
-                      context: context,
-                      firstDate: DateTime(1950),
-                      initialDate: DateTime.now(),
-                      lastDate: DateTime(2023)),
-                  child: Text(
-                    viewModel.hasBirthDate
-                        ? viewModel.birthDateValue.toString()
-                        : 'Select your Date of birth',
+                  if (viewModel.hasEmailValidationMessage)
+                    Text(
+                      viewModel.emailValidationMessage!,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  const SizedBox(height: 15),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxWidth: 300,
+                    ),
+                    child: TextFormField(
+                      //#5: Set password passwordController and focus node
+                      key: const ValueKey('passwordField'),
+                      controller: passwordController,
+                      decoration: const InputDecoration(hintText: 'password'),
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: true,
+                      focusNode: passwordFocusNode,
+                      onFieldSubmitted: (_) => viewModel.saveData(),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Do you love food?'),
-                    const SizedBox(width: 15),
-                    DropdownButton<String>(
-                      key: const ValueKey('dropdownField'),
-                      value: viewModel.doYouLoveFoodValue,
-                      onChanged: (value) {
-                        viewModel.setDoYouLoveFood(value!);
-                      },
-                      items: DoYouLoveFoodValueToTitleMap.keys
-                          .map(
-                            (value) => DropdownMenuItem<String>(
-                              key: ValueKey('$value key'),
-                              value: value,
-                              child: Text(DoYouLoveFoodValueToTitleMap[value]!),
-                            ),
-                          )
-                          .toList(),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 15),
-                if (viewModel.showValidationMessage)
-                  Text(
-                    viewModel.validationMessage!,
-                    style: const TextStyle(color: Colors.red),
+                  if (viewModel.hasPasswordValidationMessage)
+                    Text(
+                      viewModel.passwordValidationMessage!,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  const SizedBox(height: 15),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxWidth: 300,
+                    ),
+                    child: TextField(
+                      //#6: Set shortBio shortBioController and focus node
+                      maxLines: null,
+                      keyboardType: TextInputType.multiline,
+                      controller: shortBioController,
+                      decoration: const InputDecoration(
+                        hintText: 'Tell us a bit more about yourself',
+                      ),
+                      focusNode: shortBioFocusNode,
+                    ),
                   ),
-              ],
+                  const SizedBox(height: 15),
+                  ElevatedButton(
+                    onPressed: () => viewModel.selectBirthDate(
+                        context: context,
+                        firstDate: DateTime(1950),
+                        initialDate: DateTime.now(),
+                        lastDate: DateTime(2023)),
+                    child: Text(
+                      viewModel.hasBirthDate
+                          ? viewModel.birthDateValue.toString()
+                          : 'Select your Date of birth',
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Do you love food?'),
+                      const SizedBox(width: 15),
+                      DropdownButton<String>(
+                        key: const ValueKey('dropdownField'),
+                        value: viewModel.doYouLoveFoodValue,
+                        onChanged: (value) {
+                          viewModel.setDoYouLoveFood(value!);
+                        },
+                        items: DoYouLoveFoodValueToTitleMap.keys
+                            .map(
+                              (value) => DropdownMenuItem<String>(
+                                key: ValueKey('$value key'),
+                                value: value,
+                                child:
+                                    Text(DoYouLoveFoodValueToTitleMap[value]!),
+                              ),
+                            )
+                            .toList(),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                  if (viewModel.showValidationMessage)
+                    Text(
+                      viewModel.validationMessage!,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                ],
+              ),
             ),
           ),
         ),

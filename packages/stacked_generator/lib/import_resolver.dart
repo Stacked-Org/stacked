@@ -18,7 +18,7 @@ class ImportResolver {
       if (!_isCoreDartType(lib) &&
           lib.exportNamespace.definedNames.keys.contains(element?.name)) {
         var package = lib.source.uri.pathSegments.first;
-        if (targetFilePath.startsWith(new RegExp('^$package\/'))) {
+        if (targetFilePath.startsWith(RegExp('^$package/'))) {
           return p.posix
               .relative(element?.source?.uri.path ?? '', from: targetFilePath)
               .replaceFirst('../', '');

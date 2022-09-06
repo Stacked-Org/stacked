@@ -13,10 +13,10 @@ class RouterClassBuilder with RouterClassBuilderHelper {
     required this.routesClassName,
   });
 
-  Class BuildRouterClass() {
+  Class buildRouterClass() {
     return Class((b) => b
       ..name = routerClassName
-      ..extend = Reference('RouterBase', 'package:stacked/stacked.dart')
+      ..extend = const Reference('RouterBase', 'package:stacked/stacked.dart')
       ..fields.addAll([
         listOfRoutes(routes, routesClassName),
         mapOfPages(routes),

@@ -3,20 +3,19 @@ import 'dart:async';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
-
 import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/src/generators/getit/stacked_locator_content_generator.dart';
-
 import 'package:stacked_generator/utils.dart';
 
-import 'dependency_config_factory.dart';
 import 'dependency_config/dependency_config.dart';
+import 'dependency_config_factory.dart';
 
 class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
   @override
   FutureOr<String> generateForAnnotatedElement(
     Element element,
+    // ignore: avoid_renaming_method_parameters
     ConstantReader stackedApplication,
     BuildStep buildStep,
   ) async {

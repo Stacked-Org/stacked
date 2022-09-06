@@ -18,7 +18,9 @@ class RouterGenerator implements BaseGenerator {
   @override
   String generate() {
     if (_rootRouterConfig.routes.isEmpty) return '';
+
     _rootRouterConfig.traverseRoutes(_generateClasses);
+
     final navigationExtensionClassBuilder = NavigateExtensionClassBuilder(
       routes: _rootRouterConfig.routesIncludingTheirChildren,
     ).build();
@@ -31,7 +33,8 @@ class RouterGenerator implements BaseGenerator {
         ..body.addAll([...classes, navigationExtensionClassBuilder]),
     );
 
-    final emitter = DartEmitter.scoped(orderDirectives: true);
+    final emitter =
+        DartEmitter.scoped(orderDirectives: true, useNullSafetySyntax: true);
 
     return DartFormatter().format('${library.accept(emitter)}');
   }
@@ -48,7 +51,7 @@ class RouterGenerator implements BaseGenerator {
       routesClassName: routerConfig.routesClassName,
       routes: routerConfig.routes,
       routerClassName: routerConfig.routerClassName,
-    ).BuildRouterClass();
+    ).buildRouterClass();
 
     final argumentsClassBuilder = ArgumentsClassBuilder(
       routes: routerConfig.routes,

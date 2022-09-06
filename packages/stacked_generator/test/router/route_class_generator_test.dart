@@ -1,3 +1,4 @@
+import 'package:stacked_generator/resolved_type.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/router/generator/router_generator.dart';
 import 'package:stacked_generator/src/generators/router/route_config/adaptive_route_config.dart';
@@ -32,15 +33,18 @@ void main() {
     ///
     /// Note: It usually adds an extra line in the bottom of the result
     void generateRouteAndExpectResult(
-        List<RouteConfig> routes, dynamic expectedResult,
-        {bool verbose = false}) {
+      List<RouteConfig> routes,
+      dynamic expectedResult, {
+      bool verbose = false,
+    }) {
       final routerBaseGenerator = RouterGenerator(RouterConfig(
-          routesClassName: 'RoutesTestClassName',
-          routerClassName: 'RouterTestClassName',
-          generateNavigationHelper: true,
-          routes: routes));
+        routesClassName: 'RoutesTestClassName',
+        routerClassName: 'RouterTestClassName',
+        generateNavigationHelper: true,
+        routes: routes,
+      ));
       final result = routerBaseGenerator.generate();
-      if (verbose) print(result);
+      // if (verbose) print(result);
       expect(result, expectedResult);
     }
 
@@ -56,7 +60,7 @@ void main() {
 
       test('Given the following RouteConfig, Generate output', () {
         final List<RouteConfig> routes = [
-          MaterialRouteConfig(
+          const MaterialRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
             className: MapEntry('TestClass', 'test.dart'),
@@ -427,7 +431,7 @@ void main() {
       //   });
       test('When adding NestedRouter with one child', () {
         final List<RouteConfig> routes = [
-          MaterialRouteConfig(
+          const MaterialRouteConfig(
             name: 'loginView1',
             pathName: 'pathNamaw1',
             className: MapEntry('TestClass1', 'test1.dart'),
@@ -789,14 +793,16 @@ When a view parameter inside another data structure,
           CustomRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: MapEntry('TestClass', 'test.dart'),
+            className: const MapEntry('TestClass', 'test.dart'),
             parameters: [
               RouteParamConfig(
-                  isPathParam: false,
-                  isQueryParam: false,
-                  name: 'markers',
-                  imports: {'map.dart'},
-                  type: 'List<Marker>'),
+                isPathParam: false,
+                isQueryParam: false,
+                name: 'markers',
+                type: ResolvedType(name: 'List', typeArguments: [
+                  ResolvedType(name: 'Marker', import: 'map.dart')
+                ]),
+              ),
             ],
           )
         ];
@@ -811,14 +817,14 @@ When a view parameter inside another data structure,
           CustomRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: MapEntry('TestClass', 'test.dart'),
+            className: const MapEntry('TestClass', 'test.dart'),
             parameters: [
               RouteParamConfig(
-                  isPathParam: false,
-                  isQueryParam: false,
-                  name: 'name',
-                  imports: {'map.dart'},
-                  type: 'String'),
+                isPathParam: false,
+                isQueryParam: false,
+                name: 'name',
+                type: ResolvedType(name: 'String', import: 'map.dart'),
+              ),
             ],
           )
         ];
@@ -832,7 +838,7 @@ When a view parameter inside another data structure,
       group('Mixed -', () {
         test('Given random routing system', () {
           final List<RouteConfig> routes = [
-            CustomRouteConfig(
+            const CustomRouteConfig(
               name: 'loginView1',
               pathName: 'pathNamaw1',
               className: MapEntry('TestClass1', 'test1.dart'),
@@ -842,12 +848,12 @@ When a view parameter inside another data structure,
             MaterialRouteConfig(
                 name: 'loginView2',
                 pathName: 'pathNamaw2',
-                className: MapEntry('TestClass2', 'test2.dart'),
+                className: const MapEntry('TestClass2', 'test2.dart'),
                 parameters: [
                   RouteParamConfig(
                     name: 'test2paramName',
-                    type: 'Test2Type',
-                    imports: {'test2type.dart'},
+                    type: ResolvedType(
+                        name: 'Test2Type', import: 'test2type.dart'),
                     isPathParam: false,
                     isQueryParam: true,
                   ),
@@ -855,27 +861,27 @@ When a view parameter inside another data structure,
             MaterialRouteConfig(
                 name: 'loginView3',
                 pathName: 'pathNamaw3',
-                className: MapEntry('TestClass3', 'test3.dart'),
+                className: const MapEntry('TestClass3', 'test3.dart'),
                 parameters: [
                   RouteParamConfig(
                     name: 'test3paramName',
-                    type: 'Test3Type',
-                    imports: {'test3type.dart'},
+                    type: ResolvedType(
+                        name: 'Test3Type', import: 'test3type.dart'),
                     isPathParam: false,
                     isQueryParam: false,
                   ),
                 ]),
-            MaterialRouteConfig(
+            const MaterialRouteConfig(
                 name: 'loginView4',
                 pathName: 'pathNamaw4',
                 className: MapEntry('TestClass4', 'test4.dart'),
                 maintainState: false),
-            AdaptiveRouteConfig(
+            const AdaptiveRouteConfig(
                 name: 'loginView5',
                 pathName: 'pathNamaw5',
                 className: MapEntry('TestClass5', 'test5.dart'),
                 cupertinoNavTitle: 'cupertinooo'),
-            CupertinoRouteConfig(
+            const CupertinoRouteConfig(
               name: 'loginView6',
               pathName: 'pathNamaw6',
               className: MapEntry('TestClass6', 'test6.dart'),

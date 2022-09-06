@@ -20,7 +20,7 @@ String _findMostMatchedTrace(List<String> stackTraces, List<String> keyWords) {
 }
 
 bool _doesTraceContainsAllKeywords(String stackTrace, List<String> keywords) {
-  final formattedKeywordsAsRegex = RegExp("${keywords.join('.*')}");
+  final formattedKeywordsAsRegex = RegExp(keywords.join('.*'));
   return stackTrace.contains(formattedKeywordsAsRegex);
 }
 
@@ -62,7 +62,7 @@ void main() {
         test(
             'When call on a trace, Should return true if it contains all the words and false otherwise ',
             () {
-          final trace =
+          const trace =
               "packages/intake/services/user_service.dart 26:9                      syncUserAccount";
 
           expect(_doesTraceContainsAllKeywords(trace, ['user', 'service']),

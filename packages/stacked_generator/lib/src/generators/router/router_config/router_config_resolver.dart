@@ -1,14 +1,14 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:source_gen/source_gen.dart';
-import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
+import 'package:stacked_generator/type_resolver.dart';
 
 import 'router_config.dart';
 
 class RouterConfigResolver {
-  final ImportResolver _importResolver;
+  final TypeResolver _typeResolver;
 
-  const RouterConfigResolver(this._importResolver);
+  const RouterConfigResolver(this._typeResolver);
 
   Future<RouterConfig?> resolve(ConstantReader stackedApp) async {
     /// If routes is not provided return null
@@ -42,9 +42,9 @@ class RouterConfigResolver {
 
     for (var routeDartObject in routesList) {
       final routeReader = ConstantReader(routeDartObject);
-      var route = await RouteConfigResolver(
-              routerConfig.routeNamePrefix, _importResolver)
-          .resolve(routeReader, parentClassName: parentClassName);
+      var route =
+          await RouteConfigResolver(routerConfig.routeNamePrefix, _typeResolver)
+              .resolve(routeReader, parentClassName: parentClassName);
 
       final children = routeReader.peek('children')?.listValue;
 

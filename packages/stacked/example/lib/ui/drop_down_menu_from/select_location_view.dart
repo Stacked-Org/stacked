@@ -56,6 +56,8 @@ import 'select_location_viewmodel.dart';
   ]),
 ])
 class SelectLocationView extends StatelessWidget with $SelectLocationView {
+  const SelectLocationView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SelectLocationViewModel>.reactive(

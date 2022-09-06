@@ -8,23 +8,23 @@ import 'package:stacked_generator/src/generators/logging/logger_config.dart';
 class LoggerConfigResolver {
   Future<LoggerConfig?> resolve(
       ConstantReader stackedApp, ImportResolver importResolver) async {
-    final _loggerReader = stackedApp.peek('logger');
-    final _multiLogger = _loggerReader?.peek('loggerOutputs')?.listValue;
-    final _logHelperName =
-        _loggerReader?.peek('logHelperName')?.stringValue ?? 'getLogger';
+    final loggerReader = stackedApp.peek('logger');
+    final multiLogger = loggerReader?.peek('loggerOutputs')?.listValue;
+    final logHelperName =
+        loggerReader?.peek('logHelperName')?.stringValue ?? 'getLogger';
 
-    final _disableReleaseConsoleOutput =
-        _loggerReader?.peek('disableReleaseConsoleOutput')?.boolValue ?? true;
+    final disableReleaseConsoleOutput =
+        loggerReader?.peek('disableReleaseConsoleOutput')?.boolValue ?? true;
 
-    if (_loggerReader != null) {
+    if (loggerReader != null) {
       return LoggerConfig(
-        logHelperName: _logHelperName,
+        logHelperName: logHelperName,
         imports: _resolveImports(
           importResolver: importResolver,
-          multiLogger: _multiLogger,
+          multiLogger: multiLogger,
         ),
-        loggerOutputs: _resolveMultiLogger(_multiLogger),
-        disableReleaseConsoleOutput: _disableReleaseConsoleOutput,
+        loggerOutputs: _resolveMultiLogger(multiLogger),
+        disableReleaseConsoleOutput: disableReleaseConsoleOutput,
       );
     }
 

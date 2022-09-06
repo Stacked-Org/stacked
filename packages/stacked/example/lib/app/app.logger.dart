@@ -4,7 +4,7 @@
 // StackedLoggerGenerator
 // **************************************************************************
 
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, depend_on_referenced_packages
 
 /// Maybe this should be generated for the user as well?
 ///
@@ -102,7 +102,7 @@ class SimpleLogPrinter extends LogPrinter {
   }
 
   bool _doesTraceContainsAllKeywords(String stackTrace, List<String> keywords) {
-    final formattedKeywordsAsRegex = RegExp("${keywords.join('.*')}");
+    final formattedKeywordsAsRegex = RegExp(keywords.join('.*'));
     return stackTrace.contains(formattedKeywordsAsRegex);
   }
 }

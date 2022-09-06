@@ -1,3 +1,16 @@
+## 3.0.0
+- Passes generic argument to `DataStateHelper`
+- User `FormStateHelper` for the `FormViewModel`
+- Adds `BusyAndErrorStateHelper` to the `BaseViewModel`
+- Refactor `BaseViewModel` by extracting the different functionalities to mixins.
+- Remove the inconsistency between the `BaseViewModel` and `FutureViewModel`, `StreamViewModel` when setting the error, data values.
+- Now we have three mixins that can be mix with any viewmodel and they are:
+  - `FutureRunnerHelper` that has `runBusyFuture` and `runErrorFuture` functions.
+  - `MessageStateHelper` that adds message proberty to the viewmodel.
+  - `DataStateHelper` that adds data proberty to the viewmodel.
+  - `FormStateHelper` that give the flexibility to mixin the form functionality with the  any other view model.
+  - `IndexTrackingStateHelper` that give the flexibility to mixin the index tracking in a bottom navigation bar any other view model.
+
 ## 2.3.15
 
 - Rename `SelectorViewModelBuilderWidget` and `SelectorViewModelWidget` similar to `ViewModelWidget`

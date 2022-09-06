@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:example/ui/dumb_widgets/description_section.dart';
 import 'package:example/ui/dumb_widgets/title_section.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import 'home_viewmodel.dart';
 
 class HomeViewMultipleWidgets extends StatelessWidget {
+  const HomeViewMultipleWidgets({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
@@ -19,7 +21,7 @@ class HomeViewMultipleWidgets extends StatelessWidget {
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: const [
             TitleSection(),
             DescriptionSection(),
           ],

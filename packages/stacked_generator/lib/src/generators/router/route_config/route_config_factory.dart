@@ -1,7 +1,6 @@
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_core/stacked_core.dart';
 
-import '../../../../import_resolver.dart';
 import '../models/custom_transition_builder.dart';
 import '../models/route_parameter_config.dart';
 import 'adaptive_route_config.dart';
@@ -34,9 +33,9 @@ class RouteConfigFactory {
     required this.parentClassName,
   });
 
-  RouteConfig fromResolver(
-      ConstantReader stackedRoute, ImportResolver importResolver) {
-    if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CupertinoRoute))) {
+  RouteConfig fromResolver(ConstantReader stackedRoute) {
+    if (stackedRoute
+        .instanceOf(const TypeChecker.fromRuntime(CupertinoRoute))) {
       return CupertinoRouteConfig(
         className: className,
         name: name,
@@ -51,7 +50,7 @@ class RouteConfigFactory {
         parentClassName: parentClassName,
       );
     } else if (stackedRoute
-        .instanceOf(TypeChecker.fromRuntime(AdaptiveRoute))) {
+        .instanceOf(const TypeChecker.fromRuntime(AdaptiveRoute))) {
       return AdaptiveRouteConfig(
         className: className,
         name: name,
@@ -65,7 +64,8 @@ class RouteConfigFactory {
         cupertinoNavTitle: stackedRoute.peek('cupertinoPageTitle')?.stringValue,
         parentClassName: parentClassName,
       );
-    } else if (stackedRoute.instanceOf(TypeChecker.fromRuntime(CustomRoute))) {
+    } else if (stackedRoute
+        .instanceOf(const TypeChecker.fromRuntime(CustomRoute))) {
       final function = stackedRoute
           .peek('transitionsBuilder')
           ?.objectValue
@@ -78,11 +78,8 @@ class RouteConfigFactory {
             ? '${function.enclosingElement3.displayName}.$displayName'
             : displayName;
 
-        String? import;
-        if (function.enclosingElement3.name != 'TransitionsBuilders') {
-          import = function.source.uri.toString();
-        }
-        customTransitionBuilder = CustomTransitionBuilder(functionName, import);
+        customTransitionBuilder = CustomTransitionBuilder(
+            functionName, function.source.uri.toString());
       }
 
       var customRouteConfig = CustomRouteConfig(

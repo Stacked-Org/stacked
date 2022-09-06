@@ -48,7 +48,7 @@ class StreamCounterViewModel extends StreamViewModel<int> {
 
   void navigateToNewView() {
     _navigationService.navigateWithTransition(
-        ExampleFormView(clashableOne: Clashable('one')),
+        ExampleFormView(clashableOne: const Clashable('one')),
         transitionStyle: Transition.zoom);
   }
 }

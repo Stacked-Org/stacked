@@ -1,7 +1,5 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
-import 'package:collection/collection.dart';
-import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
 
 class ArgumentClassBuilderHelper {
   final RouteConfig route;
@@ -18,23 +16,9 @@ class ArgumentClassBuilderHelper {
               (b) => b
                 ..modifier = FieldModifier.final$
                 ..name = param.name
-                ..type = param.type.getTypeInsideList == null
-                    ? Reference(
-                        param.type,
-                        param.imports?.firstOrNull,
-                      )
-                    : TypeReference(
-                        (b) => b
-                          ..symbol = param.type.getTypeInsideList?.group(1)
-                          ..types.addAll([
-                            if (param.type.getTypeInsideList != null) ...[
-                              Reference(
-                                param.type.getTypeInsideList?.group(2),
-                                param.imports?.firstOrNull,
-                              ),
-                            ],
-                          ]),
-                      ),
+                ..type = param is FunctionParamConfig
+                    ? param.funRefer
+                    : param.type.refer,
             ))
         .toList();
   }
@@ -44,9 +28,9 @@ class ArgumentClassBuilderHelper {
   }
 
   void _composeConstructer(ConstructorBuilder b) {
-    b..constant = true;
+    b.constant = true;
 
-    route.parameters.forEach((param) {
+    for (final param in route.parameters) {
       // Add the name and the default value
       final codeBuilderParameter = Parameter((parameterBuilder) {
         parameterBuilder
@@ -56,15 +40,16 @@ class ArgumentClassBuilderHelper {
 
         // Assign default value
         if (param.defaultValueCode != null) {
-          parameterBuilder..defaultTo = literal(param.defaultValueCode!).code;
+          parameterBuilder.defaultTo =
+              refer(param.defaultValueCode!, param.type.import).code;
         }
 
         // Add required keyword
         if (param.isRequired || param.isPositional) {
-          parameterBuilder..required = true;
+          parameterBuilder.required = true;
         }
       });
-      b..optionalParameters.add(codeBuilderParameter);
-    });
+      b.optionalParameters.add(codeBuilderParameter);
+    }
   }
 }
