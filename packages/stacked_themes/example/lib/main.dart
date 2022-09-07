@@ -20,15 +20,19 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         backgroundColor: Colors.blue[700],
-        accentColor: Colors.yellow[700],
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          secondary: Colors.yellow[700], // Your accent color
+        ), ,
       ),
       lightTheme: ThemeData(
         brightness: Brightness.light,
         backgroundColor: Colors.blue[300],
-        accentColor: Colors.yellow[300],
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          secondary: Colors.yellow[300], // Your accent color
+        ),       
       ),
-      statusBarColorBuilder: (theme) => theme.accentColor,
-      navigationBarColorBuilder: (theme) => theme.accentColor,
+      statusBarColorBuilder: (theme) => theme?.colorScheme.secondary,
+      navigationBarColorBuilder: (theme) => theme?.colorScheme.secondary,
       // themes: getThemes(),
       builder: (context, regularTheme, darkTheme, themeMode) => MaterialApp(
         title: 'Flutter Demo',
