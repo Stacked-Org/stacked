@@ -185,7 +185,7 @@ return service;
         relativeModificationPath: 'test/helpers/test_helpers.dart',
         modificationIdentifier: '// @stacked-mock-spec',
         modificationTemplate:
-            '''MockSpec<{{serviceName}}Service>(returnNullOnMissingStub: true),''',
+            '''MockSpec<{{serviceName}}Service>(onMissingStub: OnMissingStub.returnDefault),''',
         modificationProblemError:
             'The test mocks and helpers should be stored in test/helpers/test_helpers.dart',
         modificationName: 'Create {{serviceName}} mock to test helpers',
