@@ -73,10 +73,12 @@ class ConfigService {
         throw ConfigFileNotFoundException(kConfigFileNotFound);
       }
 
+      _log.info(message: 'Load config from $path');
       final data = await _fileService.readFileAsString(filePath: path);
 
       _customConfig = Config.fromJson(jsonDecode(data));
       _hasCustomConfig = true;
+      _log.info(message: 'Using configuration\n${_customConfig.toJson()}');
     } on ConfigFileNotFoundException catch (e) {
       _log.warn(message: e.message);
     } on FormatException catch (_) {

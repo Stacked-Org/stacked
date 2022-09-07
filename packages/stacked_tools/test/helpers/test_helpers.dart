@@ -3,14 +3,12 @@ import 'dart:io';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:stacked_tools/src/locator.dart';
-import 'package:stacked_tools/src/models/config_model.dart';
 import 'package:stacked_tools/src/services/colorized_log_service.dart';
 import 'package:stacked_tools/src/services/config_service.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
 import 'package:stacked_tools/src/services/path_service.dart';
 import 'package:stacked_tools/src/services/pubspec_service.dart';
 import 'package:stacked_tools/src/services/template_service.dart';
-import 'package:stacked_tools/src/templates/compiled_templates.dart';
 import 'package:stacked_tools/src/templates/template_helper.dart';
 
 // @stacked-import
@@ -20,13 +18,13 @@ import 'test_helpers.mocks.dart';
 
 @GenerateMocks([], customMocks: [
   // core services
-  MockSpec<FileService>(returnNullOnMissingStub: true),
-  MockSpec<PathService>(returnNullOnMissingStub: true),
-  MockSpec<TemplateService>(returnNullOnMissingStub: true),
-  MockSpec<TemplateHelper>(returnNullOnMissingStub: true),
-  MockSpec<PubspecService>(returnNullOnMissingStub: true),
-  MockSpec<ColorizedLogService>(returnNullOnMissingStub: true),
-  MockSpec<ConfigService>(returnNullOnMissingStub: true),
+  MockSpec<FileService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<PathService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<TemplateService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<TemplateHelper>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<PubspecService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<ColorizedLogService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<ConfigService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-service-mock
 ])
 MockFileService getAndRegisterMockFileService({

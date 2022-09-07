@@ -8,7 +8,6 @@ import 'package:stacked_tools/src/services/file_service.dart';
 import 'package:stacked_tools/src/services/path_service.dart';
 
 /// This class contains functions that helps with the population of the templates
-// TODO: Reasses if this should just be in the template service and not on its own
 class TemplateHelper {
   final _fileService = locator<FileService>();
   final _pathService = locator<PathService>();
