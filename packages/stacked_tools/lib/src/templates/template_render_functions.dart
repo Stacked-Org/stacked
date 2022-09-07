@@ -26,6 +26,8 @@ Map<String, RenderFunction> renderFunctions = {
       kTemplatePropertyRelativeLocatorPath: getRelativeLocatorPath(
         stackedAppPath: configService.stackedAppPath,
       ),
+      kTemplatePropertyRegisterMocksFunction:
+          configService.registerMocksFunction,
     };
   },
   kTemplateNameApp: (ReCase value, [map]) => {},

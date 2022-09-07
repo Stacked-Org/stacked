@@ -1095,7 +1095,7 @@ const String kServiceTemplateGenericServiceTestPath =
 
 const String kServiceTemplateGenericServiceTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
-import 'package:{{packageName}}/{{relativeLocatorPath}}';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 
 import '{{{serviceTestHelpersImportPath}}}';
 
