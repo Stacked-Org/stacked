@@ -4,10 +4,12 @@
 // StackedLocatorGenerator
 // **************************************************************************
 
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
-import 'package:stacked_services/stacked_services.dart';
+import 'package:stacked_services/src/bottom_sheet/bottom_sheet_service.dart';
+import 'package:stacked_services/src/dialog/dialog_service.dart';
+import 'package:stacked_services/src/navigation/navigation_service.dart';
 
 final locator = StackedLocator.instance;
 
