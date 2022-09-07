@@ -157,10 +157,12 @@ class TemplateService {
         fileContent: templateContent,
         verbose: true,
       );
-      await _processService.runFormat(
-        appName: outputFolder,
-        filePath: templateFileOutputPath,
-      );
+
+      // TODO: Add this back and format the entire project in one step
+      // await _processService.runFormat(
+      //   appName: outputFolder,
+      //   filePath: templateFileOutputPath,
+      // );
     }
   }
 
