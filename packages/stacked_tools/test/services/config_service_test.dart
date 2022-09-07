@@ -14,12 +14,17 @@ void main() {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
 
+    const testHelpersFilePath = 'lib/src/test/helpers/core_test.helpers.dart';
+    const stackedAppFilePath = 'src/lib/app/core.dart';
+
     const String customConfig = '''
       {
+        "stacked_app_path": "$stackedAppFilePath",
         "views_path": "lib/my/personal/path/to/views",
         "services_path": "lib/my/personal/path/to/services",
         "test_services_path": "test/my/personal/path/to/tests/service",
-        "test_views_path": "test/my/personal/path/to/tests/viewmodel"
+        "test_views_path": "test/my/personal/path/to/tests/viewmodel",
+        "test_helpers_path": "$testHelpersFilePath"
       }
     ''';
 
@@ -111,6 +116,36 @@ void main() {
         expect(
           customPath,
           'test/my/personal/path/to/tests/service/generic_service_test.dart.stk',
+        );
+      });
+
+      test(
+          'when called with custom stacked app file path should return full stacked_app file path from config',
+          () async {
+        final path = 'lib/app/app.dart';
+        getAndRegisterMockFileService(readFileResult: customConfig);
+        final service = _getService();
+        await service.loadConfig();
+        final customPath = service.replaceCustomPaths(path);
+        expect(customPath, isNot(path));
+        expect(
+          customPath,
+          stackedAppFilePath,
+        );
+      });
+
+      test(
+          'when called with custom test_helpers file path should return full test_helpers file path from config',
+          () async {
+        final path = 'test/helpers/test_helpers.dart';
+        getAndRegisterMockFileService(readFileResult: customConfig);
+        final service = _getService();
+        await service.loadConfig();
+        final customPath = service.replaceCustomPaths(path);
+        expect(customPath, isNot(path));
+        expect(
+          customPath,
+          testHelpersFilePath,
         );
       });
     });

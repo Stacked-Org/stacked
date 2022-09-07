@@ -181,7 +181,7 @@ class _$_Config implements _Config {
       @JsonKey(name: 'stacked_app_path')
           this.stackedAppPath = 'lib/app/app.dart',
       @JsonKey(name: 'test_helpers_path')
-          this.testHelpersPath = 'test/helpers',
+          this.testHelpersPath = 'test/helpers/test_helpers.dart',
       @JsonKey(name: 'test_services_path')
           this.testServicesPath = 'test/services',
       @JsonKey(name: 'test_views_path')

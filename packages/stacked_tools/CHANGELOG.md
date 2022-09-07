@@ -1,3 +1,9 @@
+## 0.2.1
+
+### Fixes
+- Makes test_helpers_path replace the entire value with the new value provided
+- Fixes hard check for test location
+
 ## 0.2.0
 
 ### Feature: Stacked config

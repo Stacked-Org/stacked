@@ -125,12 +125,6 @@ class ConfigService {
     /// Relative path of file where test helpers and mocks will be imported.
     String path,
   ) {
-    if (!path.startsWith('test/')) {
-      throw Exception(
-        'Any test file should be placed inside "test" folder on root of the project. Please, correct your test location.',
-      );
-    }
-
     /// Remove unnecessary part of the path
     String anyTestFilePath = path.replaceFirst('test/', '');
     String helpersPath = testHelpersPath.replaceFirst('test/', '');
