@@ -30,6 +30,9 @@ class ConfigService {
   /// Relative path where services will be genereated.
   String get servicePath => _customConfig.servicesPath;
 
+  /// Returns the name of the locator to use when registering service mocks
+  String get locatorName => _customConfig.locatorName;
+
   /// Relative import path related to services of test helpers and mock services.
   String get serviceTestHelpersImportPath => getRelativePathToHelpersAndMocks(
         _customConfig.testServicesPath,

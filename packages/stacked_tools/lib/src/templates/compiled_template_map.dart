@@ -1,7 +1,5 @@
-import 'package:stacked_tools/src/constants/message_constants.dart';
 import 'package:stacked_tools/src/models/template_models.dart';
 import 'package:stacked_tools/src/templates/compiled_templates.dart';
-import 'package:stacked_tools/src/templates/template_constants.dart';
 
 Map<String, StackedTemplate> kCompiledStackedTemplates = {
   'app': StackedTemplate(
@@ -151,7 +149,7 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
             '''Mock{{serviceName}}Service getAndRegister{{serviceName}}Service() { 
 _removeRegistrationIfExists<{{serviceName}}Service>(); 
 final service = Mock{{serviceName}}Service(); 
-locator.registerSingleton<{{serviceName}}Service>(service); 
+{{locatorName}}.registerSingleton<{{serviceName}}Service>(service); 
 return service; 
 }''',
         modificationProblemError:

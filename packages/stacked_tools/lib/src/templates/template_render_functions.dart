@@ -1,4 +1,6 @@
 import 'package:recase/recase.dart';
+import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/services/config_service.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 
 /// Definition of a function that when executed returns a Map<String, String>
@@ -17,6 +19,7 @@ Map<String, RenderFunction> renderFunctions = {
   kTemplateNameService: (ReCase value, [map]) => {
         kTemplatePropertyServiceName: value.pascalCase,
         kTemplatePropertyServiceFilename: '${value.snakeCase}_service.dart',
+        kTemplatePropertyLocatorName: locator<ConfigService>().locatorName,
       },
   kTemplateNameApp: (ReCase value, [map]) => {},
 };

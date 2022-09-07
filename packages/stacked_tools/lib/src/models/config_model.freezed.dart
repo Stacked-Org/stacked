@@ -44,6 +44,8 @@ mixin _$Config {
   /// Relative path where viewmodels unit tests will be genereated.
   @JsonKey(name: 'test_views_path')
   String get testViewsPath => throw _privateConstructorUsedError;
+  @JsonKey(name: 'locator_name')
+  String get locatorName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -60,7 +62,8 @@ abstract class $ConfigCopyWith<$Res> {
       @JsonKey(name: 'stacked_app_path') String stackedAppPath,
       @JsonKey(name: 'test_helpers_path') String testHelpersPath,
       @JsonKey(name: 'test_services_path') String testServicesPath,
-      @JsonKey(name: 'test_views_path') String testViewsPath});
+      @JsonKey(name: 'test_views_path') String testViewsPath,
+      @JsonKey(name: 'locator_name') String locatorName});
 }
 
 /// @nodoc
@@ -79,6 +82,7 @@ class _$ConfigCopyWithImpl<$Res> implements $ConfigCopyWith<$Res> {
     Object? testHelpersPath = freezed,
     Object? testServicesPath = freezed,
     Object? testViewsPath = freezed,
+    Object? locatorName = freezed,
   }) {
     return _then(_value.copyWith(
       viewsPath: viewsPath == freezed
@@ -105,6 +109,10 @@ class _$ConfigCopyWithImpl<$Res> implements $ConfigCopyWith<$Res> {
           ? _value.testViewsPath
           : testViewsPath // ignore: cast_nullable_to_non_nullable
               as String,
+      locatorName: locatorName == freezed
+          ? _value.locatorName
+          : locatorName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -120,7 +128,8 @@ abstract class _$$_ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
       @JsonKey(name: 'stacked_app_path') String stackedAppPath,
       @JsonKey(name: 'test_helpers_path') String testHelpersPath,
       @JsonKey(name: 'test_services_path') String testServicesPath,
-      @JsonKey(name: 'test_views_path') String testViewsPath});
+      @JsonKey(name: 'test_views_path') String testViewsPath,
+      @JsonKey(name: 'locator_name') String locatorName});
 }
 
 /// @nodoc
@@ -140,6 +149,7 @@ class __$$_ConfigCopyWithImpl<$Res> extends _$ConfigCopyWithImpl<$Res>
     Object? testHelpersPath = freezed,
     Object? testServicesPath = freezed,
     Object? testViewsPath = freezed,
+    Object? locatorName = freezed,
   }) {
     return _then(_$_Config(
       viewsPath: viewsPath == freezed
@@ -166,6 +176,10 @@ class __$$_ConfigCopyWithImpl<$Res> extends _$ConfigCopyWithImpl<$Res>
           ? _value.testViewsPath
           : testViewsPath // ignore: cast_nullable_to_non_nullable
               as String,
+      locatorName: locatorName == freezed
+          ? _value.locatorName
+          : locatorName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -185,7 +199,9 @@ class _$_Config implements _Config {
       @JsonKey(name: 'test_services_path')
           this.testServicesPath = 'test/services',
       @JsonKey(name: 'test_views_path')
-          this.testViewsPath = 'test/viewmodels'});
+          this.testViewsPath = 'test/viewmodels',
+      @JsonKey(name: 'locator_name')
+          this.locatorName = 'locator'});
 
   factory _$_Config.fromJson(Map<String, dynamic> json) =>
       _$$_ConfigFromJson(json);
@@ -220,10 +236,13 @@ class _$_Config implements _Config {
   @override
   @JsonKey(name: 'test_views_path')
   final String testViewsPath;
+  @override
+  @JsonKey(name: 'locator_name')
+  final String locatorName;
 
   @override
   String toString() {
-    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, stackedAppPath: $stackedAppPath, testHelpersPath: $testHelpersPath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath)';
+    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, stackedAppPath: $stackedAppPath, testHelpersPath: $testHelpersPath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, locatorName: $locatorName)';
   }
 
   @override
@@ -241,7 +260,9 @@ class _$_Config implements _Config {
             const DeepCollectionEquality()
                 .equals(other.testServicesPath, testServicesPath) &&
             const DeepCollectionEquality()
-                .equals(other.testViewsPath, testViewsPath));
+                .equals(other.testViewsPath, testViewsPath) &&
+            const DeepCollectionEquality()
+                .equals(other.locatorName, locatorName));
   }
 
   @JsonKey(ignore: true)
@@ -253,7 +274,8 @@ class _$_Config implements _Config {
       const DeepCollectionEquality().hash(stackedAppPath),
       const DeepCollectionEquality().hash(testHelpersPath),
       const DeepCollectionEquality().hash(testServicesPath),
-      const DeepCollectionEquality().hash(testViewsPath));
+      const DeepCollectionEquality().hash(testViewsPath),
+      const DeepCollectionEquality().hash(locatorName));
 
   @JsonKey(ignore: true)
   @override
@@ -270,13 +292,13 @@ class _$_Config implements _Config {
 
 abstract class _Config implements Config {
   factory _Config(
-          {@JsonKey(name: 'views_path') final String viewsPath,
-          @JsonKey(name: 'services_path') final String servicesPath,
-          @JsonKey(name: 'stacked_app_path') final String stackedAppPath,
-          @JsonKey(name: 'test_helpers_path') final String testHelpersPath,
-          @JsonKey(name: 'test_services_path') final String testServicesPath,
-          @JsonKey(name: 'test_views_path') final String testViewsPath}) =
-      _$_Config;
+      {@JsonKey(name: 'views_path') final String viewsPath,
+      @JsonKey(name: 'services_path') final String servicesPath,
+      @JsonKey(name: 'stacked_app_path') final String stackedAppPath,
+      @JsonKey(name: 'test_helpers_path') final String testHelpersPath,
+      @JsonKey(name: 'test_services_path') final String testServicesPath,
+      @JsonKey(name: 'test_views_path') final String testViewsPath,
+      @JsonKey(name: 'locator_name') final String locatorName}) = _$_Config;
 
   factory _Config.fromJson(Map<String, dynamic> json) = _$_Config.fromJson;
 
@@ -311,6 +333,9 @@ abstract class _Config implements Config {
   /// Relative path where viewmodels unit tests will be genereated.
   @JsonKey(name: 'test_views_path')
   String get testViewsPath;
+  @override
+  @JsonKey(name: 'locator_name')
+  String get locatorName;
   @override
   @JsonKey(ignore: true)
   _$$_ConfigCopyWith<_$_Config> get copyWith =>

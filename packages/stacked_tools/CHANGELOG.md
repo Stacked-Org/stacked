@@ -1,5 +1,8 @@
 ## 0.2.1
 
+### Additions
+- Adds config option to set the name of the locator used to register mocks for testing
+
 ### Fixes
 - Makes test_helpers_path replace the entire value with the new value provided
 - Fixes hard check for test location

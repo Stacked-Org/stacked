@@ -45,6 +45,8 @@ const String kTemplatePropertyServiceName = 'serviceName';
 
 const String kTemplatePropertyServiceFilename = 'serviceFilename';
 
+const String kTemplatePropertyLocatorName = 'locatorName';
+
 const String kTemplatePropertyServiceImportPath = 'serviceImportPath';
 
 const String kTemplatePropertyServiceTestHelpersImportPath =

@@ -36,6 +36,7 @@ class Config with _$Config {
     @JsonKey(name: 'test_views_path')
     @Default('test/viewmodels')
         String testViewsPath,
+    @JsonKey(name: 'locator_name') @Default('locator') String locatorName,
   }) = _Config;
 
   factory Config.fromJson(Map<String, dynamic> json) => _$ConfigFromJson(json);
