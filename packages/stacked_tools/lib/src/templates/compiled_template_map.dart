@@ -13,6 +13,10 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
         content: kAppTemplateTestHelpersContent,
       ),
       TemplateFile(
+        relativeOutputPath: kAppTemplateStackedConfigJsonStkPath,
+        content: kAppTemplateStackedConfigJsonStkContent,
+      ),
+      TemplateFile(
         relativeOutputPath: kAppTemplateREADMEMdStkPath,
         content: kAppTemplateREADMEMdStkContent,
       ),

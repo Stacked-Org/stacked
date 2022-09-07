@@ -20,7 +20,8 @@ class TemplateHelper {
     required String extension,
   }) {
     return filePaths
-        .where((element) => element.path.contains(extension))
+        .where((element) =>
+            element.uri.pathSegments.last.split('.').last == extension)
         .toList();
   }
 
@@ -44,7 +45,7 @@ class TemplateHelper {
   /// Returns the list of files with [extension] endings in the templates/[templateName] folder
   Future<List<FileSystemEntity>> getFilesForTemplate({
     required String templateName,
-    String extension = '.stk',
+    String extension = 'stk',
   }) async {
     final allFilesInTemplateDirectory = await _fileService.getFilesInDirectory(
       directoryPath: templatesPath,
@@ -70,7 +71,7 @@ class TemplateHelper {
     final templateModificationItems = <CompiledFileModification>[];
     final modificationFiles = await getFilesForTemplate(
       templateName: templateName,
-      extension: '.json',
+      extension: 'json',
     );
 
     for (final modificationFile in modificationFiles) {
