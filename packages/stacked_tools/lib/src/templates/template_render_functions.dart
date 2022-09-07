@@ -1,3 +1,4 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:recase/recase.dart';
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/services/config_service.dart';
@@ -16,10 +17,24 @@ Map<String, RenderFunction> renderFunctions = {
       kTemplatePropertyViewFileName: '${value.snakeCase}_view.dart',
     };
   },
-  kTemplateNameService: (ReCase value, [map]) => {
-        kTemplatePropertyServiceName: value.pascalCase,
-        kTemplatePropertyServiceFilename: '${value.snakeCase}_service.dart',
-        kTemplatePropertyLocatorName: locator<ConfigService>().locatorName,
-      },
+  kTemplateNameService: (ReCase value, [map]) {
+    final configService = locator<ConfigService>();
+    return {
+      kTemplatePropertyServiceName: value.pascalCase,
+      kTemplatePropertyServiceFilename: '${value.snakeCase}_service.dart',
+      kTemplatePropertyLocatorName: configService.locatorName,
+      kTemplatePropertyRelativeLocatorPath: getRelativeLocatorPath(
+        stackedAppPath: configService.stackedAppPath,
+      ),
+    };
+  },
   kTemplateNameApp: (ReCase value, [map]) => {},
 };
+
+@visibleForTesting
+String getRelativeLocatorPath({required String stackedAppPath}) {
+  final pathWithoutLib = stackedAppPath.replaceFirst('lib/', '');
+  final pathWithLocator = pathWithoutLib.split('.')..insert(1, 'locator');
+
+  return pathWithLocator.join('.');
+}

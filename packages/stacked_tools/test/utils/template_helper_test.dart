@@ -5,6 +5,7 @@ import 'package:path/path.dart' as p;
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 import 'package:stacked_tools/src/templates/template_helper.dart';
+import 'package:stacked_tools/src/templates/template_render_functions.dart';
 import 'package:test/test.dart';
 
 import '../helpers/test_helpers.dart';
@@ -12,6 +13,28 @@ import '../helpers/test_helpers.dart';
 TemplateHelper _getHelper() => TemplateHelper();
 
 void main() {
+  group('getRelativeLocatorPath -', () {
+    test('When given path lib/app/app.dart should return app/app.locator.dart',
+        () {
+      final path = getRelativeLocatorPath(stackedAppPath: 'lib/app/app.dart');
+      expect(
+        path,
+        'app/app.locator.dart',
+      );
+    });
+
+    test(
+        'When given path lib/src/app/core_app.dart should return src/app/core_app.locator.dart',
+        () {
+      final path =
+          getRelativeLocatorPath(stackedAppPath: 'lib/src/app/core_app.dart');
+      expect(
+        path,
+        'src/app/core_app.locator.dart',
+      );
+    });
+  });
+
   group('TemplateHelperTest -', () {
     setUp(registerServices);
     tearDown(locator.reset);
