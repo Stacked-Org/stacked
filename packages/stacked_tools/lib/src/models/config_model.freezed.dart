@@ -44,8 +44,16 @@ mixin _$Config {
   /// Relative path where viewmodels unit tests will be genereated.
   @JsonKey(name: 'test_views_path')
   String get testViewsPath => throw _privateConstructorUsedError;
+
+  /// The name of the locator to use when registering test mocks
   @JsonKey(name: 'locator_name')
   String get locatorName => throw _privateConstructorUsedError;
+
+  /// The name of the function that registers the mock services for tests.
+  ///
+  /// This is used when creating a test file during the `create service` command
+  @JsonKey(name: 'register_mocks_function')
+  String get registerMocksFunction => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -63,7 +71,8 @@ abstract class $ConfigCopyWith<$Res> {
       @JsonKey(name: 'test_helpers_path') String testHelpersPath,
       @JsonKey(name: 'test_services_path') String testServicesPath,
       @JsonKey(name: 'test_views_path') String testViewsPath,
-      @JsonKey(name: 'locator_name') String locatorName});
+      @JsonKey(name: 'locator_name') String locatorName,
+      @JsonKey(name: 'register_mocks_function') String registerMocksFunction});
 }
 
 /// @nodoc
@@ -83,6 +92,7 @@ class _$ConfigCopyWithImpl<$Res> implements $ConfigCopyWith<$Res> {
     Object? testServicesPath = freezed,
     Object? testViewsPath = freezed,
     Object? locatorName = freezed,
+    Object? registerMocksFunction = freezed,
   }) {
     return _then(_value.copyWith(
       viewsPath: viewsPath == freezed
@@ -113,6 +123,10 @@ class _$ConfigCopyWithImpl<$Res> implements $ConfigCopyWith<$Res> {
           ? _value.locatorName
           : locatorName // ignore: cast_nullable_to_non_nullable
               as String,
+      registerMocksFunction: registerMocksFunction == freezed
+          ? _value.registerMocksFunction
+          : registerMocksFunction // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -129,7 +143,8 @@ abstract class _$$_ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
       @JsonKey(name: 'test_helpers_path') String testHelpersPath,
       @JsonKey(name: 'test_services_path') String testServicesPath,
       @JsonKey(name: 'test_views_path') String testViewsPath,
-      @JsonKey(name: 'locator_name') String locatorName});
+      @JsonKey(name: 'locator_name') String locatorName,
+      @JsonKey(name: 'register_mocks_function') String registerMocksFunction});
 }
 
 /// @nodoc
@@ -150,6 +165,7 @@ class __$$_ConfigCopyWithImpl<$Res> extends _$ConfigCopyWithImpl<$Res>
     Object? testServicesPath = freezed,
     Object? testViewsPath = freezed,
     Object? locatorName = freezed,
+    Object? registerMocksFunction = freezed,
   }) {
     return _then(_$_Config(
       viewsPath: viewsPath == freezed
@@ -180,6 +196,10 @@ class __$$_ConfigCopyWithImpl<$Res> extends _$ConfigCopyWithImpl<$Res>
           ? _value.locatorName
           : locatorName // ignore: cast_nullable_to_non_nullable
               as String,
+      registerMocksFunction: registerMocksFunction == freezed
+          ? _value.registerMocksFunction
+          : registerMocksFunction // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -201,7 +221,9 @@ class _$_Config implements _Config {
       @JsonKey(name: 'test_views_path')
           this.testViewsPath = 'test/viewmodels',
       @JsonKey(name: 'locator_name')
-          this.locatorName = 'locator'});
+          this.locatorName = 'locator',
+      @JsonKey(name: 'register_mocks_function')
+          this.registerMocksFunction = 'registerServices'});
 
   factory _$_Config.fromJson(Map<String, dynamic> json) =>
       _$$_ConfigFromJson(json);
@@ -236,13 +258,22 @@ class _$_Config implements _Config {
   @override
   @JsonKey(name: 'test_views_path')
   final String testViewsPath;
+
+  /// The name of the locator to use when registering test mocks
   @override
   @JsonKey(name: 'locator_name')
   final String locatorName;
 
+  /// The name of the function that registers the mock services for tests.
+  ///
+  /// This is used when creating a test file during the `create service` command
+  @override
+  @JsonKey(name: 'register_mocks_function')
+  final String registerMocksFunction;
+
   @override
   String toString() {
-    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, stackedAppPath: $stackedAppPath, testHelpersPath: $testHelpersPath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, locatorName: $locatorName)';
+    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, stackedAppPath: $stackedAppPath, testHelpersPath: $testHelpersPath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, locatorName: $locatorName, registerMocksFunction: $registerMocksFunction)';
   }
 
   @override
@@ -262,7 +293,9 @@ class _$_Config implements _Config {
             const DeepCollectionEquality()
                 .equals(other.testViewsPath, testViewsPath) &&
             const DeepCollectionEquality()
-                .equals(other.locatorName, locatorName));
+                .equals(other.locatorName, locatorName) &&
+            const DeepCollectionEquality()
+                .equals(other.registerMocksFunction, registerMocksFunction));
   }
 
   @JsonKey(ignore: true)
@@ -275,7 +308,8 @@ class _$_Config implements _Config {
       const DeepCollectionEquality().hash(testHelpersPath),
       const DeepCollectionEquality().hash(testServicesPath),
       const DeepCollectionEquality().hash(testViewsPath),
-      const DeepCollectionEquality().hash(locatorName));
+      const DeepCollectionEquality().hash(locatorName),
+      const DeepCollectionEquality().hash(registerMocksFunction));
 
   @JsonKey(ignore: true)
   @override
@@ -292,13 +326,22 @@ class _$_Config implements _Config {
 
 abstract class _Config implements Config {
   factory _Config(
-      {@JsonKey(name: 'views_path') final String viewsPath,
-      @JsonKey(name: 'services_path') final String servicesPath,
-      @JsonKey(name: 'stacked_app_path') final String stackedAppPath,
-      @JsonKey(name: 'test_helpers_path') final String testHelpersPath,
-      @JsonKey(name: 'test_services_path') final String testServicesPath,
-      @JsonKey(name: 'test_views_path') final String testViewsPath,
-      @JsonKey(name: 'locator_name') final String locatorName}) = _$_Config;
+      {@JsonKey(name: 'views_path')
+          final String viewsPath,
+      @JsonKey(name: 'services_path')
+          final String servicesPath,
+      @JsonKey(name: 'stacked_app_path')
+          final String stackedAppPath,
+      @JsonKey(name: 'test_helpers_path')
+          final String testHelpersPath,
+      @JsonKey(name: 'test_services_path')
+          final String testServicesPath,
+      @JsonKey(name: 'test_views_path')
+          final String testViewsPath,
+      @JsonKey(name: 'locator_name')
+          final String locatorName,
+      @JsonKey(name: 'register_mocks_function')
+          final String registerMocksFunction}) = _$_Config;
 
   factory _Config.fromJson(Map<String, dynamic> json) = _$_Config.fromJson;
 
@@ -334,8 +377,17 @@ abstract class _Config implements Config {
   @JsonKey(name: 'test_views_path')
   String get testViewsPath;
   @override
+
+  /// The name of the locator to use when registering test mocks
   @JsonKey(name: 'locator_name')
   String get locatorName;
+  @override
+
+  /// The name of the function that registers the mock services for tests.
+  ///
+  /// This is used when creating a test file during the `create service` command
+  @JsonKey(name: 'register_mocks_function')
+  String get registerMocksFunction;
   @override
   @JsonKey(ignore: true)
   _$$_ConfigCopyWith<_$_Config> get copyWith =>

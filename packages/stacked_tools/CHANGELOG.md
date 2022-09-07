@@ -2,6 +2,7 @@
 
 ### Additions
 - Adds config option to set the name of the locator used to register mocks for testing
+- Adds config option to set the name of the function that registers all mocks for testing
 
 ### Fixes
 - Makes test_helpers_path replace the entire value with the new value provided

@@ -49,6 +49,8 @@ const String kTemplatePropertyLocatorName = 'locatorName';
 
 const String kTemplatePropertyRelativeLocatorPath = 'relativeLocatorPath';
 
+const String kTemplatePropertyRegisterMocksFunction = 'registerMocksFunction';
+
 const String kTemplatePropertyServiceImportPath = 'serviceImportPath';
 
 const String kTemplatePropertyServiceTestHelpersImportPath =

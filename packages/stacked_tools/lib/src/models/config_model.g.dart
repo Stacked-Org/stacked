@@ -16,6 +16,8 @@ _$_Config _$$_ConfigFromJson(Map<String, dynamic> json) => _$_Config(
           json['test_services_path'] as String? ?? 'test/services',
       testViewsPath: json['test_views_path'] as String? ?? 'test/viewmodels',
       locatorName: json['locator_name'] as String? ?? 'locator',
+      registerMocksFunction:
+          json['register_mocks_function'] as String? ?? 'registerServices',
     );
 
 Map<String, dynamic> _$$_ConfigToJson(_$_Config instance) => <String, dynamic>{
@@ -26,4 +28,5 @@ Map<String, dynamic> _$$_ConfigToJson(_$_Config instance) => <String, dynamic>{
       'test_services_path': instance.testServicesPath,
       'test_views_path': instance.testViewsPath,
       'locator_name': instance.locatorName,
+      'register_mocks_function': instance.registerMocksFunction,
     };

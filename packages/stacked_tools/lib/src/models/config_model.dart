@@ -36,7 +36,16 @@ class Config with _$Config {
     @JsonKey(name: 'test_views_path')
     @Default('test/viewmodels')
         String testViewsPath,
+
+    /// The name of the locator to use when registering test mocks
     @JsonKey(name: 'locator_name') @Default('locator') String locatorName,
+
+    /// The name of the function that registers the mock services for tests.
+    ///
+    /// This is used when creating a test file during the `create service` command
+    @JsonKey(name: 'register_mocks_function')
+    @Default('registerServices')
+        String registerMocksFunction,
   }) = _Config;
 
   factory Config.fromJson(Map<String, dynamic> json) => _$ConfigFromJson(json);

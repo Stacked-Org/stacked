@@ -1101,8 +1101,8 @@ import '{{{serviceTestHelpersImportPath}}}';
 
 void main() {
   group('{{serviceName}}ServiceTest -', () {
-    setUp(() => registerServices());
-    tearDown(() => locator.reset());
+    setUp(() => {{registerMocksFunction}}());
+    tearDown(() => {{locatorName}}.reset());
   });
 }
 

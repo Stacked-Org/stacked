@@ -474,6 +474,13 @@ class MockConfigService extends _i1.Mock implements _i14.ConfigService {
   String get servicePath => (super.noSuchMethod(Invocation.getter(#servicePath),
       returnValue: '', returnValueForMissingStub: '') as String);
   @override
+  String get locatorName => (super.noSuchMethod(Invocation.getter(#locatorName),
+      returnValue: '', returnValueForMissingStub: '') as String);
+  @override
+  String get registerMocksFunction =>
+      (super.noSuchMethod(Invocation.getter(#registerMocksFunction),
+          returnValue: '', returnValueForMissingStub: '') as String);
+  @override
   String get serviceTestHelpersImportPath =>
       (super.noSuchMethod(Invocation.getter(#serviceTestHelpersImportPath),
           returnValue: '', returnValueForMissingStub: '') as String);
