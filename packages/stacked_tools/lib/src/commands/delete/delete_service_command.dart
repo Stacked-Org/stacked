@@ -84,6 +84,5 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
       removedContent: argResults!.rest.first,
       type: kTemplateNameService,
     );
-    _processService.runFormat(appName: outputPath, filePath: filePath);
   }
 }

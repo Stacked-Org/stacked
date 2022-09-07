@@ -89,6 +89,5 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
       filePath: filePath,
       removedContent: argResults!.rest.first,
     );
-    _processService.runFormat(appName: outputPath, filePath: filePath);
   }
 }

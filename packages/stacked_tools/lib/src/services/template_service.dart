@@ -311,11 +311,11 @@ class TemplateService {
         type: FileModificationType.Modify,
         verboseMessage: verboseMessage,
       );
-      await _processService.runFormat(
-        appName: outputPath,
-        filePath: modificationPath,
-      );
     }
+
+    await _processService.runFormat(
+      appName: outputPath,
+    );
   }
 
   String templateModificationName({
