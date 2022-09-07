@@ -7,6 +7,7 @@ import 'package:stacked_tools/src/services/colorized_log_service.dart';
 import 'package:stacked_tools/src/services/config_service.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
 import 'package:stacked_tools/src/services/path_service.dart';
+import 'package:stacked_tools/src/services/process_service.dart';
 import 'package:stacked_tools/src/services/pubspec_service.dart';
 import 'package:stacked_tools/src/services/template_service.dart';
 import 'package:stacked_tools/src/templates/template_helper.dart';
@@ -25,6 +26,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<PubspecService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ColorizedLogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ConfigService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<ProcessService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-service-mock
 ])
 MockFileService getAndRegisterMockFileService({
@@ -45,6 +47,13 @@ MockFileService getAndRegisterMockFileService({
       .thenAnswer((realInvocation) => Future.value(getFilesInDirectoryResult));
 
   locator.registerSingleton<FileService>(service);
+  return service;
+}
+
+MockProcessService getAndRegisterProcessService() {
+  _removeRegistrationIfExists<ProcessService>();
+  final service = MockProcessService();
+  locator.registerSingleton<ProcessService>(service);
   return service;
 }
 
@@ -138,7 +147,8 @@ void registerServices() {
   getAndRegisterPubSpecService();
   getAndRegisterColorizedLogService();
   getAndRegisterConfigService();
-// @stacked-mock-helper-register
+  getAndRegisterProcessService();
+  // @stacked-mock-helper-register
 }
 
 void createTestFile(String template) {

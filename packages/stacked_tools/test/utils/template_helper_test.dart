@@ -29,7 +29,7 @@ void main() {
             File('non-template.dart.stk'),
             File('non-template.dart.as'),
           ],
-          extension: '.stk',
+          extension: 'stk',
         );
 
         expect(templateFiles.first.path, 'non-template.dart.stk');
