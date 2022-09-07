@@ -1,3 +1,10 @@
+## 0.2.0
+
+### Feature: Stacked config
+- Adds stacked config so you can use different paths for your file generation making it usable with all projects
+
+### Bugs
+- Fixes: Duplicate import in test_helper.dart file
 
 ## 0.2.0
 
