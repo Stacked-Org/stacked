@@ -119,7 +119,7 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
         relativeModificationPath: 'lib/app/app.dart',
         modificationIdentifier: '// @stacked-import',
         modificationTemplate:
-            '''import 'package:{{packageName}}/{{{viewImportPath}}}/{{viewFolderName}}/{{viewFileName}}';''',
+            '''import \'package:{{packageName}}/{{{viewImportPath}}}/{{viewFolderName}}/{{viewFileName}}\';''',
         modificationProblemError:
             'The structure of your stacked application is invalid. The app.dart file should be located in lib/app/',
         modificationName: 'Add {{viewName}} route import to app.dart',
@@ -156,7 +156,7 @@ return service;
         relativeModificationPath: 'test/helpers/test_helpers.dart',
         modificationIdentifier: '// @stacked-import',
         modificationTemplate:
-            '''import 'package:{{packageName}}/{{{serviceImportPath}}}/{{serviceFilename}}';''',
+            '''import \'package:{{packageName}}/{{{serviceImportPath}}}/{{serviceFilename}}\';''',
         modificationProblemError:
             'The test mocks and helpers should be stored in test/helpers/test_helpers.dart',
         modificationName: 'Add {{serviceName}} import to test helpers',
@@ -175,7 +175,7 @@ return service;
         relativeModificationPath: 'lib/app/app.dart',
         modificationIdentifier: '// @stacked-import',
         modificationTemplate:
-            '''import 'package:{{packageName}}/{{{serviceImportPath}}}/{{serviceFilename}}';''',
+            '''import \'package:{{packageName}}/{{{serviceImportPath}}}/{{serviceFilename}}\';''',
         modificationProblemError:
             'The service registration should be stored in lib/app/app.dart',
         modificationName:
@@ -202,7 +202,7 @@ return service;
         relativeModificationPath: 'test/helpers/test_helpers.dart',
         modificationIdentifier: '// @stacked-import',
         modificationTemplate:
-            '''import 'package:{{packageName}}/{{{serviceImportPath}}}/{{serviceFilename}}';''',
+            '''import \'package:{{packageName}}/{{{serviceImportPath}}}/{{serviceFilename}}\';''',
         modificationProblemError:
             'The test mocks and helpers should be stored in test/helpers/test_helpers.dart',
         modificationName: 'Add {{serviceName}} import to test helpers',
