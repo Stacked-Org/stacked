@@ -1,20 +1,20 @@
 extension EnvironmentExtractExtension on Set<String>? {
   String get getFromatedEnvs {
-    final _envString = StringBuffer();
+    final envString = StringBuffer();
     if (this == null || this!.isEmpty) {
-      return _envString.toString();
+      return envString.toString();
     }
 
-    _envString.write(',registerFor:{');
+    envString.write(',registerFor:{');
 
-    this!.forEach((element) {
+    for (final element in this!) {
       if (this!.first == element) {
-        _envString.write('"$element"');
+        envString.write('"$element"');
       } else {
-        _envString.write(',"$element"');
+        envString.write(',"$element"');
       }
-    });
-    _envString.write('}');
-    return _envString.toString();
+    }
+    envString.write('}');
+    return envString.toString();
   }
 }

@@ -1,3 +1,11 @@
+## 0.2.16
+
+- Improves google sign in error handling
+
+## 0.2.15
+
+- Improves error responses from auth failures
+
 ## 0.2.14
 
 - Extracts first and last name from apple credential to create displayName on FirebaseAuth user

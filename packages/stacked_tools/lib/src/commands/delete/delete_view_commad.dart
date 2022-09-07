@@ -29,17 +29,23 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
       defaultsTo: false,
       help: kCommandHelpExcludeRoute,
     );
+    argParser.addOption(
+      ksLineLength,
+      abbr: 'l',
+      help: 'The length of the line that is used for formatting',
+      valueHelp: '80',
+    );
   }
 
   @override
   Future<void> run() async {
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
+    _processService.formattingLineLength = argResults?[ksLineLength];
     await _pubspecService.initialise(workingDirectory: outputPath);
     await validateStructure(outputPath: outputPath);
     await deleteViewAndTestFiles(outputPath: outputPath);
     await removeViewFromRoute(outputPath: outputPath);
     await _processService.runBuildRunner(appName: outputPath);
-    await _processService.runFormat(appName: outputPath);
   }
 
   /// It deletes the view and test files
@@ -80,5 +86,6 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
       filePath: filePath,
       removedContent: argResults!.rest.first,
     );
+    _processService.runFormat(appName: outputPath, filePath: filePath);
   }
 }

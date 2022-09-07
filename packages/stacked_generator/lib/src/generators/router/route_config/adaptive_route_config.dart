@@ -1,4 +1,6 @@
-import '../models/route_parameter_config.dart';
+import 'package:code_builder/code_builder.dart';
+import 'package:stacked_generator/src/generators/router/models/route_parameter_config.dart';
+
 import 'route_config.dart';
 
 class AdaptiveRouteConfig extends RouteConfig {
@@ -17,42 +19,33 @@ class AdaptiveRouteConfig extends RouteConfig {
       super.children,
       super.imports,
       this.cupertinoNavTitle,
-      super.isChild});
+      super.parentClassName});
 
   @override
-  Set<String> registerImports() {
-    return {...super.registerImports()};
+  Code registerRoute() {
+    return super.registerRouteBloc(
+      routeType: 'buildAdaptivePageRoute',
+      routeTypeImport: 'package:stacked/stacked.dart',
+      extra: cupertinoNavTitle != null
+          ? Code("cupertinoTitle:'$cupertinoNavTitle',")
+          : null,
+    );
   }
 
   @override
-  String registerRoutes() {
-    StringBuffer stringBuffer = StringBuffer();
-    stringBuffer.write(super.registerArgs());
-    stringBuffer.write(
-        'return buildAdaptivePageRoute<$processedReturnType>(builder: (context) => $joinedConstructerParams, settings: data,');
-    if (cupertinoNavTitle != null) {
-      stringBuffer.write("cupertinoTitle:'${cupertinoNavTitle}',");
-    }
-    stringBuffer.write(super.registerRoutes());
-
-    return stringBuffer.toString();
-  }
-
-  AdaptiveRouteConfig copyWith({
-    String? name,
-    String? pathName,
-    String? className,
-    bool? fullscreenDialog,
-    bool? maintainState,
-    String? returnType,
-    List<RouteParamConfig>? parameters,
-    bool? hasWrapper,
-    bool? hasConstConstructor,
-    List<RouteConfig>? children,
-    Set<String>? imports,
-    String? cupertinoNavTitle,
-    bool? isChild,
-  }) {
+  RouteConfig copyWith(
+      {String? name,
+      String? pathName,
+      MapEntry<String, String>? className,
+      bool? fullscreenDialog,
+      bool? maintainState,
+      String? returnType,
+      List<RouteParamConfig>? parameters,
+      bool? hasWrapper,
+      List<RouteConfig>? children,
+      bool? hasConstConstructor,
+      Set<String>? imports,
+      String? parentClassName}) {
     return AdaptiveRouteConfig(
       name: name ?? this.name,
       pathName: pathName ?? this.pathName,
@@ -62,10 +55,10 @@ class AdaptiveRouteConfig extends RouteConfig {
       returnType: returnType ?? this.returnType,
       parameters: parameters ?? this.parameters,
       hasWrapper: hasWrapper ?? this.hasWrapper,
-      hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
       children: children ?? this.children,
+      hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
       imports: imports ?? this.imports,
-      cupertinoNavTitle: cupertinoNavTitle ?? this.cupertinoNavTitle,
+      parentClassName: parentClassName ?? this.parentClassName,
     );
   }
 }

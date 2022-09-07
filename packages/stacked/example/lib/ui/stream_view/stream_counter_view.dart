@@ -1,9 +1,12 @@
+import 'package:example/datamodels/clashable_two.dart';
 import 'package:flutter/material.dart';
 import 'package:example/ui/stream_view/stream_counter_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class StreamCounterView extends StatelessWidget {
-  const StreamCounterView({Key? key}) : super(key: key);
+  final List<Clashable> clashableTwo;
+  const StreamCounterView({Key? key, required this.clashableTwo})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

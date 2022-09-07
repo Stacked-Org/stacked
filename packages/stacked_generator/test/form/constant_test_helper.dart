@@ -1,16 +1,16 @@
 const ksFormImports = '''
 
-import \'package:flutter/material.dart\';
-import \'package:stacked/stacked.dart\';
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 
 
 ''';
 
 String ksFormKeys(String name, String date, String dropDown) => '''
 
-const String ${name[0].toUpperCase()}${name.substring(1)}ValueKey = \'${name}\';
-const String ${date[0].toUpperCase()}${date.substring(1)}ValueKey = \'${date}\';
-const String ${dropDown[0].toUpperCase()}${dropDown.substring(1)}ValueKey = \'${dropDown}\';
+const String ${name[0].toUpperCase()}${name.substring(1)}ValueKey = '$name';
+const String ${date[0].toUpperCase()}${date.substring(1)}ValueKey = '$date';
+const String ${dropDown[0].toUpperCase()}${dropDown.substring(1)}ValueKey = '$dropDown';
 
 ''';
 
@@ -64,8 +64,8 @@ final Map<String, FocusNode> _TestViewFocusNodes = {};
 
 ''';
 const kExample1UpdateFormData = '''
-        /// Updates the formData on the FormViewModel
-        void _updateFormData(FormViewModel model, {bool forceValidate = false}) { model.setData(
+        /// Updates the formData on the dynamic
+        void _updateFormData(dynamic model, {bool forceValidate = false}) { model.setData(
               model.formValueMap
                 ..addAll({
             
@@ -183,7 +183,7 @@ const kExample1AddValidationMessageForTextEditingController = '''
     
 ''';
 const kExample1AddHeaderComment = '''
-// ignore_for_file: public_member_api_docs,  constant_identifier_names, non_constant_identifier_names,unnecessary_this
+// ignore_for_file: public_member_api_docs, constant_identifier_names, non_constant_identifier_names,unnecessary_this
 ''';
 const kExample1AddImports = '''
 
@@ -205,8 +205,8 @@ emailController.addListener(() => _updateFormData(model));
 
 ''';
 const kExample1AddValidationDataUpdateFunctionTorTextControllers = '''
-        /// Updates the fieldsValidationMessages on the FormViewModel
-        void _updateValidationData(FormViewModel model) => model.setValidationMessages(
+        /// Updates the fieldsValidationMessages on the dynamic
+        void _updateValidationData(dynamic model) => model.setValidationMessages(
               {
             
 NameValueKey: _getValidationMessage(NameValueKey),

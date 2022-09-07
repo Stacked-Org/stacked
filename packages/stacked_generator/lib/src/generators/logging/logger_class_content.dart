@@ -1,10 +1,10 @@
-const String LogHelperNameKey = 'logHelperName';
-const String MultiLoggerImports = 'MultiLoggerImport';
-const String MultipleLoggerOutput = 'MultiLoggerList';
-const String DisableConsoleOutputInRelease = 'MultiLoggerList';
+const String logHelperNameKey = 'logHelperName';
+const String multiLoggerImports = 'MultiLoggerImport';
+const String multipleLoggerOutput = 'MultiLoggerList';
+const String disableConsoleOutputInRelease = 'MultiLoggerList';
 
 const String loggerClassPrefex = '''
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, depend_on_referenced_packages
 
 /// Maybe this should be generated for the user as well?
 ///
@@ -104,7 +104,7 @@ class SimpleLogPrinter extends LogPrinter {
   }
 
   bool _doesTraceContainsAllKeywords(String stackTrace, List<String> keywords) {
-    final formattedKeywordsAsRegex = RegExp("\${keywords.join('.*')}");
+    final formattedKeywordsAsRegex = RegExp(keywords.join('.*'));
     return stackTrace.contains(formattedKeywordsAsRegex);
   }
 }
@@ -158,7 +158,7 @@ class MultipleLoggerOutput extends LogOutput {
 ''';
 
 const String loggerClassNameAndOutputs = '''
-Logger $LogHelperNameKey(
+Logger $logHelperNameKey(
   String className, {
   bool printCallingFunctionName = true,
   bool printCallstack = false,
@@ -174,9 +174,9 @@ Logger $LogHelperNameKey(
       exludeLogsFromClasses: exludeLogsFromClasses,
     ),
     output: MultipleLoggerOutput([
-      $DisableConsoleOutputInRelease
+      $disableConsoleOutputInRelease
       ConsoleOutput(),
-      $MultipleLoggerOutput
+      $multipleLoggerOutput
     ]),
   );
 }

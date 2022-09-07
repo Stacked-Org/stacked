@@ -83,6 +83,8 @@ class NavigationService {
   /// [duration] transition duration.
   ///
   /// [opaque] Whether the route obscures previous routes when the transition is complete.
+  ///
+  /// [routeName] Name of the route to be pushed onto the navigation stack
   Future<T?>? navigateWithTransition<T>(
     Widget page, {
     bool? opaque,
@@ -97,6 +99,7 @@ class NavigationService {
     @Deprecated('Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
         Transition? transitionClass,
     Transition? transitionStyle,
+    String? routeName,
   }) {
     return G.Get.to<T?>(
       () => page,
@@ -110,6 +113,7 @@ class NavigationService {
       preventDuplicates: preventDuplicates,
       curve: curve,
       fullscreenDialog: fullscreenDialog,
+      routeName: routeName,
     );
   }
 
@@ -126,6 +130,8 @@ class NavigationService {
   /// [duration] transition duration.
   ///
   /// [opaque] Whether the route obscures previous routes when the transition is complete.
+  ///
+  /// [routeName] Name of the route to be pushed onto the navigation stack
   Future<T?>? replaceWithTransition<T>(
     Widget page, {
     bool? opaque,
@@ -140,6 +146,7 @@ class NavigationService {
     @Deprecated('Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
         Transition? transitionClass,
     Transition? transitionStyle,
+    String? routeName,
   }) {
     return G.Get.off<T?>(
       () => page,
@@ -153,6 +160,7 @@ class NavigationService {
       preventDuplicates: preventDuplicates,
       curve: curve,
       fullscreenDialog: fullscreenDialog,
+      routeName: routeName,
     );
   }
 
@@ -166,8 +174,10 @@ class NavigationService {
   }
 
   /// Pops the back stack until the predicate is satisfied
-  void popUntil(RoutePredicate predicate) {
-    G.Get.key.currentState?.popUntil(predicate);
+  ///
+  /// [id] is for when you are using nested navigation, as explained in documentation.
+  void popUntil(RoutePredicate predicate, {int? id}) {
+    G.Get.until(predicate, id: id);
   }
 
   /// Pops the back stack the number of times you indicate with [popTimes]
@@ -191,7 +201,9 @@ class NavigationService {
   }) {
     return G.Get.toNamed<T?>(
       routeName,
-      arguments: {'arguments': arguments, 'transition': transition},
+      arguments: transition != null
+          ? {'arguments': arguments, 'transition': transition}
+          : arguments,
       id: id,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -250,10 +262,13 @@ class NavigationService {
     int? id,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
+    RouteTransitionsBuilder? transition,
   }) {
     return G.Get.offNamed<T?>(
       routeName,
-      arguments: arguments,
+      arguments: transition != null
+          ? {'arguments': arguments, 'transition': transition}
+          : arguments,
       id: id,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

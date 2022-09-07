@@ -8,12 +8,12 @@ import 'package:example/ui/bottom_nav/history/history_view.dart';
 import 'package:example/ui/bottom_nav/history/history_viewmodel.dart';
 import 'package:example/ui/bottom_nav/profile/profile_view.dart';
 import 'package:example/ui/bottomsheets/generic_bottomsheet.dart';
-import 'package:example/ui/details/details_view.dart';
 import 'package:example/ui/form/example_form_view.dart';
 import 'package:example/ui/home/home_view.dart';
 import 'package:example/ui/multiple_futures_example/multiple_futures_example_view.dart';
 import 'package:example/ui/nonreactive/nonreactive_view.dart';
 import 'package:example/ui/stream_view/stream_counter_view.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_themes/stacked_themes.dart';
@@ -38,12 +38,13 @@ import 'custom_route_transition.dart';
           CustomRoute(page: HistoryView),
         ],
       ),
-      CustomRoute(page: HistoryView),
+      CustomRoute(
+        page: HistoryView,
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+      ),
       CupertinoRoute(page: ProfileView),
     ]),
     MaterialRoute(page: StreamCounterView),
-    CupertinoRoute<Map<String, List<String>>?>(page: DetailsView),
-    // TODO: Change the name of the FormView to avoid type clashing
     MaterialRoute(page: ExampleFormView),
     CustomRoute(
       page: NonReactiveView,
@@ -59,13 +60,20 @@ import 'custom_route_transition.dart';
     //   dispose: disposeInformationService,
     // ),
     LazySingleton(
-        classType: NavigationService, environments: {Environment.dev}),
+      classType: NavigationService,
+      environments: {Environment.dev},
+    ),
+    LazySingleton(
+        classType: NavigationService,
+        environments: {Environment.dev},
+        instanceName: 'instance1'),
     LazySingleton(classType: EpochService),
     LazySingleton(
       classType: ThemeService,
       resolveUsing: ThemeService.getInstance,
     ),
     LazySingleton(classType: InformationService),
+    LazySingleton(classType: InformationService, instanceName: 'infoInstance1'),
     FactoryWithParam(classType: FactoryService),
     // singletons
     Singleton(classType: HistoryViewModel),

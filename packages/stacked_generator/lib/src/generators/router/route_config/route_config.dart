@@ -1,11 +1,10 @@
+import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
-import 'package:stacked_generator/src/generators/exceptions/invalid_generator_input_exception.dart';
-import 'package:stacked_generator/utils.dart';
 
-class RouteConfig {
+abstract class RouteConfig {
   final String name;
   final String pathName;
-  final String className;
+  final MapEntry<String, String> className;
   final bool fullscreenDialog;
   final bool maintainState;
   final String? returnType;
@@ -14,12 +13,12 @@ class RouteConfig {
   final List<RouteConfig> children;
   final bool hasConstConstructor;
   final Set<String> imports;
-  final bool isChild;
+  final String? parentClassName;
   const RouteConfig({
     required this.name,
     required this.pathName,
     required this.className,
-    this.isChild = false,
+    this.parentClassName,
     this.fullscreenDialog = false,
     this.maintainState = true,
     this.returnType,
@@ -31,72 +30,46 @@ class RouteConfig {
   });
 
   String get argumentsHolderClassName {
-    return '${className}Arguments';
+    return '${className.key}Arguments';
   }
 
-  Set<String> registerImports() {
-    final paramertersImports = this
-        .parameters
-        .map((parameter) => parameter.imports)
-        .fold<Set<String>>({}, (previousValue, element) {
-      return {...previousValue, ...?element};
-    });
+  Code get joinedConstructerParams {
+    final constructorParams = _extractViewConstructerParametersNames();
 
-    return {...this.imports, ...paramertersImports};
+    final constructor = Block.of([
+      Code("${hasConstConstructor == true ? 'const' : ''}  "),
+      Reference(className.key, className.value).code,
+      Code(
+          "(${constructorParams.join(',')})${(hasWrapper) ? ".wrappedRoute(context)" : ""}")
+    ]);
+    return constructor;
   }
 
-  String registerArgs() {
-    StringBuffer stringBuffer = StringBuffer();
+  Code registerRoute();
 
-    if (parameters.isNotEmpty) {
-      // if router has any required or positional params the argument class holder becomes required.
-      final nullOk =
-          !notQueryAndNotPath.any((p) => p.isRequired || p.isPositional);
-      // show an error page  if passed args are not the same as declared args
-
-      if (notQueryAndNotPath.isNotEmpty) {
-        final argsType = isChild
-            ? 'Nested$argumentsHolderClassName'
-            : argumentsHolderClassName;
-        stringBuffer.writeln('var args = data.getArgs<$argsType>(');
-        if (!nullOk) {
-          stringBuffer.write('nullOk: false');
-        } else {
-          stringBuffer.write("orElse: ()=> $argsType(),");
-        }
-        stringBuffer.write(");");
-      }
-    }
-    return stringBuffer.toString();
+  Code registerRouteBloc(
+      {required String routeType,
+      String? routeTypeImport,
+      Code? extra,
+      bool usePageBuilder = false}) {
+    return Block.of([
+      const Code('return '),
+      Reference(routeType, routeTypeImport).code,
+      usePageBuilder
+          ? Code(
+              '<$processedReturnType>(pageBuilder: (context, animation, secondaryAnimation) => ')
+          : Code('<$processedReturnType>(builder: (context) => '),
+      joinedConstructerParams,
+      const Code(', settings: data,'),
+      if (extra != null) extra,
+      if (fullscreenDialog) const Code('fullscreenDialog:true,'),
+      if (!maintainState) const Code('maintainState:false,'),
+      const Code(');')
+    ]);
   }
 
-  String registerRoutes() {
-    StringBuffer stringBuffer = StringBuffer();
-
-    if (fullscreenDialog) {
-      stringBuffer.write('fullscreenDialog:true,');
-    }
-    if (!maintainState) {
-      stringBuffer.write('maintainState:false,');
-    }
-    stringBuffer.writeln(');');
-    return stringBuffer.toString();
-  }
-
-  String? get templateName {
-    return pathName.contains(":") ? '_$name' : name;
-  }
-
-  List<RouteParamConfig> get notQueryAndNotPath {
-    return parameters.where((p) {
-      throwIf(p.isPathParam == null || p.isQueryParam == null,
-          ExceptionMessages.isPathParamAndIsQueryParamShouldNotBeNull);
-      return !p.isPathParam! && !p.isQueryParam!;
-    }).toList();
-  }
-
-  String get joinedConstructerParams {
-    List<String>? constructorParams = parameters.map<String>((param) {
+  Iterable<String> _extractViewConstructerParametersNames() {
+    return parameters.map<String>((param) {
       String getterName;
       if (param.isPathParam ?? false) {
         getterName =
@@ -112,15 +85,7 @@ class RouteConfig {
       } else {
         return '${param.name}:$getterName';
       }
-    }).toList();
-    // add any empty item to add a comma at end
-    // when join(',') is called
-    if (constructorParams.length > 1) {
-      constructorParams.add('');
-    }
-    final constructor =
-        "${hasConstConstructor == true ? 'const' : ''}  ${className}(${constructorParams.join(',')})${(hasWrapper) ? ".wrappedRoute(context)" : ""}";
-    return constructor;
+    });
   }
 
   bool get isProcessedReturnTypeDynamic => processedReturnType == 'dynamic';
@@ -145,7 +110,7 @@ class RouteConfig {
   RouteConfig copyWith({
     String? name,
     String? pathName,
-    String? className,
+    MapEntry<String, String>? className,
     bool? fullscreenDialog,
     bool? maintainState,
     String? returnType,
@@ -154,21 +119,6 @@ class RouteConfig {
     List<RouteConfig>? children,
     bool? hasConstConstructor,
     Set<String>? imports,
-    bool? isChild,
-  }) {
-    return RouteConfig(
-      name: name ?? this.name,
-      pathName: pathName ?? this.pathName,
-      className: className ?? this.className,
-      fullscreenDialog: fullscreenDialog ?? this.fullscreenDialog,
-      maintainState: maintainState ?? this.maintainState,
-      returnType: returnType ?? this.returnType,
-      parameters: parameters ?? this.parameters,
-      hasWrapper: hasWrapper ?? this.hasWrapper,
-      children: children ?? this.children,
-      hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
-      imports: imports ?? this.imports,
-      isChild: isChild ?? this.isChild,
-    );
-  }
+    String? parentClassName,
+  });
 }

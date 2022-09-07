@@ -1,23 +1,23 @@
-import 'package:flutter/material.dart';
 import 'package:example/datamodels/human.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class FullNameWidget extends ViewModelWidget<Human> {
   const FullNameWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, Human model) {
+  Widget build(BuildContext context, Human viewModel) {
     return Row(
       children: <Widget>[
         Text(
-          model.name!,
+          viewModel.name!,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
         ),
         const SizedBox(
           width: 50,
         ),
         Text(
-          model.surname!,
+          viewModel.surname!,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
         ),
       ],

@@ -12,7 +12,7 @@ class WidgetOneViewModel extends ReactiveViewModel {
   }
 
   Future longUpdateStuff() async {
-    var result = await runBusyFuture(updateStuff());
+    await runBusyFuture(updateStuff());
   }
 
   Future updateStuff() {

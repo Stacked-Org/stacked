@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, unnecessary_string_escapes
 
 import 'dart:async';
 import 'dart:io';
@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:recase/recase.dart';
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/services/colorized_log_service.dart';
+import 'package:stacked_tools/src/templates/template_constants.dart';
 
 /// Handles the writing of files to disk
 class FileService {
@@ -84,18 +85,44 @@ class FileService {
   Future<void> removeSpecificFileLines({
     required String filePath,
     required String removedContent,
+    String type = kTemplateNameView,
   }) async {
+    final recaseName = ReCase('$removedContent $type');
+    if (type == kTemplateNameService) {
+      await removeTestHelperFunctionFromFile(
+        filePath: filePath,
+        serviceName: recaseName.pascalCase,
+      );
+    }
     List<String> fileLines = await readFileAsLines(filePath: filePath);
-    final recaseName = ReCase(removedContent);
     fileLines.removeWhere((line) => line.contains(recaseName.snakeCase));
-    fileLines
-        .removeWhere((line) => line.contains('${recaseName.pascalCase}View'));
+    fileLines.removeWhere((line) => line.contains(recaseName.pascalCase));
     await writeFile(
       file: File(filePath),
       fileContent: fileLines.join('\n'),
       type: FileModificationType.Modify,
       verbose: true,
-      verboseMessage: "Removed ${recaseName.pascalCase}View from $filePath",
+      verboseMessage: "Removed ${recaseName.pascalCase}$type from $filePath",
+    );
+  }
+
+  Future<void> removeTestHelperFunctionFromFile({
+    required String filePath,
+    required String serviceName,
+  }) async {
+    String fileString = await readFileAsString(filePath: filePath);
+    fileString = fileString.replaceAll(
+        RegExp(
+          "Mock$serviceName getAndRegister$serviceName[(][)] {.*?}",
+          caseSensitive: false,
+          dotAll: true,
+          multiLine: true,
+        ),
+        '');
+    await writeFile(
+      file: File(filePath),
+      fileContent: fileString,
+      type: FileModificationType.Modify,
     );
   }
 

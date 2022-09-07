@@ -1,5 +1,7 @@
+import 'package:code_builder/code_builder.dart';
+import 'package:stacked_generator/src/generators/router/models/route_parameter_config.dart';
+
 import '../models/custom_transition_builder.dart';
-import '../models/route_parameter_config.dart';
 import 'route_config.dart';
 
 class CustomRouteConfig extends RouteConfig {
@@ -8,7 +10,7 @@ class CustomRouteConfig extends RouteConfig {
   final bool customRouteOpaque;
   final bool customRouteBarrierDismissible;
   final CustomTransitionBuilder? transitionBuilder;
-  CustomRouteConfig(
+  const CustomRouteConfig(
       {required super.name,
       required super.pathName,
       required super.className,
@@ -25,72 +27,52 @@ class CustomRouteConfig extends RouteConfig {
       this.customRouteOpaque = true,
       this.customRouteBarrierDismissible = false,
       this.transitionBuilder,
-      super.isChild});
-  @override
-  Set<String> registerImports() {
-    return {
-      ...super.registerImports(),
-      "package:flutter/material.dart",
-      this.transitionBuilder?.import ?? ''
-    }.takeWhile((value) => value.isNotEmpty).toSet();
-  }
+      super.parentClassName});
 
   @override
-  String registerRoutes() {
-    StringBuffer stringBuffer = StringBuffer();
-
-    stringBuffer.write(super.registerArgs());
-    stringBuffer.write(
-        'return PageRouteBuilder<$processedReturnType>(pageBuilder: (context, animation, secondaryAnimation) => $joinedConstructerParams, settings: data,');
-
-    if (!customRouteOpaque)
-      stringBuffer.write('opaque:${customRouteOpaque.toString()},');
-
-    if (customRouteBarrierDismissible) {
-      stringBuffer.write(
-          'barrierDismissible:${customRouteBarrierDismissible.toString()},');
-    }
-    if (transitionBuilder != null) {
-      stringBuffer.write(
-          'transitionsBuilder: data.transition ?? ${transitionBuilder!.name},');
-    }
-    if (transitionBuilder == null) {
-      stringBuffer.write('''transitionsBuilder: data.transition??
+  Code registerRoute() {
+    return super.registerRouteBloc(
+      routeType: 'PageRouteBuilder',
+      usePageBuilder: true,
+      extra: Block.of([
+        if (!customRouteOpaque) Code('opaque:${customRouteOpaque.toString()},'),
+        if (customRouteBarrierDismissible)
+          Code(
+              'barrierDismissible:${customRouteBarrierDismissible.toString()},'),
+        if (transitionBuilder != null) ...[
+          const Code('transitionsBuilder: data.transition ?? '),
+          Reference(transitionBuilder!.name, transitionBuilder!.import).code,
+          const Code(',')
+        ],
+        if (transitionBuilder == null)
+          const Code('''transitionsBuilder: data.transition??
               (context, animation, secondaryAnimation, child) {
             return child;
-          },''');
-    }
-    if (durationInMilliseconds != null) {
-      stringBuffer.write(
-          'transitionDuration: const Duration(milliseconds: ${durationInMilliseconds}),');
-    }
-    if (reverseDurationInMilliseconds != null) {
-      stringBuffer.write(
-          'reverseTransitionDuration: const Duration(milliseconds: ${reverseDurationInMilliseconds}),');
-    }
-    stringBuffer.write(super.registerRoutes());
-    return stringBuffer.toString();
+          },'''),
+        if (durationInMilliseconds != null)
+          Code(
+              'transitionDuration: const Duration(milliseconds: $durationInMilliseconds),'),
+        if (reverseDurationInMilliseconds != null)
+          Code(
+              'reverseTransitionDuration: const Duration(milliseconds: $reverseDurationInMilliseconds),'),
+      ]),
+    );
   }
 
-  CustomRouteConfig copyWith({
-    String? name,
-    String? pathName,
-    String? className,
-    bool? fullscreenDialog,
-    bool? maintainState,
-    String? returnType,
-    List<RouteParamConfig>? parameters,
-    bool? hasWrapper,
-    List<RouteConfig>? children,
-    bool? hasConstConstructor,
-    Set<String>? imports,
-    int? durationInMilliseconds,
-    int? reverseDurationInMilliseconds,
-    bool? customRouteOpaque,
-    bool? customRouteBarrierDismissible,
-    CustomTransitionBuilder? transitionBuilder,
-    bool? isChild,
-  }) {
+  @override
+  RouteConfig copyWith(
+      {String? name,
+      String? pathName,
+      MapEntry<String, String>? className,
+      bool? fullscreenDialog,
+      bool? maintainState,
+      String? returnType,
+      List<RouteParamConfig>? parameters,
+      bool? hasWrapper,
+      List<RouteConfig>? children,
+      bool? hasConstConstructor,
+      Set<String>? imports,
+      String? parentClassName}) {
     return CustomRouteConfig(
       name: name ?? this.name,
       pathName: pathName ?? this.pathName,
@@ -103,14 +85,7 @@ class CustomRouteConfig extends RouteConfig {
       children: children ?? this.children,
       hasConstConstructor: hasConstConstructor ?? this.hasConstConstructor,
       imports: imports ?? this.imports,
-      durationInMilliseconds:
-          durationInMilliseconds ?? this.durationInMilliseconds,
-      reverseDurationInMilliseconds:
-          reverseDurationInMilliseconds ?? this.reverseDurationInMilliseconds,
-      customRouteOpaque: customRouteOpaque ?? this.customRouteOpaque,
-      customRouteBarrierDismissible:
-          customRouteBarrierDismissible ?? this.customRouteBarrierDismissible,
-      transitionBuilder: transitionBuilder ?? this.transitionBuilder,
+      parentClassName: parentClassName ?? this.parentClassName,
     );
   }
 }

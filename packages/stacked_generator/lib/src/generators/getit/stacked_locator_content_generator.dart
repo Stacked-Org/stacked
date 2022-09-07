@@ -17,7 +17,8 @@ class StackedLocatorContentGenerator
   });
   @override
   String generate() {
-    writeLine("// ignore_for_file: public_member_api_docs");
+    writeLine(
+        "// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages");
 
     _generateImports(dependencies);
 
@@ -51,19 +52,16 @@ class StackedLocatorContentGenerator
 
   void _generateImports(List<DependencyConfig> services) {
     // write route imports
-    final imports = <String?>{
-      // "package:stacked/stacked.dart",
-      "package:stacked_core/stacked_core.dart"
-    };
+    final imports = <String?>{"package:stacked_core/stacked_core.dart"};
 
     imports.addAll(services.map((service) => service.import));
     imports.addAll(services.map((service) => service.abstractedImport));
 
-    services.forEach((dependency) {
+    for (var dependency in services) {
       if (dependency is FactoryParamDependency) {
         imports.addAll(dependency.extraImports());
       }
-    });
+    }
 
     var validImports =
         imports.where((import) => import != null).toSet().cast<String>();

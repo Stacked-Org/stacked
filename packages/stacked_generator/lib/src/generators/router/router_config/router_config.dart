@@ -10,7 +10,7 @@ class RouterConfig {
   final String? routeNamePrefix;
   final String routerClassName;
 
-   RouterConfig({
+  RouterConfig({
     this.generateNavigationHelper = false,
     this.routes = const [],
     required this.routesClassName,
@@ -35,9 +35,9 @@ class RouterConfig {
     );
   }
 
-  List<RouteConfig> get subRouters => nestedRoutes(routes);
+  List<RouteConfig> get routesIncludingTheirChildren => nestedRoutes(routes);
 
-  List<RouteConfig> _allRoutes = [];
+  final List<RouteConfig> _allRoutes = [];
   List<RouteConfig> nestedRoutes(List<RouteConfig> routes) {
     if (routes.isEmpty) return [];
     _allRoutes.addAll(routes);

@@ -1,4 +1,29 @@
+## 0.8.0
 
+- Pass generic argument to type safe route extension
+- Returns result for typesafe route extension using generic type
+- Adds `FormStateHelper` to `FormViewModel` to remove breaking change
+- Adds value properties form generated mixing on `FormViewModel`
+- Replace `FormViewModel` to `FormStateHelper`
+- Fix `transtionBuilders` import
+- Support providing enums as route arguments
+- Support providing functions as route arguments
+- Apply a more general fix to the aliased imports in stacked generator
+- Replace `FormViewModel` to `FormStateHelper`
+
+## 0.7.15
+
+- Updates analyzer package
+- Fixes deprecated element and enclosingElement2
+## 0.7.14
+
+- Add `instanceName` parameter to the DependencyRegistration annotation
+## 0.8.0-beta.1
+- Fixes assign import alias to view with a list parameter 
+## 0.8.0-beta.0
+
+- Migrate the router generator to use [code_builder](https://pub.dev/packages/code_builder)
+- Fixes [#690](https://github.com/FilledStacks/stacked/issues/690)
 ## 0.7.13
 
 - Fixes dublicated types imports not added

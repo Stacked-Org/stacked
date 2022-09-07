@@ -1,6 +1,6 @@
 name: stacked_firebase_auth
 description: A service class that provides Firebase Authentication Functionality on a single api
-version: 0.2.14
+version: 0.2.16
 homepage: https://github.com/FilledStacks/stacked
 
 environment:

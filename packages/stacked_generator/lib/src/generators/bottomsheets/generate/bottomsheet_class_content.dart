@@ -10,7 +10,7 @@ void setupBottomsheetUi() {
 
 String bottomsheetRegisterContent(String bottomsheetClassName) => '''
   BottomsheetType.${toLowerCamelCase(bottomsheetClassName)}: (context, SheetRequest request, void Function(SheetResponse) completer) =>
-        ${bottomsheetClassName}(request: request,completer: completer),
+        $bottomsheetClassName(request: request,completer: completer),
 ''';
 
 const bottomsheetRegisterTrailing = '''

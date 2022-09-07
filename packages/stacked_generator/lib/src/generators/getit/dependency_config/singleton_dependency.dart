@@ -13,7 +13,9 @@ class SingletonDependency extends DependencyConfig {
     String? abstractedTypeClassName,
     Set<String>? environments,
     this.resolveFunction,
+    String? instanceName,
   }) : super(
+            instanceName: instanceName,
             import: import,
             className: className,
             abstractedImport: abstractedImport,
@@ -25,6 +27,6 @@ class SingletonDependency extends DependencyConfig {
     final singletonInstanceToReturn = resolveFunction != null
         ? '$className.$resolveFunction()'
         : '$className()';
-    return '$locatorName.registerSingleton${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}($singletonInstanceToReturn  ${environments.getFromatedEnvs});';
+    return '$locatorName.registerSingleton${abstractedTypeClassName.surroundWithAngleBracketsOrReturnEmptyIfNull}($singletonInstanceToReturn  ${environments.getFromatedEnvs}${instanceName.addInstanceNameIfNotNull});';
   }
 }

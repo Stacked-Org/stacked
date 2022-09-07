@@ -1,3 +1,6 @@
+## 0.3.9
+- Flutter 3.0 compatibility 
+  
 ## 0.3.8+2
 
 - Updates Example's kotlin version to 1.4.10

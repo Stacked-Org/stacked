@@ -8,6 +8,7 @@ import 'package:stacked_generator/src/generators/getit/dependency_config/factory
 import 'package:stacked_generator/src/generators/getit/dependency_config/presolve_singleton_dependency.dart';
 import 'package:stacked_generator/src/generators/getit/dependency_config/singleton_dependency.dart';
 import 'package:stacked_generator/src/generators/getit/stacked_locator_parameter_resolver.dart';
+
 import '../../../utils.dart';
 import 'dependency_config/dependency_config.dart';
 import 'dependency_config/factory_param_dependency.dart';
@@ -20,18 +21,17 @@ class DependencyConfigFactory {
   }) {
     var dependencyReader = ConstantReader(dependencyConfig);
     // Get the type of the service that we want to register
-    final DartType? dependencyClassType =
+    final DartType dependencyClassType =
         dependencyReader.read('classType').typeValue;
+
+    final String? instanceName = dependencyReader.read('instanceName').isNull
+        ? null
+        : dependencyReader.read('instanceName').stringValue;
 
     final DartType? dependencyAbstractedClassType =
         dependencyReader.peek('asType')?.typeValue;
 
-    throwIf(
-      dependencyClassType == null,
-      '🛑 No dependency class Type defined for ${dependencyConfig.toString()}. Please make sure that any of the services provided to the services list in the StackedApp annotation has a service provided. Please see the documentation for stacked_generator if you don\'t know what this means.',
-    );
-
-    final classElement = dependencyClassType!.element as ClassElement?;
+    final classElement = dependencyClassType.element2 as ClassElement?;
 
     throwIf(
       classElement == null,
@@ -50,7 +50,7 @@ class DependencyConfigFactory {
     final import = importResolver.resolve(classElement!);
 
     final abstractedClassElement =
-        dependencyAbstractedClassType?.element as ClassElement?;
+        dependencyAbstractedClassType?.element2 as ClassElement?;
 
     final abstractedImport = importResolver.resolve(abstractedClassElement);
 
@@ -63,8 +63,9 @@ class DependencyConfigFactory {
     // NOTE: This can be used for actual dependency inject. We do service location instead.
     final constructor = classElement.unnamedConstructor;
 
-    if (dependencyReader.instanceOf(TypeChecker.fromRuntime(Factory))) {
+    if (dependencyReader.instanceOf(const TypeChecker.fromRuntime(Factory))) {
       return FactoryDependency(
+        instanceName: instanceName,
         import: import!,
         className: className,
         abstractedTypeClassName: abstractedTypeClassName,
@@ -72,12 +73,13 @@ class DependencyConfigFactory {
         environments: environments,
       );
     } else if (dependencyReader
-        .instanceOf(TypeChecker.fromRuntime(Singleton))) {
+        .instanceOf(const TypeChecker.fromRuntime(Singleton))) {
       final ConstantReader? resolveUsing =
           dependencyReader.peek('resolveUsing');
       final resolveObject = resolveUsing?.objectValue.toFunctionValue();
 
       return SingletonDependency(
+          instanceName: instanceName,
           import: import!,
           className: className,
           abstractedTypeClassName: abstractedTypeClassName,
@@ -85,23 +87,26 @@ class DependencyConfigFactory {
           environments: environments,
           resolveFunction: resolveObject?.displayName);
     } else if (dependencyReader
-        .instanceOf(TypeChecker.fromRuntime(LazySingleton))) {
+        .instanceOf(const TypeChecker.fromRuntime(LazySingleton))) {
       final ConstantReader? resolveUsing =
           dependencyReader.peek('resolveUsing');
       final resolveObject = resolveUsing?.objectValue.toFunctionValue();
 
       return LazySingletonDependency(
+          instanceName: instanceName,
           import: import!,
           className: className,
           abstractedTypeClassName: abstractedTypeClassName,
           abstractedImport: abstractedImport,
           environments: environments,
           resolveFunction: resolveObject?.displayName);
-    } else if (dependencyReader.instanceOf(TypeChecker.fromRuntime(Presolve))) {
+    } else if (dependencyReader
+        .instanceOf(const TypeChecker.fromRuntime(Presolve))) {
       final ConstantReader? presolveUsing =
           dependencyReader.peek('presolveUsing');
       final presolveObject = presolveUsing?.objectValue.toFunctionValue();
       return PresolveSingletonDependency(
+          instanceName: instanceName,
           import: import!,
           className: className,
           abstractedTypeClassName: abstractedTypeClassName,
@@ -118,6 +123,7 @@ class DependencyConfigFactory {
         }
       }
       return FactoryParamDependency(
+          instanceName: instanceName,
           import: import!,
           className: className,
           abstractedTypeClassName: abstractedTypeClassName,

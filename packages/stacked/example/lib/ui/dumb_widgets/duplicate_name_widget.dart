@@ -1,19 +1,19 @@
-import 'package:flutter/material.dart';
 import 'package:example/datamodels/human.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class DuplicateNameWidget extends ViewModelWidget<Human> {
   const DuplicateNameWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, Human model) {
+  Widget build(BuildContext context, Human viewModel) {
     return Row(
       children: <Widget>[
-        Text(model.name!),
+        Text(viewModel.name!),
         const SizedBox(
           width: 50,
         ),
-        Text(model.name!),
+        Text(viewModel.name!),
       ],
     );
   }

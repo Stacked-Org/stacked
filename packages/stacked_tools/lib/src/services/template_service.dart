@@ -12,6 +12,7 @@ import 'package:stacked_tools/src/models/template_models.dart';
 import 'package:stacked_tools/src/services/colorized_log_service.dart';
 import 'package:stacked_tools/src/services/config_service.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
+import 'package:stacked_tools/src/services/process_service.dart';
 import 'package:stacked_tools/src/services/pubspec_service.dart';
 import 'package:stacked_tools/src/templates/compiled_template_map.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
@@ -22,6 +23,7 @@ import 'package:stacked_tools/src/templates/template_render_functions.dart';
 /// using the same file paths
 class TemplateService {
   final _fileService = locator<FileService>();
+  final _processService = locator<ProcessService>();
   final _templateHelper = locator<TemplateHelper>();
   final _pubspecService = locator<PubspecService>();
   final _configService = locator<ConfigService>();
@@ -154,6 +156,10 @@ class TemplateService {
         file: File(templateFileOutputPath),
         fileContent: templateContent,
         verbose: true,
+      );
+      await _processService.runFormat(
+        appName: outputFolder,
+        filePath: templateFileOutputPath,
       );
     }
   }
@@ -302,6 +308,10 @@ class TemplateService {
         verbose: true,
         type: FileModificationType.Modify,
         verboseMessage: verboseMessage,
+      );
+      await _processService.runFormat(
+        appName: outputPath,
+        filePath: modificationPath,
       );
     }
   }

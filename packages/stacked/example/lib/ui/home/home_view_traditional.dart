@@ -4,6 +4,8 @@ import 'package:stacked/stacked.dart';
 import 'home_viewmodel.dart';
 
 class HomeViewTraditional extends StatelessWidget {
+  const HomeViewTraditional({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Using the withConsumer constructor gives you the traditional viewmodel

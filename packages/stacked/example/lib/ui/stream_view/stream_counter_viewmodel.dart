@@ -1,4 +1,5 @@
 import 'package:example/app/app.locator.dart';
+import 'package:example/datamodels/clashable_one.dart';
 import 'package:example/services/epoch_service.dart';
 import 'package:example/ui/form/example_form_view.dart';
 import 'package:stacked/stacked.dart';
@@ -46,7 +47,8 @@ class StreamCounterViewModel extends StreamViewModel<int> {
   }
 
   void navigateToNewView() {
-    _navigationService.navigateWithTransition(ExampleFormView(),
+    _navigationService.navigateWithTransition(
+        ExampleFormView(clashableOne: const Clashable('one')),
         transitionStyle: Transition.zoom);
   }
 }

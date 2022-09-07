@@ -18,16 +18,16 @@ void main() {
       });
       test('One bottomsheet', () {
         final generator = BottomsheetClassGenerator([
-          BottomsheetConfig(
+          const BottomsheetConfig(
               import: 'one.dart', bottomsheetClassName: 'BasicBottomsheet')
         ]);
         expect(generator.generate(), kOneBottomsheet);
       });
       test('Two bottomsheets', () {
         final generator = BottomsheetClassGenerator([
-          BottomsheetConfig(
+          const BottomsheetConfig(
               import: 'one.dart', bottomsheetClassName: 'BasicBottomsheet'),
-          BottomsheetConfig(
+          const BottomsheetConfig(
               import: 'two.dart', bottomsheetClassName: 'ComplexBottomsheet')
         ]);
 

@@ -4,11 +4,13 @@
 // StackedLocatorGenerator
 // **************************************************************************
 
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
 import 'package:stacked_core/stacked_core.dart';
-import 'package:stacked_services/stacked_services.dart';
-import 'package:stacked_themes/stacked_themes.dart';
+import 'package:stacked_services/src/bottom_sheet/bottom_sheet_service.dart';
+import 'package:stacked_services/src/dialog/dialog_service.dart';
+import 'package:stacked_services/src/navigation/navigation_service.dart';
+import 'package:stacked_themes/src/theme_service.dart';
 
 import '../services/epoch_service.dart';
 import '../services/factory_service.dart';
@@ -29,9 +31,13 @@ Future<void> setupExampleLocator(
   exampleLocator.registerLazySingleton(() => BottomSheetService());
   exampleLocator
       .registerLazySingleton(() => NavigationService(), registerFor: {"dev"});
+  exampleLocator.registerLazySingleton(() => NavigationService(),
+      registerFor: {"dev"}, instanceName: 'instance1');
   exampleLocator.registerLazySingleton(() => EpochService());
   exampleLocator.registerLazySingleton(() => ThemeService.getInstance());
   exampleLocator.registerLazySingleton(() => InformationService());
+  exampleLocator.registerLazySingleton(() => InformationService(),
+      instanceName: 'infoInstance1');
   exampleLocator.registerFactoryParam<FactoryService, String?, double?>(
       (param1, param2) => FactoryService(param1, data2: param2));
   exampleLocator.registerSingleton(HistoryViewModel());

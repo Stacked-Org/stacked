@@ -8,7 +8,7 @@ class DialogClassGeneratorHelper with StringBufferUtils {
   void writeDialogTypeEnum(List<DialogConfig> dialogConfigs) {
     writeLine("enum DialogType{");
     for (var dialogConfig in dialogConfigs) {
-      writeLine(toLowerCamelCase(dialogConfig.dialogClassName) + ',');
+      writeLine('${toLowerCamelCase(dialogConfig.dialogClassName)},');
     }
     writeLine("}");
   }

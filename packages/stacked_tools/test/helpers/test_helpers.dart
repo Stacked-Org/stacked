@@ -143,8 +143,8 @@ void registerServices() {
 // @stacked-mock-helper-register
 }
 
-void createTestFile() {
-  File(ksTestFileName).writeAsStringSync(kAppTemplateAppContent);
+void createTestFile(String template) {
+  File(ksTestFileName).writeAsStringSync(template);
 }
 
 Future<void> deleteTestFile() async {

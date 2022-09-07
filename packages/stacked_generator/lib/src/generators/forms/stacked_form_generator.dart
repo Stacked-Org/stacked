@@ -13,7 +13,9 @@ import 'package:stacked_generator/src/generators/forms/stacked_form_content_gene
 class StackedFormGenerator extends GeneratorForAnnotation<FormView> {
   @override
   FutureOr<String> generateForAnnotatedElement(
+    // ignore: avoid_renaming_method_parameters
     Element classForAnnotation,
+    // ignore: avoid_renaming_method_parameters
     ConstantReader formView,
     BuildStep buildStep,
   ) async {
@@ -54,11 +56,11 @@ FieldConfig _readFieldConfig({
   var fieldReader = ConstantReader(fieldConfig);
 
   bool isTextField =
-      fieldReader.instanceOf(TypeChecker.fromRuntime(FormTextField));
+      fieldReader.instanceOf(const TypeChecker.fromRuntime(FormTextField));
   bool isDateField =
-      fieldReader.instanceOf(TypeChecker.fromRuntime(FormDateField));
+      fieldReader.instanceOf(const TypeChecker.fromRuntime(FormDateField));
   bool isDropdownField =
-      fieldReader.instanceOf(TypeChecker.fromRuntime(FormDropdownField));
+      fieldReader.instanceOf(const TypeChecker.fromRuntime(FormDropdownField));
 
   if (isTextField) {
     return _readTextFieldConfig(
