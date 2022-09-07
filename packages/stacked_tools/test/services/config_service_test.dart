@@ -181,48 +181,21 @@ void main() {
 
     group('getRelativePathToHelpersAndMocks -', () {
       test(
-          'when called with path that does NOT start with "test/" should throw an Exception',
+          'when called with path equals "test/service_tests" should return "../../test/helpers/test_helpers.dart"',
           () async {
-        final path = 'lib/src/services';
+        final path = 'test/service_tests';
         final service = _getService();
-        expect(
-          () => service.getRelativePathToHelpersAndMocks(path),
-          throwsA(
-            predicate(
-              (e) =>
-                  e is Exception &&
-                  e.toString() ==
-                      'Exception: Any test file should be placed inside "test" folder on root of the project. Please, correct your test location.',
-            ),
-          ),
-        );
+        final importPath = service.getRelativePathToHelpersAndMocks(path);
+        expect(importPath, '../../test/helpers/test_helpers.dart');
       });
 
       test(
-          'when called with path equals "src/lib/services" should return "../helpers"',
+          'when called with path equals "test/service_test" should return "../../test/helpers/test_helpers.dart"',
           () async {
-        final path = 'test/services';
+        final path = 'test/service_test';
         final service = _getService();
         final importPath = service.getRelativePathToHelpersAndMocks(path);
-        expect(importPath, '../helpers');
-      });
-
-      test(
-          'when called with path equals "src/lib/services" should return "../../../helpers"',
-          () async {
-        final path = 'test/src/lib/services';
-        final service = _getService();
-        final importPath = service.getRelativePathToHelpersAndMocks(path);
-        expect(importPath, '../../../helpers');
-      });
-
-      test(
-          'when called with path equals "src/lib/services" should return "../../../../../../helpers"',
-          () async {
-        final path = 'test/my/personal/path/to/tests/service';
-        final service = _getService();
-        final importPath = service.getRelativePathToHelpersAndMocks(path);
-        expect(importPath, '../../../../../../helpers');
+        expect(importPath, '../../test/helpers/test_helpers.dart');
       });
     });
   });

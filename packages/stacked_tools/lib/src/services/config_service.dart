@@ -124,22 +124,22 @@ class ConfigService {
     return path.replaceFirst('lib/', '');
   }
 
-  /// Returns import path relative to [path] of test helpers and mock services.
+  /// Returns import path relative to [relativeFolderOfCurrentFile] of test helpers and mock services.
   @visibleForTesting
   String getRelativePathToHelpersAndMocks(
     /// Relative path of file where test helpers and mocks will be imported.
-    String path,
+    String relativeFolderOfCurrentFile,
   ) {
     /// Remove unnecessary part of the path
-    String anyTestFilePath = path.replaceFirst('test/', '');
-    String helpersPath = testHelpersPath.replaceFirst('test/', '');
+    String fileToImport = testHelpersPath;
+    final relativePathSegments = relativeFolderOfCurrentFile
+        .split('/')
+        .where((element) => !element.contains('.'));
 
-    final anyTestFilePathLevels = anyTestFilePath.split('/');
-
-    for (var i = 0; i < anyTestFilePathLevels.length; i++) {
-      helpersPath = '../' + helpersPath;
+    for (var i = 0; i < relativePathSegments.length; i++) {
+      fileToImport = '../' + fileToImport;
     }
 
-    return helpersPath;
+    return fileToImport;
   }
 }
