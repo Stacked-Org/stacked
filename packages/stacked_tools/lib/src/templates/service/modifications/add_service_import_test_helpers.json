@@ -3,6 +3,6 @@
     "path": "test/helpers/test_helpers.dart",
     "identifier": "// @stacked-import",
     "template": "import \\'package:{{packageName}}/{{{serviceImportPath}}}/{{serviceFilename}}\\';",
-    "error": "The test mocks and helpers should be stored in test/helpers/test_helpers.dart",
+    "error": "It seems your test_helpers.dart file is not in test/helpers/test_helpers.dart. Add a stacked.config.json file and set the path for \\'test_helpers_path\\' to the folder we can locate your test_helpers.dart file",
     "name": "Add {{serviceName}} import to test helpers"
 }
