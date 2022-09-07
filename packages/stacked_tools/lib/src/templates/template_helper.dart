@@ -8,7 +8,6 @@ import 'package:stacked_tools/src/services/file_service.dart';
 import 'package:stacked_tools/src/services/path_service.dart';
 
 /// This class contains functions that helps with the population of the templates
-// TODO: Reasses if this should just be in the template service and not on its own
 class TemplateHelper {
   final _fileService = locator<FileService>();
   final _pathService = locator<PathService>();
@@ -21,7 +20,8 @@ class TemplateHelper {
     required String extension,
   }) {
     return filePaths
-        .where((element) => element.path.contains(extension))
+        .where((element) =>
+            element.uri.pathSegments.last.split('.').last == extension)
         .toList();
   }
 
@@ -45,7 +45,7 @@ class TemplateHelper {
   /// Returns the list of files with [extension] endings in the templates/[templateName] folder
   Future<List<FileSystemEntity>> getFilesForTemplate({
     required String templateName,
-    String extension = '.stk',
+    String extension = 'stk',
   }) async {
     final allFilesInTemplateDirectory = await _fileService.getFilesInDirectory(
       directoryPath: templatesPath,
@@ -71,7 +71,7 @@ class TemplateHelper {
     final templateModificationItems = <CompiledFileModification>[];
     final modificationFiles = await getFilesForTemplate(
       templateName: templateName,
-      extension: '.json',
+      extension: 'json',
     );
 
     for (final modificationFile in modificationFiles) {

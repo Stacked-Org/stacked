@@ -26,12 +26,14 @@ class CreateAppCommand extends Command {
     await _processService.runCreateApp(appName: appName);
 
     _cLog.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
+
     await _templateService.renderTemplate(
       templateName: kTemplateNameApp,
       name: appName,
       verbose: true,
       outputPath: appName,
     );
+
     await _processService.runPubGet(appName: appName);
     await _processService.runBuildRunner(appName: appName);
     await _processService.runFormat(appName: appName);

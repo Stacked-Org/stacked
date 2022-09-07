@@ -3,7 +3,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:path/path.dart' as path;
 import 'package:recase/recase.dart';
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/services/colorized_log_service.dart';
@@ -11,7 +10,7 @@ import 'package:stacked_tools/src/templates/template_constants.dart';
 
 /// Handles the writing of files to disk
 class FileService {
-  final _cLog = locator<ColorizedLogService>();
+  final _log = locator<ColorizedLogService>();
 
   Future<void> writeFile({
     required File file,
@@ -22,7 +21,7 @@ class FileService {
   }) async {
     if (!(await file.exists())) {
       if (type != FileModificationType.Create) {
-        _cLog.warn(message: 'File does not exist. Write it out');
+        _log.warn(message: 'File does not exist. Write it out');
       }
       await file.create(recursive: true);
     }
@@ -30,7 +29,7 @@ class FileService {
     await file.writeAsString(fileContent);
 
     if (verbose) {
-      _cLog.fileOutput(type: type, message: verboseMessage ?? '$file');
+      _log.fileOutput(type: type, message: verboseMessage ?? '$file');
     }
   }
 
@@ -41,7 +40,7 @@ class FileService {
   Future<void> deleteFile({required String filePath}) async {
     final file = File(filePath);
     await file.delete();
-    _cLog.fileOutput(type: FileModificationType.Delete, message: '$file');
+    _log.fileOutput(type: FileModificationType.Delete, message: '$file');
   }
 
   /// It deletes all the files in a folder. and the folder itself.
@@ -52,7 +51,7 @@ class FileService {
     var files = await getFilesInDirectory(directoryPath: directoryPath);
     await Future.forEach<FileSystemEntity>(files, (file) async {
       await file.delete();
-      _cLog.fileOutput(type: FileModificationType.Delete, message: '$file');
+      _log.fileOutput(type: FileModificationType.Delete, message: '$file');
     });
     await Directory(directoryPath).delete(recursive: false);
   }
@@ -156,26 +155,6 @@ class FileService {
       onDone: () => completer.complete(files),
     );
     return completer.future;
-  }
-
-  /// Returns true if the cli is running from the root of a flutter
-  /// or dart project
-  Future<bool> isProjectRoot({String? outputPath}) {
-    final hasOutputPath = outputPath != null;
-    final pubspecPath = 'pubspec.yaml';
-    return File(
-            hasOutputPath ? path.join(outputPath, pubspecPath) : pubspecPath)
-        .exists();
-  }
-
-  /// Checks if the current project aligns with the stacked application structure
-  /// to allow for scaffolding to work properly
-  Future<bool> isStackedApplication({String? outputPath}) {
-    final hasOutputPath = outputPath != null;
-    final appPath = 'lib/app/app.dart';
-
-    return File(hasOutputPath ? path.join(outputPath, appPath) : appPath)
-        .exists();
   }
 }
 

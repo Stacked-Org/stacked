@@ -5,8 +5,9 @@ const String kTemplateNameApp = 'app';
 
 // ------- File Modification identifiers --------
 
-const String kModificationIdentifierAppRoutes = '// @stacked-route';
 const String kModificationIdentifierAppImports = '// @stacked-import';
+const String kModificationIdentifierAppRoutes = '// @stacked-route';
+const String kModificationIdentifierAppServices = '// @stacked-service';
 const String kModificationIdentifierServiceMock = '// @stacked-service-mock';
 const String kModificationIdentifierServiceMockHelper =
     '// @stacked-mock-create';
@@ -43,6 +44,16 @@ const String kTemplatePropertyPackageName = 'packageName';
 const String kTemplatePropertyServiceName = 'serviceName';
 
 const String kTemplatePropertyServiceFilename = 'serviceFilename';
+
+const String kTemplatePropertyServiceImportPath = 'serviceImportPath';
+
+const String kTemplatePropertyServiceTestHelpersImportPath =
+    'serviceTestHelpersImportPath';
+
+const String kTemplatePropertyViewImportPath = 'viewImportPath';
+
+const String kTemplatePropertyViewTestHelpersImportPath =
+    'viewTestHelpersImportPath';
 
 // -------- Compiled Template Structure ---------
 

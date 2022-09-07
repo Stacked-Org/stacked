@@ -4,7 +4,7 @@
 // -------- HomeViewmodelTest Template Data ----------
 
 const String kAppTemplateHomeViewmodelTestPath =
-    'test/viewmodel_tests/home_viewmodel_test.dart.stk';
+    'test/viewmodels/home_viewmodel_test.dart.stk';
 
 const String kAppTemplateHomeViewmodelTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
@@ -12,9 +12,9 @@ import 'package:mockito/mockito.dart';
 import 'package:{{packageName}}/app/app.locator.dart';
 import 'package:{{packageName}}/enums/bottom_sheet_type.dart';
 import 'package:{{packageName}}/ui/common/app_strings.dart';
-import 'package:{{packageName}}/ui/views/home/home_viewmodel.dart';
+import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_viewmodel.dart';
 
-import '../helpers/test_helpers.dart';
+import '{{{viewTestHelpersImportPath}}}/test_helpers.dart';
 
 void main() {
   HomeViewModel _getModel() => HomeViewModel();
@@ -52,46 +52,6 @@ void main() {
 
 // --------------------------------------------------
 
-// -------- WidgetTest Template Data ----------
-
-const String kAppTemplateWidgetTestPath = 'test/widget_test.dart.stk';
-
-const String kAppTemplateWidgetTestContent = '''
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-
-import 'package:{{packageName}}/main.dart';
-
-void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
-}
-
-''';
-
-// --------------------------------------------------
-
 // -------- TestHelpers Template Data ----------
 
 const String kAppTemplateTestHelpersPath = 'test/helpers/test_helpers.dart.stk';
@@ -106,9 +66,9 @@ import 'package:stacked_services/stacked_services.dart';
 import 'test_helpers.mocks.dart';
 
 @GenerateMocks([], customMocks: [
-  MockSpec<NavigationService>(returnNullOnMissingStub: true),
-  MockSpec<BottomSheetService>(returnNullOnMissingStub: true),
-  MockSpec<DialogService>(returnNullOnMissingStub: true),
+  MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   // @stacked-mock-spec
 ])
 void registerServices() {
@@ -176,6 +136,23 @@ void _removeRegistrationIfExists<T extends Object>() {
   }
 }
 
+''';
+
+// --------------------------------------------------
+
+// -------- StackedConfigJsonStk Template Data ----------
+
+const String kAppTemplateStackedConfigJsonStkPath = 'stacked.config.json.stk';
+
+const String kAppTemplateStackedConfigJsonStkContent = '''
+{
+    "views_path": "lib/ui/views",
+    "services_path": "lib/services",
+    "stacked_app_path": "lib/app/app.dart",
+    "test_services_path": "test/service_tests",
+    "test_views_path": "test/viewmodels",
+    "test_helpers_path": "test/helpers"
+}
 ''';
 
 // --------------------------------------------------
@@ -837,7 +814,7 @@ class StartupView extends StatelessWidget {
         ),
       ),
       onModelReady: (model) => SchedulerBinding.instance
-          ?.addPostFrameCallback((timeStamp) => model.runStartupLogic()),
+          .addPostFrameCallback((timeStamp) => model.runStartupLogic()),
       viewModelBuilder: () => StartupViewModel(),
     );
   }
@@ -853,8 +830,8 @@ const String kAppTemplateAppPath = 'lib/app/app.dart.stk';
 
 const String kAppTemplateAppContent = '''
 import 'package:stacked/stacked_annotations.dart';
-import 'package:{{packageName}}/ui/views/home/home_view.dart';
-import 'package:{{packageName}}/ui/views/startup/startup_view.dart';
+import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_view.dart';
+import 'package:{{packageName}}/{{{viewImportPath}}}/startup/startup_view.dart';
 import 'package:stacked_services/stacked_services.dart';
 // @stacked-import
 
@@ -866,6 +843,7 @@ import 'package:stacked_services/stacked_services.dart';
   LazySingleton(classType: NavigationService),
   LazySingleton(classType: DialogService),
   LazySingleton(classType: BottomSheetService),
+  // @stacked-service
 ])
 class App {}
 
@@ -925,7 +903,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.16.2 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -942,8 +920,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   
-  stacked: ^2.3.3
-  stacked_services: ^0.8.17
+  stacked: ^3.0.0
+  stacked_services: ^0.9.3
 
 dev_dependencies:
   flutter_test:
@@ -955,9 +933,9 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
-  build_runner: ^2.1.10
+  build_runner: ^2.2.0
 
-  stacked_generator: ^0.6.2
+  stacked_generator: ^0.8.0
   mockito: ^5.1.0
 
 # For information on the generic Dart part of this file, see the
@@ -1009,13 +987,13 @@ flutter:
 // -------- GenericViewmodelTest Template Data ----------
 
 const String kViewTemplateGenericViewmodelTestPath =
-    'test/viewmodel_tests/generic_viewmodel_test.dart.stk';
+    'test/viewmodels/generic_viewmodel_test.dart.stk';
 
 const String kViewTemplateGenericViewmodelTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
 import 'package:{{packageName}}/app/app.locator.dart';
 
-import '../helpers/test_helpers.dart';
+import '{{{viewTestHelpersImportPath}}}/test_helpers.dart';
 
 void main() {
   group('{{viewModelName}} Tests -', () {
@@ -1050,9 +1028,12 @@ const String kViewTemplateGenericViewPath =
 const String kViewTemplateGenericViewContent = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+
 import '{{viewModelFileName}}';
 
 class {{viewName}} extends StatelessWidget {
+  const {{viewName}}({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<{{viewModelName}}>.reactive(
@@ -1060,7 +1041,7 @@ class {{viewName}} extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         body: Container(
-          padding: EdgeInsets.only(left: 25.0, right: 25.0),
+          padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         ),
       ),
     );
@@ -1073,13 +1054,13 @@ class {{viewName}} extends StatelessWidget {
 // -------- GenericServiceTest Template Data ----------
 
 const String kServiceTemplateGenericServiceTestPath =
-    'test/services_tests/generic_service_test.dart.stk';
+    'test/services/generic_service_test.dart.stk';
 
 const String kServiceTemplateGenericServiceTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
 import 'package:{{packageName}}/app/app.locator.dart';
 
-import '../helpers/test_helpers.dart';
+import '{{{serviceTestHelpersImportPath}}}/test_helpers.dart';
 
 void main() {
   group('{{serviceName}}ServiceTest -', () {

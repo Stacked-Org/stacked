@@ -10,6 +10,7 @@ import 'package:stacked_tools/src/exceptions/invalid_stacked_structure_exception
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/models/template_models.dart';
 import 'package:stacked_tools/src/services/colorized_log_service.dart';
+import 'package:stacked_tools/src/services/config_service.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
 import 'package:stacked_tools/src/services/process_service.dart';
 import 'package:stacked_tools/src/services/pubspec_service.dart';
@@ -25,6 +26,7 @@ class TemplateService {
   final _processService = locator<ProcessService>();
   final _templateHelper = locator<TemplateHelper>();
   final _pubspecService = locator<PubspecService>();
+  final _configService = locator<ConfigService>();
   final _clog = locator<ColorizedLogService>();
 
   /// Reads the template folder and creates the dart code that will be used to generate
@@ -155,10 +157,12 @@ class TemplateService {
         fileContent: templateContent,
         verbose: true,
       );
-      await _processService.runFormat(
-        appName: outputFolder,
-        filePath: templateFileOutputPath,
-      );
+
+      // TODO: Add this back and format the entire project in one step
+      // await _processService.runFormat(
+      //   appName: outputFolder,
+      //   filePath: templateFileOutputPath,
+      // );
     }
   }
 
@@ -169,14 +173,15 @@ class TemplateService {
     String? outputFolder,
   }) {
     final hasOutputFolder = outputFolder != null;
-
     final recaseName = ReCase(name);
-    final modifiedOutputPath = inputTemplatePath
+    final modifiedOutputPath = _configService
+        .replaceCustomPaths(inputTemplatePath)
         .replaceAll(
           'generic',
           recaseName.snakeCase,
         )
         .replaceFirst('.stk', '');
+
     if (hasOutputFolder) {
       return path.join(outputFolder, modifiedOutputPath);
     }
@@ -239,6 +244,12 @@ class TemplateService {
       // All template data will have the values added below
       kTemplatePropertyPackageName:
           packageName ?? _pubspecService.getPackageName,
+      kTemplatePropertyServiceImportPath: _configService.serviceImportPath,
+      kTemplatePropertyServiceTestHelpersImportPath:
+          _configService.serviceTestHelpersImportPath,
+      kTemplatePropertyViewImportPath: _configService.viewImportPath,
+      kTemplatePropertyViewTestHelpersImportPath:
+          _configService.viewTestHelpersImportPath,
     };
   }
 
@@ -250,9 +261,12 @@ class TemplateService {
   }) async {
     final hasOutputPath = outputPath != null;
     for (final fileToModify in template.modificationFiles) {
+      final customRelativeModificationPath = _configService.replaceCustomPaths(
+        fileToModify.relativeModificationPath,
+      );
       final modificationPath = hasOutputPath
-          ? path.join(outputPath, fileToModify.relativeModificationPath)
-          : fileToModify.relativeModificationPath;
+          ? path.join(outputPath, customRelativeModificationPath)
+          : customRelativeModificationPath;
 
       final fileExists = await _fileService.fileExists(
         filePath: modificationPath,
@@ -297,11 +311,11 @@ class TemplateService {
         type: FileModificationType.Modify,
         verboseMessage: verboseMessage,
       );
-      await _processService.runFormat(
-        appName: outputPath,
-        filePath: modificationPath,
-      );
     }
+
+    await _processService.runFormat(
+      appName: outputPath,
+    );
   }
 
   String templateModificationName({

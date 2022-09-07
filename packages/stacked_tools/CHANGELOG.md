@@ -1,4 +1,8 @@
 
+## 0.2.0
+
+- Adds stacked config so you can use different paths for your generating
+
 ## 0.1.6
 - Updates Formatting to be only on specific files 
 - Adds line-length or -l option for formatting length default is 80

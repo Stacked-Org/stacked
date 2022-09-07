@@ -7,6 +7,7 @@ import 'package:stacked_tools/src/services/process_service.dart';
 import 'package:stacked_tools/src/services/template_service.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 
+import '../../services/config_service.dart';
 import '../../services/pubspec_service.dart';
 
 class CreateServiceCommand extends Command with ProjectStructureValidator {
@@ -37,6 +38,8 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
 
   @override
   Future<void> run() async {
+    await locator<ConfigService>().loadConfig();
+
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     _processService.formattingLineLength = argResults?[ksLineLength];
     await _pubspecService.initialise(workingDirectory: outputPath);

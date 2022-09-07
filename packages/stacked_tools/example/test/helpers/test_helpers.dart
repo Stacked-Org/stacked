@@ -1,15 +1,16 @@
+import 'package:example/app/app.locator.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:example/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
+
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
 
 @GenerateMocks([], customMocks: [
-  MockSpec<NavigationService>(returnNullOnMissingStub: true),
-  MockSpec<BottomSheetService>(returnNullOnMissingStub: true),
-  MockSpec<DialogService>(returnNullOnMissingStub: true),
+  MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   // @stacked-mock-spec
 ])
 void registerServices() {

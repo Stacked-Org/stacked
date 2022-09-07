@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:stacked_tools/src/services/colorized_log_service.dart';
+import 'package:stacked_tools/src/services/config_service.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
 import 'package:stacked_tools/src/services/path_service.dart';
 import 'package:stacked_tools/src/services/process_service.dart';
@@ -17,4 +18,5 @@ Future setupLocator() async {
   locator.registerLazySingleton(() => FileService());
   locator.registerLazySingleton(() => TemplateHelper());
   locator.registerLazySingleton(() => ProcessService());
+  locator.registerLazySingleton(() => ConfigService());
 }
