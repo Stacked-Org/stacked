@@ -1,3 +1,7 @@
+## 0.8.0+1
+
+- Updates analyzer to ^5.0.0
+
 ## 0.8.0
 
 - Pass generic argument to type safe route extension
