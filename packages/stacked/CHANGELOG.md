@@ -1,3 +1,7 @@
+## 3.0.0+1
+
+- Replace the old `ReactiveValues` approach with `notifyListeners()` when using the `ReactiveServiceMixin` in readme
+
 ## 3.0.0
 - Passes generic argument to `DataStateHelper`
 - Uses `FormStateHelper` for the `FormViewModel`
