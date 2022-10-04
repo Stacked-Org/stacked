@@ -595,7 +595,7 @@ One thing that was common in a scenario with the first implementation of this ar
 In the stacked library, we have a `ReactiveServiceMixin` which can be used to store a state that is needed across multiple ViewModels. The approch is simple. Just set the state variable and call `notifyListeners()`. This will notify any ViewModel that registered this `ReactiveServiceMixin`, and UI will be updated accordingly.
 
 ```dart
-class PostsReactiveService with ReactiveServiceMixin {
+class PostsService with ReactiveServiceMixin {
   int _postCount = 0;
   int get postCount => _postCount;
 
@@ -619,11 +619,11 @@ This ViewModel extends the `BaseViewModel` and adds a function that allows you t
 
 ```dart
 class AnyViewModel extends ReactiveViewModel {
-  final _postsReactiveService = locator<PostsReactiveService>();
-  int get postCount => _postsReactiveService.postCount;
+  final _postsService = locator<PostsService>();
+  int get postCount => _postsService.postCount;
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_postsReactiveService];
+  List<ReactiveServiceMixin> get reactiveServices => [_postsService];
 }
 ```
 
