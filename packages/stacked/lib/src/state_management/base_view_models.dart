@@ -23,6 +23,16 @@ class BaseViewModel extends ChangeNotifier
     disposed = true;
     super.dispose();
   }
+
+  void setState(void Function()? fn) {
+    fn?.call();
+    notifyListeners();
+  }
+
+  Future<void> setStateAsync(Future<void> Function()? fn) async {
+    await fn?.call();
+    notifyListeners();
+  }
 }
 
 /// A [BaseViewModel] that provides functionality to subscribe to a reactive service.
