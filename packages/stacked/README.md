@@ -592,7 +592,7 @@ One thing that was common in a scenario with the first implementation of this ar
 
 ### Reactive Service Mixin
 
-In the stacked library, we have a `ReactiveServiceMixin` which can be used to store a state that is needed across multiple ViewModels. The approch is simple. Just set the state variable and call `notifyListeners()`. This will notify any ViewModel that registered this `ReactiveServiceMixin`, and UI will be updated accordingly.
+In the stacked library, we have a `ReactiveServiceMixin` which can be used to store a state that is needed across multiple ViewModels. The approach is simple. Just set the state variable and call `notifyListeners()`. This will notify any ViewModel that registered this `ReactiveServiceMixin`, and UI will be updated accordingly.
 
 ```dart
 class PostsService with ReactiveServiceMixin {
