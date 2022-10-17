@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/foundation.dart';
 
 mixin BusyAndErrorStateHelper on ChangeNotifier {
@@ -63,11 +65,17 @@ mixin BusyAndErrorStateHelper on ChangeNotifier {
     }
   }
 
-  Map<int, dynamic> _errorStates = Map<int, dynamic>();
-  dynamic error(Object object) => _errorStates[object.hashCode];
+  LinkedHashMap<int, dynamic> _errorStates = LinkedHashMap<int, dynamic>();
+   dynamic error(Object object) => _errorStates[object.hashCode];
 
   /// Returns the error existence status of the ViewModel
   bool get hasError => error(this) != null;
+
+  /// Returns the error existence status of any error that was caught by the Viewmodel
+  bool get hasAnyError => _errorStates.entries.isNotEmpty && _errorStates.entries.any((element) => element.value != null);
+
+  /// Returns recently added error to the ViewModel
+  dynamic get currentError => _errorStates.entries.last.value;
 
   /// Returns the error status of the ViewModel
   dynamic get modelError => error(this);
