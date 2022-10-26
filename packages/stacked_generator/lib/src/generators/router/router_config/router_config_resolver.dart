@@ -36,8 +36,10 @@ class RouterConfigResolver {
   }
 
   Future<List<RouteConfig>> _resolveRoutes(
-      RouterConfig routerConfig, List<DartObject> routesList,
-      {String? parentClassName}) async {
+    RouterConfig routerConfig,
+    List<DartObject> routesList, {
+    String? parentClassName,
+  }) async {
     final List<RouteConfig> allRoutes = [];
 
     for (var routeDartObject in routesList) {

@@ -18,6 +18,7 @@ class NavigateExtensionClassBuilderHelper {
 
     final viewArgumentsParameter =
         notQueryNorPath(route.parameters).map(_extractViewArgumentsParametrs);
+
     return Method((b) => b
       ..name = methodName
       ..modifier = MethodModifier.async

@@ -1,3 +1,10 @@
+## 0.8.1-beta.1
+- Changes back signature of `_updateValidationData` from `dynamic model` -> `FormViewModel model`
+
+## 0.8.1-beta.0
+
+- Changes back signature of `_updateFormData` from `dynamic model` -> `FormViewModel model`
+
 ## 0.8.0+1
 
 - Updates analyzer to ^5.0.0
