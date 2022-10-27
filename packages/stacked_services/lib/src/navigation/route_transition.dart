@@ -8,6 +8,7 @@ enum Transition {
   downToUp,
   rightToLeftWithFade,
   leftToRightWithFade,
+  noTransition,
   zoom,
 }
 
@@ -30,6 +31,8 @@ extension ToGetTransition on Transition {
         return G.Transition.leftToRightWithFade;
       case Transition.rightToLeftWithFade:
         return G.Transition.rightToLeftWithFade;
+      case Transition.noTransition:
+        return G.Transition.noTransition;
 
       default:
         return G.Transition.rightToLeft;
