@@ -124,9 +124,12 @@ class FirebaseAuthenticationService {
     return await SignInWithApple.isAvailable();
   }
 
+  /// Apple will reject your app if you ask for the name when you sign in, but do not use it in the app.
+  /// To prevent this, set askForFullName to false.
   Future<FirebaseAuthenticationResult> signInWithApple({
     required String? appleRedirectUri,
     required String? appleClientId,
+    bool askForFullName = true,
   }) async {
     try {
       if (appleClientId == null) {
@@ -155,7 +158,7 @@ class FirebaseAuthenticationService {
       final appleIdCredential = await SignInWithApple.getAppleIDCredential(
         scopes: [
           AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
+          if (askForFullName) AppleIDAuthorizationScopes.fullName,
         ],
         webAuthenticationOptions: WebAuthenticationOptions(
           clientId: appleClientId,
@@ -180,16 +183,18 @@ class FirebaseAuthenticationService {
         _clearPendingData();
       }
 
-      // Update the display name using the name from
-      final givenName = appleIdCredential.givenName;
-      final hasGivenName = givenName != null;
-      final familyName = appleIdCredential.familyName;
-      final hasFamilyName = familyName != null;
+      if (askForFullName) {
+        // Update the display name using the name from
+        final givenName = appleIdCredential.givenName;
+        final hasGivenName = givenName != null;
+        final familyName = appleIdCredential.familyName;
+        final hasFamilyName = familyName != null;
 
-      // print('Apple Sign in complete: ${appleIdCredential.toString()}');
+        // print('Apple Sign in complete: ${appleIdCredential.toString()}');
 
-      await appleCredential.user?.updateDisplayName(
-          '${hasGivenName ? givenName : ''}${hasFamilyName ? ' $familyName' : ''}');
+        await appleCredential.user?.updateDisplayName(
+            '${hasGivenName ? givenName : ''}${hasFamilyName ? ' $familyName' : ''}');
+      }
 
       return FirebaseAuthenticationResult(user: appleCredential.user);
     } on FirebaseAuthException catch (e) {
