@@ -13,7 +13,7 @@ class NavigationTransition {
   static const String Rotate = 'zoom';
   static const String RightToLeftWithFade = 'righttoleftwithfade';
   static const String LeftToRighttWithFade = 'lefttorightwithfade';
-  static const String noTransition = 'noTransition';
+  static const String NoTransition = 'noTransition';
 }
 
 /// Provides a service that can be injected into the ViewModels for navigation.
@@ -29,7 +29,7 @@ class NavigationService {
     NavigationTransition.Rotate: Transition.zoom,
     NavigationTransition.RightToLeftWithFade: Transition.rightToLeftWithFade,
     NavigationTransition.LeftToRighttWithFade: Transition.leftToRightWithFade,
-    NavigationTransition.noTransition: Transition.noTransition,
+    NavigationTransition.NoTransition: Transition.noTransition,
   };
 
   @Deprecated(
