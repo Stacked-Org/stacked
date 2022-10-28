@@ -592,38 +592,23 @@ One thing that was common in a scenario with the first implementation of this ar
 
 ### Reactive Service Mixin
 
-In the stacked library, we have a `ReactiveServiceMixin` which can be used to register values to "react" to. When any of these values change the listeners registered with this service will be notified to update their UI. This is definitely not the most efficient way but I have tested this with 1000 widgets with its ViewModel all updating on the screen and it works fine. If you follow general good code implementations and layout structuring you will have no problem keeping your app at 60fps no matter the size.
-
-There are three things you need to make a service reactive.
-
-1. Use the `ReactiveServiceMixin` with the service you want to make reactive
-2. Wrap your values in an ReactiveValue.
-3. Register your reactive values by calling `listenToReactiveValues`. A function provided by the mixin.
-
-Below is some source code for the non-theory coders out there like myself.
+In the stacked library, we have a `ReactiveServiceMixin` which can be used to store a state that is needed across multiple ViewModels. The approach is simple. Just set the state variable and call `notifyListeners()`. This will notify any ViewModel that registered this `ReactiveServiceMixin`, and UI will be updated accordingly.
 
 ```dart
-class InformationService with ReactiveServiceMixin { //1
-  InformationService() {
-    //3
-    listenToReactiveValues([_postCount]);
-  }
+class PostsService with ReactiveServiceMixin {
+  int _postCount = 0;
+  int get postCount => _postCount;
 
-  //2
-  ReactiveValue<int> _postCount = ReactiveValue<int>(0);
-  int get postCount => _postCount.value;
-
-  void updatePostCount() {
-    _postCount.value++;
-  }
-
-  void resetCount() {
-    _postCount.value = 0;
+  void setPostCount(int count) {
+    _postCount = count;
+    notifyListeners();
   }
 }
 ```
 
-Easy peasy. This service can now be listened to when any of the properties passed into the `listenToReactiveValues` is changed. So how do you listen to these values? I'm glad you asked. Let's move onto the `ReactiveViewModel`.
+Easy peasy. But how to register ReactiveService to multiple ViewModels? I'm glad you asked. Let's move onto the `ReactiveViewModel`.
+
+_Note_: In the past we were using a `ReactiveValues` to notify a state change, but we shifted to using `notifyListeners` since it has less boilerplate and is more consistent.
 
 ### ReactiveViewModel
 
@@ -633,12 +618,12 @@ This ViewModel extends the `BaseViewModel` and adds a function that allows you t
 2. Implement `reactiveServices` getter that returns a list of reactive services.
 
 ```dart
-class WidgetOneViewModel extends ReactiveViewModel {
-  // You can use get_it service locator or pass it in through the constructor
-  final InformationService _informationService = locator<InformationService>();
+class AnyViewModel extends ReactiveViewModel {
+  final _postsService = locator<PostsService>();
+  int get postCount => _postsService.postCount;
 
-   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_informationService];
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_postsService];
 }
 ```
 
