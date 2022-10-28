@@ -236,8 +236,8 @@ class FormBuilder with StringBufferUtils {
   FormBuilder addFormDataUpdateFunctionTorTextControllers() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     writeLine('''
-        /// Updates the formData on the dynamic
-        void _updateFormData(dynamic model, {bool forceValidate = false}) { model.setData(
+        /// Updates the formData on the FormViewModel
+        void _updateFormData(FormViewModel model, {bool forceValidate = false}) { model.setData(
               model.formValueMap
                 ..addAll({
             ''');
@@ -260,8 +260,8 @@ class FormBuilder with StringBufferUtils {
   FormBuilder addValidationDataUpdateFunctionTorTextControllers() {
     if (fields.onlyTextFieldConfigs.isEmpty) return this;
     writeLine('''
-        /// Updates the fieldsValidationMessages on the dynamic
-        void _updateValidationData(dynamic model) => model.setValidationMessages(
+        /// Updates the fieldsValidationMessages on the FormViewModel
+        void _updateValidationData(FormViewModel model) => model.setValidationMessages(
               {
             ''');
 
