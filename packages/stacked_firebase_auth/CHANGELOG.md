@@ -1,3 +1,7 @@
+## 0.2.17
+
+- Bumps firebase packages to latest
+
 ## 0.2.16
 
 - Improves google sign in error handling
