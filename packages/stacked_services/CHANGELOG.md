@@ -1,3 +1,5 @@
+## 0.9.7
+- Adds navigation transition type noTransition to the navigation Service to allow for navigation with no transition
 ## 0.9.6
 - Fixes the snackbarConfig.textColor to work as intended - a default color for all the text in a snackbar unless otherwise specified 
 ## 0.9.5
