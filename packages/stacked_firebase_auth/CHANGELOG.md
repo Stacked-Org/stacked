@@ -1,3 +1,7 @@
+## 0.2.18
+
+- Improves signInWithApple. Made asking for full name configurable
+
 ## 0.2.17
 
 - Bumps firebase packages to latest
