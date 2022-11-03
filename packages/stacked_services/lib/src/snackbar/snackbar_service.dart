@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:stacked_core/stacked_core.dart' as sc;
 import 'package:stacked_services/src/exceptions/custom_snackbar_exception.dart';
 import 'package:stacked_services/src/snackbar/snackbar_config.dart';
+
 import 'stacked_snackbar_customizations.dart';
 
 /// A service that allows the user to show the snackbar from a ViewModel
@@ -73,7 +74,9 @@ class SnackbarService {
               title,
               key: Key('snackbar_text_title'),
               style: TextStyle(
-                color: _snackbarConfig?.titleColor ?? _snackbarConfig?.textColor ?? Colors.white,
+                color: _snackbarConfig?.titleColor ??
+                    _snackbarConfig?.textColor ??
+                    Colors.white,
                 fontWeight: FontWeight.w800,
                 fontSize: 16,
               ),
@@ -85,7 +88,9 @@ class SnackbarService {
               message,
               key: Key('snackbar_text_message'),
               style: TextStyle(
-                color: _snackbarConfig?.messageColor ?? _snackbarConfig?.textColor ?? Colors.white,
+                color: _snackbarConfig?.messageColor ??
+                    _snackbarConfig?.textColor ??
+                    Colors.white,
                 fontWeight: FontWeight.w300,
                 fontSize: 14,
               ),
@@ -187,7 +192,7 @@ class SnackbarService {
       boxShadows: snackbarConfig.boxShadows,
       backgroundGradient: snackbarConfig.backgroundGradient,
       mainButton: mainButtonWidget,
-      onTap: (object) => onTap!(),
+      onTap: (snackbar) => onTap?.call(),
       duration: duration,
       isDismissible: snackbarConfig.isDismissible,
       dismissDirection: snackbarConfig.dismissDirection,
@@ -220,8 +225,8 @@ class SnackbarService {
   }
 
   /// Close the current snack bar
-  Future<void> closeSnackbar() async{
-    if(isSnackbarOpen){
+  Future<void> closeSnackbar() async {
+    if (isSnackbarOpen) {
       return Get.closeCurrentSnackbar();
     }
   }

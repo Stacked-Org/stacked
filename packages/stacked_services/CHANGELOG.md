@@ -1,3 +1,5 @@
+## 0.9.8
+- Fixes #749 by executing onTap using `?`
 ## 0.9.7
 - Adds navigation transition type noTransition to the navigation Service to allow for navigation with no transition
 ## 0.9.6
