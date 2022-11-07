@@ -1,3 +1,7 @@
+## 0.2.2
+
+- Fixes the generated stacked config file
+
 ## 0.2.1
 
 ### Additions

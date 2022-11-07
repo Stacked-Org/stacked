@@ -1,6 +1,6 @@
 name: stacked_tools
 description: The official dev tools for the stacked flutter framework
-version: 0.2.1
+version: 0.2.2
 homepage: https://stacked.filledstacks.com/docs/stacked-cli
 repository: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_tools
 

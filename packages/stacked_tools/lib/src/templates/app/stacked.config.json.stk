@@ -4,5 +4,5 @@
     "stacked_app_path": "lib/app/app.dart",
     "test_services_path": "test/service_tests",
     "test_views_path": "test/viewmodels",
-    "test_helpers_path": "test/helpers"
+    "test_helpers_path": "test/helpers/test_helpers.dart"
 }
