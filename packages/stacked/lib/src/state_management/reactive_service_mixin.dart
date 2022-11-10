@@ -6,6 +6,9 @@ import '../../stacked.dart';
 mixin ReactiveServiceMixin {
   List<Function> _listeners = List<Function>.empty(growable: true);
 
+  /// Make available listeners count to extending classes
+  int get listenersCount => _listeners.length;
+
   /// List to the values and react when there are any changes
   void listenToReactiveValues(List<dynamic> reactiveValues) {
     for (var reactiveValue in reactiveValues) {
