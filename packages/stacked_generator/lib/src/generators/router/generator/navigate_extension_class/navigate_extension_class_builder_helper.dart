@@ -9,8 +9,8 @@ class NavigateExtensionClassBuilderHelper {
 
   Method extractNavigationMethodFromRoute(RouteConfig route) {
     final methodName = route.parentClassName != null
-        ? 'navigateToNested${route.className.key}In${route.parentClassName}'
-        : 'navigateTo${route.className.key}';
+        ? 'navigateToNested${route.name}In${route.parentClassName}'
+        : 'navigateTo${route.name}';
 
     final methodReturnType = route.isProcessedReturnTypeDynamic
         ? route.processedReturnType

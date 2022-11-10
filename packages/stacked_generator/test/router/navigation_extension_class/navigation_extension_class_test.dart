@@ -69,7 +69,6 @@ void main() {
     group('build -', () {
       test('Generate extension for strong type navigation', () {
         final builder = getBuilderInstance();
-
         expect(
           builder.buildLibraryForClass,
           kRouteNavigationExtension,

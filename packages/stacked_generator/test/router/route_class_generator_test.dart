@@ -44,7 +44,7 @@ void main() {
         routes: routes,
       ));
       final result = routerBaseGenerator.generate();
-      // if (verbose) print(result);
+      if (verbose) print(result);
       expect(result, expectedResult);
     }
 
@@ -67,7 +67,10 @@ void main() {
           )
         ];
 
-        generateRouteAndExpectResult(routes, kRouterWithNamePathNameClassName);
+        generateRouteAndExpectResult(
+          routes,
+          kRouterWithNamePathNameClassName,
+        );
       });
       //   test('Given the following three RouteConfig, Generate output', () {
       //     final List<RouteConfig> routes = [
@@ -829,14 +832,12 @@ When a view parameter inside another data structure,
           )
         ];
 
-        generateRouteAndExpectResult(
-          routes,
-          kParameterTypeString,
-        );
+        generateRouteAndExpectResult(routes, kParameterTypeString,
+            verbose: true);
       });
       // });
       group('Mixed -', () {
-        test('Given random routing system', () {
+        test('Given this routing system', () {
           final List<RouteConfig> routes = [
             const CustomRouteConfig(
               name: 'loginView1',

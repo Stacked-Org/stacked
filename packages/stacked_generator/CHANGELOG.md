@@ -1,4 +1,9 @@
+## 0.8.1-beta.2
+
+- Fixes [#740](https://github.com/FilledStacks/stacked/issues/740)
+
 ## 0.8.1-beta.1
+
 - Changes back signature of `_updateValidationData` from `dynamic model` -> `FormViewModel model`
 
 ## 0.8.1-beta.0
@@ -26,15 +31,20 @@
 
 - Updates analyzer package
 - Fixes deprecated element and enclosingElement2
+
 ## 0.7.14
 
 - Add `instanceName` parameter to the DependencyRegistration annotation
+
 ## 0.8.0-beta.1
-- Fixes assign import alias to view with a list parameter 
+
+- Fixes assign import alias to view with a list parameter
+
 ## 0.8.0-beta.0
 
 - Migrate the router generator to use [code_builder](https://pub.dev/packages/code_builder)
 - Fixes [#690](https://github.com/FilledStacks/stacked/issues/690)
+
 ## 0.7.13
 
 - Fixes dublicated types imports not added
@@ -47,7 +57,7 @@
 
 - Fixes the logger not printing method name on flutter web
 - Cleanup and refactor the logger code
-  
+
 ## 0.7.10
 
 - Fixes issue with imports for deeply nested views
@@ -101,34 +111,35 @@
 
 ## 0.6.6+1
 
-- Readme update 
-  
+- Readme update
+
 ## 0.6.6
+
 - Fixes bug [#627](https://github.com/FilledStacks/stacked/issues/627)
 - TextEditingControllers are now created and disposed better.
-  
+
 ## 0.6.5
+
 - Major refacor to the router_generator but no changes
-  
+
 ## 0.6.3
 
 - Replace dependency on stacked with stacked_core
+
 ## 0.6.2
 
 - Enables multi logger output only in release mode
 
 ## 0.6.1
 
-- Adds type case for extension getters to adhere to 
+- Adds type case for extension getters to adhere to
 
 ```yaml
 strong-mode:
-    implicit-casts: false
-``` 
+  implicit-casts: false
+```
 
 linting rule when generating `ValueProperties` for a form
-
-
 
 ## 0.6.0
 
