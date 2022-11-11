@@ -13,14 +13,19 @@ class RouterGenerator implements BaseGenerator {
   final RouterConfig _rootRouterConfig;
 
   RouterGenerator(this._rootRouterConfig);
+
+  /// Where we store the result of [_generateClasses]
   List<Spec> classes = [];
 
   @override
   String generate() {
     if (_rootRouterConfig.routes.isEmpty) return '';
 
+    /// Depth first traverse algorithm
     _rootRouterConfig.traverseRoutes(_generateClasses);
 
+    /// Generate the extensions code that's required for declarativly supply
+    /// arguments to a class navigation call
     final navigationExtensionClassBuilder = NavigateExtensionClassBuilder(
       routes: _rootRouterConfig.routesIncludingTheirChildren,
     ).build();
@@ -28,6 +33,7 @@ class RouterGenerator implements BaseGenerator {
     final library = Library(
       (b) => b
         ..directives.add(
+          // No need to alias this import that's why we're adding it
           Directive.import('package:flutter/material.dart'),
         )
         ..body.addAll([...classes, navigationExtensionClassBuilder]),
@@ -39,6 +45,13 @@ class RouterGenerator implements BaseGenerator {
     return DartFormatter().format('${library.accept(emitter)}');
   }
 
+  /// The classes are:
+  ///
+  /// 1. [RoutesClassBuilder] : generates Routes class where routes names generated
+  ///
+  /// 2. [RouterClassBuilder] : generates StackedRouter and other nested routers
+  ///
+  /// 3. [ArgumentsClassBuilder] : generated the arguments of each route view
   void _generateClasses(RouterConfig routerConfig) {
     if (routerConfig.routes.isEmpty) return;
 
