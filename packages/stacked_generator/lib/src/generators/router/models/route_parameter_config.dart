@@ -45,6 +45,11 @@ class RouteParamConfig {
   }
 
   String? get paramName => alias ?? name;
+
+  @override
+  String toString() {
+    return 'defaultValueCode : $defaultValueCode, name : $name, type : $type';
+  }
 }
 
 class RouteParameterResolver {
