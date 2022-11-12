@@ -1,5 +1,9 @@
 ## 0.8.1-beta.2
 
+- Fixes [#745](https://github.com/FilledStacks/stacked/issues/745)
+
+## 0.8.1-beta.2
+
 - Fixes [#740](https://github.com/FilledStacks/stacked/issues/740)
 
 ## 0.8.1-beta.1
