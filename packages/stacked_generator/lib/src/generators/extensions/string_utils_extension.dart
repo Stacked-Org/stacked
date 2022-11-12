@@ -6,6 +6,23 @@ extension NullableStringUtilsExtension on String? {
 
     return ", instanceName: '$this'";
   }
+
+  /// Inorder to replace this             with             this
+  ///                     ||                                ||
+  ///                     \/                                \/
+  /// String? !=null ? String? + String : null        String? + String
+  ///
+  ///
+  ///
+  String? operator +(String rightSide) {
+    final leftSide = this;
+
+    if (leftSide == null) {
+      return leftSide;
+    } else {
+      return leftSide + rightSide;
+    }
+  }
 }
 
 extension StringUtilsExtension on String {
