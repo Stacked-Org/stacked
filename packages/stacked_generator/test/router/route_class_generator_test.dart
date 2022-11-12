@@ -44,6 +44,7 @@ void main() {
         routes: routes,
       ));
       final result = routerBaseGenerator.generate();
+      // ignore: avoid_print
       if (verbose) print(result);
       expect(result, expectedResult);
     }

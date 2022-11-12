@@ -36,7 +36,7 @@ class ImportResolver {
 
   Set<String> resolveAll(DartType type) {
     final imports = <String>{};
-    final resolvedValue = resolve(type.element2);
+    final resolvedValue = resolve(type.element);
     if (resolvedValue != null) {
       imports.add(resolvedValue);
     }
@@ -48,7 +48,7 @@ class ImportResolver {
     final imports = <String>{};
     if (typeToCheck is ParameterizedType) {
       for (DartType type in typeToCheck.typeArguments) {
-        final resolvedValue = resolve(type.element2);
+        final resolvedValue = resolve(type.element);
         if (resolvedValue != null) {
           imports.add(resolvedValue);
         }
