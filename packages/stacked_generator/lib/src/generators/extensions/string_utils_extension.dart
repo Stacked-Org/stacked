@@ -7,20 +7,14 @@ extension NullableStringUtilsExtension on String? {
     return ", instanceName: '$this'";
   }
 
-  /// Inorder to replace this             with             this
-  ///                     ||                                ||
-  ///                     \/                                \/
-  /// String? !=null ? String? + String : null        String? + String
-  ///
-  ///
-  ///
-  String? operator +(String rightSide) {
-    final leftSide = this;
+  /// Overload the + operator to handle nullable and non-nullable addtion
+  String? operator +(String right) {
+    final left = this;
 
-    if (leftSide == null) {
-      return leftSide;
+    if (left == null) {
+      return left;
     } else {
-      return leftSide + rightSide;
+      return left + right;
     }
   }
 }
