@@ -13,7 +13,7 @@ class HomeViewModel extends BaseViewModel with MessageStateHelper {
   int counter = 0;
 
   void navigate() {
-    _navigationService.navigateToNonReactiveView();
+    _navigationService.navigateTononReactiveView();
   }
 
   void initialise() {

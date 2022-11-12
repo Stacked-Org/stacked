@@ -91,8 +91,8 @@ mixin $ExampleFormView on StatelessWidget {
     return model.isFormValid;
   }
 
-  /// Updates the formData on the dynamic
-  void _updateFormData(dynamic model, {bool forceValidate = false}) {
+  /// Updates the formData on the FormViewModel
+  void _updateFormData(FormViewModel model, {bool forceValidate = false}) {
     model.setData(
       model.formValueMap
         ..addAll({
@@ -106,8 +106,9 @@ mixin $ExampleFormView on StatelessWidget {
     }
   }
 
-  /// Updates the fieldsValidationMessages on the dynamic
-  void _updateValidationData(dynamic model) => model.setValidationMessages({
+  /// Updates the fieldsValidationMessages on the FormViewModel
+  void _updateValidationData(FormViewModel model) =>
+      model.setValidationMessages({
         EmailValueKey: _getValidationMessage(EmailValueKey),
         PasswordValueKey: _getValidationMessage(PasswordValueKey),
         ShortBioValueKey: _getValidationMessage(ShortBioValueKey),
