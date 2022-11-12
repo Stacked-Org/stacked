@@ -64,8 +64,8 @@ final Map<String, FocusNode> _TestViewFocusNodes = {};
 
 ''';
 const kExample1UpdateFormData = '''
-        /// Updates the formData on the dynamic
-        void _updateFormData(dynamic model, {bool forceValidate = false}) { model.setData(
+        /// Updates the formData on the FormViewModel
+        void _updateFormData(FormViewModel model, {bool forceValidate = false}) { model.setData(
               model.formValueMap
                 ..addAll({
             
@@ -205,8 +205,8 @@ emailController.addListener(() => _updateFormData(model));
 
 ''';
 const kExample1AddValidationDataUpdateFunctionTorTextControllers = '''
-        /// Updates the fieldsValidationMessages on the dynamic
-        void _updateValidationData(dynamic model) => model.setValidationMessages(
+        /// Updates the fieldsValidationMessages on the FormViewModel
+        void _updateValidationData(FormViewModel model) => model.setValidationMessages(
               {
             
 NameValueKey: _getValidationMessage(NameValueKey),
