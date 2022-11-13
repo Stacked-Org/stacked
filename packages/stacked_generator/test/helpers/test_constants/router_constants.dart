@@ -14,7 +14,10 @@ class RoutesTestClassName {
 
 class RouterTestClassName extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
-    _i1.RouteDef(RoutesTestClassName.loginView, page: _i2.TestClass)
+    _i1.RouteDef(
+      RoutesTestClassName.loginView,
+      page: _i2.TestClass,
+    )
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -33,13 +36,13 @@ class RouterTestClassName extends _i1.RouterBase {
 }
 
 extension NavigatorStateExtension on _i3.NavigationService {
-  Future<dynamic> navigateTologinView(
-      [int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition]) async {
+  Future<dynamic> navigateTologinView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
     return navigateTo<dynamic>(Routes.loginView,
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -1334,7 +1337,10 @@ class RoutesTestClassName {
 
 class RouterTestClassName extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
-    _i1.RouteDef(RoutesTestClassName.loginView1, page: _i2.TestClass1)
+    _i1.RouteDef(
+      RoutesTestClassName.loginView1,
+      page: _i2.TestClass1,
+    )
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -1360,7 +1366,10 @@ class LoginView1Routes {
 
 class LoginView1Router extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
-    _i1.RouteDef(LoginView1Routes.nestedView1, page: _i3.nestedClass1)
+    _i1.RouteDef(
+      LoginView1Routes.nestedView1,
+      page: _i3.nestedClass1,
+    )
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -1379,13 +1388,13 @@ class LoginView1Router extends _i1.RouterBase {
 }
 
 extension NavigatorStateExtension on _i4.NavigationService {
-  Future<returnYpe1?> navigateTologinView1(
-      [int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition]) async {
+  Future<returnYpe1?> navigateTologinView1([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
     return navigateTo<returnYpe1?>(Routes.loginView1,
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -1393,13 +1402,13 @@ extension NavigatorStateExtension on _i4.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestednestedView1InParentClass(
-      [int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition]) async {
+  Future<dynamic> navigateToNestednestedView1InParentClass([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
     return navigateTo<dynamic>(ParentClassRoutes.nestedView1,
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -2735,7 +2744,10 @@ class RoutesTestClassName {
 
 class RouterTestClassName extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
-    _i1.RouteDef(RoutesTestClassName.loginView, page: _i2.TestClass)
+    _i1.RouteDef(
+      RoutesTestClassName.loginView,
+      page: _i2.TestClass,
+    )
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -2768,14 +2780,14 @@ class TestClassArguments {
 }
 
 extension NavigatorStateExtension on _i4.NavigationService {
-  Future<dynamic> navigateTologinView(
-      {List<_i3.Marker> markers,
-      int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition}) async {
+  Future<dynamic> navigateTologinView({
+    List<_i3.Marker> markers,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
     return navigateTo<dynamic>(Routes.loginView,
         arguments: TestClassArguments(markers: markers),
         id: routerId,
@@ -2802,7 +2814,10 @@ class RoutesTestClassName {
 
 class RouterTestClassName extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
-    _i1.RouteDef(RoutesTestClassName.loginView, page: _i2.TestClass)
+    _i1.RouteDef(
+      RoutesTestClassName.loginView,
+      page: _i2.TestClass,
+    )
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -2835,14 +2850,14 @@ class TestClassArguments {
 }
 
 extension NavigatorStateExtension on _i4.NavigationService {
-  Future<dynamic> navigateTologinView(
-      {_i3.String name,
-      int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition}) async {
+  Future<dynamic> navigateTologinView({
+    _i3.String name,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
     return navigateTo<dynamic>(Routes.loginView,
         arguments: TestClassArguments(name: name),
         id: routerId,
@@ -2886,18 +2901,36 @@ class RoutesTestClassName {
     loginView3,
     loginView4,
     loginView5,
-    loginView6
+    loginView6,
   };
 }
 
 class RouterTestClassName extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
-    _i1.RouteDef(RoutesTestClassName.loginView1, page: _i2.TestClass1),
-    _i1.RouteDef(RoutesTestClassName.loginView2, page: _i3.TestClass2),
-    _i1.RouteDef(RoutesTestClassName.loginView3, page: _i4.TestClass3),
-    _i1.RouteDef(RoutesTestClassName.loginView4, page: _i5.TestClass4),
-    _i1.RouteDef(RoutesTestClassName.loginView5, page: _i6.TestClass5),
-    _i1.RouteDef(RoutesTestClassName.loginView6, page: _i7.TestClass6)
+    _i1.RouteDef(
+      RoutesTestClassName.loginView1,
+      page: _i2.TestClass1,
+    ),
+    _i1.RouteDef(
+      RoutesTestClassName.loginView2,
+      page: _i3.TestClass2,
+    ),
+    _i1.RouteDef(
+      RoutesTestClassName.loginView3,
+      page: _i4.TestClass3,
+    ),
+    _i1.RouteDef(
+      RoutesTestClassName.loginView4,
+      page: _i5.TestClass4,
+    ),
+    _i1.RouteDef(
+      RoutesTestClassName.loginView5,
+      page: _i6.TestClass5,
+    ),
+    _i1.RouteDef(
+      RoutesTestClassName.loginView6,
+      page: _i7.TestClass6,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -2950,7 +2983,7 @@ class RouterTestClassName extends _i1.RouterBase {
         builder: (context) => _i7.TestClass6(),
         settings: data,
       );
-    }
+    },
   };
 
   @override
@@ -2966,13 +2999,13 @@ class TestClass3Arguments {
 }
 
 extension NavigatorStateExtension on _i10.NavigationService {
-  Future<dynamic> navigateTologinView1(
-      [int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition]) async {
+  Future<dynamic> navigateTologinView1([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
     return navigateTo<dynamic>(Routes.loginView1,
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -2980,13 +3013,13 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTologinView2(
-      [int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition]) async {
+  Future<dynamic> navigateTologinView2([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
     return navigateTo<dynamic>(Routes.loginView2,
         arguments: TestClass2Arguments(test2paramName: test2paramName),
         id: routerId,
@@ -2995,14 +3028,14 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTologinView3(
-      {_i9.Test3Type test3paramName,
-      int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition}) async {
+  Future<dynamic> navigateTologinView3({
+    _i9.Test3Type test3paramName,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
     return navigateTo<dynamic>(Routes.loginView3,
         arguments: TestClass3Arguments(test3paramName: test3paramName),
         id: routerId,
@@ -3011,13 +3044,13 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTologinView4(
-      [int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition]) async {
+  Future<dynamic> navigateTologinView4([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
     return navigateTo<dynamic>(Routes.loginView4,
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -3025,13 +3058,13 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTologinView5(
-      [int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition]) async {
+  Future<dynamic> navigateTologinView5([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
     return navigateTo<dynamic>(Routes.loginView5,
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -3039,13 +3072,13 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTologinView6(
-      [int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition]) async {
+  Future<dynamic> navigateTologinView6([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
     return navigateTo<dynamic>(Routes.loginView6,
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -3087,7 +3120,10 @@ class RoutesClassName {
 
   static const _homeView = '/family/:fid';
 
-  static const all = <String>{loginView, _homeView};
+  static const all = <String>{
+    loginView,
+    _homeView,
+  };
 
   static String homeView({required dynamic fid}) => '/family/\$fid';
 }
@@ -3101,8 +3137,14 @@ import 'ui/home_class.dart' as _i3;
 
 class RouterClassName extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
-    _i1.RouteDef(RoutesClassName.loginView, page: _i2.LoginClass),
-    _i1.RouteDef(RoutesClassName.homeView, page: _i3.HomeClass)
+    _i1.RouteDef(
+      RoutesClassName.loginView,
+      page: _i2.LoginClass,
+    ),
+    _i1.RouteDef(
+      RoutesClassName.homeView,
+      page: _i3.HomeClass,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -3117,7 +3159,7 @@ class RouterClassName extends _i1.RouterBase {
         builder: (context) => _i3.HomeClass(),
         settings: data,
       );
-    }
+    },
   };
 
   @override
@@ -3194,15 +3236,15 @@ import 'car.dart' as _i3;
 import 'map.dart' as _i4;
 
 extension NavigatorStateExtension on _i1.NavigationService {
-  Future<dynamic> navigateTologinView(
-      {required _i2.Marker position,
-      int age,
-      int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition}) async {
+  Future<dynamic> navigateTologinView({
+    required _i2.Marker position,
+    int age,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
     return navigateTo<dynamic>(Routes.loginView,
         arguments: LoginClassArguments(position: position, age: age),
         id: routerId,
@@ -3211,16 +3253,16 @@ extension NavigatorStateExtension on _i1.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTohomeView(
-      {required _i3.Car car,
-      int age,
-      List<_i4.Marker> markers,
-      int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition}) async {
+  Future<dynamic> navigateTohomeView({
+    required _i3.Car car,
+    int age,
+    List<_i4.Marker> markers,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
     return navigateTo<dynamic>(Routes.homeView,
         arguments: HomeClassArguments(car: car, age: age, markers: markers),
         id: routerId,
@@ -3236,7 +3278,10 @@ import 'marker.dart' as _i1;
 import 'car.dart' as _i2;
 
 class LoginClassArguments {
-  const LoginClassArguments({required this.position, this.age});
+  const LoginClassArguments({
+    required this.position,
+    this.age,
+  });
 
   final _i1.Marker position;
 
@@ -3244,7 +3289,10 @@ class LoginClassArguments {
 }
 
 class HomeClassArguments {
-  const HomeClassArguments({required this.car, this.age});
+  const HomeClassArguments({
+    required this.car,
+    this.age,
+  });
 
   final _i2.Car car;
 
