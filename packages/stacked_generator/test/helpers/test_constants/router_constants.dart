@@ -3134,8 +3134,14 @@ import 'ui/login_class.dart' as _i2;
 import 'ui/home_class.dart' as _i3;
 
 final _routes = <_i1.RouteDef>[
-  _i1.RouteDef(RoutesClassName.loginView, page: _i2.LoginClass),
-  _i1.RouteDef(RoutesClassName.homeView, page: _i3.HomeClass)
+  _i1.RouteDef(
+    RoutesClassName.loginView,
+    page: _i2.LoginClass,
+  ),
+  _i1.RouteDef(
+    RoutesClassName.homeView,
+    page: _i3.HomeClass,
+  ),
 ];
 ''';
 const kRoutesGetter = '''
@@ -3177,7 +3183,7 @@ final _pagesMap = <Type, _i1.StackedRouteFactory>{
       builder: (context) => _i3.HomeClass(name: args.name),
       settings: data,
     );
-  }
+  },
 };
 ''';
 const kRouteNavigationExtension = '''
