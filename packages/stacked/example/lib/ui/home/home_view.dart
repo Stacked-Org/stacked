@@ -10,7 +10,6 @@ import 'home_viewmodel.dart';
 class HomeView extends StatelessWidget {
   final String? title;
   final bool? isLoggedIn;
-  final HomeType homeType;
   final List<HomeType> homeTypes;
   final Clashable Function(String name)? clashableGetter;
 
@@ -19,7 +18,6 @@ class HomeView extends StatelessWidget {
     this.title = 'hello',
     this.isLoggedIn = false,
     this.clashableGetter,
-    this.homeType = HomeType.apartment,
     this.homeTypes = const [
       HomeType.apartment,
       HomeType.house,

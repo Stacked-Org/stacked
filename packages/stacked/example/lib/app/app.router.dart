@@ -44,17 +44,32 @@ class Routes {
     bottomNavExample,
     streamCounterView,
     exampleFormView,
-    nonReactiveView
+    nonReactiveView,
   };
 }
 
 class StackedRouter extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
-    _i1.RouteDef(Routes.homeView, page: _i2.HomeView),
-    _i1.RouteDef(Routes.bottomNavExample, page: _i3.BottomNavExample),
-    _i1.RouteDef(Routes.streamCounterView, page: _i4.StreamCounterView),
-    _i1.RouteDef(Routes.exampleFormView, page: _i5.ExampleFormView),
-    _i1.RouteDef(Routes.nonReactiveView, page: _i6.NonReactiveView)
+    _i1.RouteDef(
+      Routes.homeView,
+      page: _i2.HomeView,
+    ),
+    _i1.RouteDef(
+      Routes.bottomNavExample,
+      page: _i3.BottomNavExample,
+    ),
+    _i1.RouteDef(
+      Routes.streamCounterView,
+      page: _i4.StreamCounterView,
+    ),
+    _i1.RouteDef(
+      Routes.exampleFormView,
+      page: _i5.ExampleFormView,
+    ),
+    _i1.RouteDef(
+      Routes.nonReactiveView,
+      page: _i6.NonReactiveView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -68,7 +83,6 @@ class StackedRouter extends _i1.RouterBase {
             title: args.title,
             isLoggedIn: args.isLoggedIn,
             clashableGetter: args.clashableGetter,
-            homeType: args.homeType,
             homeTypes: args.homeTypes),
         settings: data,
       );
@@ -103,7 +117,7 @@ class StackedRouter extends _i1.RouterBase {
         transitionsBuilder:
             data.transition ?? _i7.CustomRouteTransition.sharedAxis,
       );
-    }
+    },
   };
 
   @override
@@ -113,13 +127,13 @@ class StackedRouter extends _i1.RouterBase {
 }
 
 class HomeViewArguments {
-  const HomeViewArguments(
-      {this.key,
-      this.title = 'hello',
-      this.isLoggedIn = false,
-      this.clashableGetter,
-      this.homeType = HomeType.apartment,
-      this.homeTypes = const [HomeType.apartment, HomeType.house]});
+  const HomeViewArguments({
+    this.key,
+    this.title = 'hello',
+    this.isLoggedIn = false,
+    this.clashableGetter,
+    this.homeTypes = const [HomeType.apartment, HomeType.house],
+  });
 
   final _i8.Key? key;
 
@@ -129,13 +143,14 @@ class HomeViewArguments {
 
   final _i9.Clashable Function(String)? clashableGetter;
 
-  final _i10.HomeType homeType;
-
   final List<_i10.HomeType> homeTypes;
 }
 
 class StreamCounterViewArguments {
-  const StreamCounterViewArguments({this.key, required this.clashableTwo});
+  const StreamCounterViewArguments({
+    this.key,
+    required this.clashableTwo,
+  });
 
   final _i8.Key? key;
 
@@ -143,7 +158,10 @@ class StreamCounterViewArguments {
 }
 
 class ExampleFormViewArguments {
-  const ExampleFormViewArguments({this.key, required this.clashableOne});
+  const ExampleFormViewArguments({
+    this.key,
+    required this.clashableOne,
+  });
 
   final _i8.Key? key;
 
@@ -157,15 +175,27 @@ class BottomNavExampleRoutes {
 
   static const profileView = '/profile-view';
 
-  static const all = <String>{favoritesView, historyView, profileView};
+  static const all = <String>{
+    favoritesView,
+    historyView,
+    profileView,
+  };
 }
 
 class BottomNavExampleRouter extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
-    _i1.RouteDef(BottomNavExampleRoutes.favoritesView,
-        page: _i12.FavoritesView),
-    _i1.RouteDef(BottomNavExampleRoutes.historyView, page: _i13.HistoryView),
-    _i1.RouteDef(BottomNavExampleRoutes.profileView, page: _i14.ProfileView)
+    _i1.RouteDef(
+      BottomNavExampleRoutes.favoritesView,
+      page: _i12.FavoritesView,
+    ),
+    _i1.RouteDef(
+      BottomNavExampleRoutes.historyView,
+      page: _i13.HistoryView,
+    ),
+    _i1.RouteDef(
+      BottomNavExampleRoutes.profileView,
+      page: _i14.ProfileView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -191,7 +221,7 @@ class BottomNavExampleRouter extends _i1.RouterBase {
         builder: (context) => const _i14.ProfileView(),
         settings: data,
       );
-    }
+    },
   };
 
   @override
@@ -201,7 +231,10 @@ class BottomNavExampleRouter extends _i1.RouterBase {
 }
 
 class NestedFavoritesViewArguments {
-  const NestedFavoritesViewArguments({this.key, this.id});
+  const NestedFavoritesViewArguments({
+    this.key,
+    this.id,
+  });
 
   final _i8.Key? key;
 
@@ -213,14 +246,22 @@ class FavoritesViewRoutes {
 
   static const historyView = '/history-view';
 
-  static const all = <String>{multipleFuturesExampleView, historyView};
+  static const all = <String>{
+    multipleFuturesExampleView,
+    historyView,
+  };
 }
 
 class FavoritesViewRouter extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
-    _i1.RouteDef(FavoritesViewRoutes.multipleFuturesExampleView,
-        page: _i17.MultipleFuturesExampleView),
-    _i1.RouteDef(FavoritesViewRoutes.historyView, page: _i13.HistoryView)
+    _i1.RouteDef(
+      FavoritesViewRoutes.multipleFuturesExampleView,
+      page: _i17.MultipleFuturesExampleView,
+    ),
+    _i1.RouteDef(
+      FavoritesViewRoutes.historyView,
+      page: _i13.HistoryView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -240,7 +281,7 @@ class FavoritesViewRouter extends _i1.RouterBase {
               return child;
             },
       );
-    }
+    },
   };
 
   @override
@@ -250,29 +291,24 @@ class FavoritesViewRouter extends _i1.RouterBase {
 }
 
 extension NavigatorStateExtension on _i18.NavigationService {
-  Future<dynamic> navigateTohomeView(
-      {_i8.Key? key,
-      String? title = 'hello',
-      bool? isLoggedIn = false,
-      _i9.Clashable Function(String)? clashableGetter,
-      _i10.HomeType homeType = HomeType.apartment,
-      List<_i10.HomeType> homeTypes = const [
-        HomeType.apartment,
-        HomeType.house
-      ],
-      int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition}) async {
+  Future<dynamic> navigateTohomeView({
+    _i8.Key? key,
+    String? title = 'hello',
+    bool? isLoggedIn = false,
+    _i9.Clashable Function(String)? clashableGetter,
+    List<_i10.HomeType> homeTypes = const [HomeType.apartment, HomeType.house],
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
     return navigateTo<dynamic>(Routes.homeView,
         arguments: HomeViewArguments(
             key: key,
             title: title,
             isLoggedIn: isLoggedIn,
             clashableGetter: clashableGetter,
-            homeType: homeType,
             homeTypes: homeTypes),
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -280,13 +316,13 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTobottomNavExample(
-      [int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition]) async {
+  Future<dynamic> navigateTobottomNavExample([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
     return navigateTo<dynamic>(Routes.bottomNavExample,
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -294,15 +330,15 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTostreamCounterView(
-      {_i8.Key? key,
-      required List<_i11.Clashable> clashableTwo,
-      int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition}) async {
+  Future<dynamic> navigateTostreamCounterView({
+    _i8.Key? key,
+    required List<_i11.Clashable> clashableTwo,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
     return navigateTo<dynamic>(Routes.streamCounterView,
         arguments:
             StreamCounterViewArguments(key: key, clashableTwo: clashableTwo),
@@ -312,15 +348,15 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToexampleFormView(
-      {_i8.Key? key,
-      required _i9.Clashable clashableOne,
-      int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition}) async {
+  Future<dynamic> navigateToexampleFormView({
+    _i8.Key? key,
+    required _i9.Clashable clashableOne,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
     return navigateTo<dynamic>(Routes.exampleFormView,
         arguments:
             ExampleFormViewArguments(key: key, clashableOne: clashableOne),
@@ -330,13 +366,13 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTononReactiveView(
-      [int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition]) async {
+  Future<dynamic> navigateTononReactiveView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
     return navigateTo<dynamic>(Routes.nonReactiveView,
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -344,15 +380,15 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedfavoritesViewInBottomNavExample(
-      {_i8.Key? key,
-      String? id,
-      int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition}) async {
+  Future<dynamic> navigateToNestedfavoritesViewInBottomNavExample({
+    _i8.Key? key,
+    String? id,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
     return navigateTo<dynamic>(BottomNavExampleRoutes.favoritesView,
         arguments: NestedFavoritesViewArguments(key: key, id: id),
         id: routerId,
@@ -361,13 +397,13 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedhistoryViewInBottomNavExample(
-      [int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition]) async {
+  Future<dynamic> navigateToNestedhistoryViewInBottomNavExample([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
     return navigateTo<dynamic>(BottomNavExampleRoutes.historyView,
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -375,13 +411,13 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedprofileViewInBottomNavExample(
-      [int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition]) async {
+  Future<dynamic> navigateToNestedprofileViewInBottomNavExample([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
     return navigateTo<dynamic>(BottomNavExampleRoutes.profileView,
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -389,13 +425,13 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedmultipleFuturesExampleViewInFavoritesView(
-      [int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition]) async {
+  Future<dynamic> navigateToNestedmultipleFuturesExampleViewInFavoritesView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
     return navigateTo<dynamic>(FavoritesViewRoutes.multipleFuturesExampleView,
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -403,13 +439,13 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedhistoryViewInFavoritesView(
-      [int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition]) async {
+  Future<dynamic> navigateToNestedhistoryViewInFavoritesView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
     return navigateTo<dynamic>(FavoritesViewRoutes.historyView,
         id: routerId,
         preventDuplicates: preventDuplicates,
