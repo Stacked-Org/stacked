@@ -20,7 +20,7 @@ class DialogConfigResolver {
       // Get the type of the dialog that we want to register
       final dialogClassType = dialogReader.read('classType').typeValue;
 
-      final classElement = dialogClassType.element2 as ClassElement?;
+      final classElement = dialogClassType.element as ClassElement?;
 
       // Get the import of the class type that's defined for the dialog
       final import = importResolver.resolve(classElement!);

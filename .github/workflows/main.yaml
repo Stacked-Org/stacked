@@ -3,7 +3,7 @@ name: Build
 on:
   push:
     branches:
-    - master
+      - master
   pull_request:
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
     name: Run stacked packages unit tests
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
-    
+
     strategy:
       matrix:
         package:
@@ -26,7 +26,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: ${{ matrix.channel }}
-          
+
       # It is executed separatly
       - name: Removing example folder
         run: rm -rf example
@@ -59,49 +59,46 @@ jobs:
             flutter test
           fi
         working-directory: ${{ matrix.package }}
-        
+
   integration_tests:
-      name: Run stacked app integration tests
-      runs-on: ubuntu-latest
-      if: github.event.pull_request.draft == false
+    name: Run stacked app integration tests
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
 
-      strategy:
-        matrix:
-          package:
-            - packages/stacked/example
-          channel:
-            - stable
+    strategy:
+      matrix:
+        package:
+          - packages/stacked/example
+        channel:
+          - stable
 
-      steps:
-        - uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
 
-        - name: Setup Flutter
-          uses: subosito/flutter-action@v1
-          with:
-            channel: "stable"
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
 
-        - name: Setup chrome driver
-          uses: nanasess/setup-chromedriver@v1
-          with:
-            chromedriver-version: "103.0.5060.53"
+      - name: Setup chrome driver
+        uses: nanasess/setup-chromedriver@v1
 
-        - name: Install dependencies
-          run: flutter pub get
-          working-directory: ${{ matrix.package }}
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: ${{ matrix.package }}
 
-        - name: Generate
-          run: |
-            if grep -q build_runner "pubspec.yaml"; then
-              flutter pub run build_runner build --delete-conflicting-outputs
-            fi
-          working-directory: ${{ matrix.package }}
+      - name: Generate
+        run: |
+          if grep -q build_runner "pubspec.yaml"; then
+            flutter pub run build_runner build --delete-conflicting-outputs
+          fi
+        working-directory: ${{ matrix.package }}
 
-        - name: Launch web driver & run tests
-          run: |
-            chromedriver --port=4444 & 
-            flutter drive \
-              --driver=test_driver/integration_test.dart \
-              --target=integration_test/app_test.dart \
-              -d web-server
-          working-directory: ${{ matrix.package }}
- 
+      - name: Launch web driver & run tests
+        run: |
+          chromedriver --port=4444 & 
+          flutter drive \
+            --driver=test_driver/integration_test.dart \
+            --target=integration_test/app_test.dart \
+            -d web-server
+        working-directory: ${{ matrix.package }}

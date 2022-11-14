@@ -20,7 +20,7 @@ class BottomsheetConfigResolver {
       final bottomsheetClassType =
           bottomsheetReader.read('classType').typeValue;
 
-      final classElement = bottomsheetClassType.element2 as ClassElement?;
+      final classElement = bottomsheetClassType.element as ClassElement?;
 
       // Get the import of the class type that's defined for the bottomSheet
       final import = importResolver.resolve(classElement!);

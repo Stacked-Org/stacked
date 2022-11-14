@@ -75,7 +75,7 @@ class RouteConfigFactory {
       if (function != null) {
         final displayName = function.displayName.replaceFirst(RegExp('^_'), '');
         final functionName = function.isStatic
-            ? '${function.enclosingElement3.displayName}.$displayName'
+            ? '${function.enclosingElement.displayName}.$displayName'
             : displayName;
 
         customTransitionBuilder = CustomTransitionBuilder(

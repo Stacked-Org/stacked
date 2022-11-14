@@ -31,7 +31,7 @@ class DependencyConfigFactory {
     final DartType? dependencyAbstractedClassType =
         dependencyReader.peek('asType')?.typeValue;
 
-    final classElement = dependencyClassType.element2 as ClassElement?;
+    final classElement = dependencyClassType.element as ClassElement?;
 
     throwIf(
       classElement == null,
@@ -50,7 +50,7 @@ class DependencyConfigFactory {
     final import = importResolver.resolve(classElement!);
 
     final abstractedClassElement =
-        dependencyAbstractedClassType?.element2 as ClassElement?;
+        dependencyAbstractedClassType?.element as ClassElement?;
 
     final abstractedImport = importResolver.resolve(abstractedClassElement);
 

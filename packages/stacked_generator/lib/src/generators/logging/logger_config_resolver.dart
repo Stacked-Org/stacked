@@ -60,6 +60,6 @@ class LoggerConfigResolver {
 
   ClassElement _dartOjectToElemet(DartObject obj) {
     var dependencyReader = ConstantReader(obj).typeValue;
-    return dependencyReader.element2 as ClassElement;
+    return dependencyReader.element as ClassElement;
   }
 }

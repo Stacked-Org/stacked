@@ -24,12 +24,12 @@ class RouteConfigResolver {
       {String? parentClassName}) async {
     final dartType = stackedRoute.read('page').typeValue;
     throwIf(
-      dartType.element2 is! ClassElement,
+      dartType.element is! ClassElement,
       '${toDisplayString(dartType)} is not a class element',
-      element: dartType.element2!,
+      element: dartType.element!,
     );
 
-    final classElement = dartType.element2 as ClassElement;
+    final classElement = dartType.element as ClassElement;
     final import = _typeResolver.resolveImport(classElement);
     final classNameWithImport = MapEntry(toDisplayString(dartType), import!);
 
