@@ -1,6 +1,9 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
 
+import '../route_allocator.dart';
+import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
+
 class ArgumentClassBuilderHelper {
   final RouteConfig route;
 
@@ -40,8 +43,10 @@ class ArgumentClassBuilderHelper {
 
         // Assign default value
         if (param.defaultValueCode != null) {
-          parameterBuilder.defaultTo =
-              refer(param.defaultValueCode!, param.type.import).code;
+          parameterBuilder.defaultTo = refer(
+            param.defaultValueCode!,
+            param.type.import + kFlagToPreventAliasingTheImport,
+          ).code;
         }
 
         // Add required keyword

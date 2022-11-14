@@ -6,6 +6,17 @@ extension NullableStringUtilsExtension on String? {
 
     return ", instanceName: '$this'";
   }
+
+  /// Overload the + operator to handle nullable and non-nullable addtion
+  String? operator +(String right) {
+    final left = this;
+
+    if (left == null) {
+      return left;
+    } else {
+      return left + right;
+    }
+  }
 }
 
 extension StringUtilsExtension on String {

@@ -25,7 +25,7 @@ class ResolvedType {
 
   @override
   String toString() {
-    return name;
+    return 'name : $name, import : $import, typeArguments: ${typeArguments.map((element) => element.toString())}';
   }
 
   @override

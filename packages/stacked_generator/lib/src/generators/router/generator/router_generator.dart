@@ -7,20 +7,26 @@ import 'package:stacked_generator/src/generators/router/generator/routes_class/r
 import '../router_config/router_config.dart';
 import 'arguments_class/arguments_class_builder.dart';
 import 'navigate_extension_class/navigate_extension_class_builder.dart';
+import 'route_allocator.dart';
 import 'router_class/router_class_builder.dart';
 
 class RouterGenerator implements BaseGenerator {
   final RouterConfig _rootRouterConfig;
 
   RouterGenerator(this._rootRouterConfig);
-  List<Spec> classes = [];
 
+  /// Where we store the result of [_generateClasses]
+  List<Spec> classes = [];
+  List<String> notAliasedImports = [];
   @override
   String generate() {
     if (_rootRouterConfig.routes.isEmpty) return '';
 
+    /// Depth first traverse algorithm
     _rootRouterConfig.traverseRoutes(_generateClasses);
 
+    /// Generate the extensions code that's required for declarativly supply
+    /// arguments to a class navigation call
     final navigationExtensionClassBuilder = NavigateExtensionClassBuilder(
       routes: _rootRouterConfig.routesIncludingTheirChildren,
     ).build();
@@ -28,17 +34,28 @@ class RouterGenerator implements BaseGenerator {
     final library = Library(
       (b) => b
         ..directives.add(
+          // No need to alias this import that's why we're adding it
           Directive.import('package:flutter/material.dart'),
         )
         ..body.addAll([...classes, navigationExtensionClassBuilder]),
     );
 
-    final emitter =
-        DartEmitter.scoped(orderDirectives: true, useNullSafetySyntax: true);
+    final emitter = DartEmitter(
+      allocator: RouteAllocator(),
+      useNullSafetySyntax: true,
+      orderDirectives: true,
+    );
 
     return DartFormatter().format('${library.accept(emitter)}');
   }
 
+  /// The classes are:
+  ///
+  /// 1. [RoutesClassBuilder] : generates Routes class where routes names generated
+  ///
+  /// 2. [RouterClassBuilder] : generates StackedRouter and other nested routers
+  ///
+  /// 3. [ArgumentsClassBuilder] : generated the arguments of each route view
   void _generateClasses(RouterConfig routerConfig) {
     if (routerConfig.routes.isEmpty) return;
 
