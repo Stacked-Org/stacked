@@ -9,7 +9,6 @@ export 'src/state_management/data_models/multiple_data_models.dart';
 export 'src/state_management/selector_view_model_builder.dart';
 export 'src/state_management/selector_view_model_builder_widget.dart';
 export 'src/state_management/view_model_widget.dart';
-export 'src/state_management/skeleton_loader.dart';
 
 /// deprecated viewmodels
 export 'src/state_management/form_view_model.dart';
@@ -21,6 +20,7 @@ export 'src/state_management/helpers/data_state_helper.dart';
 export 'src/state_management/helpers/index_tracking_state_helper.dart';
 export 'src/state_management/helpers/form_state_helper.dart';
 
+/// code generators
 export 'src/code_generation/router_annotation/extended_navigator.dart';
 export 'src/code_generation/router_annotation/router_base.dart';
 export 'src/code_generation/router_annotation/route_def.dart';
@@ -33,3 +33,6 @@ export 'src/reactive/reactive_list/reactive_list.dart';
 /// mixins
 export 'src/mixins/listenable_service_mixin.dart';
 export 'src/mixins/reactive_service_mixin.dart';
+
+/// ui
+export 'src/state_management/ui/skeleton_loader.dart';
