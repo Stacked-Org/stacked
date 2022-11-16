@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:stacked/src/mixins/listenable_service_mixin.dart';
 import 'package:stacked/src/state_management/base_view_models.dart';
-import 'package:stacked/src/state_management/single_data_models.dart';
+import 'package:stacked/src/state_management/data_models/single_data_models.dart';
 
 class TestReactiveService with ListenableServiceMixin {
   int _counter = 0;

@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:stacked/src/state_management/helpers/data_state_helper.dart';
 
-import 'base_view_models.dart';
-import 'helpers/message_state_helper.dart';
+import '../base_view_models.dart';
+import '../helpers/message_state_helper.dart';
 
 /// Provides functionality for a ViewModel that's sole purpose it is to fetch data using a [Future]
 /// This class is mixed with mixins:
