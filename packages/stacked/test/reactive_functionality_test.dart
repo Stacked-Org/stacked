@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:stacked/src/state_management/reactive_service_mixin.dart';
+import 'package:stacked/src/mixins/listenable_service_mixin.dart';
 
-class CounterService with ReactiveServiceMixin {
+class CounterService with ListenableServiceMixin {
   int _counter = 0;
   int get counter => _counter;
 
@@ -19,7 +19,7 @@ class CounterService with ReactiveServiceMixin {
   }
 }
 
-class ListCounterService with ReactiveServiceMixin {
+class ListCounterService with ListenableServiceMixin {
   List<int> _counters = <int>[];
   List get counters => _counters;
   int _counter = 0;
@@ -30,7 +30,7 @@ class ListCounterService with ReactiveServiceMixin {
   }
 }
 
-class SetCounterService with ReactiveServiceMixin {
+class SetCounterService with ListenableServiceMixin {
   List<int> _counters = <int>[];
   List get counters => _counters;
   int _counter = 0;

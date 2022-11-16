@@ -14,5 +14,5 @@ class WidgetTwoViewModel extends ReactiveViewModel {
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_informationService];
+  List<ListenableServiceMixin> get listenableServices => [_informationService];
 }
