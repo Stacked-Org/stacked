@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:stacked/src/state_management/helpers/data_state_helper.dart';
+import 'package:stacked/src/view_models/helpers/data_state_helper.dart';
 
 import '../base_view_models.dart';
 import '../helpers/message_state_helper.dart';

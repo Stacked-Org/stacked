@@ -1,24 +1,24 @@
 library stacked;
 
 /// viewmodels
-export 'src/state_management/base_view_models.dart';
-export 'src/state_management/view_model_builder.dart';
-export 'src/state_management/view_model_builder_widget.dart';
-export 'src/state_management/data_models/single_data_models.dart';
-export 'src/state_management/data_models/multiple_data_models.dart';
-export 'src/state_management/selector_view_model_builder.dart';
-export 'src/state_management/selector_view_model_builder_widget.dart';
-export 'src/state_management/view_model_widget.dart';
+export 'src/view_models/base_view_models.dart';
+export 'src/view_models/view_model_builder.dart';
+export 'src/view_models/view_model_builder_widget.dart';
+export 'src/view_models/data_models/single_data_models.dart';
+export 'src/view_models/data_models/multiple_data_models.dart';
+export 'src/view_models/selector_view_model_builder.dart';
+export 'src/view_models/selector_view_model_builder_widget.dart';
+export 'src/view_models/view_model_widget.dart';
 
 /// deprecated viewmodels
-export 'src/state_management/form_view_model.dart';
-export 'src/state_management/index_tracking_viewmodel.dart';
+export 'src/view_models/form_view_model.dart';
+export 'src/view_models/index_tracking_viewmodel.dart';
 
 /// viewmodel helpers
-export 'src/state_management/helpers/message_state_helper.dart';
-export 'src/state_management/helpers/data_state_helper.dart';
-export 'src/state_management/helpers/index_tracking_state_helper.dart';
-export 'src/state_management/helpers/form_state_helper.dart';
+export 'src/view_models/helpers/message_state_helper.dart';
+export 'src/view_models/helpers/data_state_helper.dart';
+export 'src/view_models/helpers/index_tracking_state_helper.dart';
+export 'src/view_models/helpers/form_state_helper.dart';
 
 /// code generators
 export 'src/code_generation/router_annotation/extended_navigator.dart';
@@ -35,4 +35,4 @@ export 'src/mixins/listenable_service_mixin.dart';
 export 'src/mixins/reactive_service_mixin.dart';
 
 /// ui
-export 'src/state_management/ui/skeleton_loader.dart';
+export 'src/view_models/ui/skeleton_loader.dart';

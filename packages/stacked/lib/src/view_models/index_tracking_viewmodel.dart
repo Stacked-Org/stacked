@@ -1,5 +1,5 @@
 import 'package:stacked/src/mixins/listenable_service_mixin.dart';
-import 'package:stacked/src/state_management/base_view_models.dart';
+import 'package:stacked/src/view_models/base_view_models.dart';
 
 /// You can use [BaseViewModel] or [ReactiveViewModel] with a [IndexTrackingStateHelper]
 /// to achive the same result incase you want to combine multiple functionalities
