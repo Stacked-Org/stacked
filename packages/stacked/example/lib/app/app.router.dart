@@ -291,7 +291,7 @@ class FavoritesViewRouter extends _i1.RouterBase {
 }
 
 extension NavigatorStateExtension on _i18.NavigationService {
-  Future<dynamic> navigateTohomeView({
+  Future<dynamic> navigateToHomeView({
     _i8.Key? key,
     String? title = 'hello',
     bool? isLoggedIn = false,
@@ -316,7 +316,7 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTobottomNavExample([
+  Future<dynamic> navigateToBottomNavExample([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -330,7 +330,7 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTostreamCounterView({
+  Future<dynamic> navigateToStreamCounterView({
     _i8.Key? key,
     required List<_i11.Clashable> clashableTwo,
     int? routerId,
@@ -348,7 +348,7 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToexampleFormView({
+  Future<dynamic> navigateToExampleFormView({
     _i8.Key? key,
     required _i9.Clashable clashableOne,
     int? routerId,
@@ -366,7 +366,7 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTononReactiveView([
+  Future<dynamic> navigateToNonReactiveView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -380,7 +380,7 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedfavoritesViewInBottomNavExample({
+  Future<dynamic> navigateToNestedFavoritesViewInBottomNavExample({
     _i8.Key? key,
     String? id,
     int? routerId,
@@ -397,7 +397,7 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedhistoryViewInBottomNavExample([
+  Future<dynamic> navigateToNestedHistoryViewInBottomNavExample([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -411,7 +411,7 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedprofileViewInBottomNavExample([
+  Future<dynamic> navigateToNestedProfileViewInBottomNavExample([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -425,7 +425,7 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedmultipleFuturesExampleViewInFavoritesView([
+  Future<dynamic> navigateToNestedMultipleFuturesExampleViewInFavoritesView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -439,7 +439,7 @@ extension NavigatorStateExtension on _i18.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedhistoryViewInFavoritesView([
+  Future<dynamic> navigateToNestedHistoryViewInFavoritesView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,

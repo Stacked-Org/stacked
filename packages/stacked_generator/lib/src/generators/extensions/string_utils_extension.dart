@@ -22,4 +22,19 @@ extension NullableStringUtilsExtension on String? {
 extension StringUtilsExtension on String {
   RegExpMatch? get getTypeInsideList =>
       RegExp(r'(.*)<(.*)(>)').firstMatch(this);
+
+  String get toLowerCamelCase {
+    if (length < 2) return toLowerCase();
+    return this[0].toLowerCase() + substring(1);
+  }
+
+  String get capitalize {
+    if (length < 2) return toUpperCase();
+    return this[0].toUpperCase() + substring(1);
+  }
+
+  String get toKababCase {
+    return replaceAllMapped(RegExp('(.+?)([A-Z])'),
+        (match) => '${match.group(1)}-${match.group(2)}'.toLowerCase());
+  }
 }

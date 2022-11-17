@@ -1,4 +1,5 @@
-import '../../../utils.dart';
+import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
+
 import '../router/router_config/router_config.dart';
 
 extension RoutesExtension on RouterConfig {
@@ -7,10 +8,10 @@ extension RoutesExtension on RouterConfig {
 
     for (var route in routes) {
       RouterConfig(
-              routes: route.children,
-              routerClassName: capitalize('${route.name}Router'),
-              routesClassName: capitalize('${route.name}Routes'))
-          .traverseRoutes(performAction);
+        routes: route.children,
+        routerClassName: '${route.name}Router'.capitalize,
+        routesClassName: '${route.name}Routes'.capitalize,
+      ).traverseRoutes(performAction);
     }
   }
 }

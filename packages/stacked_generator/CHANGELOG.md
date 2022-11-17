@@ -1,3 +1,7 @@
+## 0.8.1-beta.5
+
+- Fix [#766](https://github.com/FilledStacks/stacked/issues/766)
+
 ## 0.8.1-beta.4
 
 - Fix import not added when the defaultValueCode is a list
