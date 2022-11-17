@@ -1,6 +1,6 @@
 import 'package:stacked_generator/src/generators/base_generator.dart';
+import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
 
-import '../../../../utils.dart';
 import '../bottomsheet_config.dart';
 import 'bottomsheet_class_content.dart';
 
@@ -8,7 +8,7 @@ class BottomsheetClassGeneratorHelper with StringBufferUtils {
   void writeBottomsheetTypeEnum(List<BottomsheetConfig> bottomsheetConfigs) {
     writeLine("enum BottomsheetType{");
     for (var bottomsheetConfig in bottomsheetConfigs) {
-      writeLine('${toLowerCamelCase(bottomsheetConfig.bottomsheetClassName)},');
+      writeLine('${bottomsheetConfig.bottomsheetClassName.toLowerCamelCase},');
     }
     writeLine("}");
   }

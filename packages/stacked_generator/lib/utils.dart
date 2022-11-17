@@ -3,21 +3,6 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:stacked_generator/src/generators/exceptions/invalid_generator_input_exception.dart';
 import 'package:stacked_generator/src/generators/router/models/route_parameter_config.dart';
 
-String toLowerCamelCase(String s) {
-  if (s.length < 2) return s.toLowerCase();
-  return s[0].toLowerCase() + s.substring(1);
-}
-
-String capitalize(String s) {
-  if (s.length < 2) return s.toUpperCase();
-  return s[0].toUpperCase() + s.substring(1);
-}
-
-String toKababCase(String s) {
-  return s.replaceAllMapped(RegExp('(.+?)([A-Z])'),
-      (match) => '${match.group(1)}-${match.group(2)}'.toLowerCase());
-}
-
 String toDisplayString(DartType e, {bool withNullability = false}) {
   return e.getDisplayString(withNullability: withNullability);
 }

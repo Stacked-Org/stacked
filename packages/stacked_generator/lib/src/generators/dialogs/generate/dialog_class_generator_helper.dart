@@ -1,6 +1,6 @@
 import 'package:stacked_generator/src/generators/base_generator.dart';
+import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
 
-import '../../../../utils.dart';
 import '../dialog_config.dart';
 import 'dialog_class_content.dart';
 
@@ -8,7 +8,7 @@ class DialogClassGeneratorHelper with StringBufferUtils {
   void writeDialogTypeEnum(List<DialogConfig> dialogConfigs) {
     writeLine("enum DialogType{");
     for (var dialogConfig in dialogConfigs) {
-      writeLine('${toLowerCamelCase(dialogConfig.dialogClassName)},');
+      writeLine('${dialogConfig.dialogClassName.toLowerCamelCase},');
     }
     writeLine("}");
   }

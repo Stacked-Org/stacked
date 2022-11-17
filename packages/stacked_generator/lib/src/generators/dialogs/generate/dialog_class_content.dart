@@ -1,4 +1,4 @@
-import '../../../../utils.dart';
+import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
 
 String setupDialogHeader(String? locatorName) => '''
 void setupDialogUi() {
@@ -9,7 +9,7 @@ void setupDialogUi() {
 ''';
 
 String dialogRegisterContent(String dialogClassName) => '''
-  DialogType.${toLowerCamelCase(dialogClassName)}: (context, DialogRequest request, void Function(DialogResponse) completer) =>
+  DialogType.${dialogClassName.toLowerCamelCase}: (context, DialogRequest request, void Function(DialogResponse) completer) =>
         $dialogClassName(request: request,completer: completer),
 ''';
 

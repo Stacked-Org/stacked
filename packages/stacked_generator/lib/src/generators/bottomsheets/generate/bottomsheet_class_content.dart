@@ -1,4 +1,4 @@
-import '../../../../utils.dart';
+import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
 
 String setupBottomsheetHeader(String? locatorName) => '''
 void setupBottomsheetUi() {
@@ -9,7 +9,7 @@ void setupBottomsheetUi() {
 ''';
 
 String bottomsheetRegisterContent(String bottomsheetClassName) => '''
-  BottomsheetType.${toLowerCamelCase(bottomsheetClassName)}: (context, SheetRequest request, void Function(SheetResponse) completer) =>
+  BottomsheetType.${bottomsheetClassName.toLowerCamelCase}: (context, SheetRequest request, void Function(SheetResponse) completer) =>
         $bottomsheetClassName(request: request,completer: completer),
 ''';
 

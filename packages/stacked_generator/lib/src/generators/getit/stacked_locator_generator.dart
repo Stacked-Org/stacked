@@ -5,6 +5,7 @@ import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_generator/import_resolver.dart';
+import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
 import 'package:stacked_generator/src/generators/getit/stacked_locator_content_generator.dart';
 import 'package:stacked_generator/utils.dart';
 
@@ -49,8 +50,8 @@ class StackedLocatorGenerator extends GeneratorForAnnotation<StackedApp> {
 
     return StackedLocatorContentGenerator(
       dependencies: dependencies,
-      locatorName: toLowerCamelCase(locatorName),
-      locatorSetupName: toLowerCamelCase(locatorSetupName),
+      locatorName: locatorName.toLowerCamelCase,
+      locatorSetupName: locatorSetupName.toLowerCamelCase,
     ).generate();
   }
 }
