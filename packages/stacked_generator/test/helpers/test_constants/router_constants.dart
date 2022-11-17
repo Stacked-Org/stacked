@@ -36,7 +36,7 @@ class RouterTestClassName extends _i1.RouterBase {
 }
 
 extension NavigatorStateExtension on _i3.NavigationService {
-  Future<dynamic> navigateTologinView([
+  Future<dynamic> navigateToLoginView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1388,7 +1388,7 @@ class LoginView1Router extends _i1.RouterBase {
 }
 
 extension NavigatorStateExtension on _i4.NavigationService {
-  Future<returnYpe1?> navigateTologinView1([
+  Future<returnYpe1?> navigateToLoginView1([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1402,7 +1402,7 @@ extension NavigatorStateExtension on _i4.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestednestedView1InParentClass([
+  Future<dynamic> navigateToNestedNestedView1InParentClass([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2780,7 +2780,7 @@ class TestClassArguments {
 }
 
 extension NavigatorStateExtension on _i4.NavigationService {
-  Future<dynamic> navigateTologinView({
+  Future<dynamic> navigateToLoginView({
     List<_i3.Marker> markers,
     int? routerId,
     bool preventDuplicates = true,
@@ -2850,7 +2850,7 @@ class TestClassArguments {
 }
 
 extension NavigatorStateExtension on _i4.NavigationService {
-  Future<dynamic> navigateTologinView({
+  Future<dynamic> navigateToLoginView({
     _i3.String name,
     int? routerId,
     bool preventDuplicates = true,
@@ -2999,7 +2999,7 @@ class TestClass3Arguments {
 }
 
 extension NavigatorStateExtension on _i10.NavigationService {
-  Future<dynamic> navigateTologinView1([
+  Future<dynamic> navigateToLoginView1([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -3013,7 +3013,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTologinView2([
+  Future<dynamic> navigateToLoginView2([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -3028,7 +3028,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTologinView3({
+  Future<dynamic> navigateToLoginView3({
     _i9.Test3Type test3paramName,
     int? routerId,
     bool preventDuplicates = true,
@@ -3044,7 +3044,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTologinView4([
+  Future<dynamic> navigateToLoginView4([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -3058,7 +3058,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTologinView5([
+  Future<dynamic> navigateToLoginView5([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -3072,7 +3072,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTologinView6([
+  Future<dynamic> navigateToLoginView6([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -3236,7 +3236,7 @@ import 'car.dart' as _i3;
 import 'map.dart' as _i4;
 
 extension NavigatorStateExtension on _i1.NavigationService {
-  Future<dynamic> navigateTologinView({
+  Future<dynamic> navigateToLoginView({
     required _i2.Marker position,
     int age,
     int? routerId,
@@ -3253,7 +3253,7 @@ extension NavigatorStateExtension on _i1.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateTohomeView({
+  Future<dynamic> navigateToHomeView({
     required _i3.Car car,
     int age,
     List<_i4.Marker> markers,
