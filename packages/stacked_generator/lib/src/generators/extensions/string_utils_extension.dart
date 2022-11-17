@@ -23,9 +23,6 @@ extension StringUtilsExtension on String {
   RegExpMatch? get getTypeInsideList =>
       RegExp(r'(.*)<(.*)(>)').firstMatch(this);
 
-  String get capitalizeFirstLetter =>
-      isNotEmpty ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
-
   String get toLowerCamelCase {
     if (length < 2) return toLowerCase();
     return this[0].toLowerCase() + substring(1);
