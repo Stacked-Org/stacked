@@ -10,8 +10,7 @@ _$_Config _$$_ConfigFromJson(Map<String, dynamic> json) => _$_Config(
       viewsPath: json['views_path'] as String? ?? 'lib/ui/views',
       servicesPath: json['services_path'] as String? ?? 'lib/services',
       stackedAppPath: json['stacked_app_path'] as String? ?? 'lib/app/app.dart',
-      testHelpersPath: json['test_helpers_path'] as String? ??
-          'test/helpers/test_helpers.dart',
+      testHelpersPath: json['test_helpers_path'] as String? ?? 'test/helpers',
       testServicesPath:
           json['test_services_path'] as String? ?? 'test/services',
       testViewsPath: json['test_views_path'] as String? ?? 'test/viewmodels',

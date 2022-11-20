@@ -24,7 +24,7 @@ class Config with _$Config {
     /// Relative path for test helper file that contains the register functions
     /// for unit test setup and mock declarations.
     @JsonKey(name: 'test_helpers_path')
-    @Default('test/helpers/test_helpers.dart')
+    @Default('test/helpers')
         String testHelpersPath,
 
     /// Relative Paths where services unit tests will be genereated.
