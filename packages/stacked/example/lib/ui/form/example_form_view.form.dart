@@ -150,9 +150,15 @@ extension ValueProperties on FormViewModel {
   String? get doYouLoveFoodValue =>
       this.formValueMap[DoYouLoveFoodValueKey] as String?;
 
-  bool get hasEmail => this.formValueMap.containsKey(EmailValueKey);
-  bool get hasPassword => this.formValueMap.containsKey(PasswordValueKey);
-  bool get hasShortBio => this.formValueMap.containsKey(ShortBioValueKey);
+  bool get hasEmail =>
+      this.formValueMap.containsKey(EmailValueKey) &&
+      (emailValue?.isNotEmpty ?? false);
+  bool get hasPassword =>
+      this.formValueMap.containsKey(PasswordValueKey) &&
+      (passwordValue?.isNotEmpty ?? false);
+  bool get hasShortBio =>
+      this.formValueMap.containsKey(ShortBioValueKey) &&
+      (shortBioValue?.isNotEmpty ?? false);
   bool get hasBirthDate => this.formValueMap.containsKey(BirthDateValueKey);
   bool get hasDoYouLoveFood =>
       this.formValueMap.containsKey(DoYouLoveFoodValueKey);
