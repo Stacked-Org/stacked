@@ -87,8 +87,8 @@ String? get emailValue => this.formValueMap[EmailValueKey] as String?;
 DateTime? get dateValue => this.formValueMap[DateValueKey] as DateTime?;
 String? get dropDownValue => this.formValueMap[DropDownValueKey] as String?;
 
-bool get hasName => this.formValueMap.containsKey(NameValueKey);
-bool get hasEmail => this.formValueMap.containsKey(EmailValueKey);
+bool get hasName => this.formValueMap.containsKey(NameValueKey) && (nameValue?.isNotEmpty ?? false);
+bool get hasEmail => this.formValueMap.containsKey(EmailValueKey) && (emailValue?.isNotEmpty ?? false);
 bool get hasDate => this.formValueMap.containsKey(DateValueKey);
 bool get hasDropDown => this.formValueMap.containsKey(DropDownValueKey);
 

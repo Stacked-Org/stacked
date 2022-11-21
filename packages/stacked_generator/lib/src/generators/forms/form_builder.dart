@@ -332,8 +332,13 @@ class FormBuilder with StringBufferUtils {
     newLine();
     for (final field in fields) {
       final caseName = ReCase(field.name);
+      final requiresAdditionalCheck = field is TextFieldConfig;
+      final additionalCheck = requiresAdditionalCheck
+          ? ' && (${caseName.camelCase}Value?.isNotEmpty ?? false)'
+          : '';
       writeLine(
-          'bool get has${caseName.pascalCase} => this.formValueMap.containsKey(${_getFormKeyName(caseName)});');
+        'bool get has${caseName.pascalCase} => this.formValueMap.containsKey(${_getFormKeyName(caseName)})$additionalCheck;',
+      );
     }
 
     // Generate the getters that check whether a field has validation message or not
