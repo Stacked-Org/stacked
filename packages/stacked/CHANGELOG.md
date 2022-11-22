@@ -1,3 +1,7 @@
+## 3.0.0+2
+
+- Fix [#767](https://github.com/FilledStacks/stacked/issues/767)
+
 ## 3.0.0+1
 
 - Replace the old `ReactiveValues` approach with `notifyListeners()` when using the `ReactiveServiceMixin` in readme
