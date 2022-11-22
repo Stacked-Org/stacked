@@ -1,3 +1,10 @@
+## 0.2.3
+
+- Fixes testHelpersPath default value
+- Adds test_helpers filename to service_test template
+- Changes default values on stacked config template
+- Load config on create app command
+
 ## 0.2.2
 
 - Fixes the generated stacked config file
