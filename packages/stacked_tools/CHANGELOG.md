@@ -1,4 +1,4 @@
-## 0.2.3
+## 0.2.3-beta.0
 
 - Fixes testHelpersPath default value
 - Adds test_helpers filename to service_test template
