@@ -44,44 +44,48 @@ mixin _$CompliledTemplateFile {
 abstract class $CompliledTemplateFileCopyWith<$Res> {
   factory $CompliledTemplateFileCopyWith(CompliledTemplateFile value,
           $Res Function(CompliledTemplateFile) then) =
-      _$CompliledTemplateFileCopyWithImpl<$Res>;
+      _$CompliledTemplateFileCopyWithImpl<$Res, CompliledTemplateFile>;
+  @useResult
   $Res call({String name, String fileName, String path, String content});
 }
 
 /// @nodoc
-class _$CompliledTemplateFileCopyWithImpl<$Res>
+class _$CompliledTemplateFileCopyWithImpl<$Res,
+        $Val extends CompliledTemplateFile>
     implements $CompliledTemplateFileCopyWith<$Res> {
   _$CompliledTemplateFileCopyWithImpl(this._value, this._then);
 
-  final CompliledTemplateFile _value;
   // ignore: unused_field
-  final $Res Function(CompliledTemplateFile) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? fileName = freezed,
-    Object? path = freezed,
-    Object? content = freezed,
+    Object? name = null,
+    Object? fileName = null,
+    Object? path = null,
+    Object? content = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      fileName: fileName == freezed
+      fileName: null == fileName
           ? _value.fileName
           : fileName // ignore: cast_nullable_to_non_nullable
               as String,
-      path: path == freezed
+      path: null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -92,42 +96,40 @@ abstract class _$$_CompliledTemplateFileCopyWith<$Res>
           $Res Function(_$_CompliledTemplateFile) then) =
       __$$_CompliledTemplateFileCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, String fileName, String path, String content});
 }
 
 /// @nodoc
 class __$$_CompliledTemplateFileCopyWithImpl<$Res>
-    extends _$CompliledTemplateFileCopyWithImpl<$Res>
+    extends _$CompliledTemplateFileCopyWithImpl<$Res, _$_CompliledTemplateFile>
     implements _$$_CompliledTemplateFileCopyWith<$Res> {
   __$$_CompliledTemplateFileCopyWithImpl(_$_CompliledTemplateFile _value,
       $Res Function(_$_CompliledTemplateFile) _then)
-      : super(_value, (v) => _then(v as _$_CompliledTemplateFile));
+      : super(_value, _then);
 
-  @override
-  _$_CompliledTemplateFile get _value =>
-      super._value as _$_CompliledTemplateFile;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? fileName = freezed,
-    Object? path = freezed,
-    Object? content = freezed,
+    Object? name = null,
+    Object? fileName = null,
+    Object? path = null,
+    Object? content = null,
   }) {
     return _then(_$_CompliledTemplateFile(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      fileName: fileName == freezed
+      fileName: null == fileName
           ? _value.fileName
           : fileName // ignore: cast_nullable_to_non_nullable
               as String,
-      path: path == freezed
+      path: null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
@@ -174,23 +176,20 @@ class _$_CompliledTemplateFile implements _CompliledTemplateFile {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CompliledTemplateFile &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.fileName, fileName) &&
-            const DeepCollectionEquality().equals(other.path, path) &&
-            const DeepCollectionEquality().equals(other.content, content));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.fileName, fileName) ||
+                other.fileName == fileName) &&
+            (identical(other.path, path) || other.path == path) &&
+            (identical(other.content, content) || other.content == content));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(fileName),
-      const DeepCollectionEquality().hash(path),
-      const DeepCollectionEquality().hash(content));
+  int get hashCode => Object.hash(runtimeType, name, fileName, path, content);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CompliledTemplateFileCopyWith<_$_CompliledTemplateFile> get copyWith =>
       __$$_CompliledTemplateFileCopyWithImpl<_$_CompliledTemplateFile>(
           this, _$identity);
@@ -259,7 +258,8 @@ mixin _$CompiledStackedTemplate {
 abstract class $CompiledStackedTemplateCopyWith<$Res> {
   factory $CompiledStackedTemplateCopyWith(CompiledStackedTemplate value,
           $Res Function(CompiledStackedTemplate) then) =
-      _$CompiledStackedTemplateCopyWithImpl<$Res>;
+      _$CompiledStackedTemplateCopyWithImpl<$Res, CompiledStackedTemplate>;
+  @useResult
   $Res call(
       {String name,
       List<CompliledTemplateFile> templateFiles,
@@ -267,34 +267,37 @@ abstract class $CompiledStackedTemplateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CompiledStackedTemplateCopyWithImpl<$Res>
+class _$CompiledStackedTemplateCopyWithImpl<$Res,
+        $Val extends CompiledStackedTemplate>
     implements $CompiledStackedTemplateCopyWith<$Res> {
   _$CompiledStackedTemplateCopyWithImpl(this._value, this._then);
 
-  final CompiledStackedTemplate _value;
   // ignore: unused_field
-  final $Res Function(CompiledStackedTemplate) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? templateFiles = freezed,
-    Object? modificationFiles = freezed,
+    Object? name = null,
+    Object? templateFiles = null,
+    Object? modificationFiles = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      templateFiles: templateFiles == freezed
+      templateFiles: null == templateFiles
           ? _value.templateFiles
           : templateFiles // ignore: cast_nullable_to_non_nullable
               as List<CompliledTemplateFile>,
-      modificationFiles: modificationFiles == freezed
+      modificationFiles: null == modificationFiles
           ? _value.modificationFiles
           : modificationFiles // ignore: cast_nullable_to_non_nullable
               as List<CompiledFileModification>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -305,6 +308,7 @@ abstract class _$$_CompiledStackedTemplateCopyWith<$Res>
           $Res Function(_$_CompiledStackedTemplate) then) =
       __$$_CompiledStackedTemplateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       List<CompliledTemplateFile> templateFiles,
@@ -313,32 +317,30 @@ abstract class _$$_CompiledStackedTemplateCopyWith<$Res>
 
 /// @nodoc
 class __$$_CompiledStackedTemplateCopyWithImpl<$Res>
-    extends _$CompiledStackedTemplateCopyWithImpl<$Res>
+    extends _$CompiledStackedTemplateCopyWithImpl<$Res,
+        _$_CompiledStackedTemplate>
     implements _$$_CompiledStackedTemplateCopyWith<$Res> {
   __$$_CompiledStackedTemplateCopyWithImpl(_$_CompiledStackedTemplate _value,
       $Res Function(_$_CompiledStackedTemplate) _then)
-      : super(_value, (v) => _then(v as _$_CompiledStackedTemplate));
+      : super(_value, _then);
 
-  @override
-  _$_CompiledStackedTemplate get _value =>
-      super._value as _$_CompiledStackedTemplate;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? templateFiles = freezed,
-    Object? modificationFiles = freezed,
+    Object? name = null,
+    Object? templateFiles = null,
+    Object? modificationFiles = null,
   }) {
     return _then(_$_CompiledStackedTemplate(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      templateFiles: templateFiles == freezed
+      templateFiles: null == templateFiles
           ? _value._templateFiles
           : templateFiles // ignore: cast_nullable_to_non_nullable
               as List<CompliledTemplateFile>,
-      modificationFiles: modificationFiles == freezed
+      modificationFiles: null == modificationFiles
           ? _value._modificationFiles
           : modificationFiles // ignore: cast_nullable_to_non_nullable
               as List<CompiledFileModification>,
@@ -386,7 +388,7 @@ class _$_CompiledStackedTemplate implements _CompiledStackedTemplate {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CompiledStackedTemplate &&
-            const DeepCollectionEquality().equals(other.name, name) &&
+            (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality()
                 .equals(other._templateFiles, _templateFiles) &&
             const DeepCollectionEquality()
@@ -397,12 +399,13 @@ class _$_CompiledStackedTemplate implements _CompiledStackedTemplate {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(name),
+      name,
       const DeepCollectionEquality().hash(_templateFiles),
       const DeepCollectionEquality().hash(_modificationFiles));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CompiledStackedTemplateCopyWith<_$_CompiledStackedTemplate>
       get copyWith =>
           __$$_CompiledStackedTemplateCopyWithImpl<_$_CompiledStackedTemplate>(
@@ -473,7 +476,8 @@ mixin _$CompiledFileModification {
 abstract class $CompiledFileModificationCopyWith<$Res> {
   factory $CompiledFileModificationCopyWith(CompiledFileModification value,
           $Res Function(CompiledFileModification) then) =
-      _$CompiledFileModificationCopyWithImpl<$Res>;
+      _$CompiledFileModificationCopyWithImpl<$Res, CompiledFileModification>;
+  @useResult
   $Res call(
       {String description,
       String path,
@@ -484,49 +488,52 @@ abstract class $CompiledFileModificationCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CompiledFileModificationCopyWithImpl<$Res>
+class _$CompiledFileModificationCopyWithImpl<$Res,
+        $Val extends CompiledFileModification>
     implements $CompiledFileModificationCopyWith<$Res> {
   _$CompiledFileModificationCopyWithImpl(this._value, this._then);
 
-  final CompiledFileModification _value;
   // ignore: unused_field
-  final $Res Function(CompiledFileModification) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
-    Object? path = freezed,
-    Object? identifier = freezed,
-    Object? template = freezed,
-    Object? error = freezed,
-    Object? name = freezed,
+    Object? description = null,
+    Object? path = null,
+    Object? identifier = null,
+    Object? template = null,
+    Object? error = null,
+    Object? name = null,
   }) {
     return _then(_value.copyWith(
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      path: path == freezed
+      path: null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
-      identifier: identifier == freezed
+      identifier: null == identifier
           ? _value.identifier
           : identifier // ignore: cast_nullable_to_non_nullable
               as String,
-      template: template == freezed
+      template: null == template
           ? _value.template
           : template // ignore: cast_nullable_to_non_nullable
               as String,
-      error: error == freezed
+      error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -538,6 +545,7 @@ abstract class _$$_CompiledFileModificationCopyWith<$Res>
           $Res Function(_$_CompiledFileModification) then) =
       __$$_CompiledFileModificationCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String description,
       String path,
@@ -549,47 +557,45 @@ abstract class _$$_CompiledFileModificationCopyWith<$Res>
 
 /// @nodoc
 class __$$_CompiledFileModificationCopyWithImpl<$Res>
-    extends _$CompiledFileModificationCopyWithImpl<$Res>
+    extends _$CompiledFileModificationCopyWithImpl<$Res,
+        _$_CompiledFileModification>
     implements _$$_CompiledFileModificationCopyWith<$Res> {
   __$$_CompiledFileModificationCopyWithImpl(_$_CompiledFileModification _value,
       $Res Function(_$_CompiledFileModification) _then)
-      : super(_value, (v) => _then(v as _$_CompiledFileModification));
+      : super(_value, _then);
 
-  @override
-  _$_CompiledFileModification get _value =>
-      super._value as _$_CompiledFileModification;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
-    Object? path = freezed,
-    Object? identifier = freezed,
-    Object? template = freezed,
-    Object? error = freezed,
-    Object? name = freezed,
+    Object? description = null,
+    Object? path = null,
+    Object? identifier = null,
+    Object? template = null,
+    Object? error = null,
+    Object? name = null,
   }) {
     return _then(_$_CompiledFileModification(
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      path: path == freezed
+      path: null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
-      identifier: identifier == freezed
+      identifier: null == identifier
           ? _value.identifier
           : identifier // ignore: cast_nullable_to_non_nullable
               as String,
-      template: template == freezed
+      template: null == template
           ? _value.template
           : template // ignore: cast_nullable_to_non_nullable
               as String,
-      error: error == freezed
+      error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
@@ -645,29 +651,25 @@ class _$_CompiledFileModification implements _CompiledFileModification {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CompiledFileModification &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.path, path) &&
-            const DeepCollectionEquality()
-                .equals(other.identifier, identifier) &&
-            const DeepCollectionEquality().equals(other.template, template) &&
-            const DeepCollectionEquality().equals(other.error, error) &&
-            const DeepCollectionEquality().equals(other.name, name));
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.path, path) || other.path == path) &&
+            (identical(other.identifier, identifier) ||
+                other.identifier == identifier) &&
+            (identical(other.template, template) ||
+                other.template == template) &&
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(path),
-      const DeepCollectionEquality().hash(identifier),
-      const DeepCollectionEquality().hash(template),
-      const DeepCollectionEquality().hash(error),
-      const DeepCollectionEquality().hash(name));
+      runtimeType, description, path, identifier, template, error, name);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CompiledFileModificationCopyWith<_$_CompiledFileModification>
       get copyWith => __$$_CompiledFileModificationCopyWithImpl<
           _$_CompiledFileModification>(this, _$identity);

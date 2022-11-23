@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 
-import '{{{serviceTestHelpersImportPath}}}';
+import '{{{serviceTestHelpersImportPath}}}/test_helpers.dart';
 
 void main() {
   group('{{serviceName}}ServiceTest -', () {

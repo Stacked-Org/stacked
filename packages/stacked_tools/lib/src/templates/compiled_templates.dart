@@ -154,7 +154,7 @@ const String kAppTemplateStackedConfigJsonStkContent = '''
     "views_path": "lib/ui/views",
     "services_path": "lib/services",
     "stacked_app_path": "lib/app/app.dart",
-    "test_services_path": "test/service_tests",
+    "test_services_path": "test/services",
     "test_views_path": "test/viewmodels",
     "test_helpers_path": "test/helpers"
 }
@@ -1097,7 +1097,7 @@ const String kServiceTemplateGenericServiceTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
 import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 
-import '{{{serviceTestHelpersImportPath}}}';
+import '{{{serviceTestHelpersImportPath}}}/test_helpers.dart';
 
 void main() {
   group('{{serviceName}}ServiceTest -', () {
