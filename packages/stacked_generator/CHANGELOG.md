@@ -1,3 +1,7 @@
+## 0.8.2
+
+* Removes extra space on log output
+
 ## 0.8.1
 
 * Fixes #[#773](https://github.com/FilledStacks/stacked/issues/773) by adding better `has[FormField]` checking.
