@@ -35,7 +35,7 @@ class SimpleLogPrinter extends LogPrinter {
     var methodName = _getMethodName();
 
     var methodNameSection =
-        printCallingFunctionName && methodName != null ? ' | \$methodName ' : '';
+        printCallingFunctionName && methodName != null ? ' | \$methodName' : '';
     var stackLog = event.stackTrace.toString();
     var output =
         '\$emoji \$className\$methodNameSection - \${event.message}\${printCallStack ? '\\nSTACKTRACE:\\n\$stackLog' : ''}';
@@ -213,7 +213,7 @@ class SimpleLogPrinter extends LogPrinter {
     var methodName = _getMethodName();
 
     var methodNameSection =
-        printCallingFunctionName && methodName != null ? ' | \$methodName ' : '';
+        printCallingFunctionName && methodName != null ? ' | \$methodName' : '';
     var stackLog = event.stackTrace.toString();
     var output =
         '\$emoji \$className\$methodNameSection - \${event.message}\${printCallStack ? '\\nSTACKTRACE:\\n\$stackLog' : ''}';
