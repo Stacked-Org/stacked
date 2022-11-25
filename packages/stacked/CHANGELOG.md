@@ -1,3 +1,7 @@
+## 3.0.1
+
+- Add onDispose method to ViewModelBuilderWidget
+
 ## 3.0.0+2
 
 - Fix [#767](https://github.com/FilledStacks/stacked/issues/767)
