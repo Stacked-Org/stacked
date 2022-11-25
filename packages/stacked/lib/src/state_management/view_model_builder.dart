@@ -181,4 +181,5 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
 }
 
 /// EXPERIMENTAL: Returns the ViewModel provided above this widget in the tree
-T getParentViewModel<T>(BuildContext context) => Provider.of<T>(context);
+T getParentViewModel<T>(BuildContext context, {bool listen = true}) =>
+    Provider.of<T>(context, listen: listen);
