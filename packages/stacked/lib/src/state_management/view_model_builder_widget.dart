@@ -52,6 +52,11 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
   /// This will fire multiple times when [createNewModelOnInsert] is set to true
   void onViewModelReady(T viewModel) {}
 
+  /// Fires when the ViewModel is disposed
+  ///
+  /// Useful when working with a form on the view to dispose the form.
+  void onDispose(T viewModel) {}
+
   /// A Function that builds UI for the static child that builds only once
   ///
   /// When [reactive] is set to false the builder is used as the static child
@@ -66,6 +71,7 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
         viewModelBuilder: () => viewModelBuilder(context),
         staticChild: staticChildBuilder(context),
         onModelReady: onViewModelReady,
+        onDispose: onDispose,
         disposeViewModel: disposeViewModel,
         createNewModelOnInsert: createNewModelOnInsert,
         initialiseSpecialViewModelsOnce: initialiseSpecialViewModelsOnce,
@@ -76,6 +82,7 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
         builder: builder,
         viewModelBuilder: () => viewModelBuilder(context),
         onModelReady: onViewModelReady,
+        onDispose: onDispose,
         disposeViewModel: disposeViewModel,
         createNewModelOnInsert: createNewModelOnInsert,
         initialiseSpecialViewModelsOnce: initialiseSpecialViewModelsOnce,
