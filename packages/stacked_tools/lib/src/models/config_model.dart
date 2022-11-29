@@ -46,6 +46,14 @@ class Config with _$Config {
     @JsonKey(name: 'register_mocks_function')
     @Default('registerServices')
         String registerMocksFunction,
+
+    /// Boolean value to determine view builder style
+    ///
+    /// This is used when creating a view file during `create view` command. By
+    /// default, ViewModelWidget style is used.
+    @JsonKey(name: 'use_view_model_builder_style')
+    @Default(false)
+        bool useViewModelBuilderStyle,
   }) = _Config;
 
   factory Config.fromJson(Map<String, dynamic> json) => _$ConfigFromJson(json);

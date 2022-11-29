@@ -17,6 +17,8 @@ _$_Config _$$_ConfigFromJson(Map<String, dynamic> json) => _$_Config(
       locatorName: json['locator_name'] as String? ?? 'locator',
       registerMocksFunction:
           json['register_mocks_function'] as String? ?? 'registerServices',
+      useViewModelBuilderStyle:
+          json['use_view_model_builder_style'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_ConfigToJson(_$_Config instance) => <String, dynamic>{
@@ -28,4 +30,5 @@ Map<String, dynamic> _$$_ConfigToJson(_$_Config instance) => <String, dynamic>{
       'test_views_path': instance.testViewsPath,
       'locator_name': instance.locatorName,
       'register_mocks_function': instance.registerMocksFunction,
+      'use_view_model_builder_style': instance.useViewModelBuilderStyle,
     };
