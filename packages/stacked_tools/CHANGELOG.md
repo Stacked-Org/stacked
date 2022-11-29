@@ -1,3 +1,8 @@
+## 0.2.4-beta.0
+
+- Change View template to use ViewModelWidget style as default
+- Adds config option to set view builder style
+
 ## 0.2.3-beta.0
 
 - Fixes testHelpersPath default value
