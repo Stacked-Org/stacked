@@ -112,6 +112,8 @@ class TemplateService {
     final template = kCompiledStackedTemplates[templateName] ??
         StackedTemplate(templateFiles: []);
 
+    _swapViewContent(template, templateName);
+
     await writeOutTemplateFiles(
       template: template,
       templateName: templateName,
@@ -362,5 +364,23 @@ class TemplateService {
       modificationIdentifier,
       '$renderedTemplate\n$modificationIdentifier',
     );
+  }
+
+  void _swapViewContent(StackedTemplate template, String templateName) {
+    if (templateName != 'view') return;
+
+    final index = template.templateFiles.indexWhere(
+      (tf) => tf.relativeOutputPath.contains('view_model_builder'),
+    );
+
+    if (locator<ConfigService>().useViewModelBuilderStyle) {
+      template.templateFiles[index + 1] = TemplateFile(
+        relativeOutputPath:
+            template.templateFiles[index + 1].relativeOutputPath,
+        content: template.templateFiles[index].content,
+      );
+    }
+
+    template.templateFiles.removeAt(index);
   }
 }
