@@ -4,21 +4,16 @@ import 'package:stacked/src/view_models/view_model_builder.dart';
 /// A widget that wraps the [ViewModelBuilder] class in a less boiler plate use of the widget
 ///
 /// Default [reactive] value is true. Can be overriden and set to false
-abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
-    extends StatelessWidget {
-  const ViewModelBuilderWidget({Key? key}) : super(key: key);
+abstract class StackedView<T extends ChangeNotifier> extends StatelessWidget {
+  const StackedView({Key? key}) : super(key: key);
 
   /// A function that builds the UI to be shown from the ViewModel - Required
   ///
-  /// [viewModel] is the ViewModel passed in and [child] is the [staticChildBuilder] result
-  Widget builder(
-    BuildContext context,
-    T viewModel,
-    Widget? child,
-  );
+  /// [model] is the ViewModel passed in and [child] is the [staticChildBuilder] result
+  Widget builder(BuildContext context, T model, Widget? child);
 
   /// A builder that builds the ViewModel for this UI - Required
-  T viewModelBuilder(BuildContext context);
+  T modelBuilder(BuildContext context);
 
   /// Indicates if the [builder] should be rebuilt when notifyListeners is called
   ///
@@ -37,11 +32,11 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
   /// Indicates if you want Provider to dispose the ViewModel when it's removed from the widget tree.
   ///
   /// default's to true
-  bool get disposeViewModel => true;
+  bool get disposeModel => true;
 
   /// Indicates if you want to only initialise the [FutureViewModel] or [StreamViewModel] once or
   /// every time it's inserted into the widget tree.
-  bool get initialiseSpecialViewModelsOnce => false;
+  bool get initialiseSpecialModelsOnce => false;
 
   /// Indicates if you want to fire onModelReady only once or everytime this widget is inserted into
   /// the widget tree.
@@ -50,12 +45,12 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
   /// Fires when the ViewModel is first created or re-created
   ///
   /// This will fire multiple times when [createNewModelOnInsert] is set to true
-  void onViewModelReady(T viewModel) {}
+  void onModelReady(T model) {}
 
   /// Fires when the ViewModel is disposed
   ///
   /// Useful when working with a form on the view to dispose the form.
-  void onDispose(T viewModel) {}
+  void onDispose(T model) {}
 
   /// A Function that builds UI for the static child that builds only once
   ///
@@ -68,24 +63,24 @@ abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
     if (reactive) {
       return ViewModelBuilder<T>.reactive(
         builder: builder,
-        viewModelBuilder: () => viewModelBuilder(context),
+        viewModelBuilder: () => modelBuilder(context),
         staticChild: staticChildBuilder(context),
-        onModelReady: onViewModelReady,
+        onModelReady: onModelReady,
         onDispose: onDispose,
-        disposeViewModel: disposeViewModel,
+        disposeViewModel: disposeModel,
         createNewModelOnInsert: createNewModelOnInsert,
-        initialiseSpecialViewModelsOnce: initialiseSpecialViewModelsOnce,
+        initialiseSpecialViewModelsOnce: initialiseSpecialModelsOnce,
         fireOnModelReadyOnce: fireOnModelReadyOnce,
       );
     } else {
       return ViewModelBuilder<T>.nonReactive(
         builder: builder,
-        viewModelBuilder: () => viewModelBuilder(context),
-        onModelReady: onViewModelReady,
+        viewModelBuilder: () => modelBuilder(context),
+        onModelReady: onModelReady,
         onDispose: onDispose,
-        disposeViewModel: disposeViewModel,
+        disposeViewModel: disposeModel,
         createNewModelOnInsert: createNewModelOnInsert,
-        initialiseSpecialViewModelsOnce: initialiseSpecialViewModelsOnce,
+        initialiseSpecialViewModelsOnce: initialiseSpecialModelsOnce,
         fireOnModelReadyOnce: fireOnModelReadyOnce,
       );
     }

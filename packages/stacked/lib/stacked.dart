@@ -3,7 +3,7 @@ library stacked;
 /// viewmodels
 export 'src/view_models/base_view_models.dart';
 export 'src/view_models/view_model_builder.dart';
-export 'src/view_models/view_model_builder_widget.dart';
+export 'src/view_models/stacked_view.dart';
 export 'src/view_models/data_models/single_data_models.dart';
 export 'src/view_models/data_models/multiple_data_models.dart';
 export 'src/view_models/selector_view_model_builder.dart';
