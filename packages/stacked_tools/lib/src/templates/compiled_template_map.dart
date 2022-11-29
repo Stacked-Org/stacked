@@ -110,6 +110,10 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
         content: kViewTemplateGenericViewmodelContent,
       ),
       TemplateFile(
+        relativeOutputPath: kViewTemplateGenericViewUsingViewModelBuilderPath,
+        content: kViewTemplateGenericViewUsingViewModelBuilderContent,
+      ),
+      TemplateFile(
         relativeOutputPath: kViewTemplateGenericViewPath,
         content: kViewTemplateGenericViewContent,
       ),

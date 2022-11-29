@@ -151,12 +151,15 @@ const String kAppTemplateStackedConfigJsonStkPath =
 
 const String kAppTemplateStackedConfigJsonStkContent = '''
 {
-    "views_path": "lib/ui/views",
-    "services_path": "lib/services",
     "stacked_app_path": "lib/app/app.dart",
+    "services_path": "lib/services",
+    "views_path": "lib/ui/views",
+    "test_helpers_path": "test/helpers",
     "test_services_path": "test/services",
     "test_views_path": "test/viewmodels",
-    "test_helpers_path": "test/helpers"
+    "locator_name": "locator",
+    "register_mocks_function": "registerServices",
+    "use_view_model_builder_style": false
 }
 ''';
 
@@ -1056,12 +1059,12 @@ class {{viewModelName}} extends BaseViewModel {
 // --------------------------------------------------
 
 
-// -------- GenericView Template Data ----------
+// -------- GenericViewUsingViewModelBuilder Template Data ----------
 
-const String kViewTemplateGenericViewPath =
-    'lib/ui/views/generic/generic_view.dart.stk';
+const String kViewTemplateGenericViewUsingViewModelBuilderPath =
+    'lib/ui/views/generic/generic_view_using_view_model_builder.dart.stk';
 
-const String kViewTemplateGenericViewContent = '''
+const String kViewTemplateGenericViewUsingViewModelBuilderContent = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -1081,6 +1084,40 @@ class {{viewName}} extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericView Template Data ----------
+
+const String kViewTemplateGenericViewPath =
+    'lib/ui/views/generic/generic_view.dart.stk';
+
+const String kViewTemplateGenericViewContent = '''
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+import '{{viewModelFileName}}';
+
+class {{viewName}} extends ViewModelBuilderWidget<{{viewModelName}}> {
+  const {{viewName}}({Key? key}) : super(key: key);
+
+  @override
+  Widget builder(BuildContext context, {{viewModelName}} model, Widget? child) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: Container(
+        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+      ),
+    );
+  }
+
+  @override
+  {{viewModelName}} viewModelBuilder(BuildContext context) {
+    return {{viewModelName}}();
   }
 }
 ''';
