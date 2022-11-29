@@ -1,3 +1,9 @@
+## 3.0.1-beta.0
+
+- Rename ViewModelBuilderWidget to StackedView
+- Use model on all occurrences of the ViewModel at StackedView for better readability and consistency
+- Update BuilderWidgetExampleView s
+
 ## 3.0.1
 
 - Add onDispose method to ViewModelBuilderWidget
