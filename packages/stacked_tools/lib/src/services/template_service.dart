@@ -140,6 +140,21 @@ class TemplateService {
     String? outputFolder,
   }) async {
     for (final templateFile in template.templateFiles) {
+      if (templateName == 'view') {
+        if (templateFile.relativeOutputPath.contains('view_model_builder')) {
+          if (locator<ConfigService>().useViewModelBuilderStyle) {
+            final index = template.templateFiles.indexOf(templateFile) + 1;
+            template.templateFiles[index] = TemplateFile(
+              relativeOutputPath:
+                  template.templateFiles[index].relativeOutputPath,
+              content: templateFile.content,
+            );
+          }
+
+          continue;
+        }
+      }
+
       final templateContent = renderContentForTemplate(
         content: templateFile.content,
         templateName: templateName,
