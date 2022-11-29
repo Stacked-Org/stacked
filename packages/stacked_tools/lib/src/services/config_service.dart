@@ -64,6 +64,8 @@ class ConfigService {
         _customConfig.testViewsPath,
       );
 
+  bool get useViewModelBuilderStyle => _customConfig.useViewModelBuilderStyle;
+
   /// Check if configuration file at [path] exists.
   Future<bool> isConfigFileAvailable({String path = kConfigFilePath}) async {
     return await _fileService.fileExists(filePath: path);
