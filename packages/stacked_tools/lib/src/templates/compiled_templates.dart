@@ -159,7 +159,7 @@ const String kAppTemplateStackedConfigJsonStkContent = '''
     "test_views_path": "test/viewmodels",
     "locator_name": "locator",
     "register_mocks_function": "registerServices",
-    "use_view_model_builder_style": false
+    "v1": false
 }
 ''';
 
@@ -633,75 +633,77 @@ import 'package:{{packageName}}/ui/common/ui_helpers.dart';
 
 import 'home_viewmodel.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StackedView<HomeViewModel> {
   const HomeView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<HomeViewModel>.reactive(
-      viewModelBuilder: () => HomeViewModel(),
-      builder: (context, model, child) => Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  verticalSpaceLarge,
-                  Column(
-                    children: [
-                      const Text(
-                        'Hello, STACKED!',
+  Widget builder(BuildContext context, HomeViewModel model, Widget? child) {
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                verticalSpaceLarge,
+                Column(
+                  children: [
+                    const Text(
+                      'Hello, STACKED!',
+                      style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    verticalSpaceMedium,
+                    MaterialButton(
+                      color: Colors.black,
+                      onPressed: model.incrementCounter,
+                      child: Text(
+                        model.counterLabel,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MaterialButton(
+                      color: kcDarkGreyColor,
+                      child: const Text(
+                        'Show Dialog',
                         style: TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.w900,
+                          color: Colors.white,
                         ),
                       ),
-                      verticalSpaceMedium,
-                      MaterialButton(
-                        color: Colors.black,
-                        onPressed: model.incrementCounter,
-                        child: Text(
-                          model.counterLabel,
-                          style: const TextStyle(color: Colors.white),
+                      onPressed: model.showDialog,
+                    ),
+                    MaterialButton(
+                      color: kcDarkGreyColor,
+                      child: const Text(
+                        'Show Bottom Sheet',
+                        style: TextStyle(
+                          color: Colors.white,
                         ),
                       ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      MaterialButton(
-                        color: kcDarkGreyColor,
-                        child: const Text(
-                          'Show Dialog',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        onPressed: model.showDialog,
-                      ),
-                      MaterialButton(
-                        color: kcDarkGreyColor,
-                        child: const Text(
-                          'Show Bottom Sheet',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        onPressed: model.showBottomSheet,
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                      onPressed: model.showBottomSheet,
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  @override
+  HomeViewModel modelBuilder(BuildContext context) {
+    return HomeViewModel();
   }
 }
 
@@ -800,53 +802,57 @@ import 'package:{{packageName}}/ui/common/ui_helpers.dart';
 
 import 'startup_viewmodel.dart';
 
-class StartupView extends StatelessWidget {
+class StartupView extends StackedView<StartupViewModel> {
   const StartupView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<StartupViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'STACKED',
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.w900,
-                ),
+  Widget builder(BuildContext context, StartupViewModel model, Widget? child) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'STACKED',
+              style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.w900,
               ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Text(
-                    'Loading ...',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Text(
+                  'Loading ...',
+                  style: TextStyle(
+                    fontSize: 16,
                   ),
-                  horizontalSpaceSmall,
-                  SizedBox(
-                    width: 16,
-                    height: 16,
-                    child: CircularProgressIndicator(
-                      color: Colors.black,
-                      strokeWidth: 6,
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
+                ),
+                horizontalSpaceSmall,
+                SizedBox(
+                  width: 16,
+                  height: 16,
+                  child: CircularProgressIndicator(
+                    color: Colors.black,
+                    strokeWidth: 6,
+                  ),
+                )
+              ],
+            ),
+          ],
         ),
       ),
-      onModelReady: (model) => SchedulerBinding.instance
-          .addPostFrameCallback((timeStamp) => model.runStartupLogic()),
-      viewModelBuilder: () => StartupViewModel(),
     );
   }
+
+  @override
+  StartupViewModel modelBuilder(BuildContext context) {
+    return StartupViewModel();
+  }
+
+  @override
+  void onModelReady(StartupViewModel model) => SchedulerBinding.instance
+      .addPostFrameCallback((timeStamp) => model.runStartupLogic());
 }
 
 ''';
