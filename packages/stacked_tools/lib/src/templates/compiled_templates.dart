@@ -1059,12 +1059,46 @@ class {{viewModelName}} extends BaseViewModel {
 // --------------------------------------------------
 
 
-// -------- GenericViewUsingViewModelBuilder Template Data ----------
+// -------- GenericView Template Data ----------
 
-const String kViewTemplateGenericViewUsingViewModelBuilderPath =
-    'lib/ui/views/generic/generic_view_using_view_model_builder.dart.stk';
+const String kViewTemplateGenericViewPath =
+    'lib/ui/views/generic/generic_view.dart.stk';
 
-const String kViewTemplateGenericViewUsingViewModelBuilderContent = '''
+const String kViewTemplateGenericViewContent = '''
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+import '{{viewModelFileName}}';
+
+class {{viewName}} extends StackedView<{{viewModelName}}> {
+  const {{viewName}}({Key? key}) : super(key: key);
+
+  @override
+  Widget builder(BuildContext context, {{viewModelName}} model, Widget? child) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: Container(
+        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+      ),
+    );
+  }
+
+  @override
+  {{viewModelName}} modelBuilder(BuildContext context) {
+    return {{viewModelName}}();
+  }
+}
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericViewV1 Template Data ----------
+
+const String kViewTemplateGenericViewV1Path =
+    'lib/ui/views/generic/generic_view_v1.dart.stk';
+
+const String kViewTemplateGenericViewV1Content = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -1084,40 +1118,6 @@ class {{viewName}} extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-''';
-
-// --------------------------------------------------
-
-
-// -------- GenericView Template Data ----------
-
-const String kViewTemplateGenericViewPath =
-    'lib/ui/views/generic/generic_view.dart.stk';
-
-const String kViewTemplateGenericViewContent = '''
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-
-import '{{viewModelFileName}}';
-
-class {{viewName}} extends ViewModelBuilderWidget<{{viewModelName}}> {
-  const {{viewName}}({Key? key}) : super(key: key);
-
-  @override
-  Widget builder(BuildContext context, {{viewModelName}} model, Widget? child) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-      ),
-    );
-  }
-
-  @override
-  {{viewModelName}} viewModelBuilder(BuildContext context) {
-    return {{viewModelName}}();
   }
 }
 ''';
