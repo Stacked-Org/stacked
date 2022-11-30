@@ -1,0 +1,11 @@
+{
+    "stacked_app_path": "lib/app/app.dart",
+    "services_path": "lib/services",
+    "views_path": "lib/ui/views",
+    "test_helpers_path": "test/helpers",
+    "test_services_path": "test/services",
+    "test_views_path": "test/viewmodels",
+    "locator_name": "locator",
+    "register_mocks_function": "registerServices",
+    "v1": false
+}
