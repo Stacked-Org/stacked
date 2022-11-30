@@ -50,10 +50,8 @@ class Config with _$Config {
     /// Boolean value to determine view builder style
     ///
     /// This is used when creating a view file during `create view` command. By
-    /// default, ViewModelWidget style is used.
-    @JsonKey(name: 'use_view_model_builder_style')
-    @Default(false)
-        bool useViewModelBuilderStyle,
+    /// default, StackedView is used.
+    @JsonKey(name: 'v1') @Default(false) bool v1,
   }) = _Config;
 
   factory Config.fromJson(Map<String, dynamic> json) => _$ConfigFromJson(json);

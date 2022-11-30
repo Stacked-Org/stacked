@@ -66,9 +66,9 @@ class ConfigService {
 
   /// Returns boolean value to determine view builder style.
   ///
-  /// False: ViewModelWidget
+  /// False: StackedView
   /// True: ViewModelBuilder
-  bool get useViewModelBuilderStyle => _customConfig.useViewModelBuilderStyle;
+  bool get v1 => _customConfig.v1;
 
   /// Check if configuration file at [path] exists.
   Future<bool> isConfigFileAvailable({String path = kConfigFilePath}) async {

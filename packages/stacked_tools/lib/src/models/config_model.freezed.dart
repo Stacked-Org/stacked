@@ -58,9 +58,9 @@ mixin _$Config {
   /// Boolean value to determine view builder style
   ///
   /// This is used when creating a view file during `create view` command. By
-  /// default, ViewModelWidget style is used.
-  @JsonKey(name: 'use_view_model_builder_style')
-  bool get useViewModelBuilderStyle => throw _privateConstructorUsedError;
+  /// default, StackedView is used.
+  @JsonKey(name: 'v1')
+  bool get v1 => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -73,24 +73,15 @@ abstract class $ConfigCopyWith<$Res> {
       _$ConfigCopyWithImpl<$Res, Config>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'views_path')
-          String viewsPath,
-      @JsonKey(name: 'services_path')
-          String servicesPath,
-      @JsonKey(name: 'stacked_app_path')
-          String stackedAppPath,
-      @JsonKey(name: 'test_helpers_path')
-          String testHelpersPath,
-      @JsonKey(name: 'test_services_path')
-          String testServicesPath,
-      @JsonKey(name: 'test_views_path')
-          String testViewsPath,
-      @JsonKey(name: 'locator_name')
-          String locatorName,
-      @JsonKey(name: 'register_mocks_function')
-          String registerMocksFunction,
-      @JsonKey(name: 'use_view_model_builder_style')
-          bool useViewModelBuilderStyle});
+      {@JsonKey(name: 'views_path') String viewsPath,
+      @JsonKey(name: 'services_path') String servicesPath,
+      @JsonKey(name: 'stacked_app_path') String stackedAppPath,
+      @JsonKey(name: 'test_helpers_path') String testHelpersPath,
+      @JsonKey(name: 'test_services_path') String testServicesPath,
+      @JsonKey(name: 'test_views_path') String testViewsPath,
+      @JsonKey(name: 'locator_name') String locatorName,
+      @JsonKey(name: 'register_mocks_function') String registerMocksFunction,
+      @JsonKey(name: 'v1') bool v1});
 }
 
 /// @nodoc
@@ -114,7 +105,7 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
     Object? testViewsPath = null,
     Object? locatorName = null,
     Object? registerMocksFunction = null,
-    Object? useViewModelBuilderStyle = null,
+    Object? v1 = null,
   }) {
     return _then(_value.copyWith(
       viewsPath: null == viewsPath
@@ -149,9 +140,9 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
           ? _value.registerMocksFunction
           : registerMocksFunction // ignore: cast_nullable_to_non_nullable
               as String,
-      useViewModelBuilderStyle: null == useViewModelBuilderStyle
-          ? _value.useViewModelBuilderStyle
-          : useViewModelBuilderStyle // ignore: cast_nullable_to_non_nullable
+      v1: null == v1
+          ? _value.v1
+          : v1 // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -164,24 +155,15 @@ abstract class _$$_ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'views_path')
-          String viewsPath,
-      @JsonKey(name: 'services_path')
-          String servicesPath,
-      @JsonKey(name: 'stacked_app_path')
-          String stackedAppPath,
-      @JsonKey(name: 'test_helpers_path')
-          String testHelpersPath,
-      @JsonKey(name: 'test_services_path')
-          String testServicesPath,
-      @JsonKey(name: 'test_views_path')
-          String testViewsPath,
-      @JsonKey(name: 'locator_name')
-          String locatorName,
-      @JsonKey(name: 'register_mocks_function')
-          String registerMocksFunction,
-      @JsonKey(name: 'use_view_model_builder_style')
-          bool useViewModelBuilderStyle});
+      {@JsonKey(name: 'views_path') String viewsPath,
+      @JsonKey(name: 'services_path') String servicesPath,
+      @JsonKey(name: 'stacked_app_path') String stackedAppPath,
+      @JsonKey(name: 'test_helpers_path') String testHelpersPath,
+      @JsonKey(name: 'test_services_path') String testServicesPath,
+      @JsonKey(name: 'test_views_path') String testViewsPath,
+      @JsonKey(name: 'locator_name') String locatorName,
+      @JsonKey(name: 'register_mocks_function') String registerMocksFunction,
+      @JsonKey(name: 'v1') bool v1});
 }
 
 /// @nodoc
@@ -202,7 +184,7 @@ class __$$_ConfigCopyWithImpl<$Res>
     Object? testViewsPath = null,
     Object? locatorName = null,
     Object? registerMocksFunction = null,
-    Object? useViewModelBuilderStyle = null,
+    Object? v1 = null,
   }) {
     return _then(_$_Config(
       viewsPath: null == viewsPath
@@ -237,9 +219,9 @@ class __$$_ConfigCopyWithImpl<$Res>
           ? _value.registerMocksFunction
           : registerMocksFunction // ignore: cast_nullable_to_non_nullable
               as String,
-      useViewModelBuilderStyle: null == useViewModelBuilderStyle
-          ? _value.useViewModelBuilderStyle
-          : useViewModelBuilderStyle // ignore: cast_nullable_to_non_nullable
+      v1: null == v1
+          ? _value.v1
+          : v1 // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -265,8 +247,8 @@ class _$_Config implements _Config {
           this.locatorName = 'locator',
       @JsonKey(name: 'register_mocks_function')
           this.registerMocksFunction = 'registerServices',
-      @JsonKey(name: 'use_view_model_builder_style')
-          this.useViewModelBuilderStyle = false});
+      @JsonKey(name: 'v1')
+          this.v1 = false});
 
   factory _$_Config.fromJson(Map<String, dynamic> json) =>
       _$$_ConfigFromJson(json);
@@ -317,14 +299,14 @@ class _$_Config implements _Config {
   /// Boolean value to determine view builder style
   ///
   /// This is used when creating a view file during `create view` command. By
-  /// default, ViewModelWidget style is used.
+  /// default, StackedView is used.
   @override
-  @JsonKey(name: 'use_view_model_builder_style')
-  final bool useViewModelBuilderStyle;
+  @JsonKey(name: 'v1')
+  final bool v1;
 
   @override
   String toString() {
-    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, stackedAppPath: $stackedAppPath, testHelpersPath: $testHelpersPath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, locatorName: $locatorName, registerMocksFunction: $registerMocksFunction, useViewModelBuilderStyle: $useViewModelBuilderStyle)';
+    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, stackedAppPath: $stackedAppPath, testHelpersPath: $testHelpersPath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, locatorName: $locatorName, registerMocksFunction: $registerMocksFunction, v1: $v1)';
   }
 
   @override
@@ -348,9 +330,7 @@ class _$_Config implements _Config {
                 other.locatorName == locatorName) &&
             (identical(other.registerMocksFunction, registerMocksFunction) ||
                 other.registerMocksFunction == registerMocksFunction) &&
-            (identical(
-                    other.useViewModelBuilderStyle, useViewModelBuilderStyle) ||
-                other.useViewModelBuilderStyle == useViewModelBuilderStyle));
+            (identical(other.v1, v1) || other.v1 == v1));
   }
 
   @JsonKey(ignore: true)
@@ -365,7 +345,7 @@ class _$_Config implements _Config {
       testViewsPath,
       locatorName,
       registerMocksFunction,
-      useViewModelBuilderStyle);
+      v1);
 
   @JsonKey(ignore: true)
   @override
@@ -399,8 +379,8 @@ abstract class _Config implements Config {
           final String locatorName,
       @JsonKey(name: 'register_mocks_function')
           final String registerMocksFunction,
-      @JsonKey(name: 'use_view_model_builder_style')
-          final bool useViewModelBuilderStyle}) = _$_Config;
+      @JsonKey(name: 'v1')
+          final bool v1}) = _$_Config;
 
   factory _Config.fromJson(Map<String, dynamic> json) = _$_Config.fromJson;
 
@@ -452,9 +432,9 @@ abstract class _Config implements Config {
   /// Boolean value to determine view builder style
   ///
   /// This is used when creating a view file during `create view` command. By
-  /// default, ViewModelWidget style is used.
-  @JsonKey(name: 'use_view_model_builder_style')
-  bool get useViewModelBuilderStyle;
+  /// default, StackedView is used.
+  @JsonKey(name: 'v1')
+  bool get v1;
   @override
   @JsonKey(ignore: true)
   _$$_ConfigCopyWith<_$_Config> get copyWith =>
