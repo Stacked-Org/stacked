@@ -272,6 +272,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
     required String? name,
     bool? verbose = false,
     bool? excludeRoute = false,
+    bool? useBuilder,
     String? outputPath,
   }) =>
       (super.noSuchMethod(
@@ -283,6 +284,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
             #name: name,
             #verbose: verbose,
             #excludeRoute: excludeRoute,
+            #useBuilder: useBuilder,
             #outputPath: outputPath,
           },
         ),
@@ -806,6 +808,12 @@ class MockConfigService extends _i1.Mock implements _i14.ConfigService {
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
+  @override
+  bool get v1 => (super.noSuchMethod(
+        Invocation.getter(#v1),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
   @override
   _i5.Future<bool> isConfigFileAvailable(
           {String? path = r'stacked.config.json'}) =>

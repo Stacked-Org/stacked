@@ -101,6 +101,10 @@ class TemplateService {
     /// When set to true the newly generated view will not be added to the app.dart file
     bool excludeRoute = false,
 
+    /// When value is set, will override stacked config value. Otherwise, stacked config
+    /// value is going to be used or default value.
+    bool? useBuilder,
+
     /// When supplied the templates will be created using the folder supplied here as the
     /// output location.
     ///
@@ -112,7 +116,11 @@ class TemplateService {
     final template = kCompiledStackedTemplates[templateName] ??
         StackedTemplate(templateFiles: []);
 
-    _swapViewContent(template, templateName);
+    _swapViewContent(
+      template: template,
+      templateName: templateName,
+      useBuilder: useBuilder,
+    );
 
     await writeOutTemplateFiles(
       template: template,
@@ -366,21 +374,31 @@ class TemplateService {
     );
   }
 
-  void _swapViewContent(StackedTemplate template, String templateName) {
+  /// Swap template content to use v1 style if required, otherwise StackedView
+  /// will be used. Cli has higher priority over stacked config so it will
+  /// override stacked config value if flag is provided.
+  void _swapViewContent({
+    required StackedTemplate template,
+    required String templateName,
+    bool? useBuilder,
+  }) {
     if (templateName != 'view') return;
 
-    final index = template.templateFiles.indexWhere(
-      (tf) => tf.relativeOutputPath.contains('view_model_builder'),
+    final v1Index = template.templateFiles.indexWhere(
+      (tf) => tf.relativeOutputPath.contains('generic_view_v1.dart.stk'),
     );
 
-    if (locator<ConfigService>().useViewModelBuilderStyle) {
-      template.templateFiles[index + 1] = TemplateFile(
+    if (useBuilder ?? _configService.v1) {
+      final stackedIndex = template.templateFiles.indexWhere(
+        (tf) => tf.relativeOutputPath.contains('generic_view.dart.stk'),
+      );
+      template.templateFiles[stackedIndex] = TemplateFile(
         relativeOutputPath:
-            template.templateFiles[index + 1].relativeOutputPath,
-        content: template.templateFiles[index].content,
+            template.templateFiles[stackedIndex].relativeOutputPath,
+        content: template.templateFiles[v1Index].content,
       );
     }
 
-    template.templateFiles.removeAt(index);
+    template.templateFiles.removeAt(v1Index);
   }
 }
