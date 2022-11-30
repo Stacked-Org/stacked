@@ -27,10 +27,16 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       defaultsTo: false,
       help: kCommandHelpExcludeRoute,
     );
+    argParser.addFlag(
+      ksV1,
+      aliases: [ksUseBuilder],
+      defaultsTo: null,
+      help: kCommandHelpV1,
+    );
     argParser.addOption(
       ksLineLength,
       abbr: 'l',
-      help: 'The length of the line that is used for formatting',
+      help: kCommandHelpLineLength,
       valueHelp: '80',
     );
   }
@@ -50,6 +56,7 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       outputPath: outputPath,
       verbose: true,
       excludeRoute: argResults![ksExcludeRoute],
+      useBuilder: argResults![ksV1],
     );
     await _processService.runBuildRunner(appName: outputPath);
   }

@@ -26,6 +26,9 @@ for the stacked-cli roadmap.
 const String kCommandHelpExcludeRoute =
     'When a route is excluded it will not be added to your app.dart routes collection.';
 
+const String kCommandHelpV1 =
+    'When v1 or use-builder is provided, ViewModelBuilder will be used instead of StackedView.';
+
 const String kCommandHelpLineLength =
     'When a number is provided, it will be used as the line length for formatting code.';
 
