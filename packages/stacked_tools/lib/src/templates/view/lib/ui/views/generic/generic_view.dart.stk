@@ -3,7 +3,7 @@ import 'package:stacked/stacked.dart';
 
 import '{{viewModelFileName}}';
 
-class {{viewName}} extends ViewModelBuilderWidget<{{viewModelName}}> {
+class {{viewName}} extends StackedView<{{viewModelName}}> {
   const {{viewName}}({Key? key}) : super(key: key);
 
   @override
@@ -17,7 +17,7 @@ class {{viewName}} extends ViewModelBuilderWidget<{{viewModelName}}> {
   }
 
   @override
-  {{viewModelName}} viewModelBuilder(BuildContext context) {
+  {{viewModelName}} modelBuilder(BuildContext context) {
     return {{viewModelName}}();
   }
 }
