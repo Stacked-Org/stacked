@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
-
-import '../../stacked.dart';
+import 'package:stacked/stacked.dart';
 
 /// Adds functionality to easily listen to all reactive values in a service
+@Deprecated("use ListenableServiceMixin instead")
 mixin ReactiveServiceMixin {
   List<Function> _listeners = List<Function>.empty(growable: true);
 

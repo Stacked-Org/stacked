@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:stacked/src/state_management/base_view_models.dart';
-import 'package:stacked/src/state_management/reactive_service_mixin.dart';
-import 'package:stacked/src/state_management/single_data_models.dart';
+import 'package:stacked/src/mixins/listenable_service_mixin.dart';
+import 'package:stacked/src/view_models/base_view_models.dart';
+import 'package:stacked/src/view_models/data_models/single_data_models.dart';
 
-class TestReactiveService with ReactiveServiceMixin {
+class TestReactiveService with ListenableServiceMixin {
   int _counter = 0;
   int get counter => _counter;
 
@@ -16,7 +16,7 @@ class TestReactiveService with ReactiveServiceMixin {
 class TestReactiveViewModel extends ReactiveViewModel {
   final _testService = TestReactiveService();
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_testService];
+  List<ListenableServiceMixin> get listenableServices => [_testService];
 
   void updateCounter() {
     _testService.updateCounter();
@@ -26,7 +26,7 @@ class TestReactiveViewModel extends ReactiveViewModel {
 class TestFutureReactiveViewModel extends FutureViewModel<int> {
   final _testService = TestReactiveService();
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_testService];
+  List<ListenableServiceMixin> get listenableServices => [_testService];
 
   @override
   Future<int> futureToRun() async {

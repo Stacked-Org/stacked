@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:stacked/src/state_management/helpers/data_state_helper.dart';
-import 'package:stacked/src/state_management/reactive_service_mixin.dart';
+import 'package:stacked/src/mixins/listenable_service_mixin.dart';
+import 'package:stacked/src/view_models/helpers/data_state_helper.dart';
 
 import 'helpers/builders_helpers.dart';
 import 'helpers/busy_error_state_helper.dart';
@@ -27,25 +27,25 @@ class BaseViewModel extends ChangeNotifier
 
 /// A [BaseViewModel] that provides functionality to subscribe to a reactive service.
 abstract class ReactiveViewModel extends BaseViewModel {
-  late List<ReactiveServiceMixin> _reactiveServices;
+  late List<ListenableServiceMixin> _listenableServices;
 
-  List<ReactiveServiceMixin> get reactiveServices;
+  List<ListenableServiceMixin> get listenableServices;
 
   ReactiveViewModel() {
-    _reactToServices(reactiveServices);
+    _reactToServices(listenableServices);
   }
 
-  void _reactToServices(List<ReactiveServiceMixin> reactiveServices) {
-    _reactiveServices = reactiveServices;
-    for (var reactiveService in _reactiveServices) {
-      reactiveService.addListener(_indicateChange);
+  void _reactToServices(List<ListenableServiceMixin> listenableServices) {
+    _listenableServices = listenableServices;
+    for (var listenableService in _listenableServices) {
+      listenableService.addListener(_indicateChange);
     }
   }
 
   @override
   void dispose() {
-    for (var reactiveService in _reactiveServices) {
-      reactiveService.removeListener(_indicateChange);
+    for (var listenableService in _listenableServices) {
+      listenableService.removeListener(_indicateChange);
     }
     super.dispose();
   }
@@ -63,7 +63,7 @@ class DynamicSourceViewModel<T> extends ReactiveViewModel {
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [];
+  List<ListenableServiceMixin> get listenableServices => [];
 }
 
 /// Interface: Additional actions that should be implemented by spcialised ViewModels

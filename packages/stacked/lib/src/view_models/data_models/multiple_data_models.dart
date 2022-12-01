@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
-import 'base_view_models.dart';
+import '../base_view_models.dart';
 
 class _MultiDataSourceViewModel<K extends Object>
     extends DynamicSourceViewModel {

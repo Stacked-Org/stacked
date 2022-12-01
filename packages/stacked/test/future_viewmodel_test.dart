@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:stacked/src/state_management/multiple_data_models.dart';
-import 'package:stacked/src/state_management/single_data_models.dart';
+import 'package:stacked/src/view_models/data_models/multiple_data_models.dart';
+import 'package:stacked/src/view_models/data_models/single_data_models.dart';
 
 const _SingleFutureExceptionFailMessage = 'Future to Run failed';
 
