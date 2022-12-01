@@ -1,16 +1,19 @@
-## 3.0.1-beta.0
+## 3.0.2-beta.0 [BREAKING CHANGES]
 
 - Rename ViewModelBuilderWidget to StackedView
 - Use model on all occurrences of the ViewModel at StackedView for better readability and consistency
 - Update BuilderWidgetExampleView
 
-- Breaking changes
-  - `ViewModelBuilderWidget` → `StackedView`
-  - `viewModel` → `model`
-  - `viewModelBuilder` → `modelBuilder`
-  - `disposeViewModel` → `disposeModel`
-  - `initialiseSpecialViewModelsOnce` → `initialiseSpecialModelsOnce`
-  - `onViewModelReady` → `onModelReady`
+### Migrate from 3.0.1 -> 3.0.2-beta.0
+
+As part of the decision of use StackedView, aka ViewModelBuilderWidget, as the default view builderAs part of the decision to use StackedView, also known as ViewModelBuilderWidget, by default view builder we have also changed some names for better readability and maintain view consistency.
+
+- `ViewModelBuilderWidget` → `StackedView`
+- `viewModel` → `model`
+- `viewModelBuilder` → `modelBuilder`
+- `disposeViewModel` → `disposeModel`
+- `initialiseSpecialViewModelsOnce` → `initialiseSpecialModelsOnce`
+- `onViewModelReady` → `onModelReady`
 
 ## 3.0.1
 
@@ -25,6 +28,7 @@
 - Replace the old `ReactiveValues` approach with `notifyListeners()` when using the `ReactiveServiceMixin` in readme
 
 ## 3.0.0
+
 - Passes generic argument to `DataStateHelper`
 - Uses `FormStateHelper` for the `FormViewModel`
 - Adds `BusyAndErrorStateHelper` to the `BaseViewModel`
