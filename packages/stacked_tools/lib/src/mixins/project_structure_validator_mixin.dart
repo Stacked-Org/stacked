@@ -23,7 +23,7 @@ mixin ProjectStructureValidator {
   /// to allow for scaffolding to work properly
   Future<bool> _isStackedApplication({String? outputPath}) {
     final hasOutputPath = outputPath != null;
-    final appPath = _configService.stackedAppPath;
+    final appPath = _configService.stackedAppFilePath;
 
     return File(hasOutputPath ? path.join(outputPath, appPath) : appPath)
         .exists();

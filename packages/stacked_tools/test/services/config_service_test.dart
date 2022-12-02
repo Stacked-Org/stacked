@@ -14,17 +14,17 @@ void main() {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
 
-    const testHelpersFilePath = 'lib/src/test/helpers/core_test.helpers.dart';
     const stackedAppFilePath = 'src/lib/app/core.dart';
+    const testHelpersFilePath = 'lib/src/test/helpers/core_test.helpers.dart';
 
     const String customConfig = '''
       {
-        "stacked_app_path": "$stackedAppFilePath",
+        "stacked_app_file_path": "$stackedAppFilePath",
         "views_path": "lib/my/personal/path/to/views",
         "services_path": "lib/my/personal/path/to/services",
         "test_services_path": "test/my/personal/path/to/tests/service",
         "test_views_path": "test/my/personal/path/to/tests/viewmodel",
-        "test_helpers_path": "$testHelpersFilePath"
+        "test_helpers_file_path": "$testHelpersFilePath"
       }
     ''';
 
@@ -128,10 +128,7 @@ void main() {
         await service.loadConfig();
         final customPath = service.replaceCustomPaths(path);
         expect(customPath, isNot(path));
-        expect(
-          customPath,
-          stackedAppFilePath,
-        );
+        expect(customPath, stackedAppFilePath);
       });
 
       test(
@@ -143,10 +140,7 @@ void main() {
         await service.loadConfig();
         final customPath = service.replaceCustomPaths(path);
         expect(customPath, isNot(path));
-        expect(
-          customPath,
-          testHelpersFilePath,
-        );
+        expect(customPath, testHelpersFilePath);
       });
     });
 

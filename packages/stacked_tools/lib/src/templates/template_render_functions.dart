@@ -34,8 +34,8 @@ Map<String, RenderFunction> renderFunctions = {
 };
 
 @visibleForTesting
-String getRelativeLocatorPath({required String stackedAppPath}) {
-  final pathWithoutLib = stackedAppPath.replaceFirst('lib/', '');
+String getRelativeLocatorPath({required String stackedAppFilePath}) {
+  final pathWithoutLib = stackedAppFilePath.replaceFirst('lib/', '');
   final pathWithLocator = pathWithoutLib.split('.')..insert(1, 'locator');
 
   return pathWithLocator.join('.');

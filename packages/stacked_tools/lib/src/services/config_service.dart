@@ -40,12 +40,12 @@ class ConfigService {
         _customConfig.testServicesPath,
       );
 
-  /// Relative path of the file where StackedApp is setup.
-  String get stackedAppPath => _customConfig.stackedAppPath;
+  /// File path where StackedApp is setup.
+  String get stackedAppFilePath => _customConfig.stackedAppFilePath;
 
-  /// Relative path for test helper file that contains the register functions
-  /// for unit test setup.
-  String get testHelpersPath => _customConfig.testHelpersPath;
+  /// File path where register functions for unit test setup and mock
+  /// declarations are located.
+  String get testHelpersFilePath => _customConfig.testHelpersFilePath;
 
   /// Relative path where services unit tests will be genereated.
   String get testServicesPath => _customConfig.testServicesPath;

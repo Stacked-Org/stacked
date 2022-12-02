@@ -16,22 +16,19 @@ void main() {
   group('getRelativeLocatorPath -', () {
     test('When given path lib/app/app.dart should return app/app.locator.dart',
         () {
-      final path = getRelativeLocatorPath(stackedAppPath: 'lib/app/app.dart');
-      expect(
-        path,
-        'app/app.locator.dart',
+      final path = getRelativeLocatorPath(
+        stackedAppFilePath: 'lib/app/app.dart',
       );
+      expect(path, 'app/app.locator.dart');
     });
 
     test(
         'When given path lib/src/app/core_app.dart should return src/app/core_app.locator.dart',
         () {
-      final path =
-          getRelativeLocatorPath(stackedAppPath: 'lib/src/app/core_app.dart');
-      expect(
-        path,
-        'src/app/core_app.locator.dart',
+      final path = getRelativeLocatorPath(
+        stackedAppFilePath: 'lib/src/app/core_app.dart',
       );
+      expect(path, 'src/app/core_app.locator.dart');
     });
   });
 
