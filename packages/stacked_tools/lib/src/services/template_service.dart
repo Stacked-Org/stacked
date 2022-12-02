@@ -255,11 +255,11 @@ class TemplateService {
       kTemplatePropertyPackageName:
           packageName ?? _pubspecService.getPackageName,
       kTemplatePropertyServiceImportPath: _configService.serviceImportPath,
-      kTemplatePropertyServiceTestHelpersImportPath:
-          _configService.serviceTestHelpersImportPath,
+      kTemplatePropertyServiceTestHelpersImport:
+          _configService.serviceTestHelpersImport,
       kTemplatePropertyViewImportPath: _configService.viewImportPath,
-      kTemplatePropertyViewTestHelpersImportPath:
-          _configService.viewTestHelpersImportPath,
+      kTemplatePropertyViewTestHelpersImport:
+          _configService.viewTestHelpersImport,
     };
   }
 

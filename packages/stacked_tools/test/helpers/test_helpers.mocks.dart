@@ -803,8 +803,8 @@ class MockConfigService extends _i1.Mock implements _i14.ConfigService {
         returnValueForMissingStub: '',
       ) as String);
   @override
-  String get viewTestHelpersImportPath => (super.noSuchMethod(
-        Invocation.getter(#viewTestHelpersImportPath),
+  String get viewTestHelpersImport => (super.noSuchMethod(
+        Invocation.getter(#viewTestHelpersImport),
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
@@ -856,12 +856,10 @@ class MockConfigService extends _i1.Mock implements _i14.ConfigService {
         returnValueForMissingStub: '',
       ) as String);
   @override
-  String getRelativePathToHelpersAndMocks(
-          String? relativeFolderOfCurrentFile) =>
-      (super.noSuchMethod(
+  String getFilePathToHelpersAndMocks(String? path) => (super.noSuchMethod(
         Invocation.method(
-          #getRelativePathToHelpersAndMocks,
-          [relativeFolderOfCurrentFile],
+          #getFilePathToHelpersAndMocks,
+          [path],
         ),
         returnValue: '',
         returnValueForMissingStub: '',

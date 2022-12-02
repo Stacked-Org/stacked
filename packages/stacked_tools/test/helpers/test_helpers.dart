@@ -108,19 +108,19 @@ MockColorizedLogService getAndRegisterColorizedLogService() {
 MockConfigService getAndRegisterConfigService({
   String? customPath,
   String serviceImportPath = 'lib/services',
-  String serviceTestHelpersImportPath = '../helpers/test_helpers.dart',
+  String serviceTestHelpersImport = '../helpers/test_helpers.dart',
   String viewImportPath = 'lib/viewmodels',
-  String viewTestHelpersImportPath = '../helpers/test_helpers.dart',
+  String viewTestHelpersImport = '../helpers/test_helpers.dart',
 }) {
   _removeRegistrationIfExists<ConfigService>();
   final service = MockConfigService();
 
   when(service.serviceImportPath).thenReturn(serviceImportPath);
-  when(service.serviceTestHelpersImportPath).thenReturn(
-    serviceTestHelpersImportPath,
+  when(service.serviceTestHelpersImport).thenReturn(
+    serviceTestHelpersImport,
   );
   when(service.viewImportPath).thenReturn(viewImportPath);
-  when(service.viewTestHelpersImportPath).thenReturn(viewTestHelpersImportPath);
+  when(service.viewTestHelpersImport).thenReturn(viewTestHelpersImport);
 
   when(service.replaceCustomPaths(any)).thenAnswer(
     (invocation) => customPath ?? invocation.positionalArguments[0],

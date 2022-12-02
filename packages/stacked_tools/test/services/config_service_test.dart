@@ -175,21 +175,21 @@ void main() {
 
     group('getRelativePathToHelpersAndMocks -', () {
       test(
-          'when called with path equals "test/service_tests" should return "../../test/helpers/test_helpers.dart"',
+          'when called with path equals "test/service_tests" should return "../helpers/test_helpers.dart"',
           () async {
         final path = 'test/service_tests';
         final service = _getService();
-        final importPath = service.getRelativePathToHelpersAndMocks(path);
-        expect(importPath, '../../test/helpers/test_helpers.dart');
+        final importPath = service.getFilePathToHelpersAndMocks(path);
+        expect(importPath, '../helpers/test_helpers.dart');
       });
 
       test(
-          'when called with path equals "test/service_test" should return "../../test/helpers/test_helpers.dart"',
+          'when called with path equals "test/service_test" should return "../helpers/test_helpers.dart"',
           () async {
         final path = 'test/service_test';
         final service = _getService();
-        final importPath = service.getRelativePathToHelpersAndMocks(path);
-        expect(importPath, '../../test/helpers/test_helpers.dart');
+        final importPath = service.getFilePathToHelpersAndMocks(path);
+        expect(importPath, '../helpers/test_helpers.dart');
       });
     });
   });

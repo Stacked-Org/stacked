@@ -53,13 +53,12 @@ const String kTemplatePropertyRegisterMocksFunction = 'registerMocksFunction';
 
 const String kTemplatePropertyServiceImportPath = 'serviceImportPath';
 
-const String kTemplatePropertyServiceTestHelpersImportPath =
-    'serviceTestHelpersImportPath';
+const String kTemplatePropertyServiceTestHelpersImport =
+    'serviceTestHelpersImport';
 
 const String kTemplatePropertyViewImportPath = 'viewImportPath';
 
-const String kTemplatePropertyViewTestHelpersImportPath =
-    'viewTestHelpersImportPath';
+const String kTemplatePropertyViewTestHelpersImport = 'viewTestHelpersImport';
 
 // -------- Compiled Template Structure ---------
 

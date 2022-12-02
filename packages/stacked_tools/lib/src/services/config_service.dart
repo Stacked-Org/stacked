@@ -30,13 +30,13 @@ class ConfigService {
   /// Relative path where services will be genereated.
   String get servicePath => _customConfig.servicesPath;
 
-  /// Returns the name of the locator to use when registering service mocks
+  /// Returns the name of the locator to use when registering service mocks.
   String get locatorName => _customConfig.locatorName;
 
   String get registerMocksFunction => _customConfig.registerMocksFunction;
 
   /// Relative import path related to services of test helpers and mock services.
-  String get serviceTestHelpersImportPath => getRelativePathToHelpersAndMocks(
+  String get serviceTestHelpersImport => getFilePathToHelpersAndMocks(
         _customConfig.testServicesPath,
       );
 
@@ -60,7 +60,7 @@ class ConfigService {
   String get viewPath => _customConfig.viewsPath;
 
   /// Relative import path related to viewmodels of test helpers and mock services.
-  String get viewTestHelpersImportPath => getRelativePathToHelpersAndMocks(
+  String get viewTestHelpersImport => getFilePathToHelpersAndMocks(
         _customConfig.testViewsPath,
       );
 
@@ -130,19 +130,19 @@ class ConfigService {
     return path.replaceFirst('lib/', '');
   }
 
-  /// Returns import path relative to [relativeFolderOfCurrentFile] of test helpers and mock services.
+  /// Returns file path of test helpers and mock services relative to [path].
   @visibleForTesting
-  String getRelativePathToHelpersAndMocks(
-    /// Relative path of file where test helpers and mocks will be imported.
-    String relativeFolderOfCurrentFile,
-  ) {
-    /// Remove unnecessary part of the path
-    String fileToImport = testHelpersPath;
-    final relativePathSegments = relativeFolderOfCurrentFile
-        .split('/')
-        .where((element) => !element.contains('.'));
+  String getFilePathToHelpersAndMocks(String path) {
+    String fileToImport = testHelpersFilePath;
+    if (path.startsWith('test/') && fileToImport.startsWith('test/')) {
+      path = path.replaceFirst('test/', '');
+      fileToImport = fileToImport.replaceFirst('test/', '');
+    }
 
-    for (var i = 0; i < relativePathSegments.length; i++) {
+    final pathSegments =
+        path.split('/').where((element) => !element.contains('.'));
+
+    for (var i = 0; i < pathSegments.length; i++) {
       fileToImport = '../' + fileToImport;
     }
 
