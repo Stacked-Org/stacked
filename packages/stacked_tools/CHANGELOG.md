@@ -1,7 +1,14 @@
 ## 0.2.4-beta.0
 
-- Change View template to use ViewModelWidget style as default
-- Adds config option to set view builder style
+- Changes View template to use StackedView, aka ViewModelWidget, as default
+- Adds config option `v1` to use alternative view builder style
+- Adds flag option `v1` to use alternative view builder style, overrides config option
+- Adds `v1`support for create app command
+- Removes `widget_test` after on create app command
+- Uses relativeLocatorPath on every template
+- Fixes TestHelpers import on views and services tests
+- Improves getFilePathToHelpersAndMocks
+- Updates example app to align changes
 
 ## 0.2.3-beta.0
 
