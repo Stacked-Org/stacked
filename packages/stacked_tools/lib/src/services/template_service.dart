@@ -103,7 +103,7 @@ class TemplateService {
 
     /// When value is set, will override stacked config value. Otherwise, stacked config
     /// value is going to be used or default value.
-    bool? useBuilder,
+    bool useBuilder = false,
 
     /// When supplied the templates will be created using the folder supplied here as the
     /// output location.
@@ -116,17 +116,12 @@ class TemplateService {
     final template = kCompiledStackedTemplates[templateName] ??
         StackedTemplate(templateFiles: []);
 
-    _swapViewContent(
-      template: template,
-      templateName: templateName,
-      useBuilder: useBuilder,
-    );
-
     await writeOutTemplateFiles(
       template: template,
       templateName: templateName,
       name: name,
       outputFolder: outputPath,
+      useBuilder: useBuilder,
     );
 
     // TODO: Refactor into an exclusionary rule system where we can
@@ -148,8 +143,32 @@ class TemplateService {
     required String templateName,
     required String name,
     String? outputFolder,
+    bool useBuilder = false,
   }) async {
-    for (final templateFile in template.templateFiles) {
+    /// Sort template files to ensure default view will be always after v1 view.
+    template.templateFiles.sort(
+      (a, b) => b.relativeOutputPath.compareTo(a.relativeOutputPath),
+    );
+
+    for (var i = 0; i < template.templateFiles.length; i++) {
+      final templateFile = template.templateFiles[i];
+
+      /// Replaces view content if [useBuilder] is true and always avoid to
+      /// write v1 views.
+      if (templateName != 'service') {
+        if (templateFile.relativeOutputPath.contains('_view_v1.dart.stk')) {
+          if (useBuilder) {
+            template.templateFiles[i + 1] = TemplateFile(
+              relativeOutputPath:
+                  template.templateFiles[i + 1].relativeOutputPath,
+              content: templateFile.content,
+            );
+          }
+
+          continue;
+        }
+      }
+
       final templateContent = renderContentForTemplate(
         content: templateFile.content,
         templateName: templateName,
@@ -372,33 +391,5 @@ class TemplateService {
       modificationIdentifier,
       '$renderedTemplate\n$modificationIdentifier',
     );
-  }
-
-  /// Swap template content to use v1 style if required, otherwise StackedView
-  /// will be used. Cli has higher priority over stacked config so it will
-  /// override stacked config value if flag is provided.
-  void _swapViewContent({
-    required StackedTemplate template,
-    required String templateName,
-    bool? useBuilder,
-  }) {
-    if (templateName != 'view') return;
-
-    final v1Index = template.templateFiles.indexWhere(
-      (tf) => tf.relativeOutputPath.contains('generic_view_v1.dart.stk'),
-    );
-
-    if (useBuilder ?? _configService.v1) {
-      final stackedIndex = template.templateFiles.indexWhere(
-        (tf) => tf.relativeOutputPath.contains('generic_view.dart.stk'),
-      );
-      template.templateFiles[stackedIndex] = TemplateFile(
-        relativeOutputPath:
-            template.templateFiles[stackedIndex].relativeOutputPath,
-        content: template.templateFiles[v1Index].content,
-      );
-    }
-
-    template.templateFiles.removeAt(v1Index);
   }
 }

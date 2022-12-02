@@ -272,7 +272,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
     required String? name,
     bool? verbose = false,
     bool? excludeRoute = false,
-    bool? useBuilder,
+    bool? useBuilder = false,
     String? outputPath,
   }) =>
       (super.noSuchMethod(
@@ -297,6 +297,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
     required String? templateName,
     required String? name,
     String? outputFolder,
+    bool? useBuilder = false,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -307,6 +308,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
             #templateName: templateName,
             #name: name,
             #outputFolder: outputFolder,
+            #useBuilder: useBuilder,
           },
         ),
         returnValue: _i5.Future<void>.value(),

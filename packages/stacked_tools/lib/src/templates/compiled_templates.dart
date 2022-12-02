@@ -1,7 +1,6 @@
 /// NOTE: This is generated code from the compileTemplates command. Do not modify by hand
 ///       This file should be checked into source control.
 
-
 // -------- HomeViewmodelTest Template Data ----------
 
 const String kAppTemplateHomeViewmodelTestPath =
@@ -10,12 +9,12 @@ const String kAppTemplateHomeViewmodelTestPath =
 const String kAppTemplateHomeViewmodelTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:{{packageName}}/app/app.locator.dart';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 import 'package:{{packageName}}/enums/bottom_sheet_type.dart';
 import 'package:{{packageName}}/ui/common/app_strings.dart';
 import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_viewmodel.dart';
 
-import '{{{viewTestHelpersImportPath}}}/test_helpers.dart';
+import '{{{viewTestHelpersImport}}}';
 
 void main() {
   HomeViewModel _getModel() => HomeViewModel();
@@ -53,16 +52,14 @@ void main() {
 
 // --------------------------------------------------
 
-
 // -------- TestHelpers Template Data ----------
 
-const String kAppTemplateTestHelpersPath =
-    'test/helpers/test_helpers.dart.stk';
+const String kAppTemplateTestHelpersPath = 'test/helpers/test_helpers.dart.stk';
 
 const String kAppTemplateTestHelpersContent = '''
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:{{packageName}}/app/app.locator.dart';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 import 'package:stacked_services/stacked_services.dart';
 // @stacked-import
 
@@ -143,18 +140,16 @@ void _removeRegistrationIfExists<T extends Object>() {
 
 // --------------------------------------------------
 
-
 // -------- StackedConfigJsonStk Template Data ----------
 
-const String kAppTemplateStackedConfigJsonStkPath =
-    'stacked.config.json.stk';
+const String kAppTemplateStackedConfigJsonStkPath = 'stacked.config.json.stk';
 
 const String kAppTemplateStackedConfigJsonStkContent = '''
 {
-    "stacked_app_path": "lib/app/app.dart",
+    "stacked_app_file_path": "lib/app/app.dart",
     "services_path": "lib/services",
     "views_path": "lib/ui/views",
-    "test_helpers_path": "test/helpers",
+    "test_helpers_file_path": "test/helpers/test_helpers.dart",
     "test_services_path": "test/services",
     "test_views_path": "test/viewmodels",
     "locator_name": "locator",
@@ -165,11 +160,9 @@ const String kAppTemplateStackedConfigJsonStkContent = '''
 
 // --------------------------------------------------
 
-
 // -------- READMEMdStk Template Data ----------
 
-const String kAppTemplateREADMEMdStkPath =
-    'README.md.stk';
+const String kAppTemplateREADMEMdStkPath = 'README.md.stk';
 
 const String kAppTemplateREADMEMdStkContent = '''
 # stacked_app
@@ -193,15 +186,13 @@ samples, guidance on mobile development, and a full API reference.
 
 // --------------------------------------------------
 
-
 // -------- Main Template Data ----------
 
-const String kAppTemplateMainPath =
-    'lib/main.dart.stk';
+const String kAppTemplateMainPath = 'lib/main.dart.stk';
 
 const String kAppTemplateMainContent = '''
 import 'package:flutter/material.dart';
-import 'package:{{packageName}}/app/app.locator.dart';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 import 'package:{{packageName}}/ui/common/app_colors.dart';
 import 'package:{{packageName}}/ui/setup/setup_bottom_sheet_ui.dart';
 import 'package:{{packageName}}/ui/setup/setup_dialog_ui.dart';
@@ -242,14 +233,13 @@ class MyApp extends StatelessWidget {
 
 // --------------------------------------------------
 
-
 // -------- SetupDialogUi Template Data ----------
 
 const String kAppTemplateSetupDialogUiPath =
     'lib/ui/setup/setup_dialog_ui.dart.stk';
 
 const String kAppTemplateSetupDialogUiContent = '''
-import 'package:{{packageName}}/app/app.locator.dart';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 import 'package:{{packageName}}/enums/dialog_type.dart';
 import 'package:{{packageName}}/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -269,7 +259,6 @@ void setupDialogUi() {
 
 // --------------------------------------------------
 
-
 // -------- SetupBottomSheetUi Template Data ----------
 
 const String kAppTemplateSetupBottomSheetUiPath =
@@ -277,7 +266,7 @@ const String kAppTemplateSetupBottomSheetUiPath =
 
 const String kAppTemplateSetupBottomSheetUiContent = '''
 import 'package:flutter/material.dart';
-import 'package:{{packageName}}/app/app.locator.dart';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 import 'package:{{packageName}}/enums/bottom_sheet_type.dart';
 import 'package:{{packageName}}/ui/bottom_sheets/notice_sheet/notice_sheet.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -300,11 +289,9 @@ void setupBottomSheetUi() {
 
 // --------------------------------------------------
 
-
 // -------- UiHelpers Template Data ----------
 
-const String kAppTemplateUiHelpersPath =
-    'lib/ui/common/ui_helpers.dart.stk';
+const String kAppTemplateUiHelpersPath = 'lib/ui/common/ui_helpers.dart.stk';
 
 const String kAppTemplateUiHelpersContent = '''
 import 'dart:math';
@@ -390,11 +377,9 @@ double getResponsiveFontSize(BuildContext context,
 
 // --------------------------------------------------
 
-
 // -------- AppStrings Template Data ----------
 
-const String kAppTemplateAppStringsPath =
-    'lib/ui/common/app_strings.dart.stk';
+const String kAppTemplateAppStringsPath = 'lib/ui/common/app_strings.dart.stk';
 
 const String kAppTemplateAppStringsContent = '''
 const String ksHomeBottomSheetTitle = 'Build Great Apps!';
@@ -405,11 +390,9 @@ const String ksHomeBottomSheetDescription =
 
 // --------------------------------------------------
 
-
 // -------- AppColors Template Data ----------
 
-const String kAppTemplateAppColorsPath =
-    'lib/ui/common/app_colors.dart.stk';
+const String kAppTemplateAppColorsPath = 'lib/ui/common/app_colors.dart.stk';
 
 const String kAppTemplateAppColorsContent = '''
 import 'package:flutter/material.dart';
@@ -425,7 +408,6 @@ const Color kcBackgroundColor = kcDarkGreyColor;
 ''';
 
 // --------------------------------------------------
-
 
 // -------- NoticeSheet Template Data ----------
 
@@ -484,7 +466,6 @@ class NoticeSheet extends StatelessWidget {
 
 // --------------------------------------------------
 
-
 // -------- NoticeSheetViewmodel Template Data ----------
 
 const String kAppTemplateNoticeSheetViewmodelPath =
@@ -495,7 +476,6 @@ const String kAppTemplateNoticeSheetViewmodelContent = '''
 ''';
 
 // --------------------------------------------------
-
 
 // -------- InfoAlertDialog Template Data ----------
 
@@ -605,7 +585,6 @@ class InfoAlertDialog extends StatelessWidget {
 
 // --------------------------------------------------
 
-
 // -------- InfoAlertViewmodel Template Data ----------
 
 const String kAppTemplateInfoAlertViewmodelPath =
@@ -619,11 +598,97 @@ const String kAppTemplateInfoAlertViewmodelContent = '''
 
 // --------------------------------------------------
 
+// -------- HomeViewV1 Template Data ----------
+
+const String kAppTemplateHomeViewV1Path =
+    'lib/ui/views/home/home_view_v1.dart.stk';
+
+const String kAppTemplateHomeViewV1Content = '''
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+import 'package:{{packageName}}/ui/common/app_colors.dart';
+import 'package:{{packageName}}/ui/common/ui_helpers.dart';
+
+import 'home_viewmodel.dart';
+
+class HomeView extends StatelessWidget {
+  const HomeView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<HomeViewModel>.reactive(
+      viewModelBuilder: () => HomeViewModel(),
+      builder: (context, model, child) => Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  verticalSpaceLarge,
+                  Column(
+                    children: [
+                      const Text(
+                        'Hello, STACKED!',
+                        style: TextStyle(
+                          fontSize: 35,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      verticalSpaceMedium,
+                      MaterialButton(
+                        color: Colors.black,
+                        onPressed: model.incrementCounter,
+                        child: Text(
+                          model.counterLabel,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      MaterialButton(
+                        color: kcDarkGreyColor,
+                        child: const Text(
+                          'Show Dialog',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: model.showDialog,
+                      ),
+                      MaterialButton(
+                        color: kcDarkGreyColor,
+                        child: const Text(
+                          'Show Bottom Sheet',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: model.showBottomSheet,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+''';
+
+// --------------------------------------------------
 
 // -------- HomeView Template Data ----------
 
-const String kAppTemplateHomeViewPath =
-    'lib/ui/views/home/home_view.dart.stk';
+const String kAppTemplateHomeViewPath = 'lib/ui/views/home/home_view.dart.stk';
 
 const String kAppTemplateHomeViewContent = '''
 import 'package:flutter/material.dart';
@@ -711,7 +776,6 @@ class HomeView extends StackedView<HomeViewModel> {
 
 // --------------------------------------------------
 
-
 // -------- HomeViewmodel Template Data ----------
 
 const String kAppTemplateHomeViewmodelPath =
@@ -719,7 +783,7 @@ const String kAppTemplateHomeViewmodelPath =
 
 const String kAppTemplateHomeViewmodelContent = '''
 import 'package:stacked/stacked.dart';
-import 'package:{{packageName}}/app/app.locator.dart';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 import 'package:{{packageName}}/enums/bottom_sheet_type.dart';
 import 'package:{{packageName}}/enums/dialog_type.dart';
 import 'package:{{packageName}}/ui/common/app_strings.dart';
@@ -758,7 +822,6 @@ class HomeViewModel extends BaseViewModel {
 
 // --------------------------------------------------
 
-
 // -------- StartupViewmodel Template Data ----------
 
 const String kAppTemplateStartupViewmodelPath =
@@ -766,7 +829,7 @@ const String kAppTemplateStartupViewmodelPath =
 
 const String kAppTemplateStartupViewmodelContent = '''
 import 'package:stacked/stacked.dart';
-import 'package:{{packageName}}/app/app.locator.dart';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 import 'package:{{packageName}}/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -788,6 +851,70 @@ class StartupViewModel extends BaseViewModel {
 
 // --------------------------------------------------
 
+// -------- StartupViewV1 Template Data ----------
+
+const String kAppTemplateStartupViewV1Path =
+    'lib/ui/views/startup/startup_view_v1.dart.stk';
+
+const String kAppTemplateStartupViewV1Content = '''
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:stacked/stacked.dart';
+import 'package:{{packageName}}/ui/common/ui_helpers.dart';
+
+import 'startup_viewmodel.dart';
+
+class StartupView extends StatelessWidget {
+  const StartupView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<StartupViewModel>.reactive(
+      builder: (context, model, child) => Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'STACKED',
+                style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Text(
+                    'Loading ...',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  horizontalSpaceSmall,
+                  SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(
+                      color: Colors.black,
+                      strokeWidth: 6,
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+      onModelReady: (model) => SchedulerBinding.instance
+          .addPostFrameCallback((timeStamp) => model.runStartupLogic()),
+      viewModelBuilder: () => StartupViewModel(),
+    );
+  }
+}
+''';
+
+// --------------------------------------------------
 
 // -------- StartupView Template Data ----------
 
@@ -859,11 +986,9 @@ class StartupView extends StackedView<StartupViewModel> {
 
 // --------------------------------------------------
 
-
 // -------- App Template Data ----------
 
-const String kAppTemplateAppPath =
-    'lib/app/app.dart.stk';
+const String kAppTemplateAppPath = 'lib/app/app.dart.stk';
 
 const String kAppTemplateAppContent = '''
 import 'package:stacked/stacked_annotations.dart';
@@ -888,11 +1013,9 @@ class App {}
 
 // --------------------------------------------------
 
-
 // -------- DialogType Template Data ----------
 
-const String kAppTemplateDialogTypePath =
-    'lib/enums/dialog_type.dart.stk';
+const String kAppTemplateDialogTypePath = 'lib/enums/dialog_type.dart.stk';
 
 const String kAppTemplateDialogTypeContent = '''
 enum DialogType {
@@ -902,7 +1025,6 @@ enum DialogType {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- BottomSheetType Template Data ----------
 
@@ -918,11 +1040,9 @@ enum BottomSheetType {
 
 // --------------------------------------------------
 
-
 // -------- PubspecYamlStk Template Data ----------
 
-const String kAppTemplatePubspecYamlStkPath =
-    'pubspec.yaml.stk';
+const String kAppTemplatePubspecYamlStkPath = 'pubspec.yaml.stk';
 
 const String kAppTemplatePubspecYamlStkContent = '''
 name: {{packageName}}
@@ -962,8 +1082,12 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   
-  stacked: ^3.0.0
+  stacked: ^3.0.2-beta.0
   stacked_services: ^0.9.3
+
+dependency_overrides:
+  stacked:
+    path: ../../stacked
 
 dev_dependencies:
   flutter_test:
@@ -1026,7 +1150,6 @@ flutter:
 
 // --------------------------------------------------
 
-
 // -------- GenericViewmodelTest Template Data ----------
 
 const String kViewTemplateGenericViewmodelTestPath =
@@ -1034,9 +1157,9 @@ const String kViewTemplateGenericViewmodelTestPath =
 
 const String kViewTemplateGenericViewmodelTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
-import 'package:{{packageName}}/app/app.locator.dart';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 
-import '{{{viewTestHelpersImportPath}}}/test_helpers.dart';
+import '{{{viewTestHelpersImport}}}';
 
 void main() {
   group('{{viewModelName}} Tests -', () {
@@ -1048,7 +1171,6 @@ void main() {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- GenericViewmodel Template Data ----------
 
@@ -1063,7 +1185,6 @@ class {{viewModelName}} extends BaseViewModel {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- GenericView Template Data ----------
 
@@ -1098,7 +1219,6 @@ class {{viewName}} extends StackedView<{{viewModelName}}> {
 
 // --------------------------------------------------
 
-
 // -------- GenericViewV1 Template Data ----------
 
 const String kViewTemplateGenericViewV1Path =
@@ -1130,7 +1250,6 @@ class {{viewName}} extends StatelessWidget {
 
 // --------------------------------------------------
 
-
 // -------- GenericServiceTest Template Data ----------
 
 const String kServiceTemplateGenericServiceTestPath =
@@ -1140,7 +1259,7 @@ const String kServiceTemplateGenericServiceTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
 import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 
-import '{{{serviceTestHelpersImportPath}}}/test_helpers.dart';
+import '{{{serviceTestHelpersImport}}}';
 
 void main() {
   group('{{serviceName}}ServiceTest -', () {
@@ -1152,7 +1271,6 @@ void main() {
 ''';
 
 // --------------------------------------------------
-
 
 // -------- GenericService Template Data ----------
 
@@ -1166,4 +1284,3 @@ class {{serviceName}}Service {
 ''';
 
 // --------------------------------------------------
-

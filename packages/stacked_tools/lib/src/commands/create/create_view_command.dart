@@ -10,9 +10,10 @@ import 'package:stacked_tools/src/services/template_service.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 
 class CreateViewCommand extends Command with ProjectStructureValidator {
-  final _templateService = locator<TemplateService>();
-  final _pubspecService = locator<PubspecService>();
+  final _configService = locator<ConfigService>();
   final _processService = locator<ProcessService>();
+  final _pubspecService = locator<PubspecService>();
+  final _templateService = locator<TemplateService>();
 
   @override
   String get description =>
@@ -43,7 +44,7 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
 
   @override
   Future<void> run() async {
-    await locator<ConfigService>().loadConfig();
+    await _configService.loadConfig();
 
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     _processService.formattingLineLength = argResults?[ksLineLength];
@@ -56,7 +57,7 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       outputPath: outputPath,
       verbose: true,
       excludeRoute: argResults![ksExcludeRoute],
-      useBuilder: argResults![ksV1],
+      useBuilder: argResults![ksV1] ?? _configService.v1,
     );
     await _processService.runBuildRunner(appName: outputPath);
   }
