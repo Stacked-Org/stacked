@@ -6,6 +6,7 @@ import 'package:stacked_tools/src/constants/message_constants.dart';
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/services/colorized_log_service.dart';
 import 'package:stacked_tools/src/services/config_service.dart';
+import 'package:stacked_tools/src/services/file_service.dart';
 import 'package:stacked_tools/src/services/process_service.dart';
 import 'package:stacked_tools/src/services/template_service.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
@@ -13,6 +14,7 @@ import 'package:stacked_tools/src/templates/template_constants.dart';
 class CreateAppCommand extends Command {
   final _cLog = locator<ColorizedLogService>();
   final _configService = locator<ConfigService>();
+  final _fileService = locator<FileService>();
   final _processService = locator<ProcessService>();
   final _templateService = locator<TemplateService>();
 
@@ -39,6 +41,9 @@ class CreateAppCommand extends Command {
     final appName = argResults!.rest.first;
 
     await _processService.runCreateApp(appName: appName);
+
+    /// Removes `widget_test` file to avoid failing unit tests on created app
+    await _fileService.deleteFile(filePath: '$appName/test/widget_test.dart');
 
     _cLog.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
 
