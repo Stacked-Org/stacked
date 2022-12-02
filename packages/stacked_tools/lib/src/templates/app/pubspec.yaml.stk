@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   
   stacked: ^3.0.2-beta.0
-  stacked_services: ^0.9.3
+  stacked_services: ^0.9.8
 
 dependency_overrides:
   stacked:
@@ -54,7 +54,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   build_runner: ^2.2.0
 
-  stacked_generator: ^0.8.0
+  stacked_generator: ^0.8.1
   mockito: ^5.1.0
 
 # For information on the generic Dart part of this file, see the
