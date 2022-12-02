@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:{{packageName}}/app/app.locator.dart';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 import 'package:{{packageName}}/enums/bottom_sheet_type.dart';
 import 'package:{{packageName}}/ui/common/app_strings.dart';
 import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_viewmodel.dart';
 
-import '{{{viewTestHelpersImportPath}}}/test_helpers.dart';
+import '{{{viewTestHelpersImport}}}';
 
 void main() {
   HomeViewModel _getModel() => HomeViewModel();

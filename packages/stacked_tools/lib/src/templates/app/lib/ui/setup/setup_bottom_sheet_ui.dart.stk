@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:{{packageName}}/app/app.locator.dart';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 import 'package:{{packageName}}/enums/bottom_sheet_type.dart';
 import 'package:{{packageName}}/ui/bottom_sheets/notice_sheet/notice_sheet.dart';
 import 'package:stacked_services/stacked_services.dart';

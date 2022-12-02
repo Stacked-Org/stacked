@@ -9,12 +9,16 @@ typedef RenderFunction = Map<String, String> Function(ReCase value);
 
 Map<String, RenderFunction> renderFunctions = {
   kTemplateNameView: (ReCase value) {
+    final configService = locator<ConfigService>();
     return {
       kTemplatePropertyViewName: '${value.pascalCase}View',
       kTemplatePropertyViewModelName: '${value.pascalCase}ViewModel',
       kTemplatePropertyViewModelFileName: '${value.snakeCase}_viewmodel.dart',
       kTemplatePropertyViewFolderName: value.snakeCase,
       kTemplatePropertyViewFileName: '${value.snakeCase}_view.dart',
+      kTemplatePropertyRelativeLocatorPath: getRelativeLocatorPath(
+        stackedAppFilePath: configService.stackedAppFilePath,
+      ),
     };
   },
   kTemplateNameService: (ReCase value, [map]) {
@@ -24,13 +28,20 @@ Map<String, RenderFunction> renderFunctions = {
       kTemplatePropertyServiceFilename: '${value.snakeCase}_service.dart',
       kTemplatePropertyLocatorName: configService.locatorName,
       kTemplatePropertyRelativeLocatorPath: getRelativeLocatorPath(
-        stackedAppPath: configService.stackedAppPath,
+        stackedAppFilePath: configService.stackedAppFilePath,
       ),
       kTemplatePropertyRegisterMocksFunction:
           configService.registerMocksFunction,
     };
   },
-  kTemplateNameApp: (ReCase value, [map]) => {},
+  kTemplateNameApp: (ReCase value, [map]) {
+    final configService = locator<ConfigService>();
+    return {
+      kTemplatePropertyRelativeLocatorPath: getRelativeLocatorPath(
+        stackedAppFilePath: configService.stackedAppFilePath,
+      ),
+    };
+  },
 };
 
 @visibleForTesting
