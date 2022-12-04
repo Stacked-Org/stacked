@@ -1,5 +1,5 @@
 import 'package:stacked/stacked.dart';
-import 'package:{{packageName}}/app/app.locator.dart';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 import 'package:{{packageName}}/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
 

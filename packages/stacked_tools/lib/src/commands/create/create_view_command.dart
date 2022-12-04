@@ -10,9 +10,10 @@ import 'package:stacked_tools/src/services/template_service.dart';
 import 'package:stacked_tools/src/templates/template_constants.dart';
 
 class CreateViewCommand extends Command with ProjectStructureValidator {
-  final _templateService = locator<TemplateService>();
-  final _pubspecService = locator<PubspecService>();
+  final _configService = locator<ConfigService>();
   final _processService = locator<ProcessService>();
+  final _pubspecService = locator<PubspecService>();
+  final _templateService = locator<TemplateService>();
 
   @override
   String get description =>
@@ -27,17 +28,23 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       defaultsTo: false,
       help: kCommandHelpExcludeRoute,
     );
+    argParser.addFlag(
+      ksV1,
+      aliases: [ksUseBuilder],
+      defaultsTo: null,
+      help: kCommandHelpV1,
+    );
     argParser.addOption(
       ksLineLength,
       abbr: 'l',
-      help: 'The length of the line that is used for formatting',
+      help: kCommandHelpLineLength,
       valueHelp: '80',
     );
   }
 
   @override
   Future<void> run() async {
-    await locator<ConfigService>().loadConfig();
+    await _configService.loadConfig();
 
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     _processService.formattingLineLength = argResults?[ksLineLength];
@@ -50,6 +57,7 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       outputPath: outputPath,
       verbose: true,
       excludeRoute: argResults![ksExcludeRoute],
+      useBuilder: argResults![ksV1] ?? _configService.v1,
     );
     await _processService.runBuildRunner(appName: outputPath);
   }

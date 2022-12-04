@@ -16,13 +16,22 @@ class Routes {
 
   static const homeView = '/home-view';
 
-  static const all = <String>{startupView, homeView};
+  static const all = <String>{
+    startupView,
+    homeView,
+  };
 }
 
 class StackedRouter extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
-    _i1.RouteDef(Routes.startupView, page: _i2.StartupView),
-    _i1.RouteDef(Routes.homeView, page: _i3.HomeView)
+    _i1.RouteDef(
+      Routes.startupView,
+      page: _i2.StartupView,
+    ),
+    _i1.RouteDef(
+      Routes.homeView,
+      page: _i3.HomeView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -37,7 +46,7 @@ class StackedRouter extends _i1.RouterBase {
         builder: (context) => const _i3.HomeView(),
         settings: data,
       );
-    }
+    },
   };
 
   @override
@@ -47,13 +56,13 @@ class StackedRouter extends _i1.RouterBase {
 }
 
 extension NavigatorStateExtension on _i4.NavigationService {
-  Future<dynamic> navigateToStartupView(
-      [int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition]) async {
+  Future<dynamic> navigateToStartupView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
     return navigateTo<dynamic>(Routes.startupView,
         id: routerId,
         preventDuplicates: preventDuplicates,
@@ -61,13 +70,13 @@ extension NavigatorStateExtension on _i4.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToHomeView(
-      [int? routerId,
-      bool preventDuplicates = true,
-      Map<String, String>? parameters,
-      Widget Function(
-              BuildContext, Animation<double>, Animation<double>, Widget)?
-          transition]) async {
+  Future<dynamic> navigateToHomeView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
     return navigateTo<dynamic>(Routes.homeView,
         id: routerId,
         preventDuplicates: preventDuplicates,

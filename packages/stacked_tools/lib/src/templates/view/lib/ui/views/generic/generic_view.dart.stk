@@ -3,19 +3,21 @@ import 'package:stacked/stacked.dart';
 
 import '{{viewModelFileName}}';
 
-class {{viewName}} extends StatelessWidget {
+class {{viewName}} extends StackedView<{{viewModelName}}> {
   const {{viewName}}({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<{{viewModelName}}>.reactive(
-      viewModelBuilder: () => {{viewModelName}}(),
-      builder: (context, model, child) => Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: Container(
-          padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-        ),
+  Widget builder(BuildContext context, {{viewModelName}} model, Widget? child) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: Container(
+        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
       ),
     );
+  }
+
+  @override
+  {{viewModelName}} modelBuilder(BuildContext context) {
+    return {{viewModelName}}();
   }
 }

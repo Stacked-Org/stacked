@@ -63,6 +63,10 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
         content: kAppTemplateInfoAlertViewmodelContent,
       ),
       TemplateFile(
+        relativeOutputPath: kAppTemplateHomeViewV1Path,
+        content: kAppTemplateHomeViewV1Content,
+      ),
+      TemplateFile(
         relativeOutputPath: kAppTemplateHomeViewPath,
         content: kAppTemplateHomeViewContent,
       ),
@@ -73,6 +77,10 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
       TemplateFile(
         relativeOutputPath: kAppTemplateStartupViewmodelPath,
         content: kAppTemplateStartupViewmodelContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateStartupViewV1Path,
+        content: kAppTemplateStartupViewV1Content,
       ),
       TemplateFile(
         relativeOutputPath: kAppTemplateStartupViewPath,
@@ -112,6 +120,10 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
       TemplateFile(
         relativeOutputPath: kViewTemplateGenericViewPath,
         content: kViewTemplateGenericViewContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kViewTemplateGenericViewV1Path,
+        content: kViewTemplateGenericViewV1Content,
       ),
     ],
     modificationFiles: [

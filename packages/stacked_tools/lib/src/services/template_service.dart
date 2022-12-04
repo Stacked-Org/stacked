@@ -101,6 +101,10 @@ class TemplateService {
     /// When set to true the newly generated view will not be added to the app.dart file
     bool excludeRoute = false,
 
+    /// When value is set, will override stacked config value. Otherwise, stacked config
+    /// value is going to be used or default value.
+    bool useBuilder = false,
+
     /// When supplied the templates will be created using the folder supplied here as the
     /// output location.
     ///
@@ -117,6 +121,7 @@ class TemplateService {
       templateName: templateName,
       name: name,
       outputFolder: outputPath,
+      useBuilder: useBuilder,
     );
 
     // TODO: Refactor into an exclusionary rule system where we can
@@ -138,8 +143,32 @@ class TemplateService {
     required String templateName,
     required String name,
     String? outputFolder,
+    bool useBuilder = false,
   }) async {
-    for (final templateFile in template.templateFiles) {
+    /// Sort template files to ensure default view will be always after v1 view.
+    template.templateFiles.sort(
+      (a, b) => b.relativeOutputPath.compareTo(a.relativeOutputPath),
+    );
+
+    for (var i = 0; i < template.templateFiles.length; i++) {
+      final templateFile = template.templateFiles[i];
+
+      /// Replaces view content if [useBuilder] is true and always avoid to
+      /// write v1 views.
+      if (templateName != 'service') {
+        if (templateFile.relativeOutputPath.contains('_view_v1.dart.stk')) {
+          if (useBuilder) {
+            template.templateFiles[i + 1] = TemplateFile(
+              relativeOutputPath:
+                  template.templateFiles[i + 1].relativeOutputPath,
+              content: templateFile.content,
+            );
+          }
+
+          continue;
+        }
+      }
+
       final templateContent = renderContentForTemplate(
         content: templateFile.content,
         templateName: templateName,
@@ -245,11 +274,11 @@ class TemplateService {
       kTemplatePropertyPackageName:
           packageName ?? _pubspecService.getPackageName,
       kTemplatePropertyServiceImportPath: _configService.serviceImportPath,
-      kTemplatePropertyServiceTestHelpersImportPath:
-          _configService.serviceTestHelpersImportPath,
+      kTemplatePropertyServiceTestHelpersImport:
+          _configService.serviceTestHelpersImport,
       kTemplatePropertyViewImportPath: _configService.viewImportPath,
-      kTemplatePropertyViewTestHelpersImportPath:
-          _configService.viewTestHelpersImportPath,
+      kTemplatePropertyViewTestHelpersImport:
+          _configService.viewTestHelpersImport,
     };
   }
 

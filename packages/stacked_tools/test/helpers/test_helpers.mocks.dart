@@ -272,6 +272,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
     required String? name,
     bool? verbose = false,
     bool? excludeRoute = false,
+    bool? useBuilder = false,
     String? outputPath,
   }) =>
       (super.noSuchMethod(
@@ -283,6 +284,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
             #name: name,
             #verbose: verbose,
             #excludeRoute: excludeRoute,
+            #useBuilder: useBuilder,
             #outputPath: outputPath,
           },
         ),
@@ -295,6 +297,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
     required String? templateName,
     required String? name,
     String? outputFolder,
+    bool? useBuilder = false,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -305,6 +308,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
             #templateName: templateName,
             #name: name,
             #outputFolder: outputFolder,
+            #useBuilder: useBuilder,
           },
         ),
         returnValue: _i5.Future<void>.value(),
@@ -759,20 +763,20 @@ class MockConfigService extends _i1.Mock implements _i14.ConfigService {
         returnValueForMissingStub: '',
       ) as String);
   @override
-  String get serviceTestHelpersImportPath => (super.noSuchMethod(
-        Invocation.getter(#serviceTestHelpersImportPath),
+  String get serviceTestHelpersImport => (super.noSuchMethod(
+        Invocation.getter(#serviceTestHelpersImport),
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
   @override
-  String get stackedAppPath => (super.noSuchMethod(
-        Invocation.getter(#stackedAppPath),
+  String get stackedAppFilePath => (super.noSuchMethod(
+        Invocation.getter(#stackedAppFilePath),
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
   @override
-  String get testHelpersPath => (super.noSuchMethod(
-        Invocation.getter(#testHelpersPath),
+  String get testHelpersFilePath => (super.noSuchMethod(
+        Invocation.getter(#testHelpersFilePath),
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
@@ -801,11 +805,17 @@ class MockConfigService extends _i1.Mock implements _i14.ConfigService {
         returnValueForMissingStub: '',
       ) as String);
   @override
-  String get viewTestHelpersImportPath => (super.noSuchMethod(
-        Invocation.getter(#viewTestHelpersImportPath),
+  String get viewTestHelpersImport => (super.noSuchMethod(
+        Invocation.getter(#viewTestHelpersImport),
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
+  @override
+  bool get v1 => (super.noSuchMethod(
+        Invocation.getter(#v1),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
   @override
   _i5.Future<bool> isConfigFileAvailable(
           {String? path = r'stacked.config.json'}) =>
@@ -848,12 +858,10 @@ class MockConfigService extends _i1.Mock implements _i14.ConfigService {
         returnValueForMissingStub: '',
       ) as String);
   @override
-  String getRelativePathToHelpersAndMocks(
-          String? relativeFolderOfCurrentFile) =>
-      (super.noSuchMethod(
+  String getFilePathToHelpersAndMocks(String? path) => (super.noSuchMethod(
         Invocation.method(
-          #getRelativePathToHelpersAndMocks,
-          [relativeFolderOfCurrentFile],
+          #getFilePathToHelpersAndMocks,
+          [path],
         ),
         returnValue: '',
         returnValueForMissingStub: '',
