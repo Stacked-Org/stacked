@@ -1,12 +1,12 @@
-## 3.0.2-beta.0 [BREAKING CHANGES]
+## 3.1.0-beta.0 [BREAKING CHANGES]
 
 - Rename ViewModelBuilderWidget to StackedView
 - Use model on all occurrences of the ViewModel at StackedView for better readability and consistency
 - Update BuilderWidgetExampleView
 
-### Migrate from 3.0.1 -> 3.0.2-beta.0
+### Migrate from 3.0.1 -> 3.1.0-beta.0
 
-As part of the decision of use StackedView, aka ViewModelBuilderWidget, as the default view builderAs part of the decision to use StackedView, also known as ViewModelBuilderWidget, by default view builder we have also changed some names for better readability and maintain view consistency.
+In our mission to make Stacked a standalone framework we want to formalise some ideas. This showed us that some of our widgets are not named appropriately. In addition to that there are also places where we use viewModel and others where we use model. To fix that we made the following breaking changes all within the `ViewModelBuilderWidget`
 
 - `ViewModelBuilderWidget` → `StackedView`
 - `viewModel` → `model`
