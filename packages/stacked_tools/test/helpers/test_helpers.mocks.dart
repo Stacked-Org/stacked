@@ -817,6 +817,12 @@ class MockConfigService extends _i1.Mock implements _i14.ConfigService {
         returnValueForMissingStub: false,
       ) as bool);
   @override
+  int get lineLength => (super.noSuchMethod(
+        Invocation.getter(#lineLength),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+  @override
   _i5.Future<bool> isConfigFileAvailable(
           {String? path = r'stacked.config.json'}) =>
       (super.noSuchMethod(
