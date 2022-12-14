@@ -159,7 +159,8 @@ const String kAppTemplateStackedConfigJsonStkContent = '''
     "test_views_path": "test/viewmodels",
     "locator_name": "locator",
     "register_mocks_function": "registerServices",
-    "v1": false
+    "v1": false,
+    "line_length": 80
 }
 ''';
 
