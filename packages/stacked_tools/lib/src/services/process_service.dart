@@ -4,15 +4,21 @@ import 'dart:io';
 import 'package:stacked_tools/src/constants/command_constants.dart';
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/services/colorized_log_service.dart';
+import 'package:stacked_tools/src/services/config_service.dart';
 
 /// helper service to run flutter commands
 class ProcessService {
   final _cLog = locator<ColorizedLogService>();
+  final _configService = locator<ConfigService>();
 
-  String _formattingLineLength = '80';
+  late String _formattingLineLength;
+
+  ProcessService() {
+    _formattingLineLength = _configService.lineLength.toString();
+  }
 
   set formattingLineLength(String? length) {
-    _formattingLineLength = length ?? '80';
+    _formattingLineLength = length ?? _configService.lineLength.toString();
   }
 
   /// It creates a new flutter app.
