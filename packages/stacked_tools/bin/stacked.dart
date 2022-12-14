@@ -6,9 +6,11 @@ import 'package:stacked_tools/src/commands/create/create_command.dart';
 import 'package:stacked_tools/src/commands/delete/delete_command.dart';
 import 'package:stacked_tools/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/services/config_service.dart';
 
 Future<void> main(List<String> arguments) async {
   await setupLocator();
+  await locator<ConfigService>().loadConfig();
 
   try {
     CommandRunner(

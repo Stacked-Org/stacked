@@ -3,7 +3,6 @@ import 'package:stacked_tools/src/constants/command_constants.dart';
 import 'package:stacked_tools/src/constants/message_constants.dart';
 import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/mixins/project_structure_validator_mixin.dart';
-import 'package:stacked_tools/src/services/config_service.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
 import 'package:stacked_tools/src/services/process_service.dart';
 import 'package:stacked_tools/src/services/pubspec_service.dart';
@@ -40,8 +39,6 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
 
   @override
   Future<void> run() async {
-    await locator<ConfigService>().loadConfig();
-
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     _processService.formattingLineLength = argResults?[ksLineLength];
     await _pubspecService.initialise(workingDirectory: outputPath);

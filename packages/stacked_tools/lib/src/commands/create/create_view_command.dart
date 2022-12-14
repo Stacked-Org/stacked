@@ -44,8 +44,6 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
 
   @override
   Future<void> run() async {
-    await _configService.loadConfig();
-
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     _processService.formattingLineLength = argResults![ksLineLength];
     await _pubspecService.initialise(workingDirectory: outputPath);
