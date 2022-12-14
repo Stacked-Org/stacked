@@ -31,7 +31,7 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
     argParser.addOption(
       ksLineLength,
       abbr: 'l',
-      help: 'The length of the line that is used for formatting',
+      help: kCommandHelpLineLength,
       valueHelp: '80',
     );
   }
