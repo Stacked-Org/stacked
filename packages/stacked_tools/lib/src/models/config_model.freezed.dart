@@ -62,6 +62,11 @@ mixin _$Config {
   @JsonKey(name: 'v1')
   bool get v1 => throw _privateConstructorUsedError;
 
+  /// Defines the integer value to determine the line length when formatting
+  /// the code.
+  @JsonKey(name: 'line_length')
+  int get lineLength => throw _privateConstructorUsedError;
+
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ConfigCopyWith<Config> get copyWith => throw _privateConstructorUsedError;
@@ -81,7 +86,8 @@ abstract class $ConfigCopyWith<$Res> {
       @JsonKey(name: 'test_views_path') String testViewsPath,
       @JsonKey(name: 'locator_name') String locatorName,
       @JsonKey(name: 'register_mocks_function') String registerMocksFunction,
-      @JsonKey(name: 'v1') bool v1});
+      @JsonKey(name: 'v1') bool v1,
+      @JsonKey(name: 'line_length') int lineLength});
 }
 
 /// @nodoc
@@ -106,6 +112,7 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
     Object? locatorName = null,
     Object? registerMocksFunction = null,
     Object? v1 = null,
+    Object? lineLength = null,
   }) {
     return _then(_value.copyWith(
       viewsPath: null == viewsPath
@@ -144,6 +151,10 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
           ? _value.v1
           : v1 // ignore: cast_nullable_to_non_nullable
               as bool,
+      lineLength: null == lineLength
+          ? _value.lineLength
+          : lineLength // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -163,7 +174,8 @@ abstract class _$$_ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
       @JsonKey(name: 'test_views_path') String testViewsPath,
       @JsonKey(name: 'locator_name') String locatorName,
       @JsonKey(name: 'register_mocks_function') String registerMocksFunction,
-      @JsonKey(name: 'v1') bool v1});
+      @JsonKey(name: 'v1') bool v1,
+      @JsonKey(name: 'line_length') int lineLength});
 }
 
 /// @nodoc
@@ -185,6 +197,7 @@ class __$$_ConfigCopyWithImpl<$Res>
     Object? locatorName = null,
     Object? registerMocksFunction = null,
     Object? v1 = null,
+    Object? lineLength = null,
   }) {
     return _then(_$_Config(
       viewsPath: null == viewsPath
@@ -223,6 +236,10 @@ class __$$_ConfigCopyWithImpl<$Res>
           ? _value.v1
           : v1 // ignore: cast_nullable_to_non_nullable
               as bool,
+      lineLength: null == lineLength
+          ? _value.lineLength
+          : lineLength // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -248,7 +265,9 @@ class _$_Config implements _Config {
       @JsonKey(name: 'register_mocks_function')
           this.registerMocksFunction = 'registerServices',
       @JsonKey(name: 'v1')
-          this.v1 = false});
+          this.v1 = false,
+      @JsonKey(name: 'line_length')
+          this.lineLength = 80});
 
   factory _$_Config.fromJson(Map<String, dynamic> json) =>
       _$$_ConfigFromJson(json);
@@ -304,9 +323,15 @@ class _$_Config implements _Config {
   @JsonKey(name: 'v1')
   final bool v1;
 
+  /// Defines the integer value to determine the line length when formatting
+  /// the code.
+  @override
+  @JsonKey(name: 'line_length')
+  final int lineLength;
+
   @override
   String toString() {
-    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, stackedAppFilePath: $stackedAppFilePath, testHelpersFilePath: $testHelpersFilePath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, locatorName: $locatorName, registerMocksFunction: $registerMocksFunction, v1: $v1)';
+    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, stackedAppFilePath: $stackedAppFilePath, testHelpersFilePath: $testHelpersFilePath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, locatorName: $locatorName, registerMocksFunction: $registerMocksFunction, v1: $v1, lineLength: $lineLength)';
   }
 
   @override
@@ -330,7 +355,9 @@ class _$_Config implements _Config {
                 other.locatorName == locatorName) &&
             (identical(other.registerMocksFunction, registerMocksFunction) ||
                 other.registerMocksFunction == registerMocksFunction) &&
-            (identical(other.v1, v1) || other.v1 == v1));
+            (identical(other.v1, v1) || other.v1 == v1) &&
+            (identical(other.lineLength, lineLength) ||
+                other.lineLength == lineLength));
   }
 
   @JsonKey(ignore: true)
@@ -345,7 +372,8 @@ class _$_Config implements _Config {
       testViewsPath,
       locatorName,
       registerMocksFunction,
-      v1);
+      v1,
+      lineLength);
 
   @JsonKey(ignore: true)
   @override
@@ -380,7 +408,9 @@ abstract class _Config implements Config {
       @JsonKey(name: 'register_mocks_function')
           final String registerMocksFunction,
       @JsonKey(name: 'v1')
-          final bool v1}) = _$_Config;
+          final bool v1,
+      @JsonKey(name: 'line_length')
+          final int lineLength}) = _$_Config;
 
   factory _Config.fromJson(Map<String, dynamic> json) = _$_Config.fromJson;
 
@@ -435,6 +465,12 @@ abstract class _Config implements Config {
   /// default, StackedView is used.
   @JsonKey(name: 'v1')
   bool get v1;
+  @override
+
+  /// Defines the integer value to determine the line length when formatting
+  /// the code.
+  @JsonKey(name: 'line_length')
+  int get lineLength;
   @override
   @JsonKey(ignore: true)
   _$$_ConfigCopyWith<_$_Config> get copyWith =>

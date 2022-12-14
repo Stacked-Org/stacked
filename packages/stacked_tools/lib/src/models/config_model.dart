@@ -52,6 +52,10 @@ class Config with _$Config {
     /// This is used when creating a view file during `create view` command. By
     /// default, StackedView is used.
     @JsonKey(name: 'v1') @Default(false) bool v1,
+
+    /// Defines the integer value to determine the line length when formatting
+    /// the code.
+    @JsonKey(name: 'line_length') @Default(80) int lineLength,
   }) = _Config;
 
   factory Config.fromJson(Map<String, dynamic> json) => _$ConfigFromJson(json);

@@ -70,6 +70,9 @@ class ConfigService {
   /// True: ViewModelBuilder
   bool get v1 => _customConfig.v1;
 
+  /// Returns int value for line length when format code.
+  int get lineLength => _customConfig.lineLength;
+
   /// Check if configuration file at [path] exists.
   Future<bool> isConfigFileAvailable({String path = kConfigFilePath}) async {
     return await _fileService.fileExists(filePath: path);
@@ -84,12 +87,9 @@ class ConfigService {
         throw ConfigFileNotFoundException(kConfigFileNotFound);
       }
 
-      _log.info(message: 'Load config from $path');
       final data = await _fileService.readFileAsString(filePath: path);
-
       _customConfig = Config.fromJson(jsonDecode(data));
       _hasCustomConfig = true;
-      _log.info(message: 'Using configuration\n${_customConfig.toJson()}');
     } on ConfigFileNotFoundException catch (e) {
       _log.warn(message: e.message);
     } on FormatException catch (_) {
@@ -110,6 +110,9 @@ class ConfigService {
     String customPath = path;
 
     for (var k in _defaultConfig.keys) {
+      // Avoid trying to replace non path values like v1 or lineLength
+      if (!k.contains('path')) continue;
+
       if (customPath.contains(_defaultConfig[k])) {
         customPath = customPath.replaceFirst(
           _defaultConfig[k],

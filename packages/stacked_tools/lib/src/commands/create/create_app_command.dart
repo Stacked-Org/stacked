@@ -32,14 +32,19 @@ class CreateAppCommand extends Command {
       defaultsTo: null,
       help: kCommandHelpV1,
     );
+    argParser.addOption(
+      ksLineLength,
+      abbr: 'l',
+      help: kCommandHelpLineLength,
+      valueHelp: '80',
+    );
   }
 
   @override
   Future<void> run() async {
-    await _configService.loadConfig();
-
     final appName = argResults!.rest.first;
 
+    _processService.formattingLineLength = argResults![ksLineLength];
     await _processService.runCreateApp(appName: appName);
 
     /// Removes `widget_test` file to avoid failing unit tests on created app

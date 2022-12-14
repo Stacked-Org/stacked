@@ -1,3 +1,13 @@
+## 0.2.4-beta.1
+
+- Add lineLength to Config model
+- Update stacked config on templates
+- Use ConfigService for _formattingLineLength default value
+- Add line-length option support to create app command
+- Load configuration on bootstrap instead of each command
+- Fix replaceCustomPaths, now only process values which keys contains `path` word
+- Update example app
+
 ## 0.2.4-beta.0
 
 - Changes View template to use StackedView, aka ViewModelWidget, as default

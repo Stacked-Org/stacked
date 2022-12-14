@@ -111,6 +111,10 @@ MockConfigService getAndRegisterConfigService({
   String serviceTestHelpersImport = '../helpers/test_helpers.dart',
   String viewImportPath = 'lib/viewmodels',
   String viewTestHelpersImport = '../helpers/test_helpers.dart',
+  String locatorName = 'locator',
+  String registerMocksFunction = 'registerServices',
+  bool v1 = false,
+  int lineLength = 80,
 }) {
   _removeRegistrationIfExists<ConfigService>();
   final service = MockConfigService();
@@ -121,6 +125,10 @@ MockConfigService getAndRegisterConfigService({
   );
   when(service.viewImportPath).thenReturn(viewImportPath);
   when(service.viewTestHelpersImport).thenReturn(viewTestHelpersImport);
+  when(service.locatorName).thenReturn(locatorName);
+  when(service.registerMocksFunction).thenReturn(registerMocksFunction);
+  when(service.v1).thenReturn(v1);
+  when(service.lineLength).thenReturn(lineLength);
 
   when(service.replaceCustomPaths(any)).thenAnswer(
     (invocation) => customPath ?? invocation.positionalArguments[0],
