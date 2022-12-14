@@ -70,6 +70,9 @@ class ConfigService {
   /// True: ViewModelBuilder
   bool get v1 => _customConfig.v1;
 
+  /// Returns int value for line length when format code.
+  int get lineLength => _customConfig.lineLength;
+
   /// Check if configuration file at [path] exists.
   Future<bool> isConfigFileAvailable({String path = kConfigFilePath}) async {
     return await _fileService.fileExists(filePath: path);
