@@ -1086,10 +1086,6 @@ dependencies:
   stacked: ^3.0.2-beta.0
   stacked_services: ^0.9.8
 
-dependency_overrides:
-  stacked:
-    path: ../../stacked
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -1285,3 +1281,4 @@ class {{serviceName}}Service {
 ''';
 
 // --------------------------------------------------
+
