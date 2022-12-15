@@ -1,3 +1,6 @@
+## 0.2.4-beta.2
+- Removes the depdency override for stacked
+
 ## 0.2.4-beta.1
 
 - Add lineLength to Config model
