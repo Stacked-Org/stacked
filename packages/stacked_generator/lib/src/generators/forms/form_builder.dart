@@ -206,14 +206,33 @@ class FormBuilder with StringBufferUtils {
 
   FormBuilder addListenerRegistrationsForTextFields() {
     writeLine('''
-              /// Registers a listener on every generated controller that calls [model.setData()]
-              /// with the latest textController values
-              void listenToFormUpdated(FormViewModel model) {
-            ''');
+      /// Registers a listener on every generated controller that calls [model.setData()]
+      /// with the latest textController values
+      void syncFormWithViewModel(FormViewModel model) {
+    ''');
 
     for (final field in fields.onlyTextFieldConfigs) {
       writeLine(
-          '${_getControllerName(field)}.addListener(() => _updateFormData(model));');
+        '${_getControllerName(field)}.addListener(() => _updateFormData(model));',
+      );
+    }
+    writeLine('}');
+    newLine();
+
+    writeLine('''
+      /// Registers a listener on every generated controller that calls [model.setData()]
+      /// with the latest textController values
+      @Deprecated(
+        'Use syncFormWithViewModel instead.'
+        'This feature was deprecated after 3.1.0.'
+      )
+      void listenToFormUpdated(FormViewModel model) {
+    ''');
+
+    for (final field in fields.onlyTextFieldConfigs) {
+      writeLine(
+        '${_getControllerName(field)}.addListener(() => _updateFormData(model));',
+      );
     }
     writeLine('}');
     newLine();
