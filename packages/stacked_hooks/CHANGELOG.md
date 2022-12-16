@@ -1,8 +1,8 @@
 ## 0.2.3-beta.0 [BREAKING CHANGES]
 
-- Replace HookViewModelWidget with StackedHook
-- Update example app
-- Update README
+- Replaced HookViewModelWidget with StackedHook
+- Updated example app
+- Updated README
 
 Migrate from 0.2.2 -> 0.2.2-beta.0
 
