@@ -7,7 +7,11 @@ class {{viewName}} extends StackedView<{{viewModelName}}> {
   const {{viewName}}({Key? key}) : super(key: key);
 
   @override
-  Widget builder(BuildContext context, {{viewModelName}} viewModel, Widget? child) {
+  Widget builder(
+    BuildContext context,
+    {{viewModelName}} viewModel,
+    Widget? child,
+  ) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
