@@ -1,3 +1,13 @@
+## 0.2.3-beta.0 [BREAKING CHANGES]
+
+- Replace HookViewModelWidget with StackedHook
+- Update example app
+- Update README
+
+Migrate from 0.2.2 -> 0.2.2-beta.0
+
+- HookViewModelWidget -> StackedHook
+
 ## 0.2.2
 
 - Updated flutter_hooks to 0.18.2+1
