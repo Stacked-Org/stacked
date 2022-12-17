@@ -195,10 +195,22 @@ import 'validators/path';
 
 ''';
 const kExample1AddListenerRegistrationsForTextFields = '''
-  /// Registers a listener on every generated controller that calls [model.setData()]
-  /// with the latest textController values
-  void syncFormWithViewModel(FormViewModel model) {
-            
+      /// Registers a listener on every generated controller that calls [model.setData()]
+      /// with the latest textController values
+      void syncFormWithViewModel(FormViewModel model) {
+    
+nameController.addListener(() => _updateFormData(model));
+emailController.addListener(() => _updateFormData(model));
+}
+
+      /// Registers a listener on every generated controller that calls [model.setData()]
+      /// with the latest textController values
+      @Deprecated(
+        'Use syncFormWithViewModel instead.'
+        'This feature was deprecated after 3.1.0.'
+      )
+      void listenToFormUpdated(FormViewModel model) {
+    
 nameController.addListener(() => _updateFormData(model));
 emailController.addListener(() => _updateFormData(model));
 }
