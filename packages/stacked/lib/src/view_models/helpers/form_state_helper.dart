@@ -46,5 +46,5 @@ mixin FormStateHelper on ChangeNotifier {
 
   /// Called after the [formValueMap] has been updated and allows you to set
   /// values relating to the forms status.
-  void setFormStatus();
+  void setFormStatus() {}
 }
