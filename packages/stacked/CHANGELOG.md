@@ -1,3 +1,7 @@
+## 3.1.0-beta.1
+
+- Make setFormStatus as NOT required override
+
 ## 3.1.0-beta.0 [BREAKING CHANGES]
 
 - Rename ViewModelBuilderWidget to StackedView
