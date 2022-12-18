@@ -1,3 +1,7 @@
+## 0.2.4-beta.3
+- Updates the compiled templates since the template was changes
+
+
 ## 0.2.4-beta.2
 - Removes the depdency override for stacked
 
