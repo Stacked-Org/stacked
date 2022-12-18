@@ -60,6 +60,7 @@ void main() {
 
       // Verify the widgets are present.
       tester.printToConsole('Verify the widgets are present');
+
       expect(initialisedText, findsOneWidget);
       expect(widgetOne, findsOneWidget);
       expect(widgetTwo, findsOneWidget);
