@@ -1,4 +1,11 @@
+## 0.2.4-beta.3
+
+- Updates viewModelBuilder on templates to use short hand function notation
+- Updates ViewModel instance name from model to viewModel
+- Updates StackedView template builder indentation
+
 ## 0.2.4-beta.2
+
 - Removes the depdency override for stacked
 
 ## 0.2.4-beta.1
