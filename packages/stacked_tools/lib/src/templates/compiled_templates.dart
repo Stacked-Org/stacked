@@ -727,7 +727,11 @@ class HomeView extends StackedView<HomeViewModel> {
   const HomeView({Key? key}) : super(key: key);
 
   @override
-  Widget builder(BuildContext context, HomeViewModel model, Widget? child) {
+  Widget builder(
+    BuildContext context,
+    HomeViewModel viewModel,
+    Widget? child,
+  ) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -750,9 +754,9 @@ class HomeView extends StackedView<HomeViewModel> {
                     verticalSpaceMedium,
                     MaterialButton(
                       color: Colors.black,
-                      onPressed: model.incrementCounter,
+                      onPressed: viewModel.incrementCounter,
                       child: Text(
-                        model.counterLabel,
+                        viewModel.counterLabel,
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
@@ -769,7 +773,7 @@ class HomeView extends StackedView<HomeViewModel> {
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: model.showDialog,
+                      onPressed: viewModel.showDialog,
                     ),
                     MaterialButton(
                       color: kcDarkGreyColor,
@@ -779,7 +783,7 @@ class HomeView extends StackedView<HomeViewModel> {
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: model.showBottomSheet,
+                      onPressed: viewModel.showBottomSheet,
                     ),
                   ],
                 )
@@ -792,9 +796,9 @@ class HomeView extends StackedView<HomeViewModel> {
   }
 
   @override
-  HomeViewModel modelBuilder(BuildContext context) {
-    return HomeViewModel();
-  }
+  HomeViewModel viewModelBuilder(
+    BuildContext context,
+  ) => HomeViewModel();
 }
 
 ''';
@@ -962,7 +966,11 @@ class StartupView extends StackedView<StartupViewModel> {
   const StartupView({Key? key}) : super(key: key);
 
   @override
-  Widget builder(BuildContext context, StartupViewModel model, Widget? child) {
+  Widget builder(
+    BuildContext context,
+    StartupViewModel viewModel,
+    Widget? child,
+  ) {
     return Scaffold(
       body: Center(
         child: Column(
@@ -1002,13 +1010,13 @@ class StartupView extends StackedView<StartupViewModel> {
   }
 
   @override
-  StartupViewModel modelBuilder(BuildContext context) {
-    return StartupViewModel();
-  }
+  StartupViewModel viewModelBuilder(
+    BuildContext context,
+  ) => StartupViewModel();
 
   @override
-  void onModelReady(StartupViewModel model) => SchedulerBinding.instance
-      .addPostFrameCallback((timeStamp) => model.runStartupLogic());
+  void onViewModelReady(StartupViewModel viewModel) => SchedulerBinding.instance
+      .addPostFrameCallback((timeStamp) => viewModel.runStartupLogic());
 }
 
 ''';
@@ -1236,7 +1244,11 @@ class {{viewName}} extends StackedView<{{viewModelName}}> {
   const {{viewName}}({Key? key}) : super(key: key);
 
   @override
-  Widget builder(BuildContext context, {{viewModelName}} model, Widget? child) {
+  Widget builder(
+    BuildContext context,
+    {{viewModelName}} viewModel,
+    Widget? child,
+  ) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
@@ -1246,9 +1258,9 @@ class {{viewName}} extends StackedView<{{viewModelName}}> {
   }
 
   @override
-  {{viewModelName}} modelBuilder(BuildContext context) {
-    return {{viewModelName}}();
-  }
+  {{viewModelName}} viewModelBuilder(
+    BuildContext context,
+  ) => {{viewModelName}}();
 }
 ''';
 
