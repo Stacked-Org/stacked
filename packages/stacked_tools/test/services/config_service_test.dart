@@ -144,13 +144,13 @@ void main() {
       });
     });
 
-    group('getImportPath -', () {
+    group('sanitizePath -', () {
       test(
           'when called with path equals "lib/src/services" should return "src/services"',
           () async {
         final path = 'lib/src/services';
         final service = _getService();
-        final importPath = service.getImportPath(path);
+        final importPath = service.sanitizePath(path);
         expect(importPath, 'src/services');
       });
 
@@ -159,7 +159,7 @@ void main() {
           () async {
         final path = 'src/lib/services';
         final service = _getService();
-        final importPath = service.getImportPath(path);
+        final importPath = service.sanitizePath(path);
         expect(importPath, path);
       });
 
@@ -168,7 +168,7 @@ void main() {
           () async {
         final path = 'src/services';
         final service = _getService();
-        final importPath = service.getImportPath(path);
+        final importPath = service.sanitizePath(path);
         expect(importPath, path);
       });
     });

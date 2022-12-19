@@ -25,7 +25,7 @@ class ConfigService {
   bool get hasCustomConfig => _hasCustomConfig;
 
   /// Relative services path for import statements.
-  String get serviceImportPath => getImportPath(_customConfig.servicesPath);
+  String get serviceImportPath => sanitizePath(_customConfig.servicesPath);
 
   /// Relative path where services will be genereated.
   String get servicePath => _customConfig.servicesPath;
@@ -54,7 +54,7 @@ class ConfigService {
   String get testViewsPath => _customConfig.testViewsPath;
 
   /// Relative views path for import statements.
-  String get viewImportPath => getImportPath(_customConfig.viewsPath);
+  String get viewImportPath => sanitizePath(_customConfig.viewsPath);
 
   /// Relative path where views and viewmodels will be genereated.
   String get viewPath => _customConfig.viewsPath;
@@ -125,10 +125,12 @@ class ConfigService {
     return customPath;
   }
 
-  /// Returns import path of [path].
+  /// Returns sanitized [path].
   @visibleForTesting
-  String getImportPath(String path) {
+  String sanitizePath(String path) {
     if (!path.startsWith('lib/')) return path;
+
+    _log.info(message: 'There is no need to include lib folder.');
 
     return path.replaceFirst('lib/', '');
   }
@@ -138,6 +140,7 @@ class ConfigService {
   String getFilePathToHelpersAndMocks(String path) {
     String fileToImport = testHelpersFilePath;
     if (path.startsWith('test/') && fileToImport.startsWith('test/')) {
+      _log.info(message: 'There is no need to include test folder.');
       path = path.replaceFirst('test/', '');
       fileToImport = fileToImport.replaceFirst('test/', '');
     }
