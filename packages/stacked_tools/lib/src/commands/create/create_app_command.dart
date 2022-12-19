@@ -54,7 +54,7 @@ class CreateAppCommand extends Command {
 
     await _templateService.renderTemplate(
       templateName: kTemplateNameApp,
-      name: appName,
+      name: appName.split('/').last,
       verbose: true,
       outputPath: appName,
       useBuilder: argResults![ksV1] ?? _configService.v1,
