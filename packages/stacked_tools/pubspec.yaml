@@ -18,6 +18,7 @@ dependencies:
   recase: ^4.0.0
   json_annotation: ^4.7.0
   ansicolor: ^2.0.1
+  xdg_directories: ^0.2.0+2
 
 dev_dependencies:
   lints: ^1.0.0
