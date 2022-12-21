@@ -1,2 +1,2 @@
-/// Defines the path of the stacked configuration file
-const String kConfigFilePath = 'stacked.config.json';
+/// Defines the filename of the stacked configuration file
+const String kConfigFileName = 'stacked.json';
