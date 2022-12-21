@@ -823,20 +823,17 @@ class MockConfigService extends _i1.Mock implements _i14.ConfigService {
         returnValueForMissingStub: 0,
       ) as int);
   @override
-  _i5.Future<bool> isConfigFileAvailable(
-          {String? path = r'stacked.config.json'}) =>
-      (super.noSuchMethod(
+  _i5.Future<String?> resolveConfigFile({String? path}) => (super.noSuchMethod(
         Invocation.method(
-          #isConfigFileAvailable,
+          #resolveConfigFile,
           [],
           {#path: path},
         ),
-        returnValue: _i5.Future<bool>.value(false),
-        returnValueForMissingStub: _i5.Future<bool>.value(false),
-      ) as _i5.Future<bool>);
+        returnValue: _i5.Future<String?>.value(),
+        returnValueForMissingStub: _i5.Future<String?>.value(),
+      ) as _i5.Future<String?>);
   @override
-  _i5.Future<void> loadConfig({String? path = r'stacked.config.json'}) =>
-      (super.noSuchMethod(
+  _i5.Future<void> loadConfig({String? path}) => (super.noSuchMethod(
         Invocation.method(
           #loadConfig,
           [],

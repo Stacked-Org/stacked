@@ -29,7 +29,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<ProcessService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-service-mock
 ])
-MockFileService getAndRegisterMockFileService({
+MockFileService getAndRegisterFileService({
   bool fileExistsResult = true,
   String readFileResult = 'file_content',
   List<FileSystemEntity> getFilesInDirectoryResult = const [],
@@ -39,6 +39,12 @@ MockFileService getAndRegisterMockFileService({
 
   when(service.fileExists(filePath: anyNamed('filePath')))
       .thenAnswer((realInvocation) => Future.value(fileExistsResult));
+
+  when(service.fileExists(filePath: 'example/stacked.json'))
+      .thenAnswer((realInvocation) => Future.value(false));
+
+  when(service.fileExists(filePath: 'stacked.json'))
+      .thenAnswer((realInvocation) => Future.value(false));
 
   when(service.readFileAsString(filePath: anyNamed('filePath')))
       .thenAnswer((realInvocation) => Future.value(readFileResult));
@@ -149,7 +155,7 @@ void _removeRegistrationIfExists<T extends Object>() {
 // @stacked-mock-helper
 
 void registerServices() {
-  getAndRegisterMockFileService();
+  getAndRegisterFileService();
   getAndRegisterPathService();
   getAndRegisterTemplateHelper();
   getAndRegisterPubSpecService();

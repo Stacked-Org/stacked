@@ -92,7 +92,7 @@ void main() {
       test(
           'When called with any templateName, should get the files in directory with path from pathService',
           () async {
-        final fileService = getAndRegisterMockFileService();
+        final fileService = getAndRegisterFileService();
         final helper = _getHelper();
         await helper.getFilesForTemplate(templateName: kTemplateNameView);
         verify(fileService.getFilesInDirectory(directoryPath: 'template_path'));
@@ -112,7 +112,7 @@ void main() {
 
         getAndRegisterPathService(joinResult: templateDirectory);
 
-        getAndRegisterMockFileService(getFilesInDirectoryResult: [
+        getAndRegisterFileService(getFilesInDirectoryResult: [
           File('non-template.dart'),
           File('non-template.text'),
           File('$templateDirectory\\generic.string.stk'),
