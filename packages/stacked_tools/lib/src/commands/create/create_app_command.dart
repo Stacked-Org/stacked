@@ -42,8 +42,8 @@ class CreateAppCommand extends Command {
 
   @override
   Future<void> run() async {
+    await _configService.loadConfig();
     final appName = argResults!.rest.first;
-
     _processService.formattingLineLength = argResults![ksLineLength];
     await _processService.runCreateApp(appName: appName);
 
