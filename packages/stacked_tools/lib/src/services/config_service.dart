@@ -8,16 +8,17 @@ import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/models/config_model.dart';
 import 'package:stacked_tools/src/services/colorized_log_service.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
+import 'package:xdg_directories/xdg_directories.dart';
 
 /// Handles app configuration of stacked cli
 class ConfigService {
   final _log = locator<ColorizedLogService>();
   final _fileService = locator<FileService>();
 
-  /// Default config map used to compare and replace with custom values
+  /// Default config map used to compare and replace with custom values.
   final Map<String, dynamic> _defaultConfig = Config().toJson();
 
-  /// Custom config used to store custom values read from file
+  /// Custom config used to store custom values read from file.
   Config _customConfig = Config();
 
   bool _hasCustomConfig = false;
@@ -25,7 +26,7 @@ class ConfigService {
   bool get hasCustomConfig => _hasCustomConfig;
 
   /// Relative services path for import statements.
-  String get serviceImportPath => sanitizePath(_customConfig.servicesPath);
+  String get serviceImportPath => getImportPath(_customConfig.servicesPath);
 
   /// Relative path where services will be genereated.
   String get servicePath => _customConfig.servicesPath;
@@ -54,7 +55,7 @@ class ConfigService {
   String get testViewsPath => _customConfig.testViewsPath;
 
   /// Relative views path for import statements.
-  String get viewImportPath => sanitizePath(_customConfig.viewsPath);
+  String get viewImportPath => getImportPath(_customConfig.viewsPath);
 
   /// Relative path where views and viewmodels will be genereated.
   String get viewPath => _customConfig.viewsPath;
@@ -73,21 +74,48 @@ class ConfigService {
   /// Returns int value for line length when format code.
   int get lineLength => _customConfig.lineLength;
 
-  /// Check if configuration file at [path] exists.
-  Future<bool> isConfigFileAvailable({String path = kConfigFilePath}) async {
-    return await _fileService.fileExists(filePath: path);
+  /// Resolves configuration file path.
+  ///
+  /// Looks for the configuration file in different locations depending their
+  /// priorities. When a configuration file is find, the path of the file is
+  /// assigned to [_configPath].
+  ///
+  /// Locations sorted by priority.
+  ///   - $path/stacked.config.json
+  ///   - stacked.config.json
+  ///   - $XDG_CONFIG_HOME/stacked/stacked.json
+  @visibleForTesting
+  Future<String?> resolveConfigFile({String? path}) async {
+    if (path != null) {
+      if (await _fileService.fileExists(filePath: '$path/$kConfigFileName')) {
+        return '$path/$kConfigFileName';
+      }
+    }
+
+    if (await _fileService.fileExists(filePath: kConfigFileName)) {
+      return kConfigFileName;
+    }
+
+    if (await _fileService.fileExists(
+      filePath: '${configHome.path}/stacked/stacked.json',
+    )) {
+      return '${configHome.path}/stacked/stacked.json';
+    }
+
+    return null;
   }
 
   /// Reads configuration file at [path] and set data to [_customConfig] map.
   ///
   /// If [path] is not passed, [kConfigFilePath] is used as default.
-  Future<void> loadConfig({String path = kConfigFilePath}) async {
+  Future<void> loadConfig({String? path}) async {
     try {
-      if (!await isConfigFileAvailable(path: path)) {
+      final configPath = await resolveConfigFile(path: path);
+      if (configPath == null) {
         throw ConfigFileNotFoundException(kConfigFileNotFound);
       }
 
-      final data = await _fileService.readFileAsString(filePath: path);
+      final data = await _fileService.readFileAsString(filePath: configPath);
       _customConfig = Config.fromJson(jsonDecode(data));
       _hasCustomConfig = true;
     } on ConfigFileNotFoundException catch (e) {
@@ -125,12 +153,10 @@ class ConfigService {
     return customPath;
   }
 
-  /// Returns sanitized [path].
+  /// Returns import path of [path].
   @visibleForTesting
-  String sanitizePath(String path) {
+  String getImportPath(String path) {
     if (!path.startsWith('lib/')) return path;
-
-    _log.info(message: 'There is no need to include lib folder.');
 
     return path.replaceFirst('lib/', '');
   }
@@ -140,7 +166,6 @@ class ConfigService {
   String getFilePathToHelpersAndMocks(String path) {
     String fileToImport = testHelpersFilePath;
     if (path.startsWith('test/') && fileToImport.startsWith('test/')) {
-      _log.info(message: 'There is no need to include test folder.');
       path = path.replaceFirst('test/', '');
       fileToImport = fileToImport.replaceFirst('test/', '');
     }
