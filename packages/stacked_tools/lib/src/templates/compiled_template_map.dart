@@ -7,16 +7,16 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
   'app': StackedTemplate(
     templateFiles: [
       TemplateFile(
+        relativeOutputPath: kAppTemplateStackedJsonStkPath,
+        content: kAppTemplateStackedJsonStkContent,
+      ),
+      TemplateFile(
         relativeOutputPath: kAppTemplateHomeViewmodelTestPath,
         content: kAppTemplateHomeViewmodelTestContent,
       ),
       TemplateFile(
         relativeOutputPath: kAppTemplateTestHelpersPath,
         content: kAppTemplateTestHelpersContent,
-      ),
-      TemplateFile(
-        relativeOutputPath: kAppTemplateStackedConfigJsonStkPath,
-        content: kAppTemplateStackedConfigJsonStkContent,
       ),
       TemplateFile(
         relativeOutputPath: kAppTemplateREADMEMdStkPath,

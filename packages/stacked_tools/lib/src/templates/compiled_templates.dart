@@ -1,6 +1,27 @@
 /// NOTE: This is generated code from the compileTemplates command. Do not modify by hand
 ///       This file should be checked into source control.
 
+// -------- StackedJsonStk Template Data ----------
+
+const String kAppTemplateStackedJsonStkPath = 'stacked.json.stk';
+
+const String kAppTemplateStackedJsonStkContent = '''
+{
+    "stacked_app_file_path": "app/app.dart",
+    "services_path": "services",
+    "views_path": "ui/views",
+    "test_helpers_file_path": "helpers/test_helpers.dart",
+    "test_services_path": "services",
+    "test_views_path": "viewmodels",
+    "locator_name": "locator",
+    "register_mocks_function": "registerServices",
+    "v1": false,
+    "line_length": 80
+}
+''';
+
+// --------------------------------------------------
+
 // -------- HomeViewmodelTest Template Data ----------
 
 const String kAppTemplateHomeViewmodelTestPath =
@@ -136,27 +157,6 @@ void _removeRegistrationIfExists<T extends Object>() {
   }
 }
 
-''';
-
-// --------------------------------------------------
-
-// -------- StackedConfigJsonStk Template Data ----------
-
-const String kAppTemplateStackedConfigJsonStkPath = 'stacked.config.json.stk';
-
-const String kAppTemplateStackedConfigJsonStkContent = '''
-{
-    "stacked_app_file_path": "app/app.dart",
-    "services_path": "services",
-    "views_path": "ui/views",
-    "test_helpers_file_path": "helpers/test_helpers.dart",
-    "test_services_path": "services",
-    "test_views_path": "viewmodels",
-    "locator_name": "locator",
-    "register_mocks_function": "registerServices",
-    "v1": false,
-    "line_length": 80
-}
 ''';
 
 // --------------------------------------------------
