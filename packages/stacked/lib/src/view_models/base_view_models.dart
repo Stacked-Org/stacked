@@ -18,6 +18,11 @@ class BaseViewModel extends ChangeNotifier
     }
   }
 
+  /// Calls the builder function with this updated viewmodel
+  void rebuildUi() {
+    this.notifyListeners();
+  }
+
   @override
   void dispose() {
     disposed = true;

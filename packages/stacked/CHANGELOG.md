@@ -1,6 +1,7 @@
 ## 3.1.0-beta.1
 
 - Make setFormStatus as NOT required override
+- Adds a better named `rebuildUi` function to replace `notifyListeners`
 
 ## 3.1.0-beta.0 [BREAKING CHANGES]
 
