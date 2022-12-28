@@ -12,7 +12,7 @@ class HomeViewMultipleWidgets extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
-      onModelReady: (viewModel) => viewModel.initialise(),
+      onViewModelReady: (viewModel) => viewModel.initialise(),
       builder: (context, viewModel, _) => Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {

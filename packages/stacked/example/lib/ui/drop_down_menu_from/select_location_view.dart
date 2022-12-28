@@ -61,7 +61,7 @@ class SelectLocationView extends StatelessWidget with $SelectLocationView {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SelectLocationViewModel>.reactive(
-      onModelReady: (model) {
+      onViewModelReady: (model) {
         syncFormWithViewModel(model);
         model.setCountry(CountryValueToTitleMap.keys.first);
         model.setProvince(ProvinceValueToTitleMap.keys.first);
