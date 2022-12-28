@@ -8,7 +8,7 @@ import 'package:stacked_tools/src/locator.dart';
 import 'package:stacked_tools/src/models/config_model.dart';
 import 'package:stacked_tools/src/services/colorized_log_service.dart';
 import 'package:stacked_tools/src/services/file_service.dart';
-import 'package:xdg_directories/xdg_directories.dart';
+import 'package:stacked_tools/src/services/path_service.dart';
 
 /// Handles app configuration of stacked cli
 class ConfigService {

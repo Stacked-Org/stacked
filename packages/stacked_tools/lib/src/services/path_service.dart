@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
+import 'package:xdg_directories/xdg_directories.dart' as xdg;
 
-/// Wraps the path package functionality to allwo us to write
+/// Wraps the path package functionality to allow us to write
 /// deterministic unit tests when using path related functionality
 class PathService {
   String get templatesPath => p.joinAll([
@@ -34,4 +35,7 @@ class PathService {
       );
 
   String basename(String path) => p.basename(path);
+
+  /// The a single base directory relative to which user-specific configuration files should be written. (Corresponds to $XDG_CONFIG_HOME).
+  Directory get configHome => xdg.configHome;
 }
