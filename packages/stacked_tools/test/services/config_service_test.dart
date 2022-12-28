@@ -34,19 +34,7 @@ void main() {
 
     group('resolveConfigFile -', () {
       test(
-          'when called with path equals "example" should call fileExists on fileService with filePath equals "example/stacked.json" and "stacked.json',
-          () async {
-        final fileService = getAndRegisterFileService();
-        final service = _getService();
-        await service.resolveConfigFile(path: 'example');
-        verifyInOrder([
-          fileService.fileExists(filePath: 'example/stacked.json'),
-          fileService.fileExists(filePath: 'stacked.json'),
-        ]);
-      });
-
-      test(
-          'when called with path equals "output" should call fileExists on fileService 1 time',
+          'when called with output path and config file is present on output path should call fileExists on fileService 1 times',
           () async {
         final fileService = getAndRegisterFileService();
         final service = _getService();
@@ -57,9 +45,20 @@ void main() {
       });
 
       test(
-          'when called without path should call fileExists on fileService 2 times',
+          'when called without output path and config file is present on current path should call fileExists on fileService 1 times',
           () async {
         final fileService = getAndRegisterFileService();
+        final service = _getService();
+        await service.resolveConfigFile();
+        verify(
+          fileService.fileExists(filePath: anyNamed('filePath')),
+        ).called(1);
+      });
+
+      test(
+          'when called without output path and config file is present on XDG_CONFIG_HOME path should call fileExists on fileService 2 times',
+          () async {
+        final fileService = getAndRegisterFileService(retryUntilFileExists: 1);
         final service = _getService();
         await service.resolveConfigFile();
         verify(
@@ -68,14 +67,67 @@ void main() {
       });
 
       test(
-          'when called with path equals "example" should call fileExists on fileService 3 times',
+          'when called without output path and config file is present on current path with deprecated filename should call fileExists on fileService 3 times',
           () async {
-        final fileService = getAndRegisterFileService();
+        final fileService = getAndRegisterFileService(retryUntilFileExists: 2);
         final service = _getService();
-        await service.resolveConfigFile(path: 'example');
+        await service.resolveConfigFile();
         verify(
           fileService.fileExists(filePath: anyNamed('filePath')),
         ).called(3);
+      });
+
+      test(
+          'when called with output path and without config file should call fileExists on fileService 4 times',
+          () async {
+        final fileService = getAndRegisterFileService(fileExistsResult: false);
+        final service = _getService();
+        await service.resolveConfigFile(path: 'output');
+        verify(
+          fileService.fileExists(filePath: anyNamed('filePath')),
+        ).called(4);
+      });
+
+      test(
+          'when called with output path and without config file should call fileExists on fileService in priority order',
+          () async {
+        final fileService = getAndRegisterFileService(fileExistsResult: false);
+        final service = _getService();
+        await service.resolveConfigFile(path: 'output');
+        verifyInOrder([
+          fileService.fileExists(filePath: 'output/stacked.json'),
+          fileService.fileExists(filePath: 'stacked.json'),
+          fileService.fileExists(
+            filePath: '/Users/filledstacks/.config/stacked/stacked.json',
+          ),
+          fileService.fileExists(filePath: 'stacked.config.json'),
+        ]);
+      });
+
+      test(
+          'when called with output path and without config file should call fileExists on fileService 3 times',
+          () async {
+        final fileService = getAndRegisterFileService(fileExistsResult: false);
+        final service = _getService();
+        await service.resolveConfigFile();
+        verify(
+          fileService.fileExists(filePath: anyNamed('filePath')),
+        ).called(3);
+      });
+
+      test(
+          'when called without output path and without config file should call fileExists on fileService in priority order',
+          () async {
+        final fileService = getAndRegisterFileService(fileExistsResult: false);
+        final service = _getService();
+        await service.resolveConfigFile();
+        verifyInOrder([
+          fileService.fileExists(filePath: 'stacked.json'),
+          fileService.fileExists(
+            filePath: '/Users/filledstacks/.config/stacked/stacked.json',
+          ),
+          fileService.fileExists(filePath: 'stacked.config.json'),
+        ]);
       });
     });
 
