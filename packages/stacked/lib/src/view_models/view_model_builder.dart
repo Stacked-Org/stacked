@@ -10,11 +10,15 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
 
   /// Fires once when the ViewModel is created or set for the first time
   ///
-  /// If you want this to fire everytime the widget is inserted set [createNewModelOnInsert] to true
-  final Function(T model)? onModelReady;
+  /// If you want this to fire everytime the widget is inserted set [createNewViewModelOnInsert] to true
+  final Function(T viewModel)? onViewModelReady;
 
   /// Builder function with access to the ViewModel to build UI form
-  final Widget Function(BuildContext context, T model, Widget? child) builder;
+  final Widget Function(
+    BuildContext context,
+    T viewModel,
+    Widget? child,
+  ) builder;
 
   /// A builder function that returns the ViewModel for this widget
   final T Function() viewModelBuilder;
@@ -27,23 +31,23 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   /// When set to true a new ViewModel will be constructed everytime the widget is inserted.
   ///
   /// When setting this to true make sure to handle all disposing of streams if subscribed
-  /// to any in the ViewModel. [onModelReady] will fire once the ViewModel has been created/set.
+  /// to any in the ViewModel. [onViewModelReady] will fire once the ViewModel has been created/set.
   /// This will be used when on re-insert of the widget the ViewModel has to be constructed with
   /// a new value.
-  final bool createNewModelOnInsert;
+  final bool createNewViewModelOnInsert;
 
   final _ViewModelBuilderType providerType;
 
-  /// Indicates if the onModelReady should fire every time the ViewModel is inserted into the widget tree.
+  /// Indicates if the onViewModelReady should fire every time the ViewModel is inserted into the widget tree.
   /// Or only once during the lifecycle of the ViewModel.
-  final bool fireOnModelReadyOnce;
+  final bool fireOnViewModelReadyOnce;
 
   /// Indicates if we should run the initialise functionality for special ViewModels only once
   final bool initialiseSpecialViewModelsOnce;
 
   /// Fires when the widget has been removed from the widget tree and allows you to dispose
   /// of any controllers or state values that need disposing
-  final Function(T model)? onDispose;
+  final Function(T viewModel)? onDispose;
 
   /// Constructs a ViewModel provider that will not rebuild the provided widget when notifyListeners is called.
   ///
@@ -51,11 +55,11 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   const ViewModelBuilder.nonReactive({
     required this.viewModelBuilder,
     required this.builder,
-    this.onModelReady,
+    this.onViewModelReady,
     this.onDispose,
     this.disposeViewModel = true,
-    this.createNewModelOnInsert = false,
-    this.fireOnModelReadyOnce = false,
+    this.createNewViewModelOnInsert = false,
+    this.fireOnViewModelReadyOnce = false,
     this.initialiseSpecialViewModelsOnce = false,
     Key? key,
   })  : providerType = _ViewModelBuilderType.NonReactive,
@@ -67,11 +71,11 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
     required this.viewModelBuilder,
     required this.builder,
     this.staticChild,
-    this.onModelReady,
+    this.onViewModelReady,
     this.onDispose,
     this.disposeViewModel = true,
-    this.createNewModelOnInsert = false,
-    this.fireOnModelReadyOnce = false,
+    this.createNewViewModelOnInsert = false,
+    this.fireOnViewModelReadyOnce = false,
     this.initialiseSpecialViewModelsOnce = false,
     Key? key,
   })  : providerType = _ViewModelBuilderType.Reactive,
@@ -93,7 +97,7 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
       _createViewModel();
     }
     // Or if the user wants to create a new ViewModel whenever initState is fired
-    else if (widget.createNewModelOnInsert) {
+    else if (widget.createNewViewModelOnInsert) {
       _createViewModel();
     }
   }
@@ -110,13 +114,13 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
     }
 
     // Fire onModelReady after the ViewModel has been constructed
-    if (widget.onModelReady != null) {
-      if (widget.fireOnModelReadyOnce &&
+    if (widget.onViewModelReady != null) {
+      if (widget.fireOnViewModelReadyOnce &&
           !(_viewModel as BaseViewModel).onModelReadyCalled) {
-        widget.onModelReady!(_viewModel!);
+        widget.onViewModelReady!(_viewModel!);
         (_viewModel as BaseViewModel?)?.setOnModelReadyCalled(true);
-      } else if (!widget.fireOnModelReadyOnce) {
-        widget.onModelReady!(_viewModel!);
+      } else if (!widget.fireOnViewModelReadyOnce) {
+        widget.onViewModelReady!(_viewModel!);
       }
     }
   }
