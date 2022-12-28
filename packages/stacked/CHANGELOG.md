@@ -1,3 +1,7 @@
+## 3.1.0-beta.2
+
+- Adds `listenersCount` to `ListenableServiceMixin`
+
 ## 3.1.0-beta.1
 
 - Make setFormStatus as NOT required override
