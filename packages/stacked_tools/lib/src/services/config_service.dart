@@ -14,6 +14,7 @@ import 'package:stacked_tools/src/services/path_service.dart';
 class ConfigService {
   final _log = locator<ColorizedLogService>();
   final _fileService = locator<FileService>();
+  final _pathService = locator<PathService>();
 
   /// Default config map used to compare and replace with custom values.
   final Map<String, dynamic> _defaultConfig = Config().toJson();
@@ -78,12 +79,13 @@ class ConfigService {
   ///
   /// Looks for the configuration file in different locations depending their
   /// priorities. When a configuration file is find, the path of the file is
-  /// assigned to [_configPath].
+  /// returned. Otherwise, null is returned.
   ///
   /// Locations sorted by priority.
-  ///   - $path/stacked.config.json
-  ///   - stacked.config.json
+  ///   - $path/stacked.json
+  ///   - stacked.json
   ///   - $XDG_CONFIG_HOME/stacked/stacked.json
+  ///   - stacked.config.json (deprecated config filename, only for backwards compatibility)
   @visibleForTesting
   Future<String?> resolveConfigFile({String? path}) async {
     if (path != null) {
@@ -97,9 +99,17 @@ class ConfigService {
     }
 
     if (await _fileService.fileExists(
-      filePath: '${configHome.path}/stacked/stacked.json',
+      filePath: '${_pathService.configHome.path}/stacked/stacked.json',
     )) {
-      return '${configHome.path}/stacked/stacked.json';
+      return '${_pathService.configHome.path}/stacked/stacked.json';
+    }
+
+    // This is only for backwards compatibility, will be removed later
+    if (await _fileService.fileExists(filePath: 'stacked.config.json')) {
+      _log.warn(
+          message:
+              'Stacked config file should be renamed from stacked.config.json to stacked.json. Stacked cli will not read stacked.config.json files after the next minor release.');
+      return 'stacked.config.json';
     }
 
     return null;
@@ -107,7 +117,7 @@ class ConfigService {
 
   /// Reads configuration file at [path] and set data to [_customConfig] map.
   ///
-  /// If [path] is not passed, [kConfigFilePath] is used as default.
+  /// If [path] is not passed, [kConfigFileName] is used as default.
   Future<void> loadConfig({String? path}) async {
     try {
       final configPath = await resolveConfigFile(path: path);
