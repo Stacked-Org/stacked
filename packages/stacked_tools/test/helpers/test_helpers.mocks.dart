@@ -874,15 +874,6 @@ class MockConfigService extends _i1.Mock implements _i14.ConfigService {
         returnValueForMissingStub: '',
       ) as String);
   @override
-  String getImportPath(String? path) => (super.noSuchMethod(
-        Invocation.method(
-          #getImportPath,
-          [path],
-        ),
-        returnValue: '',
-        returnValueForMissingStub: '',
-      ) as String);
-  @override
   String getFilePathToHelpersAndMocks(String? path) => (super.noSuchMethod(
         Invocation.method(
           #getFilePathToHelpersAndMocks,

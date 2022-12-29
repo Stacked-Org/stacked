@@ -14,7 +14,7 @@ void main() {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
 
-    const stackedAppFilePath = 'src/lib/app/core.dart';
+    const stackedAppFilePath = 'src/app/core.dart';
     const testHelpersFilePath = 'lib/src/test/helpers/core_test.helpers.dart';
 
     const String customConfig = '''
@@ -203,14 +203,14 @@ void main() {
         expect(customPath, isNot(path));
         expect(
           customPath,
-          'my/personal/path/to/tests/service/generic_service_test.dart.stk',
+          'test/my/personal/path/to/services/generic_service_test.dart.stk',
         );
       });
 
       test(
           'when called with custom stacked app file path should return full stacked_app file path from config',
           () async {
-        final path = 'lib/app/app.dart';
+        final path = 'app/app.dart';
         getAndRegisterFileService(readFileResult: customConfig);
         final service = _getService();
         await service.loadConfig();
@@ -222,7 +222,7 @@ void main() {
       test(
           'when called with custom test_helpers file path should return full test_helpers file path from config',
           () async {
-        final path = 'test/helpers/test_helpers.dart';
+        final path = 'helpers/test_helpers.dart';
         getAndRegisterFileService(readFileResult: customConfig);
         final service = _getService();
         await service.loadConfig();
@@ -232,13 +232,13 @@ void main() {
       });
     });
 
-    group('getImportPath -', () {
+    group('sanitizePath -', () {
       test(
           'when called with path equals "lib/src/services" should return "src/services"',
           () async {
         final path = 'lib/src/services';
         final service = _getService();
-        final importPath = service.getImportPath(path);
+        final importPath = service.sanitizePath(path);
         expect(importPath, 'src/services');
       });
 
@@ -247,7 +247,7 @@ void main() {
           () async {
         final path = 'src/lib/services';
         final service = _getService();
-        final importPath = service.getImportPath(path);
+        final importPath = service.sanitizePath(path);
         expect(importPath, path);
       });
 
@@ -256,28 +256,55 @@ void main() {
           () async {
         final path = 'src/services';
         final service = _getService();
-        final importPath = service.getImportPath(path);
+        final importPath = service.sanitizePath(path);
+        expect(importPath, path);
+      });
+
+      test(
+          'when called with path equals "test/services" and find equals "test/" should return "services"',
+          () async {
+        final path = 'test/services';
+        final service = _getService();
+        final importPath = service.sanitizePath(path, 'test/');
+        expect(importPath, 'services');
+      });
+
+      test(
+          'when called with path equals "path/to/services" and find equals "test/" should return "path/to/services"',
+          () async {
+        final path = 'path/to/services';
+        final service = _getService();
+        final importPath = service.sanitizePath(path, 'test/');
         expect(importPath, path);
       });
     });
 
     group('getRelativePathToHelpersAndMocks -', () {
       test(
-          'when called with path equals "test/service_tests" should return "../helpers/test_helpers.dart"',
+          'when called with path equals "service_tests" should return "../helpers/test_helpers.dart"',
           () async {
-        final path = 'test/service_tests';
+        final path = 'service_tests';
         final service = _getService();
         final importPath = service.getFilePathToHelpersAndMocks(path);
         expect(importPath, '../helpers/test_helpers.dart');
       });
 
       test(
-          'when called with path equals "test/service_test" should return "../helpers/test_helpers.dart"',
+          'when called with path equals "service_test" should return "../helpers/test_helpers.dart"',
           () async {
-        final path = 'test/service_test';
+        final path = 'service_test';
         final service = _getService();
         final importPath = service.getFilePathToHelpersAndMocks(path);
         expect(importPath, '../helpers/test_helpers.dart');
+      });
+
+      test(
+          'when called with path equals "path/to/service_test" should return "../../../helpers/test_helpers.dart"',
+          () async {
+        final path = 'path/to/service_test';
+        final service = _getService();
+        final importPath = service.getFilePathToHelpersAndMocks(path);
+        expect(importPath, '../../../helpers/test_helpers.dart');
       });
     });
   });

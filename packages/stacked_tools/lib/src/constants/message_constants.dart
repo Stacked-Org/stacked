@@ -40,3 +40,11 @@ const String kConfigFileNotFound =
 
 const String kConfigFileMalformed =
     'Your stacked.json is malformed. Double check to make sure you have properly formatted json.';
+
+const String kDeprecatedConfigFileName = '''
+Stacked config file should be renamed from "stacked.config.json" to "stacked.json". Stacked cli will not read "stacked.config.json" files after the next minor release.
+''';
+
+const String kDeprecatedPaths = '''
+Paths on Stacked config do not need to start with directory "lib" or "test" because  are mandatory directories, defined by the Flutter framework. Stacked cli will not accept paths starting with "lib" or "test" after the next minor release.
+''';

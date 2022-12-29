@@ -27,7 +27,7 @@ class ConfigService {
   bool get hasCustomConfig => _hasCustomConfig;
 
   /// Relative services path for import statements.
-  String get serviceImportPath => getImportPath(_customConfig.servicesPath);
+  String get serviceImportPath => _customConfig.servicesPath;
 
   /// Relative path where services will be genereated.
   String get servicePath => _customConfig.servicesPath;
@@ -56,7 +56,7 @@ class ConfigService {
   String get testViewsPath => _customConfig.testViewsPath;
 
   /// Relative views path for import statements.
-  String get viewImportPath => getImportPath(_customConfig.viewsPath);
+  String get viewImportPath => _customConfig.viewsPath;
 
   /// Relative path where views and viewmodels will be genereated.
   String get viewPath => _customConfig.viewsPath;
@@ -104,20 +104,16 @@ class ConfigService {
       return '${_pathService.configHome.path}/stacked/stacked.json';
     }
 
-    // This is only for backwards compatibility, will be removed later
+    // This is only for backwards compatibility, will be removed on next release
     if (await _fileService.fileExists(filePath: 'stacked.config.json')) {
-      _log.warn(
-          message:
-              'Stacked config file should be renamed from stacked.config.json to stacked.json. Stacked cli will not read stacked.config.json files after the next minor release.');
+      _log.warn(message: kDeprecatedConfigFileName);
       return 'stacked.config.json';
     }
 
     return null;
   }
 
-  /// Reads configuration file at [path] and set data to [_customConfig] map.
-  ///
-  /// If [path] is not passed, [kConfigFileName] is used as default.
+  /// Reads configuration file and set data to [_customConfig] map.
   Future<void> loadConfig({String? path}) async {
     try {
       final configPath = await resolveConfigFile(path: path);
@@ -128,6 +124,7 @@ class ConfigService {
       final data = await _fileService.readFileAsString(filePath: configPath);
       _customConfig = Config.fromJson(jsonDecode(data));
       _hasCustomConfig = true;
+      _sanitizeCustomConfig();
     } on ConfigFileNotFoundException catch (e) {
       _log.warn(message: e.message);
     } on FormatException catch (_) {
@@ -163,23 +160,41 @@ class ConfigService {
     return customPath;
   }
 
-  /// Returns import path of [path].
+  /// Sanitizes the [path] removing [find].
+  ///
+  /// Generally used to remove unnecessary parts of the path as {lib} or {test}.
   @visibleForTesting
-  String getImportPath(String path) {
-    if (!path.startsWith('lib/')) return path;
+  String sanitizePath(String path, [String find = 'lib/']) {
+    if (!path.startsWith(find)) return path;
 
-    return path.replaceFirst('lib/', '');
+    return path.replaceFirst(find, '');
+  }
+
+  /// Sanitizes [_customConfig] to remove unnecessary {lib} or {test} from paths.
+  ///
+  /// Warns the user if the custom config has deprecated path parts.
+  void _sanitizeCustomConfig() {
+    final sanitizedConfig = _customConfig.copyWith(
+      stackedAppFilePath: sanitizePath(_customConfig.stackedAppFilePath),
+      servicesPath: sanitizePath(_customConfig.servicesPath),
+      viewsPath: sanitizePath(_customConfig.viewsPath),
+      testHelpersFilePath:
+          sanitizePath(_customConfig.testHelpersFilePath, 'test/'),
+      testServicesPath: sanitizePath(_customConfig.testServicesPath, 'test/'),
+      testViewsPath: sanitizePath(_customConfig.testViewsPath, 'test/'),
+    );
+
+    if (_customConfig == sanitizedConfig) return;
+
+    _log.warn(message: kDeprecatedPaths);
+
+    _customConfig = sanitizedConfig;
   }
 
   /// Returns file path of test helpers and mock services relative to [path].
   @visibleForTesting
   String getFilePathToHelpersAndMocks(String path) {
     String fileToImport = testHelpersFilePath;
-    if (path.startsWith('test/') && fileToImport.startsWith('test/')) {
-      path = path.replaceFirst('test/', '');
-      fileToImport = fileToImport.replaceFirst('test/', '');
-    }
-
     final pathSegments =
         path.split('/').where((element) => !element.contains('.'));
 
