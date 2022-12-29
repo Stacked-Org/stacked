@@ -45,12 +45,12 @@ abstract class StackedView<T extends ChangeNotifier> extends StatelessWidget {
   /// Fires when the ViewModel is first created or re-created
   ///
   /// This will fire multiple times when [createNewViewModelOnInsert] is set to true
-  void onViewModelReady(T model) {}
+  void onViewModelReady(T viewModel) {}
 
   /// Fires when the ViewModel is disposed
   ///
   /// Useful when working with a form on the view to dispose the form.
-  void onDispose(T model) {}
+  void onDispose(T viewModel) {}
 
   /// A Function that builds UI for the static child that builds only once
   ///
