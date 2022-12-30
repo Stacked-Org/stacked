@@ -107,6 +107,28 @@ class SnackbarService {
       margin: _snackbarConfig?.margin ??
           const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
       mainButton: mainButtonWidget,
+      icon: _snackbarConfig?.icon,
+      maxWidth: _snackbarConfig?.maxWidth,
+      padding: _snackbarConfig?.padding,
+      borderRadius: _snackbarConfig?.borderRadius,
+      borderColor: _snackbarConfig?.borderColor,
+      borderWidth: _snackbarConfig?.borderWidth,
+      leftBarIndicatorColor: _snackbarConfig?.leftBarIndicatorColor,
+      boxShadows: _snackbarConfig?.boxShadows,
+      backgroundGradient: _snackbarConfig?.backgroundGradient,
+      dismissDirection: _snackbarConfig?.dismissDirection,
+      showProgressIndicator: _snackbarConfig?.showProgressIndicator,
+      progressIndicatorController: _snackbarConfig?.progressIndicatorController,
+      progressIndicatorBackgroundColor:
+      _snackbarConfig?.progressIndicatorBackgroundColor,
+      progressIndicatorValueColor: _snackbarConfig?.progressIndicatorValueColor,
+      snackStyle: _snackbarConfig?.snackStyle.toGet,
+      forwardAnimationCurve: _snackbarConfig?.forwardAnimationCurve,
+      reverseAnimationCurve: _snackbarConfig?.reverseAnimationCurve,
+      animationDuration: _snackbarConfig?.animationDuration,
+      overlayBlur: _snackbarConfig?.overlayBlur,
+      overlayColor: _snackbarConfig?.overlayColor,
+      userInputForm: _snackbarConfig?.userInputForm,
     );
   }
 
