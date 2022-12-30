@@ -152,7 +152,7 @@ void main() {
     group('writeOutTemplateFiles -', () {
       test('Given templateName view, should write 3 files to the fileSystem',
           () async {
-        final fileService = getAndRegisterMockFileService();
+        final fileService = getAndRegisterFileService();
         final service = _getService();
         await service.writeOutTemplateFiles(
           template: kCompiledStackedTemplates[kTemplateNameView]!,
@@ -172,7 +172,7 @@ void main() {
       test(
           'Given the view template with a modification file for lib/app/app.dart, should check if the file exists',
           () async {
-        final fileService = getAndRegisterMockFileService();
+        final fileService = getAndRegisterFileService();
         final service = _getService();
         await service.modifyExistingFiles(
           template: kCompiledStackedTemplates[kTemplateNameView]!,
@@ -185,7 +185,7 @@ void main() {
       test(
           'Given the view template with a modification file for lib/app/app.dart and outputPath playground, should check if the file exists in playground',
           () async {
-        final fileService = getAndRegisterMockFileService();
+        final fileService = getAndRegisterFileService();
         final service = _getService();
         await service.modifyExistingFiles(
           template: kCompiledStackedTemplates[kTemplateNameView]!,
@@ -199,7 +199,7 @@ void main() {
       test(
           'Given the view template with a modification file for lib/app/app.dart, should get file data if it exists',
           () async {
-        final fileService = getAndRegisterMockFileService();
+        final fileService = getAndRegisterFileService();
         final service = _getService();
         await service.modifyExistingFiles(
           template: kCompiledStackedTemplates[kTemplateNameView]!,
@@ -212,9 +212,7 @@ void main() {
       test(
           'Given the view template with a modification file for lib/app/app.dart, if the file does not exist, should throw the InvalidStackedStructure message',
           () async {
-        getAndRegisterMockFileService(
-          fileExistsResult: false,
-        );
+        getAndRegisterFileService(fileExistsResult: false);
         final service = _getService();
 
         expect(
@@ -235,7 +233,7 @@ void main() {
       test(
           'Given the a template with a 3 file modifications, should check if the file exists 3 times',
           () async {
-        final fileService = getAndRegisterMockFileService();
+        final fileService = getAndRegisterFileService();
         final service = _getService();
         await service.modifyExistingFiles(
           template: StackedTemplate(templateFiles: [], modificationFiles: [
@@ -273,7 +271,7 @@ void main() {
       test(
           'When called with template view and excludeRoutes, should not check if any file exists for file modification',
           () async {
-        final fileService = getAndRegisterMockFileService();
+        final fileService = getAndRegisterFileService();
         final service = _getService();
         await service.renderTemplate(
           templateName: kTemplateNameView,
@@ -287,7 +285,7 @@ void main() {
       test(
           'When called with template service and excludeRoutes, should check if file exists for file modification',
           () async {
-        final fileService = getAndRegisterMockFileService();
+        final fileService = getAndRegisterFileService();
         final service = _getService();
         await service.renderTemplate(
           templateName: kTemplateNameService,

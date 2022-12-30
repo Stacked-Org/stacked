@@ -15,8 +15,8 @@ mixin ProjectStructureValidator {
     final hasOutputPath = outputPath != null;
     final pubspecPath = 'pubspec.yaml';
     return File(
-            hasOutputPath ? path.join(outputPath, pubspecPath) : pubspecPath)
-        .exists();
+      hasOutputPath ? path.join(outputPath, pubspecPath) : pubspecPath,
+    ).exists();
   }
 
   /// Checks if the current project aligns with the stacked application structure
@@ -25,7 +25,9 @@ mixin ProjectStructureValidator {
     final hasOutputPath = outputPath != null;
     final appPath = _configService.stackedAppFilePath;
 
-    return File(hasOutputPath ? path.join(outputPath, appPath) : appPath)
+    return File(hasOutputPath
+            ? path.join(outputPath, 'lib', appPath)
+            : path.join('lib', appPath))
         .exists();
   }
 

@@ -42,8 +42,8 @@ class CreateAppCommand extends Command {
 
   @override
   Future<void> run() async {
+    await _configService.loadConfig();
     final appName = argResults!.rest.first;
-
     _processService.formattingLineLength = argResults![ksLineLength];
     await _processService.runCreateApp(appName: appName);
 
@@ -54,7 +54,7 @@ class CreateAppCommand extends Command {
 
     await _templateService.renderTemplate(
       templateName: kTemplateNameApp,
-      name: appName,
+      name: appName.split('/').last,
       verbose: true,
       outputPath: appName,
       useBuilder: argResults![ksV1] ?? _configService.v1,

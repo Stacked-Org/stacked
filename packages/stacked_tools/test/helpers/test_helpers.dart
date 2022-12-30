@@ -29,16 +29,25 @@ import 'test_helpers.mocks.dart';
   MockSpec<ProcessService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-service-mock
 ])
-MockFileService getAndRegisterMockFileService({
+MockFileService getAndRegisterFileService({
   bool fileExistsResult = true,
+  int retryUntilFileExists = 0,
   String readFileResult = 'file_content',
   List<FileSystemEntity> getFilesInDirectoryResult = const [],
 }) {
   _removeRegistrationIfExists<FileService>();
   final service = MockFileService();
 
-  when(service.fileExists(filePath: anyNamed('filePath')))
-      .thenAnswer((realInvocation) => Future.value(fileExistsResult));
+  when(service.fileExists(filePath: anyNamed('filePath'))).thenAnswer((
+    realInvocation,
+  ) {
+    if (retryUntilFileExists > 0) {
+      retryUntilFileExists--;
+      return Future.value(false);
+    }
+
+    return Future.value(fileExistsResult);
+  });
 
   when(service.readFileAsString(filePath: anyNamed('filePath')))
       .thenAnswer((realInvocation) => Future.value(readFileResult));
@@ -70,6 +79,8 @@ MockPubspecService getAndRegisterPubSpecService({
 MockPathService getAndRegisterPathService({
   String templatesPathResult = 'template_path',
   String joinResult = 'joined_path',
+  String configHome = '/Users/filledstacks/.config',
+  bool throwStateError = false,
 }) {
   _removeRegistrationIfExists<PathService>();
   final service = MockPathService();
@@ -86,6 +97,17 @@ MockPathService getAndRegisterPathService({
   )).thenReturn(joinResult);
 
   when(service.templatesPath).thenReturn(templatesPathResult);
+
+  when(service.configHome).thenAnswer((realInvocation) {
+    if (throwStateError) {
+      throw StateError(
+        'The "HOME" environment variable is not set. This package (and POSIX)'
+        'requires that HOME be set.',
+      );
+    }
+
+    return Directory(configHome);
+  });
 
   locator.registerSingleton<PathService>(service);
   return service;
@@ -149,7 +171,7 @@ void _removeRegistrationIfExists<T extends Object>() {
 // @stacked-mock-helper
 
 void registerServices() {
-  getAndRegisterMockFileService();
+  getAndRegisterFileService();
   getAndRegisterPathService();
   getAndRegisterTemplateHelper();
   getAndRegisterPubSpecService();

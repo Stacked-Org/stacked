@@ -7,15 +7,14 @@ part of 'config_model.dart';
 // **************************************************************************
 
 _$_Config _$$_ConfigFromJson(Map<String, dynamic> json) => _$_Config(
-      viewsPath: json['views_path'] as String? ?? 'lib/ui/views',
-      servicesPath: json['services_path'] as String? ?? 'lib/services',
+      viewsPath: json['views_path'] as String? ?? 'ui/views',
+      servicesPath: json['services_path'] as String? ?? 'services',
       stackedAppFilePath:
-          json['stacked_app_file_path'] as String? ?? 'lib/app/app.dart',
+          json['stacked_app_file_path'] as String? ?? 'app/app.dart',
       testHelpersFilePath: json['test_helpers_file_path'] as String? ??
-          'test/helpers/test_helpers.dart',
-      testServicesPath:
-          json['test_services_path'] as String? ?? 'test/services',
-      testViewsPath: json['test_views_path'] as String? ?? 'test/viewmodels',
+          'helpers/test_helpers.dart',
+      testServicesPath: json['test_services_path'] as String? ?? 'services',
+      testViewsPath: json['test_views_path'] as String? ?? 'viewmodels',
       locatorName: json['locator_name'] as String? ?? 'locator',
       registerMocksFunction:
           json['register_mocks_function'] as String? ?? 'registerServices',

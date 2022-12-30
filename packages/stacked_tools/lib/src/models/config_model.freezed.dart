@@ -249,17 +249,17 @@ class __$$_ConfigCopyWithImpl<$Res>
 class _$_Config implements _Config {
   _$_Config(
       {@JsonKey(name: 'views_path')
-          this.viewsPath = 'lib/ui/views',
+          this.viewsPath = 'ui/views',
       @JsonKey(name: 'services_path')
-          this.servicesPath = 'lib/services',
+          this.servicesPath = 'services',
       @JsonKey(name: 'stacked_app_file_path')
-          this.stackedAppFilePath = 'lib/app/app.dart',
+          this.stackedAppFilePath = 'app/app.dart',
       @JsonKey(name: 'test_helpers_file_path')
-          this.testHelpersFilePath = 'test/helpers/test_helpers.dart',
+          this.testHelpersFilePath = 'helpers/test_helpers.dart',
       @JsonKey(name: 'test_services_path')
-          this.testServicesPath = 'test/services',
+          this.testServicesPath = 'services',
       @JsonKey(name: 'test_views_path')
-          this.testViewsPath = 'test/viewmodels',
+          this.testViewsPath = 'viewmodels',
       @JsonKey(name: 'locator_name')
           this.locatorName = 'locator',
       @JsonKey(name: 'register_mocks_function')
