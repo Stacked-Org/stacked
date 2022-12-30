@@ -5,6 +5,8 @@ import 'package:stacked/stacked.dart';
 mixin ListenableServiceMixin {
   List<Function> _listeners = List<Function>.empty(growable: true);
 
+  int get listenersCount => _listeners.length;
+
   /// List to the values and react when there are any changes
   void listenToReactiveValues(List<dynamic> reactiveValues) {
     for (var reactiveValue in reactiveValues) {

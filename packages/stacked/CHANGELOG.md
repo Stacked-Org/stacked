@@ -1,5 +1,6 @@
 ## 3.1.0-beta.2
 
+- Adds `listenersCount` to `ListenableServiceMixin`
 - Updates ViewModels to use `viewModel` instead of `model`
 
 ## 3.1.0-beta.1
