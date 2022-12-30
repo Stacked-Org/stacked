@@ -6,17 +6,17 @@ class BuilderWidgetExampleView extends StackedView<HomeViewModel> {
   const BuilderWidgetExampleView({Key? key}) : super(key: key);
 
   @override
-  Widget builder(BuildContext context, HomeViewModel model, Widget? child) {
+  Widget builder(BuildContext context, HomeViewModel viewModel, Widget? child) {
     return Scaffold(
       body: Center(
-        child: Text(model.title),
+        child: Text(viewModel.title),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => model.updateTitle(),
+        onPressed: () => viewModel.updateTitle(),
       ),
     );
   }
 
   @override
-  HomeViewModel modelBuilder(BuildContext context) => HomeViewModel();
+  HomeViewModel viewModelBuilder(BuildContext context) => HomeViewModel();
 }
