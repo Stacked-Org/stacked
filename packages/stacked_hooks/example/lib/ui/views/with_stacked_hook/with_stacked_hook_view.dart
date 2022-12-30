@@ -31,7 +31,7 @@ class WithStackedHookView extends StackedView<WithStackedHookViewModel> {
   }
 }
 
-class _HookForm extends StackedHook<WithStackedHookViewModel> {
+class _HookForm extends StackedHookView<WithStackedHookViewModel> {
   @override
   Widget builder(BuildContext context, WithStackedHookViewModel model) {
     final title = useTextEditingController();

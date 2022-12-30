@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 
 /// An implementation of the StackedView that allows you to use Hooks in the
 /// build
-abstract class StackedHook<T> extends HookWidget {
+abstract class StackedHookView<T> extends HookWidget {
   final bool reactive;
-  const StackedHook({Key? key, this.reactive = true});
+  const StackedHookView({Key? key, this.reactive = true});
 
   @override
   Widget build(BuildContext context) => builder(
