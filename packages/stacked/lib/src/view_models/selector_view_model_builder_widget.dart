@@ -5,7 +5,7 @@ abstract class SelectorViewModelWidget<T extends ChangeNotifier, K>
     extends Widget {
   const SelectorViewModelWidget({Key? key}) : super(key: key);
 
-  K selector(T model);
+  K selector(T viewModel);
   Widget? get staticChild => null;
   bool shouldRebuild(K v1, K v2) => v1 != v2;
   Widget build(BuildContext context, K value);
@@ -28,7 +28,8 @@ class _DataProviderElement<T extends ChangeNotifier, K>
     return Selector<T, K>(
       key: widget.key,
       shouldRebuild: widget.shouldRebuild,
-      selector: (BuildContext context, T model) => widget.selector(model),
+      selector: (BuildContext context, T viewModel) =>
+          widget.selector(viewModel),
       builder: (BuildContext _, K value, Widget? child) =>
           widget.build(this, value),
       child: widget.staticChild,

@@ -1,28 +1,25 @@
 ## 3.1.0-beta.2
 
 - Adds `listenersCount` to `ListenableServiceMixin`
+- Updates ViewModels to use `viewModel` instead of `model`
 
 ## 3.1.0-beta.1
 
-- Make setFormStatus as NOT required override
+- Makes setFormStatus as NOT required override
 - Adds a better named `rebuildUi` function to replace `notifyListeners`
 
-## 3.1.0-beta.0 [BREAKING CHANGES]
+## 3.1.0-beta.0
 
-- Rename ViewModelBuilderWidget to StackedView
-- Use model on all occurrences of the ViewModel at StackedView for better readability and consistency
-- Update BuilderWidgetExampleView
+### BREAKING CHANGES
+
+- Renames ViewModelBuilderWidget to StackedView
+- Updates BuilderWidgetExampleView
 
 ### Migrate from 3.0.1 -> 3.1.0-beta.0
 
 In our mission to make Stacked a standalone framework we want to formalise some ideas. This showed us that some of our widgets are not named appropriately. In addition to that there are also places where we use viewModel and others where we use model. To fix that we made the following breaking changes all within the `ViewModelBuilderWidget`
 
 - `ViewModelBuilderWidget` → `StackedView`
-- `viewModel` → `model`
-- `viewModelBuilder` → `modelBuilder`
-- `disposeViewModel` → `disposeModel`
-- `initialiseSpecialViewModelsOnce` → `initialiseSpecialModelsOnce`
-- `onViewModelReady` → `onModelReady`
 
 ## 3.0.1
 
@@ -556,3 +553,4 @@ Big Update! This version of stacked aims to reduce the boiler plate required to 
 ## 1.0.0
 
 - First release of the architecture containing all the initial required parts to build a full application.
+
