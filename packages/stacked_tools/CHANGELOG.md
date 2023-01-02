@@ -1,3 +1,7 @@
+## 0.2.4
+
+- promotes the package to stable
+
 ## 0.2.4-beta.4
 
 - Removed lib and test folder from the default paths because there is no need to include them as they can't be changed

@@ -1,9 +1,11 @@
 /// NOTE: This is generated code from the compileTemplates command. Do not modify by hand
 ///       This file should be checked into source control.
 
+
 // -------- StackedJsonStk Template Data ----------
 
-const String kAppTemplateStackedJsonStkPath = 'stacked.json.stk';
+const String kAppTemplateStackedJsonStkPath =
+    'stacked.json.stk';
 
 const String kAppTemplateStackedJsonStkContent = '''
 {
@@ -21,6 +23,7 @@ const String kAppTemplateStackedJsonStkContent = '''
 ''';
 
 // --------------------------------------------------
+
 
 // -------- HomeViewmodelTest Template Data ----------
 
@@ -73,9 +76,11 @@ void main() {
 
 // --------------------------------------------------
 
+
 // -------- TestHelpers Template Data ----------
 
-const String kAppTemplateTestHelpersPath = 'test/helpers/test_helpers.dart.stk';
+const String kAppTemplateTestHelpersPath =
+    'test/helpers/test_helpers.dart.stk';
 
 const String kAppTemplateTestHelpersContent = '''
 import 'package:mockito/annotations.dart';
@@ -161,9 +166,11 @@ void _removeRegistrationIfExists<T extends Object>() {
 
 // --------------------------------------------------
 
+
 // -------- READMEMdStk Template Data ----------
 
-const String kAppTemplateREADMEMdStkPath = 'README.md.stk';
+const String kAppTemplateREADMEMdStkPath =
+    'README.md.stk';
 
 const String kAppTemplateREADMEMdStkContent = '''
 # stacked_app
@@ -187,9 +194,11 @@ samples, guidance on mobile development, and a full API reference.
 
 // --------------------------------------------------
 
+
 // -------- Main Template Data ----------
 
-const String kAppTemplateMainPath = 'lib/main.dart.stk';
+const String kAppTemplateMainPath =
+    'lib/main.dart.stk';
 
 const String kAppTemplateMainContent = '''
 import 'package:flutter/material.dart';
@@ -234,6 +243,7 @@ class MyApp extends StatelessWidget {
 
 // --------------------------------------------------
 
+
 // -------- SetupDialogUi Template Data ----------
 
 const String kAppTemplateSetupDialogUiPath =
@@ -259,6 +269,7 @@ void setupDialogUi() {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- SetupBottomSheetUi Template Data ----------
 
@@ -290,9 +301,11 @@ void setupBottomSheetUi() {
 
 // --------------------------------------------------
 
+
 // -------- UiHelpers Template Data ----------
 
-const String kAppTemplateUiHelpersPath = 'lib/ui/common/ui_helpers.dart.stk';
+const String kAppTemplateUiHelpersPath =
+    'lib/ui/common/ui_helpers.dart.stk';
 
 const String kAppTemplateUiHelpersContent = '''
 import 'dart:math';
@@ -378,9 +391,11 @@ double getResponsiveFontSize(BuildContext context,
 
 // --------------------------------------------------
 
+
 // -------- AppStrings Template Data ----------
 
-const String kAppTemplateAppStringsPath = 'lib/ui/common/app_strings.dart.stk';
+const String kAppTemplateAppStringsPath =
+    'lib/ui/common/app_strings.dart.stk';
 
 const String kAppTemplateAppStringsContent = '''
 const String ksHomeBottomSheetTitle = 'Build Great Apps!';
@@ -391,9 +406,11 @@ const String ksHomeBottomSheetDescription =
 
 // --------------------------------------------------
 
+
 // -------- AppColors Template Data ----------
 
-const String kAppTemplateAppColorsPath = 'lib/ui/common/app_colors.dart.stk';
+const String kAppTemplateAppColorsPath =
+    'lib/ui/common/app_colors.dart.stk';
 
 const String kAppTemplateAppColorsContent = '''
 import 'package:flutter/material.dart';
@@ -409,6 +426,7 @@ const Color kcBackgroundColor = kcDarkGreyColor;
 ''';
 
 // --------------------------------------------------
+
 
 // -------- NoticeSheet Template Data ----------
 
@@ -467,6 +485,7 @@ class NoticeSheet extends StatelessWidget {
 
 // --------------------------------------------------
 
+
 // -------- NoticeSheetViewmodel Template Data ----------
 
 const String kAppTemplateNoticeSheetViewmodelPath =
@@ -477,6 +496,7 @@ const String kAppTemplateNoticeSheetViewmodelContent = '''
 ''';
 
 // --------------------------------------------------
+
 
 // -------- InfoAlertDialog Template Data ----------
 
@@ -586,6 +606,7 @@ class InfoAlertDialog extends StatelessWidget {
 
 // --------------------------------------------------
 
+
 // -------- InfoAlertViewmodel Template Data ----------
 
 const String kAppTemplateInfoAlertViewmodelPath =
@@ -598,6 +619,7 @@ const String kAppTemplateInfoAlertViewmodelContent = '''
 ''';
 
 // --------------------------------------------------
+
 
 // -------- HomeViewV1 Template Data ----------
 
@@ -687,9 +709,11 @@ class HomeView extends StatelessWidget {
 
 // --------------------------------------------------
 
+
 // -------- HomeView Template Data ----------
 
-const String kAppTemplateHomeViewPath = 'lib/ui/views/home/home_view.dart.stk';
+const String kAppTemplateHomeViewPath =
+    'lib/ui/views/home/home_view.dart.stk';
 
 const String kAppTemplateHomeViewContent = '''
 import 'package:flutter/material.dart';
@@ -781,6 +805,7 @@ class HomeView extends StackedView<HomeViewModel> {
 
 // --------------------------------------------------
 
+
 // -------- HomeViewmodel Template Data ----------
 
 const String kAppTemplateHomeViewmodelPath =
@@ -827,6 +852,7 @@ class HomeViewModel extends BaseViewModel {
 
 // --------------------------------------------------
 
+
 // -------- StartupViewmodel Template Data ----------
 
 const String kAppTemplateStartupViewmodelPath =
@@ -855,6 +881,7 @@ class StartupViewModel extends BaseViewModel {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- StartupViewV1 Template Data ----------
 
@@ -920,6 +947,7 @@ class StartupView extends StatelessWidget {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- StartupView Template Data ----------
 
@@ -995,9 +1023,11 @@ class StartupView extends StackedView<StartupViewModel> {
 
 // --------------------------------------------------
 
+
 // -------- App Template Data ----------
 
-const String kAppTemplateAppPath = 'lib/app/app.dart.stk';
+const String kAppTemplateAppPath =
+    'lib/app/app.dart.stk';
 
 const String kAppTemplateAppContent = '''
 import 'package:stacked/stacked_annotations.dart';
@@ -1022,9 +1052,11 @@ class App {}
 
 // --------------------------------------------------
 
+
 // -------- DialogType Template Data ----------
 
-const String kAppTemplateDialogTypePath = 'lib/enums/dialog_type.dart.stk';
+const String kAppTemplateDialogTypePath =
+    'lib/enums/dialog_type.dart.stk';
 
 const String kAppTemplateDialogTypeContent = '''
 enum DialogType {
@@ -1034,6 +1066,7 @@ enum DialogType {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- BottomSheetType Template Data ----------
 
@@ -1049,9 +1082,11 @@ enum BottomSheetType {
 
 // --------------------------------------------------
 
+
 // -------- PubspecYamlStk Template Data ----------
 
-const String kAppTemplatePubspecYamlStkPath = 'pubspec.yaml.stk';
+const String kAppTemplatePubspecYamlStkPath =
+    'pubspec.yaml.stk';
 
 const String kAppTemplatePubspecYamlStkContent = '''
 name: {{packageName}}
@@ -1155,6 +1190,7 @@ flutter:
 
 // --------------------------------------------------
 
+
 // -------- GenericViewmodelTest Template Data ----------
 
 const String kViewTemplateGenericViewmodelTestPath =
@@ -1177,6 +1213,7 @@ void main() {
 
 // --------------------------------------------------
 
+
 // -------- GenericViewmodel Template Data ----------
 
 const String kViewTemplateGenericViewmodelPath =
@@ -1190,6 +1227,7 @@ class {{viewModelName}} extends BaseViewModel {
 ''';
 
 // --------------------------------------------------
+
 
 // -------- GenericView Template Data ----------
 
@@ -1228,6 +1266,7 @@ class {{viewName}} extends StackedView<{{viewModelName}}> {
 
 // --------------------------------------------------
 
+
 // -------- GenericViewV1 Template Data ----------
 
 const String kViewTemplateGenericViewV1Path =
@@ -1259,6 +1298,7 @@ class {{viewName}} extends StatelessWidget {
 
 // --------------------------------------------------
 
+
 // -------- GenericServiceTest Template Data ----------
 
 const String kServiceTemplateGenericServiceTestPath =
@@ -1281,6 +1321,7 @@ void main() {
 
 // --------------------------------------------------
 
+
 // -------- GenericService Template Data ----------
 
 const String kServiceTemplateGenericServicePath =
@@ -1293,3 +1334,4 @@ class {{serviceName}}Service {
 ''';
 
 // --------------------------------------------------
+
