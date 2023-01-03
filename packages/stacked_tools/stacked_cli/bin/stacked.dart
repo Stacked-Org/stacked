@@ -4,6 +4,7 @@ import 'package:args/command_runner.dart';
 import 'package:stacked_tools/src/commands/compile/compile_command.dart';
 import 'package:stacked_tools/src/commands/create/create_command.dart';
 import 'package:stacked_tools/src/commands/delete/delete_command.dart';
+import 'package:stacked_tools/src/commands/generate/generate_command.dart';
 import 'package:stacked_tools/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_tools/src/locator.dart';
 
@@ -18,6 +19,7 @@ Future<void> main(List<String> arguments) async {
       ..addCommand(CreateCommand())
       ..addCommand(DeleteCommand())
       ..addCommand(CompileCommand())
+      ..addCommand(GenerateCommand())
       ..run(arguments);
   } on InvalidStackedStructureException catch (e) {
     stdout.writeln(e.message);

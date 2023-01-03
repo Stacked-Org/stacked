@@ -1,3 +1,7 @@
+## 0.2.5
+
+- Adds the new Generate command
+
 ## 0.2.4
 
 - promotes the package to stable

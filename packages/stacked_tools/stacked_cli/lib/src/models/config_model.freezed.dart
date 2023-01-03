@@ -75,8 +75,7 @@ mixin _$Config {
 /// @nodoc
 abstract class $ConfigCopyWith<$Res> {
   factory $ConfigCopyWith(Config value, $Res Function(Config) then) =
-      _$ConfigCopyWithImpl<$Res, Config>;
-  @useResult
+      _$ConfigCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: 'views_path') String viewsPath,
       @JsonKey(name: 'services_path') String servicesPath,
@@ -91,71 +90,68 @@ abstract class $ConfigCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ConfigCopyWithImpl<$Res, $Val extends Config>
-    implements $ConfigCopyWith<$Res> {
+class _$ConfigCopyWithImpl<$Res> implements $ConfigCopyWith<$Res> {
   _$ConfigCopyWithImpl(this._value, this._then);
 
+  final Config _value;
   // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final $Res Function(Config) _then;
 
-  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? viewsPath = null,
-    Object? servicesPath = null,
-    Object? stackedAppFilePath = null,
-    Object? testHelpersFilePath = null,
-    Object? testServicesPath = null,
-    Object? testViewsPath = null,
-    Object? locatorName = null,
-    Object? registerMocksFunction = null,
-    Object? v1 = null,
-    Object? lineLength = null,
+    Object? viewsPath = freezed,
+    Object? servicesPath = freezed,
+    Object? stackedAppFilePath = freezed,
+    Object? testHelpersFilePath = freezed,
+    Object? testServicesPath = freezed,
+    Object? testViewsPath = freezed,
+    Object? locatorName = freezed,
+    Object? registerMocksFunction = freezed,
+    Object? v1 = freezed,
+    Object? lineLength = freezed,
   }) {
     return _then(_value.copyWith(
-      viewsPath: null == viewsPath
+      viewsPath: viewsPath == freezed
           ? _value.viewsPath
           : viewsPath // ignore: cast_nullable_to_non_nullable
               as String,
-      servicesPath: null == servicesPath
+      servicesPath: servicesPath == freezed
           ? _value.servicesPath
           : servicesPath // ignore: cast_nullable_to_non_nullable
               as String,
-      stackedAppFilePath: null == stackedAppFilePath
+      stackedAppFilePath: stackedAppFilePath == freezed
           ? _value.stackedAppFilePath
           : stackedAppFilePath // ignore: cast_nullable_to_non_nullable
               as String,
-      testHelpersFilePath: null == testHelpersFilePath
+      testHelpersFilePath: testHelpersFilePath == freezed
           ? _value.testHelpersFilePath
           : testHelpersFilePath // ignore: cast_nullable_to_non_nullable
               as String,
-      testServicesPath: null == testServicesPath
+      testServicesPath: testServicesPath == freezed
           ? _value.testServicesPath
           : testServicesPath // ignore: cast_nullable_to_non_nullable
               as String,
-      testViewsPath: null == testViewsPath
+      testViewsPath: testViewsPath == freezed
           ? _value.testViewsPath
           : testViewsPath // ignore: cast_nullable_to_non_nullable
               as String,
-      locatorName: null == locatorName
+      locatorName: locatorName == freezed
           ? _value.locatorName
           : locatorName // ignore: cast_nullable_to_non_nullable
               as String,
-      registerMocksFunction: null == registerMocksFunction
+      registerMocksFunction: registerMocksFunction == freezed
           ? _value.registerMocksFunction
           : registerMocksFunction // ignore: cast_nullable_to_non_nullable
               as String,
-      v1: null == v1
+      v1: v1 == freezed
           ? _value.v1
           : v1 // ignore: cast_nullable_to_non_nullable
               as bool,
-      lineLength: null == lineLength
+      lineLength: lineLength == freezed
           ? _value.lineLength
           : lineLength // ignore: cast_nullable_to_non_nullable
               as int,
-    ) as $Val);
+    ));
   }
 }
 
@@ -164,7 +160,6 @@ abstract class _$$_ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
   factory _$$_ConfigCopyWith(_$_Config value, $Res Function(_$_Config) then) =
       __$$_ConfigCopyWithImpl<$Res>;
   @override
-  @useResult
   $Res call(
       {@JsonKey(name: 'views_path') String viewsPath,
       @JsonKey(name: 'services_path') String servicesPath,
@@ -179,64 +174,65 @@ abstract class _$$_ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ConfigCopyWithImpl<$Res>
-    extends _$ConfigCopyWithImpl<$Res, _$_Config>
+class __$$_ConfigCopyWithImpl<$Res> extends _$ConfigCopyWithImpl<$Res>
     implements _$$_ConfigCopyWith<$Res> {
   __$$_ConfigCopyWithImpl(_$_Config _value, $Res Function(_$_Config) _then)
-      : super(_value, _then);
+      : super(_value, (v) => _then(v as _$_Config));
 
-  @pragma('vm:prefer-inline')
+  @override
+  _$_Config get _value => super._value as _$_Config;
+
   @override
   $Res call({
-    Object? viewsPath = null,
-    Object? servicesPath = null,
-    Object? stackedAppFilePath = null,
-    Object? testHelpersFilePath = null,
-    Object? testServicesPath = null,
-    Object? testViewsPath = null,
-    Object? locatorName = null,
-    Object? registerMocksFunction = null,
-    Object? v1 = null,
-    Object? lineLength = null,
+    Object? viewsPath = freezed,
+    Object? servicesPath = freezed,
+    Object? stackedAppFilePath = freezed,
+    Object? testHelpersFilePath = freezed,
+    Object? testServicesPath = freezed,
+    Object? testViewsPath = freezed,
+    Object? locatorName = freezed,
+    Object? registerMocksFunction = freezed,
+    Object? v1 = freezed,
+    Object? lineLength = freezed,
   }) {
     return _then(_$_Config(
-      viewsPath: null == viewsPath
+      viewsPath: viewsPath == freezed
           ? _value.viewsPath
           : viewsPath // ignore: cast_nullable_to_non_nullable
               as String,
-      servicesPath: null == servicesPath
+      servicesPath: servicesPath == freezed
           ? _value.servicesPath
           : servicesPath // ignore: cast_nullable_to_non_nullable
               as String,
-      stackedAppFilePath: null == stackedAppFilePath
+      stackedAppFilePath: stackedAppFilePath == freezed
           ? _value.stackedAppFilePath
           : stackedAppFilePath // ignore: cast_nullable_to_non_nullable
               as String,
-      testHelpersFilePath: null == testHelpersFilePath
+      testHelpersFilePath: testHelpersFilePath == freezed
           ? _value.testHelpersFilePath
           : testHelpersFilePath // ignore: cast_nullable_to_non_nullable
               as String,
-      testServicesPath: null == testServicesPath
+      testServicesPath: testServicesPath == freezed
           ? _value.testServicesPath
           : testServicesPath // ignore: cast_nullable_to_non_nullable
               as String,
-      testViewsPath: null == testViewsPath
+      testViewsPath: testViewsPath == freezed
           ? _value.testViewsPath
           : testViewsPath // ignore: cast_nullable_to_non_nullable
               as String,
-      locatorName: null == locatorName
+      locatorName: locatorName == freezed
           ? _value.locatorName
           : locatorName // ignore: cast_nullable_to_non_nullable
               as String,
-      registerMocksFunction: null == registerMocksFunction
+      registerMocksFunction: registerMocksFunction == freezed
           ? _value.registerMocksFunction
           : registerMocksFunction // ignore: cast_nullable_to_non_nullable
               as String,
-      v1: null == v1
+      v1: v1 == freezed
           ? _value.v1
           : v1 // ignore: cast_nullable_to_non_nullable
               as bool,
-      lineLength: null == lineLength
+      lineLength: lineLength == freezed
           ? _value.lineLength
           : lineLength // ignore: cast_nullable_to_non_nullable
               as int,
@@ -339,45 +335,43 @@ class _$_Config implements _Config {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Config &&
-            (identical(other.viewsPath, viewsPath) ||
-                other.viewsPath == viewsPath) &&
-            (identical(other.servicesPath, servicesPath) ||
-                other.servicesPath == servicesPath) &&
-            (identical(other.stackedAppFilePath, stackedAppFilePath) ||
-                other.stackedAppFilePath == stackedAppFilePath) &&
-            (identical(other.testHelpersFilePath, testHelpersFilePath) ||
-                other.testHelpersFilePath == testHelpersFilePath) &&
-            (identical(other.testServicesPath, testServicesPath) ||
-                other.testServicesPath == testServicesPath) &&
-            (identical(other.testViewsPath, testViewsPath) ||
-                other.testViewsPath == testViewsPath) &&
-            (identical(other.locatorName, locatorName) ||
-                other.locatorName == locatorName) &&
-            (identical(other.registerMocksFunction, registerMocksFunction) ||
-                other.registerMocksFunction == registerMocksFunction) &&
-            (identical(other.v1, v1) || other.v1 == v1) &&
-            (identical(other.lineLength, lineLength) ||
-                other.lineLength == lineLength));
+            const DeepCollectionEquality().equals(other.viewsPath, viewsPath) &&
+            const DeepCollectionEquality()
+                .equals(other.servicesPath, servicesPath) &&
+            const DeepCollectionEquality()
+                .equals(other.stackedAppFilePath, stackedAppFilePath) &&
+            const DeepCollectionEquality()
+                .equals(other.testHelpersFilePath, testHelpersFilePath) &&
+            const DeepCollectionEquality()
+                .equals(other.testServicesPath, testServicesPath) &&
+            const DeepCollectionEquality()
+                .equals(other.testViewsPath, testViewsPath) &&
+            const DeepCollectionEquality()
+                .equals(other.locatorName, locatorName) &&
+            const DeepCollectionEquality()
+                .equals(other.registerMocksFunction, registerMocksFunction) &&
+            const DeepCollectionEquality().equals(other.v1, v1) &&
+            const DeepCollectionEquality()
+                .equals(other.lineLength, lineLength));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      viewsPath,
-      servicesPath,
-      stackedAppFilePath,
-      testHelpersFilePath,
-      testServicesPath,
-      testViewsPath,
-      locatorName,
-      registerMocksFunction,
-      v1,
-      lineLength);
+      const DeepCollectionEquality().hash(viewsPath),
+      const DeepCollectionEquality().hash(servicesPath),
+      const DeepCollectionEquality().hash(stackedAppFilePath),
+      const DeepCollectionEquality().hash(testHelpersFilePath),
+      const DeepCollectionEquality().hash(testServicesPath),
+      const DeepCollectionEquality().hash(testViewsPath),
+      const DeepCollectionEquality().hash(locatorName),
+      const DeepCollectionEquality().hash(registerMocksFunction),
+      const DeepCollectionEquality().hash(v1),
+      const DeepCollectionEquality().hash(lineLength));
 
   @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
   _$$_ConfigCopyWith<_$_Config> get copyWith =>
       __$$_ConfigCopyWithImpl<_$_Config>(this, _$identity);
 
