@@ -1,3 +1,7 @@
+## 0.8.3
+
+* Adds new `replaceWith[ViewName]` extension method
+
 ## 0.8.3-beta.0
 
 * Replaces `syncFormWithViewModel` with deprecated `listenToFormUpdated`

@@ -1,19 +1,37 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
+import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
 import 'package:stacked_generator/utils.dart';
 
 import '../route_allocator.dart';
-import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
 
 class NavigateExtensionClassBuilderHelper {
   Iterable<Method> buildNavigateToExtensionMethods(List<RouteConfig> routes) {
-    return routes.map<Method>(extractNavigationMethodFromRoute);
+    return [
+      ...routes.map<Method>(extractNavigateToMethodFromRoute),
+      ...routes.map<Method>(extractReplaceWithMethodFromRoute),
+    ];
   }
 
-  Method extractNavigationMethodFromRoute(RouteConfig route) {
+  Method extractNavigateToMethodFromRoute(RouteConfig route) =>
+      _extractNavigationMethod(
+        navigationMethod: 'navigateTo',
+        route: route,
+      );
+
+  Method extractReplaceWithMethodFromRoute(RouteConfig route) =>
+      _extractNavigationMethod(
+        navigationMethod: 'replaceWith',
+        route: route,
+      );
+
+  Method _extractNavigationMethod({
+    required String navigationMethod,
+    required RouteConfig route,
+  }) {
     final methodName = route.parentClassName != null
-        ? 'navigateToNested${route.name.capitalize}In${route.parentClassName}'
-        : 'navigateTo${route.name.capitalize}';
+        ? '${navigationMethod}Nested${route.name.capitalize}In${route.parentClassName}'
+        : '$navigationMethod${route.name.capitalize}';
 
     final methodReturnType = route.isProcessedReturnTypeDynamic
         ? route.processedReturnType
@@ -28,7 +46,11 @@ class NavigateExtensionClassBuilderHelper {
       ..returns = Reference('Future<$methodReturnType>')
       ..optionalParameters
           .addAll([...viewArgumentsParameter, ..._constParameters])
-      ..body = _body(route: route, methodReturnType: methodReturnType));
+      ..body = _body(
+        route: route,
+        methodReturnType: methodReturnType,
+        navigationMethod: navigationMethod,
+      ));
   }
 
   /// The arguments provided to the view
@@ -83,13 +105,14 @@ class NavigateExtensionClassBuilderHelper {
   Code _body({
     required RouteConfig route,
     required String methodReturnType,
+    required String navigationMethod,
   }) {
     final routesClassName = route.parentClassName != null
         ? '${route.parentClassName!}Routes'
         : 'Routes';
     return Block.of([
       Code(
-          'return navigateTo<$methodReturnType>($routesClassName.${route.name}, '),
+          'return $navigationMethod<$methodReturnType>($routesClassName.${route.name}, '),
       _assignArgumentClass(route),
       ..._constMethodBodyParameters,
     ]);
