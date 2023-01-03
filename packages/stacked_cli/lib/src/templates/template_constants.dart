@@ -84,10 +84,10 @@ const String k{{name}}Template{{fileName}}Content = \'''
 
 // TODO: add an option to create Cupertino or custom routes
 const String kTemplateMapDataStructure = '''
-import 'package:stacked_cli/src/constants/message_constants.dart';
-import 'package:stacked_cli/src/models/template_models.dart';
-import 'package:stacked_cli/src/templates/compiled_templates.dart';
-import 'package:stacked_cli/src/templates/template_constants.dart';
+import 'package:stacked_tools/src/constants/message_constants.dart';
+import 'package:stacked_tools/src/models/template_models.dart';
+import 'package:stacked_tools/src/templates/compiled_templates.dart';
+import 'package:stacked_tools/src/templates/template_constants.dart';
 
 Map<String, StackedTemplate> kCompiledStackedTemplates = {
   {{#stackedTemplates}}

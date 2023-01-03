@@ -1,6 +1,6 @@
 import 'package:mockito/mockito.dart';
-import 'package:stacked_cli/src/locator.dart';
-import 'package:stacked_cli/src/services/process_service.dart';
+import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/services/process_service.dart';
 import 'package:test/test.dart';
 
 import '../helpers/test_helpers.dart';

@@ -1,8 +1,8 @@
 import 'package:mockito/mockito.dart';
-import 'package:stacked_cli/src/constants/config_constants.dart';
-import 'package:stacked_cli/src/constants/message_constants.dart';
-import 'package:stacked_cli/src/locator.dart';
-import 'package:stacked_cli/src/services/config_service.dart';
+import 'package:stacked_tools/src/constants/config_constants.dart';
+import 'package:stacked_tools/src/constants/message_constants.dart';
+import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/services/config_service.dart';
 import 'package:test/test.dart';
 
 import '../helpers/test_helpers.dart';

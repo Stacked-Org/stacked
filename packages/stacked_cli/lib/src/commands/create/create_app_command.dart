@@ -1,15 +1,15 @@
 import 'dart:async';
 
 import 'package:args/command_runner.dart';
-import 'package:stacked_cli/src/constants/command_constants.dart';
-import 'package:stacked_cli/src/constants/message_constants.dart';
-import 'package:stacked_cli/src/locator.dart';
-import 'package:stacked_cli/src/services/colorized_log_service.dart';
-import 'package:stacked_cli/src/services/config_service.dart';
-import 'package:stacked_cli/src/services/file_service.dart';
-import 'package:stacked_cli/src/services/process_service.dart';
-import 'package:stacked_cli/src/services/template_service.dart';
-import 'package:stacked_cli/src/templates/template_constants.dart';
+import 'package:stacked_tools/src/constants/command_constants.dart';
+import 'package:stacked_tools/src/constants/message_constants.dart';
+import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/services/colorized_log_service.dart';
+import 'package:stacked_tools/src/services/config_service.dart';
+import 'package:stacked_tools/src/services/file_service.dart';
+import 'package:stacked_tools/src/services/process_service.dart';
+import 'package:stacked_tools/src/services/template_service.dart';
+import 'package:stacked_tools/src/templates/template_constants.dart';
 
 class CreateAppCommand extends Command {
   final _cLog = locator<ColorizedLogService>();

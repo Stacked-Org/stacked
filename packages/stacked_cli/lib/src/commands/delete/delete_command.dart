@@ -1,5 +1,5 @@
 import 'package:args/command_runner.dart';
-import 'package:stacked_cli/src/commands/delete/delete_service_command.dart';
+import 'package:stacked_tools/src/commands/delete/delete_service_command.dart';
 
 import 'delete_view_commad.dart';
 

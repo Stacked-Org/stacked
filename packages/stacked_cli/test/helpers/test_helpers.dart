@@ -2,15 +2,15 @@ import 'dart:io';
 
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:stacked_cli/src/locator.dart';
-import 'package:stacked_cli/src/services/colorized_log_service.dart';
-import 'package:stacked_cli/src/services/config_service.dart';
-import 'package:stacked_cli/src/services/file_service.dart';
-import 'package:stacked_cli/src/services/path_service.dart';
-import 'package:stacked_cli/src/services/process_service.dart';
-import 'package:stacked_cli/src/services/pubspec_service.dart';
-import 'package:stacked_cli/src/services/template_service.dart';
-import 'package:stacked_cli/src/templates/template_helper.dart';
+import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/services/colorized_log_service.dart';
+import 'package:stacked_tools/src/services/config_service.dart';
+import 'package:stacked_tools/src/services/file_service.dart';
+import 'package:stacked_tools/src/services/path_service.dart';
+import 'package:stacked_tools/src/services/process_service.dart';
+import 'package:stacked_tools/src/services/pubspec_service.dart';
+import 'package:stacked_tools/src/services/template_service.dart';
+import 'package:stacked_tools/src/templates/template_helper.dart';
 
 // @stacked-import
 
@@ -67,7 +67,7 @@ MockProcessService getAndRegisterProcessService() {
 }
 
 MockPubspecService getAndRegisterPubSpecService({
-  String packageName = 'stacked_cli',
+  String packageName = 'stacked_tools',
 }) {
   _removeRegistrationIfExists<PubspecService>();
   final service = MockPubspecService();

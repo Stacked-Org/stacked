@@ -10,7 +10,7 @@ const String kInvalidStackedStructureAppFile =
 /// running from.
 const String kInvalidRootDirectory = '''
     No pubspec.yaml detected. It seems that you are not running the cli from the root of a flutter project. 
-    Please ensure that you are in the root of a flutter project when using stacked_cli.
+    Please ensure that you are in the root of a flutter project when using stacked_tools.
     ''';
 
 /// The message shown when we detect that the stacked structure does not follow the latest

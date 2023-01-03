@@ -9,7 +9,7 @@ _Todo: write out the steps to run this project locally_
 To test the updated executable code locally run 
 
 ```shell
-# If you're inside the stacked_cli folder use . otherwise use path to stacked_cli directory
+# If you're inside the stacked_tools folder use . otherwise use path to stacked_tools directory
 dart pub global activate --source path .
 ```
 

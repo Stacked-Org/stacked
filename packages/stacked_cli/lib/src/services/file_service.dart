@@ -4,9 +4,9 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:recase/recase.dart';
-import 'package:stacked_cli/src/locator.dart';
-import 'package:stacked_cli/src/services/colorized_log_service.dart';
-import 'package:stacked_cli/src/templates/template_constants.dart';
+import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/services/colorized_log_service.dart';
+import 'package:stacked_tools/src/templates/template_constants.dart';
 
 /// Handles the writing of files to disk
 class FileService {

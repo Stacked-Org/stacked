@@ -1,11 +1,11 @@
 import 'package:mockito/mockito.dart';
-import 'package:stacked_cli/src/constants/message_constants.dart';
-import 'package:stacked_cli/src/exceptions/invalid_stacked_structure_exception.dart';
-import 'package:stacked_cli/src/locator.dart';
-import 'package:stacked_cli/src/models/template_models.dart';
-import 'package:stacked_cli/src/services/template_service.dart';
-import 'package:stacked_cli/src/templates/compiled_template_map.dart';
-import 'package:stacked_cli/src/templates/template_constants.dart';
+import 'package:stacked_tools/src/constants/message_constants.dart';
+import 'package:stacked_tools/src/exceptions/invalid_stacked_structure_exception.dart';
+import 'package:stacked_tools/src/locator.dart';
+import 'package:stacked_tools/src/models/template_models.dart';
+import 'package:stacked_tools/src/services/template_service.dart';
+import 'package:stacked_tools/src/templates/compiled_template_map.dart';
+import 'package:stacked_tools/src/templates/template_constants.dart';
 import 'package:test/test.dart';
 
 import '../helpers/test_helpers.dart';
@@ -323,7 +323,7 @@ void main() {
                   }
             });
 
-        expect(result['name'], 'stacked_cli');
+        expect(result['name'], 'stacked_tools');
       });
     });
   });
