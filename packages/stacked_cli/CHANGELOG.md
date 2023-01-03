@@ -1,3 +1,7 @@
+## 0.2.5
+
+- Added Stacked route observer to app template
+
 ## 0.2.4
 
 - promotes the package to stable
