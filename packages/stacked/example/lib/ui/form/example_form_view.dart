@@ -129,9 +129,11 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                   ElevatedButton(
                     onPressed: () => viewModel.selectBirthDate(
                         context: context,
-                        firstDate: DateTime(1950),
+                        firstDate: DateTime.now()
+                            .subtract(const Duration(days: 365 * 5)),
                         initialDate: DateTime.now(),
-                        lastDate: DateTime(2023)),
+                        lastDate:
+                            DateTime.now().add(const Duration(days: 365 * 5))),
                     child: Text(
                       viewModel.hasBirthDate
                           ? viewModel.birthDateValue.toString()
