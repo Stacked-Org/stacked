@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
 import 'package:example/ui/common/app_colors.dart';
 import 'package:example/ui/common/ui_helpers.dart';
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 
 import 'home_viewmodel.dart';
 
@@ -74,7 +74,7 @@ class HomeView extends StackedView<HomeViewModel> {
   }
 
   @override
-  HomeViewModel modelBuilder(BuildContext context) {
+  HomeViewModel viewModelBuilder(BuildContext context) {
     return HomeViewModel();
   }
 }

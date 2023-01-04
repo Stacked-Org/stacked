@@ -1,7 +1,7 @@
+import 'package:example/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:stacked/stacked.dart';
-import 'package:example/ui/common/ui_helpers.dart';
 
 import 'startup_viewmodel.dart';
 
@@ -49,11 +49,11 @@ class StartupView extends StackedView<StartupViewModel> {
   }
 
   @override
-  StartupViewModel modelBuilder(BuildContext context) {
+  StartupViewModel viewModelBuilder(BuildContext context) {
     return StartupViewModel();
   }
 
   @override
-  void onModelReady(StartupViewModel model) => SchedulerBinding.instance
-      .addPostFrameCallback((timeStamp) => model.runStartupLogic());
+  void onViewModelReady(StartupViewModel viewModel) => SchedulerBinding.instance
+      .addPostFrameCallback((timeStamp) => viewModel.runStartupLogic());
 }
