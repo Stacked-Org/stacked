@@ -1,3 +1,7 @@
+## 1.1.0
+
+We had to update this package version to 1.1.0 because this package use to belong to a different developer. They released starting at 1.0.0. This is why we're suddenly jumping from 0.2.6 to 1.1.0.
+
 ## 0.2.6
 
 - Adds the new Generate command
