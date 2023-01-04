@@ -1,19 +1,23 @@
+## 0.2.6
+
+- Adds the new Generate command
+
 ## 0.2.5
 
-- Added Stacked route observer to app template
+- Adds Stacked route observer to app template
 
 ## 0.2.4
 
-- promotes the package to stable
+- Promotes the package to stable
 
 ## 0.2.4-beta.4
 
-- Removed lib and test folder from the default paths because there is no need to include them as they can't be changed
-- Changed getImportPath to sanitizePath, more appropriate method name
-- Removed path of app name, if any, to render template
-- Changed Stacked config filename to `stacked.json`
-- Changed ConfigService to support XDG_CONFIG_HOME
-- Moved again loadConfig to each command instead of bootstrap
+- Removes lib and test folder from the default paths because there is no need to include them as they can't be changed
+- Changes getImportPath to sanitizePath, more appropriate method name
+- Removes path of app name, if any, to render template
+- Changes Stacked config filename to `stacked.json`
+- Changes ConfigService to support XDG_CONFIG_HOME
+- Moves again loadConfig to each command instead of bootstrap
 
 ## 0.2.4-beta.3
 

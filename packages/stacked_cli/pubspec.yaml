@@ -1,6 +1,6 @@
 name: stacked_cli
-description: The official dev tools for the Stacked Flutter framework
-version: 0.2.5
+description: The official dev tools for the Stacked Framework
+version: 0.2.6
 homepage: https://stacked.filledstacks.com/docs/stacked-cli
 repository: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_cli
 
