@@ -3,487 +3,487 @@
   "packages": [
     {
       "name": "_fe_analyzer_shared",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/_fe_analyzer_shared-51.0.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/_fe_analyzer_shared-47.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "analyzer",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/analyzer-5.3.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/analyzer-4.7.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "ansicolor",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/ansicolor-2.0.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/ansicolor-2.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "args",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/args-2.3.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/args-2.3.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "async",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.10.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/async-2.9.0",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.14"
     },
     {
       "name": "boolean_selector",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "build",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/build-2.3.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/build-2.3.1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "build_config",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/build_config-1.1.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/build_config-1.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "build_daemon",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/build_daemon-3.1.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/build_daemon-3.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "build_resolvers",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/build_resolvers-2.1.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/build_resolvers-2.0.10",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.17"
     },
     {
       "name": "build_runner",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/build_runner-2.3.3",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/build_runner-2.3.0",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "build_runner_core",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/build_runner_core-7.2.7",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/build_runner_core-7.2.7",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "built_collection",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/built_collection-5.1.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/built_collection-5.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "built_value",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/built_value-8.4.2",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/built_value-8.4.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "checked_yaml",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/checked_yaml-2.0.2",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/checked_yaml-2.0.1",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.12"
     },
     {
       "name": "code_builder",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/code_builder-4.4.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/code_builder-4.3.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "collection",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.17.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/collection-1.17.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "convert",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/convert-3.1.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/convert-3.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.12"
     },
     {
       "name": "coverage",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/coverage-1.6.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/coverage-1.6.1",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
     {
       "name": "crypto",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.2",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "dart_style",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/dart_style-2.2.4",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/dart_style-2.2.4",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "file",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/file-6.1.4",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/file-6.1.4",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "fixnum",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/fixnum-1.0.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/fixnum-1.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "freezed",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/freezed-2.3.2",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/freezed-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "freezed_annotation",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/freezed_annotation-2.2.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/freezed_annotation-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "frontend_server_client",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/frontend_server_client-3.2.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/frontend_server_client-2.1.3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "functional_data",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/functional_data-1.0.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/functional_data-1.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "get_it",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/get_it-7.2.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/get_it-7.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "glob",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/glob-2.1.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/glob-2.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
     {
       "name": "graphs",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/graphs-2.2.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/graphs-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "http_multi_server",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/http_multi_server-3.2.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/http_multi_server-3.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "http_parser",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.2",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "io",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/io-1.0.3",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/io-1.0.3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "js",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.5",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/js-0.6.5",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
     {
       "name": "json2yaml",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/json2yaml-3.0.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/json2yaml-3.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "json_annotation",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/json_annotation-4.7.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/json_annotation-4.7.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "json_serializable",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/json_serializable-6.5.4",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/json_serializable-6.5.4",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "lints",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/lints-1.0.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/lints-1.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "logging",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/logging-1.1.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/logging-1.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "matcher",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.14",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.12",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.12"
     },
     {
       "name": "meta",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/meta-1.8.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/meta-1.8.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "mime",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/mime-1.0.3",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/mime-1.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "mockito",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/mockito-5.3.2",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/mockito-5.3.2",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "mustache_template",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/mustache_template-2.0.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/mustache_template-2.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "node_preamble",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/node_preamble-2.0.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/node_preamble-2.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "package_config",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/package_config-2.1.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/package_config-2.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "path",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.3",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/path-1.8.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "plain_optional",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/plain_optional-1.0.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/plain_optional-1.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "platform",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/platform-3.1.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/platform-3.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "pool",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/pool-1.5.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/pool-1.5.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "process",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/process-4.2.4",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/process-4.2.4",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "pub_semver",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/pub_semver-2.1.3",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/pub_semver-2.1.3",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "pubspec_parse",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/pubspec_parse-1.2.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/pubspec_parse-1.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "pubspec_yaml",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/pubspec_yaml-3.1.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/pubspec_yaml-3.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "recase",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/recase-4.1.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/recase-4.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "shelf",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/shelf-1.4.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/shelf-1.4.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "shelf_packages_handler",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/shelf_packages_handler-3.0.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/shelf_packages_handler-3.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "shelf_static",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/shelf_static-1.1.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/shelf_static-1.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "shelf_web_socket",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/shelf_web_socket-1.0.3",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/shelf_web_socket-1.0.3",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "source_gen",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/source_gen-1.2.6",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/source_gen-1.2.6",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "source_helper",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/source_helper-1.3.3",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/source_helper-1.3.3",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "source_map_stack_trace",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/source_map_stack_trace-2.1.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/source_map_stack_trace-2.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "source_maps",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/source_maps-0.10.11",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/source_maps-0.10.10",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.12"
     },
     {
       "name": "source_span",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.9.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/source_span-1.9.1",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "stack_trace",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/stack_trace-1.11.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/stack_trace-1.10.0",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.12"
     },
     {
       "name": "stream_channel",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/stream_channel-2.1.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/stream_channel-2.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "stream_transform",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/stream_transform-2.1.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/stream_transform-2.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "string_scanner",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.2.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.1",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.12"
     },
     {
       "name": "sum_types",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/sum_types-0.3.4",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/sum_types-0.3.4",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "term_glyph",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "test",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/test-1.22.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/test-1.21.4",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.14"
     },
     {
       "name": "test_api",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.17",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.12",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.12"
     },
     {
       "name": "test_core",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/test_core-0.4.21",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/test_core-0.4.16",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.14"
     },
     {
       "name": "timing",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/timing-1.0.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/timing-1.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "typed_data",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/typed_data-1.3.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/typed_data-1.3.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "vm_service",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/vm_service-9.4.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/vm_service-9.4.0",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
     {
       "name": "watcher",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/watcher-1.0.2",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/watcher-1.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "web_socket_channel",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/web_socket_channel-2.2.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/web_socket_channel-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "webkit_inspection_protocol",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/webkit_inspection_protocol-1.2.0",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/webkit_inspection_protocol-1.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "xdg_directories",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/xdg_directories-0.2.0+2",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/xdg_directories-0.2.0+2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "yaml",
-      "rootUri": "file:///Users/danemackier/src/flutter/.pub-cache/hosted/pub.dartlang.org/yaml-3.1.1",
+      "rootUri": "file:///Users/fermento/.asdf/installs/flutter/3.3.10-stable/.pub-cache/hosted/pub.dartlang.org/yaml-3.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -494,7 +494,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-01-03T07:04:13.919640Z",
+  "generated": "2023-01-04T17:46:11.288630Z",
   "generator": "pub",
-  "generatorVersion": "2.18.5"
+  "generatorVersion": "2.18.6"
 }

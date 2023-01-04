@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Users/danemackier/src/flutter"
-export "FLUTTER_APPLICATION_PATH=/Users/danemackier/Code/filledstacks/stacked/packages/stacked_tools/example"
+export "FLUTTER_ROOT=/Users/fermento/.asdf/installs/flutter/3.3.10-stable"
+export "FLUTTER_APPLICATION_PATH=/Users/fermento/Development/Filledstacks/stacked/packages/stacked_tools/example"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.0"
