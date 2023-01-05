@@ -67,7 +67,7 @@ class HomeView extends StackedView<HomeViewModel> {
   }
 
   @override
-  HomeViewModel modelBuilder(BuildContext context) {
+  HomeViewModel viewModelBuilder(BuildContext context) {
     return HomeViewModel();
   }
 }

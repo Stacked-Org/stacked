@@ -22,14 +22,14 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.blue[700],
         colorScheme: ColorScheme.fromSwatch().copyWith(
           secondary: Colors.yellow[700], // Your accent color
-        ), ,
+        ),
       ),
       lightTheme: ThemeData(
         brightness: Brightness.light,
         backgroundColor: Colors.blue[300],
         colorScheme: ColorScheme.fromSwatch().copyWith(
           secondary: Colors.yellow[300], // Your accent color
-        ),       
+        ),
       ),
       statusBarColorBuilder: (theme) => theme?.colorScheme.secondary,
       navigationBarColorBuilder: (theme) => theme?.colorScheme.secondary,

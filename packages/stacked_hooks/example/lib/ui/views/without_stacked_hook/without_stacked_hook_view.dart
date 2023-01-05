@@ -19,7 +19,7 @@ class WithoutStackedHookView extends StackedView<WithoutStackedHookViewModel> {
   }
 
   @override
-  WithoutStackedHookViewModel modelBuilder(BuildContext context) {
+  WithoutStackedHookViewModel viewModelBuilder(BuildContext context) {
     return WithoutStackedHookViewModel();
   }
 }

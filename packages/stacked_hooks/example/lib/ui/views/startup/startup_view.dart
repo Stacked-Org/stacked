@@ -49,7 +49,7 @@ class StartupView extends StackedView<StartupViewModel> {
   }
 
   @override
-  StartupViewModel modelBuilder(BuildContext context) {
+  StartupViewModel viewModelBuilder(BuildContext context) {
     return StartupViewModel();
   }
 

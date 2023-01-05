@@ -26,7 +26,7 @@ class WithStackedHookView extends StackedView<WithStackedHookViewModel> {
   }
 
   @override
-  WithStackedHookViewModel modelBuilder(BuildContext context) {
+  WithStackedHookViewModel viewModelBuilder(BuildContext context) {
     return WithStackedHookViewModel();
   }
 }
