@@ -4,6 +4,7 @@ import 'package:args/command_runner.dart';
 import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
+import 'package:stacked_cli/src/services/analytics_service.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
 import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
@@ -17,6 +18,7 @@ class CreateAppCommand extends Command {
   final _fileService = locator<FileService>();
   final _processService = locator<ProcessService>();
   final _templateService = locator<TemplateService>();
+  final _analyticsService = locator<AnalyticsService>();
 
   @override
   String get description =>
@@ -44,6 +46,7 @@ class CreateAppCommand extends Command {
   Future<void> run() async {
     await _configService.loadConfig();
     final appName = argResults!.rest.first;
+    final appNameWithoutPath = appName.split('/').last;
     _processService.formattingLineLength = argResults![ksLineLength];
     await _processService.runCreateApp(appName: appName);
 
@@ -54,7 +57,7 @@ class CreateAppCommand extends Command {
 
     await _templateService.renderTemplate(
       templateName: kTemplateNameApp,
-      name: appName.split('/').last,
+      name: appNameWithoutPath,
       verbose: true,
       outputPath: appName,
       useBuilder: argResults![ksV1] ?? _configService.v1,
@@ -63,5 +66,6 @@ class CreateAppCommand extends Command {
     await _processService.runPubGet(appName: appName);
     await _processService.runBuildRunner(appName: appName);
     await _processService.runFormat(appName: appName);
+    unawaited(_analyticsService.appCreated(name: appNameWithoutPath));
   }
 }
