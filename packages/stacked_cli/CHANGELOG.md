@@ -3,6 +3,10 @@
 - Updates cli link in readme
 - Sets `runInShell` true in an attempt to fix [this issue](https://github.com/FilledStacks/stacked/issues/811?notification_referrer_id=NT_kwDOADbP6rI1MjQxODI0ODQ5OjM1OTIxNzA)
 
+## 1.1.1
+
+- Adds google analytics to see where to improve the app
+
 ## 1.1.0
 
 We had to update this package version to 1.1.0 because this package use to belong to a different developer. They released starting at 1.0.0. This is why we're suddenly jumping from 0.2.6 to 1.1.0.

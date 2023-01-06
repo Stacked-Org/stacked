@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:args/command_runner.dart';
 import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/mixins/project_structure_validator_mixin.dart';
+import 'package:stacked_cli/src/services/analytics_service.dart';
 import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
@@ -17,6 +20,7 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
   final _processService = locator<ProcessService>();
   final _pubspecService = locator<PubspecService>();
   final _templateService = locator<TemplateService>();
+  final _analyticsService = locator<AnalyticsService>();
 
   @override
   String get description =>
@@ -49,6 +53,7 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
     await deleteViewAndTestFiles(outputPath: outputPath);
     await removeViewFromRoute(outputPath: outputPath);
     await _processService.runBuildRunner(appName: outputPath);
+    unawaited(_analyticsService.viewDeleted(name: argResults!.rest.first));
   }
 
   /// It deletes the view and test files
