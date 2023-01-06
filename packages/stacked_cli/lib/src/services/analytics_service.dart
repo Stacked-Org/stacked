@@ -2,7 +2,7 @@ import 'package:usage/usage_io.dart';
 
 class AnalyticsService {
   final AnalyticsIO _analytics = AnalyticsIO(
-    'UA-XXXXXXXX-X',
+    'UA-41171112-5',
     'stacked-cli',
     'stacked_cli',
   );
