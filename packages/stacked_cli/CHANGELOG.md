@@ -1,3 +1,8 @@
+## 1.1.1+1
+
+- Updates cli link in readme
+- Sets `runInShell` true in an attempt to fix [this issue](https://github.com/FilledStacks/stacked/issues/811?notification_referrer_id=NT_kwDOADbP6rI1MjQxODI0ODQ5OjM1OTIxNzA)
+
 ## 1.1.1
 
 - Adds google analytics to see where to improve the app
