@@ -6,3 +6,12 @@ launch.json
 **/*.lock
 *.lock
 .DS_Store
+
+packages/stacked_tools/stacked_cli/example/android/local.properties
+packages/stacked_tools/stacked_cli/example/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+packages/stacked_tools/stacked_cli/example/ios/Flutter/flutter_export_environment.sh
+packages/stacked_tools/stacked_cli/example/ios/Flutter/Generated.xcconfig
+packages/stacked_tools/stacked_cli/example/ios/Runner/GeneratedPluginRegistrant.h
+packages/stacked_tools/stacked_cli/example/ios/Runner/GeneratedPluginRegistrant.m
+packages/stacked_tools/stacked_cli/example/macos/Flutter/ephemeral/flutter_export_environment.sh
+packages/stacked_tools/stacked_cli/example/macos/Flutter/ephemeral/Flutter-Generated.xcconfig
