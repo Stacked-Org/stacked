@@ -1,6 +1,6 @@
 # Stacked CLI
 
-The official CLI (Command Line Interface) dev tools for working with the Stacked framework. Stacked is a framework built in Flutter for production teams. It is built for maintenance, readability, and scaleability. To read about the usage of this tool read the [Stacked CLI docs](https://stacked.filledstacks.com/docs/Ecosystem/stacked-cli/)
+The official CLI (Command Line Interface) dev tools for working with the Stacked framework. Stacked is a framework built in Flutter for production teams. It is built for maintenance, readability, and scaleability. To read about the usage of this tool read the [Stacked CLI docs](https://stacked.filledstacks.com/docs/Tooling/stacked-cli)
 
 ## Running the code
 
