@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 
 List<String> _splitClassNameWords(String className) {
   return className
-      .split(RegExp(r"(?=[A-Z])"))
+      .split(RegExp(r'(?=[A-Z])'))
       .map((e) => e.toLowerCase())
       .toList();
 }

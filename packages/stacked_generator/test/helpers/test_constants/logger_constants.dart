@@ -84,7 +84,7 @@ class SimpleLogPrinter extends LogPrinter {
 
   List<String> _splitClassNameWords(String className) {
   return className
-      .split(RegExp(r"(?=[A-Z])"))
+      .split(RegExp(r'(?=[A-Z])'))
       .map((e) => e.toLowerCase())
       .toList();
   }
@@ -262,7 +262,7 @@ class SimpleLogPrinter extends LogPrinter {
 
   List<String> _splitClassNameWords(String className) {
   return className
-      .split(RegExp(r"(?=[A-Z])"))
+      .split(RegExp(r'(?=[A-Z])'))
       .map((e) => e.toLowerCase())
       .toList();
   }
