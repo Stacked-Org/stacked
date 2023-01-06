@@ -93,6 +93,7 @@ class ProcessService {
         programName,
         arguments,
         workingDirectory: workingDirectory,
+        runInShell: true,
       );
       process.stdout.transform(utf8.decoder).forEach((output) {
         _cLog.flutterOutput(message: output);
@@ -102,7 +103,9 @@ class ProcessService {
 
       logSuccessStatus(exitCode);
     } on ProcessException catch (e) {
-      _cLog.error(message: 'Command failed. ${e.message}');
+      _cLog.error(
+          message:
+              'Command failed. Command executed: $programName ${arguments.join(' ')}\nException: ${e.message}');
     }
   }
 
