@@ -33,11 +33,11 @@ class BaseViewModel extends ChangeNotifier
 
 /// A [BaseViewModel] that provides functionality to subscribe to a reactive service.
 abstract class ReactiveViewModel extends BaseViewModel {
-  late List<ListenableServiceMixin> _listenableServices;
+  List<ListenableServiceMixin> _listenableServices = [];
   List<ListenableServiceMixin> get listenableServices => [];
 
   // ignore: deprecated_member_use_from_same_package
-  late List<ReactiveServiceMixin> _reactiveServices;
+  List<ReactiveServiceMixin> _reactiveServices = [];
 
   @Deprecated('Use listenableServices property instead')
   List<ReactiveServiceMixin> get reactiveServices => [];
@@ -71,6 +71,10 @@ abstract class ReactiveViewModel extends BaseViewModel {
   void dispose() {
     for (var listenableService in _listenableServices) {
       listenableService.removeListener(_indicateChange);
+    }
+
+    for (var reactiveService in _reactiveServices) {
+      reactiveService.removeListener(_indicateChange);
     }
     super.dispose();
   }

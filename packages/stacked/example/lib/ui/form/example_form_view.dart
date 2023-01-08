@@ -47,7 +47,7 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ExampleFormViewModel>.reactive(
-      onViewModelReady: (viewModel) {
+      onModelReady: (viewModel) {
         // #3: Listen to text updates by calling listenToFormUpdated(model);
         syncFormWithViewModel(viewModel);
         DoYouLoveFoodValueToTitleMap.addAll({'MaybeDr': 'Maybe'});
