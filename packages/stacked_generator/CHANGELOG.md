@@ -1,3 +1,7 @@
+## 0.8.4
+
+* Replaces double quotes with simple quotes on `_splitClassNameWords` at `SimpleLogPrinter`.
+
 ## 0.8.3
 
 * Adds new `replaceWith[ViewName]` extension method
