@@ -1,3 +1,7 @@
+## 3.1.0-beta.4
+
+- Deprecates `ReactiveServiceMixin`
+
 ## 3.1.0-beta.3
 
 - Deprecates `ViewModelBuilderWidget` in favour of `StackedView`
