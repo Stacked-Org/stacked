@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:stacked/src/mixins/listenable_service_mixin.dart';
 import 'package:stacked/src/view_models/helpers/data_state_helper.dart';
 
+import '../mixins/reactive_service_mixin.dart';
 import 'helpers/builders_helpers.dart';
 import 'helpers/busy_error_state_helper.dart';
 import 'helpers/message_state_helper.dart';
@@ -32,12 +33,23 @@ class BaseViewModel extends ChangeNotifier
 
 /// A [BaseViewModel] that provides functionality to subscribe to a reactive service.
 abstract class ReactiveViewModel extends BaseViewModel {
-  late List<ListenableServiceMixin> _listenableServices;
+  List<ListenableServiceMixin> _listenableServices = [];
+  List<ListenableServiceMixin> get listenableServices => [];
 
-  List<ListenableServiceMixin> get listenableServices;
+  // ignore: deprecated_member_use_from_same_package
+  List<ReactiveServiceMixin> _reactiveServices = [];
+
+  @Deprecated('Use listenableServices property instead')
+  List<ReactiveServiceMixin> get reactiveServices => [];
 
   ReactiveViewModel() {
-    _reactToServices(listenableServices);
+    if (listenableServices.isNotEmpty) _reactToServices(listenableServices);
+
+    // ignore: deprecated_member_use_from_same_package
+    if (reactiveServices.isNotEmpty) {
+      // ignore: deprecated_member_use_from_same_package
+      _reactToServicesDeprecated(reactiveServices);
+    }
   }
 
   void _reactToServices(List<ListenableServiceMixin> listenableServices) {
@@ -47,10 +59,22 @@ abstract class ReactiveViewModel extends BaseViewModel {
     }
   }
 
+  // ignore: deprecated_member_use_from_same_package
+  void _reactToServicesDeprecated(List<ReactiveServiceMixin> reactiveServices) {
+    _reactiveServices = reactiveServices;
+    for (var reactiveService in _reactiveServices) {
+      reactiveService.addListener(_indicateChange);
+    }
+  }
+
   @override
   void dispose() {
     for (var listenableService in _listenableServices) {
       listenableService.removeListener(_indicateChange);
+    }
+
+    for (var reactiveService in _reactiveServices) {
+      reactiveService.removeListener(_indicateChange);
     }
     super.dispose();
   }

@@ -1,3 +1,14 @@
+## 3.1.0-beta.4
+
+- Deprecates `ReactiveServiceMixin`
+
+## 3.1.0-beta.3
+
+- Deprecates `ViewModelBuilderWidget` in favour of `StackedView`
+- Deprecates `HookViewModelWidget` in favour of `StackedHookView`
+- Deprecates `fireOnModelReadyOnce` in favour of `fireOnViewModelReadyOnce`
+- Deprecates `onModelReady` in favour of `onViewModelReady`
+
 ## 3.1.0-beta.2
 
 - Adds `listenersCount` to `ListenableServiceMixin`
@@ -10,16 +21,8 @@
 
 ## 3.1.0-beta.0
 
-### BREAKING CHANGES
-
 - Renames ViewModelBuilderWidget to StackedView
 - Updates BuilderWidgetExampleView
-
-### Migrate from 3.0.1 -> 3.1.0-beta.0
-
-In our mission to make Stacked a standalone framework we want to formalise some ideas. This showed us that some of our widgets are not named appropriately. In addition to that there are also places where we use viewModel and others where we use model. To fix that we made the following breaking changes all within the `ViewModelBuilderWidget`
-
-- `ViewModelBuilderWidget` → `StackedView`
 
 ## 3.0.1
 

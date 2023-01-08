@@ -1,10 +1,10 @@
 name: stacked_hooks
 description: Classes that help you make use of hooks when using the stacked package
-version: 0.2.3-beta.0
+version: 0.2.3-beta.2
 homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_hooks
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
   flutter:
