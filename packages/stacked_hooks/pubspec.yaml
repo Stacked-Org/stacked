@@ -4,7 +4,7 @@ version: 0.2.3-beta.0
 homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_hooks
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
   flutter:
