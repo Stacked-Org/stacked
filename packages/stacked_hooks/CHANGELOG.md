@@ -1,6 +1,6 @@
 ## 0.2.3-beta.1
 
-- Reverts breaking change and instead deprevates the `HookViewModelWidget`
+- Reverts breaking change and instead deprecates the `HookViewModelWidget`
 
 ## 0.2.3-beta.0 [BREAKING CHANGES]
 
