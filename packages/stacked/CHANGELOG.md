@@ -1,3 +1,10 @@
+## 3.1.0-beta.3
+
+- Deprecates `ViewModelBuilderWidget` in favour of `StackedView`
+- Deprecates `HookViewModelWidget` in favour of `StackedHookView`
+- Deprecates `fireOnModelReadyOnce` in favour of `fireOnViewModelReadyOnce`
+- Deprecates `onModelReady` in favour of `onViewModelReady`
+
 ## 3.1.0-beta.2
 
 - Adds `listenersCount` to `ListenableServiceMixin`
