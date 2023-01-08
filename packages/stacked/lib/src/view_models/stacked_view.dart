@@ -1,9 +1,15 @@
 import 'package:flutter/widgets.dart';
 import 'package:stacked/src/view_models/view_model_builder.dart';
 
-/// A widget that wraps the [ViewModelBuilder] class in a less boiler plate use of the widget
-///
-/// Default [reactive] value is true. Can be overriden and set to false
+@Deprecated(
+    'This widget will be removed by March 2023, please use the StackedView instead')
+abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
+    extends StackedView<T> {
+  const ViewModelBuilderWidget({Key? key}) : super(key: key);
+}
+
+/// Creates a binding between the ViewModel and the UI by providing a builder function that
+/// gets called when the viewmodel changes has occured.
 abstract class StackedView<T extends ChangeNotifier> extends StatelessWidget {
   const StackedView({Key? key}) : super(key: key);
 
