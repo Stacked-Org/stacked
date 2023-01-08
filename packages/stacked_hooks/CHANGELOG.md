@@ -1,3 +1,7 @@
+## 0.2.3-beta.1
+
+- Reverts breaking change and instead deprevates the `HookViewModelWidget`
+
 ## 0.2.3-beta.0 [BREAKING CHANGES]
 
 - Replaced HookViewModelWidget with StackedHookView
