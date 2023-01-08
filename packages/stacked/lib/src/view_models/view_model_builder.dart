@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+
 import 'base_view_models.dart';
 
 enum _ViewModelBuilderType { NonReactive, Reactive }
@@ -12,6 +13,9 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   ///
   /// If you want this to fire everytime the widget is inserted set [createNewViewModelOnInsert] to true
   final Function(T viewModel)? onViewModelReady;
+
+  @Deprecated('Prefer to use onViewModelReady instead')
+  final Function(T viewModel)? onModelReady;
 
   /// Builder function with access to the ViewModel to build UI form
   final Widget Function(
@@ -42,6 +46,9 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   /// Or only once during the lifecycle of the ViewModel.
   final bool fireOnViewModelReadyOnce;
 
+  @Deprecated('Prefer to use fireOnViewModelReadyOnce')
+  final bool fireOnModelReadyOnce;
+
   /// Indicates if we should run the initialise functionality for special ViewModels only once
   final bool initialiseSpecialViewModelsOnce;
 
@@ -55,11 +62,13 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   const ViewModelBuilder.nonReactive({
     required this.viewModelBuilder,
     required this.builder,
+    this.onModelReady,
     this.onViewModelReady,
     this.onDispose,
     this.disposeViewModel = true,
     this.createNewViewModelOnInsert = false,
     this.fireOnViewModelReadyOnce = false,
+    this.fireOnModelReadyOnce = false,
     this.initialiseSpecialViewModelsOnce = false,
     Key? key,
   })  : providerType = _ViewModelBuilderType.NonReactive,
@@ -67,15 +76,17 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
         super(key: key);
 
   /// Constructs a ViewModel provider that fires the [builder] function when notifyListeners is called in the ViewModel.
-  const ViewModelBuilder.reactive({
+  ViewModelBuilder.reactive({
     required this.viewModelBuilder,
     required this.builder,
+    this.onModelReady,
     this.staticChild,
     this.onViewModelReady,
     this.onDispose,
     this.disposeViewModel = true,
     this.createNewViewModelOnInsert = false,
     this.fireOnViewModelReadyOnce = false,
+    this.fireOnModelReadyOnce = false,
     this.initialiseSpecialViewModelsOnce = false,
     Key? key,
   })  : providerType = _ViewModelBuilderType.Reactive,
@@ -113,7 +124,7 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
       _initialiseSpecialViewModels();
     }
 
-    // Fire onModelReady after the ViewModel has been constructed
+    // Fire onViewModelReady after the ViewModel has been constructed
     if (widget.onViewModelReady != null) {
       if (widget.fireOnViewModelReadyOnce &&
           !(_viewModel as BaseViewModel).onModelReadyCalled) {
@@ -121,6 +132,23 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
         (_viewModel as BaseViewModel?)?.setOnModelReadyCalled(true);
       } else if (!widget.fireOnViewModelReadyOnce) {
         widget.onViewModelReady!(_viewModel!);
+      }
+    }
+
+    // TODO: Delete this code on +5 minor version increases
+    // Fire onModelReady after the ViewModel has been constructed
+    // ignore: deprecated_member_use_from_same_package
+    if (widget.onModelReady != null) {
+      // ignore: deprecated_member_use_from_same_package
+      if (widget.fireOnModelReadyOnce &&
+          !(_viewModel as BaseViewModel).onModelReadyCalled) {
+        // ignore: deprecated_member_use_from_same_package
+        widget.onModelReady!(_viewModel!);
+        (_viewModel as BaseViewModel?)?.setOnModelReadyCalled(true);
+        // ignore: deprecated_member_use_from_same_package
+      } else if (!widget.fireOnModelReadyOnce) {
+        // ignore: deprecated_member_use_from_same_package
+        widget.onModelReady!(_viewModel!);
       }
     }
   }
