@@ -9,7 +9,8 @@ class StartupView extends StackedView<StartupViewModel> {
   const StartupView({Key? key}) : super(key: key);
 
   @override
-  Widget builder(BuildContext context, StartupViewModel model, Widget? child) {
+  Widget builder(
+      BuildContext context, StartupViewModel viewModel, Widget? child) {
     return Scaffold(
       body: Center(
         child: Column(

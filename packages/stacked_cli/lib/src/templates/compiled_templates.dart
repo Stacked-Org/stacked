@@ -832,7 +832,7 @@ class HomeViewModel extends BaseViewModel {
 
   void incrementCounter() {
     _counter++;
-    notifyListeners();
+    rebuildUi();
   }
 
   void showDialog() {
@@ -877,7 +877,7 @@ class StartupViewModel extends BaseViewModel {
     // This is where you can make decisions on where your app should navigate when
     // you have custom startup logic
 
-    _navigationService.replaceWith(Routes.homeView);
+    _navigationService.replaceWithHomeView();
   }
 }
 

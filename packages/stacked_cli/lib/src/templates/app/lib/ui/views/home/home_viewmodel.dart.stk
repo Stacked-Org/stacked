@@ -15,7 +15,7 @@ class HomeViewModel extends BaseViewModel {
 
   void incrementCounter() {
     _counter++;
-    notifyListeners();
+    rebuildUi();
   }
 
   void showDialog() {

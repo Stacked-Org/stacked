@@ -9,7 +9,7 @@ class HomeView extends StackedView<HomeViewModel> {
   const HomeView({Key? key}) : super(key: key);
 
   @override
-  Widget builder(BuildContext context, HomeViewModel model, Widget? child) {
+  Widget builder(BuildContext context, HomeViewModel viewModel, Widget? child) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -32,9 +32,9 @@ class HomeView extends StackedView<HomeViewModel> {
                     verticalSpaceMedium,
                     MaterialButton(
                       color: Colors.black,
-                      onPressed: model.incrementCounter,
+                      onPressed: viewModel.incrementCounter,
                       child: Text(
-                        model.counterLabel,
+                        viewModel.counterLabel,
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
@@ -51,7 +51,7 @@ class HomeView extends StackedView<HomeViewModel> {
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: model.showDialog,
+                      onPressed: viewModel.showDialog,
                     ),
                     MaterialButton(
                       color: kcDarkGreyColor,
@@ -61,7 +61,7 @@ class HomeView extends StackedView<HomeViewModel> {
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: model.showBottomSheet,
+                      onPressed: viewModel.showBottomSheet,
                     ),
                   ],
                 )
