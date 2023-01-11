@@ -1,5 +1,6 @@
 /// Stores all the commands used throughout the app that
 
+const String ksDart = 'dart';
 const String ksFlutter = 'flutter';
 const String ksCreate = 'create';
 const String ksRun = 'run';
@@ -15,6 +16,9 @@ const String ksUseBuilder = 'use-builder';
 const String ksLineLength = 'line-length';
 const String ksExcludeDependency = 'exclude-dependency';
 const String ksCurrentDirectory = '.';
+const String ksGlobal = 'global';
+const String ksActivate = 'activate';
+const String ksStackedCli = 'stacked_cli';
 
 /// A list of strings that are used to run the pub run build runner build --delete-conflicting-outputs command.
 const List<String> buildRunnerArguments = [
@@ -27,3 +31,11 @@ const List<String> buildRunnerArguments = [
 
 /// A list of strings that are used to run the pub get command.
 const List<String> pubGetArguments = [ksPub, ksGet];
+
+/// A list of strings that are used to run the pub global command.
+const List<String> pubGlobalArguments = [
+  ksPub,
+  ksGlobal,
+  ksActivate,
+  ksStackedCli
+];
