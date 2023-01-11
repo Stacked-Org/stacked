@@ -1,3 +1,7 @@
+## 1.1.2
+
+- Adds the new Update command
+
 ## 1.1.1+1
 
 - Updates cli link in readme

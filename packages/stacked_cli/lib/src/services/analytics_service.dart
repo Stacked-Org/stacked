@@ -56,6 +56,10 @@ class AnalyticsService {
     await _analytics.sendEvent('command', 'generate');
   }
 
+  Future<void> cliUpdated() async {
+    await _analytics.sendEvent('command', 'update');
+  }
+
   Future<void> templatesCompiled() async {
     await _analytics.sendEvent('command', 'compile');
   }
