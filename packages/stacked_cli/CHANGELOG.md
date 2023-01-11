@@ -1,3 +1,8 @@
+## 1.1.3
+
+- Updates the `HomeViewModel` template to use `rebuildUi` instead of `notifyListeners`
+- Updates `StartupViewModel` to use type safe navigation when going to the `HomeView`
+
 ## 1.1.2
 
 - Adds the new Update command
