@@ -76,7 +76,7 @@ class ProcessService {
   /// It runs the `dart pub global` command in the app's directory
   Future<void> runPubGlobal() async {
     await _runProcessAndLogOutput(
-      programName: ksFlutter,
+      programName: ksDart,
       arguments: pubGlobalArguments,
     );
   }
