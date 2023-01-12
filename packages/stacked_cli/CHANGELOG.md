@@ -1,3 +1,7 @@
+## 1.1.3+1
+
+- Replaces `stacked_tools` strings with `stacked_cli`
+
 ## 1.1.3
 
 - Updates the `HomeViewModel` template to use `rebuildUi` instead of `notifyListeners`

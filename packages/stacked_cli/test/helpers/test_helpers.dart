@@ -67,7 +67,7 @@ MockProcessService getAndRegisterProcessService() {
 }
 
 MockPubspecService getAndRegisterPubSpecService({
-  String packageName = 'stacked_tools',
+  String packageName = 'stacked_cli',
 }) {
   _removeRegistrationIfExists<PubspecService>();
   final service = MockPubspecService();
