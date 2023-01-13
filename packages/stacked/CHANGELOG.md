@@ -1,3 +1,7 @@
+## 3.1.0-beta.5
+
+- Fixes the listenable and reactive service late initialisation error
+
 ## 3.1.0-beta.4
 
 - Deprecates `ReactiveServiceMixin`
