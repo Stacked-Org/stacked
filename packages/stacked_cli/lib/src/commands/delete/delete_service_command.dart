@@ -45,6 +45,9 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
 
   @override
   Future<void> run() async {
+    unawaited(_analyticsService.deleteServiceEvent(
+      name: argResults!.rest.first,
+    ));
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     await _configService.loadConfig(path: outputPath);
     _processService.formattingLineLength = argResults?[ksLineLength];
@@ -53,7 +56,6 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
     await deleteServiceAndTestFiles(outputPath: outputPath);
     await removeServiceFromTestHelper(outputPath: outputPath);
     await _processService.runBuildRunner(appName: outputPath);
-    unawaited(_analyticsService.serviceDeleted(name: argResults!.rest.first));
   }
 
   /// It deletes the service and test files
