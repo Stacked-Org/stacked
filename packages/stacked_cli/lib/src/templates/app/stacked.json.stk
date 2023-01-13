@@ -2,6 +2,7 @@
     "stacked_app_file_path": "app/app.dart",
     "services_path": "services",
     "views_path": "ui/views",
+    "bottom_sheets_path": "ui/bottom_sheets",
     "test_helpers_file_path": "helpers/test_helpers.dart",
     "test_services_path": "services",
     "test_views_path": "viewmodels",
