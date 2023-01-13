@@ -10,7 +10,10 @@ import 'package:stacked_services/src/models/overlay_response.dart';
 import 'bottom_sheet_ui.dart';
 
 typedef SheetBuilder = Widget Function(
-    BuildContext, SheetRequest, void Function(SheetResponse));
+  BuildContext context,
+  SheetRequest<dynamic> request,
+  void Function(SheetResponse<dynamic> response) completer,
+);
 
 /// A service that allows you to show a bottom sheet
 class BottomSheetService {

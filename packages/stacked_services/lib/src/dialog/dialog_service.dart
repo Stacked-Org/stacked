@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stacked_services/src/dialog/platform_dialog.dart';
@@ -8,7 +7,10 @@ import 'package:stacked_services/src/models/overlay_request.dart';
 import 'package:stacked_services/src/models/overlay_response.dart';
 
 typedef DialogBuilder = Widget Function(
-    BuildContext, DialogRequest, void Function(DialogResponse));
+  BuildContext context,
+  DialogRequest<dynamic> request,
+  void Function(DialogResponse<dynamic> response) completer,
+);
 
 enum DialogPlatform {
   Cupertino,
