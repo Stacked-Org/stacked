@@ -2,6 +2,7 @@
 const String kTemplateNameView = 'view';
 const String kTemplateNameService = 'service';
 const String kTemplateNameApp = 'app';
+const String kTemplateNameBottomSheet = 'bottom_sheet';
 
 // ------- File Modification identifiers --------
 
@@ -59,6 +60,16 @@ const String kTemplatePropertyServiceTestHelpersImport =
 const String kTemplatePropertyViewImportPath = 'viewImportPath';
 
 const String kTemplatePropertyViewTestHelpersImport = 'viewTestHelpersImport';
+
+const String kTemplatePropertySheetName = 'sheetName';
+
+const String kTemplatePropertySheetFilename = 'sheetFilename';
+
+const String kTemplatePropertySheetFolderName = 'sheetFolderName';
+
+const String kTemplatePropertySheetType = 'sheetType';
+
+const String kTemplatePropertySheetImportPath = 'sheetImportPath';
 
 // -------- Compiled Template Structure ---------
 
