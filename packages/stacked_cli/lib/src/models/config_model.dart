@@ -14,6 +14,11 @@ class Config with _$Config {
     /// Path where services will be genereated.
     @JsonKey(name: 'services_path') @Default('services') String servicesPath,
 
+    /// Path where bottom sheets will be genereated.
+    @JsonKey(name: 'bottom_sheets_path')
+    @Default('ui/bottom_sheets')
+        String bottomSheetsPath,
+
     /// File path where StackedApp is setup.
     @JsonKey(name: 'stacked_app_file_path')
     @Default('app/app.dart')

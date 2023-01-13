@@ -28,6 +28,10 @@ mixin _$Config {
   @JsonKey(name: 'services_path')
   String get servicesPath => throw _privateConstructorUsedError;
 
+  /// Path where bottom sheets will be genereated.
+  @JsonKey(name: 'bottom_sheets_path')
+  String get bottomSheetsPath => throw _privateConstructorUsedError;
+
   /// File path where StackedApp is setup.
   @JsonKey(name: 'stacked_app_file_path')
   String get stackedAppFilePath => throw _privateConstructorUsedError;
@@ -80,6 +84,7 @@ abstract class $ConfigCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'views_path') String viewsPath,
       @JsonKey(name: 'services_path') String servicesPath,
+      @JsonKey(name: 'bottom_sheets_path') String bottomSheetsPath,
       @JsonKey(name: 'stacked_app_file_path') String stackedAppFilePath,
       @JsonKey(name: 'test_helpers_file_path') String testHelpersFilePath,
       @JsonKey(name: 'test_services_path') String testServicesPath,
@@ -105,6 +110,7 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
   $Res call({
     Object? viewsPath = null,
     Object? servicesPath = null,
+    Object? bottomSheetsPath = null,
     Object? stackedAppFilePath = null,
     Object? testHelpersFilePath = null,
     Object? testServicesPath = null,
@@ -122,6 +128,10 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
       servicesPath: null == servicesPath
           ? _value.servicesPath
           : servicesPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      bottomSheetsPath: null == bottomSheetsPath
+          ? _value.bottomSheetsPath
+          : bottomSheetsPath // ignore: cast_nullable_to_non_nullable
               as String,
       stackedAppFilePath: null == stackedAppFilePath
           ? _value.stackedAppFilePath
@@ -168,6 +178,7 @@ abstract class _$$_ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'views_path') String viewsPath,
       @JsonKey(name: 'services_path') String servicesPath,
+      @JsonKey(name: 'bottom_sheets_path') String bottomSheetsPath,
       @JsonKey(name: 'stacked_app_file_path') String stackedAppFilePath,
       @JsonKey(name: 'test_helpers_file_path') String testHelpersFilePath,
       @JsonKey(name: 'test_services_path') String testServicesPath,
@@ -190,6 +201,7 @@ class __$$_ConfigCopyWithImpl<$Res>
   $Res call({
     Object? viewsPath = null,
     Object? servicesPath = null,
+    Object? bottomSheetsPath = null,
     Object? stackedAppFilePath = null,
     Object? testHelpersFilePath = null,
     Object? testServicesPath = null,
@@ -207,6 +219,10 @@ class __$$_ConfigCopyWithImpl<$Res>
       servicesPath: null == servicesPath
           ? _value.servicesPath
           : servicesPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      bottomSheetsPath: null == bottomSheetsPath
+          ? _value.bottomSheetsPath
+          : bottomSheetsPath // ignore: cast_nullable_to_non_nullable
               as String,
       stackedAppFilePath: null == stackedAppFilePath
           ? _value.stackedAppFilePath
@@ -252,6 +268,8 @@ class _$_Config implements _Config {
           this.viewsPath = 'ui/views',
       @JsonKey(name: 'services_path')
           this.servicesPath = 'services',
+      @JsonKey(name: 'bottom_sheets_path')
+          this.bottomSheetsPath = 'ui/bottom_sheets',
       @JsonKey(name: 'stacked_app_file_path')
           this.stackedAppFilePath = 'app/app.dart',
       @JsonKey(name: 'test_helpers_file_path')
@@ -281,6 +299,11 @@ class _$_Config implements _Config {
   @override
   @JsonKey(name: 'services_path')
   final String servicesPath;
+
+  /// Path where bottom sheets will be genereated.
+  @override
+  @JsonKey(name: 'bottom_sheets_path')
+  final String bottomSheetsPath;
 
   /// File path where StackedApp is setup.
   @override
@@ -331,7 +354,7 @@ class _$_Config implements _Config {
 
   @override
   String toString() {
-    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, stackedAppFilePath: $stackedAppFilePath, testHelpersFilePath: $testHelpersFilePath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, locatorName: $locatorName, registerMocksFunction: $registerMocksFunction, v1: $v1, lineLength: $lineLength)';
+    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, bottomSheetsPath: $bottomSheetsPath, stackedAppFilePath: $stackedAppFilePath, testHelpersFilePath: $testHelpersFilePath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, locatorName: $locatorName, registerMocksFunction: $registerMocksFunction, v1: $v1, lineLength: $lineLength)';
   }
 
   @override
@@ -343,6 +366,8 @@ class _$_Config implements _Config {
                 other.viewsPath == viewsPath) &&
             (identical(other.servicesPath, servicesPath) ||
                 other.servicesPath == servicesPath) &&
+            (identical(other.bottomSheetsPath, bottomSheetsPath) ||
+                other.bottomSheetsPath == bottomSheetsPath) &&
             (identical(other.stackedAppFilePath, stackedAppFilePath) ||
                 other.stackedAppFilePath == stackedAppFilePath) &&
             (identical(other.testHelpersFilePath, testHelpersFilePath) ||
@@ -366,6 +391,7 @@ class _$_Config implements _Config {
       runtimeType,
       viewsPath,
       servicesPath,
+      bottomSheetsPath,
       stackedAppFilePath,
       testHelpersFilePath,
       testServicesPath,
@@ -395,6 +421,8 @@ abstract class _Config implements Config {
           final String viewsPath,
       @JsonKey(name: 'services_path')
           final String servicesPath,
+      @JsonKey(name: 'bottom_sheets_path')
+          final String bottomSheetsPath,
       @JsonKey(name: 'stacked_app_file_path')
           final String stackedAppFilePath,
       @JsonKey(name: 'test_helpers_file_path')
@@ -424,6 +452,11 @@ abstract class _Config implements Config {
   /// Path where services will be genereated.
   @JsonKey(name: 'services_path')
   String get servicesPath;
+  @override
+
+  /// Path where bottom sheets will be genereated.
+  @JsonKey(name: 'bottom_sheets_path')
+  String get bottomSheetsPath;
   @override
 
   /// File path where StackedApp is setup.
