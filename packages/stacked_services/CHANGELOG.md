@@ -1,3 +1,7 @@
+## 0.9.9+1
+
+- Updates DialogBuider and SheetBuilder typedefs
+
 ## 0.9.9
 - Adds all properties to the show snackbar cofig
 
