@@ -42,6 +42,8 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
 
   @override
   Future<void> run() async {
+    final serviceName = argResults!.rest.first;
+    unawaited(_analyticsService.createServiceEvent(name: serviceName));
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     await _configService.loadConfig(path: outputPath);
     _processService.formattingLineLength = argResults?[ksLineLength];
@@ -49,13 +51,12 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
     await validateStructure(outputPath: outputPath);
 
     await _templateService.renderTemplate(
-      templateName: kTemplateNameService,
-      name: argResults!.rest.first,
+      templateName: name,
+      name: serviceName,
       outputPath: outputPath,
       verbose: true,
       excludeRoute: argResults![ksExcludeDependency],
     );
     await _processService.runBuildRunner(appName: outputPath);
-    unawaited(_analyticsService.serviceCreated(name: argResults!.rest.first));
   }
 }

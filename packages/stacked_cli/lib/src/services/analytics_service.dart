@@ -7,7 +7,7 @@ class AnalyticsService {
     'stacked_cli',
   );
 
-  Future<void> appCreated({required String name}) async {
+  Future<void> createAppEvent({required String name}) async {
     await _analytics.sendEvent(
       'command',
       'create',
@@ -25,7 +25,7 @@ class AnalyticsService {
     );
   }
 
-  Future<void> serviceCreated({required String name}) async {
+  Future<void> createServiceEvent({required String name}) async {
     await _analytics.sendEvent(
       'command',
       'create',
@@ -34,7 +34,7 @@ class AnalyticsService {
     );
   }
 
-  Future<void> viewCreated({required String name}) async {
+  Future<void> createViewEvent({required String name}) async {
     await _analytics.sendEvent(
       'command',
       'create',
@@ -43,7 +43,7 @@ class AnalyticsService {
     );
   }
 
-  Future<void> serviceDeleted({required String name}) async {
+  Future<void> deleteServiceEvent({required String name}) async {
     await _analytics.sendEvent(
       'command',
       'delete',
@@ -52,7 +52,7 @@ class AnalyticsService {
     );
   }
 
-  Future<void> viewDeleted({required String name}) async {
+  Future<void> deleteViewEvent({required String name}) async {
     await _analytics.sendEvent(
       'command',
       'delete',
@@ -61,15 +61,11 @@ class AnalyticsService {
     );
   }
 
-  Future<void> codeGenerated() async {
+  Future<void> generateCodeEvent() async {
     await _analytics.sendEvent('command', 'generate');
   }
 
-  Future<void> cliUpdated() async {
+  Future<void> updateCliEvent() async {
     await _analytics.sendEvent('command', 'update');
-  }
-
-  Future<void> templatesCompiled() async {
-    await _analytics.sendEvent('command', 'compile');
   }
 }

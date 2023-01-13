@@ -48,6 +48,8 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
 
   @override
   Future<void> run() async {
+    final viewName = argResults!.rest.first;
+    unawaited(_analyticsService.createViewEvent(name: viewName));
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     await _configService.loadConfig(path: outputPath);
     _processService.formattingLineLength = argResults![ksLineLength];
@@ -55,14 +57,13 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
     await validateStructure(outputPath: outputPath);
 
     await _templateService.renderTemplate(
-      templateName: kTemplateNameView,
-      name: argResults!.rest.first,
+      templateName: name,
+      name: viewName,
       outputPath: outputPath,
       verbose: true,
       excludeRoute: argResults![ksExcludeRoute],
       useBuilder: argResults![ksV1] ?? _configService.v1,
     );
     await _processService.runBuildRunner(appName: outputPath);
-    unawaited(_analyticsService.viewCreated(name: argResults!.rest.first));
   }
 }
