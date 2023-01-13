@@ -16,6 +16,15 @@ class AnalyticsService {
     );
   }
 
+  Future<void> createBottomSheetEvent({required String name}) async {
+    await _analytics.sendEvent(
+      'command',
+      'create',
+      label: 'bottom_sheet',
+      parameters: {'name': name},
+    );
+  }
+
   Future<void> serviceCreated({required String name}) async {
     await _analytics.sendEvent(
       'command',

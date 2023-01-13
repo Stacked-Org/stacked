@@ -24,7 +24,7 @@ Map<String, RenderFunction> renderFunctions = {
   kTemplateNameService: (ReCase value, [map]) {
     final configService = locator<ConfigService>();
     return {
-      kTemplatePropertyServiceName: value.pascalCase,
+      kTemplatePropertyServiceName: '${value.pascalCase}Service',
       kTemplatePropertyServiceFilename: '${value.snakeCase}_service.dart',
       kTemplatePropertyLocatorName: configService.locatorName,
       kTemplatePropertyRelativeLocatorPath: getRelativeLocatorPath(
@@ -40,6 +40,14 @@ Map<String, RenderFunction> renderFunctions = {
       kTemplatePropertyRelativeLocatorPath: getRelativeLocatorPath(
         stackedAppFilePath: configService.stackedAppFilePath,
       ),
+    };
+  },
+  kTemplateNameBottomSheet: (ReCase value) {
+    return {
+      kTemplatePropertySheetName: '${value.pascalCase}Sheet',
+      kTemplatePropertySheetFilename: '${value.snakeCase}_sheet',
+      kTemplatePropertySheetFolderName: value.snakeCase,
+      kTemplatePropertySheetType: value.camelCase,
     };
   },
 };
