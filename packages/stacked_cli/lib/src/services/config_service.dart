@@ -42,6 +42,9 @@ class ConfigService {
         _customConfig.testServicesPath,
       );
 
+  /// Relative bottom sheet path for import statements.
+  String get sheetImportPath => _customConfig.bottomSheetsPath;
+
   /// File path where StackedApp is setup.
   String get stackedAppFilePath => _customConfig.stackedAppFilePath;
 
