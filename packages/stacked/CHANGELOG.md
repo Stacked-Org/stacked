@@ -1,3 +1,7 @@
+## 3.1.0+1
+
+- Updates banner correctly
+
 ## 3.1.0
 
 ### Features

@@ -1,19 +1,9 @@
-## 0.2.3-beta.2 [REVERTS BREAKING CHANGES]
-
+## 0.2.3
 - Completes the revert to the `HookViewModelWidget` to remove breaking changes
-
-## 0.2.3-beta.1
-
 - Reverts breaking change and instead deprecates the `HookViewModelWidget`
-
-## 0.2.3-beta.0 [BREAKING CHANGES]
-
 - Replaced HookViewModelWidget with StackedHookView
 - Updated example app
 - Updated README
-
-Migrate from 0.2.2 -> 0.2.3-beta.0
-
 - HookViewModelWidget -> StackedHookView
 
 ## 0.2.2
