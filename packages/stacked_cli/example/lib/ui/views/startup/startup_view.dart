@@ -1,7 +1,7 @@
-import 'package:example/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:stacked/stacked.dart';
+import 'package:example/ui/common/ui_helpers.dart';
 
 import 'startup_viewmodel.dart';
 
@@ -10,7 +10,10 @@ class StartupView extends StackedView<StartupViewModel> {
 
   @override
   Widget builder(
-      BuildContext context, StartupViewModel viewModel, Widget? child) {
+    BuildContext context,
+    StartupViewModel viewModel,
+    Widget? child,
+  ) {
     return Scaffold(
       body: Center(
         child: Column(
@@ -50,9 +53,10 @@ class StartupView extends StackedView<StartupViewModel> {
   }
 
   @override
-  StartupViewModel viewModelBuilder(BuildContext context) {
-    return StartupViewModel();
-  }
+  StartupViewModel viewModelBuilder(
+    BuildContext context,
+  ) =>
+      StartupViewModel();
 
   @override
   void onViewModelReady(StartupViewModel viewModel) => SchedulerBinding.instance
