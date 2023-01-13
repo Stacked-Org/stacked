@@ -1,3 +1,9 @@
+## 1.1.4
+
+- Adds create bottom_sheet command
+- Improves templates
+- Updates example app
+
 ## 1.1.3+1
 
 - Replaces `stacked_tools` strings with `stacked_cli`
