@@ -47,6 +47,7 @@ class CreateAppCommand extends Command {
     await _configService.loadConfig();
     final appName = argResults!.rest.first;
     final appNameWithoutPath = appName.split('/').last;
+    unawaited(_analyticsService.createAppEvent(name: appNameWithoutPath));
     _processService.formattingLineLength = argResults![ksLineLength];
     await _processService.runCreateApp(appName: appName);
 
@@ -56,7 +57,7 @@ class CreateAppCommand extends Command {
     _cLog.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
 
     await _templateService.renderTemplate(
-      templateName: kTemplateNameApp,
+      templateName: name,
       name: appNameWithoutPath,
       verbose: true,
       outputPath: appName,
@@ -66,6 +67,5 @@ class CreateAppCommand extends Command {
     await _processService.runPubGet(appName: appName);
     await _processService.runBuildRunner(appName: appName);
     await _processService.runFormat(appName: appName);
-    unawaited(_analyticsService.appCreated(name: appNameWithoutPath));
   }
 }

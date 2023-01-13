@@ -18,7 +18,7 @@ class GenerateCommand extends Command {
 
   @override
   Future<void> run() async {
+    unawaited(_analyticsService.generateCodeEvent());
     await _processService.runBuildRunner();
-    unawaited(_analyticsService.codeGenerated());
   }
 }
