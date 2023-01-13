@@ -791,6 +791,12 @@ class MockConfigService extends _i1.Mock implements _i14.ConfigService {
         returnValueForMissingStub: '',
       ) as String);
   @override
+  String get sheetImportPath => (super.noSuchMethod(
+        Invocation.getter(#sheetImportPath),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+  @override
   String get stackedAppFilePath => (super.noSuchMethod(
         Invocation.getter(#stackedAppFilePath),
         returnValue: '',
