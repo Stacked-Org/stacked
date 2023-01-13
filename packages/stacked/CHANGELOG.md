@@ -1,30 +1,18 @@
-## 3.1.0-beta.5
+## 3.1.0
+
+### Features
+New CLI 🔥 Check it out in the [Docs](https://stacked.filledstacks.com)
 
 - Fixes the listenable and reactive service late initialisation error
-
-## 3.1.0-beta.4
-
 - Deprecates `ReactiveServiceMixin`
-
-## 3.1.0-beta.3
-
 - Deprecates `ViewModelBuilderWidget` in favour of `StackedView`
 - Deprecates `HookViewModelWidget` in favour of `StackedHookView`
 - Deprecates `fireOnModelReadyOnce` in favour of `fireOnViewModelReadyOnce`
 - Deprecates `onModelReady` in favour of `onViewModelReady`
-
-## 3.1.0-beta.2
-
 - Adds `listenersCount` to `ListenableServiceMixin`
 - Updates ViewModels to use `viewModel` instead of `model`
-
-## 3.1.0-beta.1
-
 - Makes setFormStatus as NOT required override
 - Adds a better named `rebuildUi` function to replace `notifyListeners`
-
-## 3.1.0-beta.0
-
 - Renames ViewModelBuilderWidget to StackedView
 - Updates BuilderWidgetExampleView
 
