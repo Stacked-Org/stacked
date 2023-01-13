@@ -283,18 +283,23 @@ const String kAppTemplateSetupBottomSheetUiContent = '''
 import 'package:flutter/material.dart';
 import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 import 'package:{{packageName}}/enums/bottom_sheet_type.dart';
-import 'package:{{packageName}}/ui/bottom_sheets/notice_sheet/notice_sheet.dart';
+import 'package:{{packageName}}/ui/bottom_sheets/notice/notice_sheet.dart';
+// @stacked-bottom-sheet-import
 import 'package:stacked_services/stacked_services.dart';
+
+typedef BottomSheetBuilder = Widget Function(
+  BuildContext context,
+  SheetRequest<dynamic> sheetRequest,
+  void Function(SheetResponse<dynamic> sheetResponse) completer,
+);
 
 void setupBottomSheetUi() {
   final bottomSheetService = locator<BottomSheetService>();
 
-  final Map<
-      dynamic,
-      Widget Function(BuildContext, SheetRequest<dynamic>,
-          void Function(SheetResponse<dynamic>))> builders = {
+  final Map<dynamic, BottomSheetBuilder> builders = {
     BottomSheetType.notice: (context, sheetRequest, completer) =>
         NoticeSheet(completer: completer, request: sheetRequest),
+    // @stacked-bottom-sheet-builder
   };
 
   bottomSheetService.setCustomSheetBuilders(builders);
@@ -434,7 +439,7 @@ const Color kcBackgroundColor = kcDarkGreyColor;
 // -------- NoticeSheet Template Data ----------
 
 const String kAppTemplateNoticeSheetPath =
-    'lib/ui/bottom_sheets/notice_sheet/notice_sheet.dart.stk';
+    'lib/ui/bottom_sheets/notice/notice_sheet.dart.stk';
 
 const String kAppTemplateNoticeSheetContent = '''
 import 'package:flutter/material.dart';
@@ -492,7 +497,7 @@ class NoticeSheet extends StatelessWidget {
 // -------- NoticeSheetViewmodel Template Data ----------
 
 const String kAppTemplateNoticeSheetViewmodelPath =
-    'lib/ui/bottom_sheets/notice_sheet/notice_sheet_viewmodel.dart.stk';
+    'lib/ui/bottom_sheets/notice/notice_sheet_viewmodel.dart.stk';
 
 const String kAppTemplateNoticeSheetViewmodelContent = '''
 // This file is here to show you that even bottom sheets can have its own viewmodels
@@ -837,9 +842,10 @@ class HomeViewModel extends BaseViewModel {
 
   void showDialog() {
     _dialogService.showCustomDialog(
-        variant: DialogType.infoAlert,
-        title: 'Stacked Rocks!',
-        description: 'Give stacked \$_counter stars on Github ');
+      variant: DialogType.infoAlert,
+      title: 'Stacked Rocks!',
+      description: 'Give stacked \$_counter stars on Github',
+    );
   }
 
   void showBottomSheet() {
@@ -1079,6 +1085,7 @@ const String kAppTemplateBottomSheetTypePath =
 const String kAppTemplateBottomSheetTypeContent = '''
 enum BottomSheetType {
   notice,
+  // @stacked-bottom-sheet-type
 }
 
 ''';
@@ -1331,9 +1338,69 @@ const String kServiceTemplateGenericServicePath =
     'lib/services/generic_service.dart.stk';
 
 const String kServiceTemplateGenericServiceContent = '''
-class {{serviceName}}Service {
+class {{serviceName}} {
 
 }
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericSheet Template Data ----------
+
+const String kBottomSheetTemplateGenericSheetPath =
+    'lib/ui/bottom_sheets/generic/generic_sheet.dart.stk';
+
+const String kBottomSheetTemplateGenericSheetContent = '''
+import 'package:flutter/material.dart';
+import 'package:example/ui/common/app_colors.dart';
+import 'package:example/ui/common/ui_helpers.dart';
+import 'package:stacked_services/stacked_services.dart';
+
+class {{sheetName}} extends StatelessWidget {
+  final Function(SheetResponse response)? completer;
+  final SheetRequest request;
+  const {{sheetName}}({
+    Key? key,
+    required this.completer,
+    required this.request,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            request.title ?? 'Hello Stacked Sheet!!',
+            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
+          ),
+          if (request.description != null) ...[
+            verticalSpaceTiny,
+            Text(
+              request.description!,
+              style: const TextStyle(fontSize: 14, color: kcMediumGrey),
+              maxLines: 3,
+              softWrap: true,
+            ),
+          ],
+          verticalSpaceLarge,
+        ],
+      ),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+      ),
+    );
+  }
+}
+
 ''';
 
 // --------------------------------------------------
