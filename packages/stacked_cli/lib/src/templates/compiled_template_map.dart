@@ -216,7 +216,7 @@ return service;
     modificationFiles: [
       ModificationFile(
         relativeModificationPath: 'lib/ui/setup/setup_bottom_sheet_ui.dart',
-        modificationIdentifier: '// @stacked-bottom-sheet-import',
+        modificationIdentifier: '// @stacked-import',
         modificationTemplate: '''import \'package:{{packageName}}/{{{sheetImportPath}}}/{{sheetFolderName}}/{{sheetFilename}}.dart\';''',
         modificationProblemError: 'It seems your file where custom bottom sheet builders are set is not in lib/ui/setup/setup_bottom_sheet_ui.dart. Add a stacked.json file and set \'bottom_sheet_custom_builders_path\' so we can locate your file.',
         modificationName: 'Add import for \'{{sheetName}}\' BottomSheet',

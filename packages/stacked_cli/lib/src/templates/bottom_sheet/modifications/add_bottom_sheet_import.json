@@ -1,7 +1,7 @@
 {
     "description": "When a bottom sheet is generated one of the boilerplate tasks is to add the builder to the setup for the new bottom sheet. This modification performs the import for the bottom sheet class.",
     "path": "lib/ui/setup/setup_bottom_sheet_ui.dart",
-    "identifier": "// @stacked-bottom-sheet-import",
+    "identifier": "// @stacked-import",
     "template": "import \\'package:{{packageName}}/{{{sheetImportPath}}}/{{sheetFolderName}}/{{sheetFilename}}.dart\\';",
     "error": "It seems your file where custom bottom sheet builders are set is not in lib/ui/setup/setup_bottom_sheet_ui.dart. Add a stacked.json file and set \\'bottom_sheet_custom_builders_path\\' so we can locate your file.",
     "name": "Add import for \\'{{sheetName}}\\' BottomSheet"
