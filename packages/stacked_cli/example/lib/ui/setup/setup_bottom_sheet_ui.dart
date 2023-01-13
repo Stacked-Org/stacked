@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:example/app/app.locator.dart';
 import 'package:example/enums/bottom_sheet_type.dart';
 import 'package:example/ui/bottom_sheets/notice/notice_sheet.dart';
-// @stacked-bottom-sheet-import
 import 'package:stacked_services/stacked_services.dart';
+// @stacked-import
 
 typedef BottomSheetBuilder = Widget Function(
   BuildContext context,
