@@ -1322,7 +1322,7 @@ import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 import '{{{serviceTestHelpersImport}}}';
 
 void main() {
-  group('{{serviceName}}ServiceTest -', () {
+  group('{{serviceName}}Test -', () {
     setUp(() => {{registerMocksFunction}}());
     tearDown(() => {{locatorName}}.reset());
   });
