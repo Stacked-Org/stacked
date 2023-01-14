@@ -159,10 +159,10 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
       ModificationFile(
         relativeModificationPath: 'test/helpers/test_helpers.dart',
         modificationIdentifier: '// @stacked-mock-create',
-        modificationTemplate: '''Mock{{serviceName}}Service getAndRegister{{serviceName}}Service() { 
-_removeRegistrationIfExists<{{serviceName}}Service>(); 
-final service = Mock{{serviceName}}Service(); 
-{{locatorName}}.registerSingleton<{{serviceName}}Service>(service); 
+        modificationTemplate: '''Mock{{serviceName}} getAndRegister{{serviceName}}() { 
+_removeRegistrationIfExists<{{serviceName}}>(); 
+final service = Mock{{serviceName}}(); 
+{{locatorName}}.registerSingleton<{{serviceName}}>(service); 
 return service; 
 }''',
         modificationProblemError: 'The test mocks and helpers should be stored in test/helpers/test_helpers.dart',
@@ -171,7 +171,7 @@ return service;
       ModificationFile(
         relativeModificationPath: 'lib/app/app.dart',
         modificationIdentifier: '// @stacked-service',
-        modificationTemplate: '''LazySingleton(classType: {{serviceName}}Service),''',
+        modificationTemplate: '''LazySingleton(classType: {{serviceName}}),''',
         modificationProblemError: 'The service registration should be stored in lib/app/app.dart',
         modificationName: 'Add {{serviceName}} dependency to StackedApp annotations file',
       ),
@@ -185,14 +185,14 @@ return service;
       ModificationFile(
         relativeModificationPath: 'test/helpers/test_helpers.dart',
         modificationIdentifier: '// @stacked-mock-spec',
-        modificationTemplate: '''MockSpec<{{serviceName}}Service>(onMissingStub: OnMissingStub.returnDefault),''',
+        modificationTemplate: '''MockSpec<{{serviceName}}>(onMissingStub: OnMissingStub.returnDefault),''',
         modificationProblemError: 'The test mocks and helpers should be stored in test/helpers/test_helpers.dart',
         modificationName: 'Create {{serviceName}} mock to test helpers',
       ),
       ModificationFile(
         relativeModificationPath: 'test/helpers/test_helpers.dart',
         modificationIdentifier: '// @stacked-mock-register',
-        modificationTemplate: '''getAndRegister{{serviceName}}Service();''',
+        modificationTemplate: '''getAndRegister{{serviceName}}();''',
         modificationProblemError: 'The test mocks and helpers should be stored in test/helpers/test_helpers.dart',
         modificationName: 'Add {{serviceName}} register to test helpers',
       ),
