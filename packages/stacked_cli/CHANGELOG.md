@@ -2,6 +2,7 @@
 
 - Adds create bottom_sheet command
 - Improves templates
+- Improves analytics responsiveness, no more delays on commands execution
 - Updates example app
 
 ## 1.1.3+1
