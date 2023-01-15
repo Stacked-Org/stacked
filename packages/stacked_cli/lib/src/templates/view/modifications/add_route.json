@@ -4,5 +4,5 @@
   "identifier": "// @stacked-route",
   "template": "MaterialRoute(page: {{viewName}}),",
   "error": "The structure of your stacked application is invalid. The app.dart file should be located in lib/app/",
-  "name": "Add {{viewName}} route to app.dart"
+  "name": "Add {{viewName}} route where @StackedApp annotation is located"
 }

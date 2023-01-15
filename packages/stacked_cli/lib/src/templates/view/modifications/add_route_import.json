@@ -4,5 +4,5 @@
   "identifier": "// @stacked-import",
   "template": "import \\'package:{{packageName}}/{{{viewImportPath}}}/{{viewFolderName}}/{{viewFileName}}\\';",
   "error": "The structure of your stacked application is invalid. The app.dart file should be located in lib/app/",
-  "name": "Add {{viewName}} route import to app.dart"
+  "name": "Add {{viewName}} route import where @StackedApp annotation is located"
 }

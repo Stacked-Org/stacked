@@ -1,22 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
-import 'package:{{packageName}}/enums/bottom_sheet_type.dart';
-import 'package:{{packageName}}/ui/bottom_sheets/notice/notice_sheet.dart';
+import 'package:{{packageName}}/{{{bottomSheetTypeFilePath}}}';
+import 'package:{{packageName}}/{{{bottomSheetsPath}}}/notice/notice_sheet.dart';
 import 'package:stacked_services/stacked_services.dart';
 // @stacked-import
-
-typedef BottomSheetBuilder = Widget Function(
-  BuildContext context,
-  SheetRequest<dynamic> sheetRequest,
-  void Function(SheetResponse<dynamic> sheetResponse) completer,
-);
 
 void setupBottomSheetUi() {
   final bottomSheetService = locator<BottomSheetService>();
 
-  final Map<dynamic, BottomSheetBuilder> builders = {
-    BottomSheetType.notice: (context, sheetRequest, completer) =>
-        NoticeSheet(completer: completer, request: sheetRequest),
+  final Map<dynamic, SheetBuilder> builders = {
+    BottomSheetType.notice: (context, request, completer) =>
+        NoticeSheet(completer: completer, request: request),
     // @stacked-bottom-sheet-builder
   };
 
