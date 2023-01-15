@@ -5,7 +5,7 @@ import 'package:{{packageName}}/ui/setup/setup_bottom_sheet_ui.dart';
 import 'package:{{packageName}}/ui/setup/setup_dialog_ui.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import 'app/app.router.dart';
+import '{{{relativeRouterFilePath}}}';
 
 void main() {
   setupLocator();
