@@ -11,6 +11,11 @@ _$_Config _$$_ConfigFromJson(Map<String, dynamic> json) => _$_Config(
       servicesPath: json['services_path'] as String? ?? 'services',
       bottomSheetsPath:
           json['bottom_sheets_path'] as String? ?? 'ui/bottom_sheets',
+      bottomSheetTypeFilePath: json['bottom_sheet_type_file_path'] as String? ??
+          'enums/bottom_sheet_type.dart',
+      bottomSheetBuilderFilePath:
+          json['bottom_sheet_builder_file_path'] as String? ??
+              'ui/setup/setup_bottom_sheet_ui.dart',
       stackedAppFilePath:
           json['stacked_app_file_path'] as String? ?? 'app/app.dart',
       testHelpersFilePath: json['test_helpers_file_path'] as String? ??
@@ -28,6 +33,8 @@ Map<String, dynamic> _$$_ConfigToJson(_$_Config instance) => <String, dynamic>{
       'views_path': instance.viewsPath,
       'services_path': instance.servicesPath,
       'bottom_sheets_path': instance.bottomSheetsPath,
+      'bottom_sheet_type_file_path': instance.bottomSheetTypeFilePath,
+      'bottom_sheet_builder_file_path': instance.bottomSheetBuilderFilePath,
       'stacked_app_file_path': instance.stackedAppFilePath,
       'test_helpers_file_path': instance.testHelpersFilePath,
       'test_services_path': instance.testServicesPath,

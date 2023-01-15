@@ -69,7 +69,12 @@ const String kTemplatePropertySheetFolderName = 'sheetFolderName';
 
 const String kTemplatePropertySheetType = 'sheetType';
 
-const String kTemplatePropertySheetImportPath = 'sheetImportPath';
+const String kTemplatePropertySheetsPath = 'bottomSheetsPath';
+
+const String kTemplatePropertySheetTypeFilePath = 'bottomSheetTypeFilePath';
+
+const String kTemplatePropertySheetBuilderFilePath =
+    'bottomSheetBuilderFilePath';
 
 // -------- Compiled Template Structure ---------
 

@@ -19,6 +19,16 @@ class Config with _$Config {
     @Default('ui/bottom_sheets')
         String bottomSheetsPath,
 
+    /// File path where BottomSheetType enum values are located.
+    @JsonKey(name: 'bottom_sheet_type_file_path')
+    @Default('enums/bottom_sheet_type.dart')
+        String bottomSheetTypeFilePath,
+
+    /// File path where BottomSheet builders are located.
+    @JsonKey(name: 'bottom_sheet_builder_file_path')
+    @Default('ui/setup/setup_bottom_sheet_ui.dart')
+        String bottomSheetBuilderFilePath,
+
     /// File path where StackedApp is setup.
     @JsonKey(name: 'stacked_app_file_path')
     @Default('app/app.dart')

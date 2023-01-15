@@ -43,7 +43,14 @@ class ConfigService {
       );
 
   /// Relative bottom sheet path for import statements.
-  String get sheetImportPath => _customConfig.bottomSheetsPath;
+  String get bottomSheetsPath => _customConfig.bottomSheetsPath;
+
+  /// File path where bottom sheet builders are located.
+  String get bottomSheetBuilderFilePath =>
+      _customConfig.bottomSheetBuilderFilePath;
+
+  /// File path where bottom sheet type enum values are located.
+  String get bottomSheetTypeFilePath => _customConfig.bottomSheetTypeFilePath;
 
   /// File path where StackedApp is setup.
   String get stackedAppFilePath => _customConfig.stackedAppFilePath;

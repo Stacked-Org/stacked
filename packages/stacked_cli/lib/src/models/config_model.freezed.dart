@@ -32,6 +32,14 @@ mixin _$Config {
   @JsonKey(name: 'bottom_sheets_path')
   String get bottomSheetsPath => throw _privateConstructorUsedError;
 
+  /// File path where BottomSheetType enum values are located.
+  @JsonKey(name: 'bottom_sheet_type_file_path')
+  String get bottomSheetTypeFilePath => throw _privateConstructorUsedError;
+
+  /// File path where BottomSheet builders are located.
+  @JsonKey(name: 'bottom_sheet_builder_file_path')
+  String get bottomSheetBuilderFilePath => throw _privateConstructorUsedError;
+
   /// File path where StackedApp is setup.
   @JsonKey(name: 'stacked_app_file_path')
   String get stackedAppFilePath => throw _privateConstructorUsedError;
@@ -82,17 +90,32 @@ abstract class $ConfigCopyWith<$Res> {
       _$ConfigCopyWithImpl<$Res, Config>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'views_path') String viewsPath,
-      @JsonKey(name: 'services_path') String servicesPath,
-      @JsonKey(name: 'bottom_sheets_path') String bottomSheetsPath,
-      @JsonKey(name: 'stacked_app_file_path') String stackedAppFilePath,
-      @JsonKey(name: 'test_helpers_file_path') String testHelpersFilePath,
-      @JsonKey(name: 'test_services_path') String testServicesPath,
-      @JsonKey(name: 'test_views_path') String testViewsPath,
-      @JsonKey(name: 'locator_name') String locatorName,
-      @JsonKey(name: 'register_mocks_function') String registerMocksFunction,
-      @JsonKey(name: 'v1') bool v1,
-      @JsonKey(name: 'line_length') int lineLength});
+      {@JsonKey(name: 'views_path')
+          String viewsPath,
+      @JsonKey(name: 'services_path')
+          String servicesPath,
+      @JsonKey(name: 'bottom_sheets_path')
+          String bottomSheetsPath,
+      @JsonKey(name: 'bottom_sheet_type_file_path')
+          String bottomSheetTypeFilePath,
+      @JsonKey(name: 'bottom_sheet_builder_file_path')
+          String bottomSheetBuilderFilePath,
+      @JsonKey(name: 'stacked_app_file_path')
+          String stackedAppFilePath,
+      @JsonKey(name: 'test_helpers_file_path')
+          String testHelpersFilePath,
+      @JsonKey(name: 'test_services_path')
+          String testServicesPath,
+      @JsonKey(name: 'test_views_path')
+          String testViewsPath,
+      @JsonKey(name: 'locator_name')
+          String locatorName,
+      @JsonKey(name: 'register_mocks_function')
+          String registerMocksFunction,
+      @JsonKey(name: 'v1')
+          bool v1,
+      @JsonKey(name: 'line_length')
+          int lineLength});
 }
 
 /// @nodoc
@@ -111,6 +134,8 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
     Object? viewsPath = null,
     Object? servicesPath = null,
     Object? bottomSheetsPath = null,
+    Object? bottomSheetTypeFilePath = null,
+    Object? bottomSheetBuilderFilePath = null,
     Object? stackedAppFilePath = null,
     Object? testHelpersFilePath = null,
     Object? testServicesPath = null,
@@ -132,6 +157,14 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
       bottomSheetsPath: null == bottomSheetsPath
           ? _value.bottomSheetsPath
           : bottomSheetsPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      bottomSheetTypeFilePath: null == bottomSheetTypeFilePath
+          ? _value.bottomSheetTypeFilePath
+          : bottomSheetTypeFilePath // ignore: cast_nullable_to_non_nullable
+              as String,
+      bottomSheetBuilderFilePath: null == bottomSheetBuilderFilePath
+          ? _value.bottomSheetBuilderFilePath
+          : bottomSheetBuilderFilePath // ignore: cast_nullable_to_non_nullable
               as String,
       stackedAppFilePath: null == stackedAppFilePath
           ? _value.stackedAppFilePath
@@ -176,17 +209,32 @@ abstract class _$$_ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'views_path') String viewsPath,
-      @JsonKey(name: 'services_path') String servicesPath,
-      @JsonKey(name: 'bottom_sheets_path') String bottomSheetsPath,
-      @JsonKey(name: 'stacked_app_file_path') String stackedAppFilePath,
-      @JsonKey(name: 'test_helpers_file_path') String testHelpersFilePath,
-      @JsonKey(name: 'test_services_path') String testServicesPath,
-      @JsonKey(name: 'test_views_path') String testViewsPath,
-      @JsonKey(name: 'locator_name') String locatorName,
-      @JsonKey(name: 'register_mocks_function') String registerMocksFunction,
-      @JsonKey(name: 'v1') bool v1,
-      @JsonKey(name: 'line_length') int lineLength});
+      {@JsonKey(name: 'views_path')
+          String viewsPath,
+      @JsonKey(name: 'services_path')
+          String servicesPath,
+      @JsonKey(name: 'bottom_sheets_path')
+          String bottomSheetsPath,
+      @JsonKey(name: 'bottom_sheet_type_file_path')
+          String bottomSheetTypeFilePath,
+      @JsonKey(name: 'bottom_sheet_builder_file_path')
+          String bottomSheetBuilderFilePath,
+      @JsonKey(name: 'stacked_app_file_path')
+          String stackedAppFilePath,
+      @JsonKey(name: 'test_helpers_file_path')
+          String testHelpersFilePath,
+      @JsonKey(name: 'test_services_path')
+          String testServicesPath,
+      @JsonKey(name: 'test_views_path')
+          String testViewsPath,
+      @JsonKey(name: 'locator_name')
+          String locatorName,
+      @JsonKey(name: 'register_mocks_function')
+          String registerMocksFunction,
+      @JsonKey(name: 'v1')
+          bool v1,
+      @JsonKey(name: 'line_length')
+          int lineLength});
 }
 
 /// @nodoc
@@ -202,6 +250,8 @@ class __$$_ConfigCopyWithImpl<$Res>
     Object? viewsPath = null,
     Object? servicesPath = null,
     Object? bottomSheetsPath = null,
+    Object? bottomSheetTypeFilePath = null,
+    Object? bottomSheetBuilderFilePath = null,
     Object? stackedAppFilePath = null,
     Object? testHelpersFilePath = null,
     Object? testServicesPath = null,
@@ -223,6 +273,14 @@ class __$$_ConfigCopyWithImpl<$Res>
       bottomSheetsPath: null == bottomSheetsPath
           ? _value.bottomSheetsPath
           : bottomSheetsPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      bottomSheetTypeFilePath: null == bottomSheetTypeFilePath
+          ? _value.bottomSheetTypeFilePath
+          : bottomSheetTypeFilePath // ignore: cast_nullable_to_non_nullable
+              as String,
+      bottomSheetBuilderFilePath: null == bottomSheetBuilderFilePath
+          ? _value.bottomSheetBuilderFilePath
+          : bottomSheetBuilderFilePath // ignore: cast_nullable_to_non_nullable
               as String,
       stackedAppFilePath: null == stackedAppFilePath
           ? _value.stackedAppFilePath
@@ -270,6 +328,10 @@ class _$_Config implements _Config {
           this.servicesPath = 'services',
       @JsonKey(name: 'bottom_sheets_path')
           this.bottomSheetsPath = 'ui/bottom_sheets',
+      @JsonKey(name: 'bottom_sheet_type_file_path')
+          this.bottomSheetTypeFilePath = 'enums/bottom_sheet_type.dart',
+      @JsonKey(name: 'bottom_sheet_builder_file_path')
+          this.bottomSheetBuilderFilePath = 'ui/setup/setup_bottom_sheet_ui.dart',
       @JsonKey(name: 'stacked_app_file_path')
           this.stackedAppFilePath = 'app/app.dart',
       @JsonKey(name: 'test_helpers_file_path')
@@ -304,6 +366,16 @@ class _$_Config implements _Config {
   @override
   @JsonKey(name: 'bottom_sheets_path')
   final String bottomSheetsPath;
+
+  /// File path where BottomSheetType enum values are located.
+  @override
+  @JsonKey(name: 'bottom_sheet_type_file_path')
+  final String bottomSheetTypeFilePath;
+
+  /// File path where BottomSheet builders are located.
+  @override
+  @JsonKey(name: 'bottom_sheet_builder_file_path')
+  final String bottomSheetBuilderFilePath;
 
   /// File path where StackedApp is setup.
   @override
@@ -354,7 +426,7 @@ class _$_Config implements _Config {
 
   @override
   String toString() {
-    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, bottomSheetsPath: $bottomSheetsPath, stackedAppFilePath: $stackedAppFilePath, testHelpersFilePath: $testHelpersFilePath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, locatorName: $locatorName, registerMocksFunction: $registerMocksFunction, v1: $v1, lineLength: $lineLength)';
+    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, bottomSheetsPath: $bottomSheetsPath, bottomSheetTypeFilePath: $bottomSheetTypeFilePath, bottomSheetBuilderFilePath: $bottomSheetBuilderFilePath, stackedAppFilePath: $stackedAppFilePath, testHelpersFilePath: $testHelpersFilePath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, locatorName: $locatorName, registerMocksFunction: $registerMocksFunction, v1: $v1, lineLength: $lineLength)';
   }
 
   @override
@@ -368,6 +440,13 @@ class _$_Config implements _Config {
                 other.servicesPath == servicesPath) &&
             (identical(other.bottomSheetsPath, bottomSheetsPath) ||
                 other.bottomSheetsPath == bottomSheetsPath) &&
+            (identical(
+                    other.bottomSheetTypeFilePath, bottomSheetTypeFilePath) ||
+                other.bottomSheetTypeFilePath == bottomSheetTypeFilePath) &&
+            (identical(other.bottomSheetBuilderFilePath,
+                    bottomSheetBuilderFilePath) ||
+                other.bottomSheetBuilderFilePath ==
+                    bottomSheetBuilderFilePath) &&
             (identical(other.stackedAppFilePath, stackedAppFilePath) ||
                 other.stackedAppFilePath == stackedAppFilePath) &&
             (identical(other.testHelpersFilePath, testHelpersFilePath) ||
@@ -392,6 +471,8 @@ class _$_Config implements _Config {
       viewsPath,
       servicesPath,
       bottomSheetsPath,
+      bottomSheetTypeFilePath,
+      bottomSheetBuilderFilePath,
       stackedAppFilePath,
       testHelpersFilePath,
       testServicesPath,
@@ -423,6 +504,10 @@ abstract class _Config implements Config {
           final String servicesPath,
       @JsonKey(name: 'bottom_sheets_path')
           final String bottomSheetsPath,
+      @JsonKey(name: 'bottom_sheet_type_file_path')
+          final String bottomSheetTypeFilePath,
+      @JsonKey(name: 'bottom_sheet_builder_file_path')
+          final String bottomSheetBuilderFilePath,
       @JsonKey(name: 'stacked_app_file_path')
           final String stackedAppFilePath,
       @JsonKey(name: 'test_helpers_file_path')
@@ -457,6 +542,16 @@ abstract class _Config implements Config {
   /// Path where bottom sheets will be genereated.
   @JsonKey(name: 'bottom_sheets_path')
   String get bottomSheetsPath;
+  @override
+
+  /// File path where BottomSheetType enum values are located.
+  @JsonKey(name: 'bottom_sheet_type_file_path')
+  String get bottomSheetTypeFilePath;
+  @override
+
+  /// File path where BottomSheet builders are located.
+  @JsonKey(name: 'bottom_sheet_builder_file_path')
+  String get bottomSheetBuilderFilePath;
   @override
 
   /// File path where StackedApp is setup.

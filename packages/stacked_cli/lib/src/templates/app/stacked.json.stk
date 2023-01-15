@@ -3,6 +3,8 @@
     "services_path": "services",
     "views_path": "ui/views",
     "bottom_sheets_path": "ui/bottom_sheets",
+    "bottom_sheet_type_enum_file_path": "enums/bottom_sheet_type.dart",
+    "bottom_sheet_custom_builders_file_path": "ui/setup/setup_bottom_sheet_ui.dart",
     "test_helpers_file_path": "helpers/test_helpers.dart",
     "test_services_path": "services",
     "test_views_path": "viewmodels",
