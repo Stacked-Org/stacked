@@ -279,7 +279,11 @@ class TemplateService {
       kTemplatePropertyViewImportPath: _configService.viewImportPath,
       kTemplatePropertyViewTestHelpersImport:
           _configService.viewTestHelpersImport,
-      kTemplatePropertySheetImportPath: _configService.sheetImportPath,
+      kTemplatePropertySheetsPath: _configService.bottomSheetsPath,
+      kTemplatePropertySheetBuilderFilePath:
+          _configService.bottomSheetBuilderFilePath,
+      kTemplatePropertySheetTypeFilePath:
+          _configService.bottomSheetTypeFilePath,
     };
   }
 
