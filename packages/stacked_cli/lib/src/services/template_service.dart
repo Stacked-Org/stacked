@@ -184,6 +184,7 @@ class TemplateService {
       await _fileService.writeFile(
         file: File(templateFileOutputPath),
         fileContent: templateContent,
+        forceAppend: shouldAppendTemplate(templateFile.relativeOutputPath),
         verbose: true,
       );
 
@@ -396,5 +397,17 @@ class TemplateService {
       modificationIdentifier,
       '$renderedTemplate\n$modificationIdentifier',
     );
+  }
+
+  bool shouldAppendTemplate(String relativeOutputPath) {
+    if (relativeOutputPath == 'lib/ui/setup/setup_bottom_sheet_ui.dart.stk') {
+      return true;
+    }
+
+    if (relativeOutputPath == 'lib/enums/bottom_sheet_type.dart.stk') {
+      return true;
+    }
+
+    return false;
   }
 }
