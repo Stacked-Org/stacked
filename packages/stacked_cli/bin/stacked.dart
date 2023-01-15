@@ -14,7 +14,7 @@ Future<void> main(List<String> arguments) async {
 
   try {
     CommandRunner(
-      'stacked_cli',
+      'stacked',
       'A command line interface for building and scaffolding stacked apps',
     )
       ..addCommand(CreateCommand())
