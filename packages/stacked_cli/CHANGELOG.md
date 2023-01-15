@@ -1,6 +1,7 @@
 ## 1.1.4
 
 - Adds create bottom_sheet command
+- Fixes support for relative router file path
 - Improves templates
 - Improves analytics responsiveness, no more delays on commands execution
 - Updates example app
