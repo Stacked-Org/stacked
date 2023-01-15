@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:args/command_runner.dart';
 import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
+import 'package:stacked_cli/src/enums/view_templates.dart';
+import 'package:stacked_cli/src/extensions/string_extensions.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/mixins/project_structure_validator_mixin.dart';
 import 'package:stacked_cli/src/services/analytics_service.dart';
@@ -44,10 +46,20 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       help: kCommandHelpLineLength,
       valueHelp: '80',
     );
+    argParser.addOption(
+      ksTemplate,
+      abbr: 't',
+      help: ksCommandHelpTemplate,
+      valueHelp: ViewTemplate.basic.name,
+      defaultsTo: ViewTemplate.basic.name,
+      allowed: ViewTemplate.values.map((e) => e.name),
+    );
   }
 
   @override
   Future<void> run() async {
+    final viewTemplate = (argResults![ksTemplate] as String).template;
+
     final viewName = argResults!.rest.first;
     unawaited(_analyticsService.createViewEvent(name: viewName));
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;

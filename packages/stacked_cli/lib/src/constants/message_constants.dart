@@ -32,6 +32,13 @@ const String kCommandHelpV1 =
 const String kCommandHelpLineLength =
     'When a number is provided, it will be used as the line length for formatting code.';
 
+const String ksCommandHelpTemplate =
+    '''When a template is provided the view is created with some boilerplate you'll require for that view type.
+To read more about the types of templates and what boilerplate they cover, 
+check out this doc: [[INSERT DOCS LINK HERE]]
+
+''';
+
 const String kCommandHelpExcludeDependency =
     'When a service is excluded it will not be added to your app.dart dependencies collection.';
 

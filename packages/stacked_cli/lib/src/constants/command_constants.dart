@@ -13,6 +13,7 @@ const String ksDeleteConflictingOutputs = '--delete-conflicting-outputs';
 const String ksExcludeRoute = 'exclude-route';
 const String ksV1 = 'v1';
 const String ksUseBuilder = 'use-builder';
+const String ksTemplate = 'template';
 const String ksLineLength = 'line-length';
 const String ksExcludeDependency = 'exclude-dependency';
 const String ksCurrentDirectory = '.';
