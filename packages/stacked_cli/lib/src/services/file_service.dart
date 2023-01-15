@@ -18,6 +18,7 @@ class FileService {
     bool verbose = false,
     FileModificationType type = FileModificationType.Create,
     String? verboseMessage,
+    bool forceAppend = false,
   }) async {
     if (!(await file.exists())) {
       if (type != FileModificationType.Create) {
@@ -26,7 +27,10 @@ class FileService {
       await file.create(recursive: true);
     }
 
-    await file.writeAsString(fileContent);
+    await file.writeAsString(
+      fileContent,
+      mode: forceAppend ? FileMode.append : FileMode.write,
+    );
 
     if (verbose) {
       _log.fileOutput(type: type, message: verboseMessage ?? '$file');
@@ -160,6 +164,7 @@ class FileService {
 
 // enum for file modification types
 enum FileModificationType {
+  Append,
   Create,
   Modify,
   Delete,

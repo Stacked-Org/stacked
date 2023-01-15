@@ -73,6 +73,7 @@ class MockFileService extends _i1.Mock implements _i5.FileService {
     bool? verbose = false,
     _i5.FileModificationType? type = _i5.FileModificationType.Create,
     String? verboseMessage,
+    bool? forceAppend = false,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -84,6 +85,7 @@ class MockFileService extends _i1.Mock implements _i5.FileService {
             #verbose: verbose,
             #type: type,
             #verboseMessage: verboseMessage,
+            #forceAppend: forceAppend,
           },
         ),
         returnValue: _i6.Future<void>.value(),
@@ -470,6 +472,15 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
+  @override
+  bool shouldAppendTemplate(String? relativeOutputPath) => (super.noSuchMethod(
+        Invocation.method(
+          #shouldAppendTemplate,
+          [relativeOutputPath],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
 }
 
 /// A class which mocks [TemplateHelper].
