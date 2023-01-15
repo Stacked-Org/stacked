@@ -11,8 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
     
-  firebase_core: ^2.1.1
-  firebase_crashlytics: ^3.0.3
+  firebase_core: ^2.4.1
+  firebase_crashlytics: ^3.0.10
   logger: ^1.0.0
 
 dev_dependencies:
