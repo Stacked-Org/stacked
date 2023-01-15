@@ -40,6 +40,9 @@ Map<String, RenderFunction> renderFunctions = {
       kTemplatePropertyRelativeLocatorPath: getRelativeLocatorPath(
         stackedAppFilePath: configService.stackedAppFilePath,
       ),
+      kTemplatePropertyRelativeRouterPath: getRelativeRouterFilePath(
+        stackedAppFilePath: configService.stackedAppFilePath,
+      ),
     };
   },
   kTemplateNameBottomSheet: (ReCase value) {
@@ -56,6 +59,13 @@ Map<String, RenderFunction> renderFunctions = {
 String getRelativeLocatorPath({required String stackedAppFilePath}) {
   final pathWithoutLib = stackedAppFilePath.replaceFirst('lib/', '');
   final pathWithLocator = pathWithoutLib.split('.')..insert(1, 'locator');
+
+  return pathWithLocator.join('.');
+}
+
+String getRelativeRouterFilePath({required String stackedAppFilePath}) {
+  final pathWithoutLib = stackedAppFilePath.replaceFirst('lib/', '');
+  final pathWithLocator = pathWithoutLib.split('.')..insert(1, 'router');
 
   return pathWithLocator.join('.');
 }

@@ -50,6 +50,8 @@ const String kTemplatePropertyLocatorName = 'locatorName';
 
 const String kTemplatePropertyRelativeLocatorPath = 'relativeLocatorPath';
 
+const String kTemplatePropertyRelativeRouterPath = 'relativeRouterFilePath';
+
 const String kTemplatePropertyRegisterMocksFunction = 'registerMocksFunction';
 
 const String kTemplatePropertyServiceImportPath = 'serviceImportPath';
