@@ -1,0 +1,60 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Compile Templates",
+            "program": "bin/stacked.dart",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "compile",
+            ]
+        },
+        {
+            "name": "Stacked Generate",
+            "program": "bin/stacked.dart",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "generate",
+            ]
+        },
+        {
+            "name": "Create View (in playground)",
+            "program": "bin/stacked.dart",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "create",
+                "view",
+                "orderDetails",
+                "playground",
+            ]
+        },
+        {
+            "name": "Create App (stacked_app)",
+            "program": "bin/stacked.dart",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "create",
+                "app",
+                "stacked_app",
+            ]
+        },
+        {
+            "name": "Create Service (in playground)",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "create",
+                "service",
+                "time",
+                "playground",
+            ]
+        },
+    ]
+}
