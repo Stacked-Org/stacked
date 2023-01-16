@@ -4,4 +4,4 @@
 
 ## Checkout our new CLI in the [early preview docs](https://stacked.filledstacks.com/)
 
-Old doc can be found [here](./README_old.md)
+Old doc can be found [here](https://github.com/FilledStacks/stacked/blob/master/packages/stacked/README_old.md)

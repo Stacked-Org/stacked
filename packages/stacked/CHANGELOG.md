@@ -1,3 +1,6 @@
+## 3.1.0+2
+- Fixes old doc link
+
 ## 3.1.0+1
 
 - Updates banner correctly
