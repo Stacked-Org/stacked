@@ -1,4 +1,13 @@
+## 1.1.6
+
+- Adds create dialog command
+- Improves shouldAppendTemplate function
+- Executes `clean` function on create app command to
+  - Deletes widget_test.dart file
+  - Removes unused imports
+
 ## 1.1.5
+
 - Fixes support for relative router file path
 
 ## 1.1.4
