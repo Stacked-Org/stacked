@@ -2,6 +2,7 @@ import 'package:args/command_runner.dart';
 
 import 'create_app_command.dart';
 import 'create_bottom_sheet_command.dart';
+import 'create_dialog_command.dart';
 import 'create_service_command.dart';
 import 'create_view_command.dart';
 
@@ -20,5 +21,6 @@ class CreateCommand extends Command {
     addSubcommand(CreateServiceCommand());
     addSubcommand(CreateAppCommand());
     addSubcommand(CreateBottomSheetCommand());
+    addSubcommand(CreateDialogCommand());
   }
 }

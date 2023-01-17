@@ -1,0 +1,8 @@
+{
+    "description": "When a dialog is generated one of the boilerplate tasks is to add the builder to the setup for the new dialog. This modification performs that action.",
+    "path": "lib/ui/setup/setup_dialog_ui.dart",
+    "identifier": "// @stacked-dialog-builder",
+    "template": "DialogType.{{dialogType}}: (context, request, completer) => {{dialogName}}(completer: completer, request: request),",
+    "error": "It seems your file where custom dialog builders are set is not in lib/ui/setup/setup_dialog_ui.dart. Add a stacked.json file and set \\'dialog_builder_file_path\\' so we can locate your file.",
+    "name": "Add \\'{{dialogName}}\\' custom builder"
+  }

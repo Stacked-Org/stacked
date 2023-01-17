@@ -39,6 +39,17 @@ class AnalyticsService {
     await waitLastPingOrCloseAtTimeout();
   }
 
+  /// Sends create dialog command event
+  Future<void> createDialogEvent({required String name}) async {
+    await _analytics.sendEvent(
+      'command',
+      'create',
+      label: 'dialog',
+      parameters: {'name': name},
+    );
+    await waitLastPingOrCloseAtTimeout();
+  }
+
   /// Sends create service command event
   Future<void> createServiceEvent({required String name}) async {
     await _analytics.sendEvent(

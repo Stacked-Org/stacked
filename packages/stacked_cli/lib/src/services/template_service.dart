@@ -285,6 +285,10 @@ class TemplateService {
           _configService.bottomSheetBuilderFilePath,
       kTemplatePropertySheetTypeFilePath:
           _configService.bottomSheetTypeFilePath,
+      kTemplatePropertyDialogsPath: _configService.dialogsPath,
+      kTemplatePropertyDialogBuilderFilePath:
+          _configService.dialogBuilderFilePath,
+      kTemplatePropertyDialogTypeFilePath: _configService.dialogTypeFilePath,
     };
   }
 
