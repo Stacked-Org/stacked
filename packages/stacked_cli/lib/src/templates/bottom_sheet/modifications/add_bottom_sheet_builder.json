@@ -2,7 +2,7 @@
     "description": "When a bottom sheet is generated one of the boilerplate tasks is to add the builder to the setup for the new bottom sheet. This modification performs that action.",
     "path": "lib/ui/setup/setup_bottom_sheet_ui.dart",
     "identifier": "// @stacked-bottom-sheet-builder",
-    "template": "BottomSheetType.{{sheetType}}: (context, sheetRequest, completer) => {{sheetName}}(completer: completer, request: sheetRequest),",
+    "template": "BottomSheetType.{{sheetType}}: (context, request, completer) => {{sheetName}}(completer: completer, request: request),",
     "error": "It seems your file where custom bottom sheet builders are set is not in lib/ui/setup/setup_bottom_sheet_ui.dart. Add a stacked.json file and set \\'bottom_sheet_custom_builders_path\\' so we can locate your file.",
     "name": "Add \\'{{sheetName}}\\' custom builder"
   }

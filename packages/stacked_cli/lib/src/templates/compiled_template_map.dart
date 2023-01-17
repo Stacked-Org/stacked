@@ -107,6 +107,38 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
     ],
   ),
   
+  'dialog': StackedTemplate(
+    templateFiles: [
+      TemplateFile(
+        relativeOutputPath: kDialogTemplateGenericDialogPath,
+        content: kDialogTemplateGenericDialogContent,
+      ),
+    ],
+    modificationFiles: [
+      ModificationFile(
+        relativeModificationPath: 'lib/ui/setup/setup_dialog_ui.dart',
+        modificationIdentifier: '// @stacked-import',
+        modificationTemplate: '''import \'package:{{packageName}}/{{{dialogsPath}}}/{{dialogFolderName}}/{{dialogFilename}}.dart\';''',
+        modificationProblemError: 'It seems your file where custom dialog builders are set is not in lib/ui/setup/setup_dialog_ui.dart. Add a stacked.json file and set \'dialog_builder_file_path\' so we can locate your file.',
+        modificationName: 'Add import for \'{{dialogName}}\' Dialog',
+      ),
+      ModificationFile(
+        relativeModificationPath: 'lib/ui/setup/setup_dialog_ui.dart',
+        modificationIdentifier: '// @stacked-dialog-builder',
+        modificationTemplate: '''DialogType.{{dialogType}}: (context, request, completer) => {{dialogName}}(completer: completer, request: request),''',
+        modificationProblemError: 'It seems your file where custom dialog builders are set is not in lib/ui/setup/setup_dialog_ui.dart. Add a stacked.json file and set \'dialog_builder_file_path\' so we can locate your file.',
+        modificationName: 'Add \'{{dialogName}}\' custom builder',
+      ),
+      ModificationFile(
+        relativeModificationPath: 'lib/enums/dialog_type.dart',
+        modificationIdentifier: '// @stacked-dialog-type',
+        modificationTemplate: '''{{dialogType}},''',
+        modificationProblemError: 'It seems your file for DialogType class is not in lib/enums/dialog_type.dart. Add a stacked.json file and set the path for \'dialog_type_file_path\' to the folder so we can locate your DialogType class.',
+        modificationName: 'Add \'{{dialogType}}\' value to DialogType',
+      ),
+    ],
+  ),
+  
   'view': StackedTemplate(
     templateFiles: [
       TemplateFile(
@@ -231,7 +263,7 @@ return service;
       ModificationFile(
         relativeModificationPath: 'lib/ui/setup/setup_bottom_sheet_ui.dart',
         modificationIdentifier: '// @stacked-bottom-sheet-builder',
-        modificationTemplate: '''BottomSheetType.{{sheetType}}: (context, sheetRequest, completer) => {{sheetName}}(completer: completer, request: sheetRequest),''',
+        modificationTemplate: '''BottomSheetType.{{sheetType}}: (context, request, completer) => {{sheetName}}(completer: completer, request: request),''',
         modificationProblemError: 'It seems your file where custom bottom sheet builders are set is not in lib/ui/setup/setup_bottom_sheet_ui.dart. Add a stacked.json file and set \'bottom_sheet_custom_builders_path\' so we can locate your file.',
         modificationName: 'Add \'{{sheetName}}\' custom builder',
       ),
