@@ -40,6 +40,18 @@ mixin _$Config {
   @JsonKey(name: 'bottom_sheet_builder_file_path')
   String get bottomSheetBuilderFilePath => throw _privateConstructorUsedError;
 
+  /// Path where dialogs will be genereated.
+  @JsonKey(name: 'dialogs_path')
+  String get dialogsPath => throw _privateConstructorUsedError;
+
+  /// File path where DialogType enum values are located.
+  @JsonKey(name: 'dialog_type_file_path')
+  String get dialogTypeFilePath => throw _privateConstructorUsedError;
+
+  /// File path where Dialog builders are located.
+  @JsonKey(name: 'dialog_builder_file_path')
+  String get dialogBuilderFilePath => throw _privateConstructorUsedError;
+
   /// File path where StackedApp is setup.
   @JsonKey(name: 'stacked_app_file_path')
   String get stackedAppFilePath => throw _privateConstructorUsedError;
@@ -100,6 +112,12 @@ abstract class $ConfigCopyWith<$Res> {
           String bottomSheetTypeFilePath,
       @JsonKey(name: 'bottom_sheet_builder_file_path')
           String bottomSheetBuilderFilePath,
+      @JsonKey(name: 'dialogs_path')
+          String dialogsPath,
+      @JsonKey(name: 'dialog_type_file_path')
+          String dialogTypeFilePath,
+      @JsonKey(name: 'dialog_builder_file_path')
+          String dialogBuilderFilePath,
       @JsonKey(name: 'stacked_app_file_path')
           String stackedAppFilePath,
       @JsonKey(name: 'test_helpers_file_path')
@@ -136,6 +154,9 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
     Object? bottomSheetsPath = null,
     Object? bottomSheetTypeFilePath = null,
     Object? bottomSheetBuilderFilePath = null,
+    Object? dialogsPath = null,
+    Object? dialogTypeFilePath = null,
+    Object? dialogBuilderFilePath = null,
     Object? stackedAppFilePath = null,
     Object? testHelpersFilePath = null,
     Object? testServicesPath = null,
@@ -165,6 +186,18 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
       bottomSheetBuilderFilePath: null == bottomSheetBuilderFilePath
           ? _value.bottomSheetBuilderFilePath
           : bottomSheetBuilderFilePath // ignore: cast_nullable_to_non_nullable
+              as String,
+      dialogsPath: null == dialogsPath
+          ? _value.dialogsPath
+          : dialogsPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      dialogTypeFilePath: null == dialogTypeFilePath
+          ? _value.dialogTypeFilePath
+          : dialogTypeFilePath // ignore: cast_nullable_to_non_nullable
+              as String,
+      dialogBuilderFilePath: null == dialogBuilderFilePath
+          ? _value.dialogBuilderFilePath
+          : dialogBuilderFilePath // ignore: cast_nullable_to_non_nullable
               as String,
       stackedAppFilePath: null == stackedAppFilePath
           ? _value.stackedAppFilePath
@@ -219,6 +252,12 @@ abstract class _$$_ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
           String bottomSheetTypeFilePath,
       @JsonKey(name: 'bottom_sheet_builder_file_path')
           String bottomSheetBuilderFilePath,
+      @JsonKey(name: 'dialogs_path')
+          String dialogsPath,
+      @JsonKey(name: 'dialog_type_file_path')
+          String dialogTypeFilePath,
+      @JsonKey(name: 'dialog_builder_file_path')
+          String dialogBuilderFilePath,
       @JsonKey(name: 'stacked_app_file_path')
           String stackedAppFilePath,
       @JsonKey(name: 'test_helpers_file_path')
@@ -252,6 +291,9 @@ class __$$_ConfigCopyWithImpl<$Res>
     Object? bottomSheetsPath = null,
     Object? bottomSheetTypeFilePath = null,
     Object? bottomSheetBuilderFilePath = null,
+    Object? dialogsPath = null,
+    Object? dialogTypeFilePath = null,
+    Object? dialogBuilderFilePath = null,
     Object? stackedAppFilePath = null,
     Object? testHelpersFilePath = null,
     Object? testServicesPath = null,
@@ -281,6 +323,18 @@ class __$$_ConfigCopyWithImpl<$Res>
       bottomSheetBuilderFilePath: null == bottomSheetBuilderFilePath
           ? _value.bottomSheetBuilderFilePath
           : bottomSheetBuilderFilePath // ignore: cast_nullable_to_non_nullable
+              as String,
+      dialogsPath: null == dialogsPath
+          ? _value.dialogsPath
+          : dialogsPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      dialogTypeFilePath: null == dialogTypeFilePath
+          ? _value.dialogTypeFilePath
+          : dialogTypeFilePath // ignore: cast_nullable_to_non_nullable
+              as String,
+      dialogBuilderFilePath: null == dialogBuilderFilePath
+          ? _value.dialogBuilderFilePath
+          : dialogBuilderFilePath // ignore: cast_nullable_to_non_nullable
               as String,
       stackedAppFilePath: null == stackedAppFilePath
           ? _value.stackedAppFilePath
@@ -332,6 +386,12 @@ class _$_Config implements _Config {
           this.bottomSheetTypeFilePath = 'enums/bottom_sheet_type.dart',
       @JsonKey(name: 'bottom_sheet_builder_file_path')
           this.bottomSheetBuilderFilePath = 'ui/setup/setup_bottom_sheet_ui.dart',
+      @JsonKey(name: 'dialogs_path')
+          this.dialogsPath = 'ui/dialogs',
+      @JsonKey(name: 'dialog_type_file_path')
+          this.dialogTypeFilePath = 'enums/dialog_type.dart',
+      @JsonKey(name: 'dialog_builder_file_path')
+          this.dialogBuilderFilePath = 'ui/setup/setup_dialog_ui.dart',
       @JsonKey(name: 'stacked_app_file_path')
           this.stackedAppFilePath = 'app/app.dart',
       @JsonKey(name: 'test_helpers_file_path')
@@ -376,6 +436,21 @@ class _$_Config implements _Config {
   @override
   @JsonKey(name: 'bottom_sheet_builder_file_path')
   final String bottomSheetBuilderFilePath;
+
+  /// Path where dialogs will be genereated.
+  @override
+  @JsonKey(name: 'dialogs_path')
+  final String dialogsPath;
+
+  /// File path where DialogType enum values are located.
+  @override
+  @JsonKey(name: 'dialog_type_file_path')
+  final String dialogTypeFilePath;
+
+  /// File path where Dialog builders are located.
+  @override
+  @JsonKey(name: 'dialog_builder_file_path')
+  final String dialogBuilderFilePath;
 
   /// File path where StackedApp is setup.
   @override
@@ -426,7 +501,7 @@ class _$_Config implements _Config {
 
   @override
   String toString() {
-    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, bottomSheetsPath: $bottomSheetsPath, bottomSheetTypeFilePath: $bottomSheetTypeFilePath, bottomSheetBuilderFilePath: $bottomSheetBuilderFilePath, stackedAppFilePath: $stackedAppFilePath, testHelpersFilePath: $testHelpersFilePath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, locatorName: $locatorName, registerMocksFunction: $registerMocksFunction, v1: $v1, lineLength: $lineLength)';
+    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, bottomSheetsPath: $bottomSheetsPath, bottomSheetTypeFilePath: $bottomSheetTypeFilePath, bottomSheetBuilderFilePath: $bottomSheetBuilderFilePath, dialogsPath: $dialogsPath, dialogTypeFilePath: $dialogTypeFilePath, dialogBuilderFilePath: $dialogBuilderFilePath, stackedAppFilePath: $stackedAppFilePath, testHelpersFilePath: $testHelpersFilePath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, locatorName: $locatorName, registerMocksFunction: $registerMocksFunction, v1: $v1, lineLength: $lineLength)';
   }
 
   @override
@@ -447,6 +522,12 @@ class _$_Config implements _Config {
                     bottomSheetBuilderFilePath) ||
                 other.bottomSheetBuilderFilePath ==
                     bottomSheetBuilderFilePath) &&
+            (identical(other.dialogsPath, dialogsPath) ||
+                other.dialogsPath == dialogsPath) &&
+            (identical(other.dialogTypeFilePath, dialogTypeFilePath) ||
+                other.dialogTypeFilePath == dialogTypeFilePath) &&
+            (identical(other.dialogBuilderFilePath, dialogBuilderFilePath) ||
+                other.dialogBuilderFilePath == dialogBuilderFilePath) &&
             (identical(other.stackedAppFilePath, stackedAppFilePath) ||
                 other.stackedAppFilePath == stackedAppFilePath) &&
             (identical(other.testHelpersFilePath, testHelpersFilePath) ||
@@ -473,6 +554,9 @@ class _$_Config implements _Config {
       bottomSheetsPath,
       bottomSheetTypeFilePath,
       bottomSheetBuilderFilePath,
+      dialogsPath,
+      dialogTypeFilePath,
+      dialogBuilderFilePath,
       stackedAppFilePath,
       testHelpersFilePath,
       testServicesPath,
@@ -508,6 +592,12 @@ abstract class _Config implements Config {
           final String bottomSheetTypeFilePath,
       @JsonKey(name: 'bottom_sheet_builder_file_path')
           final String bottomSheetBuilderFilePath,
+      @JsonKey(name: 'dialogs_path')
+          final String dialogsPath,
+      @JsonKey(name: 'dialog_type_file_path')
+          final String dialogTypeFilePath,
+      @JsonKey(name: 'dialog_builder_file_path')
+          final String dialogBuilderFilePath,
       @JsonKey(name: 'stacked_app_file_path')
           final String stackedAppFilePath,
       @JsonKey(name: 'test_helpers_file_path')
@@ -552,6 +642,21 @@ abstract class _Config implements Config {
   /// File path where BottomSheet builders are located.
   @JsonKey(name: 'bottom_sheet_builder_file_path')
   String get bottomSheetBuilderFilePath;
+  @override
+
+  /// Path where dialogs will be genereated.
+  @JsonKey(name: 'dialogs_path')
+  String get dialogsPath;
+  @override
+
+  /// File path where DialogType enum values are located.
+  @JsonKey(name: 'dialog_type_file_path')
+  String get dialogTypeFilePath;
+  @override
+
+  /// File path where Dialog builders are located.
+  @JsonKey(name: 'dialog_builder_file_path')
+  String get dialogBuilderFilePath;
   @override
 
   /// File path where StackedApp is setup.

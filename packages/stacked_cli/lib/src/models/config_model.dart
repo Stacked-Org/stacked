@@ -29,6 +29,19 @@ class Config with _$Config {
     @Default('ui/setup/setup_bottom_sheet_ui.dart')
         String bottomSheetBuilderFilePath,
 
+    /// Path where dialogs will be genereated.
+    @JsonKey(name: 'dialogs_path') @Default('ui/dialogs') String dialogsPath,
+
+    /// File path where DialogType enum values are located.
+    @JsonKey(name: 'dialog_type_file_path')
+    @Default('enums/dialog_type.dart')
+        String dialogTypeFilePath,
+
+    /// File path where Dialog builders are located.
+    @JsonKey(name: 'dialog_builder_file_path')
+    @Default('ui/setup/setup_dialog_ui.dart')
+        String dialogBuilderFilePath,
+
     /// File path where StackedApp is setup.
     @JsonKey(name: 'stacked_app_file_path')
     @Default('app/app.dart')

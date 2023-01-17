@@ -820,6 +820,24 @@ class MockConfigService extends _i1.Mock implements _i14.ConfigService {
         returnValueForMissingStub: '',
       ) as String);
   @override
+  String get dialogsPath => (super.noSuchMethod(
+        Invocation.getter(#dialogsPath),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+  @override
+  String get dialogBuilderFilePath => (super.noSuchMethod(
+        Invocation.getter(#dialogBuilderFilePath),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+  @override
+  String get dialogTypeFilePath => (super.noSuchMethod(
+        Invocation.getter(#dialogTypeFilePath),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+  @override
   String get stackedAppFilePath => (super.noSuchMethod(
         Invocation.getter(#stackedAppFilePath),
         returnValue: '',
