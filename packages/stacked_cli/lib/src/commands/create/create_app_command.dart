@@ -10,7 +10,6 @@ import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
-import 'package:stacked_cli/src/templates/template_constants.dart';
 
 class CreateAppCommand extends Command {
   final _cLog = locator<ColorizedLogService>();
@@ -51,9 +50,6 @@ class CreateAppCommand extends Command {
     _processService.formattingLineLength = argResults![ksLineLength];
     await _processService.runCreateApp(appName: appName);
 
-    /// Removes `widget_test` file to avoid failing unit tests on created app
-    await _fileService.deleteFile(filePath: '$appName/test/widget_test.dart');
-
     _cLog.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
 
     await _templateService.renderTemplate(
@@ -67,5 +63,47 @@ class CreateAppCommand extends Command {
     await _processService.runPubGet(appName: appName);
     await _processService.runBuildRunner(appName: appName);
     await _processService.runFormat(appName: appName);
+    await _clean(appName: appName);
+  }
+
+  /// Cleans the project.
+  ///
+  ///   - Deletes widget_test.dart file
+  ///   - Removes unused imports
+  Future<void> _clean({required String appName}) async {
+    _cLog.stackedOutput(message: 'Cleaning project...');
+
+    // Removes `widget_test` file to avoid failing unit tests on created app
+    await _fileService.deleteFile(
+      filePath: '$appName/test/widget_test.dart',
+      verbose: false,
+    );
+
+    // Analyze the project and write the output into a log file
+    await _processService.runAnalyzeAndWriteLogFile(appName: appName);
+
+    final issues = await _fileService.readFileAsLines(
+      filePath: '$appName/$ksLogFile',
+    );
+
+    for (var i in issues) {
+      if (!i.startsWith('[info] Unused import')) continue;
+
+      final log =
+          i.split(' ').last.replaceAll('(', '').replaceAll(')', '').split(':');
+
+      await _fileService.removeLinesOnFile(
+        filePath: log[0],
+        linesNumber: [int.parse(log[1])],
+      );
+    }
+
+    // Delete log file to clean the project
+    await _fileService.deleteFile(
+      filePath: '$appName/$ksLogFile',
+      verbose: false,
+    );
+
+    _cLog.stackedOutput(message: 'Project cleaned.');
   }
 }

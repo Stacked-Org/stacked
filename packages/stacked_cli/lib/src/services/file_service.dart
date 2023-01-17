@@ -41,10 +41,16 @@ class FileService {
   ///
   /// Args:
   ///   filePath (String): The path to the file you want to delete.
-  Future<void> deleteFile({required String filePath}) async {
+  ///   verbose (bool): Determine if should log the action or not.
+  Future<void> deleteFile({
+    required String filePath,
+    bool verbose = true,
+  }) async {
     final file = File(filePath);
     await file.delete();
-    _log.fileOutput(type: FileModificationType.Delete, message: '$file');
+    if (verbose) {
+      _log.fileOutput(type: FileModificationType.Delete, message: '$file');
+    }
   }
 
   /// It deletes all the files in a folder. and the folder itself.
@@ -72,8 +78,8 @@ class FileService {
     return File(filePath).readAsString();
   }
 
-  /// "Read the file at the given path and return the contents as a list of strings, one string per
-  /// line."
+  /// Read the file at the given path and return the contents as a list of strings, one string per
+  /// line.
   ///
   /// Args:
   ///   filePath (String): The path to the file to read.
@@ -107,6 +113,24 @@ class FileService {
       type: FileModificationType.Modify,
       verbose: true,
       verboseMessage: "Removed ${recaseName.pascalCase}$type from $filePath",
+    );
+  }
+
+  /// Removes [linesNumber] on the file at [filePath].
+  Future<void> removeLinesOnFile({
+    required String filePath,
+    required List<int> linesNumber,
+  }) async {
+    final fileLines = await readFileAsLines(filePath: filePath);
+
+    for (var line in linesNumber) {
+      fileLines.removeAt(line - 1);
+    }
+
+    await writeFile(
+      file: File(filePath),
+      fileContent: fileLines.join('\n'),
+      type: FileModificationType.Modify,
     );
   }
 

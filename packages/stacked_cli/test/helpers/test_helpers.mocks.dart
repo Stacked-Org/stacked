@@ -92,12 +92,18 @@ class MockFileService extends _i1.Mock implements _i5.FileService {
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<void> deleteFile({required String? filePath}) =>
+  _i6.Future<void> deleteFile({
+    required String? filePath,
+    bool? verbose = true,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteFile,
           [],
-          {#filePath: filePath},
+          {
+            #filePath: filePath,
+            #verbose: verbose,
+          },
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
@@ -160,6 +166,23 @@ class MockFileService extends _i1.Mock implements _i5.FileService {
             #filePath: filePath,
             #removedContent: removedContent,
             #type: type,
+          },
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> removeLinesOnFile({
+    required String? filePath,
+    required List<int>? linesNumber,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #removeLinesOnFile,
+          [],
+          {
+            #filePath: filePath,
+            #linesNumber: linesNumber,
           },
         ),
         returnValue: _i6.Future<void>.value(),
@@ -1012,6 +1035,17 @@ class MockProcessService extends _i1.Mock implements _i15.ProcessService {
         Invocation.method(
           #runPubGlobal,
           [],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> runAnalyzeAndWriteLogFile({String? appName}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #runAnalyzeAndWriteLogFile,
+          [],
+          {#appName: appName},
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
