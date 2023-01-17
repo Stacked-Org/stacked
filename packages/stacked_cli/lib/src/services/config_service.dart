@@ -52,6 +52,15 @@ class ConfigService {
   /// File path where bottom sheet type enum values are located.
   String get bottomSheetTypeFilePath => _customConfig.bottomSheetTypeFilePath;
 
+  /// Relative path where dialogs will be genereated.
+  String get dialogsPath => _customConfig.dialogsPath;
+
+  /// File path where dialog builders are located.
+  String get dialogBuilderFilePath => _customConfig.dialogBuilderFilePath;
+
+  /// File path where dialog type enum values are located.
+  String get dialogTypeFilePath => _customConfig.dialogTypeFilePath;
+
   /// File path where StackedApp is setup.
   String get stackedAppFilePath => _customConfig.stackedAppFilePath;
 
