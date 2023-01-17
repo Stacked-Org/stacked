@@ -13,8 +13,11 @@ const String kAppTemplateStackedJsonStkContent = '''
     "services_path": "services",
     "views_path": "ui/views",
     "bottom_sheets_path": "ui/bottom_sheets",
-    "bottom_sheet_type_enum_file_path": "enums/bottom_sheet_type.dart",
-    "bottom_sheet_custom_builders_file_path": "ui/setup/setup_bottom_sheet_ui.dart",
+    "bottom_sheet_type_file_path": "enums/bottom_sheet_type.dart",
+    "bottom_sheet_builder_file_path": "ui/setup/setup_bottom_sheet_ui.dart",
+    "dialogs_path": "ui/dialogs",
+    "dialog_type_file_path": "enums/dialog_type.dart",
+    "dialog_builder_file_path": "ui/setup/setup_dialog_ui.dart",
     "test_helpers_file_path": "helpers/test_helpers.dart",
     "test_services_path": "services",
     "test_views_path": "viewmodels",
@@ -208,7 +211,7 @@ import 'package:flutter/material.dart';
 import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 import 'package:{{packageName}}/ui/common/app_colors.dart';
 import 'package:{{packageName}}/{{{bottomSheetBuilderFilePath}}}';
-import 'package:{{packageName}}/ui/setup/setup_dialog_ui.dart';
+import 'package:{{packageName}}/{{{dialogBuilderFilePath}}}';
 import 'package:stacked_services/stacked_services.dart';
 
 import '{{{relativeRouterFilePath}}}';
@@ -257,16 +260,18 @@ const String kAppTemplateSetupDialogUiPath =
 
 const String kAppTemplateSetupDialogUiContent = '''
 import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
-import 'package:{{packageName}}/enums/dialog_type.dart';
-import 'package:{{packageName}}/ui/dialogs/info_alert/info_alert_dialog.dart';
+import 'package:{{packageName}}/{{{dialogTypeFilePath}}}';
+import 'package:{{packageName}}/{{{dialogsPath}}}/info_alert/info_alert_dialog.dart';
 import 'package:stacked_services/stacked_services.dart';
+// @stacked-import
 
 void setupDialogUi() {
   final dialogService = locator<DialogService>();
 
   final Map<dynamic, DialogBuilder> builders = {
-    DialogType.infoAlert: (context, sheetRequest, completer) =>
-        InfoAlertDialog(request: sheetRequest, completer: completer),
+    DialogType.infoAlert: (context, request, completer) =>
+        InfoAlertDialog(request: request, completer: completer),
+    // @stacked-dialog-builder
   };
 
   dialogService.registerCustomDialogBuilders(builders);
@@ -819,7 +824,7 @@ const String kAppTemplateHomeViewmodelContent = '''
 import 'package:stacked/stacked.dart';
 import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
 import 'package:{{packageName}}/{{{bottomSheetTypeFilePath}}}';
-import 'package:{{packageName}}/enums/dialog_type.dart';
+import 'package:{{packageName}}/{{{dialogTypeFilePath}}}';
 import 'package:{{packageName}}/ui/common/app_strings.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -1066,6 +1071,7 @@ const String kAppTemplateDialogTypePath =
 const String kAppTemplateDialogTypeContent = '''
 enum DialogType {
   infoAlert,
+  // @stacked-dialog-type
 }
 
 ''';
@@ -1191,6 +1197,116 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericDialog Template Data ----------
+
+const String kDialogTemplateGenericDialogPath =
+    'lib/ui/dialogs/generic/generic_dialog.dart.stk';
+
+const String kDialogTemplateGenericDialogContent = '''
+import 'package:flutter/material.dart';
+import 'package:{{packageName}}/ui/common/app_colors.dart';
+import 'package:{{packageName}}/ui/common/ui_helpers.dart';
+import 'package:stacked_services/stacked_services.dart';
+
+const double _graphicSize = 60;
+
+class {{dialogName}} extends StatelessWidget {
+  final DialogRequest request;
+  final Function(DialogResponse) completer;
+
+  const {{dialogName}}({
+    Key? key,
+    required this.request,
+    required this.completer,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      backgroundColor: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        request.title ?? 'Hello Stacked Dialog!!',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      if (request.description != null) ...[
+                        verticalSpaceTiny,
+                        Text(
+                          request.description!,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: kcMediumGrey,
+                          ),
+                          maxLines: 3,
+                          softWrap: true,
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+                Container(
+                  width: _graphicSize,
+                  height: _graphicSize,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFF6E7B0),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(_graphicSize / 2),
+                    ),
+                  ),
+                  alignment: Alignment.center,
+                  child: const Text('⭐️', style: TextStyle(fontSize: 30)),
+                )
+              ],
+            ),
+            verticalSpaceMedium,
+            GestureDetector(
+              onTap: () => completer(DialogResponse(confirmed: true)),
+              child: Container(
+                height: 50,
+                width: double.infinity,
+                alignment: Alignment.center,
+                child: const Text(
+                  'Got it',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 ''';
 
