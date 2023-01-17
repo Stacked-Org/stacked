@@ -29,6 +29,14 @@ class TemplateService {
   final _configService = locator<ConfigService>();
   final _clog = locator<ColorizedLogService>();
 
+  /// List of templates that can be appended.
+  static const List<String> templatesToAppend = [
+    'lib/ui/setup/setup_bottom_sheet_ui.dart.stk',
+    'lib/enums/bottom_sheet_type.dart.stk',
+    'lib/ui/setup/setup_dialog_ui.dart.stk',
+    'lib/enums/dialog_type.dart.stk',
+  ];
+
   /// Reads the template folder and creates the dart code that will be used to generate
   /// the templates
   Future<void> compileTemplateInformation() async {
@@ -403,15 +411,9 @@ class TemplateService {
     );
   }
 
+  /// Determines if a template with [relativeOutputPath] should be written using
+  /// append as their FileModificationType or not.
   bool shouldAppendTemplate(String relativeOutputPath) {
-    if (relativeOutputPath == 'lib/ui/setup/setup_bottom_sheet_ui.dart.stk') {
-      return true;
-    }
-
-    if (relativeOutputPath == 'lib/enums/bottom_sheet_type.dart.stk') {
-      return true;
-    }
-
-    return false;
+    return templatesToAppend.any((template) => template == relativeOutputPath);
   }
 }
