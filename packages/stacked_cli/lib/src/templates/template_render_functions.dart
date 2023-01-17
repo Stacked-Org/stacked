@@ -53,6 +53,14 @@ Map<String, RenderFunction> renderFunctions = {
       kTemplatePropertySheetType: value.camelCase,
     };
   },
+  kTemplateNameDialog: (ReCase value) {
+    return {
+      kTemplatePropertyDialogName: '${value.pascalCase}Dialog',
+      kTemplatePropertyDialogFilename: '${value.snakeCase}_dialog',
+      kTemplatePropertyDialogFolderName: value.snakeCase,
+      kTemplatePropertyDialogType: value.camelCase,
+    };
+  },
 };
 
 @visibleForTesting

@@ -3,6 +3,7 @@ const String kTemplateNameView = 'view';
 const String kTemplateNameService = 'service';
 const String kTemplateNameApp = 'app';
 const String kTemplateNameBottomSheet = 'bottom_sheet';
+const String kTemplateNameDialog = 'dialog';
 
 // ------- File Modification identifiers --------
 
@@ -77,6 +78,20 @@ const String kTemplatePropertySheetTypeFilePath = 'bottomSheetTypeFilePath';
 
 const String kTemplatePropertySheetBuilderFilePath =
     'bottomSheetBuilderFilePath';
+
+const String kTemplatePropertyDialogName = 'dialogName';
+
+const String kTemplatePropertyDialogFilename = 'dialogFilename';
+
+const String kTemplatePropertyDialogFolderName = 'dialogFolderName';
+
+const String kTemplatePropertyDialogType = 'dialogType';
+
+const String kTemplatePropertyDialogsPath = 'dialogsPath';
+
+const String kTemplatePropertyDialogTypeFilePath = 'dialogTypeFilePath';
+
+const String kTemplatePropertyDialogBuilderFilePath = 'dialogBuilderFilePath';
 
 // -------- Compiled Template Structure ---------
 
