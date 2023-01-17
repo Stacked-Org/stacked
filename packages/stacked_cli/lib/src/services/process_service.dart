@@ -56,7 +56,7 @@ class ProcessService {
     );
   }
 
-  /// "Runs the flutter format . command on the app's source code."
+  /// Runs the flutter format . command on the app's source code.
   ///
   /// Args:
   ///   appName (String): The name of the app.
@@ -78,6 +78,15 @@ class ProcessService {
     await _runProcessAndLogOutput(
       programName: ksDart,
       arguments: pubGlobalArguments,
+    );
+  }
+
+  /// Runs the flutter analyze command and output the results to a file.
+  Future<void> runAnalyzeAndWriteLogFile({String? appName}) async {
+    await _runProcessInSilence(
+      programName: ksFlutter,
+      arguments: analyzeArguments,
+      workingDirectory: appName,
     );
   }
 
@@ -110,6 +119,31 @@ class ProcessService {
       final exitCode = await process.exitCode;
 
       logSuccessStatus(exitCode);
+    } on ProcessException catch (e) {
+      _cLog.error(
+          message:
+              'Command failed. Command executed: $programName ${arguments.join(' ')}\nException: ${e.message}');
+    }
+  }
+
+  /// It runs a process without any log output
+  ///
+  /// Args:
+  ///   programName (String): The name of the program to run.
+  ///   arguments (List<String>): The arguments to pass to the program. Defaults to const []
+  ///   workingDirectory (String): The directory to run the command in.
+  Future<void> _runProcessInSilence({
+    required String programName,
+    List<String> arguments = const [],
+    String? workingDirectory,
+  }) async {
+    try {
+      await Process.run(
+        programName,
+        arguments,
+        workingDirectory: workingDirectory,
+        runInShell: true,
+      );
     } on ProcessException catch (e) {
       _cLog.error(
           message:

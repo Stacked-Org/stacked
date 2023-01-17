@@ -19,6 +19,9 @@ const String ksCurrentDirectory = '.';
 const String ksGlobal = 'global';
 const String ksActivate = 'activate';
 const String ksStackedCli = 'stacked_cli';
+const String ksAnalyze = 'analyze';
+const String ksWrite = '--write';
+const String ksLogFile = '.stacked.analyze.log';
 
 /// A list of strings that are used to run the pub run build runner build --delete-conflicting-outputs command.
 const List<String> buildRunnerArguments = [
@@ -39,3 +42,6 @@ const List<String> pubGlobalArguments = [
   ksActivate,
   ksStackedCli
 ];
+
+/// A list of strings that are used to run the analyze command.
+const List<String> analyzeArguments = [ksAnalyze, ksWrite, ksLogFile];
