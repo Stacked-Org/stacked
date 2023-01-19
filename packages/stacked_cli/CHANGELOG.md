@@ -1,3 +1,7 @@
+## 1.1.7
+
+- Logs exception events to Google Analytics
+
 ## 1.1.6
 
 - Adds create dialog command

@@ -1,6 +1,6 @@
 name: stacked_cli
 description: The official dev tools for the Stacked Framework
-version: 1.1.6
+version: 1.1.7
 homepage: https://stacked.filledstacks.com/docs/stacked-cli
 repository: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_cli
 
