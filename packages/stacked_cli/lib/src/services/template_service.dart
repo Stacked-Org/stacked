@@ -6,6 +6,7 @@ import 'package:mustache_template/mustache_template.dart';
 import 'package:path/path.dart' as path;
 import 'package:recase/recase.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
+import 'package:stacked_cli/src/enums/view_templates.dart';
 import 'package:stacked_cli/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/models/template_models.dart';
@@ -119,6 +120,9 @@ class TemplateService {
     /// i.e. When the template writes too lib/ui/view.dart if output path is playground
     /// the final output path will be playground/lib/ui/view.dart
     String? outputPath,
+
+    /// Indicates which template to use when generating a new view file
+    ViewTemplate? viewTemplate,
   }) async {
     // Get the template that we want to render
     final template = kCompiledStackedTemplates[templateName] ??
