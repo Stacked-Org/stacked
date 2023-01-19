@@ -36,7 +36,7 @@ const String kCommandHelpExcludeDependency =
     'When a service is excluded it will not be added to your app.dart dependencies collection.';
 
 const String kConfigFileNotFound =
-    'No stacked.json file found. Default stacked values will be used';
+    'No stacked.json file found. Default stacked values will be used.';
 
 const String kConfigFileMalformed =
     'Your stacked.json is malformed. Double check to make sure you have properly formatted json.';
