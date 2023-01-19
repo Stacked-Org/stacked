@@ -105,4 +105,25 @@ class AnalyticsService {
     await _analytics.sendEvent('command', 'update');
     await waitLastPingOrCloseAtTimeout();
   }
+
+  /// Sends exception event
+  Future<void> logExceptionEvent({
+    ExceptionMode mode = ExceptionMode.handledException,
+    required String runtimeType,
+    required String message,
+    String stackTrace = 'not available',
+  }) async {
+    await _analytics.sendEvent(
+      mode.toString(),
+      runtimeType,
+      label: message,
+      parameters: {'stackTrace': stackTrace},
+    );
+    await waitLastPingOrCloseAtTimeout();
+  }
+}
+
+enum ExceptionMode {
+  handledException,
+  unhandledException,
 }
