@@ -1,3 +1,8 @@
+## 1.1.8
+
+- Adds feature to disable Analytics on development mode using a dart defines
+- Fixes unit tests
+
 ## 1.1.7
 
 - Logs exception events to Google Analytics
