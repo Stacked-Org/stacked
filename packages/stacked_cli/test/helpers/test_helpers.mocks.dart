@@ -10,6 +10,7 @@ import 'package:ansicolor/ansicolor.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:pubspec_yaml/pubspec_yaml.dart' as _i3;
 import 'package:stacked_cli/src/models/template_models.dart' as _i9;
+import 'package:stacked_cli/src/services/analytics_service.dart' as _i16;
 import 'package:stacked_cli/src/services/colorized_log_service.dart' as _i13;
 import 'package:stacked_cli/src/services/config_service.dart' as _i14;
 import 'package:stacked_cli/src/services/file_service.dart' as _i5;
@@ -1058,4 +1059,126 @@ class MockProcessService extends _i1.Mock implements _i15.ProcessService {
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [AnalyticsService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAnalyticsService extends _i1.Mock implements _i16.AnalyticsService {
+  @override
+  _i6.Future<void> createAppEvent({required String? name}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createAppEvent,
+          [],
+          {#name: name},
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> createBottomSheetEvent({required String? name}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createBottomSheetEvent,
+          [],
+          {#name: name},
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> createDialogEvent({required String? name}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createDialogEvent,
+          [],
+          {#name: name},
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> createServiceEvent({required String? name}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createServiceEvent,
+          [],
+          {#name: name},
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> createViewEvent({required String? name}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createViewEvent,
+          [],
+          {#name: name},
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> deleteServiceEvent({required String? name}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteServiceEvent,
+          [],
+          {#name: name},
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> deleteViewEvent({required String? name}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteViewEvent,
+          [],
+          {#name: name},
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> generateCodeEvent() => (super.noSuchMethod(
+        Invocation.method(
+          #generateCodeEvent,
+          [],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> updateCliEvent() => (super.noSuchMethod(
+        Invocation.method(
+          #updateCliEvent,
+          [],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> logExceptionEvent({
+    _i16.ExceptionMode? mode = _i16.ExceptionMode.handledException,
+    required String? runtimeType,
+    required String? message,
+    String? stackTrace = r'not available',
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #logExceptionEvent,
+          [],
+          {
+            #mode: mode,
+            #runtimeType: runtimeType,
+            #message: message,
+            #stackTrace: stackTrace,
+          },
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 }

@@ -2,15 +2,38 @@ import 'package:usage/usage_io.dart';
 
 /// Provides functionality to interact with Google Analytics
 class AnalyticsService {
+  static const environment = String.fromEnvironment(
+    'environment',
+    defaultValue: 'development',
+  );
+
+  AnalyticsService() {
+    _initialize();
+  }
+
   final AnalyticsIO _analytics = AnalyticsIO(
     'UA-41171112-5',
     'stacked-cli',
     'stacked_cli',
   );
 
+  /// Initializes Google Analytics depending of the [environment] declaration.
+  ///
+  /// When value is production, should enable Analytics. Otherwise, should
+  /// disable Analytics.
+  ///
+  /// When no [environment] value is passed, should disable Analytics.
+  Future<void> _initialize() async {
+    if (environment == 'production') {
+      _analytics.enabled = true;
+    } else {
+      _analytics.enabled = false;
+    }
+  }
+
   /// This will wait until all outstanding analytics requests have completed,
   /// or until the specified duration has elapsed.
-  Future<void> waitLastPingOrCloseAtTimeout() async {
+  Future<void> _waitLastPingOrCloseAtTimeout() async {
     await _analytics.waitForLastPing(
       timeout: const Duration(milliseconds: 200),
     );
@@ -25,7 +48,7 @@ class AnalyticsService {
       label: 'app',
       parameters: {'name': name},
     );
-    await waitLastPingOrCloseAtTimeout();
+    await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends create bottom sheet command event
@@ -36,7 +59,7 @@ class AnalyticsService {
       label: 'bottom_sheet',
       parameters: {'name': name},
     );
-    await waitLastPingOrCloseAtTimeout();
+    await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends create dialog command event
@@ -47,7 +70,7 @@ class AnalyticsService {
       label: 'dialog',
       parameters: {'name': name},
     );
-    await waitLastPingOrCloseAtTimeout();
+    await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends create service command event
@@ -58,7 +81,7 @@ class AnalyticsService {
       label: 'service',
       parameters: {'name': name},
     );
-    await waitLastPingOrCloseAtTimeout();
+    await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends create view command event
@@ -69,7 +92,7 @@ class AnalyticsService {
       label: 'view',
       parameters: {'name': name},
     );
-    await waitLastPingOrCloseAtTimeout();
+    await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends delete service command event
@@ -80,7 +103,7 @@ class AnalyticsService {
       label: 'service',
       parameters: {'name': name},
     );
-    await waitLastPingOrCloseAtTimeout();
+    await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends delete view command event
@@ -91,19 +114,19 @@ class AnalyticsService {
       label: 'view',
       parameters: {'name': name},
     );
-    await waitLastPingOrCloseAtTimeout();
+    await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends generate command event
   Future<void> generateCodeEvent() async {
     await _analytics.sendEvent('command', 'generate');
-    await waitLastPingOrCloseAtTimeout();
+    await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends update command event
   Future<void> updateCliEvent() async {
     await _analytics.sendEvent('command', 'update');
-    await waitLastPingOrCloseAtTimeout();
+    await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends exception event
@@ -119,7 +142,7 @@ class AnalyticsService {
       label: message,
       parameters: {'stackTrace': stackTrace},
     );
-    await waitLastPingOrCloseAtTimeout();
+    await _waitLastPingOrCloseAtTimeout();
   }
 }
 
