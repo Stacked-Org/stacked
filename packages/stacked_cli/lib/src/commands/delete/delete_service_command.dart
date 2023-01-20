@@ -55,6 +55,7 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
     await validateStructure(outputPath: outputPath);
     await deleteServiceAndTestFiles(outputPath: outputPath);
     await removeServiceFromTestHelper(outputPath: outputPath);
+    await removeServiceFromDependency(outputPath: outputPath);
     await _processService.runBuildRunner(appName: outputPath);
   }
 
@@ -91,5 +92,21 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
       removedContent: argResults!.rest.first,
       type: kTemplateNameService,
     );
+  }
+
+  /// It removes the service from [app.dart]
+  ///
+  /// Args:
+  ///   outputPath (String): The path to the output folder.
+  Future<void> removeServiceFromDependency({String? outputPath}) async {
+    String filePath = _templateService.getTemplateOutputPath(
+      inputTemplatePath: kAppTemplateAppPath,
+      name: argResults!.rest.first,
+      outputFolder: outputPath,
+    );
+    await _fileService.removeSpecificFileLines(
+        filePath: filePath,
+        removedContent: argResults!.rest.first,
+        type: kTemplateNameService);
   }
 }
