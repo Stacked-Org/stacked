@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:stacked_cli/src/locator.dart';
+import 'package:stacked_cli/src/services/analytics_service.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
 import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
@@ -27,6 +28,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<ColorizedLogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ConfigService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ProcessService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<AnalyticsService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-service-mock
 ])
 MockFileService getAndRegisterFileService({
@@ -160,6 +162,13 @@ MockConfigService getAndRegisterConfigService({
   return service;
 }
 
+MockAnalyticsService getAndRegisterAnalyticsService() {
+  _removeRegistrationIfExists<AnalyticsService>();
+  final service = MockAnalyticsService();
+  locator.registerSingleton<AnalyticsService>(service);
+  return service;
+}
+
 // Call this before any service registration helper. This is to ensure that if there
 // is a service registered we remove it first. We register all services to remove boiler plate from tests
 void _removeRegistrationIfExists<T extends Object>() {
@@ -178,6 +187,7 @@ void registerServices() {
   getAndRegisterColorizedLogService();
   getAndRegisterConfigService();
   getAndRegisterProcessService();
+  getAndRegisterAnalyticsService();
   // @stacked-mock-helper-register
 }
 
