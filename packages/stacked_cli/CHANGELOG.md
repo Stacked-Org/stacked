@@ -1,6 +1,9 @@
 ## 1.1.8
 
-- Adds feature to disable Analytics on development mode using a dart defines
+- Adds global option to show `stacked_cli` version
+- Adds global option to enable sending of analytics data
+- Adds global option to disable sending of analytics data
+- Adds prompt for sending analytics at first run
 - Fixes unit tests
 
 ## 1.1.7
