@@ -23,6 +23,12 @@ We have plans to support this in the future. If you want to help build it, check
 for the stacked-cli roadmap.
 ''';
 
+const String kCommandHelpVersion = 'Print the current version.';
+
+const String kCommandHelpEnableAnalytics = 'Enable Analytics.';
+
+const String kCommandHelpDisableAnalytics = 'Disable Analytics.';
+
 const String kCommandHelpExcludeRoute =
     'When a route is excluded it will not be added to your app.dart routes collection.';
 
