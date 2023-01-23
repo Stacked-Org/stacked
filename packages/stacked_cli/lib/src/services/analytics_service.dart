@@ -2,33 +2,21 @@ import 'package:usage/usage_io.dart';
 
 /// Provides functionality to interact with Google Analytics
 class AnalyticsService {
-  static const environment = String.fromEnvironment(
-    'environment',
-    defaultValue: 'development',
-  );
-
-  AnalyticsService() {
-    _initialize();
-  }
-
   final AnalyticsIO _analytics = AnalyticsIO(
     'UA-41171112-5',
     'stacked-cli',
     'stacked_cli',
   );
 
-  /// Initializes Google Analytics depending of the [environment] declaration.
-  ///
-  /// When value is production, should enable Analytics. Otherwise, should
-  /// disable Analytics.
-  ///
-  /// When no [environment] value is passed, should disable Analytics.
-  Future<void> _initialize() async {
-    if (environment == 'production') {
-      _analytics.enabled = true;
-    } else {
-      _analytics.enabled = false;
-    }
+  /// Is this the first time the tool has run?
+  bool get isFirstRun => _analytics.firstRun;
+
+  /// Will analytics data be sent?
+  bool get enabled => _analytics.enabled;
+
+  /// Enables or disables sending of analytics data.
+  void enable(bool value) {
+    _analytics.enabled = value;
   }
 
   /// This will wait until all outstanding analytics requests have completed,
