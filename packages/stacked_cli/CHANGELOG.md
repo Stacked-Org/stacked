@@ -5,6 +5,7 @@
 - Adds global option to disable sending of analytics data
 - Adds prompt for sending analytics at first run
 - Fixes unit tests
+- Fix: Delete service command removes correct dependencies and code
 
 ## 1.1.7
 
