@@ -1,3 +1,7 @@
+## 1.1.9
+
+- Fixes version global option
+
 ## 1.1.8
 
 - Adds global option to show `stacked_cli` version

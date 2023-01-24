@@ -1066,6 +1066,26 @@ class MockProcessService extends _i1.Mock implements _i15.ProcessService {
 /// See the documentation for Mockito's code generation for more information.
 class MockAnalyticsService extends _i1.Mock implements _i16.AnalyticsService {
   @override
+  bool get isFirstRun => (super.noSuchMethod(
+        Invocation.getter(#isFirstRun),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+  @override
+  bool get enabled => (super.noSuchMethod(
+        Invocation.getter(#enabled),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+  @override
+  void enable(bool? value) => super.noSuchMethod(
+        Invocation.method(
+          #enable,
+          [value],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   _i6.Future<void> createAppEvent({required String? name}) =>
       (super.noSuchMethod(
         Invocation.method(
