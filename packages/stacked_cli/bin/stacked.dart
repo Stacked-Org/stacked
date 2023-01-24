@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
-import 'package:pubspec_yaml/pubspec_yaml.dart';
 import 'package:stacked_cli/src/commands/compile/compile_command.dart';
 import 'package:stacked_cli/src/commands/create/create_command.dart';
 import 'package:stacked_cli/src/commands/delete/delete_command.dart';
@@ -12,6 +11,7 @@ import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
+import 'package:stacked_cli/src/models/version.g.dart';
 import 'package:stacked_cli/src/services/analytics_service.dart';
 
 Future<void> main(List<String> arguments) async {
@@ -72,15 +72,16 @@ Future<void> main(List<String> arguments) async {
   }
 }
 
+/// Prints version of the application.
 bool _handleVersion(ArgResults argResults) {
   if (!argResults[ksVersion]) return false;
 
-  final pubspec = File('pubspec.yaml').readAsStringSync().toPubspecYaml();
-  stdout.writeln(pubspec.version.valueOr(() => ''));
+  stdout.writeln(version);
 
   return true;
 }
 
+/// Enables or disables sending of analytics data.
 bool _handleAnalytics(ArgResults argResults) {
   if (argResults[ksEnableAnalytics]) {
     locator<AnalyticsService>().enable(true);
@@ -95,6 +96,7 @@ bool _handleAnalytics(ArgResults argResults) {
   return false;
 }
 
+/// Allows user decide to enable or not analytics on first run.
 Future<void> _handleFirstRun() async {
   final analyticsService = locator<AnalyticsService>();
   if (!analyticsService.isFirstRun) return;
