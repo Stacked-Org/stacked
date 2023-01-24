@@ -83,12 +83,13 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                       focusNode: emailFocusNode,
                     ),
                   ),
-                  viewModel.hasEmailValidationMessage
-                      ? Text(
-                          viewModel.emailValidationMessage ?? '',
-                          style: const TextStyle(color: Colors.red),
-                        )
-                      : const SizedBox.shrink(),
+                  Visibility(
+                    visible: viewModel.hasEmailValidationMessage,
+                    child: Text(
+                      viewModel.emailValidationMessage ?? '',
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
                   const SizedBox(height: 15),
                   ConstrainedBox(
                     constraints: const BoxConstraints(
@@ -105,12 +106,13 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                       onFieldSubmitted: (_) => viewModel.saveData(),
                     ),
                   ),
-                  viewModel.hasPasswordValidationMessage
-                      ? Text(
-                          viewModel.passwordValidationMessage!,
-                          style: const TextStyle(color: Colors.red),
-                        )
-                      : const SizedBox.shrink(),
+                  Visibility(
+                    visible: viewModel.hasPasswordValidationMessage,
+                    child: Text(
+                      viewModel.passwordValidationMessage ?? '',
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
                   const SizedBox(height: 15),
                   ConstrainedBox(
                     constraints: const BoxConstraints(
@@ -168,12 +170,13 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
                     ],
                   ),
                   const SizedBox(height: 15),
-                  viewModel.showValidationMessage
-                      ? Text(
-                          viewModel.validationMessage!,
-                          style: const TextStyle(color: Colors.red),
-                        )
-                      : const SizedBox.shrink(),
+                  Visibility(
+                    visible: viewModel.showValidationMessage,
+                    child: Text(
+                      viewModel.validationMessage ?? '',
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
                 ],
               ),
             ),
