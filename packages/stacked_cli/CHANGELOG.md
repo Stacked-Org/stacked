@@ -1,3 +1,8 @@
+## 1.1.9+1
+
+- Refactor ProcessService
+- Improves version global option to be retrieved on the fly
+
 ## 1.1.9
 
 - Fixes version global option
