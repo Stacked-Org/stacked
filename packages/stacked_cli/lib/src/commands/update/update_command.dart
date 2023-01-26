@@ -18,6 +18,6 @@ class UpdateCommand extends Command {
   @override
   Future<void> run() async {
     unawaited(_analyticsService.updateCliEvent());
-    await _processService.runPubGlobal();
+    await _processService.runPubGlobalActivate();
   }
 }
