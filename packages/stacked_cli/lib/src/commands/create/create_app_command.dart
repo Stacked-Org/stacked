@@ -79,30 +79,19 @@ class CreateAppCommand extends Command {
       verbose: false,
     );
 
-    // Analyze the project and write the output into a log file
-    await _processService.runAnalyzeAndWriteLogFile(appName: appName);
-
-    final issues = await _fileService.readFileAsLines(
-      filePath: '$appName/$ksLogFile',
-    );
+    // Analyze the project and return output lines
+    final issues = await _processService.runAnalyze(appName: appName);
 
     for (var i in issues) {
-      if (!i.startsWith('[info] Unused import')) continue;
+      if (!i.endsWith('unused_import')) continue;
 
-      final log =
-          i.split(' ').last.replaceAll('(', '').replaceAll(')', '').split(':');
+      final log = i.split(' • ')[2].split(':');
 
       await _fileService.removeLinesOnFile(
-        filePath: log[0],
+        filePath: '$appName/${log[0]}',
         linesNumber: [int.parse(log[1])],
       );
     }
-
-    // Delete log file to clean the project
-    await _fileService.deleteFile(
-      filePath: '$appName/$ksLogFile',
-      verbose: false,
-    );
 
     _cLog.stackedOutput(message: 'Project cleaned.');
   }

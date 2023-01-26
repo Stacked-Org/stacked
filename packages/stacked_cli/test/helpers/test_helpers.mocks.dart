@@ -1032,25 +1032,33 @@ class MockProcessService extends _i1.Mock implements _i15.ProcessService {
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<void> runPubGlobal() => (super.noSuchMethod(
+  _i6.Future<void> runPubGlobalActivate() => (super.noSuchMethod(
         Invocation.method(
-          #runPubGlobal,
+          #runPubGlobalActivate,
           [],
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<void> runAnalyzeAndWriteLogFile({String? appName}) =>
-      (super.noSuchMethod(
+  _i6.Future<List<String>> runPubGlobalList() => (super.noSuchMethod(
         Invocation.method(
-          #runAnalyzeAndWriteLogFile,
+          #runPubGlobalList,
+          [],
+        ),
+        returnValue: _i6.Future<List<String>>.value(<String>[]),
+        returnValueForMissingStub: _i6.Future<List<String>>.value(<String>[]),
+      ) as _i6.Future<List<String>>);
+  @override
+  _i6.Future<List<String>> runAnalyze({String? appName}) => (super.noSuchMethod(
+        Invocation.method(
+          #runAnalyze,
           [],
           {#appName: appName},
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i6.Future<List<String>>.value(<String>[]),
+        returnValueForMissingStub: _i6.Future<List<String>>.value(<String>[]),
+      ) as _i6.Future<List<String>>);
   @override
   void logSuccessStatus(int? exitCode) => super.noSuchMethod(
         Invocation.method(

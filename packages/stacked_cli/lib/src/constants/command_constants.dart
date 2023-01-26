@@ -20,11 +20,10 @@ const String ksLineLength = 'line-length';
 const String ksExcludeDependency = 'exclude-dependency';
 const String ksCurrentDirectory = '.';
 const String ksGlobal = 'global';
+const String ksList = 'list';
 const String ksActivate = 'activate';
 const String ksStackedCli = 'stacked_cli';
 const String ksAnalyze = 'analyze';
-const String ksWrite = '--write';
-const String ksLogFile = '.stacked.analyze.log';
 
 /// A list of strings that are used to run the pub run build runner build --delete-conflicting-outputs command.
 const List<String> buildRunnerArguments = [
@@ -38,8 +37,15 @@ const List<String> buildRunnerArguments = [
 /// A list of strings that are used to run the pub get command.
 const List<String> pubGetArguments = [ksPub, ksGet];
 
-/// A list of strings that are used to run the pub global command.
-const List<String> pubGlobalArguments = [
+/// A list of strings that are used to run the pub global list command.
+const List<String> pubGlobalListArguments = [
+  ksPub,
+  ksGlobal,
+  ksList,
+];
+
+/// A list of strings that are used to run the pub global activate command.
+const List<String> pubGlobalActivateArguments = [
   ksPub,
   ksGlobal,
   ksActivate,
@@ -47,4 +53,4 @@ const List<String> pubGlobalArguments = [
 ];
 
 /// A list of strings that are used to run the analyze command.
-const List<String> analyzeArguments = [ksAnalyze, ksWrite, ksLogFile];
+const List<String> analyzeArguments = [ksAnalyze];

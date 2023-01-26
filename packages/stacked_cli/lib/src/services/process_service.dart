@@ -28,7 +28,7 @@ class ProcessService {
   /// Args:
   ///   appName (String): The name of the app that's going to be create.
   Future<void> runCreateApp({required String appName}) async {
-    await _runProcessAndLogOutput(
+    await _runProcess(
       programName: ksFlutter,
       arguments: [ksCreate, appName],
     );
@@ -39,7 +39,7 @@ class ProcessService {
   /// Args:
   ///   appName (String): The name of the app.
   Future<void> runBuildRunner({String? appName}) async {
-    await _runProcessAndLogOutput(
+    await _runProcess(
       programName: ksFlutter,
       arguments: buildRunnerArguments,
       workingDirectory: appName,
@@ -51,7 +51,7 @@ class ProcessService {
   /// Args:
   ///   appName (String): The name of the app.
   Future<void> runPubGet({String? appName}) async {
-    await _runProcessAndLogOutput(
+    await _runProcess(
       programName: ksFlutter,
       arguments: pubGetArguments,
       workingDirectory: appName,
@@ -63,7 +63,7 @@ class ProcessService {
   /// Args:
   ///   appName (String): The name of the app.
   Future<void> runFormat({String? appName, String? filePath}) async {
-    await _runProcessAndLogOutput(
+    await _runProcess(
       programName: ksFlutter,
       arguments: [
         ksFormat,
@@ -75,92 +75,91 @@ class ProcessService {
     );
   }
 
-  /// It runs the `dart pub global` command in the app's directory
-  Future<void> runPubGlobal() async {
-    await _runProcessAndLogOutput(
+  /// It runs the `dart pub global activate` command in the app's directory
+  Future<void> runPubGlobalActivate() async {
+    await _runProcess(
       programName: ksDart,
-      arguments: pubGlobalArguments,
+      arguments: pubGlobalActivateArguments,
     );
   }
 
-  /// Runs the flutter analyze command and output the results to a file.
-  Future<void> runAnalyzeAndWriteLogFile({String? appName}) async {
-    await _runProcessInSilence(
+  /// Runs the `dart pub global list` command and returns a list of strings
+  /// representing packages with their version.
+  Future<List<String>> runPubGlobalList() async {
+    final output = <String>[];
+    await _runProcess(
+      programName: ksDart,
+      arguments: pubGlobalListArguments,
+      verbose: false,
+      handleOutput: (lines) async => output.addAll(lines),
+    );
+
+    return output;
+  }
+
+  /// Runs the flutter analyze command and returns the output as a list of lines.
+  Future<List<String>> runAnalyze({String? appName}) async {
+    final output = <String>[];
+    await _runProcess(
       programName: ksFlutter,
       arguments: analyzeArguments,
       workingDirectory: appName,
+      verbose: false,
+      handleOutput: (lines) async => output.addAll(lines),
     );
+
+    return output;
   }
 
-  /// It runs a process and logs the output to the console
+  /// It runs a process and logs the output to the console when [verbose] is true.
   ///
   /// Args:
   ///   programName (String): The name of the program to run.
   ///   arguments (List<String>): The arguments to pass to the program. Defaults to const []
   ///   workingDirectory (String): The directory to run the command in.
-  Future<void> _runProcessAndLogOutput({
+  ///   verbose (bool): Determine when to log the output to the console.
+  ///   handleOutput (Function): Function passed to handle the output.
+  Future<void> _runProcess({
     required String programName,
     List<String> arguments = const [],
     String? workingDirectory,
+    bool verbose = true,
+    Future<void> Function(List<String> lines)? handleOutput,
   }) async {
-    final hasWorkingDirectory = workingDirectory != null;
-    _cLog.stackedOutput(
-        message:
-            'Running $programName ${arguments.join(' ')} ${hasWorkingDirectory ? 'in $workingDirectory/' : ''}...');
+    if (verbose) {
+      final hasWorkingDirectory = workingDirectory != null;
+      _cLog.stackedOutput(
+          message:
+              'Running $programName ${arguments.join(' ')} ${hasWorkingDirectory ? 'in $workingDirectory/' : ''}...');
+    }
+
     try {
-      var process = await Process.start(
+      final process = await Process.start(
         programName,
         arguments,
         workingDirectory: workingDirectory,
         runInShell: true,
       );
-      process.stdout.transform(utf8.decoder).forEach((output) {
-        _cLog.flutterOutput(message: output);
+
+      final lines = <String>[];
+      final lineSplitter = LineSplitter();
+      await process.stdout.transform(utf8.decoder).forEach((output) {
+        if (verbose) _cLog.flutterOutput(message: output);
+
+        if (handleOutput != null) {
+          lines.addAll(lineSplitter
+              .convert(output)
+              .map((l) => l.trim())
+              .where((l) => l.isNotEmpty)
+              .toList());
+        }
       });
+
+      await handleOutput?.call(lines);
 
       final exitCode = await process.exitCode;
 
-      logSuccessStatus(exitCode);
-    } on ProcessException catch (e, s) {
-      final message =
-          'Command failed. Command executed: $programName ${arguments.join(' ')}\nException: ${e.message}';
-      _cLog.error(message: message);
-      _analyticsService.logExceptionEvent(
-        runtimeType: e.runtimeType.toString(),
-        message: message,
-        stackTrace: s.toString(),
-      );
-    } catch (e, s) {
-      final message =
-          'Command failed. Command executed: $programName ${arguments.join(' ')}\nException: ${e.toString()}';
-      _cLog.error(message: message);
-      _analyticsService.logExceptionEvent(
-        mode: ExceptionMode.unhandledException,
-        runtimeType: e.runtimeType.toString(),
-        message: message,
-        stackTrace: s.toString(),
-      );
-    }
-  }
-
-  /// It runs a process without any log output
-  ///
-  /// Args:
-  ///   programName (String): The name of the program to run.
-  ///   arguments (List<String>): The arguments to pass to the program. Defaults to const []
-  ///   workingDirectory (String): The directory to run the command in.
-  Future<void> _runProcessInSilence({
-    required String programName,
-    List<String> arguments = const [],
-    String? workingDirectory,
-  }) async {
-    try {
-      await Process.run(
-        programName,
-        arguments,
-        workingDirectory: workingDirectory,
-        runInShell: true,
-      );
+      if (verbose) logSuccessStatus(exitCode);
     } on ProcessException catch (e, s) {
       final message =
           'Command failed. Command executed: $programName ${arguments.join(' ')}\nException: ${e.message}';
