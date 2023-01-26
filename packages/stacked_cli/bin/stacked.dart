@@ -11,8 +11,8 @@ import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
-import 'package:stacked_cli/src/models/version.g.dart';
 import 'package:stacked_cli/src/services/analytics_service.dart';
+import 'package:stacked_cli/src/services/process_service.dart';
 
 Future<void> main(List<String> arguments) async {
   await setupLocator();
@@ -47,7 +47,7 @@ Future<void> main(List<String> arguments) async {
     final argResults = runner.parse(arguments);
     await _handleFirstRun();
 
-    if (_handleVersion(argResults)) exit(0);
+    if (await _handleVersion(argResults)) exit(0);
 
     if (_handleAnalytics(argResults)) exit(0);
 
@@ -73,10 +73,17 @@ Future<void> main(List<String> arguments) async {
 }
 
 /// Prints version of the application.
-bool _handleVersion(ArgResults argResults) {
+Future<bool> _handleVersion(ArgResults argResults) async {
   if (!argResults[ksVersion]) return false;
 
-  stdout.writeln(version);
+  final packages = await locator<ProcessService>().runPubGlobalList();
+  for (var package in packages) {
+    if (!package.contains('stacked_cli')) continue;
+
+    final version = package.split(' ').last;
+    stdout.writeln(version);
+    break;
+  }
 
   return true;
 }
