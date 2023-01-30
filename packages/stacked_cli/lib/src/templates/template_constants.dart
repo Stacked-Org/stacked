@@ -68,6 +68,10 @@ const String kTemplatePropertySheetName = 'sheetName';
 
 const String kTemplatePropertySheetFilename = 'sheetFilename';
 
+const String kTemplatePropertySheetModelName = 'sheetModelName';
+
+const String kTemplatePropertySheetModelFilename = 'sheetModelFilename';
+
 const String kTemplatePropertySheetFolderName = 'sheetFolderName';
 
 const String kTemplatePropertySheetType = 'sheetType';
@@ -82,6 +86,10 @@ const String kTemplatePropertySheetBuilderFilePath =
 const String kTemplatePropertyDialogName = 'dialogName';
 
 const String kTemplatePropertyDialogFilename = 'dialogFilename';
+
+const String kTemplatePropertyDialogModelName = 'dialogModelName';
+
+const String kTemplatePropertyDialogModelFilename = 'dialogModelFilename';
 
 const String kTemplatePropertyDialogFolderName = 'dialogFolderName';
 
