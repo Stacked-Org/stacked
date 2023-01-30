@@ -1,3 +1,6 @@
+## 3.1.0+3
+- Updates promotional banner
+
 ## 3.1.0+2
 - Fixes old doc link
 
