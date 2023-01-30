@@ -24,6 +24,7 @@ const String ksList = 'list';
 const String ksActivate = 'activate';
 const String ksStackedCli = 'stacked_cli';
 const String ksAnalyze = 'analyze';
+const String ksModel = 'model';
 
 /// A list of strings that are used to run the pub run build runner build --delete-conflicting-outputs command.
 const List<String> buildRunnerArguments = [

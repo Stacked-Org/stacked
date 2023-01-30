@@ -35,6 +35,9 @@ const String kCommandHelpExcludeRoute =
 const String kCommandHelpV1 =
     'When v1 or use-builder is provided, ViewModelBuilder will be used instead of StackedView.';
 
+const String kCommandHelpModel =
+    'When model is provided, StackedView will be used instead of StatelessWidget and a Model will be created.';
+
 const String kCommandHelpLineLength =
     'When a number is provided, it will be used as the line length for formatting code.';
 
