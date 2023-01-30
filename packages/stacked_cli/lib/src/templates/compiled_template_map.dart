@@ -15,6 +15,14 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
         content: kAppTemplateHomeViewmodelTestContent,
       ),
       TemplateFile(
+        relativeOutputPath: kAppTemplateNoticeSheetModelTestPath,
+        content: kAppTemplateNoticeSheetModelTestContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kAppTemplateInfoAlertDialogModelTestPath,
+        content: kAppTemplateInfoAlertDialogModelTestContent,
+      ),
+      TemplateFile(
         relativeOutputPath: kAppTemplateTestHelpersPath,
         content: kAppTemplateTestHelpersContent,
       ),
@@ -109,6 +117,10 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
   
   'dialog': StackedTemplate(
     templateFiles: [
+      TemplateFile(
+        relativeOutputPath: kDialogTemplateGenericDialogModelTestPath,
+        content: kDialogTemplateGenericDialogModelTestContent,
+      ),
       TemplateFile(
         relativeOutputPath: kDialogTemplateGenericDialogModelPath,
         content: kDialogTemplateGenericDialogModelContent,
@@ -248,6 +260,10 @@ return service;
   
   'bottom_sheet': StackedTemplate(
     templateFiles: [
+      TemplateFile(
+        relativeOutputPath: kBottomSheetTemplateGenericSheetModelTestPath,
+        content: kBottomSheetTemplateGenericSheetModelTestContent,
+      ),
       TemplateFile(
         relativeOutputPath: kBottomSheetTemplateGenericSheetModelPath,
         content: kBottomSheetTemplateGenericSheetModelContent,

@@ -46,6 +46,7 @@ Map<String, RenderFunction> renderFunctions = {
     };
   },
   kTemplateNameBottomSheet: (ReCase value) {
+    final configService = locator<ConfigService>();
     return {
       kTemplatePropertySheetName: '${value.pascalCase}Sheet',
       kTemplatePropertySheetFilename: '${value.snakeCase}_sheet',
@@ -54,9 +55,13 @@ Map<String, RenderFunction> renderFunctions = {
           '${value.snakeCase}_sheet_model.dart',
       kTemplatePropertySheetFolderName: value.snakeCase,
       kTemplatePropertySheetType: value.camelCase,
+      kTemplatePropertyRelativeLocatorPath: getRelativeLocatorPath(
+        stackedAppFilePath: configService.stackedAppFilePath,
+      ),
     };
   },
   kTemplateNameDialog: (ReCase value) {
+    final configService = locator<ConfigService>();
     return {
       kTemplatePropertyDialogName: '${value.pascalCase}Dialog',
       kTemplatePropertyDialogFilename: '${value.snakeCase}_dialog',
@@ -65,6 +70,9 @@ Map<String, RenderFunction> renderFunctions = {
           '${value.snakeCase}_dialog_model.dart',
       kTemplatePropertyDialogFolderName: value.snakeCase,
       kTemplatePropertyDialogType: value.camelCase,
+      kTemplatePropertyRelativeLocatorPath: getRelativeLocatorPath(
+        stackedAppFilePath: configService.stackedAppFilePath,
+      ),
     };
   },
 };

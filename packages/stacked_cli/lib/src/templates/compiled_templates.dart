@@ -83,6 +83,52 @@ void main() {
 // --------------------------------------------------
 
 
+// -------- NoticeSheetModelTest Template Data ----------
+
+const String kAppTemplateNoticeSheetModelTestPath =
+    'test/viewmodels/notice_sheet_model_test.dart.stk';
+
+const String kAppTemplateNoticeSheetModelTestContent = '''
+import 'package:flutter_test/flutter_test.dart';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
+
+import '{{{viewTestHelpersImport}}}';
+
+void main() {
+  group('InfoAlertDialogModel Tests -', () {
+    setUp(() => registerServices());
+    tearDown(() => locator.reset());
+  });
+}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- InfoAlertDialogModelTest Template Data ----------
+
+const String kAppTemplateInfoAlertDialogModelTestPath =
+    'test/viewmodels/info_alert_dialog_model_test.dart.stk';
+
+const String kAppTemplateInfoAlertDialogModelTestContent = '''
+import 'package:flutter_test/flutter_test.dart';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
+
+import '{{{viewTestHelpersImport}}}';
+
+void main() {
+  group('InfoAlertDialogModel Tests -', () {
+    setUp(() => registerServices());
+    tearDown(() => locator.reset());
+  });
+}
+
+''';
+
+// --------------------------------------------------
+
+
 // -------- TestHelpers Template Data ----------
 
 const String kAppTemplateTestHelpersPath =
@@ -1229,6 +1275,29 @@ flutter:
 // --------------------------------------------------
 
 
+// -------- GenericDialogModelTest Template Data ----------
+
+const String kDialogTemplateGenericDialogModelTestPath =
+    'test/viewmodels/generic_dialog_model_test.dart.stk';
+
+const String kDialogTemplateGenericDialogModelTestContent = '''
+import 'package:flutter_test/flutter_test.dart';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
+
+import '{{{viewTestHelpersImport}}}';
+
+void main() {
+  group('{{dialogModelName}} Tests -', () {
+    setUp(() => registerServices());
+    tearDown(() => locator.reset());
+  });
+}
+
+''';
+
+// --------------------------------------------------
+
+
 // -------- GenericDialogModel Template Data ----------
 
 const String kDialogTemplateGenericDialogModelPath =
@@ -1615,6 +1684,29 @@ const String kServiceTemplateGenericServiceContent = '''
 class {{serviceName}} {
 
 }
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericSheetModelTest Template Data ----------
+
+const String kBottomSheetTemplateGenericSheetModelTestPath =
+    'test/viewmodels/generic_sheet_model_test.dart.stk';
+
+const String kBottomSheetTemplateGenericSheetModelTestContent = '''
+import 'package:flutter_test/flutter_test.dart';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
+
+import '{{{viewTestHelpersImport}}}';
+
+void main() {
+  group('{{sheetModelName}} Tests -', () {
+    setUp(() => registerServices());
+    tearDown(() => locator.reset());
+  });
+}
+
 ''';
 
 // --------------------------------------------------

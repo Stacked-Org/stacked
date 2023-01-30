@@ -1,0 +1,11 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
+
+import '{{{viewTestHelpersImport}}}';
+
+void main() {
+  group('{{dialogModelName}} Tests -', () {
+    setUp(() => registerServices());
+    tearDown(() => locator.reset());
+  });
+}
