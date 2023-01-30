@@ -32,6 +32,11 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
       defaultsTo: false,
       help: kCommandHelpExcludeRoute,
     );
+    argParser.addFlag(
+      ksModel,
+      defaultsTo: true,
+      help: kCommandHelpModel,
+    );
     argParser.addOption(
       ksLineLength,
       abbr: 'l',
@@ -56,6 +61,7 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
       outputPath: outputPath,
       verbose: true,
       excludeRoute: argResults![ksExcludeRoute],
+      hasModel: argResults![ksModel],
     );
   }
 }
