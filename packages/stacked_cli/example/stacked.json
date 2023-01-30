@@ -5,7 +5,7 @@
     "bottom_sheets_path": "ui/bottom_sheets",
     "bottom_sheet_type_file_path": "enums/bottom_sheet_type.dart",
     "bottom_sheet_builder_file_path": "ui/setup/setup_bottom_sheet_ui.dart",
-    "dialogss_path": "ui/dialogs",
+    "dialogs_path": "ui/dialogs",
     "dialog_type_file_path": "enums/dialog_type.dart",
     "dialog_builder_file_path": "ui/setup/setup_dialog_ui.dart",
     "test_helpers_file_path": "helpers/test_helpers.dart",
