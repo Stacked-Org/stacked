@@ -184,18 +184,16 @@ class TemplateService {
       }
 
       if (templateName == 'bottom_sheet' || templateName == 'dialog') {
-        if (templateFile.relativeOutputPath.contains('_model.dart.stk')) {
-          if (!hasModel) continue;
+        if (!hasModel && templateFile.relativeOutputPath.contains('model')) {
+          continue;
         }
 
         if (templateFile.relativeOutputPath.contains('_use_model.dart.stk')) {
-          if (hasModel) {
-            template.templateFiles[i + 2] = TemplateFile(
-              relativeOutputPath:
-                  template.templateFiles[i + 2].relativeOutputPath,
-              content: templateFile.content,
-            );
-          }
+          template.templateFiles[i + 2] = TemplateFile(
+            relativeOutputPath:
+                template.templateFiles[i + 2].relativeOutputPath,
+            content: templateFile.content,
+          );
 
           continue;
         }
