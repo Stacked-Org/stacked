@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:{{packageName}}/ui/common/app_colors.dart';
 import 'package:{{packageName}}/ui/common/ui_helpers.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class NoticeSheet extends StatelessWidget {
+import 'notice_sheet_model.dart';
+
+class NoticeSheet extends StackedView<NoticeSheetModel> {
   final Function(SheetResponse)? completer;
   final SheetRequest request;
   const NoticeSheet({
@@ -13,7 +16,11 @@ class NoticeSheet extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget builder(
+    BuildContext context,
+    NoticeSheetModel viewModel,
+    Widget? child,
+  ) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       child: Column(
@@ -43,4 +50,8 @@ class NoticeSheet extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  NoticeSheetModel viewModelBuilder(BuildContext context) =>
+      NoticeSheetModel();
 }

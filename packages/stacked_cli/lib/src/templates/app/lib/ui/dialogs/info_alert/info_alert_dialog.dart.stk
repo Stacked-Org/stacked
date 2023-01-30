@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:{{packageName}}/ui/common/app_colors.dart';
 import 'package:{{packageName}}/ui/common/ui_helpers.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+
+import 'info_alert_dialog_model.dart';
 
 const double _graphicSize = 60;
 
-class InfoAlertDialog extends StatelessWidget {
+class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
   final DialogRequest request;
   final Function(DialogResponse) completer;
 
@@ -16,7 +19,11 @@ class InfoAlertDialog extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget builder(
+    BuildContext context,
+    InfoAlertDialogModel viewModel,
+    Widget? child,
+  ) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.white,
@@ -94,4 +101,8 @@ class InfoAlertDialog extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  InfoAlertDialogModel viewModelBuilder(BuildContext context) =>
+      InfoAlertDialogModel();
 }
