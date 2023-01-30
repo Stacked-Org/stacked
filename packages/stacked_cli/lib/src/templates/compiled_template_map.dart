@@ -47,20 +47,20 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
         content: kAppTemplateAppColorsContent,
       ),
       TemplateFile(
+        relativeOutputPath: kAppTemplateNoticeSheetModelPath,
+        content: kAppTemplateNoticeSheetModelContent,
+      ),
+      TemplateFile(
         relativeOutputPath: kAppTemplateNoticeSheetPath,
         content: kAppTemplateNoticeSheetContent,
       ),
       TemplateFile(
-        relativeOutputPath: kAppTemplateNoticeSheetViewmodelPath,
-        content: kAppTemplateNoticeSheetViewmodelContent,
+        relativeOutputPath: kAppTemplateInfoAlertDialogModelPath,
+        content: kAppTemplateInfoAlertDialogModelContent,
       ),
       TemplateFile(
         relativeOutputPath: kAppTemplateInfoAlertDialogPath,
         content: kAppTemplateInfoAlertDialogContent,
-      ),
-      TemplateFile(
-        relativeOutputPath: kAppTemplateInfoAlertViewmodelPath,
-        content: kAppTemplateInfoAlertViewmodelContent,
       ),
       TemplateFile(
         relativeOutputPath: kAppTemplateHomeViewV1Path,
@@ -109,6 +109,14 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
   
   'dialog': StackedTemplate(
     templateFiles: [
+      TemplateFile(
+        relativeOutputPath: kDialogTemplateGenericDialogModelPath,
+        content: kDialogTemplateGenericDialogModelContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kDialogTemplateGenericDialogUseModelPath,
+        content: kDialogTemplateGenericDialogUseModelContent,
+      ),
       TemplateFile(
         relativeOutputPath: kDialogTemplateGenericDialogPath,
         content: kDialogTemplateGenericDialogContent,
@@ -240,6 +248,14 @@ return service;
   
   'bottom_sheet': StackedTemplate(
     templateFiles: [
+      TemplateFile(
+        relativeOutputPath: kBottomSheetTemplateGenericSheetModelPath,
+        content: kBottomSheetTemplateGenericSheetModelContent,
+      ),
+      TemplateFile(
+        relativeOutputPath: kBottomSheetTemplateGenericSheetUseModelPath,
+        content: kBottomSheetTemplateGenericSheetUseModelContent,
+      ),
       TemplateFile(
         relativeOutputPath: kBottomSheetTemplateGenericSheetPath,
         content: kBottomSheetTemplateGenericSheetContent,

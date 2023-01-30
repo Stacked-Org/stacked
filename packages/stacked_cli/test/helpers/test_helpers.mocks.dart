@@ -321,6 +321,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
     bool? verbose = false,
     bool? excludeRoute = false,
     bool? useBuilder = false,
+    bool? hasModel = true,
     String? outputPath,
   }) =>
       (super.noSuchMethod(
@@ -333,6 +334,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
             #verbose: verbose,
             #excludeRoute: excludeRoute,
             #useBuilder: useBuilder,
+            #hasModel: hasModel,
             #outputPath: outputPath,
           },
         ),
@@ -346,6 +348,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
     required String? name,
     String? outputFolder,
     bool? useBuilder = false,
+    bool? hasModel = true,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -357,6 +360,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
             #name: name,
             #outputFolder: outputFolder,
             #useBuilder: useBuilder,
+            #hasModel: hasModel,
           },
         ),
         returnValue: _i6.Future<void>.value(),

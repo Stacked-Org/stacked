@@ -437,6 +437,21 @@ const Color kcBackgroundColor = kcDarkGreyColor;
 // --------------------------------------------------
 
 
+// -------- NoticeSheetModel Template Data ----------
+
+const String kAppTemplateNoticeSheetModelPath =
+    'lib/ui/bottom_sheets/notice/notice_sheet_model.dart.stk';
+
+const String kAppTemplateNoticeSheetModelContent = '''
+import 'package:stacked/stacked.dart';
+
+class NoticeSheetModel extends BaseViewModel {}
+
+''';
+
+// --------------------------------------------------
+
+
 // -------- NoticeSheet Template Data ----------
 
 const String kAppTemplateNoticeSheetPath =
@@ -446,9 +461,12 @@ const String kAppTemplateNoticeSheetContent = '''
 import 'package:flutter/material.dart';
 import 'package:{{packageName}}/ui/common/app_colors.dart';
 import 'package:{{packageName}}/ui/common/ui_helpers.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class NoticeSheet extends StatelessWidget {
+import 'notice_sheet_model.dart';
+
+class NoticeSheet extends StackedView<NoticeSheetModel> {
   final Function(SheetResponse)? completer;
   final SheetRequest request;
   const NoticeSheet({
@@ -458,7 +476,11 @@ class NoticeSheet extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget builder(
+    BuildContext context,
+    NoticeSheetModel viewModel,
+    Widget? child,
+  ) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       child: Column(
@@ -488,6 +510,10 @@ class NoticeSheet extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  NoticeSheetModel viewModelBuilder(BuildContext context) =>
+      NoticeSheetModel();
 }
 
 ''';
@@ -495,13 +521,16 @@ class NoticeSheet extends StatelessWidget {
 // --------------------------------------------------
 
 
-// -------- NoticeSheetViewmodel Template Data ----------
+// -------- InfoAlertDialogModel Template Data ----------
 
-const String kAppTemplateNoticeSheetViewmodelPath =
-    'lib/ui/bottom_sheets/notice/notice_sheet_viewmodel.dart.stk';
+const String kAppTemplateInfoAlertDialogModelPath =
+    'lib/ui/dialogs/info_alert/info_alert_dialog_model.dart.stk';
 
-const String kAppTemplateNoticeSheetViewmodelContent = '''
-// This file is here to show you that even bottom sheets can have its own viewmodels
+const String kAppTemplateInfoAlertDialogModelContent = '''
+import 'package:stacked/stacked.dart';
+
+class InfoAlertDialogModel extends BaseViewModel {}
+
 ''';
 
 // --------------------------------------------------
@@ -516,11 +545,14 @@ const String kAppTemplateInfoAlertDialogContent = '''
 import 'package:flutter/material.dart';
 import 'package:{{packageName}}/ui/common/app_colors.dart';
 import 'package:{{packageName}}/ui/common/ui_helpers.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+
+import 'info_alert_dialog_model.dart';
 
 const double _graphicSize = 60;
 
-class InfoAlertDialog extends StatelessWidget {
+class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
   final DialogRequest request;
   final Function(DialogResponse) completer;
 
@@ -531,7 +563,11 @@ class InfoAlertDialog extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget builder(
+    BuildContext context,
+    InfoAlertDialogModel viewModel,
+    Widget? child,
+  ) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.white,
@@ -609,21 +645,11 @@ class InfoAlertDialog extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  InfoAlertDialogModel viewModelBuilder(BuildContext context) =>
+      InfoAlertDialogModel();
 }
-
-''';
-
-// --------------------------------------------------
-
-
-// -------- InfoAlertViewmodel Template Data ----------
-
-const String kAppTemplateInfoAlertViewmodelPath =
-    'lib/ui/dialogs/info_alert/info_alert_viewmodel.dart.stk';
-
-const String kAppTemplateInfoAlertViewmodelContent = '''
-// Dialogs should be treated exactly like a view. You should give it a viewmodel
-// if you need to manage state in the viewmodel
 
 ''';
 
@@ -1203,6 +1229,142 @@ flutter:
 // --------------------------------------------------
 
 
+// -------- GenericDialogModel Template Data ----------
+
+const String kDialogTemplateGenericDialogModelPath =
+    'lib/ui/dialogs/generic/generic_dialog_model.dart.stk';
+
+const String kDialogTemplateGenericDialogModelContent = '''
+import 'package:stacked/stacked.dart';
+
+class {{dialogModelName}} extends BaseViewModel {}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericDialogUseModel Template Data ----------
+
+const String kDialogTemplateGenericDialogUseModelPath =
+    'lib/ui/dialogs/generic/generic_dialog_use_model.dart.stk';
+
+const String kDialogTemplateGenericDialogUseModelContent = '''
+import 'package:flutter/material.dart';
+import 'package:{{packageName}}/ui/common/app_colors.dart';
+import 'package:{{packageName}}/ui/common/ui_helpers.dart';
+import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+
+import '{{dialogModelFilename}}';
+
+const double _graphicSize = 60;
+
+class {{dialogName}} extends StackedView<{{dialogModelName}}> {
+  final DialogRequest request;
+  final Function(DialogResponse) completer;
+
+  const {{dialogName}}({
+    Key? key,
+    required this.request,
+    required this.completer,
+  }) : super(key: key);
+
+  @override
+  Widget builder(
+    BuildContext context,
+    {{dialogModelName}} viewModel,
+    Widget? child,
+  ) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      backgroundColor: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        request.title ?? 'Hello Stacked Dialog!!',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      if (request.description != null) ...[
+                        verticalSpaceTiny,
+                        Text(
+                          request.description!,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: kcMediumGrey,
+                          ),
+                          maxLines: 3,
+                          softWrap: true,
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+                Container(
+                  width: _graphicSize,
+                  height: _graphicSize,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFF6E7B0),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(_graphicSize / 2),
+                    ),
+                  ),
+                  alignment: Alignment.center,
+                  child: const Text('⭐️', style: TextStyle(fontSize: 30)),
+                )
+              ],
+            ),
+            verticalSpaceMedium,
+            GestureDetector(
+              onTap: () => completer(DialogResponse(confirmed: true)),
+              child: Container(
+                height: 50,
+                width: double.infinity,
+                alignment: Alignment.center,
+                child: const Text(
+                  'Got it',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  {{dialogModelName}} viewModelBuilder(BuildContext context) =>
+      {{dialogModelName}}();
+}
+
+''';
+
+// --------------------------------------------------
+
+
 // -------- GenericDialog Template Data ----------
 
 const String kDialogTemplateGenericDialogPath =
@@ -1453,6 +1615,92 @@ const String kServiceTemplateGenericServiceContent = '''
 class {{serviceName}} {
 
 }
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericSheetModel Template Data ----------
+
+const String kBottomSheetTemplateGenericSheetModelPath =
+    'lib/ui/bottom_sheets/generic/generic_sheet_model.dart.stk';
+
+const String kBottomSheetTemplateGenericSheetModelContent = '''
+import 'package:stacked/stacked.dart';
+
+class {{sheetModelName}} extends BaseViewModel {}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericSheetUseModel Template Data ----------
+
+const String kBottomSheetTemplateGenericSheetUseModelPath =
+    'lib/ui/bottom_sheets/generic/generic_sheet_use_model.dart.stk';
+
+const String kBottomSheetTemplateGenericSheetUseModelContent = '''
+import 'package:flutter/material.dart';
+import 'package:{{packageName}}/ui/common/app_colors.dart';
+import 'package:{{packageName}}/ui/common/ui_helpers.dart';
+import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+
+import '{{sheetModelFilename}}';
+
+class {{sheetName}} extends StackedView<{{sheetModelName}}> {
+  final Function(SheetResponse response)? completer;
+  final SheetRequest request;
+  const {{sheetName}}({
+    Key? key,
+    required this.completer,
+    required this.request,
+  }) : super(key: key);
+
+  @override
+  Widget builder(
+    BuildContext context,
+    {{sheetModelName}} viewModel,
+    Widget? child,
+  ) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            request.title ?? 'Hello Stacked Sheet!!',
+            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
+          ),
+          if (request.description != null) ...[
+            verticalSpaceTiny,
+            Text(
+              request.description!,
+              style: const TextStyle(fontSize: 14, color: kcMediumGrey),
+              maxLines: 3,
+              softWrap: true,
+            ),
+          ],
+          verticalSpaceLarge,
+        ],
+      ),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+      ),
+    );
+  }
+
+  @override
+  {{sheetModelName}} viewModelBuilder(BuildContext context) =>
+      {{sheetModelName}}();
+}
+
 ''';
 
 // --------------------------------------------------
