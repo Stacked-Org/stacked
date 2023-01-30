@@ -1,3 +1,8 @@
+## 1.1.10
+
+- Adds `model` flag option to create bottom_sheet command to use or not a model
+- Adds `model` flag option to create dialog command to use or not a model
+
 ## 1.1.9+1
 
 - Refactor ProcessService
