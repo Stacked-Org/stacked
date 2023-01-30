@@ -113,6 +113,10 @@ class TemplateService {
     /// value is going to be used or default value.
     bool useBuilder = false,
 
+    /// When the value is true, the bottom sheet or dialog will extends from StackedView
+    /// to use a model which will be also created.
+    bool hasModel = true,
+
     /// When supplied the templates will be created using the folder supplied here as the
     /// output location.
     ///
@@ -130,6 +134,7 @@ class TemplateService {
       name: name,
       outputFolder: outputPath,
       useBuilder: useBuilder,
+      hasModel: hasModel,
     );
 
     // TODO: Refactor into an exclusionary rule system where we can
@@ -152,6 +157,7 @@ class TemplateService {
     required String name,
     String? outputFolder,
     bool useBuilder = false,
+    bool hasModel = true,
   }) async {
     /// Sort template files to ensure default view will be always after v1 view.
     template.templateFiles.sort(
@@ -169,6 +175,24 @@ class TemplateService {
             template.templateFiles[i + 1] = TemplateFile(
               relativeOutputPath:
                   template.templateFiles[i + 1].relativeOutputPath,
+              content: templateFile.content,
+            );
+          }
+
+          continue;
+        }
+      }
+
+      if (templateName == 'bottom_sheet' || templateName == 'dialog') {
+        if (templateFile.relativeOutputPath.contains('_model.dart.stk')) {
+          if (!hasModel) continue;
+        }
+
+        if (templateFile.relativeOutputPath.contains('_use_model.dart.stk')) {
+          if (hasModel) {
+            template.templateFiles[i + 2] = TemplateFile(
+              relativeOutputPath:
+                  template.templateFiles[i + 2].relativeOutputPath,
               content: templateFile.content,
             );
           }
