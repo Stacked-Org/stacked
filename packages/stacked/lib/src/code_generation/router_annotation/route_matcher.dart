@@ -103,7 +103,6 @@ class RouteMatch extends RouteSettings {
 
   Parameters get pathParams => Parameters(pathParamsMap);
 
-  @override
   RouteSettings copyWith({
     String? name,
     Object? arguments,

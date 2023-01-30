@@ -13,22 +13,24 @@ class ReactiveList<E> extends DelegatingList<E> implements List<E> {
     _onChange = _changes.stream.asBroadcastStream();
   }
 
-  ReactiveList.filled(int length, E fill, {bool growable: false})
+  ReactiveList.filled(int length, E fill, {bool growable = false})
       : super(List<E>.filled(length, fill, growable: growable)) {
     _onChange = _changes.stream.asBroadcastStream();
   }
 
-  ReactiveList.from(Iterable<E> elements, {bool growable: true})
+  ReactiveList.from(Iterable<E> elements, {bool growable = true})
       : super(List<E>.from(elements, growable: growable)) {
     _onChange = _changes.stream.asBroadcastStream();
   }
 
-  ReactiveList.of(Iterable<E> elements, {bool growable: true})
+  ReactiveList.of(Iterable<E> elements, {bool growable = true})
       : super(List<E>.of(elements, growable: growable));
 
-  ReactiveList.generate(int length, E generator(int index),
-      {bool growable: true})
-      : super(List<E>.generate(length, generator, growable: growable));
+  ReactiveList.generate(
+    int length,
+    E generator(int index), {
+    bool growable = true,
+  }) : super(List<E>.generate(length, generator, growable: growable));
 
   /// Adds [element] only if [condition] resolves to true.
   void addIf(/* bool | Condition */ condition, E element) {

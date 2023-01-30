@@ -74,7 +74,7 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
 
   static get _placeHolderRoute => PageRouteBuilder(
         pageBuilder: (context, __, ___) => Container(
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.background,
         ),
       );
 
