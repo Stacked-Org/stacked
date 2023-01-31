@@ -9,7 +9,6 @@ class DialogClassGeneratorHelper with StringBufferUtils {
     for (var dialogConfig in dialogConfigs) {
       writeLine('${dialogConfig.enumValue},');
     }
-    writeLine("// @stacked-dialog-type");
     writeLine("}");
   }
 
