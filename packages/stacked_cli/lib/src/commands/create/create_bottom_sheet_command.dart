@@ -63,5 +63,7 @@ class CreateBottomSheetCommand extends Command with ProjectStructureValidator {
       excludeRoute: argResults![ksExcludeRoute],
       hasModel: argResults![ksModel],
     );
+
+    await _processService.runBuildRunner(appName: outputPath);
   }
 }
