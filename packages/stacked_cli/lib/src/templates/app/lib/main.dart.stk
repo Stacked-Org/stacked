@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
+import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
+import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
+import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
 import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/{{{bottomSheetBuilderFilePath}}}';
-import 'package:{{packageName}}/{{{dialogBuilderFilePath}}}';
 import 'package:stacked_services/stacked_services.dart';
-
-import '{{{relativeRouterFilePath}}}';
 
 void main() {
   setupLocator();
