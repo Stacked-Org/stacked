@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:example/app/app.bottomsheets.dart';
+import 'package:example/app/app.dialogs.dart';
 import 'package:example/app/app.locator.dart';
+import 'package:example/app/app.router.dart';
 import 'package:example/ui/common/app_colors.dart';
-import 'package:example/ui/setup/setup_bottom_sheet_ui.dart';
-import 'package:example/ui/setup/setup_dialog_ui.dart';
 import 'package:stacked_services/stacked_services.dart';
-
-import 'app/app.router.dart';
 
 void main() {
   setupLocator();
