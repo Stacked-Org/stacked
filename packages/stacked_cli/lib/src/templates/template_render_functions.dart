@@ -54,7 +54,7 @@ Map<String, RenderFunction> renderFunctions = {
   kTemplateNameDialog: (ReCase value) {
     return {
       kTemplatePropertyDialogName: '${value.pascalCase}Dialog',
-      kTemplatePropertyDialogFilename: '${value.snakeCase}_dialog',
+      kTemplatePropertyDialogFilename: '${value.snakeCase}_dialog.dart',
       kTemplatePropertyDialogModelName: '${value.pascalCase}DialogModel',
       kTemplatePropertyDialogModelFilename:
           '${value.snakeCase}_dialog_model.dart',
