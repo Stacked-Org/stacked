@@ -131,9 +131,10 @@ MockColorizedLogService getAndRegisterColorizedLogService() {
 
 MockConfigService getAndRegisterConfigService({
   String? customPath,
-  String serviceImportPath = 'lib/services',
+  String stackedAppFilePath = 'app/app.dart',
+  String serviceImportPath = 'services',
   String serviceTestHelpersImport = '../helpers/test_helpers.dart',
-  String viewImportPath = 'lib/viewmodels',
+  String viewImportPath = 'viewmodels',
   String viewTestHelpersImport = '../helpers/test_helpers.dart',
   String locatorName = 'locator',
   String registerMocksFunction = 'registerServices',
@@ -143,6 +144,7 @@ MockConfigService getAndRegisterConfigService({
   _removeRegistrationIfExists<ConfigService>();
   final service = MockConfigService();
 
+  when(service.stackedAppFilePath).thenReturn(stackedAppFilePath);
   when(service.serviceImportPath).thenReturn(serviceImportPath);
   when(service.serviceTestHelpersImport).thenReturn(
     serviceTestHelpersImport,
