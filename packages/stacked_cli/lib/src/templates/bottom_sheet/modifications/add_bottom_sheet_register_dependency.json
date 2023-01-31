@@ -1,0 +1,8 @@
+{
+    "description": "When a bottom sheet is generated, one of the boilerplate tasks is to register dependency on StackedApp for the new bottom sheet. This modification performs that action.",
+    "path": "lib/app/app.dart",
+    "identifier": "// @stacked-bottom-sheet",
+    "template": "StackedBottomsheet(classType: {{sheetName}}),",
+    "error": "The bottom sheet registration should be stored in lib/app/app.dart",
+    "name": "Add \\'{{sheetName}}\\' dependency to StackedApp annotations file"
+}

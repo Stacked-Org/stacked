@@ -42,7 +42,7 @@ Map<String, RenderFunction> renderFunctions = {
   kTemplateNameBottomSheet: (ReCase value) {
     return {
       kTemplatePropertySheetName: '${value.pascalCase}Sheet',
-      kTemplatePropertySheetFilename: '${value.snakeCase}_sheet',
+      kTemplatePropertySheetFilename: '${value.snakeCase}_sheet.dart',
       kTemplatePropertySheetModelName: '${value.pascalCase}SheetModel',
       kTemplatePropertySheetModelFilename:
           '${value.snakeCase}_sheet_model.dart',
