@@ -16,7 +16,7 @@ Map<String, RenderFunction> renderFunctions = {
       kTemplatePropertyViewModelName: '${value.pascalCase}ViewModel',
       kTemplatePropertyViewModelFileName: '${value.snakeCase}_viewmodel.dart',
       kTemplatePropertyViewFolderName: value.snakeCase,
-      kTemplatePropertyRelativeLocatorPath: getRelativeLocatorPath(
+      kTemplatePropertyRelativeLocatorFilePath: getRelativeLocatorFilePath(
         stackedAppFilePath: configService.stackedAppFilePath,
       ),
     };
@@ -27,7 +27,7 @@ Map<String, RenderFunction> renderFunctions = {
       kTemplatePropertyServiceName: '${value.pascalCase}Service',
       kTemplatePropertyServiceFilename: '${value.snakeCase}_service.dart',
       kTemplatePropertyLocatorName: configService.locatorName,
-      kTemplatePropertyRelativeLocatorPath: getRelativeLocatorPath(
+      kTemplatePropertyRelativeLocatorFilePath: getRelativeLocatorFilePath(
         stackedAppFilePath: configService.stackedAppFilePath,
       ),
       kTemplatePropertyRegisterMocksFunction:
@@ -37,10 +37,17 @@ Map<String, RenderFunction> renderFunctions = {
   kTemplateNameApp: (ReCase value, [map]) {
     final configService = locator<ConfigService>();
     return {
-      kTemplatePropertyRelativeLocatorPath: getRelativeLocatorPath(
+      kTemplatePropertyRelativeBottomSheetFilePath:
+          getRelativeBottomSheetFilePath(
         stackedAppFilePath: configService.stackedAppFilePath,
       ),
-      kTemplatePropertyRelativeRouterPath: getRelativeRouterFilePath(
+      kTemplatePropertyRelativeDialogFilePath: getRelativeDialogFilePath(
+        stackedAppFilePath: configService.stackedAppFilePath,
+      ),
+      kTemplatePropertyRelativeLocatorFilePath: getRelativeLocatorFilePath(
+        stackedAppFilePath: configService.stackedAppFilePath,
+      ),
+      kTemplatePropertyRelativeRouterFilePath: getRelativeRouterFilePath(
         stackedAppFilePath: configService.stackedAppFilePath,
       ),
     };
@@ -55,7 +62,7 @@ Map<String, RenderFunction> renderFunctions = {
           '${value.snakeCase}_sheet_model.dart',
       kTemplatePropertySheetFolderName: value.snakeCase,
       kTemplatePropertySheetType: value.camelCase,
-      kTemplatePropertyRelativeLocatorPath: getRelativeLocatorPath(
+      kTemplatePropertyRelativeLocatorFilePath: getRelativeLocatorFilePath(
         stackedAppFilePath: configService.stackedAppFilePath,
       ),
     };
@@ -70,7 +77,7 @@ Map<String, RenderFunction> renderFunctions = {
           '${value.snakeCase}_dialog_model.dart',
       kTemplatePropertyDialogFolderName: value.snakeCase,
       kTemplatePropertyDialogType: value.camelCase,
-      kTemplatePropertyRelativeLocatorPath: getRelativeLocatorPath(
+      kTemplatePropertyRelativeLocatorFilePath: getRelativeLocatorFilePath(
         stackedAppFilePath: configService.stackedAppFilePath,
       ),
     };
@@ -78,7 +85,7 @@ Map<String, RenderFunction> renderFunctions = {
 };
 
 @visibleForTesting
-String getRelativeLocatorPath({required String stackedAppFilePath}) {
+String getRelativeLocatorFilePath({required String stackedAppFilePath}) {
   final pathWithoutLib = stackedAppFilePath.replaceFirst('lib/', '');
   final pathWithLocator = pathWithoutLib.split('.')..insert(1, 'locator');
 
@@ -87,7 +94,22 @@ String getRelativeLocatorPath({required String stackedAppFilePath}) {
 
 String getRelativeRouterFilePath({required String stackedAppFilePath}) {
   final pathWithoutLib = stackedAppFilePath.replaceFirst('lib/', '');
-  final pathWithLocator = pathWithoutLib.split('.')..insert(1, 'router');
+  final pathWithRouter = pathWithoutLib.split('.')..insert(1, 'router');
 
-  return pathWithLocator.join('.');
+  return pathWithRouter.join('.');
+}
+
+String getRelativeBottomSheetFilePath({required String stackedAppFilePath}) {
+  final pathWithoutLib = stackedAppFilePath.replaceFirst('lib/', '');
+  final pathWithBottomSheets = pathWithoutLib.split('.')
+    ..insert(1, 'bottomsheets');
+
+  return pathWithBottomSheets.join('.');
+}
+
+String getRelativeDialogFilePath({required String stackedAppFilePath}) {
+  final pathWithoutLib = stackedAppFilePath.replaceFirst('lib/', '');
+  final pathWithDialog = pathWithoutLib.split('.')..insert(1, 'dialogs');
+
+  return pathWithDialog.join('.');
 }

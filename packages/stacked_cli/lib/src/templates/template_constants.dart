@@ -49,9 +49,15 @@ const String kTemplatePropertyServiceFilename = 'serviceFilename';
 
 const String kTemplatePropertyLocatorName = 'locatorName';
 
-const String kTemplatePropertyRelativeLocatorPath = 'relativeLocatorPath';
+const String kTemplatePropertyRelativeBottomSheetFilePath =
+    'relativeBottomSheetFilePath';
 
-const String kTemplatePropertyRelativeRouterPath = 'relativeRouterFilePath';
+const String kTemplatePropertyRelativeDialogFilePath = 'relativeDialogFilePath';
+
+const String kTemplatePropertyRelativeLocatorFilePath =
+    'relativeLocatorFilePath';
+
+const String kTemplatePropertyRelativeRouterFilePath = 'relativeRouterFilePath';
 
 const String kTemplatePropertyRegisterMocksFunction = 'registerMocksFunction';
 

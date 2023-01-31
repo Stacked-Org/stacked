@@ -13,10 +13,10 @@ import '../helpers/test_helpers.dart';
 TemplateHelper _getHelper() => TemplateHelper();
 
 void main() {
-  group('getRelativeLocatorPath -', () {
+  group('getRelativeLocatorFilePath -', () {
     test('When given path lib/app/app.dart should return app/app.locator.dart',
         () {
-      final path = getRelativeLocatorPath(
+      final path = getRelativeLocatorFilePath(
         stackedAppFilePath: 'lib/app/app.dart',
       );
       expect(path, 'app/app.locator.dart');
@@ -25,7 +25,7 @@ void main() {
     test(
         'When given path lib/src/app/core_app.dart should return src/app/core_app.locator.dart',
         () {
-      final path = getRelativeLocatorPath(
+      final path = getRelativeLocatorFilePath(
         stackedAppFilePath: 'lib/src/app/core_app.dart',
       );
       expect(path, 'src/app/core_app.locator.dart');

@@ -35,14 +35,6 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
         content: kAppTemplateMainContent,
       ),
       TemplateFile(
-        relativeOutputPath: kAppTemplateSetupDialogUiPath,
-        content: kAppTemplateSetupDialogUiContent,
-      ),
-      TemplateFile(
-        relativeOutputPath: kAppTemplateSetupBottomSheetUiPath,
-        content: kAppTemplateSetupBottomSheetUiContent,
-      ),
-      TemplateFile(
         relativeOutputPath: kAppTemplateUiHelpersPath,
         content: kAppTemplateUiHelpersContent,
       ),
@@ -97,14 +89,6 @@ Map<String, StackedTemplate> kCompiledStackedTemplates = {
       TemplateFile(
         relativeOutputPath: kAppTemplateAppPath,
         content: kAppTemplateAppContent,
-      ),
-      TemplateFile(
-        relativeOutputPath: kAppTemplateDialogTypePath,
-        content: kAppTemplateDialogTypeContent,
-      ),
-      TemplateFile(
-        relativeOutputPath: kAppTemplateBottomSheetTypePath,
-        content: kAppTemplateBottomSheetTypeContent,
       ),
       TemplateFile(
         relativeOutputPath: kAppTemplatePubspecYamlStkPath,
