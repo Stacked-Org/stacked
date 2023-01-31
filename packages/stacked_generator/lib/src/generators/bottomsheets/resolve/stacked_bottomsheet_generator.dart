@@ -5,8 +5,8 @@ import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_generator/import_resolver.dart';
+import 'package:stacked_generator/src/generators/bottomsheets/generate/bottomsheet_class_generator.dart';
 
-import '../generate/bottomsheet_class_generator.dart';
 import 'bottomsheet_config_resolver.dart';
 
 class StackedBottomsheetGenerator extends GeneratorForAnnotation<StackedApp> {

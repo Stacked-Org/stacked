@@ -1,19 +1,18 @@
-import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
-
 String setupDialogHeader(String? locatorName) => '''
 void setupDialogUi() {
-  var dialogService = ${locatorName ?? 'locator'}<DialogService>();
+  final dialogService = ${locatorName ?? 'locator'}<DialogService>();
 
-  final builders = {
+  final Map<DialogType, DialogBuilder> builders = {
   
 ''';
 
-String dialogRegisterContent(String dialogClassName) => '''
-  DialogType.${dialogClassName.toLowerCamelCase}: (context, DialogRequest request, void Function(DialogResponse) completer) =>
-        $dialogClassName(request: request,completer: completer),
+String dialogRegisterContent(String dialogClassName, String enumValue) => '''
+  DialogType.$enumValue: (context, request, completer) =>
+        $dialogClassName(request: request, completer: completer),
 ''';
 
 const dialogRegisterTrailing = '''
+    // @stacked-dialog-builder
   };
 
   dialogService.registerCustomDialogBuilders(builders);
