@@ -1,3 +1,9 @@
+## 1.1.11
+
+- Updates create bottom_sheet command to make use of StackedApp annotation
+- Updates create dialog command to make use of StackedApp annotation
+- Updates packages
+
 ## 1.1.10
 
 - Adds `model` flag option to create bottom_sheet command to use or not a model
