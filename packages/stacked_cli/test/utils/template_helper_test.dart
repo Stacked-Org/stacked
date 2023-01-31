@@ -13,22 +13,46 @@ import '../helpers/test_helpers.dart';
 TemplateHelper _getHelper() => TemplateHelper();
 
 void main() {
-  group('getRelativeLocatorFilePath -', () {
+  group('getFilePath -', () {
     test('When given path lib/app/app.dart should return app/app.locator.dart',
         () {
-      final path = getRelativeLocatorFilePath(
-        stackedAppFilePath: 'lib/app/app.dart',
-      );
+      getAndRegisterConfigService(stackedAppFilePath: 'lib/app/app.dart');
+      final path = getFilePath(builder: 'locator');
       expect(path, 'app/app.locator.dart');
     });
 
     test(
         'When given path lib/src/app/core_app.dart should return src/app/core_app.locator.dart',
         () {
-      final path = getRelativeLocatorFilePath(
+      getAndRegisterConfigService(
         stackedAppFilePath: 'lib/src/app/core_app.dart',
       );
+      final path = getFilePath(builder: 'locator');
       expect(path, 'src/app/core_app.locator.dart');
+    });
+
+    test(
+        'When given path lib/app/app.dart and builder equals router should return app/app.router.dart',
+        () {
+      getAndRegisterConfigService(stackedAppFilePath: 'lib/app/app.dart');
+      final path = getFilePath(builder: 'router');
+      expect(path, 'app/app.router.dart');
+    });
+
+    test(
+        'When given path lib/app/app.dart and builder equals bottomsheets should return app/app.bottomsheets.dart',
+        () {
+      getAndRegisterConfigService(stackedAppFilePath: 'lib/app/app.dart');
+      final path = getFilePath(builder: 'bottomsheets');
+      expect(path, 'app/app.bottomsheets.dart');
+    });
+
+    test(
+        'When given path lib/app/app.dart and builder equals dialogs should return app/app.dialogs.dart',
+        () {
+      getAndRegisterConfigService(stackedAppFilePath: 'lib/app/app.dart');
+      final path = getFilePath(builder: 'dialogs');
+      expect(path, 'app/app.dialogs.dart');
     });
   });
 

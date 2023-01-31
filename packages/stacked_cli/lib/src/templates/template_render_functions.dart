@@ -9,16 +9,13 @@ typedef RenderFunction = Map<String, String> Function(ReCase value);
 
 Map<String, RenderFunction> renderFunctions = {
   kTemplateNameView: (ReCase value) {
-    final configService = locator<ConfigService>();
     return {
       kTemplatePropertyViewName: '${value.pascalCase}View',
       kTemplatePropertyViewFileName: '${value.snakeCase}_view.dart',
       kTemplatePropertyViewModelName: '${value.pascalCase}ViewModel',
       kTemplatePropertyViewModelFileName: '${value.snakeCase}_viewmodel.dart',
       kTemplatePropertyViewFolderName: value.snakeCase,
-      kTemplatePropertyRelativeLocatorFilePath: getRelativeLocatorFilePath(
-        stackedAppFilePath: configService.stackedAppFilePath,
-      ),
+      kTemplatePropertyRelativeLocatorFilePath: getFilePath(builder: 'locator'),
     };
   },
   kTemplateNameService: (ReCase value, [map]) {
@@ -27,33 +24,22 @@ Map<String, RenderFunction> renderFunctions = {
       kTemplatePropertyServiceName: '${value.pascalCase}Service',
       kTemplatePropertyServiceFilename: '${value.snakeCase}_service.dart',
       kTemplatePropertyLocatorName: configService.locatorName,
-      kTemplatePropertyRelativeLocatorFilePath: getRelativeLocatorFilePath(
-        stackedAppFilePath: configService.stackedAppFilePath,
-      ),
+      kTemplatePropertyRelativeLocatorFilePath: getFilePath(builder: 'locator'),
       kTemplatePropertyRegisterMocksFunction:
           configService.registerMocksFunction,
     };
   },
   kTemplateNameApp: (ReCase value, [map]) {
-    final configService = locator<ConfigService>();
     return {
-      kTemplatePropertyRelativeBottomSheetFilePath:
-          getRelativeBottomSheetFilePath(
-        stackedAppFilePath: configService.stackedAppFilePath,
+      kTemplatePropertyRelativeBottomSheetFilePath: getFilePath(
+        builder: 'bottomsheets',
       ),
-      kTemplatePropertyRelativeDialogFilePath: getRelativeDialogFilePath(
-        stackedAppFilePath: configService.stackedAppFilePath,
-      ),
-      kTemplatePropertyRelativeLocatorFilePath: getRelativeLocatorFilePath(
-        stackedAppFilePath: configService.stackedAppFilePath,
-      ),
-      kTemplatePropertyRelativeRouterFilePath: getRelativeRouterFilePath(
-        stackedAppFilePath: configService.stackedAppFilePath,
-      ),
+      kTemplatePropertyRelativeDialogFilePath: getFilePath(builder: 'dialogs'),
+      kTemplatePropertyRelativeLocatorFilePath: getFilePath(builder: 'locator'),
+      kTemplatePropertyRelativeRouterFilePath: getFilePath(builder: 'router'),
     };
   },
   kTemplateNameBottomSheet: (ReCase value) {
-    final configService = locator<ConfigService>();
     return {
       kTemplatePropertySheetName: '${value.pascalCase}Sheet',
       kTemplatePropertySheetFilename: '${value.snakeCase}_sheet',
@@ -62,13 +48,10 @@ Map<String, RenderFunction> renderFunctions = {
           '${value.snakeCase}_sheet_model.dart',
       kTemplatePropertySheetFolderName: value.snakeCase,
       kTemplatePropertySheetType: value.camelCase,
-      kTemplatePropertyRelativeLocatorFilePath: getRelativeLocatorFilePath(
-        stackedAppFilePath: configService.stackedAppFilePath,
-      ),
+      kTemplatePropertyRelativeLocatorFilePath: getFilePath(builder: 'locator'),
     };
   },
   kTemplateNameDialog: (ReCase value) {
-    final configService = locator<ConfigService>();
     return {
       kTemplatePropertyDialogName: '${value.pascalCase}Dialog',
       kTemplatePropertyDialogFilename: '${value.snakeCase}_dialog',
@@ -77,39 +60,19 @@ Map<String, RenderFunction> renderFunctions = {
           '${value.snakeCase}_dialog_model.dart',
       kTemplatePropertyDialogFolderName: value.snakeCase,
       kTemplatePropertyDialogType: value.camelCase,
-      kTemplatePropertyRelativeLocatorFilePath: getRelativeLocatorFilePath(
-        stackedAppFilePath: configService.stackedAppFilePath,
-      ),
+      kTemplatePropertyRelativeLocatorFilePath: getFilePath(builder: 'locator'),
     };
   },
 };
 
+/// Returns file path of the [builder]
 @visibleForTesting
-String getRelativeLocatorFilePath({required String stackedAppFilePath}) {
-  final pathWithoutLib = stackedAppFilePath.replaceFirst('lib/', '');
-  final pathWithLocator = pathWithoutLib.split('.')..insert(1, 'locator');
+String getFilePath({required String builder}) {
+  final path = locator<ConfigService>()
+      .stackedAppFilePath
+      .replaceFirst('lib/', '')
+      .split('.')
+    ..insert(1, builder);
 
-  return pathWithLocator.join('.');
-}
-
-String getRelativeRouterFilePath({required String stackedAppFilePath}) {
-  final pathWithoutLib = stackedAppFilePath.replaceFirst('lib/', '');
-  final pathWithRouter = pathWithoutLib.split('.')..insert(1, 'router');
-
-  return pathWithRouter.join('.');
-}
-
-String getRelativeBottomSheetFilePath({required String stackedAppFilePath}) {
-  final pathWithoutLib = stackedAppFilePath.replaceFirst('lib/', '');
-  final pathWithBottomSheets = pathWithoutLib.split('.')
-    ..insert(1, 'bottomsheets');
-
-  return pathWithBottomSheets.join('.');
-}
-
-String getRelativeDialogFilePath({required String stackedAppFilePath}) {
-  final pathWithoutLib = stackedAppFilePath.replaceFirst('lib/', '');
-  final pathWithDialog = pathWithoutLib.split('.')..insert(1, 'dialogs');
-
-  return pathWithDialog.join('.');
+  return path.join('.');
 }
