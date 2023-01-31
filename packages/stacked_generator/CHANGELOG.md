@@ -1,3 +1,11 @@
+## 0.8.5
+
+- Changes builder name from dialog to dialogs
+- Removes `Sheet` word at end of enum value on BottomSheets
+- Removes `Dialog` word at end of enum value on Dialogs
+- Adds Stacked template identifiers
+- Changes Map type for builders, more precised
+
 ## 0.8.4
 
 * Replaces double quotes with simple quotes on `_splitClassNameWords` at `SimpleLogPrinter`.
