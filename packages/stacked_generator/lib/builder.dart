@@ -39,7 +39,7 @@ Builder stackedLoggerGenerator(BuilderOptions options) {
 Builder stackedDialogGenerator(BuilderOptions options) {
   return LibraryBuilder(
     StackedDialogGenerator(),
-    generatedExtension: '.dialog.dart',
+    generatedExtension: '.dialogs.dart',
   );
 }
 

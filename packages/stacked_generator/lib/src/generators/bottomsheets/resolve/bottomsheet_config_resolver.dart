@@ -3,13 +3,14 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_generator/import_resolver.dart';
 import 'package:stacked_generator/src/generators/bottomsheets/bottomsheet_config.dart';
-
-import '../../../../utils.dart';
+import 'package:stacked_generator/utils.dart';
 
 /// Reolves the [BottomsheetConfig] and returns the object if it's supplied
 class BottomsheetConfigResolver {
   List<BottomsheetConfig> resolve(
-      List<DartObject>? bottomsheetsObject, ImportResolver importResolver) {
+    List<DartObject>? bottomsheetsObject,
+    ImportResolver importResolver,
+  ) {
     final bottomSheetConfig = <BottomsheetConfig>[];
 
     // Convert the bottomsheet config into BottomsheetConfig

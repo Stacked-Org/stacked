@@ -15,9 +15,10 @@ class ImportResolver {
     }
 
     for (var lib in libs) {
-      if (!_isCoreDartType(lib) &&
-          lib.exportNamespace.definedNames.keys.contains(element?.name)) {
-        var package = lib.source.uri.pathSegments.first;
+      if (_isCoreDartType(lib)) continue;
+
+      if (lib.exportNamespace.definedNames.keys.contains(element?.name)) {
+        final package = lib.source.uri.pathSegments.first;
         if (targetFilePath.startsWith(RegExp('^$package/'))) {
           return p.posix
               .relative(element?.source?.uri.path ?? '', from: targetFilePath)
@@ -27,6 +28,7 @@ class ImportResolver {
         }
       }
     }
+
     return null;
   }
 

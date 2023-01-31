@@ -68,7 +68,7 @@ builders:
   stackedDialogGenerator:
     import: "package:stacked_generator/builder.dart"
     builder_factories: ["stackedDialogGenerator"]
-    build_extensions: { ".dart": [".dialog.dart"] }
+    build_extensions: { ".dart": [".dialogs.dart"] }
     auto_apply: dependents
     build_to: source
 

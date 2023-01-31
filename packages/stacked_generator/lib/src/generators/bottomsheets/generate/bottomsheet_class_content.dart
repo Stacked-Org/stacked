@@ -1,19 +1,22 @@
-import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
-
 String setupBottomsheetHeader(String? locatorName) => '''
-void setupBottomsheetUi() {
-  var bottomsheetService = ${locatorName ?? 'locator'}<BottomSheetService>();
+void setupBottomSheetUi() {
+  final bottomsheetService = ${locatorName ?? 'locator'}<BottomSheetService>();
 
-  final builders = {
+  final Map<BottomSheetType, SheetBuilder> builders = {
   
 ''';
 
-String bottomsheetRegisterContent(String bottomsheetClassName) => '''
-  BottomsheetType.${bottomsheetClassName.toLowerCamelCase}: (context, SheetRequest request, void Function(SheetResponse) completer) =>
+String bottomsheetRegisterContent(
+  String bottomsheetClassName,
+  String enumValue,
+) =>
+    '''
+  BottomSheetType.$enumValue: (context, request, completer) =>
         $bottomsheetClassName(request: request,completer: completer),
 ''';
 
 const bottomsheetRegisterTrailing = '''
+    // @stacked-bottom-sheet-builder
   };
 
   bottomsheetService.setCustomSheetBuilders(builders);

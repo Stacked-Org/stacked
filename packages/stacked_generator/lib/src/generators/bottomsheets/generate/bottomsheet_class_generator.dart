@@ -1,7 +1,7 @@
 import 'package:stacked_generator/src/generators/base_generator.dart';
+import 'package:stacked_generator/src/generators/bottomsheets/bottomsheet_config.dart';
 import 'package:stacked_generator/src/generators/bottomsheets/generate/bottomsheet_class_generator_helper.dart';
 
-import '../bottomsheet_config.dart';
 import 'bottomsheet_class_content.dart';
 
 /// Generates the app.logger.dart file in the users code base.
