@@ -1,8 +1,8 @@
 {
-    "description": "When a dialog is generated one of the boilerplate tasks is to add the builder to the setup for the new dialog. This modification performs the import for the dialog class.",
-    "path": "lib/ui/setup/setup_dialog_ui.dart",
-    "identifier": "// @stacked-import",
-    "template": "import \\'package:{{packageName}}/{{{dialogsPath}}}/{{dialogFolderName}}/{{dialogFilename}}.dart\\';",
-    "error": "It seems your file where custom dialog builders are set is not in lib/ui/setup/setup_dialog_ui.dart. Add a stacked.json file and set \\'dialog_builder_file_path\\' so we can locate your file.",
-    "name": "Add import for \\'{{dialogName}}\\' Dialog"
-  }
+  "description": "When a dialog is generated, one of the boilerplate tasks is to add the dialog class to StackedApp. This modification performs the import for the dialog class.",
+  "path": "lib/app/app.dart",
+  "identifier": "// @stacked-import",
+  "template": "import \\'package:{{packageName}}/{{{dialogsPath}}}/{{dialogFolderName}}/{{dialogFilename}}\\';",
+  "error": "The dialog registration should be stored in lib/app/app.dart",
+  "name": "Add import for \\'{{dialogName}}\\' class"
+}
