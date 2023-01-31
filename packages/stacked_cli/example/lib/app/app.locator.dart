@@ -20,7 +20,7 @@ Future<void> setupLocator(
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
-  locator.registerLazySingleton(() => NavigationService());
-  locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => BottomSheetService());
+  locator.registerLazySingleton(() => DialogService());
+  locator.registerLazySingleton(() => NavigationService());
 }

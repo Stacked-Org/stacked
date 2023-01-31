@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:example/app/app.bottomsheets.dart';
 import 'package:example/app/app.locator.dart';
-import 'package:example/enums/bottom_sheet_type.dart';
 import 'package:example/ui/common/app_strings.dart';
 import 'package:example/ui/views/home/home_viewmodel.dart';
 
