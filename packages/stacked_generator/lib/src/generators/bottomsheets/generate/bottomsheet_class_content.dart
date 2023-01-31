@@ -16,7 +16,6 @@ String bottomsheetRegisterContent(
 ''';
 
 const bottomsheetRegisterTrailing = '''
-    // @stacked-bottom-sheet-builder
   };
 
   bottomsheetService.setCustomSheetBuilders(builders);

@@ -9,7 +9,6 @@ class BottomsheetClassGeneratorHelper with StringBufferUtils {
     for (var bottomsheetConfig in bottomsheetConfigs) {
       writeLine('${bottomsheetConfig.enumValue},');
     }
-    writeLine('// @stacked-bottom-sheet-type');
     writeLine("}");
   }
 

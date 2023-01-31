@@ -12,7 +12,6 @@ String dialogRegisterContent(String dialogClassName, String enumValue) => '''
 ''';
 
 const dialogRegisterTrailing = '''
-    // @stacked-dialog-builder
   };
 
   dialogService.registerCustomDialogBuilders(builders);
