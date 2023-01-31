@@ -11,7 +11,6 @@ import '../ui/dialogs/info_alert/info_alert_dialog.dart';
 
 enum DialogType {
   infoAlert,
-// @stacked-dialog-type
 }
 
 void setupDialogUi() {
@@ -20,7 +19,6 @@ void setupDialogUi() {
   final Map<DialogType, DialogBuilder> builders = {
     DialogType.infoAlert: (context, request, completer) =>
         InfoAlertDialog(request: request, completer: completer),
-    // @stacked-dialog-builder
   };
 
   dialogService.registerCustomDialogBuilders(builders);
