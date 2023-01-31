@@ -39,8 +39,8 @@ const String kAppTemplateHomeViewmodelTestPath =
 const String kAppTemplateHomeViewmodelTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
-import 'package:{{packageName}}/{{{bottomSheetTypeFilePath}}}';
+import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 import 'package:{{packageName}}/ui/common/app_strings.dart';
 import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_viewmodel.dart';
 
@@ -90,7 +90,7 @@ const String kAppTemplateNoticeSheetModelTestPath =
 
 const String kAppTemplateNoticeSheetModelTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
-import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 
 import '{{{viewTestHelpersImport}}}';
 
@@ -113,7 +113,7 @@ const String kAppTemplateInfoAlertDialogModelTestPath =
 
 const String kAppTemplateInfoAlertDialogModelTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
-import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 
 import '{{{viewTestHelpersImport}}}';
 
@@ -137,7 +137,7 @@ const String kAppTemplateTestHelpersPath =
 const String kAppTemplateTestHelpersContent = '''
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 import 'package:stacked_services/stacked_services.dart';
 // @stacked-import
 
@@ -254,13 +254,12 @@ const String kAppTemplateMainPath =
 
 const String kAppTemplateMainContent = '''
 import 'package:flutter/material.dart';
-import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
+import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
+import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
+import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
 import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/{{{bottomSheetBuilderFilePath}}}';
-import 'package:{{packageName}}/{{{dialogBuilderFilePath}}}';
 import 'package:stacked_services/stacked_services.dart';
-
-import '{{{relativeRouterFilePath}}}';
 
 void main() {
   setupLocator();
@@ -292,64 +291,6 @@ class MyApp extends StatelessWidget {
       ],
     );
   }
-}
-
-''';
-
-// --------------------------------------------------
-
-
-// -------- SetupDialogUi Template Data ----------
-
-const String kAppTemplateSetupDialogUiPath =
-    'lib/ui/setup/setup_dialog_ui.dart.stk';
-
-const String kAppTemplateSetupDialogUiContent = '''
-import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
-import 'package:{{packageName}}/{{{dialogTypeFilePath}}}';
-import 'package:{{packageName}}/{{{dialogsPath}}}/info_alert/info_alert_dialog.dart';
-import 'package:stacked_services/stacked_services.dart';
-// @stacked-import
-
-void setupDialogUi() {
-  final dialogService = locator<DialogService>();
-
-  final Map<dynamic, DialogBuilder> builders = {
-    DialogType.infoAlert: (context, request, completer) =>
-        InfoAlertDialog(request: request, completer: completer),
-    // @stacked-dialog-builder
-  };
-
-  dialogService.registerCustomDialogBuilders(builders);
-}
-
-''';
-
-// --------------------------------------------------
-
-
-// -------- SetupBottomSheetUi Template Data ----------
-
-const String kAppTemplateSetupBottomSheetUiPath =
-    'lib/ui/setup/setup_bottom_sheet_ui.dart.stk';
-
-const String kAppTemplateSetupBottomSheetUiContent = '''
-import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
-import 'package:{{packageName}}/{{{bottomSheetTypeFilePath}}}';
-import 'package:{{packageName}}/{{{bottomSheetsPath}}}/notice/notice_sheet.dart';
-import 'package:stacked_services/stacked_services.dart';
-// @stacked-import
-
-void setupBottomSheetUi() {
-  final bottomSheetService = locator<BottomSheetService>();
-
-  final Map<dynamic, SheetBuilder> builders = {
-    BottomSheetType.notice: (context, request, completer) =>
-        NoticeSheet(completer: completer, request: request),
-    // @stacked-bottom-sheet-builder
-  };
-
-  bottomSheetService.setCustomSheetBuilders(builders);
 }
 
 ''';
@@ -893,11 +834,11 @@ const String kAppTemplateHomeViewmodelPath =
     'lib/ui/views/home/home_viewmodel.dart.stk';
 
 const String kAppTemplateHomeViewmodelContent = '''
-import 'package:stacked/stacked.dart';
-import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
-import 'package:{{packageName}}/{{{bottomSheetTypeFilePath}}}';
-import 'package:{{packageName}}/{{{dialogTypeFilePath}}}';
+import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
+import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 import 'package:{{packageName}}/ui/common/app_strings.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class HomeViewModel extends BaseViewModel {
@@ -942,7 +883,7 @@ const String kAppTemplateStartupViewmodelPath =
 
 const String kAppTemplateStartupViewmodelContent = '''
 import 'package:stacked/stacked.dart';
-import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -1112,55 +1053,36 @@ const String kAppTemplateAppPath =
     'lib/app/app.dart.stk';
 
 const String kAppTemplateAppContent = '''
-import 'package:stacked/stacked_annotations.dart';
+import 'package:{{packageName}}/{{{bottomSheetsPath}}}/notice/notice_sheet.dart';
+import 'package:{{packageName}}/{{{dialogsPath}}}/info_alert/info_alert_dialog.dart';
 import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_view.dart';
 import 'package:{{packageName}}/{{{viewImportPath}}}/startup/startup_view.dart';
+import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 // @stacked-import
 
-@StackedApp(routes: [
-  MaterialRoute(page: StartupView),
-  MaterialRoute(page: HomeView),
-  // @stacked-route
-], dependencies: [
-  LazySingleton(classType: NavigationService),
-  LazySingleton(classType: DialogService),
-  LazySingleton(classType: BottomSheetService),
-  // @stacked-service
-])
+@StackedApp(
+  routes: [
+    MaterialRoute(page: HomeView),
+    MaterialRoute(page: StartupView),
+    // @stacked-route
+  ],
+  dependencies: [
+    LazySingleton(classType: BottomSheetService),
+    LazySingleton(classType: DialogService),
+    LazySingleton(classType: NavigationService),
+    // @stacked-service
+  ],
+  bottomsheets: [
+    StackedBottomsheet(classType: NoticeSheet),
+    // @stacked-bottom-sheets
+  ],
+  dialogs: [
+    StackedDialog(classType: InfoAlertDialog),
+    // @stacked-dialogs
+  ],
+)
 class App {}
-
-''';
-
-// --------------------------------------------------
-
-
-// -------- DialogType Template Data ----------
-
-const String kAppTemplateDialogTypePath =
-    'lib/enums/dialog_type.dart.stk';
-
-const String kAppTemplateDialogTypeContent = '''
-enum DialogType {
-  infoAlert,
-  // @stacked-dialog-type
-}
-
-''';
-
-// --------------------------------------------------
-
-
-// -------- BottomSheetType Template Data ----------
-
-const String kAppTemplateBottomSheetTypePath =
-    'lib/enums/bottom_sheet_type.dart.stk';
-
-const String kAppTemplateBottomSheetTypeContent = '''
-enum BottomSheetType {
-  notice,
-  // @stacked-bottom-sheet-type
-}
 
 ''';
 
@@ -1228,6 +1150,11 @@ dev_dependencies:
   stacked_generator: ^0.8.1
   mockito: ^5.1.0
 
+# TODO: REMOVE
+dependency_overrides:
+  stacked_generator:
+    path: ../../stacked_generator/
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -1282,7 +1209,7 @@ const String kDialogTemplateGenericDialogModelTestPath =
 
 const String kDialogTemplateGenericDialogModelTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
-import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 
 import '{{{viewTestHelpersImport}}}';
 
@@ -1551,7 +1478,7 @@ const String kViewTemplateGenericViewmodelTestPath =
 
 const String kViewTemplateGenericViewmodelTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
-import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 
 import '{{{viewTestHelpersImport}}}';
 
@@ -1659,7 +1586,7 @@ const String kServiceTemplateGenericServiceTestPath =
 
 const String kServiceTemplateGenericServiceTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
-import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 
 import '{{{serviceTestHelpersImport}}}';
 
@@ -1696,7 +1623,7 @@ const String kBottomSheetTemplateGenericSheetModelTestPath =
 
 const String kBottomSheetTemplateGenericSheetModelTestContent = '''
 import 'package:flutter_test/flutter_test.dart';
-import 'package:{{packageName}}/{{{relativeLocatorPath}}}';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 
 import '{{{viewTestHelpersImport}}}';
 
