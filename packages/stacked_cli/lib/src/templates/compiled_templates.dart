@@ -1075,11 +1075,11 @@ import 'package:stacked_services/stacked_services.dart';
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),
-    // @stacked-bottom-sheets
+    // @stacked-bottom-sheet
   ],
   dialogs: [
     StackedDialog(classType: InfoAlertDialog),
-    // @stacked-dialogs
+    // @stacked-dialog
   ],
 )
 class App {}
@@ -1132,8 +1132,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   
-  stacked: ^3.1.0-beta.0
-  stacked_services: ^0.9.8
+  stacked: ^3.1.0+3
+  stacked_services: ^0.9.9
 
 dev_dependencies:
   flutter_test:
@@ -1147,13 +1147,8 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   build_runner: ^2.2.0
 
-  stacked_generator: ^0.8.1
-  mockito: ^5.1.0
-
-# TODO: REMOVE
-dependency_overrides:
-  stacked_generator:
-    path: ../../stacked_generator/
+  stacked_generator: ^0.8.5
+  mockito: ^5.3.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

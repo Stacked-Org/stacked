@@ -20,11 +20,11 @@ import 'package:stacked_services/stacked_services.dart';
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),
-    // @stacked-bottom-sheets
+    // @stacked-bottom-sheet
   ],
   dialogs: [
     StackedDialog(classType: InfoAlertDialog),
-    // @stacked-dialogs
+    // @stacked-dialog
   ],
 )
 class App {}
