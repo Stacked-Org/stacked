@@ -1,8 +1,0 @@
-{
-    "description": "When a bottom sheet is generated one of the boilerplate tasks is to add the type to BottomSheetType class for the new bottom sheet. This modification performs that action.",
-    "path": "lib/enums/bottom_sheet_type.dart",
-    "identifier": "// @stacked-bottom-sheet-type",
-    "template": "{{sheetType}},",
-    "error": "It seems your file for BottomSheetType class is not in lib/enums/bottom_sheet_type.dart. Add a stacked.json file and set the path for \\'bottom_sheet_type_enums\\' to the folder so we can locate your BottomSheetType class.",
-    "name": "Add \\'{{sheetType}}\\' type to BottomSheetType"
-  }
