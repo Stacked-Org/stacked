@@ -12,7 +12,7 @@ String bottomsheetRegisterContent(
 ) =>
     '''
   BottomSheetType.$enumValue: (context, request, completer) =>
-        $bottomsheetClassName(request: request,completer: completer),
+        $bottomsheetClassName(request: request, completer: completer),
 ''';
 
 const bottomsheetRegisterTrailing = '''

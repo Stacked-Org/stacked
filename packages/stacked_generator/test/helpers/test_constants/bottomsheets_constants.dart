@@ -1,15 +1,15 @@
 const kBottomsheetsEmpty = '''
 
 import 'package:stacked_services/stacked_services.dart';
+
 import 'app.locator.dart';
 
-
-enum BottomsheetType{
+enum BottomSheetType{
 }
-void setupBottomsheetUi() {
-  var bottomsheetService = locator<BottomSheetService>();
+void setupBottomSheetUi() {
+  final bottomsheetService = locator<BottomSheetService>();
 
-  final builders = {
+  final Map<BottomSheetType, SheetBuilder> builders = {
   
   };
 
@@ -19,15 +19,15 @@ void setupBottomsheetUi() {
 const kBottomsheetsWithCustomNamedLocator = '''
 
 import 'package:stacked_services/stacked_services.dart';
+
 import 'app.locator.dart';
 
-
-enum BottomsheetType{
+enum BottomSheetType{
 }
-void setupBottomsheetUi() {
-  var bottomsheetService = customLocator<BottomSheetService>();
+void setupBottomSheetUi() {
+  final bottomsheetService = customLocator<BottomSheetService>();
 
-  final builders = {
+  final Map<BottomSheetType, SheetBuilder> builders = {
   
   };
 
@@ -37,20 +37,20 @@ void setupBottomsheetUi() {
 const kOneBottomsheet = '''
 
 import 'package:stacked_services/stacked_services.dart';
-import 'app.locator.dart';
 
+import 'app.locator.dart';
 import 'one.dart';
 
-enum BottomsheetType{
+enum BottomSheetType{
 basicBottomsheet,
 }
-void setupBottomsheetUi() {
-  var bottomsheetService = locator<BottomSheetService>();
+void setupBottomSheetUi() {
+  final bottomsheetService = locator<BottomSheetService>();
 
-  final builders = {
+  final Map<BottomSheetType, SheetBuilder> builders = {
   
-  BottomsheetType.basicBottomsheet: (context, SheetRequest request, void Function(SheetResponse) completer) =>
-        BasicBottomsheet(request: request,completer: completer),
+  BottomSheetType.basicBottomsheet: (context, request, completer) =>
+        BasicBottomsheet(request: request, completer: completer),
   };
 
   bottomsheetService.setCustomSheetBuilders(builders);
@@ -59,24 +59,24 @@ void setupBottomsheetUi() {
 const kTwoBottomsheets = '''
 
 import 'package:stacked_services/stacked_services.dart';
-import 'app.locator.dart';
 
+import 'app.locator.dart';
 import 'one.dart';
 import 'two.dart';
 
-enum BottomsheetType{
+enum BottomSheetType{
 basicBottomsheet,
 complexBottomsheet,
 }
-void setupBottomsheetUi() {
-  var bottomsheetService = locator<BottomSheetService>();
+void setupBottomSheetUi() {
+  final bottomsheetService = locator<BottomSheetService>();
 
-  final builders = {
+  final Map<BottomSheetType, SheetBuilder> builders = {
   
-  BottomsheetType.basicBottomsheet: (context, SheetRequest request, void Function(SheetResponse) completer) =>
-        BasicBottomsheet(request: request,completer: completer),
-  BottomsheetType.complexBottomsheet: (context, SheetRequest request, void Function(SheetResponse) completer) =>
-        ComplexBottomsheet(request: request,completer: completer),
+  BottomSheetType.basicBottomsheet: (context, request, completer) =>
+        BasicBottomsheet(request: request, completer: completer),
+  BottomSheetType.complexBottomsheet: (context, request, completer) =>
+        ComplexBottomsheet(request: request, completer: completer),
   };
 
   bottomsheetService.setCustomSheetBuilders(builders);
