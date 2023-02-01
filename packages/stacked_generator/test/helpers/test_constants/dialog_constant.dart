@@ -1,15 +1,15 @@
 const kDialogsEmpty = '''
 
 import 'package:stacked_services/stacked_services.dart';
-import 'app.locator.dart';
 
+import 'app.locator.dart';
 
 enum DialogType{
 }
 void setupDialogUi() {
-  var dialogService = locator<DialogService>();
+  final dialogService = locator<DialogService>();
 
-  final builders = {
+  final Map<DialogType, DialogBuilder> builders = {
   
   };
 
@@ -19,15 +19,15 @@ void setupDialogUi() {
 const kDialogsWithCustomNamedLocator = '''
 
 import 'package:stacked_services/stacked_services.dart';
-import 'app.locator.dart';
 
+import 'app.locator.dart';
 
 enum DialogType{
 }
 void setupDialogUi() {
-  var dialogService = customLocator<DialogService>();
+  final dialogService = customLocator<DialogService>();
 
-  final builders = {
+  final Map<DialogType, DialogBuilder> builders = {
   
   };
 
@@ -37,20 +37,20 @@ void setupDialogUi() {
 const kOneDialog = '''
 
 import 'package:stacked_services/stacked_services.dart';
-import 'app.locator.dart';
 
+import 'app.locator.dart';
 import 'one.dart';
 
 enum DialogType{
-basicDialog,
+basic,
 }
 void setupDialogUi() {
-  var dialogService = locator<DialogService>();
+  final dialogService = locator<DialogService>();
 
-  final builders = {
+  final Map<DialogType, DialogBuilder> builders = {
   
-  DialogType.basicDialog: (context, DialogRequest request, void Function(DialogResponse) completer) =>
-        BasicDialog(request: request,completer: completer),
+  DialogType.basic: (context, request, completer) =>
+        BasicDialog(request: request, completer: completer),
   };
 
   dialogService.registerCustomDialogBuilders(builders);
@@ -59,24 +59,24 @@ void setupDialogUi() {
 const kTwoDialogs = '''
 
 import 'package:stacked_services/stacked_services.dart';
-import 'app.locator.dart';
 
+import 'app.locator.dart';
 import 'one.dart';
 import 'two.dart';
 
 enum DialogType{
-basicDialog,
-complexDialog,
+basic,
+complex,
 }
 void setupDialogUi() {
-  var dialogService = locator<DialogService>();
+  final dialogService = locator<DialogService>();
 
-  final builders = {
+  final Map<DialogType, DialogBuilder> builders = {
   
-  DialogType.basicDialog: (context, DialogRequest request, void Function(DialogResponse) completer) =>
-        BasicDialog(request: request,completer: completer),
-  DialogType.complexDialog: (context, DialogRequest request, void Function(DialogResponse) completer) =>
-        ComplexDialog(request: request,completer: completer),
+  DialogType.basic: (context, request, completer) =>
+        BasicDialog(request: request, completer: completer),
+  DialogType.complex: (context, request, completer) =>
+        ComplexDialog(request: request, completer: completer),
   };
 
   dialogService.registerCustomDialogBuilders(builders);
