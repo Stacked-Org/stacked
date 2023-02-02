@@ -60,7 +60,6 @@ Future<void> main(List<String> arguments) async {
   } on InvalidStackedStructureException catch (e) {
     stdout.writeln(e.message);
     locator<AnalyticsService>().logExceptionEvent(
-      mode: ExceptionMode.handledException,
       runtimeType: e.runtimeType.toString(),
       message: e.toString(),
     );
@@ -68,7 +67,6 @@ Future<void> main(List<String> arguments) async {
   } catch (e, s) {
     stdout.writeln(e.toString());
     locator<AnalyticsService>().logExceptionEvent(
-      mode: ExceptionMode.unhandledException,
       runtimeType: e.runtimeType.toString(),
       message: e.toString(),
       stackTrace: s.toString(),

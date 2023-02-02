@@ -174,7 +174,6 @@ class ProcessService {
           'Command failed. Command executed: $programName ${arguments.join(' ')}\nException: ${e.toString()}';
       _cLog.error(message: message);
       _analyticsService.logExceptionEvent(
-        mode: ExceptionMode.unhandledException,
         runtimeType: e.runtimeType.toString(),
         message: message,
         stackTrace: s.toString(),
