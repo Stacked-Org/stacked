@@ -1,3 +1,10 @@
+## 1.1.12
+
+- Changes executableName to `stacked`
+- Refactors `_handleVersion` to use PubService
+- Updates `_handleFirstRun` for prettier notification
+- Shows notification when new version is available
+
 ## 1.1.11
 
 - Updates create bottom_sheet command to make use of StackedApp annotation
