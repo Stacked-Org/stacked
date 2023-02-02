@@ -12,13 +12,13 @@ import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/exceptions/invalid_stacked_structure_exception.dart';
 import 'package:stacked_cli/src/locator.dart';
 import 'package:stacked_cli/src/services/analytics_service.dart';
-import 'package:stacked_cli/src/services/process_service.dart';
+import 'package:stacked_cli/src/services/pub_service.dart';
 
 Future<void> main(List<String> arguments) async {
   await setupLocator();
 
   final runner = CommandRunner(
-    'stacked_cli',
+    'stacked',
     'A command line interface for building and scaffolding stacked apps',
   )
     ..argParser.addFlag(
@@ -47,9 +47,14 @@ Future<void> main(List<String> arguments) async {
     final argResults = runner.parse(arguments);
     await _handleFirstRun();
 
-    if (await _handleVersion(argResults)) exit(0);
+    if (argResults[ksVersion]) {
+      await _handleVersion();
+      exit(0);
+    }
 
     if (_handleAnalytics(argResults)) exit(0);
+
+    await _notifyNewVersionAvailable();
 
     runner.run(arguments);
   } on InvalidStackedStructureException catch (e) {
@@ -73,19 +78,8 @@ Future<void> main(List<String> arguments) async {
 }
 
 /// Prints version of the application.
-Future<bool> _handleVersion(ArgResults argResults) async {
-  if (!argResults[ksVersion]) return false;
-
-  final packages = await locator<ProcessService>().runPubGlobalList();
-  for (var package in packages) {
-    if (!package.contains('stacked_cli')) continue;
-
-    final version = package.split(' ').last;
-    stdout.writeln(version);
-    break;
-  }
-
-  return true;
+Future<void> _handleVersion() async {
+  stdout.writeln(await locator<PubService>().getCurrentVersion());
 }
 
 /// Enables or disables sending of analytics data.
@@ -108,20 +102,30 @@ Future<void> _handleFirstRun() async {
   final analyticsService = locator<AnalyticsService>();
   if (!analyticsService.isFirstRun) return;
 
-  stdout.write(
-    '''
-  +---------------------------------------------------+
-  |           Welcome to the Stacked CLI!             |
-  +---------------------------------------------------+
-  | We would like to collect anonymous                |
-  | usage statistics in order to improve the tool.    |
-  |                                                   |
-  | Would you like to opt-into help us improve?       |
-  +---------------------------------------------------+
-  ''',
-  );
+  stdout.writeln('''
+  ┌──────────────────────────────────────────────────────────────────┐
+  │                   Welcome to the Stacked CLI!                    │
+  ├──────────────────────────────────────────────────────────────────┤
+  │ We would like to collect anonymous                               │
+  │ usage statistics in order to improve the tool.                   │
+  │                                                                  │
+  │ Would you like to opt-into help us improve?                      │
+  └──────────────────────────────────────────────────────────────────┘
+  ''');
   stdout.write('[y/n]: ');
 
   final opt = stdin.readLineSync()?.toLowerCase().trim();
   analyticsService.enable(opt == 'y' || opt == 'yes');
+}
+
+Future<void> _notifyNewVersionAvailable() async {
+  if (await locator<PubService>().hasLatestVersion()) return;
+
+  stdout.writeln('''
+  ┌──────────────────────────────────────────────────────────────────┐
+  │ A new version of Stacked CLI is available!                       │
+  │                                                                  │
+  │ To update to the latest version, run "stacked update"            │
+  └──────────────────────────────────────────────────────────────────┘
+  ''');
 }
