@@ -1,3 +1,9 @@
+## 1.1.13
+
+- Adds support for `version` custom dimension
+- Adds support for `name` custom dimension
+- Sends `stacked_cli` version custom dimension on every event
+
 ## 1.1.12
 
 - Changes executableName to `stacked`
