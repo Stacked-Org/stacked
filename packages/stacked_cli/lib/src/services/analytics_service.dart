@@ -1,7 +1,16 @@
+import 'package:stacked_cli/src/locator.dart';
 import 'package:usage/usage_io.dart';
+
+import 'pub_service.dart';
 
 /// Provides functionality to interact with Google Analytics
 class AnalyticsService {
+  // Custom Dimension [1] - Version
+  static const String kcdVersion = 'cd1';
+
+  // Custom Dimension [2] - Name
+  static const String kcdName = 'cd2';
+
   final AnalyticsIO _analytics = AnalyticsIO(
     'UA-41171112-5',
     'stacked-cli',
@@ -30,111 +39,136 @@ class AnalyticsService {
 
   /// Sends create app command event
   Future<void> createAppEvent({required String name}) async {
+    final version = await locator<PubService>().getCurrentVersion();
     await _analytics.sendEvent(
       'command',
       'create',
       label: 'app',
-      parameters: {'name': name},
+      parameters: {kcdVersion: version, kcdName: name},
     );
     await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends create bottom sheet command event
   Future<void> createBottomSheetEvent({required String name}) async {
+    final version = await locator<PubService>().getCurrentVersion();
     await _analytics.sendEvent(
       'command',
       'create',
       label: 'bottom_sheet',
-      parameters: {'name': name},
+      parameters: {kcdVersion: version, kcdName: name},
     );
     await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends create dialog command event
   Future<void> createDialogEvent({required String name}) async {
+    final version = await locator<PubService>().getCurrentVersion();
     await _analytics.sendEvent(
       'command',
       'create',
       label: 'dialog',
-      parameters: {'name': name},
+      parameters: {kcdVersion: version, kcdName: name},
     );
     await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends create service command event
   Future<void> createServiceEvent({required String name}) async {
+    final version = await locator<PubService>().getCurrentVersion();
     await _analytics.sendEvent(
       'command',
       'create',
       label: 'service',
-      parameters: {'name': name},
+      parameters: {kcdVersion: version, kcdName: name},
     );
     await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends create view command event
   Future<void> createViewEvent({required String name}) async {
+    final version = await locator<PubService>().getCurrentVersion();
     await _analytics.sendEvent(
       'command',
       'create',
       label: 'view',
-      parameters: {'name': name},
+      parameters: {kcdVersion: version, kcdName: name},
     );
     await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends delete service command event
   Future<void> deleteServiceEvent({required String name}) async {
+    final version = await locator<PubService>().getCurrentVersion();
     await _analytics.sendEvent(
       'command',
       'delete',
       label: 'service',
-      parameters: {'name': name},
+      parameters: {kcdVersion: version, kcdName: name},
     );
     await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends delete view command event
   Future<void> deleteViewEvent({required String name}) async {
+    final version = await locator<PubService>().getCurrentVersion();
     await _analytics.sendEvent(
       'command',
       'delete',
       label: 'view',
-      parameters: {'name': name},
+      parameters: {kcdVersion: version, kcdName: name},
     );
     await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends generate command event
   Future<void> generateCodeEvent() async {
-    await _analytics.sendEvent('command', 'generate');
+    final version = await locator<PubService>().getCurrentVersion();
+    await _analytics.sendEvent(
+      'command',
+      'generate',
+      parameters: {kcdVersion: version},
+    );
     await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends update command event
   Future<void> updateCliEvent() async {
-    await _analytics.sendEvent('command', 'update');
+    final version = await locator<PubService>().getCurrentVersion();
+    await _analytics.sendEvent(
+      'command',
+      'update',
+      parameters: {kcdVersion: version},
+    );
     await _waitLastPingOrCloseAtTimeout();
   }
 
   /// Sends exception event
   Future<void> logExceptionEvent({
-    ExceptionMode mode = ExceptionMode.handledException,
+    Level level = Level.error,
     required String runtimeType,
     required String message,
-    String stackTrace = 'not available',
+    String stackTrace = 'Not Available',
   }) async {
+    final version = await locator<PubService>().getCurrentVersion();
     await _analytics.sendEvent(
-      mode.toString(),
-      runtimeType,
-      label: message,
-      parameters: {'stackTrace': stackTrace},
+      level.toString(),
+      '[$runtimeType] $message',
+      label: 'StackTrace:\n$stackTrace',
+      parameters: {kcdVersion: version},
     );
     await _waitLastPingOrCloseAtTimeout();
   }
 }
 
-enum ExceptionMode {
-  handledException,
-  unhandledException,
+enum Level {
+  debug,
+  info,
+  warning,
+  error;
+
+  @override
+  String toString() {
+    return 'LOG::${name.toUpperCase()}';
+  }
 }
