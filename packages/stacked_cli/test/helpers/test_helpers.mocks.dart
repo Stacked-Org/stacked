@@ -16,6 +16,7 @@ import 'package:stacked_cli/src/services/config_service.dart' as _i14;
 import 'package:stacked_cli/src/services/file_service.dart' as _i5;
 import 'package:stacked_cli/src/services/path_service.dart' as _i7;
 import 'package:stacked_cli/src/services/process_service.dart' as _i15;
+import 'package:stacked_cli/src/services/pub_service.dart' as _i17;
 import 'package:stacked_cli/src/services/pubspec_service.dart' as _i12;
 import 'package:stacked_cli/src/services/template_service.dart' as _i8;
 import 'package:stacked_cli/src/templates/template_helper.dart' as _i11;
@@ -55,6 +56,16 @@ class _FakePubspecYaml_1 extends _i1.SmartFake implements _i3.PubspecYaml {
 
 class _FakeAnsiPen_2 extends _i1.SmartFake implements _i4.AnsiPen {
   _FakeAnsiPen_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeProcessResult_3 extends _i1.SmartFake implements _i2.ProcessResult {
+  _FakeProcessResult_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -1213,4 +1224,59 @@ class MockAnalyticsService extends _i1.Mock implements _i16.AnalyticsService {
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
+}
+
+/// A class which mocks [PubService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockPubService extends _i1.Mock implements _i17.PubService {
+  @override
+  _i6.Future<String> getCurrentVersion() => (super.noSuchMethod(
+        Invocation.method(
+          #getCurrentVersion,
+          [],
+        ),
+        returnValue: _i6.Future<String>.value(''),
+        returnValueForMissingStub: _i6.Future<String>.value(''),
+      ) as _i6.Future<String>);
+  @override
+  _i6.Future<String> getLatestVersion() => (super.noSuchMethod(
+        Invocation.method(
+          #getLatestVersion,
+          [],
+        ),
+        returnValue: _i6.Future<String>.value(''),
+        returnValueForMissingStub: _i6.Future<String>.value(''),
+      ) as _i6.Future<String>);
+  @override
+  _i6.Future<bool> hasLatestVersion() => (super.noSuchMethod(
+        Invocation.method(
+          #hasLatestVersion,
+          [],
+        ),
+        returnValue: _i6.Future<bool>.value(false),
+        returnValueForMissingStub: _i6.Future<bool>.value(false),
+      ) as _i6.Future<bool>);
+  @override
+  _i6.Future<_i2.ProcessResult> update() => (super.noSuchMethod(
+        Invocation.method(
+          #update,
+          [],
+        ),
+        returnValue: _i6.Future<_i2.ProcessResult>.value(_FakeProcessResult_3(
+          this,
+          Invocation.method(
+            #update,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<_i2.ProcessResult>.value(_FakeProcessResult_3(
+          this,
+          Invocation.method(
+            #update,
+            [],
+          ),
+        )),
+      ) as _i6.Future<_i2.ProcessResult>);
 }

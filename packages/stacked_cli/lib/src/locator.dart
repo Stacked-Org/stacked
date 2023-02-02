@@ -5,6 +5,7 @@ import 'package:stacked_cli/src/services/config_service.dart';
 import 'package:stacked_cli/src/services/file_service.dart';
 import 'package:stacked_cli/src/services/path_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
+import 'package:stacked_cli/src/services/pub_service.dart';
 import 'package:stacked_cli/src/services/pubspec_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
 import 'package:stacked_cli/src/templates/template_helper.dart';
@@ -21,4 +22,5 @@ Future setupLocator() async {
   locator.registerLazySingleton(() => ProcessService());
   locator.registerLazySingleton(() => ConfigService());
   locator.registerLazySingleton(() => AnalyticsService());
+  locator.registerLazySingleton(() => PubService());
 }

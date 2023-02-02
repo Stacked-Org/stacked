@@ -20,6 +20,7 @@ dependencies:
   ansicolor: ^2.0.1
   xdg_directories: ^0.2.0+2
   usage: ^4.1.0
+  pub_updater: ^0.2.4
 
 dev_dependencies:
   lints: ^1.0.0
