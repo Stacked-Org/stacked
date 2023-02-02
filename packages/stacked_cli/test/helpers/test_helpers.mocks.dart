@@ -1205,17 +1205,17 @@ class MockAnalyticsService extends _i1.Mock implements _i16.AnalyticsService {
       ) as _i6.Future<void>);
   @override
   _i6.Future<void> logExceptionEvent({
-    _i16.ExceptionMode? mode = _i16.ExceptionMode.handledException,
+    _i16.Level? level = _i16.Level.error,
     required String? runtimeType,
     required String? message,
-    String? stackTrace = r'not available',
+    String? stackTrace = r'Not Available',
   }) =>
       (super.noSuchMethod(
         Invocation.method(
           #logExceptionEvent,
           [],
           {
-            #mode: mode,
+            #level: level,
             #runtimeType: runtimeType,
             #message: message,
             #stackTrace: stackTrace,
