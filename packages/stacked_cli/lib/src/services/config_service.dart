@@ -149,6 +149,7 @@ class ConfigService {
     } on ConfigFileNotFoundException catch (e, s) {
       _log.warn(message: e.message);
       _analyticsService.logExceptionEvent(
+        level: Level.warning,
         runtimeType: e.runtimeType.toString(),
         message: e.message,
         stackTrace: s.toString(),
@@ -156,6 +157,7 @@ class ConfigService {
     } on FormatException catch (e, s) {
       _log.warn(message: kConfigFileMalformed);
       _analyticsService.logExceptionEvent(
+        level: Level.warning,
         runtimeType: e.runtimeType.toString(),
         message: e.message,
         stackTrace: s.toString(),
@@ -163,7 +165,6 @@ class ConfigService {
     } catch (e, s) {
       _log.error(message: e.toString());
       _analyticsService.logExceptionEvent(
-        mode: ExceptionMode.unhandledException,
         runtimeType: e.runtimeType.toString(),
         message: e.toString(),
         stackTrace: s.toString(),
