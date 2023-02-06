@@ -1,4 +1,4 @@
-## 1.1.13
+## 1.2.0
 
 - Adds support for `version` custom dimension
 - Adds support for `name` custom dimension
