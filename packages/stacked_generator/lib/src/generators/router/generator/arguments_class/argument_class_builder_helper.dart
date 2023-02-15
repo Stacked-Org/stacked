@@ -27,7 +27,11 @@ class ArgumentClassBuilderHelper {
   }
 
   List<String> get convertParametersToStrings {
-    return route.parameters.map((param) => param.getterName).toList();
+    return route.parameters
+        .map(
+          (param) => param.name.toString(),
+        )
+        .toList();
   }
 
   Constructor get argumentConstructer {

@@ -26,10 +26,13 @@ class ArgumentsClassBuilder {
           ..fields.addAll(argumentsBuilderHelper.convertParametersToClassFields)
           ..constructors.add(argumentsBuilderHelper.argumentConstructer)
           ..methods.add(
-            Method.returnsVoid(
+            Method(
               (b) => b
                 ..name = 'getParametersAsString'
-                ..body = Code('return $parametersAsString'),
+                ..body = Code('return $parametersAsString;')
+                ..returns = TypeReference(
+                  (b) => b..symbol = 'List',
+                ),
             ),
           ),
       );
