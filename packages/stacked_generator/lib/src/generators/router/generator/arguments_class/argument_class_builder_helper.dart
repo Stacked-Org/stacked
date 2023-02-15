@@ -26,6 +26,10 @@ class ArgumentClassBuilderHelper {
         .toList();
   }
 
+  List<String> get convertParametersToStrings {
+    return route.parameters.map((param) => param.getterName).toList();
+  }
+
   Constructor get argumentConstructer {
     return Constructor((b) => _composeConstructer(b));
   }
