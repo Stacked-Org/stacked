@@ -17,24 +17,35 @@ class ArgumentsClassBuilder {
     return routesWithParameters.map((route) {
       final argumentsBuilderHelper = ArgumentClassBuilderHelper(route);
 
-      final parametersAsString =
-          argumentsBuilderHelper.convertParametersToStrings.toString();
+      final argumentsAsString = argumentsBuilderHelper.convertArgumentsToString;
+
+      final argumentsAsMap = argumentsBuilderHelper.convertArgumentsToMap;
 
       return Class(
         (b) => b
           ..name = argumentsBuilderHelper.argumentClassName
           ..fields.addAll(argumentsBuilderHelper.convertParametersToClassFields)
           ..constructors.add(argumentsBuilderHelper.argumentConstructer)
-          ..methods.add(
+          ..methods.addAll([
             Method(
               (b) => b
-                ..name = 'getParametersAsString'
-                ..body = Code('return $parametersAsString;')
+                ..annotations.add(refer('override'))
+                ..name = 'toString'
+                ..body = Code('return "$argumentsAsString";')
                 ..returns = TypeReference(
-                  (b) => b..symbol = 'List',
+                  (b) => b..symbol = 'String',
                 ),
             ),
-          ),
+            Method(
+              (b) => b
+                ..annotations.add(refer('override'))
+                ..name = 'toMap'
+                ..body = Code('return $argumentsAsMap;')
+                ..returns = TypeReference(
+                  (b) => b..symbol = 'Map<String, dynamic>',
+                ),
+            ),
+          ]),
       );
     });
   }

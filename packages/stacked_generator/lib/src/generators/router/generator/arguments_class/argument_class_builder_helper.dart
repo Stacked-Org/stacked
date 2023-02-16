@@ -26,12 +26,30 @@ class ArgumentClassBuilderHelper {
         .toList();
   }
 
-  List<String> get convertParametersToStrings {
+  String get convertArgumentsToString {
     return route.parameters
-        .map(
-          (param) => param.name.toString(),
-        )
-        .toList();
+        .map((param) {
+          String required = param.isRequired ? 'required' : '';
+          String key = '$required this.${param.name}'.trim();
+
+          return '$key=\${${param.name}}';
+        })
+        .toList()
+        .join(",");
+  }
+
+  Map<String, dynamic> get convertArgumentsToMap {
+    Map<String, dynamic> obj = {};
+
+    for (RouteParamConfig param in route.parameters) {
+      String required = param.isRequired ? 'required' : '';
+      String trimmedKey = '$required this.${param.name}'.trim();
+      String key = '"$trimmedKey"';
+
+      obj[key] = param.name;
+    }
+
+    return obj;
   }
 
   Constructor get argumentConstructer {
