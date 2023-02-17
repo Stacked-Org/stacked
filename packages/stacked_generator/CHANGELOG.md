@@ -1,3 +1,7 @@
+## 0.9.1
+
+- Adds in the `clearForm` method to be generated
+
 ## 0.9.0
 
 ### New Feature

@@ -405,6 +405,18 @@ class FormBuilder with StringBufferUtils {
           'String? get ${caseName.camelCase}ValidationMessage => this.fieldsValidationMessages[${_getFormKeyName(caseName)}];');
     }
 
+    // Write out the clearForm method
+    writeLine('void clearForm() {');
+    for (final field in fields) {
+      if (field is! TextFieldConfig) {
+        continue;
+      }
+
+      final caseName = ReCase(field.name);
+      writeLine("${caseName.camelCase}Value = ' '; ");
+    }
+    writeLine('}');
+
     writeLine('}');
     return this;
   }
