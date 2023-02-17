@@ -17,8 +17,6 @@ class ArgumentsClassBuilder {
     return routesWithParameters.map((route) {
       final argumentsBuilderHelper = ArgumentClassBuilderHelper(route);
 
-      final argumentsAsString = argumentsBuilderHelper.convertArgumentsToString;
-
       final argumentsAsMap = argumentsBuilderHelper.convertArgumentsToMap;
 
       return Class(
@@ -31,18 +29,9 @@ class ArgumentsClassBuilder {
               (b) => b
                 ..annotations.add(refer('override'))
                 ..name = 'toString'
-                ..body = Code('return "$argumentsAsString";')
+                ..body = Code("return '$argumentsAsMap';")
                 ..returns = TypeReference(
                   (b) => b..symbol = 'String',
-                ),
-            ),
-            Method(
-              (b) => b
-                ..annotations.add(refer('override'))
-                ..name = 'toMap'
-                ..body = Code('return $argumentsAsMap;')
-                ..returns = TypeReference(
-                  (b) => b..symbol = 'Map<String, dynamic>',
                 ),
             ),
           ]),
