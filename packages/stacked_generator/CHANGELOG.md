@@ -1,3 +1,7 @@
+## 0.8.6
+
+- Add the ability to request arguments from the route object by calling toString on route.settings.arguments
+
 ## 0.8.5
 
 - Changes builder name from dialog to dialogs

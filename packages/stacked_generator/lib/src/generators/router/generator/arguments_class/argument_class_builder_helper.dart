@@ -30,7 +30,11 @@ class ArgumentClassBuilderHelper {
     Map<String, dynamic> obj = {};
 
     for (RouteParamConfig param in route.parameters) {
-      obj['"${param.name}"'] = '"\${${param.name}}"';
+      String required = param.isRequired ? 'required' : '';
+      String trimmedKey = '$required this.${param.name}'.trim();
+      String key = '"$trimmedKey"';
+
+      obj[key] = '"\${${param.name}}"';
     }
 
     return obj.toString();
