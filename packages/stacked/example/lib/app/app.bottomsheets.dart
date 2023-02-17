@@ -5,20 +5,19 @@
 // **************************************************************************
 
 import 'package:stacked_services/stacked_services.dart';
-import 'app.locator.dart';
 
+import 'app.locator.dart';
 import '../ui/bottomsheets/generic_bottomsheet.dart';
 
-enum BottomsheetType {
-  genericBottomSheet,
+enum BottomSheetType {
+  genericBottom,
 }
 
-void setupBottomsheetUi() {
-  var bottomsheetService = exampleLocator<BottomSheetService>();
+void setupBottomSheetUi() {
+  final bottomsheetService = exampleLocator<BottomSheetService>();
 
-  final builders = {
-    BottomsheetType.genericBottomSheet: (context, SheetRequest request,
-            void Function(SheetResponse) completer) =>
+  final Map<BottomSheetType, SheetBuilder> builders = {
+    BottomSheetType.genericBottom: (context, request, completer) =>
         GenericBottomSheet(request: request, completer: completer),
   };
 
