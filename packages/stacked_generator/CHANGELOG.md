@@ -1,3 +1,7 @@
+## 0.9.1+1
+
+- Fixes empty clear form value
+
 ## 0.9.1
 
 - Adds in the `clearForm` method to be generated
