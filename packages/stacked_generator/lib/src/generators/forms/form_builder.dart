@@ -413,7 +413,7 @@ class FormBuilder with StringBufferUtils {
       }
 
       final caseName = ReCase(field.name);
-      writeLine("${caseName.camelCase}Value = ' '; ");
+      writeLine("${caseName.camelCase}Value = ''; ");
     }
     writeLine('}');
 
