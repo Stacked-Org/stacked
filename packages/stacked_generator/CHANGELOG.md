@@ -1,3 +1,17 @@
+## 0.9.0
+
+### New Feature
+Two way binding for text fields in Forms. When you want to update the value for a form and have it reflect in the TextField you can now simply set it as using the `fieldValue` property. 
+
+**Example**
+To set the value of a form field called email, you can now in the viewmodel simply do:
+
+```dart
+emailValue = '';
+```
+
+In addition we also have a clearForm function that will clear all the form Text Fields.
+
 ## 0.8.5
 
 - Changes builder name from dialog to dialogs
