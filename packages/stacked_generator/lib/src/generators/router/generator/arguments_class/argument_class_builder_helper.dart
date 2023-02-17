@@ -34,7 +34,7 @@ class ArgumentClassBuilderHelper {
       String trimmedKey = '$required this.${param.name}'.trim();
       String key = '"$trimmedKey"';
 
-      obj[key] = '\${${param.name}}';
+      obj[key] = '"\${${param.name}}"';
     }
 
     return obj.toString();
