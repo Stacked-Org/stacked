@@ -120,10 +120,10 @@ const String kTemplateDataStructure = '''
 
 // -------- {{fileName}} Template Data ----------
 
-const String k{{name}}Template{{fileName}}Path =
+const String k{{name}}{{templateType}}Template{{fileName}}Path =
     '{{{path}}}';
 
-const String k{{name}}Template{{fileName}}Content = \'''
+const String k{{name}}{{templateType}}Template{{fileName}}Content = \'''
 {{{content}}}
 \''';
 
@@ -133,34 +133,38 @@ const String k{{name}}Template{{fileName}}Content = \'''
 ''';
 
 const String kTemplateMapDataStructure = '''
-import 'package:stacked_cli/src/constants/message_constants.dart';
+// ignore_for_file: unnecessary_string_escapes
+
 import 'package:stacked_cli/src/models/template_models.dart';
 import 'package:stacked_cli/src/templates/compiled_templates.dart';
-import 'package:stacked_cli/src/templates/template_constants.dart';
 
-Map<String, StackedTemplate> kCompiledStackedTemplates = {
+Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
   {{#stackedTemplates}}
-  '{{name}}': StackedTemplate(
-    templateFiles: [
-    {{#templateFiles}}
-      TemplateFile(
-        relativeOutputPath: k{{name}}Template{{fileName}}Path,
-        content: k{{name}}Template{{fileName}}Content,
+  '{{name}}': {
+    {{#templates}}
+      '{{type}}' : StackedTemplate(
+        templateFiles: [
+        {{#files}}
+          TemplateFile(
+            relativeOutputPath: k{{name}}{{templateType}}Template{{fileName}}Path,
+            content: k{{name}}{{templateType}}Template{{fileName}}Content,
+          ),
+        {{/files}}
+        ],
+        modificationFiles: [
+          {{#modificationFiles}}
+          ModificationFile(
+            relativeModificationPath: '{{{path}}}',
+            modificationIdentifier: '{{{identifier}}}',
+            modificationTemplate: \'''{{{template}}}\''',
+            modificationProblemError: '{{{error}}}',
+            modificationName: '{{{name}}}',
+          ),
+          {{/modificationFiles}}
+        ],
       ),
-    {{/templateFiles}}
-    ],
-    modificationFiles: [
-      {{#modificationFiles}}
-      ModificationFile(
-        relativeModificationPath: '{{{path}}}',
-        modificationIdentifier: '{{{identifier}}}',
-        modificationTemplate: \'''{{{template}}}\''',
-        modificationProblemError: '{{{error}}}',
-        modificationName: '{{{name}}}',
-      ),
-      {{/modificationFiles}}
-    ],
-  ),
+    {{/templates}}
+  },
   
   {{/stackedTemplates}}
 };

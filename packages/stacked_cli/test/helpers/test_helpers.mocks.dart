@@ -334,7 +334,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
     bool? useBuilder = false,
     bool? hasModel = true,
     String? outputPath,
-    String? templateType,
+    required String? templateType,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -592,8 +592,21 @@ class MockTemplateHelper extends _i1.Mock implements _i11.TemplateHelper {
         returnValueForMissingStub: '',
       ) as String);
   @override
+  _i6.Future<List<String>> getTemplateTypesFromTemplate(
+          {required String? templateDirectoryPath}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getTemplateTypesFromTemplate,
+          [],
+          {#templateDirectoryPath: templateDirectoryPath},
+        ),
+        returnValue: _i6.Future<List<String>>.value(<String>[]),
+        returnValueForMissingStub: _i6.Future<List<String>>.value(<String>[]),
+      ) as _i6.Future<List<String>>);
+  @override
   _i6.Future<List<_i2.FileSystemEntity>> getFilesForTemplate({
     required String? templateName,
+    required String? templateType,
     String? extension = r'stk',
   }) =>
       (super.noSuchMethod(
@@ -602,6 +615,7 @@ class MockTemplateHelper extends _i1.Mock implements _i11.TemplateHelper {
           [],
           {
             #templateName: templateName,
+            #templateType: templateType,
             #extension: extension,
           },
         ),
@@ -612,12 +626,18 @@ class MockTemplateHelper extends _i1.Mock implements _i11.TemplateHelper {
       ) as _i6.Future<List<_i2.FileSystemEntity>>);
   @override
   _i6.Future<List<_i9.CompiledFileModification>>
-      getTemplateModificationsToApply({required String? templateName}) =>
+      getTemplateModificationsToApply({
+    required String? templateName,
+    required String? templateType,
+  }) =>
           (super.noSuchMethod(
             Invocation.method(
               #getTemplateModificationsToApply,
               [],
-              {#templateName: templateName},
+              {
+                #templateName: templateName,
+                #templateType: templateType,
+              },
             ),
             returnValue: _i6.Future<List<_i9.CompiledFileModification>>.value(
                 <_i9.CompiledFileModification>[]),
@@ -626,13 +646,18 @@ class MockTemplateHelper extends _i1.Mock implements _i11.TemplateHelper {
                     <_i9.CompiledFileModification>[]),
           ) as _i6.Future<List<_i9.CompiledFileModification>>);
   @override
-  _i6.Future<List<_i9.CompliledTemplateFile>> getTemplateItemsToRender(
-          {required String? templateName}) =>
+  _i6.Future<List<_i9.CompliledTemplateFile>> getTemplateItemsToRender({
+    required String? templateName,
+    required String? templateType,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #getTemplateItemsToRender,
           [],
-          {#templateName: templateName},
+          {
+            #templateName: templateName,
+            #templateType: templateType,
+          },
         ),
         returnValue: _i6.Future<List<_i9.CompliledTemplateFile>>.value(
             <_i9.CompliledTemplateFile>[]),

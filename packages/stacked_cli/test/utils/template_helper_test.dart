@@ -109,7 +109,8 @@ void main() {
           () async {
         final pathService = getAndRegisterPathService();
         final helper = _getHelper();
-        await helper.getFilesForTemplate(templateName: kTemplateNameView);
+        await helper.getFilesForTemplate(
+            templateName: kTemplateNameView, templateType: kTemplateTypeEmpty);
         verify(pathService.templatesPath);
       });
 
@@ -118,14 +119,16 @@ void main() {
           () async {
         final fileService = getAndRegisterFileService();
         final helper = _getHelper();
-        await helper.getFilesForTemplate(templateName: kTemplateNameView);
+        await helper.getFilesForTemplate(
+            templateName: kTemplateNameView, templateType: kTemplateTypeEmpty);
         verify(fileService.getFilesInDirectory(directoryPath: 'template_path'));
       });
 
       test('When called with view, should join templates and view', () async {
         final pathService = getAndRegisterPathService();
         final helper = _getHelper();
-        await helper.getFilesForTemplate(templateName: kTemplateNameView);
+        await helper.getFilesForTemplate(
+            templateName: kTemplateNameView, templateType: kTemplateTypeEmpty);
         verify(pathService.join('templates', kTemplateNameView));
       });
 
@@ -147,6 +150,7 @@ void main() {
         final helper = _getHelper();
         final templateFiles = await helper.getFilesForTemplate(
           templateName: kTemplateNameView,
+          templateType: kTemplateTypeEmpty,
         );
 
         // NOTE: We cannot compare 2 dart:io:File objects with the same path, they are not

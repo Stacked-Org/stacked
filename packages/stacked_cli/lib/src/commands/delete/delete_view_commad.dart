@@ -71,7 +71,7 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
 
     /// Deleting the test file for the view.
     String filePath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: kViewTemplateGenericViewmodelTestPath,
+      inputTemplatePath: kViewEmptyTemplateGenericViewmodelTestPath,
       name: argResults!.rest.first,
       outputFolder: outputPath,
     );
@@ -84,7 +84,7 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
   ///   outputPath (String): The path to the output folder.
   Future<void> removeViewFromRoute({String? outputPath}) async {
     String filePath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: kAppTemplateAppPath,
+      inputTemplatePath: kAppMobileTemplateAppPath,
       name: argResults!.rest.first,
       outputFolder: outputPath,
     );
