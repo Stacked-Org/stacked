@@ -28,12 +28,20 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
             content: kAppWebTemplateTestHelpersContent,
           ),
           TemplateFile(
+            relativeOutputPath: kAppWebTemplateIndexHtmlStkPath,
+            content: kAppWebTemplateIndexHtmlStkContent,
+          ),
+          TemplateFile(
             relativeOutputPath: kAppWebTemplateREADMEMdStkPath,
             content: kAppWebTemplateREADMEMdStkContent,
           ),
           TemplateFile(
             relativeOutputPath: kAppWebTemplateMainPath,
             content: kAppWebTemplateMainContent,
+          ),
+          TemplateFile(
+            relativeOutputPath: kAppWebTemplateAppConstantsPath,
+            content: kAppWebTemplateAppConstantsContent,
           ),
           TemplateFile(
             relativeOutputPath: kAppWebTemplateUiHelpersPath,
@@ -64,8 +72,12 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
             content: kAppWebTemplateInfoAlertDialogContent,
           ),
           TemplateFile(
-            relativeOutputPath: kAppWebTemplateHomeViewV1Path,
-            content: kAppWebTemplateHomeViewV1Content,
+            relativeOutputPath: kAppWebTemplateHomeViewDesktopPath,
+            content: kAppWebTemplateHomeViewDesktopContent,
+          ),
+          TemplateFile(
+            relativeOutputPath: kAppWebTemplateHomeViewMobilePath,
+            content: kAppWebTemplateHomeViewMobileContent,
           ),
           TemplateFile(
             relativeOutputPath: kAppWebTemplateHomeViewPath,
@@ -76,12 +88,12 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
             content: kAppWebTemplateHomeViewmodelContent,
           ),
           TemplateFile(
-            relativeOutputPath: kAppWebTemplateStartupViewmodelPath,
-            content: kAppWebTemplateStartupViewmodelContent,
+            relativeOutputPath: kAppWebTemplateHomeViewTabletPath,
+            content: kAppWebTemplateHomeViewTabletContent,
           ),
           TemplateFile(
-            relativeOutputPath: kAppWebTemplateStartupViewV1Path,
-            content: kAppWebTemplateStartupViewV1Content,
+            relativeOutputPath: kAppWebTemplateStartupViewmodelPath,
+            content: kAppWebTemplateStartupViewmodelContent,
           ),
           TemplateFile(
             relativeOutputPath: kAppWebTemplateStartupViewPath,
@@ -94,6 +106,10 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
           TemplateFile(
             relativeOutputPath: kAppWebTemplatePubspecYamlStkPath,
             content: kAppWebTemplatePubspecYamlStkContent,
+          ),
+          TemplateFile(
+            relativeOutputPath: kAppWebTemplateSettingsJsonStkPath,
+            content: kAppWebTemplateSettingsJsonStkContent,
           ),
         ],
         modificationFiles: [
