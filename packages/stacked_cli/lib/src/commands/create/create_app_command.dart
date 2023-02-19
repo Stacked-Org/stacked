@@ -42,9 +42,13 @@ class CreateAppCommand extends Command {
     );
 
     argParser.addMultiOption(
-      ksTemplate,
+      ksTemplateType,
       abbr: 't',
+      // TODO (Create App Templates): Generate a constant with these values when
+      // running the compile command
       allowed: ['mobile', 'web'],
+      defaultsTo: ['mobile'],
+      help: kCommandHelpCreateAppTemplate,
     );
   }
 
@@ -57,6 +61,8 @@ class CreateAppCommand extends Command {
     _processService.formattingLineLength = argResults![ksLineLength];
     await _processService.runCreateApp(appName: appName);
 
+    final templateType = argResults![ksTemplateType];
+
     _cLog.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
 
     await _templateService.renderTemplate(
@@ -65,6 +71,7 @@ class CreateAppCommand extends Command {
       verbose: true,
       outputPath: appName,
       useBuilder: argResults![ksV1] ?? _configService.v1,
+      templateType: templateType,
     );
 
     await _processService.runPubGet(appName: appName);

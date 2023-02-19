@@ -41,6 +41,9 @@ const String kCommandHelpModel =
 const String kCommandHelpLineLength =
     'When a number is provided, it will be used as the line length for formatting code.';
 
+const String kCommandHelpCreateAppTemplate =
+    'Selects the type of starter template to use when creating a new app. One oriented for mobile first or web first';
+
 const String kCommandHelpExcludeDependency =
     'When a service is excluded it will not be added to your app.dart dependencies collection.';
 

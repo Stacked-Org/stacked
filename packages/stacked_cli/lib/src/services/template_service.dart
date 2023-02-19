@@ -122,6 +122,10 @@ class TemplateService {
     /// i.e. When the template writes too lib/ui/view.dart if output path is playground
     /// the final output path will be playground/lib/ui/view.dart
     String? outputPath,
+
+    /// When supplied it selects the template type to use within the command that's being
+    /// run. This is supplied using --template=web or similar based on the command being run
+    String? templateType,
   }) async {
     // Get the template that we want to render
     final template = kCompiledStackedTemplates[templateName] ??
