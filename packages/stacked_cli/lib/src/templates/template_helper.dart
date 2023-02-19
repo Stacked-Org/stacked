@@ -42,13 +42,23 @@ class TemplateHelper {
   String getTemplateFolderName({required String templateFilePath}) =>
       _pathService.basename(templateFilePath);
 
+  Future<List<String>> getTemplateTypesFromTemplate(
+      {required String templateDirectoryPath}) async {
+    final foldersInDirectory = await _fileService.getFoldersInDirectory(
+      directoryPath: templateDirectoryPath,
+    );
+    return foldersInDirectory.map(_pathService.basename).toList();
+  }
+
   /// Returns the list of files with [extension] endings in the templates/[templateName] folder
   Future<List<FileSystemEntity>> getFilesForTemplate({
     required String templateName,
+    required String templateType,
     String extension = 'stk',
   }) async {
     final allFilesInTemplateDirectory = await _fileService.getFilesInDirectory(
-      directoryPath: templatesPath,
+      directoryPath:
+          _pathService.join(templatesPath, templateName, templateType),
     );
 
     final allTemplateFiles = getFilesWithExtension(
@@ -56,7 +66,11 @@ class TemplateHelper {
       extension: extension,
     );
 
-    final templateFolder = _pathService.join('templates', templateName);
+    final templateFolder = _pathService.join(
+      'templates',
+      templateName,
+      templateType,
+    );
 
     return getFilesThatContainSection(
       files: allTemplateFiles,
@@ -67,10 +81,12 @@ class TemplateHelper {
   /// Return all the compiled file modifications to apply to the template
   Future<List<CompiledFileModification>> getTemplateModificationsToApply({
     required String templateName,
+    required String templateType,
   }) async {
     final templateModificationItems = <CompiledFileModification>[];
     final modificationFiles = await getFilesForTemplate(
       templateName: templateName,
+      templateType: templateType,
       extension: 'json',
     );
 
@@ -88,15 +104,21 @@ class TemplateHelper {
   /// Returns all the compiled template files to write out to disk
   Future<List<CompliledTemplateFile>> getTemplateItemsToRender({
     required String templateName,
+    required String templateType,
   }) async {
     final templateItemsToRender = <CompliledTemplateFile>[];
 
     final templateFiles = await getFilesForTemplate(
       templateName: templateName,
+      templateType: templateType,
     );
 
     final templateNameRecase = ReCase(templateName);
-    final templateFolderName = _pathService.join('templates', templateName);
+    final templateFolderName = _pathService.join(
+      'templates',
+      templateName,
+      templateType,
+    );
 
     for (final templateFile in templateFiles) {
       final templateFileNameOnly = getTemplateFileNameOnly(
