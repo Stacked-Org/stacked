@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:mustache_template/mustache_template.dart';
-// TODO: Refactor into a service so we can mock out the return value
 import 'package:path/path.dart' as path;
 import 'package:recase/recase.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
@@ -137,8 +136,6 @@ class TemplateService {
       hasModel: hasModel,
     );
 
-    // TODO: Refactor into an exclusionary rule system where we can
-    // provide new rules to exclude functionality with.
     if (templateName == kTemplateNameView && excludeRoute) {
       return;
     }
@@ -217,12 +214,6 @@ class TemplateService {
         forceAppend: shouldAppendTemplate(templateFile.relativeOutputPath),
         verbose: true,
       );
-
-      // TODO: Add this back and format the entire project in one step
-      // await _processService.runFormat(
-      //   appName: outputFolder,
-      //   filePath: templateFileOutputPath,
-      // );
     }
   }
 

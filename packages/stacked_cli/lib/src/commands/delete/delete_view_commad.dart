@@ -64,8 +64,6 @@ class DeleteViewCommand extends Command with ProjectStructureValidator {
     /// Deleting the view folder.
     String directoryPath = _templateService.getTemplateOutputPath(
       inputTemplatePath: 'lib/ui/views/generic/',
-
-      ///TODO: Change this 👆 to the config file view path when it's added.
       name: argResults!.rest.first,
       outputFolder: outputPath,
     );

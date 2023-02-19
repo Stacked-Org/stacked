@@ -129,7 +129,6 @@ const String k{{name}}Template{{fileName}}Content = \'''
 {{/templateItems}}
 ''';
 
-// TODO: add an option to create Cupertino or custom routes
 const String kTemplateMapDataStructure = '''
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/models/template_models.dart';
