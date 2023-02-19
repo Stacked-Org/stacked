@@ -41,13 +41,13 @@ class CreateAppCommand extends Command {
       valueHelp: '80',
     );
 
-    argParser.addMultiOption(
+    argParser.addOption(
       ksTemplateType,
       abbr: 't',
       // TODO (Create App Templates): Generate a constant with these values when
       // running the compile command
       allowed: ['mobile', 'web'],
-      defaultsTo: ['mobile'],
+      defaultsTo: 'mobile',
       help: kCommandHelpCreateAppTemplate,
     );
   }
