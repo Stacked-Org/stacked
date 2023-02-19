@@ -53,21 +53,32 @@ class TemplateService {
         templateFilePath: stackedTemplateFolderPath,
       );
 
-      final templateItemsToRender =
-          await _templateHelper.getTemplateItemsToRender(
-        templateName: templateName,
+      final List<String> templateTypes =
+          await _templateHelper.getTemplateTypesFromTemplate(
+        templateDirectoryPath: stackedTemplateFolderPath,
       );
 
-      allTemplateItems.addAll(templateItemsToRender);
+      for (var templateType in templateTypes) {
+        final templateItemsToRender =
+            await _templateHelper.getTemplateItemsToRender(
+          templateName: templateName,
+          templateType: templateType,
+        );
 
-      final templateModificationsToApply = await _templateHelper
-          .getTemplateModificationsToApply(templateName: templateName);
+        allTemplateItems.addAll(templateItemsToRender);
 
-      stackedTemplates.add(CompiledStackedTemplate(
-        name: templateName,
-        templateFiles: templateItemsToRender,
-        modificationFiles: templateModificationsToApply,
-      ));
+        final templateModificationsToApply =
+            await _templateHelper.getTemplateModificationsToApply(
+          templateName: templateName,
+          templateType: templateType,
+        );
+
+        stackedTemplates.add(CompiledStackedTemplate(
+          name: templateName,
+          templateFiles: templateItemsToRender,
+          modificationFiles: templateModificationsToApply,
+        ));
+      }
     }
 
     final outputTemplate = Template(kTemplateDataStructure);
