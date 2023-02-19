@@ -1,4 +1,4 @@
-## 1.2.0
+## 1.3.0
 ### New Feature
 Adds template functionality to the create commands and adds a new --template=web template for creating a Web app with Stacked.
 
