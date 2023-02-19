@@ -359,18 +359,18 @@ class FormBuilder with StringBufferUtils {
 
       final type = _getFormFieldValueType(field);
       final caseName = ReCase(field.name);
-      writeLine('''set ${caseName.camelCase}Value($type? value) { 
-             this.setData(
-              this.formValueMap
-                ..addAll({
-                  ${_getFormKeyName(caseName)}: value,
-                }),
-            );
+      writeLine('''set ${caseName.camelCase}Value($type? value) {
+    this.setData(
+      this.formValueMap
+        ..addAll({
+          ${_getFormKeyName(caseName)}: value,
+        }),
+    );  
 
-            if (_${viewName}TextEditingControllers.containsKey(${_getFormKeyName(caseName)})) {
-              _${viewName}TextEditingControllers[${_getFormKeyName(caseName)}]?.text = ${type == 'String' ? "value ?? ''" : '(value ?? DateTime.now()).toIso8601String()'}  ;
-            }
-          }
+    if (_${viewName}TextEditingControllers.containsKey(${_getFormKeyName(caseName)})) {
+      _${viewName}TextEditingControllers[${_getFormKeyName(caseName)}]?.text = ${type == 'String' ? "value ?? ''" : '(value ?? DateTime.now()).toIso8601String()'}  ;
+    }
+}
 
         ''');
     }
