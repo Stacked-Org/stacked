@@ -24,7 +24,8 @@ const String kAppWebTemplateStackedJsonStkContent = '''
     "locator_name": "locator",
     "register_mocks_function": "registerServices",
     "v1": false,
-    "line_length": 80
+    "line_length": 80,
+    "preferWeb": true,
 }
 ''';
 
