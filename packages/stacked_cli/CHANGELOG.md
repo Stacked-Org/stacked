@@ -1,7 +1,7 @@
 ## 1.3.1
 
 - Avoids running pub command if has last version on the system
-- Avoids notify new version available for compile and update commmands
+- Avoids notify new version available for compile and update commands
 
 ## 1.3.0
 ### New Feature
