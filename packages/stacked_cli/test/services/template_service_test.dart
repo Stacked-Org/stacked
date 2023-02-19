@@ -155,7 +155,8 @@ void main() {
         final fileService = getAndRegisterFileService();
         final service = _getService();
         await service.writeOutTemplateFiles(
-          template: kCompiledStackedTemplates[kTemplateNameView]!,
+          template: kCompiledStackedTemplates[kTemplateNameView]![
+              kTemplateTypeEmpty]!,
           templateName: kTemplateNameView,
           name: 'Details',
         );
@@ -175,7 +176,8 @@ void main() {
         final fileService = getAndRegisterFileService();
         final service = _getService();
         await service.modifyExistingFiles(
-          template: kCompiledStackedTemplates[kTemplateNameView]!,
+          template: kCompiledStackedTemplates[kTemplateNameView]![
+              kTemplateTypeEmpty]!,
           templateName: kTemplateNameView,
           name: 'details',
         );
@@ -188,7 +190,8 @@ void main() {
         final fileService = getAndRegisterFileService();
         final service = _getService();
         await service.modifyExistingFiles(
-          template: kCompiledStackedTemplates[kTemplateNameView]!,
+          template: kCompiledStackedTemplates[kTemplateNameView]![
+              kTemplateTypeEmpty]!,
           templateName: kTemplateNameView,
           name: 'details',
           outputPath: 'playground',
@@ -202,7 +205,8 @@ void main() {
         final fileService = getAndRegisterFileService();
         final service = _getService();
         await service.modifyExistingFiles(
-          template: kCompiledStackedTemplates[kTemplateNameView]!,
+          template: kCompiledStackedTemplates[kTemplateNameView]![
+              kTemplateTypeEmpty]!,
           templateName: kTemplateNameView,
           name: 'details',
         );
@@ -217,7 +221,8 @@ void main() {
 
         expect(
             () async => await service.modifyExistingFiles(
-                  template: kCompiledStackedTemplates[kTemplateNameView]!,
+                  template: kCompiledStackedTemplates[kTemplateNameView]![
+                      kTemplateTypeEmpty]!,
                   templateName: kTemplateNameView,
                   name: 'details',
                 ),
@@ -277,6 +282,7 @@ void main() {
           templateName: kTemplateNameView,
           excludeRoute: true,
           name: 'noRouteView',
+          templateType: 'empty',
         );
 
         verifyNever(fileService.fileExists(filePath: anyNamed('filePath')));
@@ -291,6 +297,7 @@ void main() {
           templateName: kTemplateNameService,
           excludeRoute: true,
           name: 'noRouteView',
+          templateType: 'empty',
         );
 
         verify(fileService.fileExists(filePath: anyNamed('filePath')));

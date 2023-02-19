@@ -5,6 +5,9 @@ const String kTemplateNameApp = 'app';
 const String kTemplateNameBottomSheet = 'bottom_sheet';
 const String kTemplateNameDialog = 'dialog';
 
+// ------- Template Types --------
+const String kTemplateTypeEmpty = 'empty';
+
 // ------- File Modification identifiers --------
 
 const String kModificationIdentifierAppImports = '// @stacked-import';
