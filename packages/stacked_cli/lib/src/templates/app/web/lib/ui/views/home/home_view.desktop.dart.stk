@@ -24,7 +24,7 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
                 Column(
                   children: [
                     const Text(
-                      'Hello, TABLET UI!',
+                      'Hello, DESKTOP UI!',
                       style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.w900,
