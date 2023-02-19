@@ -8,25 +8,7 @@ const String kAppWebTemplateStackedJsonStkPath =
     'stacked.json.stk';
 
 const String kAppWebTemplateStackedJsonStkContent = '''
-{
-    "stacked_app_file_path": "app/app.dart",
-    "services_path": "services",
-    "views_path": "ui/views",
-    "bottom_sheets_path": "ui/bottom_sheets",
-    "bottom_sheet_type_file_path": "enums/bottom_sheet_type.dart",
-    "bottom_sheet_builder_file_path": "ui/setup/setup_bottom_sheet_ui.dart",
-    "dialogs_path": "ui/dialogs",
-    "dialog_type_file_path": "enums/dialog_type.dart",
-    "dialog_builder_file_path": "ui/setup/setup_dialog_ui.dart",
-    "test_helpers_file_path": "helpers/test_helpers.dart",
-    "test_services_path": "services",
-    "test_views_path": "viewmodels",
-    "locator_name": "locator",
-    "register_mocks_function": "registerServices",
-    "v1": false,
-    "line_length": 80,
-    "preferWeb": true,
-}
+ewogICAgInN0YWNrZWRfYXBwX2ZpbGVfcGF0aCI6ICJhcHAvYXBwLmRhcnQiLAogICAgInNlcnZpY2VzX3BhdGgiOiAic2VydmljZXMiLAogICAgInZpZXdzX3BhdGgiOiAidWkvdmlld3MiLAogICAgImJvdHRvbV9zaGVldHNfcGF0aCI6ICJ1aS9ib3R0b21fc2hlZXRzIiwKICAgICJib3R0b21fc2hlZXRfdHlwZV9maWxlX3BhdGgiOiAiZW51bXMvYm90dG9tX3NoZWV0X3R5cGUuZGFydCIsCiAgICAiYm90dG9tX3NoZWV0X2J1aWxkZXJfZmlsZV9wYXRoIjogInVpL3NldHVwL3NldHVwX2JvdHRvbV9zaGVldF91aS5kYXJ0IiwKICAgICJkaWFsb2dzX3BhdGgiOiAidWkvZGlhbG9ncyIsCiAgICAiZGlhbG9nX3R5cGVfZmlsZV9wYXRoIjogImVudW1zL2RpYWxvZ190eXBlLmRhcnQiLAogICAgImRpYWxvZ19idWlsZGVyX2ZpbGVfcGF0aCI6ICJ1aS9zZXR1cC9zZXR1cF9kaWFsb2dfdWkuZGFydCIsCiAgICAidGVzdF9oZWxwZXJzX2ZpbGVfcGF0aCI6ICJoZWxwZXJzL3Rlc3RfaGVscGVycy5kYXJ0IiwKICAgICJ0ZXN0X3NlcnZpY2VzX3BhdGgiOiAic2VydmljZXMiLAogICAgInRlc3Rfdmlld3NfcGF0aCI6ICJ2aWV3bW9kZWxzIiwKICAgICJsb2NhdG9yX25hbWUiOiAibG9jYXRvciIsCiAgICAicmVnaXN0ZXJfbW9ja3NfZnVuY3Rpb24iOiAicmVnaXN0ZXJTZXJ2aWNlcyIsCiAgICAidjEiOiBmYWxzZSwKICAgICJsaW5lX2xlbmd0aCI6IDgwLAogICAgInByZWZlcldlYiI6IHRydWUsCn0=
 ''';
 
 // --------------------------------------------------
@@ -38,47 +20,7 @@ const String kAppWebTemplateHomeViewmodelTestPath =
     'test/viewmodels/home_viewmodel_test.dart.stk';
 
 const String kAppWebTemplateHomeViewmodelTestContent = '''
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-import 'package:{{packageName}}/ui/common/app_strings.dart';
-import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_viewmodel.dart';
-
-import '{{{viewTestHelpersImport}}}';
-
-void main() {
-  HomeViewModel _getModel() => HomeViewModel();
-
-  group('HomeViewmodelTest -', () {
-    setUp(() => registerServices());
-    tearDown(() => locator.reset());
-
-    group('incrementCounter -', () {
-      test('When called once should return  Counter is: 1', () {
-        final model = _getModel();
-        model.incrementCounter();
-        expect(model.counterLabel, 'Counter is: 1');
-      });
-    });
-
-    group('showBottomSheet -', () {
-      test('When called, should show custom bottom sheet using notice variant',
-          () {
-        final bottomSheetService = getAndRegisterBottomSheetService();
-
-        final model = _getModel();
-        model.showBottomSheet();
-        verify(bottomSheetService.showCustomSheet(
-          variant: BottomSheetType.notice,
-          title: ksHomeBottomSheetTitle,
-          description: ksHomeBottomSheetDescription,
-        ));
-      });
-    });
-  });
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXJfdGVzdC9mbHV0dGVyX3Rlc3QuZGFydCc7CmltcG9ydCAncGFja2FnZTptb2NraXRvL21vY2tpdG8uZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVCb3R0b21TaGVldEZpbGVQYXRofX19JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS97e3tyZWxhdGl2ZUxvY2F0b3JGaWxlUGF0aH19fSc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL2FwcF9zdHJpbmdzLmRhcnQnOwppbXBvcnQgJ3BhY2thZ2U6e3twYWNrYWdlTmFtZX19L3t7e3ZpZXdJbXBvcnRQYXRofX19L2hvbWUvaG9tZV92aWV3bW9kZWwuZGFydCc7CgppbXBvcnQgJ3t7e3ZpZXdUZXN0SGVscGVyc0ltcG9ydH19fSc7Cgp2b2lkIG1haW4oKSB7CiAgSG9tZVZpZXdNb2RlbCBfZ2V0TW9kZWwoKSA9PiBIb21lVmlld01vZGVsKCk7CgogIGdyb3VwKCdIb21lVmlld21vZGVsVGVzdCAtJywgKCkgewogICAgc2V0VXAoKCkgPT4gcmVnaXN0ZXJTZXJ2aWNlcygpKTsKICAgIHRlYXJEb3duKCgpID0+IGxvY2F0b3IucmVzZXQoKSk7CgogICAgZ3JvdXAoJ2luY3JlbWVudENvdW50ZXIgLScsICgpIHsKICAgICAgdGVzdCgnV2hlbiBjYWxsZWQgb25jZSBzaG91bGQgcmV0dXJuICBDb3VudGVyIGlzOiAxJywgKCkgewogICAgICAgIGZpbmFsIG1vZGVsID0gX2dldE1vZGVsKCk7CiAgICAgICAgbW9kZWwuaW5jcmVtZW50Q291bnRlcigpOwogICAgICAgIGV4cGVjdChtb2RlbC5jb3VudGVyTGFiZWwsICdDb3VudGVyIGlzOiAxJyk7CiAgICAgIH0pOwogICAgfSk7CgogICAgZ3JvdXAoJ3Nob3dCb3R0b21TaGVldCAtJywgKCkgewogICAgICB0ZXN0KCdXaGVuIGNhbGxlZCwgc2hvdWxkIHNob3cgY3VzdG9tIGJvdHRvbSBzaGVldCB1c2luZyBub3RpY2UgdmFyaWFudCcsCiAgICAgICAgICAoKSB7CiAgICAgICAgZmluYWwgYm90dG9tU2hlZXRTZXJ2aWNlID0gZ2V0QW5kUmVnaXN0ZXJCb3R0b21TaGVldFNlcnZpY2UoKTsKCiAgICAgICAgZmluYWwgbW9kZWwgPSBfZ2V0TW9kZWwoKTsKICAgICAgICBtb2RlbC5zaG93Qm90dG9tU2hlZXQoKTsKICAgICAgICB2ZXJpZnkoYm90dG9tU2hlZXRTZXJ2aWNlLnNob3dDdXN0b21TaGVldCgKICAgICAgICAgIHZhcmlhbnQ6IEJvdHRvbVNoZWV0VHlwZS5ub3RpY2UsCiAgICAgICAgICB0aXRsZToga3NIb21lQm90dG9tU2hlZXRUaXRsZSwKICAgICAgICAgIGRlc2NyaXB0aW9uOiBrc0hvbWVCb3R0b21TaGVldERlc2NyaXB0aW9uLAogICAgICAgICkpOwogICAgICB9KTsKICAgIH0pOwogIH0pOwp9Cg==
 ''';
 
 // --------------------------------------------------
@@ -90,18 +32,7 @@ const String kAppWebTemplateNoticeSheetModelTestPath =
     'test/viewmodels/notice_sheet_model_test.dart.stk';
 
 const String kAppWebTemplateNoticeSheetModelTestContent = '''
-import 'package:flutter_test/flutter_test.dart';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-
-import '{{{viewTestHelpersImport}}}';
-
-void main() {
-  group('InfoAlertDialogModel Tests -', () {
-    setUp(() => registerServices());
-    tearDown(() => locator.reset());
-  });
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXJfdGVzdC9mbHV0dGVyX3Rlc3QuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVMb2NhdG9yRmlsZVBhdGh9fX0nOwoKaW1wb3J0ICd7e3t2aWV3VGVzdEhlbHBlcnNJbXBvcnR9fX0nOwoKdm9pZCBtYWluKCkgewogIGdyb3VwKCdJbmZvQWxlcnREaWFsb2dNb2RlbCBUZXN0cyAtJywgKCkgewogICAgc2V0VXAoKCkgPT4gcmVnaXN0ZXJTZXJ2aWNlcygpKTsKICAgIHRlYXJEb3duKCgpID0+IGxvY2F0b3IucmVzZXQoKSk7CiAgfSk7Cn0K
 ''';
 
 // --------------------------------------------------
@@ -113,18 +44,7 @@ const String kAppWebTemplateInfoAlertDialogModelTestPath =
     'test/viewmodels/info_alert_dialog_model_test.dart.stk';
 
 const String kAppWebTemplateInfoAlertDialogModelTestContent = '''
-import 'package:flutter_test/flutter_test.dart';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-
-import '{{{viewTestHelpersImport}}}';
-
-void main() {
-  group('InfoAlertDialogModel Tests -', () {
-    setUp(() => registerServices());
-    tearDown(() => locator.reset());
-  });
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXJfdGVzdC9mbHV0dGVyX3Rlc3QuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVMb2NhdG9yRmlsZVBhdGh9fX0nOwoKaW1wb3J0ICd7e3t2aWV3VGVzdEhlbHBlcnNJbXBvcnR9fX0nOwoKdm9pZCBtYWluKCkgewogIGdyb3VwKCdJbmZvQWxlcnREaWFsb2dNb2RlbCBUZXN0cyAtJywgKCkgewogICAgc2V0VXAoKCkgPT4gcmVnaXN0ZXJTZXJ2aWNlcygpKTsKICAgIHRlYXJEb3duKCgpID0+IGxvY2F0b3IucmVzZXQoKSk7CiAgfSk7Cn0K
 ''';
 
 // --------------------------------------------------
@@ -136,85 +56,19 @@ const String kAppWebTemplateTestHelpersPath =
     'test/helpers/test_helpers.dart.stk';
 
 const String kAppWebTemplateTestHelpersContent = '''
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-import 'package:stacked_services/stacked_services.dart';
-// @stacked-import
+aW1wb3J0ICdwYWNrYWdlOm1vY2tpdG8vYW5ub3RhdGlvbnMuZGFydCc7CmltcG9ydCAncGFja2FnZTptb2NraXRvL21vY2tpdG8uZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVMb2NhdG9yRmlsZVBhdGh9fX0nOwppbXBvcnQgJ3BhY2thZ2U6c3RhY2tlZF9zZXJ2aWNlcy9zdGFja2VkX3NlcnZpY2VzLmRhcnQnOwovLyBAc3RhY2tlZC1pbXBvcnQKCmltcG9ydCAndGVzdF9oZWxwZXJzLm1vY2tzLmRhcnQnOwoKQEdlbmVyYXRlTW9ja3MoW10sIGN1c3RvbU1vY2tzOiBbCiAgTW9ja1NwZWM8TmF2aWdhdGlvblNlcnZpY2U+KG9uTWlzc2luZ1N0dWI6IE9uTWlzc2luZ1N0dWIucmV0dXJuRGVmYXVsdCksCiAgTW9ja1NwZWM8Qm90dG9tU2hlZXRTZXJ2aWNlPihvbk1pc3NpbmdTdHViOiBPbk1pc3NpbmdTdHViLnJldHVybkRlZmF1bHQpLAogIE1vY2tTcGVjPERpYWxvZ1NlcnZpY2U+KG9uTWlzc2luZ1N0dWI6IE9uTWlzc2luZ1N0dWIucmV0dXJuRGVmYXVsdCksCiAgLy8gQHN0YWNrZWQtbW9jay1zcGVjCl0pCnZvaWQgcmVnaXN0ZXJTZXJ2aWNlcygpIHsKICBnZXRBbmRSZWdpc3Rlck5hdmlnYXRpb25TZXJ2aWNlKCk7CiAgZ2V0QW5kUmVnaXN0ZXJCb3R0b21TaGVldFNlcnZpY2UoKTsKICBnZXRBbmRSZWdpc3RlckRpYWxvZ1NlcnZpY2UoKTsKICAvLyBAc3RhY2tlZC1tb2NrLXJlZ2lzdGVyCn0KCk1vY2tOYXZpZ2F0aW9uU2VydmljZSBnZXRBbmRSZWdpc3Rlck5hdmlnYXRpb25TZXJ2aWNlKCkgewogIF9yZW1vdmVSZWdpc3RyYXRpb25JZkV4aXN0czxOYXZpZ2F0aW9uU2VydmljZT4oKTsKICBmaW5hbCBzZXJ2aWNlID0gTW9ja05hdmlnYXRpb25TZXJ2aWNlKCk7CiAgbG9jYXRvci5yZWdpc3RlclNpbmdsZXRvbjxOYXZpZ2F0aW9uU2VydmljZT4oc2VydmljZSk7CiAgcmV0dXJuIHNlcnZpY2U7Cn0KCk1vY2tCb3R0b21TaGVldFNlcnZpY2UgZ2V0QW5kUmVnaXN0ZXJCb3R0b21TaGVldFNlcnZpY2U8VD4oewogIFNoZWV0UmVzcG9uc2U8VD4/IHNob3dDdXN0b21TaGVldFJlc3BvbnNlLAp9KSB7CiAgX3JlbW92ZVJlZ2lzdHJhdGlvbklmRXhpc3RzPEJvdHRvbVNoZWV0U2VydmljZT4oKTsKICBmaW5hbCBzZXJ2aWNlID0gTW9ja0JvdHRvbVNoZWV0U2VydmljZSgpOwoKICB3aGVuKHNlcnZpY2Uuc2hvd0N1c3RvbVNoZWV0PFQsIFQ+KAogICAgZW5hYmxlRHJhZzogYW55TmFtZWQoJ2VuYWJsZURyYWcnKSwKICAgIGVudGVyQm90dG9tU2hlZXREdXJhdGlvbjogYW55TmFtZWQoJ2VudGVyQm90dG9tU2hlZXREdXJhdGlvbicpLAogICAgZXhpdEJvdHRvbVNoZWV0RHVyYXRpb246IGFueU5hbWVkKCdleGl0Qm90dG9tU2hlZXREdXJhdGlvbicpLAogICAgaWdub3JlU2FmZUFyZWE6IGFueU5hbWVkKCdpZ25vcmVTYWZlQXJlYScpLAogICAgaXNTY3JvbGxDb250cm9sbGVkOiBhbnlOYW1lZCgnaXNTY3JvbGxDb250cm9sbGVkJyksCiAgICBiYXJyaWVyRGlzbWlzc2libGU6IGFueU5hbWVkKCdiYXJyaWVyRGlzbWlzc2libGUnKSwKICAgIGFkZGl0aW9uYWxCdXR0b25UaXRsZTogYW55TmFtZWQoJ2FkZGl0aW9uYWxCdXR0b25UaXRsZScpLAogICAgdmFyaWFudDogYW55TmFtZWQoJ3ZhcmlhbnQnKSwKICAgIHRpdGxlOiBhbnlOYW1lZCgndGl0bGUnKSwKICAgIGhhc0ltYWdlOiBhbnlOYW1lZCgnaGFzSW1hZ2UnKSwKICAgIGltYWdlVXJsOiBhbnlOYW1lZCgnaW1hZ2VVcmwnKSwKICAgIHNob3dJY29uSW5NYWluQnV0dG9uOiBhbnlOYW1lZCgnc2hvd0ljb25Jbk1haW5CdXR0b24nKSwKICAgIG1haW5CdXR0b25UaXRsZTogYW55TmFtZWQoJ21haW5CdXR0b25UaXRsZScpLAogICAgc2hvd0ljb25JblNlY29uZGFyeUJ1dHRvbjogYW55TmFtZWQoJ3Nob3dJY29uSW5TZWNvbmRhcnlCdXR0b24nKSwKICAgIHNlY29uZGFyeUJ1dHRvblRpdGxlOiBhbnlOYW1lZCgnc2Vjb25kYXJ5QnV0dG9uVGl0bGUnKSwKICAgIHNob3dJY29uSW5BZGRpdGlvbmFsQnV0dG9uOiBhbnlOYW1lZCgnc2hvd0ljb25JbkFkZGl0aW9uYWxCdXR0b24nKSwKICAgIHRha2VzSW5wdXQ6IGFueU5hbWVkKCd0YWtlc0lucHV0JyksCiAgICBiYXJyaWVyQ29sb3I6IGFueU5hbWVkKCdiYXJyaWVyQ29sb3InKSwKICAgIGJhcnJpZXJMYWJlbDogYW55TmFtZWQoJ2JhcnJpZXJMYWJlbCcpLAogICAgY3VzdG9tRGF0YTogYW55TmFtZWQoJ2N1c3RvbURhdGEnKSwKICAgIGRhdGE6IGFueU5hbWVkKCdkYXRhJyksCiAgICBkZXNjcmlwdGlvbjogYW55TmFtZWQoJ2Rlc2NyaXB0aW9uJyksCiAgKSkudGhlbkFuc3dlcigocmVhbEludm9jYXRpb24pID0+CiAgICAgIEZ1dHVyZS52YWx1ZShzaG93Q3VzdG9tU2hlZXRSZXNwb25zZSA/PyBTaGVldFJlc3BvbnNlPFQ+KCkpKTsKCiAgbG9jYXRvci5yZWdpc3RlclNpbmdsZXRvbjxCb3R0b21TaGVldFNlcnZpY2U+KHNlcnZpY2UpOwogIHJldHVybiBzZXJ2aWNlOwp9CgpNb2NrRGlhbG9nU2VydmljZSBnZXRBbmRSZWdpc3RlckRpYWxvZ1NlcnZpY2UoKSB7CiAgX3JlbW92ZVJlZ2lzdHJhdGlvbklmRXhpc3RzPERpYWxvZ1NlcnZpY2U+KCk7CiAgZmluYWwgc2VydmljZSA9IE1vY2tEaWFsb2dTZXJ2aWNlKCk7CiAgbG9jYXRvci5yZWdpc3RlclNpbmdsZXRvbjxEaWFsb2dTZXJ2aWNlPihzZXJ2aWNlKTsKICByZXR1cm4gc2VydmljZTsKfQoKLy8gQHN0YWNrZWQtbW9jay1jcmVhdGUKCnZvaWQgX3JlbW92ZVJlZ2lzdHJhdGlvbklmRXhpc3RzPFQgZXh0ZW5kcyBPYmplY3Q+KCkgewogIGlmIChsb2NhdG9yLmlzUmVnaXN0ZXJlZDxUPigpKSB7CiAgICBsb2NhdG9yLnVucmVnaXN0ZXI8VD4oKTsKICB9Cn0K
+''';
 
-import 'test_helpers.mocks.dart';
+// --------------------------------------------------
 
-@GenerateMocks([], customMocks: [
-  MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
-  MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
-  MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
-  // @stacked-mock-spec
-])
-void registerServices() {
-  getAndRegisterNavigationService();
-  getAndRegisterBottomSheetService();
-  getAndRegisterDialogService();
-  // @stacked-mock-register
-}
 
-MockNavigationService getAndRegisterNavigationService() {
-  _removeRegistrationIfExists<NavigationService>();
-  final service = MockNavigationService();
-  locator.registerSingleton<NavigationService>(service);
-  return service;
-}
+// -------- MainIconPngStk Template Data ----------
 
-MockBottomSheetService getAndRegisterBottomSheetService<T>({
-  SheetResponse<T>? showCustomSheetResponse,
-}) {
-  _removeRegistrationIfExists<BottomSheetService>();
-  final service = MockBottomSheetService();
+const String kAppWebTemplateMainIconPngStkPath =
+    'web/main-icon.png.stk';
 
-  when(service.showCustomSheet<T, T>(
-    enableDrag: anyNamed('enableDrag'),
-    enterBottomSheetDuration: anyNamed('enterBottomSheetDuration'),
-    exitBottomSheetDuration: anyNamed('exitBottomSheetDuration'),
-    ignoreSafeArea: anyNamed('ignoreSafeArea'),
-    isScrollControlled: anyNamed('isScrollControlled'),
-    barrierDismissible: anyNamed('barrierDismissible'),
-    additionalButtonTitle: anyNamed('additionalButtonTitle'),
-    variant: anyNamed('variant'),
-    title: anyNamed('title'),
-    hasImage: anyNamed('hasImage'),
-    imageUrl: anyNamed('imageUrl'),
-    showIconInMainButton: anyNamed('showIconInMainButton'),
-    mainButtonTitle: anyNamed('mainButtonTitle'),
-    showIconInSecondaryButton: anyNamed('showIconInSecondaryButton'),
-    secondaryButtonTitle: anyNamed('secondaryButtonTitle'),
-    showIconInAdditionalButton: anyNamed('showIconInAdditionalButton'),
-    takesInput: anyNamed('takesInput'),
-    barrierColor: anyNamed('barrierColor'),
-    barrierLabel: anyNamed('barrierLabel'),
-    customData: anyNamed('customData'),
-    data: anyNamed('data'),
-    description: anyNamed('description'),
-  )).thenAnswer((realInvocation) =>
-      Future.value(showCustomSheetResponse ?? SheetResponse<T>()));
-
-  locator.registerSingleton<BottomSheetService>(service);
-  return service;
-}
-
-MockDialogService getAndRegisterDialogService() {
-  _removeRegistrationIfExists<DialogService>();
-  final service = MockDialogService();
-  locator.registerSingleton<DialogService>(service);
-  return service;
-}
-
-// @stacked-mock-create
-
-void _removeRegistrationIfExists<T extends Object>() {
-  if (locator.isRegistered<T>()) {
-    locator.unregister<T>();
-  }
-}
-
+const String kAppWebTemplateMainIconPngStkContent = '''
+iVBORw0KGgoAAAANSUhEUgAAALMAAACzCAYAAADCFC3zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAN5SURBVHgB7daLjVNBDEDRF0QjVEIrdMLSAS3RyZZAByGWdqUQ5Z/5eGbOkSw3cC152wAAAAAAAAAAAAAAAACAjHZbYfuDDW77tdvt3raCvmzQXvGQg5hprUrIQcy0VC3kIGZaqRpyEDMtVA85iJnamoQcxExNzUIOYqaWpiEHMVND85CDmCmtS8hBzJTULeQgZkrpGnIQMyV0DzmImVelCDmImVekCTmImWelCjmImWekCzmImUelDDmImUekDTmImXulDjmImXukDzmImVuGCDmImWuGCTmImUuGCjmImXOGCzmImVNDhhzEzLFhQw5i5tPQIQcxE4YPOYiZKUIOYl7bNCEHMa9rqpCDmNc0XchBzOuZMuQg5rVMG3IQ8zqmDjmIeQ3ThxzEPL8lQg5intsyIQcxz2upkIOY57RcyEHM81ky5CDmuSwbchDzPJYOOYh5DsuHHMQ8PiF/EPPYhHxEzOMS8gkxj0nIZ4h5PEK+QMxjEfIVYh6HkG8Q8xiEfAcx5yfkO4k5NyE/QMx5CflBYs5JyE8Qcz5CfpKYcxHyC8Sch5BfJOYchFyAmPsTciFi7kvIBYm5HyEXJuY+hFyBmNsTciVibkvIFYm5HSFXttsK2+/3bxunvh/mz8axv4fj/r0VVDxm/nc47p+H9bZx6v0Q87etIG9GRUJuS8yVCLk9MVcg5D7EXJiQ+xFzQULuS8yFCLk/MRcg5BzE/CIh5yHmFwg5FzE/Scj5iPkJQs5JzA8Scl5ifoCQcxPznYScn5jvIOQxiPkGIY9DzFcIeSxivkDI4xHzGUIek5hPCHlcYj4i5LGJ+YOQxyfmTcizWD5mIc9j6ZiFPJdlYxbyfJaMWchzWi5mIc9rqZiFPLdlYhby/JaIWchrmD5mIa9j6piFvJZpYxbyeqaMWchrmi5mIa9rqpiFvLZpYhYyU8QsZMLwMQuZT0PHLGSODRuzkDk1ZMxC5pzhYhYylwwVs5C5ZpiYhcwtQ8QsZO6RPmYhc6/UMQuZR6SNWcg8KmXMQuYZ6WIWMs9KFbOQeUWamIXMq1LELGRK6B6zkCmla8xCpqRuMQuZ0rrELGRqaB6zkKmlacxCpqZmMQuZ2prELGRaqB6zkGmlasxCpqVqMQuZ1qrELGR6+LoVdgj5x2HFvG9w2fsGAAAAAAAAAAAAAAAAACzhH8sFZqawpyetAAAAAElFTkSuQmCC
 ''';
 
 // --------------------------------------------------
@@ -226,100 +80,19 @@ const String kAppWebTemplateIndexHtmlStkPath =
     'web/index.html.stk';
 
 const String kAppWebTemplateIndexHtmlStkContent = '''
-<!DOCTYPE html>
-<html>
-<head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+PCFET0NUWVBFIGh0bWw+CjxodG1sPgo8aGVhZD4KICA8IS0tCiAgICBJZiB5b3UgYXJlIHNlcnZpbmcgeW91ciB3ZWIgYXBwIGluIGEgcGF0aCBvdGhlciB0aGFuIHRoZSByb290LCBjaGFuZ2UgdGhlCiAgICBocmVmIHZhbHVlIGJlbG93IHRvIHJlZmxlY3QgdGhlIGJhc2UgcGF0aCB5b3UgYXJlIHNlcnZpbmcgZnJvbS4KCiAgICBUaGUgcGF0aCBwcm92aWRlZCBiZWxvdyBoYXMgdG8gc3RhcnQgYW5kIGVuZCB3aXRoIGEgc2xhc2ggIi8iIGluIG9yZGVyIGZvcgogICAgaXQgdG8gd29yayBjb3JyZWN0bHkuCgogICAgRm9yIG1vcmUgZGV0YWlsczoKICAgICogaHR0cHM6Ly9kZXZlbG9wZXIubW96aWxsYS5vcmcvZW4tVVMvZG9jcy9XZWIvSFRNTC9FbGVtZW50L2Jhc2UKCiAgICBUaGlzIGlzIGEgcGxhY2Vob2xkZXIgZm9yIGJhc2UgaHJlZiB0aGF0IHdpbGwgYmUgcmVwbGFjZWQgYnkgdGhlIHZhbHVlIG9mCiAgICB0aGUgYC0tYmFzZS1ocmVmYCBhcmd1bWVudCBwcm92aWRlZCB0byBgZmx1dHRlciBidWlsZGAuCiAgLS0+CiAgPGJhc2UgaHJlZj0iXCRGTFVUVEVSX0JBU0VfSFJFRiI+CgogIDxtZXRhIGNoYXJzZXQ9IlVURi04Ij4KICA8bWV0YSBjb250ZW50PSJJRT1FZGdlIiBodHRwLWVxdWl2PSJYLVVBLUNvbXBhdGlibGUiPgogIDxtZXRhIG5hbWU9ImRlc2NyaXB0aW9uIiBjb250ZW50PSJTdGFja2UgQXBwbGljYXRpb24iPgoKICA8IS0tIGlPUyBtZXRhIHRhZ3MgJiBpY29ucyAtLT4KICA8bWV0YSBuYW1lPSJhcHBsZS1tb2JpbGUtd2ViLWFwcC1jYXBhYmxlIiBjb250ZW50PSJ5ZXMiPgogIDxtZXRhIG5hbWU9ImFwcGxlLW1vYmlsZS13ZWItYXBwLXN0YXR1cy1iYXItc3R5bGUiIGNvbnRlbnQ9ImJsYWNrIj4KICA8bWV0YSBuYW1lPSJhcHBsZS1tb2JpbGUtd2ViLWFwcC10aXRsZSIgY29udGVudD0iRmlsbGVkU3RhY2tzIEFjYWRlbXkiPgogIDxsaW5rIHJlbD0iYXBwbGUtdG91Y2gtaWNvbiIgaHJlZj0iaWNvbnMvSWNvbi0xOTIucG5nIj4KCiAgPCEtLSBGYXZpY29uIC0tPgogIDxsaW5rIHJlbD0iaWNvbiIgdHlwZT0iaW1hZ2UvcG5nIiBocmVmPSJmYXZpY29uLnBuZyIvPgoKICA8IS0tIEZvbnRzIC0tPgogIDxsaW5rIHJlbD0icHJlY29ubmVjdCIgaHJlZj0iaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbSI+CiAgPGxpbmsgcmVsPSJwcmVjb25uZWN0IiBocmVmPSJodHRwczovL2ZvbnRzLmdzdGF0aWMuY29tIiBjcm9zc29yaWdpbj4KICAKICA8IS0tIEltcG9ydCB0aGUgT3BlbiBTYW5zIEZvbnQgZnJvbSBHb29nbGUgRm9udHMgLS0+CiAgPGxpbmsgaHJlZj0iaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3MyP2ZhbWlseT1PcGVuK1NhbnM6d2dodEAzMDA7NjAwOzcwMDs4MDAmZGlzcGxheT1zd2FwIiByZWw9InN0eWxlc2hlZXQiPgoKICA8dGl0bGU+TXkgU3RhY2tlZCBBcHBsaWNhdGlvbjwvdGl0bGU+CiAgPGxpbmsgcmVsPSJtYW5pZmVzdCIgaHJlZj0ibWFuaWZlc3QuanNvbiI+CgogIDxzY3JpcHQ+CiAgICAvLyBUaGUgdmFsdWUgYmVsb3cgaXMgaW5qZWN0ZWQgYnkgZmx1dHRlciBidWlsZCwgZG8gbm90IHRvdWNoLgogICAgdmFyIHNlcnZpY2VXb3JrZXJWZXJzaW9uID0gbnVsbDsKICA8L3NjcmlwdD4KICA8IS0tIFRoaXMgc2NyaXB0IGFkZHMgdGhlIGZsdXR0ZXIgaW5pdGlhbGl6YXRpb24gSlMgY29kZSAtLT4KICA8c2NyaXB0IHNyYz0iZmx1dHRlci5qcyIgZGVmZXI+PC9zY3JpcHQ+CjwvaGVhZD4KPGJvZHk+CiAgPHN0eWxlPgogICAgYm9keSB7CiAgICAgIGJhY2tncm91bmQtY29sb3I6ICMwQTBBMEE7CiAgICAgIGhlaWdodDogMTAwdmg7CiAgICAgIHdpZHRoOiAxMDB2dzsKICAgIH0KCiAgICAubWFpbi1jb250ZW50IHsKICAgICAgaGVpZ2h0OiAxMDAlOwogICAgICB3aWR0aDogMTAwJTsKICAgICAgZGlzcGxheTogZmxleDsKICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjsKICAgICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7CiAgICB9CgogICAgaW1nIHsKICAgICAgd2lkdGg6IDEwMHB4OwogICAgICBoZWlnaHQ6IDEwMHB4OwogICAgfQoKICAgIHAgewogICAgICBjb2xvcjogI2ZmZjsKICAgIH0KCiAgPC9zdHlsZT4KICA8c2NyaXB0PgogICAgd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ2xvYWQnLCBmdW5jdGlvbihldikgewogICAgICAvLyBEb3dubG9hZCBtYWluLmRhcnQuanMKICAgICAgX2ZsdXR0ZXIubG9hZGVyLmxvYWRFbnRyeXBvaW50KHsKICAgICAgICBzZXJ2aWNlV29ya2VyOiB7CiAgICAgICAgICBzZXJ2aWNlV29ya2VyVmVyc2lvbjogc2VydmljZVdvcmtlclZlcnNpb24sCiAgICAgICAgfQogICAgICB9KS50aGVuKGZ1bmN0aW9uKGVuZ2luZUluaXRpYWxpemVyKSB7CiAgICAgICAgcmV0dXJuIGVuZ2luZUluaXRpYWxpemVyLmluaXRpYWxpemVFbmdpbmUoKTsKICAgICAgfSkudGhlbihmdW5jdGlvbihhcHBSdW5uZXIpIHsKICAgICAgICByZXR1cm4gYXBwUnVubmVyLnJ1bkFwcCgpOwogICAgICB9KTsKICAgIH0pOwogIDwvc2NyaXB0PgogIDxkaXYgY2xhc3M9Im1haW4tY29udGVudCI+CiAgICA8aW1nIHNyYz0ibWFpbi1pY29uLnBuZyIgLz4KICA8L2Rpdj4KPC9ib2R5Pgo8L2h0bWw+Cg==
+''';
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+// --------------------------------------------------
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="\$FLUTTER_BASE_HREF">
+// -------- FaviconPngStk Template Data ----------
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="Stacke Application">
+const String kAppWebTemplateFaviconPngStkPath =
+    'web/favicon.png.stk';
 
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="FilledStacks Academy">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
-  <!-- Import the Open Sans Font from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600;700;800&display=swap" rel="stylesheet">
-
-  <title>My Stacked Application</title>
-  <link rel="manifest" href="manifest.json">
-
-  <script>
-    // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = null;
-  </script>
-  <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
-</head>
-<body>
-  <style>
-    body {
-      background-color: #0A0A0A;
-      height: 100vh;
-      width: 100vw;
-    }
-
-    .main-content {
-      height: 100%;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    img {
-      width: 100px;
-      height: 100px;
-    }
-
-    p {
-      color: #fff;
-    }
-
-  </style>
-  <script>
-    window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        }
-      }).then(function(engineInitializer) {
-        return engineInitializer.initializeEngine();
-      }).then(function(appRunner) {
-        return appRunner.runApp();
-      });
-    });
-  </script>
-  <div class="main-content">
-    <img src="main-icon.png" />
-  </div>
-</body>
-</html>
-
+const String kAppWebTemplateFaviconPngStkContent = '''
+iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHaSURBVHgBpVTNasJAEN7dxLQl+FNEFBRR8VCQgo+gryCkh9499CnUg/gMvo3eFWw9eBLS4sWT2oOHRLOdWWLYxkRT+8GS3cnkm28mM0tIMOhpwzmn7plKdurawz9EdLtdNhqNWKvVekyn0ynLsghjTPg4jsNt26a6rnO09/v9r2Qy6UwmkwOlwoX7yZVqtWqA07v78uqKx+NmsVhsw179Jc4wDKVcLrejEvkXCHlBDlmdlkgkPm8lhKw+arWahipRKikUCspqtSqe2FOpFKnX6+QSZrMZ2W63Yr/b7Z6htshl45kOh8MnOWKj0eCXAD8vSKmOf54ho6qqnEREr9fDbjizZzIZikBCut/v6X/IENBeQikSck3TrnFdJJMghJ3V0L86nc5ZHbHOsk82m9WFUCTEzg8DkEVRhpOE6jhD57CUo5IR4tVQpMyCUg5KM0LKorH5crn8lqNhY4/HY9JsNkMVYWPLWK/XXutRmJQHGPQ5uXH0cGxLpdK9SNeVe8jlcgNyI2CWB6ZpHjwDjgxGyOfzb3+5JIBoXqlUXuG2uSOnHpQCUSi0slgs7qCNVAwCEHXZbDZYV+8sZpYxJxaLHaFc1nQ6PYLZCcsAy6BIT0U6eza83X2CBH4AHNJFlWlQookAAAAASUVORK5CYII=
 ''';
 
 // --------------------------------------------------
@@ -331,23 +104,7 @@ const String kAppWebTemplateREADMEMdStkPath =
     'README.md.stk';
 
 const String kAppWebTemplateREADMEMdStkContent = '''
-# stacked_app
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+IyBzdGFja2VkX2FwcAoKQSBuZXcgRmx1dHRlciBwcm9qZWN0LgoKIyMgR2V0dGluZyBTdGFydGVkCgpUaGlzIHByb2plY3QgaXMgYSBzdGFydGluZyBwb2ludCBmb3IgYSBGbHV0dGVyIGFwcGxpY2F0aW9uLgoKQSBmZXcgcmVzb3VyY2VzIHRvIGdldCB5b3Ugc3RhcnRlZCBpZiB0aGlzIGlzIHlvdXIgZmlyc3QgRmx1dHRlciBwcm9qZWN0OgoKLSBbTGFiOiBXcml0ZSB5b3VyIGZpcnN0IEZsdXR0ZXIgYXBwXShodHRwczovL2ZsdXR0ZXIuZGV2L2RvY3MvZ2V0LXN0YXJ0ZWQvY29kZWxhYikKLSBbQ29va2Jvb2s6IFVzZWZ1bCBGbHV0dGVyIHNhbXBsZXNdKGh0dHBzOi8vZmx1dHRlci5kZXYvZG9jcy9jb29rYm9vaykKCkZvciBoZWxwIGdldHRpbmcgc3RhcnRlZCB3aXRoIEZsdXR0ZXIsIHZpZXcgb3VyCltvbmxpbmUgZG9jdW1lbnRhdGlvbl0oaHR0cHM6Ly9mbHV0dGVyLmRldi9kb2NzKSwgd2hpY2ggb2ZmZXJzIHR1dG9yaWFscywKc2FtcGxlcywgZ3VpZGFuY2Ugb24gbW9iaWxlIGRldmVsb3BtZW50LCBhbmQgYSBmdWxsIEFQSSByZWZlcmVuY2UuCg==
 ''';
 
 // --------------------------------------------------
@@ -359,46 +116,7 @@ const String kAppWebTemplateMainPath =
     'lib/main.dart.stk';
 
 const String kAppWebTemplateMainContent = '''
-import 'package:flutter/material.dart';
-import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
-import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:stacked_services/stacked_services.dart';
-
-void main() {
-  setupLocator();
-  setupDialogUi();
-  setupBottomSheetUi();
-
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Stacked Application',
-      theme: Theme.of(context).copyWith(
-        primaryColor: kcBackgroundColor,
-        focusColor: kcPrimaryColor,
-        textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.black,
-            ),
-      ),
-      initialRoute: Routes.startupView,
-      onGenerateRoute: StackedRouter().onGenerateRoute,
-      navigatorKey: StackedService.navigatorKey,
-      navigatorObservers: [
-        StackedService.routeObserver,
-      ],
-    );
-  }
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVCb3R0b21TaGVldEZpbGVQYXRofX19JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS97e3tyZWxhdGl2ZURpYWxvZ0ZpbGVQYXRofX19JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS97e3tyZWxhdGl2ZUxvY2F0b3JGaWxlUGF0aH19fSc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVSb3V0ZXJGaWxlUGF0aH19fSc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL2FwcF9jb2xvcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkX3NlcnZpY2VzL3N0YWNrZWRfc2VydmljZXMuZGFydCc7Cgp2b2lkIG1haW4oKSB7CiAgc2V0dXBMb2NhdG9yKCk7CiAgc2V0dXBEaWFsb2dVaSgpOwogIHNldHVwQm90dG9tU2hlZXRVaSgpOwoKICBydW5BcHAoY29uc3QgTXlBcHAoKSk7Cn0KCmNsYXNzIE15QXBwIGV4dGVuZHMgU3RhdGVsZXNzV2lkZ2V0IHsKICBjb25zdCBNeUFwcCh7S2V5PyBrZXl9KSA6IHN1cGVyKGtleToga2V5KTsKCiAgQG92ZXJyaWRlCiAgV2lkZ2V0IGJ1aWxkKEJ1aWxkQ29udGV4dCBjb250ZXh0KSB7CiAgICByZXR1cm4gTWF0ZXJpYWxBcHAoCiAgICAgIHRpdGxlOiAnU3RhY2tlZCBBcHBsaWNhdGlvbicsCiAgICAgIHRoZW1lOiBUaGVtZS5vZihjb250ZXh0KS5jb3B5V2l0aCgKICAgICAgICBwcmltYXJ5Q29sb3I6IGtjQmFja2dyb3VuZENvbG9yLAogICAgICAgIGZvY3VzQ29sb3I6IGtjUHJpbWFyeUNvbG9yLAogICAgICAgIHRleHRUaGVtZTogVGhlbWUub2YoY29udGV4dCkudGV4dFRoZW1lLmFwcGx5KAogICAgICAgICAgICAgIGJvZHlDb2xvcjogQ29sb3JzLmJsYWNrLAogICAgICAgICAgICApLAogICAgICApLAogICAgICBpbml0aWFsUm91dGU6IFJvdXRlcy5zdGFydHVwVmlldywKICAgICAgb25HZW5lcmF0ZVJvdXRlOiBTdGFja2VkUm91dGVyKCkub25HZW5lcmF0ZVJvdXRlLAogICAgICBuYXZpZ2F0b3JLZXk6IFN0YWNrZWRTZXJ2aWNlLm5hdmlnYXRvcktleSwKICAgICAgbmF2aWdhdG9yT2JzZXJ2ZXJzOiBbCiAgICAgICAgU3RhY2tlZFNlcnZpY2Uucm91dGVPYnNlcnZlciwKICAgICAgXSwKICAgICk7CiAgfQp9Cg==
 ''';
 
 // --------------------------------------------------
@@ -410,12 +128,7 @@ const String kAppWebTemplateAppConstantsPath =
     'lib/ui/common/app_constants.dart.stk';
 
 const String kAppWebTemplateAppConstantsContent = '''
-/// The max width the content can ever take up on the screen
-const double kdDesktopMaxContentWidth = 1150;
-
-// The max height the homeview will take up
-const double kdDesktopMaxContentHeight = 750;
-
+Ly8vIFRoZSBtYXggd2lkdGggdGhlIGNvbnRlbnQgY2FuIGV2ZXIgdGFrZSB1cCBvbiB0aGUgc2NyZWVuCmNvbnN0IGRvdWJsZSBrZERlc2t0b3BNYXhDb250ZW50V2lkdGggPSAxMTUwOwoKLy8gVGhlIG1heCBoZWlnaHQgdGhlIGhvbWV2aWV3IHdpbGwgdGFrZSB1cApjb25zdCBkb3VibGUga2REZXNrdG9wTWF4Q29udGVudEhlaWdodCA9IDc1MDsK
 ''';
 
 // --------------------------------------------------
@@ -427,85 +140,7 @@ const String kAppWebTemplateUiHelpersPath =
     'lib/ui/common/ui_helpers.dart.stk';
 
 const String kAppWebTemplateUiHelpersContent = '''
-import 'dart:math';
-
-import 'package:flutter/material.dart';
-
-const double _tinySize = 5.0;
-const double _smallSize = 10.0;
-const double _mediumSize = 25.0;
-const double _largeSize = 50.0;
-const double _massiveSize = 120.0;
-
-const Widget horizontalSpaceTiny = SizedBox(width: _tinySize);
-const Widget horizontalSpaceSmall = SizedBox(width: _smallSize);
-const Widget horizontalSpaceMedium = SizedBox(width: _mediumSize);
-const Widget horizontalSpaceLarge = SizedBox(width: _largeSize);
-
-const Widget verticalSpaceTiny = SizedBox(height: _tinySize);
-const Widget verticalSpaceSmall = SizedBox(height: _smallSize);
-const Widget verticalSpaceMedium = SizedBox(height: _mediumSize);
-const Widget verticalSpaceLarge = SizedBox(height: _largeSize);
-const Widget verticalSpaceMassive = SizedBox(height: _massiveSize);
-
-Widget spacedDivider = Column(
-  children: const <Widget>[
-    verticalSpaceMedium,
-    Divider(color: Colors.blueGrey, height: 5.0),
-    verticalSpaceMedium,
-  ],
-);
-
-Widget verticalSpace(double height) => SizedBox(height: height);
-
-double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
-double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
-
-double screenHeightFraction(BuildContext context,
-        {int dividedBy = 1, double offsetBy = 0, double max = 3000}) =>
-    min((screenHeight(context) - offsetBy) / dividedBy, max);
-
-double screenWidthFraction(BuildContext context,
-        {int dividedBy = 1, double offsetBy = 0, double max = 3000}) =>
-    min((screenWidth(context) - offsetBy) / dividedBy, max);
-
-double halfScreenWidth(BuildContext context) =>
-    screenWidthFraction(context, dividedBy: 2);
-
-double thirdScreenWidth(BuildContext context) =>
-    screenWidthFraction(context, dividedBy: 3);
-
-double quarterScreenWidth(BuildContext context) =>
-    screenWidthFraction(context, dividedBy: 4);
-
-double getResponsiveHorizontalSpaceMedium(BuildContext context) =>
-    screenWidthFraction(context, dividedBy: 10);
-double getResponsiveSmallFontSize(BuildContext context) =>
-    getResponsiveFontSize(context, fontSize: 14, max: 15);
-
-double getResponsiveMediumFontSize(BuildContext context) =>
-    getResponsiveFontSize(context, fontSize: 16, max: 17);
-
-double getResponsiveLargeFontSize(BuildContext context) =>
-    getResponsiveFontSize(context, fontSize: 21, max: 31);
-
-double getResponsiveExtraLargeFontSize(BuildContext context) =>
-    getResponsiveFontSize(context, fontSize: 25);
-
-double getResponsiveMassiveFontSize(BuildContext context) =>
-    getResponsiveFontSize(context, fontSize: 30);
-
-double getResponsiveFontSize(BuildContext context,
-    {double? fontSize, double? max}) {
-  max ??= 100;
-
-  var responsiveSize = min(
-      screenWidthFraction(context, dividedBy: 10) * ((fontSize ?? 100) / 100),
-      max);
-  
-  return responsiveSize;
-}
-
+aW1wb3J0ICdkYXJ0Om1hdGgnOwoKaW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7Cgpjb25zdCBkb3VibGUgX3RpbnlTaXplID0gNS4wOwpjb25zdCBkb3VibGUgX3NtYWxsU2l6ZSA9IDEwLjA7CmNvbnN0IGRvdWJsZSBfbWVkaXVtU2l6ZSA9IDI1LjA7CmNvbnN0IGRvdWJsZSBfbGFyZ2VTaXplID0gNTAuMDsKY29uc3QgZG91YmxlIF9tYXNzaXZlU2l6ZSA9IDEyMC4wOwoKY29uc3QgV2lkZ2V0IGhvcml6b250YWxTcGFjZVRpbnkgPSBTaXplZEJveCh3aWR0aDogX3RpbnlTaXplKTsKY29uc3QgV2lkZ2V0IGhvcml6b250YWxTcGFjZVNtYWxsID0gU2l6ZWRCb3god2lkdGg6IF9zbWFsbFNpemUpOwpjb25zdCBXaWRnZXQgaG9yaXpvbnRhbFNwYWNlTWVkaXVtID0gU2l6ZWRCb3god2lkdGg6IF9tZWRpdW1TaXplKTsKY29uc3QgV2lkZ2V0IGhvcml6b250YWxTcGFjZUxhcmdlID0gU2l6ZWRCb3god2lkdGg6IF9sYXJnZVNpemUpOwoKY29uc3QgV2lkZ2V0IHZlcnRpY2FsU3BhY2VUaW55ID0gU2l6ZWRCb3goaGVpZ2h0OiBfdGlueVNpemUpOwpjb25zdCBXaWRnZXQgdmVydGljYWxTcGFjZVNtYWxsID0gU2l6ZWRCb3goaGVpZ2h0OiBfc21hbGxTaXplKTsKY29uc3QgV2lkZ2V0IHZlcnRpY2FsU3BhY2VNZWRpdW0gPSBTaXplZEJveChoZWlnaHQ6IF9tZWRpdW1TaXplKTsKY29uc3QgV2lkZ2V0IHZlcnRpY2FsU3BhY2VMYXJnZSA9IFNpemVkQm94KGhlaWdodDogX2xhcmdlU2l6ZSk7CmNvbnN0IFdpZGdldCB2ZXJ0aWNhbFNwYWNlTWFzc2l2ZSA9IFNpemVkQm94KGhlaWdodDogX21hc3NpdmVTaXplKTsKCldpZGdldCBzcGFjZWREaXZpZGVyID0gQ29sdW1uKAogIGNoaWxkcmVuOiBjb25zdCA8V2lkZ2V0PlsKICAgIHZlcnRpY2FsU3BhY2VNZWRpdW0sCiAgICBEaXZpZGVyKGNvbG9yOiBDb2xvcnMuYmx1ZUdyZXksIGhlaWdodDogNS4wKSwKICAgIHZlcnRpY2FsU3BhY2VNZWRpdW0sCiAgXSwKKTsKCldpZGdldCB2ZXJ0aWNhbFNwYWNlKGRvdWJsZSBoZWlnaHQpID0+IFNpemVkQm94KGhlaWdodDogaGVpZ2h0KTsKCmRvdWJsZSBzY3JlZW5XaWR0aChCdWlsZENvbnRleHQgY29udGV4dCkgPT4gTWVkaWFRdWVyeS5vZihjb250ZXh0KS5zaXplLndpZHRoOwpkb3VibGUgc2NyZWVuSGVpZ2h0KEJ1aWxkQ29udGV4dCBjb250ZXh0KSA9PiBNZWRpYVF1ZXJ5Lm9mKGNvbnRleHQpLnNpemUuaGVpZ2h0OwoKZG91YmxlIHNjcmVlbkhlaWdodEZyYWN0aW9uKEJ1aWxkQ29udGV4dCBjb250ZXh0LAogICAgICAgIHtpbnQgZGl2aWRlZEJ5ID0gMSwgZG91YmxlIG9mZnNldEJ5ID0gMCwgZG91YmxlIG1heCA9IDMwMDB9KSA9PgogICAgbWluKChzY3JlZW5IZWlnaHQoY29udGV4dCkgLSBvZmZzZXRCeSkgLyBkaXZpZGVkQnksIG1heCk7Cgpkb3VibGUgc2NyZWVuV2lkdGhGcmFjdGlvbihCdWlsZENvbnRleHQgY29udGV4dCwKICAgICAgICB7aW50IGRpdmlkZWRCeSA9IDEsIGRvdWJsZSBvZmZzZXRCeSA9IDAsIGRvdWJsZSBtYXggPSAzMDAwfSkgPT4KICAgIG1pbigoc2NyZWVuV2lkdGgoY29udGV4dCkgLSBvZmZzZXRCeSkgLyBkaXZpZGVkQnksIG1heCk7Cgpkb3VibGUgaGFsZlNjcmVlbldpZHRoKEJ1aWxkQ29udGV4dCBjb250ZXh0KSA9PgogICAgc2NyZWVuV2lkdGhGcmFjdGlvbihjb250ZXh0LCBkaXZpZGVkQnk6IDIpOwoKZG91YmxlIHRoaXJkU2NyZWVuV2lkdGgoQnVpbGRDb250ZXh0IGNvbnRleHQpID0+CiAgICBzY3JlZW5XaWR0aEZyYWN0aW9uKGNvbnRleHQsIGRpdmlkZWRCeTogMyk7Cgpkb3VibGUgcXVhcnRlclNjcmVlbldpZHRoKEJ1aWxkQ29udGV4dCBjb250ZXh0KSA9PgogICAgc2NyZWVuV2lkdGhGcmFjdGlvbihjb250ZXh0LCBkaXZpZGVkQnk6IDQpOwoKZG91YmxlIGdldFJlc3BvbnNpdmVIb3Jpem9udGFsU3BhY2VNZWRpdW0oQnVpbGRDb250ZXh0IGNvbnRleHQpID0+CiAgICBzY3JlZW5XaWR0aEZyYWN0aW9uKGNvbnRleHQsIGRpdmlkZWRCeTogMTApOwpkb3VibGUgZ2V0UmVzcG9uc2l2ZVNtYWxsRm9udFNpemUoQnVpbGRDb250ZXh0IGNvbnRleHQpID0+CiAgICBnZXRSZXNwb25zaXZlRm9udFNpemUoY29udGV4dCwgZm9udFNpemU6IDE0LCBtYXg6IDE1KTsKCmRvdWJsZSBnZXRSZXNwb25zaXZlTWVkaXVtRm9udFNpemUoQnVpbGRDb250ZXh0IGNvbnRleHQpID0+CiAgICBnZXRSZXNwb25zaXZlRm9udFNpemUoY29udGV4dCwgZm9udFNpemU6IDE2LCBtYXg6IDE3KTsKCmRvdWJsZSBnZXRSZXNwb25zaXZlTGFyZ2VGb250U2l6ZShCdWlsZENvbnRleHQgY29udGV4dCkgPT4KICAgIGdldFJlc3BvbnNpdmVGb250U2l6ZShjb250ZXh0LCBmb250U2l6ZTogMjEsIG1heDogMzEpOwoKZG91YmxlIGdldFJlc3BvbnNpdmVFeHRyYUxhcmdlRm9udFNpemUoQnVpbGRDb250ZXh0IGNvbnRleHQpID0+CiAgICBnZXRSZXNwb25zaXZlRm9udFNpemUoY29udGV4dCwgZm9udFNpemU6IDI1KTsKCmRvdWJsZSBnZXRSZXNwb25zaXZlTWFzc2l2ZUZvbnRTaXplKEJ1aWxkQ29udGV4dCBjb250ZXh0KSA9PgogICAgZ2V0UmVzcG9uc2l2ZUZvbnRTaXplKGNvbnRleHQsIGZvbnRTaXplOiAzMCk7Cgpkb3VibGUgZ2V0UmVzcG9uc2l2ZUZvbnRTaXplKEJ1aWxkQ29udGV4dCBjb250ZXh0LAogICAge2RvdWJsZT8gZm9udFNpemUsIGRvdWJsZT8gbWF4fSkgewogIG1heCA/Pz0gMTAwOwoKICB2YXIgcmVzcG9uc2l2ZVNpemUgPSBtaW4oCiAgICAgIHNjcmVlbldpZHRoRnJhY3Rpb24oY29udGV4dCwgZGl2aWRlZEJ5OiAxMCkgKiAoKGZvbnRTaXplID8/IDEwMCkgLyAxMDApLAogICAgICBtYXgpOwogIAogIHJldHVybiByZXNwb25zaXZlU2l6ZTsKfQo=
 ''';
 
 // --------------------------------------------------
@@ -517,10 +152,7 @@ const String kAppWebTemplateAppStringsPath =
     'lib/ui/common/app_strings.dart.stk';
 
 const String kAppWebTemplateAppStringsContent = '''
-const String ksHomeBottomSheetTitle = 'Build Great Apps!';
-const String ksHomeBottomSheetDescription =
-    'Stacked is built to help you build better apps. Give us a chance and we\\'ll prove it to you. Check out stacked.filledstacks.com to learn more';
-
+Y29uc3QgU3RyaW5nIGtzSG9tZUJvdHRvbVNoZWV0VGl0bGUgPSAnQnVpbGQgR3JlYXQgQXBwcyEnOwpjb25zdCBTdHJpbmcga3NIb21lQm90dG9tU2hlZXREZXNjcmlwdGlvbiA9CiAgICAnU3RhY2tlZCBpcyBidWlsdCB0byBoZWxwIHlvdSBidWlsZCBiZXR0ZXIgYXBwcy4gR2l2ZSB1cyBhIGNoYW5jZSBhbmQgd2VcXCdsbCBwcm92ZSBpdCB0byB5b3UuIENoZWNrIG91dCBzdGFja2VkLmZpbGxlZHN0YWNrcy5jb20gdG8gbGVhcm4gbW9yZSc7Cg==
 ''';
 
 // --------------------------------------------------
@@ -532,16 +164,7 @@ const String kAppWebTemplateAppColorsPath =
     'lib/ui/common/app_colors.dart.stk';
 
 const String kAppWebTemplateAppColorsContent = '''
-import 'package:flutter/material.dart';
-
-const Color kcPrimaryColor = Color(0xFF9600FF);
-const Color kcPrimaryColorDark = Color(0xFF300151);
-const Color kcDarkGreyColor = Color(0xFF1A1B1E);
-const Color kcMediumGrey = Color(0xFF474A54);
-const Color kcLightGrey = Color.fromARGB(255, 187, 187, 187);
-const Color kcVeryLightGrey = Color(0xFFE3E3E3);
-const Color kcBackgroundColor = kcDarkGreyColor;
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7Cgpjb25zdCBDb2xvciBrY1ByaW1hcnlDb2xvciA9IENvbG9yKDB4RkY5NjAwRkYpOwpjb25zdCBDb2xvciBrY1ByaW1hcnlDb2xvckRhcmsgPSBDb2xvcigweEZGMzAwMTUxKTsKY29uc3QgQ29sb3Iga2NEYXJrR3JleUNvbG9yID0gQ29sb3IoMHhGRjFBMUIxRSk7CmNvbnN0IENvbG9yIGtjTWVkaXVtR3JleSA9IENvbG9yKDB4RkY0NzRBNTQpOwpjb25zdCBDb2xvciBrY0xpZ2h0R3JleSA9IENvbG9yLmZyb21BUkdCKDI1NSwgMTg3LCAxODcsIDE4Nyk7CmNvbnN0IENvbG9yIGtjVmVyeUxpZ2h0R3JleSA9IENvbG9yKDB4RkZFM0UzRTMpOwpjb25zdCBDb2xvciBrY0JhY2tncm91bmRDb2xvciA9IGtjRGFya0dyZXlDb2xvcjsK
 ''';
 
 // --------------------------------------------------
@@ -553,10 +176,7 @@ const String kAppWebTemplateNoticeSheetModelPath =
     'lib/ui/bottom_sheets/notice/notice_sheet_model.dart.stk';
 
 const String kAppWebTemplateNoticeSheetModelContent = '''
-import 'package:stacked/stacked.dart';
-
-class NoticeSheetModel extends BaseViewModel {}
-
+aW1wb3J0ICdwYWNrYWdlOnN0YWNrZWQvc3RhY2tlZC5kYXJ0JzsKCmNsYXNzIE5vdGljZVNoZWV0TW9kZWwgZXh0ZW5kcyBCYXNlVmlld01vZGVsIHt9Cg==
 ''';
 
 // --------------------------------------------------
@@ -568,64 +188,7 @@ const String kAppWebTemplateNoticeSheetPath =
     'lib/ui/bottom_sheets/notice/notice_sheet.dart.stk';
 
 const String kAppWebTemplateNoticeSheetContent = '''
-import 'package:flutter/material.dart';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-
-import 'notice_sheet_model.dart';
-
-class NoticeSheet extends StackedView<NoticeSheetModel> {
-  final Function(SheetResponse)? completer;
-  final SheetRequest request;
-  const NoticeSheet({
-    Key? key,
-    required this.completer,
-    required this.request,
-  }) : super(key: key);
-
-  @override
-  Widget builder(
-    BuildContext context,
-    NoticeSheetModel viewModel,
-    Widget? child,
-  ) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            request.title!,
-            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
-          ),
-          verticalSpaceTiny,
-          Text(
-            request.description!,
-            style: const TextStyle(fontSize: 14, color: kcMediumGrey),
-            maxLines: 3,
-            softWrap: true,
-          ),
-          verticalSpaceLarge,
-        ],
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-        ),
-      ),
-    );
-  }
-
-  @override
-  NoticeSheetModel viewModelBuilder(BuildContext context) =>
-      NoticeSheetModel();
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL2FwcF9jb2xvcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL3VpX2hlbHBlcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkL3N0YWNrZWQuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkX3NlcnZpY2VzL3N0YWNrZWRfc2VydmljZXMuZGFydCc7CgppbXBvcnQgJ25vdGljZV9zaGVldF9tb2RlbC5kYXJ0JzsKCmNsYXNzIE5vdGljZVNoZWV0IGV4dGVuZHMgU3RhY2tlZFZpZXc8Tm90aWNlU2hlZXRNb2RlbD4gewogIGZpbmFsIEZ1bmN0aW9uKFNoZWV0UmVzcG9uc2UpPyBjb21wbGV0ZXI7CiAgZmluYWwgU2hlZXRSZXF1ZXN0IHJlcXVlc3Q7CiAgY29uc3QgTm90aWNlU2hlZXQoewogICAgS2V5PyBrZXksCiAgICByZXF1aXJlZCB0aGlzLmNvbXBsZXRlciwKICAgIHJlcXVpcmVkIHRoaXMucmVxdWVzdCwKICB9KSA6IHN1cGVyKGtleToga2V5KTsKCiAgQG92ZXJyaWRlCiAgV2lkZ2V0IGJ1aWxkZXIoCiAgICBCdWlsZENvbnRleHQgY29udGV4dCwKICAgIE5vdGljZVNoZWV0TW9kZWwgdmlld01vZGVsLAogICAgV2lkZ2V0PyBjaGlsZCwKICApIHsKICAgIHJldHVybiBDb250YWluZXIoCiAgICAgIHBhZGRpbmc6IGNvbnN0IEVkZ2VJbnNldHMuc3ltbWV0cmljKGhvcml6b250YWw6IDIwLCB2ZXJ0aWNhbDogMTUpLAogICAgICBjaGlsZDogQ29sdW1uKAogICAgICAgIGNyb3NzQXhpc0FsaWdubWVudDogQ3Jvc3NBeGlzQWxpZ25tZW50LnN0YXJ0LAogICAgICAgIG1haW5BeGlzU2l6ZTogTWFpbkF4aXNTaXplLm1pbiwKICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgVGV4dCgKICAgICAgICAgICAgcmVxdWVzdC50aXRsZSEsCiAgICAgICAgICAgIHN0eWxlOiBjb25zdCBUZXh0U3R5bGUoZm9udFNpemU6IDI1LCBmb250V2VpZ2h0OiBGb250V2VpZ2h0Lnc5MDApLAogICAgICAgICAgKSwKICAgICAgICAgIHZlcnRpY2FsU3BhY2VUaW55LAogICAgICAgICAgVGV4dCgKICAgICAgICAgICAgcmVxdWVzdC5kZXNjcmlwdGlvbiEsCiAgICAgICAgICAgIHN0eWxlOiBjb25zdCBUZXh0U3R5bGUoZm9udFNpemU6IDE0LCBjb2xvcjoga2NNZWRpdW1HcmV5KSwKICAgICAgICAgICAgbWF4TGluZXM6IDMsCiAgICAgICAgICAgIHNvZnRXcmFwOiB0cnVlLAogICAgICAgICAgKSwKICAgICAgICAgIHZlcnRpY2FsU3BhY2VMYXJnZSwKICAgICAgICBdLAogICAgICApLAogICAgICBkZWNvcmF0aW9uOiBjb25zdCBCb3hEZWNvcmF0aW9uKAogICAgICAgIGNvbG9yOiBDb2xvcnMud2hpdGUsCiAgICAgICAgYm9yZGVyUmFkaXVzOiBCb3JkZXJSYWRpdXMub25seSgKICAgICAgICAgIHRvcExlZnQ6IFJhZGl1cy5jaXJjdWxhcigxMCksCiAgICAgICAgICB0b3BSaWdodDogUmFkaXVzLmNpcmN1bGFyKDEwKSwKICAgICAgICApLAogICAgICApLAogICAgKTsKICB9CgogIEBvdmVycmlkZQogIE5vdGljZVNoZWV0TW9kZWwgdmlld01vZGVsQnVpbGRlcihCdWlsZENvbnRleHQgY29udGV4dCkgPT4KICAgICAgTm90aWNlU2hlZXRNb2RlbCgpOwp9Cg==
 ''';
 
 // --------------------------------------------------
@@ -637,10 +200,7 @@ const String kAppWebTemplateInfoAlertDialogModelPath =
     'lib/ui/dialogs/info_alert/info_alert_dialog_model.dart.stk';
 
 const String kAppWebTemplateInfoAlertDialogModelContent = '''
-import 'package:stacked/stacked.dart';
-
-class InfoAlertDialogModel extends BaseViewModel {}
-
+aW1wb3J0ICdwYWNrYWdlOnN0YWNrZWQvc3RhY2tlZC5kYXJ0JzsKCmNsYXNzIEluZm9BbGVydERpYWxvZ01vZGVsIGV4dGVuZHMgQmFzZVZpZXdNb2RlbCB7fQo=
 ''';
 
 // --------------------------------------------------
@@ -652,115 +212,7 @@ const String kAppWebTemplateInfoAlertDialogPath =
     'lib/ui/dialogs/info_alert/info_alert_dialog.dart.stk';
 
 const String kAppWebTemplateInfoAlertDialogContent = '''
-import 'package:flutter/material.dart';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-
-import 'info_alert_dialog_model.dart';
-
-const double _graphicSize = 60;
-
-class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
-  final DialogRequest request;
-  final Function(DialogResponse) completer;
-
-  const InfoAlertDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
-
-  @override
-  Widget builder(
-    BuildContext context,
-    InfoAlertDialogModel viewModel,
-    Widget? child,
-  ) {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      backgroundColor: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        request.title!,
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w900),
-                      ),
-                      verticalSpaceTiny,
-                      Text(
-                        request.description!,
-                        style:
-                            const TextStyle(fontSize: 14, color: kcMediumGrey),
-                        maxLines: 3,
-                        softWrap: true,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: _graphicSize,
-                  height: _graphicSize,
-                  decoration: const BoxDecoration(
-                    color: Color(0xffF6E7B0),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(_graphicSize / 2),
-                    ),
-                  ),
-                  alignment: Alignment.center,
-                  child: const Text(
-                    '⭐️',
-                    style: TextStyle(fontSize: 30),
-                  ),
-                )
-              ],
-            ),
-            verticalSpaceMedium,
-            GestureDetector(
-              onTap: () => completer(DialogResponse(
-                confirmed: true,
-              )),
-              child: Container(
-                height: 50,
-                width: double.infinity,
-                alignment: Alignment.center,
-                child: const Text(
-                  'Got it',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  InfoAlertDialogModel viewModelBuilder(BuildContext context) =>
-      InfoAlertDialogModel();
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL2FwcF9jb2xvcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL3VpX2hlbHBlcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkL3N0YWNrZWQuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkX3NlcnZpY2VzL3N0YWNrZWRfc2VydmljZXMuZGFydCc7CgppbXBvcnQgJ2luZm9fYWxlcnRfZGlhbG9nX21vZGVsLmRhcnQnOwoKY29uc3QgZG91YmxlIF9ncmFwaGljU2l6ZSA9IDYwOwoKY2xhc3MgSW5mb0FsZXJ0RGlhbG9nIGV4dGVuZHMgU3RhY2tlZFZpZXc8SW5mb0FsZXJ0RGlhbG9nTW9kZWw+IHsKICBmaW5hbCBEaWFsb2dSZXF1ZXN0IHJlcXVlc3Q7CiAgZmluYWwgRnVuY3Rpb24oRGlhbG9nUmVzcG9uc2UpIGNvbXBsZXRlcjsKCiAgY29uc3QgSW5mb0FsZXJ0RGlhbG9nKHsKICAgIEtleT8ga2V5LAogICAgcmVxdWlyZWQgdGhpcy5yZXF1ZXN0LAogICAgcmVxdWlyZWQgdGhpcy5jb21wbGV0ZXIsCiAgfSkgOiBzdXBlcihrZXk6IGtleSk7CgogIEBvdmVycmlkZQogIFdpZGdldCBidWlsZGVyKAogICAgQnVpbGRDb250ZXh0IGNvbnRleHQsCiAgICBJbmZvQWxlcnREaWFsb2dNb2RlbCB2aWV3TW9kZWwsCiAgICBXaWRnZXQ/IGNoaWxkLAogICkgewogICAgcmV0dXJuIERpYWxvZygKICAgICAgc2hhcGU6IFJvdW5kZWRSZWN0YW5nbGVCb3JkZXIoYm9yZGVyUmFkaXVzOiBCb3JkZXJSYWRpdXMuY2lyY3VsYXIoMTApKSwKICAgICAgYmFja2dyb3VuZENvbG9yOiBDb2xvcnMud2hpdGUsCiAgICAgIGNoaWxkOiBQYWRkaW5nKAogICAgICAgIHBhZGRpbmc6IGNvbnN0IEVkZ2VJbnNldHMuc3ltbWV0cmljKGhvcml6b250YWw6IDIwLCB2ZXJ0aWNhbDogMjApLAogICAgICAgIGNoaWxkOiBDb2x1bW4oCiAgICAgICAgICBtYWluQXhpc1NpemU6IE1haW5BeGlzU2l6ZS5taW4sCiAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICBSb3coCiAgICAgICAgICAgICAgbWFpbkF4aXNBbGlnbm1lbnQ6IE1haW5BeGlzQWxpZ25tZW50LnNwYWNlQmV0d2VlbiwKICAgICAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICAgICAgRXhwYW5kZWQoCiAgICAgICAgICAgICAgICAgIGNoaWxkOiBDb2x1bW4oCiAgICAgICAgICAgICAgICAgICAgbWFpbkF4aXNTaXplOiBNYWluQXhpc1NpemUubWluLAogICAgICAgICAgICAgICAgICAgIGNyb3NzQXhpc0FsaWdubWVudDogQ3Jvc3NBeGlzQWxpZ25tZW50LnN0YXJ0LAogICAgICAgICAgICAgICAgICAgIGNoaWxkcmVuOiBbCiAgICAgICAgICAgICAgICAgICAgICBUZXh0KAogICAgICAgICAgICAgICAgICAgICAgICByZXF1ZXN0LnRpdGxlISwKICAgICAgICAgICAgICAgICAgICAgICAgc3R5bGU6IGNvbnN0IFRleHRTdHlsZSgKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZvbnRTaXplOiAxNiwgZm9udFdlaWdodDogRm9udFdlaWdodC53OTAwKSwKICAgICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgICB2ZXJ0aWNhbFNwYWNlVGlueSwKICAgICAgICAgICAgICAgICAgICAgIFRleHQoCiAgICAgICAgICAgICAgICAgICAgICAgIHJlcXVlc3QuZGVzY3JpcHRpb24hLAogICAgICAgICAgICAgICAgICAgICAgICBzdHlsZToKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnN0IFRleHRTdHlsZShmb250U2l6ZTogMTQsIGNvbG9yOiBrY01lZGl1bUdyZXkpLAogICAgICAgICAgICAgICAgICAgICAgICBtYXhMaW5lczogMywKICAgICAgICAgICAgICAgICAgICAgICAgc29mdFdyYXA6IHRydWUsCiAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgIF0sCiAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgQ29udGFpbmVyKAogICAgICAgICAgICAgICAgICB3aWR0aDogX2dyYXBoaWNTaXplLAogICAgICAgICAgICAgICAgICBoZWlnaHQ6IF9ncmFwaGljU2l6ZSwKICAgICAgICAgICAgICAgICAgZGVjb3JhdGlvbjogY29uc3QgQm94RGVjb3JhdGlvbigKICAgICAgICAgICAgICAgICAgICBjb2xvcjogQ29sb3IoMHhmZkY2RTdCMCksCiAgICAgICAgICAgICAgICAgICAgYm9yZGVyUmFkaXVzOiBCb3JkZXJSYWRpdXMuYWxsKAogICAgICAgICAgICAgICAgICAgICAgUmFkaXVzLmNpcmN1bGFyKF9ncmFwaGljU2l6ZSAvIDIpLAogICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgIGFsaWdubWVudDogQWxpZ25tZW50LmNlbnRlciwKICAgICAgICAgICAgICAgICAgY2hpbGQ6IGNvbnN0IFRleHQoCiAgICAgICAgICAgICAgICAgICAgJ+KtkO+4jycsCiAgICAgICAgICAgICAgICAgICAgc3R5bGU6IFRleHRTdHlsZShmb250U2l6ZTogMzApLAogICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgKQogICAgICAgICAgICAgIF0sCiAgICAgICAgICAgICksCiAgICAgICAgICAgIHZlcnRpY2FsU3BhY2VNZWRpdW0sCiAgICAgICAgICAgIEdlc3R1cmVEZXRlY3RvcigKICAgICAgICAgICAgICBvblRhcDogKCkgPT4gY29tcGxldGVyKERpYWxvZ1Jlc3BvbnNlKAogICAgICAgICAgICAgICAgY29uZmlybWVkOiB0cnVlLAogICAgICAgICAgICAgICkpLAogICAgICAgICAgICAgIGNoaWxkOiBDb250YWluZXIoCiAgICAgICAgICAgICAgICBoZWlnaHQ6IDUwLAogICAgICAgICAgICAgICAgd2lkdGg6IGRvdWJsZS5pbmZpbml0eSwKICAgICAgICAgICAgICAgIGFsaWdubWVudDogQWxpZ25tZW50LmNlbnRlciwKICAgICAgICAgICAgICAgIGNoaWxkOiBjb25zdCBUZXh0KAogICAgICAgICAgICAgICAgICAnR290IGl0JywKICAgICAgICAgICAgICAgICAgc3R5bGU6IFRleHRTdHlsZSgKICAgICAgICAgICAgICAgICAgICBjb2xvcjogQ29sb3JzLndoaXRlLAogICAgICAgICAgICAgICAgICAgIGZvbnRXZWlnaHQ6IEZvbnRXZWlnaHQuYm9sZCwKICAgICAgICAgICAgICAgICAgICBmb250U2l6ZTogMTYsCiAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgZGVjb3JhdGlvbjogQm94RGVjb3JhdGlvbigKICAgICAgICAgICAgICAgICAgY29sb3I6IENvbG9ycy5ibGFjaywKICAgICAgICAgICAgICAgICAgYm9yZGVyUmFkaXVzOiBCb3JkZXJSYWRpdXMuY2lyY3VsYXIoMTApLAogICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICApLAogICAgICAgICAgICApCiAgICAgICAgICBdLAogICAgICAgICksCiAgICAgICksCiAgICApOwogIH0KCiAgQG92ZXJyaWRlCiAgSW5mb0FsZXJ0RGlhbG9nTW9kZWwgdmlld01vZGVsQnVpbGRlcihCdWlsZENvbnRleHQgY29udGV4dCkgPT4KICAgICAgSW5mb0FsZXJ0RGlhbG9nTW9kZWwoKTsKfQo=
 ''';
 
 // --------------------------------------------------
@@ -772,82 +224,7 @@ const String kAppWebTemplateHomeViewDesktopPath =
     'lib/ui/views/home/home_view.desktop.dart.stk';
 
 const String kAppWebTemplateHomeViewDesktopContent = '''
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/app_constants.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-
-import 'home_viewmodel.dart';
-
-class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
-  const HomeViewDesktop({super.key});
-
-  @override
-  Widget build(BuildContext context, HomeViewModel viewModel) {
-    return Scaffold(
-      body: Center(
-            child: SizedBox(
-              width: kdDesktopMaxContentWidth,
-              height: kdDesktopMaxContentHeight,
-              child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    const Text(
-                      'Hello, TABLET UI!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showDialog,
-                    ),
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showBottomSheet,
-                    ),
-                  ],
-                )
-              ],
-            ),
-        ),
-      ),
-    );
-  }
-}
-
+aW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS91aS9jb21tb24vYXBwX2NvbG9ycy5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS91aS9jb21tb24vYXBwX2NvbnN0YW50cy5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS91aS9jb21tb24vdWlfaGVscGVycy5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkL3N0YWNrZWQuZGFydCc7CgppbXBvcnQgJ2hvbWVfdmlld21vZGVsLmRhcnQnOwoKY2xhc3MgSG9tZVZpZXdEZXNrdG9wIGV4dGVuZHMgVmlld01vZGVsV2lkZ2V0PEhvbWVWaWV3TW9kZWw+IHsKICBjb25zdCBIb21lVmlld0Rlc2t0b3Aoe3N1cGVyLmtleX0pOwoKICBAb3ZlcnJpZGUKICBXaWRnZXQgYnVpbGQoQnVpbGRDb250ZXh0IGNvbnRleHQsIEhvbWVWaWV3TW9kZWwgdmlld01vZGVsKSB7CiAgICByZXR1cm4gU2NhZmZvbGQoCiAgICAgIGJvZHk6IENlbnRlcigKICAgICAgICAgICAgY2hpbGQ6IFNpemVkQm94KAogICAgICAgICAgICAgIHdpZHRoOiBrZERlc2t0b3BNYXhDb250ZW50V2lkdGgsCiAgICAgICAgICAgICAgaGVpZ2h0OiBrZERlc2t0b3BNYXhDb250ZW50SGVpZ2h0LAogICAgICAgICAgICAgIGNoaWxkOiBDb2x1bW4oCiAgICAgICAgICAgICAgbWFpbkF4aXNTaXplOiBNYWluQXhpc1NpemUubWF4LAogICAgICAgICAgICAgIG1haW5BeGlzQWxpZ25tZW50OiBNYWluQXhpc0FsaWdubWVudC5zcGFjZUJldHdlZW4sCiAgICAgICAgICAgICAgY2hpbGRyZW46IFsKICAgICAgICAgICAgICAgIHZlcnRpY2FsU3BhY2VMYXJnZSwKICAgICAgICAgICAgICAgIENvbHVtbigKICAgICAgICAgICAgICAgICAgY2hpbGRyZW46IFsKICAgICAgICAgICAgICAgICAgICBjb25zdCBUZXh0KAogICAgICAgICAgICAgICAgICAgICAgJ0hlbGxvLCBERVNLVE9QIFVJIScsCiAgICAgICAgICAgICAgICAgICAgICBzdHlsZTogVGV4dFN0eWxlKAogICAgICAgICAgICAgICAgICAgICAgICBmb250U2l6ZTogMzUsCiAgICAgICAgICAgICAgICAgICAgICAgIGZvbnRXZWlnaHQ6IEZvbnRXZWlnaHQudzkwMCwKICAgICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgICB2ZXJ0aWNhbFNwYWNlTWVkaXVtLAogICAgICAgICAgICAgICAgICAgIE1hdGVyaWFsQnV0dG9uKAogICAgICAgICAgICAgICAgICAgICAgY29sb3I6IENvbG9ycy5ibGFjaywKICAgICAgICAgICAgICAgICAgICAgIG9uUHJlc3NlZDogdmlld01vZGVsLmluY3JlbWVudENvdW50ZXIsCiAgICAgICAgICAgICAgICAgICAgICBjaGlsZDogVGV4dCgKICAgICAgICAgICAgICAgICAgICAgICAgdmlld01vZGVsLmNvdW50ZXJMYWJlbCwKICAgICAgICAgICAgICAgICAgICAgICAgc3R5bGU6IGNvbnN0IFRleHRTdHlsZShjb2xvcjogQ29sb3JzLndoaXRlKSwKICAgICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgXSwKICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICBSb3coCiAgICAgICAgICAgICAgICAgIG1haW5BeGlzQWxpZ25tZW50OiBNYWluQXhpc0FsaWdubWVudC5zcGFjZUJldHdlZW4sCiAgICAgICAgICAgICAgICAgIGNoaWxkcmVuOiBbCiAgICAgICAgICAgICAgICAgICAgTWF0ZXJpYWxCdXR0b24oCiAgICAgICAgICAgICAgICAgICAgICBjb2xvcjoga2NEYXJrR3JleUNvbG9yLAogICAgICAgICAgICAgICAgICAgICAgY2hpbGQ6IGNvbnN0IFRleHQoCiAgICAgICAgICAgICAgICAgICAgICAgICdTaG93IERpYWxvZycsCiAgICAgICAgICAgICAgICAgICAgICAgIHN0eWxlOiBUZXh0U3R5bGUoCiAgICAgICAgICAgICAgICAgICAgICAgICAgY29sb3I6IENvbG9ycy53aGl0ZSwKICAgICAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgICBvblByZXNzZWQ6IHZpZXdNb2RlbC5zaG93RGlhbG9nLAogICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgTWF0ZXJpYWxCdXR0b24oCiAgICAgICAgICAgICAgICAgICAgICBjb2xvcjoga2NEYXJrR3JleUNvbG9yLAogICAgICAgICAgICAgICAgICAgICAgY2hpbGQ6IGNvbnN0IFRleHQoCiAgICAgICAgICAgICAgICAgICAgICAgICdTaG93IEJvdHRvbSBTaGVldCcsCiAgICAgICAgICAgICAgICAgICAgICAgIHN0eWxlOiBUZXh0U3R5bGUoCiAgICAgICAgICAgICAgICAgICAgICAgICAgY29sb3I6IENvbG9ycy53aGl0ZSwKICAgICAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgICBvblByZXNzZWQ6IHZpZXdNb2RlbC5zaG93Qm90dG9tU2hlZXQsCiAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgXSwKICAgICAgICAgICAgICAgICkKICAgICAgICAgICAgICBdLAogICAgICAgICAgICApLAogICAgICAgICksCiAgICAgICksCiAgICApOwogIH0KfQo=
 ''';
 
 // --------------------------------------------------
@@ -859,82 +236,7 @@ const String kAppWebTemplateHomeViewMobilePath =
     'lib/ui/views/home/home_view.mobile.dart.stk';
 
 const String kAppWebTemplateHomeViewMobileContent = '''
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-
-import 'home_viewmodel.dart';
-
-class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
-  const HomeViewMobile({super.key});
-
-  @override
-  Widget build(BuildContext context, HomeViewModel viewModel) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    const Text(
-                      'Hello, MOBILE UI!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showDialog,
-                    ),
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showBottomSheet,
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
+aW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS91aS9jb21tb24vYXBwX2NvbG9ycy5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS91aS9jb21tb24vdWlfaGVscGVycy5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkL3N0YWNrZWQuZGFydCc7CgppbXBvcnQgJ2hvbWVfdmlld21vZGVsLmRhcnQnOwoKY2xhc3MgSG9tZVZpZXdNb2JpbGUgZXh0ZW5kcyBWaWV3TW9kZWxXaWRnZXQ8SG9tZVZpZXdNb2RlbD4gewogIGNvbnN0IEhvbWVWaWV3TW9iaWxlKHtzdXBlci5rZXl9KTsKCiAgQG92ZXJyaWRlCiAgV2lkZ2V0IGJ1aWxkKEJ1aWxkQ29udGV4dCBjb250ZXh0LCBIb21lVmlld01vZGVsIHZpZXdNb2RlbCkgewogICAgcmV0dXJuIFNjYWZmb2xkKAogICAgICBib2R5OiBTYWZlQXJlYSgKICAgICAgICBjaGlsZDogUGFkZGluZygKICAgICAgICAgIHBhZGRpbmc6IGNvbnN0IEVkZ2VJbnNldHMuc3ltbWV0cmljKGhvcml6b250YWw6IDI1LjApLAogICAgICAgICAgY2hpbGQ6IENlbnRlcigKICAgICAgICAgICAgY2hpbGQ6IENvbHVtbigKICAgICAgICAgICAgICBtYWluQXhpc1NpemU6IE1haW5BeGlzU2l6ZS5tYXgsCiAgICAgICAgICAgICAgbWFpbkF4aXNBbGlnbm1lbnQ6IE1haW5BeGlzQWxpZ25tZW50LnNwYWNlQmV0d2VlbiwKICAgICAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICAgICAgdmVydGljYWxTcGFjZUxhcmdlLAogICAgICAgICAgICAgICAgQ29sdW1uKAogICAgICAgICAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICAgICAgICAgIGNvbnN0IFRleHQoCiAgICAgICAgICAgICAgICAgICAgICAnSGVsbG8sIE1PQklMRSBVSSEnLAogICAgICAgICAgICAgICAgICAgICAgc3R5bGU6IFRleHRTdHlsZSgKICAgICAgICAgICAgICAgICAgICAgICAgZm9udFNpemU6IDM1LAogICAgICAgICAgICAgICAgICAgICAgICBmb250V2VpZ2h0OiBGb250V2VpZ2h0Lnc5MDAsCiAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgdmVydGljYWxTcGFjZU1lZGl1bSwKICAgICAgICAgICAgICAgICAgICBNYXRlcmlhbEJ1dHRvbigKICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBDb2xvcnMuYmxhY2ssCiAgICAgICAgICAgICAgICAgICAgICBvblByZXNzZWQ6IHZpZXdNb2RlbC5pbmNyZW1lbnRDb3VudGVyLAogICAgICAgICAgICAgICAgICAgICAgY2hpbGQ6IFRleHQoCiAgICAgICAgICAgICAgICAgICAgICAgIHZpZXdNb2RlbC5jb3VudGVyTGFiZWwsCiAgICAgICAgICAgICAgICAgICAgICAgIHN0eWxlOiBjb25zdCBUZXh0U3R5bGUoY29sb3I6IENvbG9ycy53aGl0ZSksCiAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgIF0sCiAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgUm93KAogICAgICAgICAgICAgICAgICBtYWluQXhpc0FsaWdubWVudDogTWFpbkF4aXNBbGlnbm1lbnQuc3BhY2VCZXR3ZWVuLAogICAgICAgICAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICAgICAgICAgIE1hdGVyaWFsQnV0dG9uKAogICAgICAgICAgICAgICAgICAgICAgY29sb3I6IGtjRGFya0dyZXlDb2xvciwKICAgICAgICAgICAgICAgICAgICAgIGNoaWxkOiBjb25zdCBUZXh0KAogICAgICAgICAgICAgICAgICAgICAgICAnU2hvdyBEaWFsb2cnLAogICAgICAgICAgICAgICAgICAgICAgICBzdHlsZTogVGV4dFN0eWxlKAogICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBDb2xvcnMud2hpdGUsCiAgICAgICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgICAgb25QcmVzc2VkOiB2aWV3TW9kZWwuc2hvd0RpYWxvZywKICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgIE1hdGVyaWFsQnV0dG9uKAogICAgICAgICAgICAgICAgICAgICAgY29sb3I6IGtjRGFya0dyZXlDb2xvciwKICAgICAgICAgICAgICAgICAgICAgIGNoaWxkOiBjb25zdCBUZXh0KAogICAgICAgICAgICAgICAgICAgICAgICAnU2hvdyBCb3R0b20gU2hlZXQnLAogICAgICAgICAgICAgICAgICAgICAgICBzdHlsZTogVGV4dFN0eWxlKAogICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBDb2xvcnMud2hpdGUsCiAgICAgICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgICAgb25QcmVzc2VkOiB2aWV3TW9kZWwuc2hvd0JvdHRvbVNoZWV0LAogICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgIF0sCiAgICAgICAgICAgICAgICApCiAgICAgICAgICAgICAgXSwKICAgICAgICAgICAgKSwKICAgICAgICAgICksCiAgICAgICAgKSwKICAgICAgKSwKICAgICk7CiAgfQp9Cg==
 ''';
 
 // --------------------------------------------------
@@ -946,39 +248,7 @@ const String kAppWebTemplateHomeViewPath =
     'lib/ui/views/home/home_view.dart.stk';
 
 const String kAppWebTemplateHomeViewContent = '''
-import 'package:flutter/material.dart';
-import 'package:responsive_builder/responsive_builder.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
-
-import 'home_view.desktop.dart';
-import 'home_view.tablet.dart';
-import 'home_view.mobile.dart';
-import 'home_viewmodel.dart';
-
-class HomeView extends StackedView<HomeViewModel> {
-  const HomeView({super.key});
-
-  @override
-  Widget builder(
-    BuildContext context,
-    HomeViewModel viewModel,
-    Widget? child,
-  ) {
-    return ScreenTypeLayout.builder(
-      mobile: (_) => const HomeViewMobile(),
-      tablet: (_) => const HomeViewTablet(),
-      desktop: (_) => const HomeViewDesktop(),
-    );
-  }
-
-  @override
-  HomeViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      HomeViewModel();
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTpyZXNwb25zaXZlX2J1aWxkZXIvcmVzcG9uc2l2ZV9idWlsZGVyLmRhcnQnOwppbXBvcnQgJ3BhY2thZ2U6c3RhY2tlZC9zdGFja2VkLmRhcnQnOwppbXBvcnQgJ3BhY2thZ2U6c3RhY2tlZC9zdGFja2VkX2Fubm90YXRpb25zLmRhcnQnOwoKaW1wb3J0ICdob21lX3ZpZXcuZGVza3RvcC5kYXJ0JzsKaW1wb3J0ICdob21lX3ZpZXcudGFibGV0LmRhcnQnOwppbXBvcnQgJ2hvbWVfdmlldy5tb2JpbGUuZGFydCc7CmltcG9ydCAnaG9tZV92aWV3bW9kZWwuZGFydCc7CgpjbGFzcyBIb21lVmlldyBleHRlbmRzIFN0YWNrZWRWaWV3PEhvbWVWaWV3TW9kZWw+IHsKICBjb25zdCBIb21lVmlldyh7c3VwZXIua2V5fSk7CgogIEBvdmVycmlkZQogIFdpZGdldCBidWlsZGVyKAogICAgQnVpbGRDb250ZXh0IGNvbnRleHQsCiAgICBIb21lVmlld01vZGVsIHZpZXdNb2RlbCwKICAgIFdpZGdldD8gY2hpbGQsCiAgKSB7CiAgICByZXR1cm4gU2NyZWVuVHlwZUxheW91dC5idWlsZGVyKAogICAgICBtb2JpbGU6IChfKSA9PiBjb25zdCBIb21lVmlld01vYmlsZSgpLAogICAgICB0YWJsZXQ6IChfKSA9PiBjb25zdCBIb21lVmlld1RhYmxldCgpLAogICAgICBkZXNrdG9wOiAoXykgPT4gY29uc3QgSG9tZVZpZXdEZXNrdG9wKCksCiAgICApOwogIH0KCiAgQG92ZXJyaWRlCiAgSG9tZVZpZXdNb2RlbCB2aWV3TW9kZWxCdWlsZGVyKAogICAgQnVpbGRDb250ZXh0IGNvbnRleHQsCiAgKSA9PgogICAgICBIb21lVmlld01vZGVsKCk7Cn0K
 ''';
 
 // --------------------------------------------------
@@ -990,43 +260,7 @@ const String kAppWebTemplateHomeViewmodelPath =
     'lib/ui/views/home/home_viewmodel.dart.stk';
 
 const String kAppWebTemplateHomeViewmodelContent = '''
-import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
-import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-import 'package:{{packageName}}/ui/common/app_strings.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-
-class HomeViewModel extends BaseViewModel {
-  final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
-
-  String get counterLabel => 'Counter is: \$_counter';
-
-  int _counter = 0;
-
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
-  }
-
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Stacked Rocks!',
-      description: 'Give stacked \$_counter stars on Github',
-    );
-  }
-
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: ksHomeBottomSheetTitle,
-      description: ksHomeBottomSheetDescription,
-    );
-  }
-}
-
+aW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS97e3tyZWxhdGl2ZUJvdHRvbVNoZWV0RmlsZVBhdGh9fX0nOwppbXBvcnQgJ3BhY2thZ2U6e3twYWNrYWdlTmFtZX19L3t7e3JlbGF0aXZlRGlhbG9nRmlsZVBhdGh9fX0nOwppbXBvcnQgJ3BhY2thZ2U6e3twYWNrYWdlTmFtZX19L3t7e3JlbGF0aXZlTG9jYXRvckZpbGVQYXRofX19JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS91aS9jb21tb24vYXBwX3N0cmluZ3MuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkL3N0YWNrZWQuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkX3NlcnZpY2VzL3N0YWNrZWRfc2VydmljZXMuZGFydCc7CgpjbGFzcyBIb21lVmlld01vZGVsIGV4dGVuZHMgQmFzZVZpZXdNb2RlbCB7CiAgZmluYWwgX2RpYWxvZ1NlcnZpY2UgPSBsb2NhdG9yPERpYWxvZ1NlcnZpY2U+KCk7CiAgZmluYWwgX2JvdHRvbVNoZWV0U2VydmljZSA9IGxvY2F0b3I8Qm90dG9tU2hlZXRTZXJ2aWNlPigpOwoKICBTdHJpbmcgZ2V0IGNvdW50ZXJMYWJlbCA9PiAnQ291bnRlciBpczogXCRfY291bnRlcic7CgogIGludCBfY291bnRlciA9IDA7CgogIHZvaWQgaW5jcmVtZW50Q291bnRlcigpIHsKICAgIF9jb3VudGVyKys7CiAgICByZWJ1aWxkVWkoKTsKICB9CgogIHZvaWQgc2hvd0RpYWxvZygpIHsKICAgIF9kaWFsb2dTZXJ2aWNlLnNob3dDdXN0b21EaWFsb2coCiAgICAgIHZhcmlhbnQ6IERpYWxvZ1R5cGUuaW5mb0FsZXJ0LAogICAgICB0aXRsZTogJ1N0YWNrZWQgUm9ja3MhJywKICAgICAgZGVzY3JpcHRpb246ICdHaXZlIHN0YWNrZWQgXCRfY291bnRlciBzdGFycyBvbiBHaXRodWInLAogICAgKTsKICB9CgogIHZvaWQgc2hvd0JvdHRvbVNoZWV0KCkgewogICAgX2JvdHRvbVNoZWV0U2VydmljZS5zaG93Q3VzdG9tU2hlZXQoCiAgICAgIHZhcmlhbnQ6IEJvdHRvbVNoZWV0VHlwZS5ub3RpY2UsCiAgICAgIHRpdGxlOiBrc0hvbWVCb3R0b21TaGVldFRpdGxlLAogICAgICBkZXNjcmlwdGlvbjoga3NIb21lQm90dG9tU2hlZXREZXNjcmlwdGlvbiwKICAgICk7CiAgfQp9Cg==
 ''';
 
 // --------------------------------------------------
@@ -1038,82 +272,7 @@ const String kAppWebTemplateHomeViewTabletPath =
     'lib/ui/views/home/home_view.tablet.dart.stk';
 
 const String kAppWebTemplateHomeViewTabletContent = '''
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-
-import 'home_viewmodel.dart';
-
-class HomeViewTablet extends ViewModelWidget<HomeViewModel> {
-  const HomeViewTablet({super.key});
-
-  @override
-  Widget build(BuildContext context, HomeViewModel viewModel) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    const Text(
-                      'Hello, TABLET UI!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showDialog,
-                    ),
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showBottomSheet,
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
+aW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS91aS9jb21tb24vYXBwX2NvbG9ycy5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS91aS9jb21tb24vdWlfaGVscGVycy5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkL3N0YWNrZWQuZGFydCc7CgppbXBvcnQgJ2hvbWVfdmlld21vZGVsLmRhcnQnOwoKY2xhc3MgSG9tZVZpZXdUYWJsZXQgZXh0ZW5kcyBWaWV3TW9kZWxXaWRnZXQ8SG9tZVZpZXdNb2RlbD4gewogIGNvbnN0IEhvbWVWaWV3VGFibGV0KHtzdXBlci5rZXl9KTsKCiAgQG92ZXJyaWRlCiAgV2lkZ2V0IGJ1aWxkKEJ1aWxkQ29udGV4dCBjb250ZXh0LCBIb21lVmlld01vZGVsIHZpZXdNb2RlbCkgewogICAgcmV0dXJuIFNjYWZmb2xkKAogICAgICBib2R5OiBTYWZlQXJlYSgKICAgICAgICBjaGlsZDogUGFkZGluZygKICAgICAgICAgIHBhZGRpbmc6IGNvbnN0IEVkZ2VJbnNldHMuc3ltbWV0cmljKGhvcml6b250YWw6IDI1LjApLAogICAgICAgICAgY2hpbGQ6IENlbnRlcigKICAgICAgICAgICAgY2hpbGQ6IENvbHVtbigKICAgICAgICAgICAgICBtYWluQXhpc1NpemU6IE1haW5BeGlzU2l6ZS5tYXgsCiAgICAgICAgICAgICAgbWFpbkF4aXNBbGlnbm1lbnQ6IE1haW5BeGlzQWxpZ25tZW50LnNwYWNlQmV0d2VlbiwKICAgICAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICAgICAgdmVydGljYWxTcGFjZUxhcmdlLAogICAgICAgICAgICAgICAgQ29sdW1uKAogICAgICAgICAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICAgICAgICAgIGNvbnN0IFRleHQoCiAgICAgICAgICAgICAgICAgICAgICAnSGVsbG8sIFRBQkxFVCBVSSEnLAogICAgICAgICAgICAgICAgICAgICAgc3R5bGU6IFRleHRTdHlsZSgKICAgICAgICAgICAgICAgICAgICAgICAgZm9udFNpemU6IDM1LAogICAgICAgICAgICAgICAgICAgICAgICBmb250V2VpZ2h0OiBGb250V2VpZ2h0Lnc5MDAsCiAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgdmVydGljYWxTcGFjZU1lZGl1bSwKICAgICAgICAgICAgICAgICAgICBNYXRlcmlhbEJ1dHRvbigKICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBDb2xvcnMuYmxhY2ssCiAgICAgICAgICAgICAgICAgICAgICBvblByZXNzZWQ6IHZpZXdNb2RlbC5pbmNyZW1lbnRDb3VudGVyLAogICAgICAgICAgICAgICAgICAgICAgY2hpbGQ6IFRleHQoCiAgICAgICAgICAgICAgICAgICAgICAgIHZpZXdNb2RlbC5jb3VudGVyTGFiZWwsCiAgICAgICAgICAgICAgICAgICAgICAgIHN0eWxlOiBjb25zdCBUZXh0U3R5bGUoY29sb3I6IENvbG9ycy53aGl0ZSksCiAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgIF0sCiAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgUm93KAogICAgICAgICAgICAgICAgICBtYWluQXhpc0FsaWdubWVudDogTWFpbkF4aXNBbGlnbm1lbnQuc3BhY2VCZXR3ZWVuLAogICAgICAgICAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICAgICAgICAgIE1hdGVyaWFsQnV0dG9uKAogICAgICAgICAgICAgICAgICAgICAgY29sb3I6IGtjRGFya0dyZXlDb2xvciwKICAgICAgICAgICAgICAgICAgICAgIGNoaWxkOiBjb25zdCBUZXh0KAogICAgICAgICAgICAgICAgICAgICAgICAnU2hvdyBEaWFsb2cnLAogICAgICAgICAgICAgICAgICAgICAgICBzdHlsZTogVGV4dFN0eWxlKAogICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBDb2xvcnMud2hpdGUsCiAgICAgICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgICAgb25QcmVzc2VkOiB2aWV3TW9kZWwuc2hvd0RpYWxvZywKICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgIE1hdGVyaWFsQnV0dG9uKAogICAgICAgICAgICAgICAgICAgICAgY29sb3I6IGtjRGFya0dyZXlDb2xvciwKICAgICAgICAgICAgICAgICAgICAgIGNoaWxkOiBjb25zdCBUZXh0KAogICAgICAgICAgICAgICAgICAgICAgICAnU2hvdyBCb3R0b20gU2hlZXQnLAogICAgICAgICAgICAgICAgICAgICAgICBzdHlsZTogVGV4dFN0eWxlKAogICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBDb2xvcnMud2hpdGUsCiAgICAgICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgICAgb25QcmVzc2VkOiB2aWV3TW9kZWwuc2hvd0JvdHRvbVNoZWV0LAogICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgIF0sCiAgICAgICAgICAgICAgICApCiAgICAgICAgICAgICAgXSwKICAgICAgICAgICAgKSwKICAgICAgICAgICksCiAgICAgICAgKSwKICAgICAgKSwKICAgICk7CiAgfQp9Cg==
 ''';
 
 // --------------------------------------------------
@@ -1125,23 +284,7 @@ const String kAppWebTemplateStartupViewmodelPath =
     'lib/ui/views/startup/startup_viewmodel.dart.stk';
 
 const String kAppWebTemplateStartupViewmodelContent = '''
-import 'package:stacked/stacked.dart';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
-import 'package:stacked_services/stacked_services.dart';
-
-class StartupViewModel extends BaseViewModel {
-  final _navigationService = locator<NavigationService>();
-
-  // Place anything here that needs to happen before we get into the application
-  Future runStartupLogic() async {
-    // This is where you can make decisions on where your app should navigate when
-    // you have custom startup logic
-
-    await _navigationService.replaceWithHomeView();
-  }
-}
-
+aW1wb3J0ICdwYWNrYWdlOnN0YWNrZWQvc3RhY2tlZC5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS97e3tyZWxhdGl2ZUxvY2F0b3JGaWxlUGF0aH19fSc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVSb3V0ZXJGaWxlUGF0aH19fSc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkX3NlcnZpY2VzL3N0YWNrZWRfc2VydmljZXMuZGFydCc7CgpjbGFzcyBTdGFydHVwVmlld01vZGVsIGV4dGVuZHMgQmFzZVZpZXdNb2RlbCB7CiAgZmluYWwgX25hdmlnYXRpb25TZXJ2aWNlID0gbG9jYXRvcjxOYXZpZ2F0aW9uU2VydmljZT4oKTsKCiAgLy8gUGxhY2UgYW55dGhpbmcgaGVyZSB0aGF0IG5lZWRzIHRvIGhhcHBlbiBiZWZvcmUgd2UgZ2V0IGludG8gdGhlIGFwcGxpY2F0aW9uCiAgRnV0dXJlIHJ1blN0YXJ0dXBMb2dpYygpIGFzeW5jIHsKICAgIC8vIFRoaXMgaXMgd2hlcmUgeW91IGNhbiBtYWtlIGRlY2lzaW9ucyBvbiB3aGVyZSB5b3VyIGFwcCBzaG91bGQgbmF2aWdhdGUgd2hlbgogICAgLy8geW91IGhhdmUgY3VzdG9tIHN0YXJ0dXAgbG9naWMKCiAgICBhd2FpdCBfbmF2aWdhdGlvblNlcnZpY2UucmVwbGFjZVdpdGhIb21lVmlldygpOwogIH0KfQo=
 ''';
 
 // --------------------------------------------------
@@ -1153,70 +296,7 @@ const String kAppWebTemplateStartupViewPath =
     'lib/ui/views/startup/startup_view.dart.stk';
 
 const String kAppWebTemplateStartupViewContent = '''
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:stacked/stacked.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-
-import 'startup_viewmodel.dart';
-
-class StartupView extends StackedView<StartupViewModel> {
-  const StartupView({Key? key}) : super(key: key);
-
-  @override
-  Widget builder(
-    BuildContext context,
-    StartupViewModel viewModel,
-    Widget? child,
-  ) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'STACKED',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.w900,
-              ),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text(
-                  'Loading ...',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                horizontalSpaceSmall,
-                SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(
-                    color: Colors.black,
-                    strokeWidth: 6,
-                  ),
-                )
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  StartupViewModel viewModelBuilder(
-    BuildContext context,
-  ) => StartupViewModel();
-
-  @override
-  void onViewModelReady(StartupViewModel viewModel) => SchedulerBinding.instance
-      .addPostFrameCallback((timeStamp) => viewModel.runStartupLogic());
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTpmbHV0dGVyL3NjaGVkdWxlci5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnN0YWNrZWQvc3RhY2tlZC5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS91aS9jb21tb24vdWlfaGVscGVycy5kYXJ0JzsKCmltcG9ydCAnc3RhcnR1cF92aWV3bW9kZWwuZGFydCc7CgpjbGFzcyBTdGFydHVwVmlldyBleHRlbmRzIFN0YWNrZWRWaWV3PFN0YXJ0dXBWaWV3TW9kZWw+IHsKICBjb25zdCBTdGFydHVwVmlldyh7S2V5PyBrZXl9KSA6IHN1cGVyKGtleToga2V5KTsKCiAgQG92ZXJyaWRlCiAgV2lkZ2V0IGJ1aWxkZXIoCiAgICBCdWlsZENvbnRleHQgY29udGV4dCwKICAgIFN0YXJ0dXBWaWV3TW9kZWwgdmlld01vZGVsLAogICAgV2lkZ2V0PyBjaGlsZCwKICApIHsKICAgIHJldHVybiBTY2FmZm9sZCgKICAgICAgYm9keTogQ2VudGVyKAogICAgICAgIGNoaWxkOiBDb2x1bW4oCiAgICAgICAgICBtYWluQXhpc1NpemU6IE1haW5BeGlzU2l6ZS5taW4sCiAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICBjb25zdCBUZXh0KAogICAgICAgICAgICAgICdTVEFDS0VEJywKICAgICAgICAgICAgICBzdHlsZTogVGV4dFN0eWxlKAogICAgICAgICAgICAgICAgZm9udFNpemU6IDQwLAogICAgICAgICAgICAgICAgZm9udFdlaWdodDogRm9udFdlaWdodC53OTAwLAogICAgICAgICAgICAgICksCiAgICAgICAgICAgICksCiAgICAgICAgICAgIFJvdygKICAgICAgICAgICAgICBtYWluQXhpc1NpemU6IE1haW5BeGlzU2l6ZS5taW4sCiAgICAgICAgICAgICAgY2hpbGRyZW46IGNvbnN0IFsKICAgICAgICAgICAgICAgIFRleHQoCiAgICAgICAgICAgICAgICAgICdMb2FkaW5nIC4uLicsCiAgICAgICAgICAgICAgICAgIHN0eWxlOiBUZXh0U3R5bGUoCiAgICAgICAgICAgICAgICAgICAgZm9udFNpemU6IDE2LAogICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgIGhvcml6b250YWxTcGFjZVNtYWxsLAogICAgICAgICAgICAgICAgU2l6ZWRCb3goCiAgICAgICAgICAgICAgICAgIHdpZHRoOiAxNiwKICAgICAgICAgICAgICAgICAgaGVpZ2h0OiAxNiwKICAgICAgICAgICAgICAgICAgY2hpbGQ6IENpcmN1bGFyUHJvZ3Jlc3NJbmRpY2F0b3IoCiAgICAgICAgICAgICAgICAgICAgY29sb3I6IENvbG9ycy5ibGFjaywKICAgICAgICAgICAgICAgICAgICBzdHJva2VXaWR0aDogNiwKICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICkKICAgICAgICAgICAgICBdLAogICAgICAgICAgICApLAogICAgICAgICAgXSwKICAgICAgICApLAogICAgICApLAogICAgKTsKICB9CgogIEBvdmVycmlkZQogIFN0YXJ0dXBWaWV3TW9kZWwgdmlld01vZGVsQnVpbGRlcigKICAgIEJ1aWxkQ29udGV4dCBjb250ZXh0LAogICkgPT4gU3RhcnR1cFZpZXdNb2RlbCgpOwoKICBAb3ZlcnJpZGUKICB2b2lkIG9uVmlld01vZGVsUmVhZHkoU3RhcnR1cFZpZXdNb2RlbCB2aWV3TW9kZWwpID0+IFNjaGVkdWxlckJpbmRpbmcuaW5zdGFuY2UKICAgICAgLmFkZFBvc3RGcmFtZUNhbGxiYWNrKCh0aW1lU3RhbXApID0+IHZpZXdNb2RlbC5ydW5TdGFydHVwTG9naWMoKSk7Cn0K
 ''';
 
 // --------------------------------------------------
@@ -1228,37 +308,7 @@ const String kAppWebTemplateAppPath =
     'lib/app/app.dart.stk';
 
 const String kAppWebTemplateAppContent = '''
-import 'package:{{packageName}}/{{{bottomSheetsPath}}}/notice/notice_sheet.dart';
-import 'package:{{packageName}}/{{{dialogsPath}}}/info_alert/info_alert_dialog.dart';
-import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_view.dart';
-import 'package:{{packageName}}/{{{viewImportPath}}}/startup/startup_view.dart';
-import 'package:stacked/stacked_annotations.dart';
-import 'package:stacked_services/stacked_services.dart';
-// @stacked-import
-
-@StackedApp(
-  routes: [
-    MaterialRoute(page: HomeView),
-    MaterialRoute(page: StartupView),
-    // @stacked-route
-  ],
-  dependencies: [
-    LazySingleton(classType: BottomSheetService),
-    LazySingleton(classType: DialogService),
-    LazySingleton(classType: NavigationService),
-    // @stacked-service
-  ],
-  bottomsheets: [
-    StackedBottomsheet(classType: NoticeSheet),
-    // @stacked-bottom-sheet
-  ],
-  dialogs: [
-    StackedDialog(classType: InfoAlertDialog),
-    // @stacked-dialog
-  ],
-)
-class App {}
-
+aW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS97e3tib3R0b21TaGVldHNQYXRofX19L25vdGljZS9ub3RpY2Vfc2hlZXQuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7ZGlhbG9nc1BhdGh9fX0vaW5mb19hbGVydC9pbmZvX2FsZXJ0X2RpYWxvZy5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS97e3t2aWV3SW1wb3J0UGF0aH19fS9ob21lL2hvbWVfdmlldy5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS97e3t2aWV3SW1wb3J0UGF0aH19fS9zdGFydHVwL3N0YXJ0dXBfdmlldy5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnN0YWNrZWQvc3RhY2tlZF9hbm5vdGF0aW9ucy5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnN0YWNrZWRfc2VydmljZXMvc3RhY2tlZF9zZXJ2aWNlcy5kYXJ0JzsKLy8gQHN0YWNrZWQtaW1wb3J0CgpAU3RhY2tlZEFwcCgKICByb3V0ZXM6IFsKICAgIE1hdGVyaWFsUm91dGUocGFnZTogSG9tZVZpZXcpLAogICAgTWF0ZXJpYWxSb3V0ZShwYWdlOiBTdGFydHVwVmlldyksCiAgICAvLyBAc3RhY2tlZC1yb3V0ZQogIF0sCiAgZGVwZW5kZW5jaWVzOiBbCiAgICBMYXp5U2luZ2xldG9uKGNsYXNzVHlwZTogQm90dG9tU2hlZXRTZXJ2aWNlKSwKICAgIExhenlTaW5nbGV0b24oY2xhc3NUeXBlOiBEaWFsb2dTZXJ2aWNlKSwKICAgIExhenlTaW5nbGV0b24oY2xhc3NUeXBlOiBOYXZpZ2F0aW9uU2VydmljZSksCiAgICAvLyBAc3RhY2tlZC1zZXJ2aWNlCiAgXSwKICBib3R0b21zaGVldHM6IFsKICAgIFN0YWNrZWRCb3R0b21zaGVldChjbGFzc1R5cGU6IE5vdGljZVNoZWV0KSwKICAgIC8vIEBzdGFja2VkLWJvdHRvbS1zaGVldAogIF0sCiAgZGlhbG9nczogWwogICAgU3RhY2tlZERpYWxvZyhjbGFzc1R5cGU6IEluZm9BbGVydERpYWxvZyksCiAgICAvLyBAc3RhY2tlZC1kaWFsb2cKICBdLAopCmNsYXNzIEFwcCB7fQo=
 ''';
 
 // --------------------------------------------------
@@ -1270,104 +320,7 @@ const String kAppWebTemplatePubspecYamlStkPath =
     'pubspec.yaml.stk';
 
 const String kAppWebTemplatePubspecYamlStkContent = '''
-name: {{packageName}}
-description: An app build with the stacked framework
-
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
-
-environment:
-  sdk: ">=2.17.0 <3.0.0"
-
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
-dependencies:
-  flutter:
-    sdk: flutter
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  
-  stacked: ^3.1.0+3
-  stacked_services: ^0.9.9
-  responsive_builder: ^0.6.0
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^1.0.0
-  build_runner: ^2.2.0
-
-  stacked_generator: ^0.8.5
-  mockito: ^5.3.2
-
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
-flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
-  uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
-
+bmFtZToge3twYWNrYWdlTmFtZX19CmRlc2NyaXB0aW9uOiBBbiBhcHAgYnVpbGQgd2l0aCB0aGUgc3RhY2tlZCBmcmFtZXdvcmsKCiMgVGhlIGZvbGxvd2luZyBsaW5lIHByZXZlbnRzIHRoZSBwYWNrYWdlIGZyb20gYmVpbmcgYWNjaWRlbnRhbGx5IHB1Ymxpc2hlZCB0bwojIHB1Yi5kZXYgdXNpbmcgYGZsdXR0ZXIgcHViIHB1Ymxpc2hgLiBUaGlzIGlzIHByZWZlcnJlZCBmb3IgcHJpdmF0ZSBwYWNrYWdlcy4KcHVibGlzaF90bzogJ25vbmUnICMgUmVtb3ZlIHRoaXMgbGluZSBpZiB5b3Ugd2lzaCB0byBwdWJsaXNoIHRvIHB1Yi5kZXYKCiMgVGhlIGZvbGxvd2luZyBkZWZpbmVzIHRoZSB2ZXJzaW9uIGFuZCBidWlsZCBudW1iZXIgZm9yIHlvdXIgYXBwbGljYXRpb24uCiMgQSB2ZXJzaW9uIG51bWJlciBpcyB0aHJlZSBudW1iZXJzIHNlcGFyYXRlZCBieSBkb3RzLCBsaWtlIDEuMi40MwojIGZvbGxvd2VkIGJ5IGFuIG9wdGlvbmFsIGJ1aWxkIG51bWJlciBzZXBhcmF0ZWQgYnkgYSArLgojIEJvdGggdGhlIHZlcnNpb24gYW5kIHRoZSBidWlsZGVyIG51bWJlciBtYXkgYmUgb3ZlcnJpZGRlbiBpbiBmbHV0dGVyCiMgYnVpbGQgYnkgc3BlY2lmeWluZyAtLWJ1aWxkLW5hbWUgYW5kIC0tYnVpbGQtbnVtYmVyLCByZXNwZWN0aXZlbHkuCiMgSW4gQW5kcm9pZCwgYnVpbGQtbmFtZSBpcyB1c2VkIGFzIHZlcnNpb25OYW1lIHdoaWxlIGJ1aWxkLW51bWJlciB1c2VkIGFzIHZlcnNpb25Db2RlLgojIFJlYWQgbW9yZSBhYm91dCBBbmRyb2lkIHZlcnNpb25pbmcgYXQgaHR0cHM6Ly9kZXZlbG9wZXIuYW5kcm9pZC5jb20vc3R1ZGlvL3B1Ymxpc2gvdmVyc2lvbmluZwojIEluIGlPUywgYnVpbGQtbmFtZSBpcyB1c2VkIGFzIENGQnVuZGxlU2hvcnRWZXJzaW9uU3RyaW5nIHdoaWxlIGJ1aWxkLW51bWJlciB1c2VkIGFzIENGQnVuZGxlVmVyc2lvbi4KIyBSZWFkIG1vcmUgYWJvdXQgaU9TIHZlcnNpb25pbmcgYXQKIyBodHRwczovL2RldmVsb3Blci5hcHBsZS5jb20vbGlicmFyeS9hcmNoaXZlL2RvY3VtZW50YXRpb24vR2VuZXJhbC9SZWZlcmVuY2UvSW5mb1BsaXN0S2V5UmVmZXJlbmNlL0FydGljbGVzL0NvcmVGb3VuZGF0aW9uS2V5cy5odG1sCnZlcnNpb246IDEuMC4wKzEKCmVudmlyb25tZW50OgogIHNkazogIj49Mi4xNy4wIDwzLjAuMCIKCiMgRGVwZW5kZW5jaWVzIHNwZWNpZnkgb3RoZXIgcGFja2FnZXMgdGhhdCB5b3VyIHBhY2thZ2UgbmVlZHMgaW4gb3JkZXIgdG8gd29yay4KIyBUbyBhdXRvbWF0aWNhbGx5IHVwZ3JhZGUgeW91ciBwYWNrYWdlIGRlcGVuZGVuY2llcyB0byB0aGUgbGF0ZXN0IHZlcnNpb25zCiMgY29uc2lkZXIgcnVubmluZyBgZmx1dHRlciBwdWIgdXBncmFkZSAtLW1ham9yLXZlcnNpb25zYC4gQWx0ZXJuYXRpdmVseSwKIyBkZXBlbmRlbmNpZXMgY2FuIGJlIG1hbnVhbGx5IHVwZGF0ZWQgYnkgY2hhbmdpbmcgdGhlIHZlcnNpb24gbnVtYmVycyBiZWxvdyB0bwojIHRoZSBsYXRlc3QgdmVyc2lvbiBhdmFpbGFibGUgb24gcHViLmRldi4gVG8gc2VlIHdoaWNoIGRlcGVuZGVuY2llcyBoYXZlIG5ld2VyCiMgdmVyc2lvbnMgYXZhaWxhYmxlLCBydW4gYGZsdXR0ZXIgcHViIG91dGRhdGVkYC4KZGVwZW5kZW5jaWVzOgogIGZsdXR0ZXI6CiAgICBzZGs6IGZsdXR0ZXIKCgogICMgVGhlIGZvbGxvd2luZyBhZGRzIHRoZSBDdXBlcnRpbm8gSWNvbnMgZm9udCB0byB5b3VyIGFwcGxpY2F0aW9uLgogICMgVXNlIHdpdGggdGhlIEN1cGVydGlub0ljb25zIGNsYXNzIGZvciBpT1Mgc3R5bGUgaWNvbnMuCiAgY3VwZXJ0aW5vX2ljb25zOiBeMS4wLjIKICAKICBzdGFja2VkOiBeMy4xLjArMwogIHN0YWNrZWRfc2VydmljZXM6IF4wLjkuOQogIHJlc3BvbnNpdmVfYnVpbGRlcjogXjAuNi4wCgpkZXZfZGVwZW5kZW5jaWVzOgogIGZsdXR0ZXJfdGVzdDoKICAgIHNkazogZmx1dHRlcgoKICAjIFRoZSAiZmx1dHRlcl9saW50cyIgcGFja2FnZSBiZWxvdyBjb250YWlucyBhIHNldCBvZiByZWNvbW1lbmRlZCBsaW50cyB0bwogICMgZW5jb3VyYWdlIGdvb2QgY29kaW5nIHByYWN0aWNlcy4gVGhlIGxpbnQgc2V0IHByb3ZpZGVkIGJ5IHRoZSBwYWNrYWdlIGlzCiAgIyBhY3RpdmF0ZWQgaW4gdGhlIGBhbmFseXNpc19vcHRpb25zLnlhbWxgIGZpbGUgbG9jYXRlZCBhdCB0aGUgcm9vdCBvZiB5b3VyCiAgIyBwYWNrYWdlLiBTZWUgdGhhdCBmaWxlIGZvciBpbmZvcm1hdGlvbiBhYm91dCBkZWFjdGl2YXRpbmcgc3BlY2lmaWMgbGludAogICMgcnVsZXMgYW5kIGFjdGl2YXRpbmcgYWRkaXRpb25hbCBvbmVzLgogIGZsdXR0ZXJfbGludHM6IF4xLjAuMAogIGJ1aWxkX3J1bm5lcjogXjIuMi4wCgogIHN0YWNrZWRfZ2VuZXJhdG9yOiBeMC44LjUKICBtb2NraXRvOiBeNS4zLjIKCiMgRm9yIGluZm9ybWF0aW9uIG9uIHRoZSBnZW5lcmljIERhcnQgcGFydCBvZiB0aGlzIGZpbGUsIHNlZSB0aGUKIyBmb2xsb3dpbmcgcGFnZTogaHR0cHM6Ly9kYXJ0LmRldi90b29scy9wdWIvcHVic3BlYwoKIyBUaGUgZm9sbG93aW5nIHNlY3Rpb24gaXMgc3BlY2lmaWMgdG8gRmx1dHRlci4KZmx1dHRlcjoKCiAgIyBUaGUgZm9sbG93aW5nIGxpbmUgZW5zdXJlcyB0aGF0IHRoZSBNYXRlcmlhbCBJY29ucyBmb250IGlzCiAgIyBpbmNsdWRlZCB3aXRoIHlvdXIgYXBwbGljYXRpb24sIHNvIHRoYXQgeW91IGNhbiB1c2UgdGhlIGljb25zIGluCiAgIyB0aGUgbWF0ZXJpYWwgSWNvbnMgY2xhc3MuCiAgdXNlcy1tYXRlcmlhbC1kZXNpZ246IHRydWUKCiAgIyBUbyBhZGQgYXNzZXRzIHRvIHlvdXIgYXBwbGljYXRpb24sIGFkZCBhbiBhc3NldHMgc2VjdGlvbiwgbGlrZSB0aGlzOgogICMgYXNzZXRzOgogICMgICAtIGltYWdlcy9hX2RvdF9idXJyLmpwZWcKICAjICAgLSBpbWFnZXMvYV9kb3RfaGFtLmpwZWcKCiAgIyBBbiBpbWFnZSBhc3NldCBjYW4gcmVmZXIgdG8gb25lIG9yIG1vcmUgcmVzb2x1dGlvbi1zcGVjaWZpYyAidmFyaWFudHMiLCBzZWUKICAjIGh0dHBzOi8vZmx1dHRlci5kZXYvYXNzZXRzLWFuZC1pbWFnZXMvI3Jlc29sdXRpb24tYXdhcmUuCgogICMgRm9yIGRldGFpbHMgcmVnYXJkaW5nIGFkZGluZyBhc3NldHMgZnJvbSBwYWNrYWdlIGRlcGVuZGVuY2llcywgc2VlCiAgIyBodHRwczovL2ZsdXR0ZXIuZGV2L2Fzc2V0cy1hbmQtaW1hZ2VzLyNmcm9tLXBhY2thZ2VzCgogICMgVG8gYWRkIGN1c3RvbSBmb250cyB0byB5b3VyIGFwcGxpY2F0aW9uLCBhZGQgYSBmb250cyBzZWN0aW9uIGhlcmUsCiAgIyBpbiB0aGlzICJmbHV0dGVyIiBzZWN0aW9uLiBFYWNoIGVudHJ5IGluIHRoaXMgbGlzdCBzaG91bGQgaGF2ZSBhCiAgIyAiZmFtaWx5IiBrZXkgd2l0aCB0aGUgZm9udCBmYW1pbHkgbmFtZSwgYW5kIGEgImZvbnRzIiBrZXkgd2l0aCBhCiAgIyBsaXN0IGdpdmluZyB0aGUgYXNzZXQgYW5kIG90aGVyIGRlc2NyaXB0b3JzIGZvciB0aGUgZm9udC4gRm9yCiAgIyBleGFtcGxlOgogICMgZm9udHM6CiAgIyAgIC0gZmFtaWx5OiBTY2h5bGVyCiAgIyAgICAgZm9udHM6CiAgIyAgICAgICAtIGFzc2V0OiBmb250cy9TY2h5bGVyLVJlZ3VsYXIudHRmCiAgIyAgICAgICAtIGFzc2V0OiBmb250cy9TY2h5bGVyLUl0YWxpYy50dGYKICAjICAgICAgICAgc3R5bGU6IGl0YWxpYwogICMgICAtIGZhbWlseTogVHJhamFuIFBybwogICMgICAgIGZvbnRzOgogICMgICAgICAgLSBhc3NldDogZm9udHMvVHJhamFuUHJvLnR0ZgogICMgICAgICAgLSBhc3NldDogZm9udHMvVHJhamFuUHJvX0JvbGQudHRmCiAgIyAgICAgICAgIHdlaWdodDogNzAwCiAgIwogICMgRm9yIGRldGFpbHMgcmVnYXJkaW5nIGZvbnRzIGZyb20gcGFja2FnZSBkZXBlbmRlbmNpZXMsCiAgIyBzZWUgaHR0cHM6Ly9mbHV0dGVyLmRldi9jdXN0b20tZm9udHMvI2Zyb20tcGFja2FnZXMK
 ''';
 
 // --------------------------------------------------
@@ -1379,12 +332,7 @@ const String kAppWebTemplateSettingsJsonStkPath =
     '.vscode/settings.json.stk';
 
 const String kAppWebTemplateSettingsJsonStkContent = '''
-{
-    "explorer.fileNesting.enabled": true,
-    "explorer.fileNesting.patterns": {
-        "*.dart": "\${capture}.mobile.dart, \${capture}.tablet.dart, \${capture}.desktop.dart, \${capture}.form.dart"
-    },
-}
+ewogICAgImV4cGxvcmVyLmZpbGVOZXN0aW5nLmVuYWJsZWQiOiB0cnVlLAogICAgImV4cGxvcmVyLmZpbGVOZXN0aW5nLnBhdHRlcm5zIjogewogICAgICAgICIqLmRhcnQiOiAiXCR7Y2FwdHVyZX0ubW9iaWxlLmRhcnQsIFwke2NhcHR1cmV9LnRhYmxldC5kYXJ0LCBcJHtjYXB0dXJlfS5kZXNrdG9wLmRhcnQsIFwke2NhcHR1cmV9LmZvcm0uZGFydCIKICAgIH0sCn0=
 ''';
 
 // --------------------------------------------------
@@ -1396,24 +344,7 @@ const String kAppMobileTemplateStackedJsonStkPath =
     'stacked.json.stk';
 
 const String kAppMobileTemplateStackedJsonStkContent = '''
-{
-    "stacked_app_file_path": "app/app.dart",
-    "services_path": "services",
-    "views_path": "ui/views",
-    "bottom_sheets_path": "ui/bottom_sheets",
-    "bottom_sheet_type_file_path": "enums/bottom_sheet_type.dart",
-    "bottom_sheet_builder_file_path": "ui/setup/setup_bottom_sheet_ui.dart",
-    "dialogs_path": "ui/dialogs",
-    "dialog_type_file_path": "enums/dialog_type.dart",
-    "dialog_builder_file_path": "ui/setup/setup_dialog_ui.dart",
-    "test_helpers_file_path": "helpers/test_helpers.dart",
-    "test_services_path": "services",
-    "test_views_path": "viewmodels",
-    "locator_name": "locator",
-    "register_mocks_function": "registerServices",
-    "v1": false,
-    "line_length": 80
-}
+ewogICAgInN0YWNrZWRfYXBwX2ZpbGVfcGF0aCI6ICJhcHAvYXBwLmRhcnQiLAogICAgInNlcnZpY2VzX3BhdGgiOiAic2VydmljZXMiLAogICAgInZpZXdzX3BhdGgiOiAidWkvdmlld3MiLAogICAgImJvdHRvbV9zaGVldHNfcGF0aCI6ICJ1aS9ib3R0b21fc2hlZXRzIiwKICAgICJib3R0b21fc2hlZXRfdHlwZV9maWxlX3BhdGgiOiAiZW51bXMvYm90dG9tX3NoZWV0X3R5cGUuZGFydCIsCiAgICAiYm90dG9tX3NoZWV0X2J1aWxkZXJfZmlsZV9wYXRoIjogInVpL3NldHVwL3NldHVwX2JvdHRvbV9zaGVldF91aS5kYXJ0IiwKICAgICJkaWFsb2dzX3BhdGgiOiAidWkvZGlhbG9ncyIsCiAgICAiZGlhbG9nX3R5cGVfZmlsZV9wYXRoIjogImVudW1zL2RpYWxvZ190eXBlLmRhcnQiLAogICAgImRpYWxvZ19idWlsZGVyX2ZpbGVfcGF0aCI6ICJ1aS9zZXR1cC9zZXR1cF9kaWFsb2dfdWkuZGFydCIsCiAgICAidGVzdF9oZWxwZXJzX2ZpbGVfcGF0aCI6ICJoZWxwZXJzL3Rlc3RfaGVscGVycy5kYXJ0IiwKICAgICJ0ZXN0X3NlcnZpY2VzX3BhdGgiOiAic2VydmljZXMiLAogICAgInRlc3Rfdmlld3NfcGF0aCI6ICJ2aWV3bW9kZWxzIiwKICAgICJsb2NhdG9yX25hbWUiOiAibG9jYXRvciIsCiAgICAicmVnaXN0ZXJfbW9ja3NfZnVuY3Rpb24iOiAicmVnaXN0ZXJTZXJ2aWNlcyIsCiAgICAidjEiOiBmYWxzZSwKICAgICJsaW5lX2xlbmd0aCI6IDgwCn0=
 ''';
 
 // --------------------------------------------------
@@ -1425,47 +356,7 @@ const String kAppMobileTemplateHomeViewmodelTestPath =
     'test/viewmodels/home_viewmodel_test.dart.stk';
 
 const String kAppMobileTemplateHomeViewmodelTestContent = '''
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-import 'package:{{packageName}}/ui/common/app_strings.dart';
-import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_viewmodel.dart';
-
-import '{{{viewTestHelpersImport}}}';
-
-void main() {
-  HomeViewModel _getModel() => HomeViewModel();
-
-  group('HomeViewmodelTest -', () {
-    setUp(() => registerServices());
-    tearDown(() => locator.reset());
-
-    group('incrementCounter -', () {
-      test('When called once should return  Counter is: 1', () {
-        final model = _getModel();
-        model.incrementCounter();
-        expect(model.counterLabel, 'Counter is: 1');
-      });
-    });
-
-    group('showBottomSheet -', () {
-      test('When called, should show custom bottom sheet using notice variant',
-          () {
-        final bottomSheetService = getAndRegisterBottomSheetService();
-
-        final model = _getModel();
-        model.showBottomSheet();
-        verify(bottomSheetService.showCustomSheet(
-          variant: BottomSheetType.notice,
-          title: ksHomeBottomSheetTitle,
-          description: ksHomeBottomSheetDescription,
-        ));
-      });
-    });
-  });
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXJfdGVzdC9mbHV0dGVyX3Rlc3QuZGFydCc7CmltcG9ydCAncGFja2FnZTptb2NraXRvL21vY2tpdG8uZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVCb3R0b21TaGVldEZpbGVQYXRofX19JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS97e3tyZWxhdGl2ZUxvY2F0b3JGaWxlUGF0aH19fSc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL2FwcF9zdHJpbmdzLmRhcnQnOwppbXBvcnQgJ3BhY2thZ2U6e3twYWNrYWdlTmFtZX19L3t7e3ZpZXdJbXBvcnRQYXRofX19L2hvbWUvaG9tZV92aWV3bW9kZWwuZGFydCc7CgppbXBvcnQgJ3t7e3ZpZXdUZXN0SGVscGVyc0ltcG9ydH19fSc7Cgp2b2lkIG1haW4oKSB7CiAgSG9tZVZpZXdNb2RlbCBfZ2V0TW9kZWwoKSA9PiBIb21lVmlld01vZGVsKCk7CgogIGdyb3VwKCdIb21lVmlld21vZGVsVGVzdCAtJywgKCkgewogICAgc2V0VXAoKCkgPT4gcmVnaXN0ZXJTZXJ2aWNlcygpKTsKICAgIHRlYXJEb3duKCgpID0+IGxvY2F0b3IucmVzZXQoKSk7CgogICAgZ3JvdXAoJ2luY3JlbWVudENvdW50ZXIgLScsICgpIHsKICAgICAgdGVzdCgnV2hlbiBjYWxsZWQgb25jZSBzaG91bGQgcmV0dXJuICBDb3VudGVyIGlzOiAxJywgKCkgewogICAgICAgIGZpbmFsIG1vZGVsID0gX2dldE1vZGVsKCk7CiAgICAgICAgbW9kZWwuaW5jcmVtZW50Q291bnRlcigpOwogICAgICAgIGV4cGVjdChtb2RlbC5jb3VudGVyTGFiZWwsICdDb3VudGVyIGlzOiAxJyk7CiAgICAgIH0pOwogICAgfSk7CgogICAgZ3JvdXAoJ3Nob3dCb3R0b21TaGVldCAtJywgKCkgewogICAgICB0ZXN0KCdXaGVuIGNhbGxlZCwgc2hvdWxkIHNob3cgY3VzdG9tIGJvdHRvbSBzaGVldCB1c2luZyBub3RpY2UgdmFyaWFudCcsCiAgICAgICAgICAoKSB7CiAgICAgICAgZmluYWwgYm90dG9tU2hlZXRTZXJ2aWNlID0gZ2V0QW5kUmVnaXN0ZXJCb3R0b21TaGVldFNlcnZpY2UoKTsKCiAgICAgICAgZmluYWwgbW9kZWwgPSBfZ2V0TW9kZWwoKTsKICAgICAgICBtb2RlbC5zaG93Qm90dG9tU2hlZXQoKTsKICAgICAgICB2ZXJpZnkoYm90dG9tU2hlZXRTZXJ2aWNlLnNob3dDdXN0b21TaGVldCgKICAgICAgICAgIHZhcmlhbnQ6IEJvdHRvbVNoZWV0VHlwZS5ub3RpY2UsCiAgICAgICAgICB0aXRsZToga3NIb21lQm90dG9tU2hlZXRUaXRsZSwKICAgICAgICAgIGRlc2NyaXB0aW9uOiBrc0hvbWVCb3R0b21TaGVldERlc2NyaXB0aW9uLAogICAgICAgICkpOwogICAgICB9KTsKICAgIH0pOwogIH0pOwp9Cg==
 ''';
 
 // --------------------------------------------------
@@ -1477,18 +368,7 @@ const String kAppMobileTemplateNoticeSheetModelTestPath =
     'test/viewmodels/notice_sheet_model_test.dart.stk';
 
 const String kAppMobileTemplateNoticeSheetModelTestContent = '''
-import 'package:flutter_test/flutter_test.dart';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-
-import '{{{viewTestHelpersImport}}}';
-
-void main() {
-  group('InfoAlertDialogModel Tests -', () {
-    setUp(() => registerServices());
-    tearDown(() => locator.reset());
-  });
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXJfdGVzdC9mbHV0dGVyX3Rlc3QuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVMb2NhdG9yRmlsZVBhdGh9fX0nOwoKaW1wb3J0ICd7e3t2aWV3VGVzdEhlbHBlcnNJbXBvcnR9fX0nOwoKdm9pZCBtYWluKCkgewogIGdyb3VwKCdJbmZvQWxlcnREaWFsb2dNb2RlbCBUZXN0cyAtJywgKCkgewogICAgc2V0VXAoKCkgPT4gcmVnaXN0ZXJTZXJ2aWNlcygpKTsKICAgIHRlYXJEb3duKCgpID0+IGxvY2F0b3IucmVzZXQoKSk7CiAgfSk7Cn0K
 ''';
 
 // --------------------------------------------------
@@ -1500,18 +380,7 @@ const String kAppMobileTemplateInfoAlertDialogModelTestPath =
     'test/viewmodels/info_alert_dialog_model_test.dart.stk';
 
 const String kAppMobileTemplateInfoAlertDialogModelTestContent = '''
-import 'package:flutter_test/flutter_test.dart';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-
-import '{{{viewTestHelpersImport}}}';
-
-void main() {
-  group('InfoAlertDialogModel Tests -', () {
-    setUp(() => registerServices());
-    tearDown(() => locator.reset());
-  });
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXJfdGVzdC9mbHV0dGVyX3Rlc3QuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVMb2NhdG9yRmlsZVBhdGh9fX0nOwoKaW1wb3J0ICd7e3t2aWV3VGVzdEhlbHBlcnNJbXBvcnR9fX0nOwoKdm9pZCBtYWluKCkgewogIGdyb3VwKCdJbmZvQWxlcnREaWFsb2dNb2RlbCBUZXN0cyAtJywgKCkgewogICAgc2V0VXAoKCkgPT4gcmVnaXN0ZXJTZXJ2aWNlcygpKTsKICAgIHRlYXJEb3duKCgpID0+IGxvY2F0b3IucmVzZXQoKSk7CiAgfSk7Cn0K
 ''';
 
 // --------------------------------------------------
@@ -1523,85 +392,7 @@ const String kAppMobileTemplateTestHelpersPath =
     'test/helpers/test_helpers.dart.stk';
 
 const String kAppMobileTemplateTestHelpersContent = '''
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-import 'package:stacked_services/stacked_services.dart';
-// @stacked-import
-
-import 'test_helpers.mocks.dart';
-
-@GenerateMocks([], customMocks: [
-  MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
-  MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
-  MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
-  // @stacked-mock-spec
-])
-void registerServices() {
-  getAndRegisterNavigationService();
-  getAndRegisterBottomSheetService();
-  getAndRegisterDialogService();
-  // @stacked-mock-register
-}
-
-MockNavigationService getAndRegisterNavigationService() {
-  _removeRegistrationIfExists<NavigationService>();
-  final service = MockNavigationService();
-  locator.registerSingleton<NavigationService>(service);
-  return service;
-}
-
-MockBottomSheetService getAndRegisterBottomSheetService<T>({
-  SheetResponse<T>? showCustomSheetResponse,
-}) {
-  _removeRegistrationIfExists<BottomSheetService>();
-  final service = MockBottomSheetService();
-
-  when(service.showCustomSheet<T, T>(
-    enableDrag: anyNamed('enableDrag'),
-    enterBottomSheetDuration: anyNamed('enterBottomSheetDuration'),
-    exitBottomSheetDuration: anyNamed('exitBottomSheetDuration'),
-    ignoreSafeArea: anyNamed('ignoreSafeArea'),
-    isScrollControlled: anyNamed('isScrollControlled'),
-    barrierDismissible: anyNamed('barrierDismissible'),
-    additionalButtonTitle: anyNamed('additionalButtonTitle'),
-    variant: anyNamed('variant'),
-    title: anyNamed('title'),
-    hasImage: anyNamed('hasImage'),
-    imageUrl: anyNamed('imageUrl'),
-    showIconInMainButton: anyNamed('showIconInMainButton'),
-    mainButtonTitle: anyNamed('mainButtonTitle'),
-    showIconInSecondaryButton: anyNamed('showIconInSecondaryButton'),
-    secondaryButtonTitle: anyNamed('secondaryButtonTitle'),
-    showIconInAdditionalButton: anyNamed('showIconInAdditionalButton'),
-    takesInput: anyNamed('takesInput'),
-    barrierColor: anyNamed('barrierColor'),
-    barrierLabel: anyNamed('barrierLabel'),
-    customData: anyNamed('customData'),
-    data: anyNamed('data'),
-    description: anyNamed('description'),
-  )).thenAnswer((realInvocation) =>
-      Future.value(showCustomSheetResponse ?? SheetResponse<T>()));
-
-  locator.registerSingleton<BottomSheetService>(service);
-  return service;
-}
-
-MockDialogService getAndRegisterDialogService() {
-  _removeRegistrationIfExists<DialogService>();
-  final service = MockDialogService();
-  locator.registerSingleton<DialogService>(service);
-  return service;
-}
-
-// @stacked-mock-create
-
-void _removeRegistrationIfExists<T extends Object>() {
-  if (locator.isRegistered<T>()) {
-    locator.unregister<T>();
-  }
-}
-
+aW1wb3J0ICdwYWNrYWdlOm1vY2tpdG8vYW5ub3RhdGlvbnMuZGFydCc7CmltcG9ydCAncGFja2FnZTptb2NraXRvL21vY2tpdG8uZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVMb2NhdG9yRmlsZVBhdGh9fX0nOwppbXBvcnQgJ3BhY2thZ2U6c3RhY2tlZF9zZXJ2aWNlcy9zdGFja2VkX3NlcnZpY2VzLmRhcnQnOwovLyBAc3RhY2tlZC1pbXBvcnQKCmltcG9ydCAndGVzdF9oZWxwZXJzLm1vY2tzLmRhcnQnOwoKQEdlbmVyYXRlTW9ja3MoW10sIGN1c3RvbU1vY2tzOiBbCiAgTW9ja1NwZWM8TmF2aWdhdGlvblNlcnZpY2U+KG9uTWlzc2luZ1N0dWI6IE9uTWlzc2luZ1N0dWIucmV0dXJuRGVmYXVsdCksCiAgTW9ja1NwZWM8Qm90dG9tU2hlZXRTZXJ2aWNlPihvbk1pc3NpbmdTdHViOiBPbk1pc3NpbmdTdHViLnJldHVybkRlZmF1bHQpLAogIE1vY2tTcGVjPERpYWxvZ1NlcnZpY2U+KG9uTWlzc2luZ1N0dWI6IE9uTWlzc2luZ1N0dWIucmV0dXJuRGVmYXVsdCksCiAgLy8gQHN0YWNrZWQtbW9jay1zcGVjCl0pCnZvaWQgcmVnaXN0ZXJTZXJ2aWNlcygpIHsKICBnZXRBbmRSZWdpc3Rlck5hdmlnYXRpb25TZXJ2aWNlKCk7CiAgZ2V0QW5kUmVnaXN0ZXJCb3R0b21TaGVldFNlcnZpY2UoKTsKICBnZXRBbmRSZWdpc3RlckRpYWxvZ1NlcnZpY2UoKTsKICAvLyBAc3RhY2tlZC1tb2NrLXJlZ2lzdGVyCn0KCk1vY2tOYXZpZ2F0aW9uU2VydmljZSBnZXRBbmRSZWdpc3Rlck5hdmlnYXRpb25TZXJ2aWNlKCkgewogIF9yZW1vdmVSZWdpc3RyYXRpb25JZkV4aXN0czxOYXZpZ2F0aW9uU2VydmljZT4oKTsKICBmaW5hbCBzZXJ2aWNlID0gTW9ja05hdmlnYXRpb25TZXJ2aWNlKCk7CiAgbG9jYXRvci5yZWdpc3RlclNpbmdsZXRvbjxOYXZpZ2F0aW9uU2VydmljZT4oc2VydmljZSk7CiAgcmV0dXJuIHNlcnZpY2U7Cn0KCk1vY2tCb3R0b21TaGVldFNlcnZpY2UgZ2V0QW5kUmVnaXN0ZXJCb3R0b21TaGVldFNlcnZpY2U8VD4oewogIFNoZWV0UmVzcG9uc2U8VD4/IHNob3dDdXN0b21TaGVldFJlc3BvbnNlLAp9KSB7CiAgX3JlbW92ZVJlZ2lzdHJhdGlvbklmRXhpc3RzPEJvdHRvbVNoZWV0U2VydmljZT4oKTsKICBmaW5hbCBzZXJ2aWNlID0gTW9ja0JvdHRvbVNoZWV0U2VydmljZSgpOwoKICB3aGVuKHNlcnZpY2Uuc2hvd0N1c3RvbVNoZWV0PFQsIFQ+KAogICAgZW5hYmxlRHJhZzogYW55TmFtZWQoJ2VuYWJsZURyYWcnKSwKICAgIGVudGVyQm90dG9tU2hlZXREdXJhdGlvbjogYW55TmFtZWQoJ2VudGVyQm90dG9tU2hlZXREdXJhdGlvbicpLAogICAgZXhpdEJvdHRvbVNoZWV0RHVyYXRpb246IGFueU5hbWVkKCdleGl0Qm90dG9tU2hlZXREdXJhdGlvbicpLAogICAgaWdub3JlU2FmZUFyZWE6IGFueU5hbWVkKCdpZ25vcmVTYWZlQXJlYScpLAogICAgaXNTY3JvbGxDb250cm9sbGVkOiBhbnlOYW1lZCgnaXNTY3JvbGxDb250cm9sbGVkJyksCiAgICBiYXJyaWVyRGlzbWlzc2libGU6IGFueU5hbWVkKCdiYXJyaWVyRGlzbWlzc2libGUnKSwKICAgIGFkZGl0aW9uYWxCdXR0b25UaXRsZTogYW55TmFtZWQoJ2FkZGl0aW9uYWxCdXR0b25UaXRsZScpLAogICAgdmFyaWFudDogYW55TmFtZWQoJ3ZhcmlhbnQnKSwKICAgIHRpdGxlOiBhbnlOYW1lZCgndGl0bGUnKSwKICAgIGhhc0ltYWdlOiBhbnlOYW1lZCgnaGFzSW1hZ2UnKSwKICAgIGltYWdlVXJsOiBhbnlOYW1lZCgnaW1hZ2VVcmwnKSwKICAgIHNob3dJY29uSW5NYWluQnV0dG9uOiBhbnlOYW1lZCgnc2hvd0ljb25Jbk1haW5CdXR0b24nKSwKICAgIG1haW5CdXR0b25UaXRsZTogYW55TmFtZWQoJ21haW5CdXR0b25UaXRsZScpLAogICAgc2hvd0ljb25JblNlY29uZGFyeUJ1dHRvbjogYW55TmFtZWQoJ3Nob3dJY29uSW5TZWNvbmRhcnlCdXR0b24nKSwKICAgIHNlY29uZGFyeUJ1dHRvblRpdGxlOiBhbnlOYW1lZCgnc2Vjb25kYXJ5QnV0dG9uVGl0bGUnKSwKICAgIHNob3dJY29uSW5BZGRpdGlvbmFsQnV0dG9uOiBhbnlOYW1lZCgnc2hvd0ljb25JbkFkZGl0aW9uYWxCdXR0b24nKSwKICAgIHRha2VzSW5wdXQ6IGFueU5hbWVkKCd0YWtlc0lucHV0JyksCiAgICBiYXJyaWVyQ29sb3I6IGFueU5hbWVkKCdiYXJyaWVyQ29sb3InKSwKICAgIGJhcnJpZXJMYWJlbDogYW55TmFtZWQoJ2JhcnJpZXJMYWJlbCcpLAogICAgY3VzdG9tRGF0YTogYW55TmFtZWQoJ2N1c3RvbURhdGEnKSwKICAgIGRhdGE6IGFueU5hbWVkKCdkYXRhJyksCiAgICBkZXNjcmlwdGlvbjogYW55TmFtZWQoJ2Rlc2NyaXB0aW9uJyksCiAgKSkudGhlbkFuc3dlcigocmVhbEludm9jYXRpb24pID0+CiAgICAgIEZ1dHVyZS52YWx1ZShzaG93Q3VzdG9tU2hlZXRSZXNwb25zZSA/PyBTaGVldFJlc3BvbnNlPFQ+KCkpKTsKCiAgbG9jYXRvci5yZWdpc3RlclNpbmdsZXRvbjxCb3R0b21TaGVldFNlcnZpY2U+KHNlcnZpY2UpOwogIHJldHVybiBzZXJ2aWNlOwp9CgpNb2NrRGlhbG9nU2VydmljZSBnZXRBbmRSZWdpc3RlckRpYWxvZ1NlcnZpY2UoKSB7CiAgX3JlbW92ZVJlZ2lzdHJhdGlvbklmRXhpc3RzPERpYWxvZ1NlcnZpY2U+KCk7CiAgZmluYWwgc2VydmljZSA9IE1vY2tEaWFsb2dTZXJ2aWNlKCk7CiAgbG9jYXRvci5yZWdpc3RlclNpbmdsZXRvbjxEaWFsb2dTZXJ2aWNlPihzZXJ2aWNlKTsKICByZXR1cm4gc2VydmljZTsKfQoKLy8gQHN0YWNrZWQtbW9jay1jcmVhdGUKCnZvaWQgX3JlbW92ZVJlZ2lzdHJhdGlvbklmRXhpc3RzPFQgZXh0ZW5kcyBPYmplY3Q+KCkgewogIGlmIChsb2NhdG9yLmlzUmVnaXN0ZXJlZDxUPigpKSB7CiAgICBsb2NhdG9yLnVucmVnaXN0ZXI8VD4oKTsKICB9Cn0K
 ''';
 
 // --------------------------------------------------
@@ -1613,23 +404,7 @@ const String kAppMobileTemplateREADMEMdStkPath =
     'README.md.stk';
 
 const String kAppMobileTemplateREADMEMdStkContent = '''
-# stacked_app
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+IyBzdGFja2VkX2FwcAoKQSBuZXcgRmx1dHRlciBwcm9qZWN0LgoKIyMgR2V0dGluZyBTdGFydGVkCgpUaGlzIHByb2plY3QgaXMgYSBzdGFydGluZyBwb2ludCBmb3IgYSBGbHV0dGVyIGFwcGxpY2F0aW9uLgoKQSBmZXcgcmVzb3VyY2VzIHRvIGdldCB5b3Ugc3RhcnRlZCBpZiB0aGlzIGlzIHlvdXIgZmlyc3QgRmx1dHRlciBwcm9qZWN0OgoKLSBbTGFiOiBXcml0ZSB5b3VyIGZpcnN0IEZsdXR0ZXIgYXBwXShodHRwczovL2ZsdXR0ZXIuZGV2L2RvY3MvZ2V0LXN0YXJ0ZWQvY29kZWxhYikKLSBbQ29va2Jvb2s6IFVzZWZ1bCBGbHV0dGVyIHNhbXBsZXNdKGh0dHBzOi8vZmx1dHRlci5kZXYvZG9jcy9jb29rYm9vaykKCkZvciBoZWxwIGdldHRpbmcgc3RhcnRlZCB3aXRoIEZsdXR0ZXIsIHZpZXcgb3VyCltvbmxpbmUgZG9jdW1lbnRhdGlvbl0oaHR0cHM6Ly9mbHV0dGVyLmRldi9kb2NzKSwgd2hpY2ggb2ZmZXJzIHR1dG9yaWFscywKc2FtcGxlcywgZ3VpZGFuY2Ugb24gbW9iaWxlIGRldmVsb3BtZW50LCBhbmQgYSBmdWxsIEFQSSByZWZlcmVuY2UuCg==
 ''';
 
 // --------------------------------------------------
@@ -1641,46 +416,7 @@ const String kAppMobileTemplateMainPath =
     'lib/main.dart.stk';
 
 const String kAppMobileTemplateMainContent = '''
-import 'package:flutter/material.dart';
-import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
-import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:stacked_services/stacked_services.dart';
-
-void main() {
-  setupLocator();
-  setupDialogUi();
-  setupBottomSheetUi();
-
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: Theme.of(context).copyWith(
-        primaryColor: kcBackgroundColor,
-        focusColor: kcPrimaryColor,
-        textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.black,
-            ),
-      ),
-      initialRoute: Routes.startupView,
-      onGenerateRoute: StackedRouter().onGenerateRoute,
-      navigatorKey: StackedService.navigatorKey,
-      navigatorObservers: [
-        StackedService.routeObserver,
-      ],
-    );
-  }
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVCb3R0b21TaGVldEZpbGVQYXRofX19JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS97e3tyZWxhdGl2ZURpYWxvZ0ZpbGVQYXRofX19JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS97e3tyZWxhdGl2ZUxvY2F0b3JGaWxlUGF0aH19fSc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVSb3V0ZXJGaWxlUGF0aH19fSc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL2FwcF9jb2xvcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkX3NlcnZpY2VzL3N0YWNrZWRfc2VydmljZXMuZGFydCc7Cgp2b2lkIG1haW4oKSB7CiAgc2V0dXBMb2NhdG9yKCk7CiAgc2V0dXBEaWFsb2dVaSgpOwogIHNldHVwQm90dG9tU2hlZXRVaSgpOwoKICBydW5BcHAoY29uc3QgTXlBcHAoKSk7Cn0KCmNsYXNzIE15QXBwIGV4dGVuZHMgU3RhdGVsZXNzV2lkZ2V0IHsKICBjb25zdCBNeUFwcCh7S2V5PyBrZXl9KSA6IHN1cGVyKGtleToga2V5KTsKCiAgQG92ZXJyaWRlCiAgV2lkZ2V0IGJ1aWxkKEJ1aWxkQ29udGV4dCBjb250ZXh0KSB7CiAgICByZXR1cm4gTWF0ZXJpYWxBcHAoCiAgICAgIHRpdGxlOiAnRmx1dHRlciBEZW1vJywKICAgICAgdGhlbWU6IFRoZW1lLm9mKGNvbnRleHQpLmNvcHlXaXRoKAogICAgICAgIHByaW1hcnlDb2xvcjoga2NCYWNrZ3JvdW5kQ29sb3IsCiAgICAgICAgZm9jdXNDb2xvcjoga2NQcmltYXJ5Q29sb3IsCiAgICAgICAgdGV4dFRoZW1lOiBUaGVtZS5vZihjb250ZXh0KS50ZXh0VGhlbWUuYXBwbHkoCiAgICAgICAgICAgICAgYm9keUNvbG9yOiBDb2xvcnMuYmxhY2ssCiAgICAgICAgICAgICksCiAgICAgICksCiAgICAgIGluaXRpYWxSb3V0ZTogUm91dGVzLnN0YXJ0dXBWaWV3LAogICAgICBvbkdlbmVyYXRlUm91dGU6IFN0YWNrZWRSb3V0ZXIoKS5vbkdlbmVyYXRlUm91dGUsCiAgICAgIG5hdmlnYXRvcktleTogU3RhY2tlZFNlcnZpY2UubmF2aWdhdG9yS2V5LAogICAgICBuYXZpZ2F0b3JPYnNlcnZlcnM6IFsKICAgICAgICBTdGFja2VkU2VydmljZS5yb3V0ZU9ic2VydmVyLAogICAgICBdLAogICAgKTsKICB9Cn0K
 ''';
 
 // --------------------------------------------------
@@ -1692,85 +428,7 @@ const String kAppMobileTemplateUiHelpersPath =
     'lib/ui/common/ui_helpers.dart.stk';
 
 const String kAppMobileTemplateUiHelpersContent = '''
-import 'dart:math';
-
-import 'package:flutter/material.dart';
-
-const double _tinySize = 5.0;
-const double _smallSize = 10.0;
-const double _mediumSize = 25.0;
-const double _largeSize = 50.0;
-const double _massiveSize = 120.0;
-
-const Widget horizontalSpaceTiny = SizedBox(width: _tinySize);
-const Widget horizontalSpaceSmall = SizedBox(width: _smallSize);
-const Widget horizontalSpaceMedium = SizedBox(width: _mediumSize);
-const Widget horizontalSpaceLarge = SizedBox(width: _largeSize);
-
-const Widget verticalSpaceTiny = SizedBox(height: _tinySize);
-const Widget verticalSpaceSmall = SizedBox(height: _smallSize);
-const Widget verticalSpaceMedium = SizedBox(height: _mediumSize);
-const Widget verticalSpaceLarge = SizedBox(height: _largeSize);
-const Widget verticalSpaceMassive = SizedBox(height: _massiveSize);
-
-Widget spacedDivider = Column(
-  children: const <Widget>[
-    verticalSpaceMedium,
-    Divider(color: Colors.blueGrey, height: 5.0),
-    verticalSpaceMedium,
-  ],
-);
-
-Widget verticalSpace(double height) => SizedBox(height: height);
-
-double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
-double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
-
-double screenHeightFraction(BuildContext context,
-        {int dividedBy = 1, double offsetBy = 0, double max = 3000}) =>
-    min((screenHeight(context) - offsetBy) / dividedBy, max);
-
-double screenWidthFraction(BuildContext context,
-        {int dividedBy = 1, double offsetBy = 0, double max = 3000}) =>
-    min((screenWidth(context) - offsetBy) / dividedBy, max);
-
-double halfScreenWidth(BuildContext context) =>
-    screenWidthFraction(context, dividedBy: 2);
-
-double thirdScreenWidth(BuildContext context) =>
-    screenWidthFraction(context, dividedBy: 3);
-
-double quarterScreenWidth(BuildContext context) =>
-    screenWidthFraction(context, dividedBy: 4);
-
-double getResponsiveHorizontalSpaceMedium(BuildContext context) =>
-    screenWidthFraction(context, dividedBy: 10);
-double getResponsiveSmallFontSize(BuildContext context) =>
-    getResponsiveFontSize(context, fontSize: 14, max: 15);
-
-double getResponsiveMediumFontSize(BuildContext context) =>
-    getResponsiveFontSize(context, fontSize: 16, max: 17);
-
-double getResponsiveLargeFontSize(BuildContext context) =>
-    getResponsiveFontSize(context, fontSize: 21, max: 31);
-
-double getResponsiveExtraLargeFontSize(BuildContext context) =>
-    getResponsiveFontSize(context, fontSize: 25);
-
-double getResponsiveMassiveFontSize(BuildContext context) =>
-    getResponsiveFontSize(context, fontSize: 30);
-
-double getResponsiveFontSize(BuildContext context,
-    {double? fontSize, double? max}) {
-  max ??= 100;
-
-  var responsiveSize = min(
-      screenWidthFraction(context, dividedBy: 10) * ((fontSize ?? 100) / 100),
-      max);
-  
-  return responsiveSize;
-}
-
+aW1wb3J0ICdkYXJ0Om1hdGgnOwoKaW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7Cgpjb25zdCBkb3VibGUgX3RpbnlTaXplID0gNS4wOwpjb25zdCBkb3VibGUgX3NtYWxsU2l6ZSA9IDEwLjA7CmNvbnN0IGRvdWJsZSBfbWVkaXVtU2l6ZSA9IDI1LjA7CmNvbnN0IGRvdWJsZSBfbGFyZ2VTaXplID0gNTAuMDsKY29uc3QgZG91YmxlIF9tYXNzaXZlU2l6ZSA9IDEyMC4wOwoKY29uc3QgV2lkZ2V0IGhvcml6b250YWxTcGFjZVRpbnkgPSBTaXplZEJveCh3aWR0aDogX3RpbnlTaXplKTsKY29uc3QgV2lkZ2V0IGhvcml6b250YWxTcGFjZVNtYWxsID0gU2l6ZWRCb3god2lkdGg6IF9zbWFsbFNpemUpOwpjb25zdCBXaWRnZXQgaG9yaXpvbnRhbFNwYWNlTWVkaXVtID0gU2l6ZWRCb3god2lkdGg6IF9tZWRpdW1TaXplKTsKY29uc3QgV2lkZ2V0IGhvcml6b250YWxTcGFjZUxhcmdlID0gU2l6ZWRCb3god2lkdGg6IF9sYXJnZVNpemUpOwoKY29uc3QgV2lkZ2V0IHZlcnRpY2FsU3BhY2VUaW55ID0gU2l6ZWRCb3goaGVpZ2h0OiBfdGlueVNpemUpOwpjb25zdCBXaWRnZXQgdmVydGljYWxTcGFjZVNtYWxsID0gU2l6ZWRCb3goaGVpZ2h0OiBfc21hbGxTaXplKTsKY29uc3QgV2lkZ2V0IHZlcnRpY2FsU3BhY2VNZWRpdW0gPSBTaXplZEJveChoZWlnaHQ6IF9tZWRpdW1TaXplKTsKY29uc3QgV2lkZ2V0IHZlcnRpY2FsU3BhY2VMYXJnZSA9IFNpemVkQm94KGhlaWdodDogX2xhcmdlU2l6ZSk7CmNvbnN0IFdpZGdldCB2ZXJ0aWNhbFNwYWNlTWFzc2l2ZSA9IFNpemVkQm94KGhlaWdodDogX21hc3NpdmVTaXplKTsKCldpZGdldCBzcGFjZWREaXZpZGVyID0gQ29sdW1uKAogIGNoaWxkcmVuOiBjb25zdCA8V2lkZ2V0PlsKICAgIHZlcnRpY2FsU3BhY2VNZWRpdW0sCiAgICBEaXZpZGVyKGNvbG9yOiBDb2xvcnMuYmx1ZUdyZXksIGhlaWdodDogNS4wKSwKICAgIHZlcnRpY2FsU3BhY2VNZWRpdW0sCiAgXSwKKTsKCldpZGdldCB2ZXJ0aWNhbFNwYWNlKGRvdWJsZSBoZWlnaHQpID0+IFNpemVkQm94KGhlaWdodDogaGVpZ2h0KTsKCmRvdWJsZSBzY3JlZW5XaWR0aChCdWlsZENvbnRleHQgY29udGV4dCkgPT4gTWVkaWFRdWVyeS5vZihjb250ZXh0KS5zaXplLndpZHRoOwpkb3VibGUgc2NyZWVuSGVpZ2h0KEJ1aWxkQ29udGV4dCBjb250ZXh0KSA9PiBNZWRpYVF1ZXJ5Lm9mKGNvbnRleHQpLnNpemUuaGVpZ2h0OwoKZG91YmxlIHNjcmVlbkhlaWdodEZyYWN0aW9uKEJ1aWxkQ29udGV4dCBjb250ZXh0LAogICAgICAgIHtpbnQgZGl2aWRlZEJ5ID0gMSwgZG91YmxlIG9mZnNldEJ5ID0gMCwgZG91YmxlIG1heCA9IDMwMDB9KSA9PgogICAgbWluKChzY3JlZW5IZWlnaHQoY29udGV4dCkgLSBvZmZzZXRCeSkgLyBkaXZpZGVkQnksIG1heCk7Cgpkb3VibGUgc2NyZWVuV2lkdGhGcmFjdGlvbihCdWlsZENvbnRleHQgY29udGV4dCwKICAgICAgICB7aW50IGRpdmlkZWRCeSA9IDEsIGRvdWJsZSBvZmZzZXRCeSA9IDAsIGRvdWJsZSBtYXggPSAzMDAwfSkgPT4KICAgIG1pbigoc2NyZWVuV2lkdGgoY29udGV4dCkgLSBvZmZzZXRCeSkgLyBkaXZpZGVkQnksIG1heCk7Cgpkb3VibGUgaGFsZlNjcmVlbldpZHRoKEJ1aWxkQ29udGV4dCBjb250ZXh0KSA9PgogICAgc2NyZWVuV2lkdGhGcmFjdGlvbihjb250ZXh0LCBkaXZpZGVkQnk6IDIpOwoKZG91YmxlIHRoaXJkU2NyZWVuV2lkdGgoQnVpbGRDb250ZXh0IGNvbnRleHQpID0+CiAgICBzY3JlZW5XaWR0aEZyYWN0aW9uKGNvbnRleHQsIGRpdmlkZWRCeTogMyk7Cgpkb3VibGUgcXVhcnRlclNjcmVlbldpZHRoKEJ1aWxkQ29udGV4dCBjb250ZXh0KSA9PgogICAgc2NyZWVuV2lkdGhGcmFjdGlvbihjb250ZXh0LCBkaXZpZGVkQnk6IDQpOwoKZG91YmxlIGdldFJlc3BvbnNpdmVIb3Jpem9udGFsU3BhY2VNZWRpdW0oQnVpbGRDb250ZXh0IGNvbnRleHQpID0+CiAgICBzY3JlZW5XaWR0aEZyYWN0aW9uKGNvbnRleHQsIGRpdmlkZWRCeTogMTApOwpkb3VibGUgZ2V0UmVzcG9uc2l2ZVNtYWxsRm9udFNpemUoQnVpbGRDb250ZXh0IGNvbnRleHQpID0+CiAgICBnZXRSZXNwb25zaXZlRm9udFNpemUoY29udGV4dCwgZm9udFNpemU6IDE0LCBtYXg6IDE1KTsKCmRvdWJsZSBnZXRSZXNwb25zaXZlTWVkaXVtRm9udFNpemUoQnVpbGRDb250ZXh0IGNvbnRleHQpID0+CiAgICBnZXRSZXNwb25zaXZlRm9udFNpemUoY29udGV4dCwgZm9udFNpemU6IDE2LCBtYXg6IDE3KTsKCmRvdWJsZSBnZXRSZXNwb25zaXZlTGFyZ2VGb250U2l6ZShCdWlsZENvbnRleHQgY29udGV4dCkgPT4KICAgIGdldFJlc3BvbnNpdmVGb250U2l6ZShjb250ZXh0LCBmb250U2l6ZTogMjEsIG1heDogMzEpOwoKZG91YmxlIGdldFJlc3BvbnNpdmVFeHRyYUxhcmdlRm9udFNpemUoQnVpbGRDb250ZXh0IGNvbnRleHQpID0+CiAgICBnZXRSZXNwb25zaXZlRm9udFNpemUoY29udGV4dCwgZm9udFNpemU6IDI1KTsKCmRvdWJsZSBnZXRSZXNwb25zaXZlTWFzc2l2ZUZvbnRTaXplKEJ1aWxkQ29udGV4dCBjb250ZXh0KSA9PgogICAgZ2V0UmVzcG9uc2l2ZUZvbnRTaXplKGNvbnRleHQsIGZvbnRTaXplOiAzMCk7Cgpkb3VibGUgZ2V0UmVzcG9uc2l2ZUZvbnRTaXplKEJ1aWxkQ29udGV4dCBjb250ZXh0LAogICAge2RvdWJsZT8gZm9udFNpemUsIGRvdWJsZT8gbWF4fSkgewogIG1heCA/Pz0gMTAwOwoKICB2YXIgcmVzcG9uc2l2ZVNpemUgPSBtaW4oCiAgICAgIHNjcmVlbldpZHRoRnJhY3Rpb24oY29udGV4dCwgZGl2aWRlZEJ5OiAxMCkgKiAoKGZvbnRTaXplID8/IDEwMCkgLyAxMDApLAogICAgICBtYXgpOwogIAogIHJldHVybiByZXNwb25zaXZlU2l6ZTsKfQo=
 ''';
 
 // --------------------------------------------------
@@ -1782,10 +440,7 @@ const String kAppMobileTemplateAppStringsPath =
     'lib/ui/common/app_strings.dart.stk';
 
 const String kAppMobileTemplateAppStringsContent = '''
-const String ksHomeBottomSheetTitle = 'Build Great Apps!';
-const String ksHomeBottomSheetDescription =
-    'Stacked is built to help you build better apps. Give us a chance and we\\'ll prove it to you. Check out stacked.filledstacks.com to learn more';
-
+Y29uc3QgU3RyaW5nIGtzSG9tZUJvdHRvbVNoZWV0VGl0bGUgPSAnQnVpbGQgR3JlYXQgQXBwcyEnOwpjb25zdCBTdHJpbmcga3NIb21lQm90dG9tU2hlZXREZXNjcmlwdGlvbiA9CiAgICAnU3RhY2tlZCBpcyBidWlsdCB0byBoZWxwIHlvdSBidWlsZCBiZXR0ZXIgYXBwcy4gR2l2ZSB1cyBhIGNoYW5jZSBhbmQgd2VcXCdsbCBwcm92ZSBpdCB0byB5b3UuIENoZWNrIG91dCBzdGFja2VkLmZpbGxlZHN0YWNrcy5jb20gdG8gbGVhcm4gbW9yZSc7Cg==
 ''';
 
 // --------------------------------------------------
@@ -1797,16 +452,7 @@ const String kAppMobileTemplateAppColorsPath =
     'lib/ui/common/app_colors.dart.stk';
 
 const String kAppMobileTemplateAppColorsContent = '''
-import 'package:flutter/material.dart';
-
-const Color kcPrimaryColor = Color(0xFF9600FF);
-const Color kcPrimaryColorDark = Color(0xFF300151);
-const Color kcDarkGreyColor = Color(0xFF1A1B1E);
-const Color kcMediumGrey = Color(0xFF474A54);
-const Color kcLightGrey = Color.fromARGB(255, 187, 187, 187);
-const Color kcVeryLightGrey = Color(0xFFE3E3E3);
-const Color kcBackgroundColor = kcDarkGreyColor;
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7Cgpjb25zdCBDb2xvciBrY1ByaW1hcnlDb2xvciA9IENvbG9yKDB4RkY5NjAwRkYpOwpjb25zdCBDb2xvciBrY1ByaW1hcnlDb2xvckRhcmsgPSBDb2xvcigweEZGMzAwMTUxKTsKY29uc3QgQ29sb3Iga2NEYXJrR3JleUNvbG9yID0gQ29sb3IoMHhGRjFBMUIxRSk7CmNvbnN0IENvbG9yIGtjTWVkaXVtR3JleSA9IENvbG9yKDB4RkY0NzRBNTQpOwpjb25zdCBDb2xvciBrY0xpZ2h0R3JleSA9IENvbG9yLmZyb21BUkdCKDI1NSwgMTg3LCAxODcsIDE4Nyk7CmNvbnN0IENvbG9yIGtjVmVyeUxpZ2h0R3JleSA9IENvbG9yKDB4RkZFM0UzRTMpOwpjb25zdCBDb2xvciBrY0JhY2tncm91bmRDb2xvciA9IGtjRGFya0dyZXlDb2xvcjsK
 ''';
 
 // --------------------------------------------------
@@ -1818,10 +464,7 @@ const String kAppMobileTemplateNoticeSheetModelPath =
     'lib/ui/bottom_sheets/notice/notice_sheet_model.dart.stk';
 
 const String kAppMobileTemplateNoticeSheetModelContent = '''
-import 'package:stacked/stacked.dart';
-
-class NoticeSheetModel extends BaseViewModel {}
-
+aW1wb3J0ICdwYWNrYWdlOnN0YWNrZWQvc3RhY2tlZC5kYXJ0JzsKCmNsYXNzIE5vdGljZVNoZWV0TW9kZWwgZXh0ZW5kcyBCYXNlVmlld01vZGVsIHt9Cg==
 ''';
 
 // --------------------------------------------------
@@ -1833,64 +476,7 @@ const String kAppMobileTemplateNoticeSheetPath =
     'lib/ui/bottom_sheets/notice/notice_sheet.dart.stk';
 
 const String kAppMobileTemplateNoticeSheetContent = '''
-import 'package:flutter/material.dart';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-
-import 'notice_sheet_model.dart';
-
-class NoticeSheet extends StackedView<NoticeSheetModel> {
-  final Function(SheetResponse)? completer;
-  final SheetRequest request;
-  const NoticeSheet({
-    Key? key,
-    required this.completer,
-    required this.request,
-  }) : super(key: key);
-
-  @override
-  Widget builder(
-    BuildContext context,
-    NoticeSheetModel viewModel,
-    Widget? child,
-  ) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            request.title!,
-            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
-          ),
-          verticalSpaceTiny,
-          Text(
-            request.description!,
-            style: const TextStyle(fontSize: 14, color: kcMediumGrey),
-            maxLines: 3,
-            softWrap: true,
-          ),
-          verticalSpaceLarge,
-        ],
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-        ),
-      ),
-    );
-  }
-
-  @override
-  NoticeSheetModel viewModelBuilder(BuildContext context) =>
-      NoticeSheetModel();
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL2FwcF9jb2xvcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL3VpX2hlbHBlcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkL3N0YWNrZWQuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkX3NlcnZpY2VzL3N0YWNrZWRfc2VydmljZXMuZGFydCc7CgppbXBvcnQgJ25vdGljZV9zaGVldF9tb2RlbC5kYXJ0JzsKCmNsYXNzIE5vdGljZVNoZWV0IGV4dGVuZHMgU3RhY2tlZFZpZXc8Tm90aWNlU2hlZXRNb2RlbD4gewogIGZpbmFsIEZ1bmN0aW9uKFNoZWV0UmVzcG9uc2UpPyBjb21wbGV0ZXI7CiAgZmluYWwgU2hlZXRSZXF1ZXN0IHJlcXVlc3Q7CiAgY29uc3QgTm90aWNlU2hlZXQoewogICAgS2V5PyBrZXksCiAgICByZXF1aXJlZCB0aGlzLmNvbXBsZXRlciwKICAgIHJlcXVpcmVkIHRoaXMucmVxdWVzdCwKICB9KSA6IHN1cGVyKGtleToga2V5KTsKCiAgQG92ZXJyaWRlCiAgV2lkZ2V0IGJ1aWxkZXIoCiAgICBCdWlsZENvbnRleHQgY29udGV4dCwKICAgIE5vdGljZVNoZWV0TW9kZWwgdmlld01vZGVsLAogICAgV2lkZ2V0PyBjaGlsZCwKICApIHsKICAgIHJldHVybiBDb250YWluZXIoCiAgICAgIHBhZGRpbmc6IGNvbnN0IEVkZ2VJbnNldHMuc3ltbWV0cmljKGhvcml6b250YWw6IDIwLCB2ZXJ0aWNhbDogMTUpLAogICAgICBjaGlsZDogQ29sdW1uKAogICAgICAgIGNyb3NzQXhpc0FsaWdubWVudDogQ3Jvc3NBeGlzQWxpZ25tZW50LnN0YXJ0LAogICAgICAgIG1haW5BeGlzU2l6ZTogTWFpbkF4aXNTaXplLm1pbiwKICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgVGV4dCgKICAgICAgICAgICAgcmVxdWVzdC50aXRsZSEsCiAgICAgICAgICAgIHN0eWxlOiBjb25zdCBUZXh0U3R5bGUoZm9udFNpemU6IDI1LCBmb250V2VpZ2h0OiBGb250V2VpZ2h0Lnc5MDApLAogICAgICAgICAgKSwKICAgICAgICAgIHZlcnRpY2FsU3BhY2VUaW55LAogICAgICAgICAgVGV4dCgKICAgICAgICAgICAgcmVxdWVzdC5kZXNjcmlwdGlvbiEsCiAgICAgICAgICAgIHN0eWxlOiBjb25zdCBUZXh0U3R5bGUoZm9udFNpemU6IDE0LCBjb2xvcjoga2NNZWRpdW1HcmV5KSwKICAgICAgICAgICAgbWF4TGluZXM6IDMsCiAgICAgICAgICAgIHNvZnRXcmFwOiB0cnVlLAogICAgICAgICAgKSwKICAgICAgICAgIHZlcnRpY2FsU3BhY2VMYXJnZSwKICAgICAgICBdLAogICAgICApLAogICAgICBkZWNvcmF0aW9uOiBjb25zdCBCb3hEZWNvcmF0aW9uKAogICAgICAgIGNvbG9yOiBDb2xvcnMud2hpdGUsCiAgICAgICAgYm9yZGVyUmFkaXVzOiBCb3JkZXJSYWRpdXMub25seSgKICAgICAgICAgIHRvcExlZnQ6IFJhZGl1cy5jaXJjdWxhcigxMCksCiAgICAgICAgICB0b3BSaWdodDogUmFkaXVzLmNpcmN1bGFyKDEwKSwKICAgICAgICApLAogICAgICApLAogICAgKTsKICB9CgogIEBvdmVycmlkZQogIE5vdGljZVNoZWV0TW9kZWwgdmlld01vZGVsQnVpbGRlcihCdWlsZENvbnRleHQgY29udGV4dCkgPT4KICAgICAgTm90aWNlU2hlZXRNb2RlbCgpOwp9Cg==
 ''';
 
 // --------------------------------------------------
@@ -1902,10 +488,7 @@ const String kAppMobileTemplateInfoAlertDialogModelPath =
     'lib/ui/dialogs/info_alert/info_alert_dialog_model.dart.stk';
 
 const String kAppMobileTemplateInfoAlertDialogModelContent = '''
-import 'package:stacked/stacked.dart';
-
-class InfoAlertDialogModel extends BaseViewModel {}
-
+aW1wb3J0ICdwYWNrYWdlOnN0YWNrZWQvc3RhY2tlZC5kYXJ0JzsKCmNsYXNzIEluZm9BbGVydERpYWxvZ01vZGVsIGV4dGVuZHMgQmFzZVZpZXdNb2RlbCB7fQo=
 ''';
 
 // --------------------------------------------------
@@ -1917,115 +500,7 @@ const String kAppMobileTemplateInfoAlertDialogPath =
     'lib/ui/dialogs/info_alert/info_alert_dialog.dart.stk';
 
 const String kAppMobileTemplateInfoAlertDialogContent = '''
-import 'package:flutter/material.dart';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-
-import 'info_alert_dialog_model.dart';
-
-const double _graphicSize = 60;
-
-class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
-  final DialogRequest request;
-  final Function(DialogResponse) completer;
-
-  const InfoAlertDialog({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
-
-  @override
-  Widget builder(
-    BuildContext context,
-    InfoAlertDialogModel viewModel,
-    Widget? child,
-  ) {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      backgroundColor: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        request.title!,
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w900),
-                      ),
-                      verticalSpaceTiny,
-                      Text(
-                        request.description!,
-                        style:
-                            const TextStyle(fontSize: 14, color: kcMediumGrey),
-                        maxLines: 3,
-                        softWrap: true,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: _graphicSize,
-                  height: _graphicSize,
-                  decoration: const BoxDecoration(
-                    color: Color(0xffF6E7B0),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(_graphicSize / 2),
-                    ),
-                  ),
-                  alignment: Alignment.center,
-                  child: const Text(
-                    '⭐️',
-                    style: TextStyle(fontSize: 30),
-                  ),
-                )
-              ],
-            ),
-            verticalSpaceMedium,
-            GestureDetector(
-              onTap: () => completer(DialogResponse(
-                confirmed: true,
-              )),
-              child: Container(
-                height: 50,
-                width: double.infinity,
-                alignment: Alignment.center,
-                child: const Text(
-                  'Got it',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  InfoAlertDialogModel viewModelBuilder(BuildContext context) =>
-      InfoAlertDialogModel();
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL2FwcF9jb2xvcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL3VpX2hlbHBlcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkL3N0YWNrZWQuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkX3NlcnZpY2VzL3N0YWNrZWRfc2VydmljZXMuZGFydCc7CgppbXBvcnQgJ2luZm9fYWxlcnRfZGlhbG9nX21vZGVsLmRhcnQnOwoKY29uc3QgZG91YmxlIF9ncmFwaGljU2l6ZSA9IDYwOwoKY2xhc3MgSW5mb0FsZXJ0RGlhbG9nIGV4dGVuZHMgU3RhY2tlZFZpZXc8SW5mb0FsZXJ0RGlhbG9nTW9kZWw+IHsKICBmaW5hbCBEaWFsb2dSZXF1ZXN0IHJlcXVlc3Q7CiAgZmluYWwgRnVuY3Rpb24oRGlhbG9nUmVzcG9uc2UpIGNvbXBsZXRlcjsKCiAgY29uc3QgSW5mb0FsZXJ0RGlhbG9nKHsKICAgIEtleT8ga2V5LAogICAgcmVxdWlyZWQgdGhpcy5yZXF1ZXN0LAogICAgcmVxdWlyZWQgdGhpcy5jb21wbGV0ZXIsCiAgfSkgOiBzdXBlcihrZXk6IGtleSk7CgogIEBvdmVycmlkZQogIFdpZGdldCBidWlsZGVyKAogICAgQnVpbGRDb250ZXh0IGNvbnRleHQsCiAgICBJbmZvQWxlcnREaWFsb2dNb2RlbCB2aWV3TW9kZWwsCiAgICBXaWRnZXQ/IGNoaWxkLAogICkgewogICAgcmV0dXJuIERpYWxvZygKICAgICAgc2hhcGU6IFJvdW5kZWRSZWN0YW5nbGVCb3JkZXIoYm9yZGVyUmFkaXVzOiBCb3JkZXJSYWRpdXMuY2lyY3VsYXIoMTApKSwKICAgICAgYmFja2dyb3VuZENvbG9yOiBDb2xvcnMud2hpdGUsCiAgICAgIGNoaWxkOiBQYWRkaW5nKAogICAgICAgIHBhZGRpbmc6IGNvbnN0IEVkZ2VJbnNldHMuc3ltbWV0cmljKGhvcml6b250YWw6IDIwLCB2ZXJ0aWNhbDogMjApLAogICAgICAgIGNoaWxkOiBDb2x1bW4oCiAgICAgICAgICBtYWluQXhpc1NpemU6IE1haW5BeGlzU2l6ZS5taW4sCiAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICBSb3coCiAgICAgICAgICAgICAgbWFpbkF4aXNBbGlnbm1lbnQ6IE1haW5BeGlzQWxpZ25tZW50LnNwYWNlQmV0d2VlbiwKICAgICAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICAgICAgRXhwYW5kZWQoCiAgICAgICAgICAgICAgICAgIGNoaWxkOiBDb2x1bW4oCiAgICAgICAgICAgICAgICAgICAgbWFpbkF4aXNTaXplOiBNYWluQXhpc1NpemUubWluLAogICAgICAgICAgICAgICAgICAgIGNyb3NzQXhpc0FsaWdubWVudDogQ3Jvc3NBeGlzQWxpZ25tZW50LnN0YXJ0LAogICAgICAgICAgICAgICAgICAgIGNoaWxkcmVuOiBbCiAgICAgICAgICAgICAgICAgICAgICBUZXh0KAogICAgICAgICAgICAgICAgICAgICAgICByZXF1ZXN0LnRpdGxlISwKICAgICAgICAgICAgICAgICAgICAgICAgc3R5bGU6IGNvbnN0IFRleHRTdHlsZSgKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZvbnRTaXplOiAxNiwgZm9udFdlaWdodDogRm9udFdlaWdodC53OTAwKSwKICAgICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgICB2ZXJ0aWNhbFNwYWNlVGlueSwKICAgICAgICAgICAgICAgICAgICAgIFRleHQoCiAgICAgICAgICAgICAgICAgICAgICAgIHJlcXVlc3QuZGVzY3JpcHRpb24hLAogICAgICAgICAgICAgICAgICAgICAgICBzdHlsZToKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnN0IFRleHRTdHlsZShmb250U2l6ZTogMTQsIGNvbG9yOiBrY01lZGl1bUdyZXkpLAogICAgICAgICAgICAgICAgICAgICAgICBtYXhMaW5lczogMywKICAgICAgICAgICAgICAgICAgICAgICAgc29mdFdyYXA6IHRydWUsCiAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgIF0sCiAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgQ29udGFpbmVyKAogICAgICAgICAgICAgICAgICB3aWR0aDogX2dyYXBoaWNTaXplLAogICAgICAgICAgICAgICAgICBoZWlnaHQ6IF9ncmFwaGljU2l6ZSwKICAgICAgICAgICAgICAgICAgZGVjb3JhdGlvbjogY29uc3QgQm94RGVjb3JhdGlvbigKICAgICAgICAgICAgICAgICAgICBjb2xvcjogQ29sb3IoMHhmZkY2RTdCMCksCiAgICAgICAgICAgICAgICAgICAgYm9yZGVyUmFkaXVzOiBCb3JkZXJSYWRpdXMuYWxsKAogICAgICAgICAgICAgICAgICAgICAgUmFkaXVzLmNpcmN1bGFyKF9ncmFwaGljU2l6ZSAvIDIpLAogICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgIGFsaWdubWVudDogQWxpZ25tZW50LmNlbnRlciwKICAgICAgICAgICAgICAgICAgY2hpbGQ6IGNvbnN0IFRleHQoCiAgICAgICAgICAgICAgICAgICAgJ+KtkO+4jycsCiAgICAgICAgICAgICAgICAgICAgc3R5bGU6IFRleHRTdHlsZShmb250U2l6ZTogMzApLAogICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgKQogICAgICAgICAgICAgIF0sCiAgICAgICAgICAgICksCiAgICAgICAgICAgIHZlcnRpY2FsU3BhY2VNZWRpdW0sCiAgICAgICAgICAgIEdlc3R1cmVEZXRlY3RvcigKICAgICAgICAgICAgICBvblRhcDogKCkgPT4gY29tcGxldGVyKERpYWxvZ1Jlc3BvbnNlKAogICAgICAgICAgICAgICAgY29uZmlybWVkOiB0cnVlLAogICAgICAgICAgICAgICkpLAogICAgICAgICAgICAgIGNoaWxkOiBDb250YWluZXIoCiAgICAgICAgICAgICAgICBoZWlnaHQ6IDUwLAogICAgICAgICAgICAgICAgd2lkdGg6IGRvdWJsZS5pbmZpbml0eSwKICAgICAgICAgICAgICAgIGFsaWdubWVudDogQWxpZ25tZW50LmNlbnRlciwKICAgICAgICAgICAgICAgIGNoaWxkOiBjb25zdCBUZXh0KAogICAgICAgICAgICAgICAgICAnR290IGl0JywKICAgICAgICAgICAgICAgICAgc3R5bGU6IFRleHRTdHlsZSgKICAgICAgICAgICAgICAgICAgICBjb2xvcjogQ29sb3JzLndoaXRlLAogICAgICAgICAgICAgICAgICAgIGZvbnRXZWlnaHQ6IEZvbnRXZWlnaHQuYm9sZCwKICAgICAgICAgICAgICAgICAgICBmb250U2l6ZTogMTYsCiAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgZGVjb3JhdGlvbjogQm94RGVjb3JhdGlvbigKICAgICAgICAgICAgICAgICAgY29sb3I6IENvbG9ycy5ibGFjaywKICAgICAgICAgICAgICAgICAgYm9yZGVyUmFkaXVzOiBCb3JkZXJSYWRpdXMuY2lyY3VsYXIoMTApLAogICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICApLAogICAgICAgICAgICApCiAgICAgICAgICBdLAogICAgICAgICksCiAgICAgICksCiAgICApOwogIH0KCiAgQG92ZXJyaWRlCiAgSW5mb0FsZXJ0RGlhbG9nTW9kZWwgdmlld01vZGVsQnVpbGRlcihCdWlsZENvbnRleHQgY29udGV4dCkgPT4KICAgICAgSW5mb0FsZXJ0RGlhbG9nTW9kZWwoKTsKfQo=
 ''';
 
 // --------------------------------------------------
@@ -2037,84 +512,7 @@ const String kAppMobileTemplateHomeViewV1Path =
     'lib/ui/views/home/home_view_v1.dart.stk';
 
 const String kAppMobileTemplateHomeViewV1Content = '''
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-
-import 'home_viewmodel.dart';
-
-class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<HomeViewModel>.reactive(
-      viewModelBuilder: () => HomeViewModel(),
-      builder: (context, model, child) => Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  verticalSpaceLarge,
-                  Column(
-                    children: [
-                      const Text(
-                        'Hello, STACKED!',
-                        style: TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      verticalSpaceMedium,
-                      MaterialButton(
-                        color: Colors.black,
-                        onPressed: model.incrementCounter,
-                        child: Text(
-                          model.counterLabel,
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      MaterialButton(
-                        color: kcDarkGreyColor,
-                        child: const Text(
-                          'Show Dialog',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        onPressed: model.showDialog,
-                      ),
-                      MaterialButton(
-                        color: kcDarkGreyColor,
-                        child: const Text(
-                          'Show Bottom Sheet',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        onPressed: model.showBottomSheet,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkL3N0YWNrZWQuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL2FwcF9jb2xvcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL3VpX2hlbHBlcnMuZGFydCc7CgppbXBvcnQgJ2hvbWVfdmlld21vZGVsLmRhcnQnOwoKY2xhc3MgSG9tZVZpZXcgZXh0ZW5kcyBTdGF0ZWxlc3NXaWRnZXQgewogIGNvbnN0IEhvbWVWaWV3KHtLZXk/IGtleX0pIDogc3VwZXIoa2V5OiBrZXkpOwoKICBAb3ZlcnJpZGUKICBXaWRnZXQgYnVpbGQoQnVpbGRDb250ZXh0IGNvbnRleHQpIHsKICAgIHJldHVybiBWaWV3TW9kZWxCdWlsZGVyPEhvbWVWaWV3TW9kZWw+LnJlYWN0aXZlKAogICAgICB2aWV3TW9kZWxCdWlsZGVyOiAoKSA9PiBIb21lVmlld01vZGVsKCksCiAgICAgIGJ1aWxkZXI6IChjb250ZXh0LCBtb2RlbCwgY2hpbGQpID0+IFNjYWZmb2xkKAogICAgICAgIGJvZHk6IFNhZmVBcmVhKAogICAgICAgICAgY2hpbGQ6IFBhZGRpbmcoCiAgICAgICAgICAgIHBhZGRpbmc6IGNvbnN0IEVkZ2VJbnNldHMuc3ltbWV0cmljKGhvcml6b250YWw6IDI1LjApLAogICAgICAgICAgICBjaGlsZDogQ2VudGVyKAogICAgICAgICAgICAgIGNoaWxkOiBDb2x1bW4oCiAgICAgICAgICAgICAgICBtYWluQXhpc1NpemU6IE1haW5BeGlzU2l6ZS5tYXgsCiAgICAgICAgICAgICAgICBtYWluQXhpc0FsaWdubWVudDogTWFpbkF4aXNBbGlnbm1lbnQuc3BhY2VCZXR3ZWVuLAogICAgICAgICAgICAgICAgY2hpbGRyZW46IFsKICAgICAgICAgICAgICAgICAgdmVydGljYWxTcGFjZUxhcmdlLAogICAgICAgICAgICAgICAgICBDb2x1bW4oCiAgICAgICAgICAgICAgICAgICAgY2hpbGRyZW46IFsKICAgICAgICAgICAgICAgICAgICAgIGNvbnN0IFRleHQoCiAgICAgICAgICAgICAgICAgICAgICAgICdIZWxsbywgU1RBQ0tFRCEnLAogICAgICAgICAgICAgICAgICAgICAgICBzdHlsZTogVGV4dFN0eWxlKAogICAgICAgICAgICAgICAgICAgICAgICAgIGZvbnRTaXplOiAzNSwKICAgICAgICAgICAgICAgICAgICAgICAgICBmb250V2VpZ2h0OiBGb250V2VpZ2h0Lnc5MDAsCiAgICAgICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgICAgdmVydGljYWxTcGFjZU1lZGl1bSwKICAgICAgICAgICAgICAgICAgICAgIE1hdGVyaWFsQnV0dG9uKAogICAgICAgICAgICAgICAgICAgICAgICBjb2xvcjogQ29sb3JzLmJsYWNrLAogICAgICAgICAgICAgICAgICAgICAgICBvblByZXNzZWQ6IG1vZGVsLmluY3JlbWVudENvdW50ZXIsCiAgICAgICAgICAgICAgICAgICAgICAgIGNoaWxkOiBUZXh0KAogICAgICAgICAgICAgICAgICAgICAgICAgIG1vZGVsLmNvdW50ZXJMYWJlbCwKICAgICAgICAgICAgICAgICAgICAgICAgICBzdHlsZTogY29uc3QgVGV4dFN0eWxlKGNvbG9yOiBDb2xvcnMud2hpdGUpLAogICAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgICBdLAogICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICBSb3coCiAgICAgICAgICAgICAgICAgICAgbWFpbkF4aXNBbGlnbm1lbnQ6IE1haW5BeGlzQWxpZ25tZW50LnNwYWNlQmV0d2VlbiwKICAgICAgICAgICAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICAgICAgICAgICAgTWF0ZXJpYWxCdXR0b24oCiAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBrY0RhcmtHcmV5Q29sb3IsCiAgICAgICAgICAgICAgICAgICAgICAgIGNoaWxkOiBjb25zdCBUZXh0KAogICAgICAgICAgICAgICAgICAgICAgICAgICdTaG93IERpYWxvZycsCiAgICAgICAgICAgICAgICAgICAgICAgICAgc3R5bGU6IFRleHRTdHlsZSgKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBDb2xvcnMud2hpdGUsCiAgICAgICAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgICAgICAgb25QcmVzc2VkOiBtb2RlbC5zaG93RGlhbG9nLAogICAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgICAgIE1hdGVyaWFsQnV0dG9uKAogICAgICAgICAgICAgICAgICAgICAgICBjb2xvcjoga2NEYXJrR3JleUNvbG9yLAogICAgICAgICAgICAgICAgICAgICAgICBjaGlsZDogY29uc3QgVGV4dCgKICAgICAgICAgICAgICAgICAgICAgICAgICAnU2hvdyBCb3R0b20gU2hlZXQnLAogICAgICAgICAgICAgICAgICAgICAgICAgIHN0eWxlOiBUZXh0U3R5bGUoCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb2xvcjogQ29sb3JzLndoaXRlLAogICAgICAgICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgICAgIG9uUHJlc3NlZDogbW9kZWwuc2hvd0JvdHRvbVNoZWV0LAogICAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgICBdLAogICAgICAgICAgICAgICAgICApCiAgICAgICAgICAgICAgICBdLAogICAgICAgICAgICAgICksCiAgICAgICAgICAgICksCiAgICAgICAgICApLAogICAgICAgICksCiAgICAgICksCiAgICApOwogIH0KfQ==
 ''';
 
 // --------------------------------------------------
@@ -2126,91 +524,7 @@ const String kAppMobileTemplateHomeViewPath =
     'lib/ui/views/home/home_view.dart.stk';
 
 const String kAppMobileTemplateHomeViewContent = '''
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-
-import 'home_viewmodel.dart';
-
-class HomeView extends StackedView<HomeViewModel> {
-  const HomeView({Key? key}) : super(key: key);
-
-  @override
-  Widget builder(
-    BuildContext context,
-    HomeViewModel viewModel,
-    Widget? child,
-  ) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    const Text(
-                      'Hello, STACKED!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showDialog,
-                    ),
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showBottomSheet,
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  HomeViewModel viewModelBuilder(
-    BuildContext context,
-  ) => HomeViewModel();
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkL3N0YWNrZWQuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL2FwcF9jb2xvcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL3VpX2hlbHBlcnMuZGFydCc7CgppbXBvcnQgJ2hvbWVfdmlld21vZGVsLmRhcnQnOwoKY2xhc3MgSG9tZVZpZXcgZXh0ZW5kcyBTdGFja2VkVmlldzxIb21lVmlld01vZGVsPiB7CiAgY29uc3QgSG9tZVZpZXcoe0tleT8ga2V5fSkgOiBzdXBlcihrZXk6IGtleSk7CgogIEBvdmVycmlkZQogIFdpZGdldCBidWlsZGVyKAogICAgQnVpbGRDb250ZXh0IGNvbnRleHQsCiAgICBIb21lVmlld01vZGVsIHZpZXdNb2RlbCwKICAgIFdpZGdldD8gY2hpbGQsCiAgKSB7CiAgICByZXR1cm4gU2NhZmZvbGQoCiAgICAgIGJvZHk6IFNhZmVBcmVhKAogICAgICAgIGNoaWxkOiBQYWRkaW5nKAogICAgICAgICAgcGFkZGluZzogY29uc3QgRWRnZUluc2V0cy5zeW1tZXRyaWMoaG9yaXpvbnRhbDogMjUuMCksCiAgICAgICAgICBjaGlsZDogQ2VudGVyKAogICAgICAgICAgICBjaGlsZDogQ29sdW1uKAogICAgICAgICAgICAgIG1haW5BeGlzU2l6ZTogTWFpbkF4aXNTaXplLm1heCwKICAgICAgICAgICAgICBtYWluQXhpc0FsaWdubWVudDogTWFpbkF4aXNBbGlnbm1lbnQuc3BhY2VCZXR3ZWVuLAogICAgICAgICAgICAgIGNoaWxkcmVuOiBbCiAgICAgICAgICAgICAgICB2ZXJ0aWNhbFNwYWNlTGFyZ2UsCiAgICAgICAgICAgICAgICBDb2x1bW4oCiAgICAgICAgICAgICAgICAgIGNoaWxkcmVuOiBbCiAgICAgICAgICAgICAgICAgICAgY29uc3QgVGV4dCgKICAgICAgICAgICAgICAgICAgICAgICdIZWxsbywgU1RBQ0tFRCEnLAogICAgICAgICAgICAgICAgICAgICAgc3R5bGU6IFRleHRTdHlsZSgKICAgICAgICAgICAgICAgICAgICAgICAgZm9udFNpemU6IDM1LAogICAgICAgICAgICAgICAgICAgICAgICBmb250V2VpZ2h0OiBGb250V2VpZ2h0Lnc5MDAsCiAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgdmVydGljYWxTcGFjZU1lZGl1bSwKICAgICAgICAgICAgICAgICAgICBNYXRlcmlhbEJ1dHRvbigKICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBDb2xvcnMuYmxhY2ssCiAgICAgICAgICAgICAgICAgICAgICBvblByZXNzZWQ6IHZpZXdNb2RlbC5pbmNyZW1lbnRDb3VudGVyLAogICAgICAgICAgICAgICAgICAgICAgY2hpbGQ6IFRleHQoCiAgICAgICAgICAgICAgICAgICAgICAgIHZpZXdNb2RlbC5jb3VudGVyTGFiZWwsCiAgICAgICAgICAgICAgICAgICAgICAgIHN0eWxlOiBjb25zdCBUZXh0U3R5bGUoY29sb3I6IENvbG9ycy53aGl0ZSksCiAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgIF0sCiAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgUm93KAogICAgICAgICAgICAgICAgICBtYWluQXhpc0FsaWdubWVudDogTWFpbkF4aXNBbGlnbm1lbnQuc3BhY2VCZXR3ZWVuLAogICAgICAgICAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICAgICAgICAgIE1hdGVyaWFsQnV0dG9uKAogICAgICAgICAgICAgICAgICAgICAgY29sb3I6IGtjRGFya0dyZXlDb2xvciwKICAgICAgICAgICAgICAgICAgICAgIGNoaWxkOiBjb25zdCBUZXh0KAogICAgICAgICAgICAgICAgICAgICAgICAnU2hvdyBEaWFsb2cnLAogICAgICAgICAgICAgICAgICAgICAgICBzdHlsZTogVGV4dFN0eWxlKAogICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBDb2xvcnMud2hpdGUsCiAgICAgICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgICAgb25QcmVzc2VkOiB2aWV3TW9kZWwuc2hvd0RpYWxvZywKICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgIE1hdGVyaWFsQnV0dG9uKAogICAgICAgICAgICAgICAgICAgICAgY29sb3I6IGtjRGFya0dyZXlDb2xvciwKICAgICAgICAgICAgICAgICAgICAgIGNoaWxkOiBjb25zdCBUZXh0KAogICAgICAgICAgICAgICAgICAgICAgICAnU2hvdyBCb3R0b20gU2hlZXQnLAogICAgICAgICAgICAgICAgICAgICAgICBzdHlsZTogVGV4dFN0eWxlKAogICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBDb2xvcnMud2hpdGUsCiAgICAgICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgICAgb25QcmVzc2VkOiB2aWV3TW9kZWwuc2hvd0JvdHRvbVNoZWV0LAogICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgIF0sCiAgICAgICAgICAgICAgICApCiAgICAgICAgICAgICAgXSwKICAgICAgICAgICAgKSwKICAgICAgICAgICksCiAgICAgICAgKSwKICAgICAgKSwKICAgICk7CiAgfQoKICBAb3ZlcnJpZGUKICBIb21lVmlld01vZGVsIHZpZXdNb2RlbEJ1aWxkZXIoCiAgICBCdWlsZENvbnRleHQgY29udGV4dCwKICApID0+IEhvbWVWaWV3TW9kZWwoKTsKfQo=
 ''';
 
 // --------------------------------------------------
@@ -2222,43 +536,7 @@ const String kAppMobileTemplateHomeViewmodelPath =
     'lib/ui/views/home/home_viewmodel.dart.stk';
 
 const String kAppMobileTemplateHomeViewmodelContent = '''
-import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
-import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-import 'package:{{packageName}}/ui/common/app_strings.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-
-class HomeViewModel extends BaseViewModel {
-  final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
-
-  String get counterLabel => 'Counter is: \$_counter';
-
-  int _counter = 0;
-
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
-  }
-
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Stacked Rocks!',
-      description: 'Give stacked \$_counter stars on Github',
-    );
-  }
-
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: ksHomeBottomSheetTitle,
-      description: ksHomeBottomSheetDescription,
-    );
-  }
-}
-
+aW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS97e3tyZWxhdGl2ZUJvdHRvbVNoZWV0RmlsZVBhdGh9fX0nOwppbXBvcnQgJ3BhY2thZ2U6e3twYWNrYWdlTmFtZX19L3t7e3JlbGF0aXZlRGlhbG9nRmlsZVBhdGh9fX0nOwppbXBvcnQgJ3BhY2thZ2U6e3twYWNrYWdlTmFtZX19L3t7e3JlbGF0aXZlTG9jYXRvckZpbGVQYXRofX19JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS91aS9jb21tb24vYXBwX3N0cmluZ3MuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkL3N0YWNrZWQuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkX3NlcnZpY2VzL3N0YWNrZWRfc2VydmljZXMuZGFydCc7CgpjbGFzcyBIb21lVmlld01vZGVsIGV4dGVuZHMgQmFzZVZpZXdNb2RlbCB7CiAgZmluYWwgX2RpYWxvZ1NlcnZpY2UgPSBsb2NhdG9yPERpYWxvZ1NlcnZpY2U+KCk7CiAgZmluYWwgX2JvdHRvbVNoZWV0U2VydmljZSA9IGxvY2F0b3I8Qm90dG9tU2hlZXRTZXJ2aWNlPigpOwoKICBTdHJpbmcgZ2V0IGNvdW50ZXJMYWJlbCA9PiAnQ291bnRlciBpczogXCRfY291bnRlcic7CgogIGludCBfY291bnRlciA9IDA7CgogIHZvaWQgaW5jcmVtZW50Q291bnRlcigpIHsKICAgIF9jb3VudGVyKys7CiAgICByZWJ1aWxkVWkoKTsKICB9CgogIHZvaWQgc2hvd0RpYWxvZygpIHsKICAgIF9kaWFsb2dTZXJ2aWNlLnNob3dDdXN0b21EaWFsb2coCiAgICAgIHZhcmlhbnQ6IERpYWxvZ1R5cGUuaW5mb0FsZXJ0LAogICAgICB0aXRsZTogJ1N0YWNrZWQgUm9ja3MhJywKICAgICAgZGVzY3JpcHRpb246ICdHaXZlIHN0YWNrZWQgXCRfY291bnRlciBzdGFycyBvbiBHaXRodWInLAogICAgKTsKICB9CgogIHZvaWQgc2hvd0JvdHRvbVNoZWV0KCkgewogICAgX2JvdHRvbVNoZWV0U2VydmljZS5zaG93Q3VzdG9tU2hlZXQoCiAgICAgIHZhcmlhbnQ6IEJvdHRvbVNoZWV0VHlwZS5ub3RpY2UsCiAgICAgIHRpdGxlOiBrc0hvbWVCb3R0b21TaGVldFRpdGxlLAogICAgICBkZXNjcmlwdGlvbjoga3NIb21lQm90dG9tU2hlZXREZXNjcmlwdGlvbiwKICAgICk7CiAgfQp9Cg==
 ''';
 
 // --------------------------------------------------
@@ -2270,25 +548,7 @@ const String kAppMobileTemplateStartupViewmodelPath =
     'lib/ui/views/startup/startup_viewmodel.dart.stk';
 
 const String kAppMobileTemplateStartupViewmodelContent = '''
-import 'package:stacked/stacked.dart';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
-import 'package:stacked_services/stacked_services.dart';
-
-class StartupViewModel extends BaseViewModel {
-  final _navigationService = locator<NavigationService>();
-
-  // Place anything here that needs to happen before we get into the application
-  Future runStartupLogic() async {
-    await Future.delayed(const Duration(seconds: 3));
-
-    // This is where you can make decisions on where your app should navigate when
-    // you have custom startup logic
-
-    _navigationService.replaceWithHomeView();
-  }
-}
-
+aW1wb3J0ICdwYWNrYWdlOnN0YWNrZWQvc3RhY2tlZC5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS97e3tyZWxhdGl2ZUxvY2F0b3JGaWxlUGF0aH19fSc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVSb3V0ZXJGaWxlUGF0aH19fSc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkX3NlcnZpY2VzL3N0YWNrZWRfc2VydmljZXMuZGFydCc7CgpjbGFzcyBTdGFydHVwVmlld01vZGVsIGV4dGVuZHMgQmFzZVZpZXdNb2RlbCB7CiAgZmluYWwgX25hdmlnYXRpb25TZXJ2aWNlID0gbG9jYXRvcjxOYXZpZ2F0aW9uU2VydmljZT4oKTsKCiAgLy8gUGxhY2UgYW55dGhpbmcgaGVyZSB0aGF0IG5lZWRzIHRvIGhhcHBlbiBiZWZvcmUgd2UgZ2V0IGludG8gdGhlIGFwcGxpY2F0aW9uCiAgRnV0dXJlIHJ1blN0YXJ0dXBMb2dpYygpIGFzeW5jIHsKICAgIGF3YWl0IEZ1dHVyZS5kZWxheWVkKGNvbnN0IER1cmF0aW9uKHNlY29uZHM6IDMpKTsKCiAgICAvLyBUaGlzIGlzIHdoZXJlIHlvdSBjYW4gbWFrZSBkZWNpc2lvbnMgb24gd2hlcmUgeW91ciBhcHAgc2hvdWxkIG5hdmlnYXRlIHdoZW4KICAgIC8vIHlvdSBoYXZlIGN1c3RvbSBzdGFydHVwIGxvZ2ljCgogICAgX25hdmlnYXRpb25TZXJ2aWNlLnJlcGxhY2VXaXRoSG9tZVZpZXcoKTsKICB9Cn0K
 ''';
 
 // --------------------------------------------------
@@ -2300,61 +560,7 @@ const String kAppMobileTemplateStartupViewV1Path =
     'lib/ui/views/startup/startup_view_v1.dart.stk';
 
 const String kAppMobileTemplateStartupViewV1Content = '''
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:stacked/stacked.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-
-import 'startup_viewmodel.dart';
-
-class StartupView extends StatelessWidget {
-  const StartupView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<StartupViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'STACKED',
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Text(
-                    'Loading ...',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                  horizontalSpaceSmall,
-                  SizedBox(
-                    width: 16,
-                    height: 16,
-                    child: CircularProgressIndicator(
-                      color: Colors.black,
-                      strokeWidth: 6,
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-      onModelReady: (model) => SchedulerBinding.instance
-          .addPostFrameCallback((timeStamp) => model.runStartupLogic()),
-      viewModelBuilder: () => StartupViewModel(),
-    );
-  }
-}
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTpmbHV0dGVyL3NjaGVkdWxlci5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnN0YWNrZWQvc3RhY2tlZC5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS91aS9jb21tb24vdWlfaGVscGVycy5kYXJ0JzsKCmltcG9ydCAnc3RhcnR1cF92aWV3bW9kZWwuZGFydCc7CgpjbGFzcyBTdGFydHVwVmlldyBleHRlbmRzIFN0YXRlbGVzc1dpZGdldCB7CiAgY29uc3QgU3RhcnR1cFZpZXcoe0tleT8ga2V5fSkgOiBzdXBlcihrZXk6IGtleSk7CgogIEBvdmVycmlkZQogIFdpZGdldCBidWlsZChCdWlsZENvbnRleHQgY29udGV4dCkgewogICAgcmV0dXJuIFZpZXdNb2RlbEJ1aWxkZXI8U3RhcnR1cFZpZXdNb2RlbD4ucmVhY3RpdmUoCiAgICAgIGJ1aWxkZXI6IChjb250ZXh0LCBtb2RlbCwgY2hpbGQpID0+IFNjYWZmb2xkKAogICAgICAgIGJvZHk6IENlbnRlcigKICAgICAgICAgIGNoaWxkOiBDb2x1bW4oCiAgICAgICAgICAgIG1haW5BeGlzU2l6ZTogTWFpbkF4aXNTaXplLm1pbiwKICAgICAgICAgICAgY2hpbGRyZW46IFsKICAgICAgICAgICAgICBjb25zdCBUZXh0KAogICAgICAgICAgICAgICAgJ1NUQUNLRUQnLAogICAgICAgICAgICAgICAgc3R5bGU6IFRleHRTdHlsZSgKICAgICAgICAgICAgICAgICAgZm9udFNpemU6IDQwLAogICAgICAgICAgICAgICAgICBmb250V2VpZ2h0OiBGb250V2VpZ2h0Lnc5MDAsCiAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgUm93KAogICAgICAgICAgICAgICAgbWFpbkF4aXNTaXplOiBNYWluQXhpc1NpemUubWluLAogICAgICAgICAgICAgICAgY2hpbGRyZW46IGNvbnN0IFsKICAgICAgICAgICAgICAgICAgVGV4dCgKICAgICAgICAgICAgICAgICAgICAnTG9hZGluZyAuLi4nLAogICAgICAgICAgICAgICAgICAgIHN0eWxlOiBUZXh0U3R5bGUoCiAgICAgICAgICAgICAgICAgICAgICBmb250U2l6ZTogMTYsCiAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgaG9yaXpvbnRhbFNwYWNlU21hbGwsCiAgICAgICAgICAgICAgICAgIFNpemVkQm94KAogICAgICAgICAgICAgICAgICAgIHdpZHRoOiAxNiwKICAgICAgICAgICAgICAgICAgICBoZWlnaHQ6IDE2LAogICAgICAgICAgICAgICAgICAgIGNoaWxkOiBDaXJjdWxhclByb2dyZXNzSW5kaWNhdG9yKAogICAgICAgICAgICAgICAgICAgICAgY29sb3I6IENvbG9ycy5ibGFjaywKICAgICAgICAgICAgICAgICAgICAgIHN0cm9rZVdpZHRoOiA2LAogICAgICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICAgICkKICAgICAgICAgICAgICAgIF0sCiAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgXSwKICAgICAgICAgICksCiAgICAgICAgKSwKICAgICAgKSwKICAgICAgb25Nb2RlbFJlYWR5OiAobW9kZWwpID0+IFNjaGVkdWxlckJpbmRpbmcuaW5zdGFuY2UKICAgICAgICAgIC5hZGRQb3N0RnJhbWVDYWxsYmFjaygodGltZVN0YW1wKSA9PiBtb2RlbC5ydW5TdGFydHVwTG9naWMoKSksCiAgICAgIHZpZXdNb2RlbEJ1aWxkZXI6ICgpID0+IFN0YXJ0dXBWaWV3TW9kZWwoKSwKICAgICk7CiAgfQp9
 ''';
 
 // --------------------------------------------------
@@ -2366,70 +572,7 @@ const String kAppMobileTemplateStartupViewPath =
     'lib/ui/views/startup/startup_view.dart.stk';
 
 const String kAppMobileTemplateStartupViewContent = '''
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:stacked/stacked.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-
-import 'startup_viewmodel.dart';
-
-class StartupView extends StackedView<StartupViewModel> {
-  const StartupView({Key? key}) : super(key: key);
-
-  @override
-  Widget builder(
-    BuildContext context,
-    StartupViewModel viewModel,
-    Widget? child,
-  ) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'STACKED',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.w900,
-              ),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text(
-                  'Loading ...',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                horizontalSpaceSmall,
-                SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(
-                    color: Colors.black,
-                    strokeWidth: 6,
-                  ),
-                )
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  StartupViewModel viewModelBuilder(
-    BuildContext context,
-  ) => StartupViewModel();
-
-  @override
-  void onViewModelReady(StartupViewModel viewModel) => SchedulerBinding.instance
-      .addPostFrameCallback((timeStamp) => viewModel.runStartupLogic());
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTpmbHV0dGVyL3NjaGVkdWxlci5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnN0YWNrZWQvc3RhY2tlZC5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS91aS9jb21tb24vdWlfaGVscGVycy5kYXJ0JzsKCmltcG9ydCAnc3RhcnR1cF92aWV3bW9kZWwuZGFydCc7CgpjbGFzcyBTdGFydHVwVmlldyBleHRlbmRzIFN0YWNrZWRWaWV3PFN0YXJ0dXBWaWV3TW9kZWw+IHsKICBjb25zdCBTdGFydHVwVmlldyh7S2V5PyBrZXl9KSA6IHN1cGVyKGtleToga2V5KTsKCiAgQG92ZXJyaWRlCiAgV2lkZ2V0IGJ1aWxkZXIoCiAgICBCdWlsZENvbnRleHQgY29udGV4dCwKICAgIFN0YXJ0dXBWaWV3TW9kZWwgdmlld01vZGVsLAogICAgV2lkZ2V0PyBjaGlsZCwKICApIHsKICAgIHJldHVybiBTY2FmZm9sZCgKICAgICAgYm9keTogQ2VudGVyKAogICAgICAgIGNoaWxkOiBDb2x1bW4oCiAgICAgICAgICBtYWluQXhpc1NpemU6IE1haW5BeGlzU2l6ZS5taW4sCiAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICBjb25zdCBUZXh0KAogICAgICAgICAgICAgICdTVEFDS0VEJywKICAgICAgICAgICAgICBzdHlsZTogVGV4dFN0eWxlKAogICAgICAgICAgICAgICAgZm9udFNpemU6IDQwLAogICAgICAgICAgICAgICAgZm9udFdlaWdodDogRm9udFdlaWdodC53OTAwLAogICAgICAgICAgICAgICksCiAgICAgICAgICAgICksCiAgICAgICAgICAgIFJvdygKICAgICAgICAgICAgICBtYWluQXhpc1NpemU6IE1haW5BeGlzU2l6ZS5taW4sCiAgICAgICAgICAgICAgY2hpbGRyZW46IGNvbnN0IFsKICAgICAgICAgICAgICAgIFRleHQoCiAgICAgICAgICAgICAgICAgICdMb2FkaW5nIC4uLicsCiAgICAgICAgICAgICAgICAgIHN0eWxlOiBUZXh0U3R5bGUoCiAgICAgICAgICAgICAgICAgICAgZm9udFNpemU6IDE2LAogICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgIGhvcml6b250YWxTcGFjZVNtYWxsLAogICAgICAgICAgICAgICAgU2l6ZWRCb3goCiAgICAgICAgICAgICAgICAgIHdpZHRoOiAxNiwKICAgICAgICAgICAgICAgICAgaGVpZ2h0OiAxNiwKICAgICAgICAgICAgICAgICAgY2hpbGQ6IENpcmN1bGFyUHJvZ3Jlc3NJbmRpY2F0b3IoCiAgICAgICAgICAgICAgICAgICAgY29sb3I6IENvbG9ycy5ibGFjaywKICAgICAgICAgICAgICAgICAgICBzdHJva2VXaWR0aDogNiwKICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICkKICAgICAgICAgICAgICBdLAogICAgICAgICAgICApLAogICAgICAgICAgXSwKICAgICAgICApLAogICAgICApLAogICAgKTsKICB9CgogIEBvdmVycmlkZQogIFN0YXJ0dXBWaWV3TW9kZWwgdmlld01vZGVsQnVpbGRlcigKICAgIEJ1aWxkQ29udGV4dCBjb250ZXh0LAogICkgPT4gU3RhcnR1cFZpZXdNb2RlbCgpOwoKICBAb3ZlcnJpZGUKICB2b2lkIG9uVmlld01vZGVsUmVhZHkoU3RhcnR1cFZpZXdNb2RlbCB2aWV3TW9kZWwpID0+IFNjaGVkdWxlckJpbmRpbmcuaW5zdGFuY2UKICAgICAgLmFkZFBvc3RGcmFtZUNhbGxiYWNrKCh0aW1lU3RhbXApID0+IHZpZXdNb2RlbC5ydW5TdGFydHVwTG9naWMoKSk7Cn0K
 ''';
 
 // --------------------------------------------------
@@ -2441,37 +584,7 @@ const String kAppMobileTemplateAppPath =
     'lib/app/app.dart.stk';
 
 const String kAppMobileTemplateAppContent = '''
-import 'package:{{packageName}}/{{{bottomSheetsPath}}}/notice/notice_sheet.dart';
-import 'package:{{packageName}}/{{{dialogsPath}}}/info_alert/info_alert_dialog.dart';
-import 'package:{{packageName}}/{{{viewImportPath}}}/home/home_view.dart';
-import 'package:{{packageName}}/{{{viewImportPath}}}/startup/startup_view.dart';
-import 'package:stacked/stacked_annotations.dart';
-import 'package:stacked_services/stacked_services.dart';
-// @stacked-import
-
-@StackedApp(
-  routes: [
-    MaterialRoute(page: HomeView),
-    MaterialRoute(page: StartupView),
-    // @stacked-route
-  ],
-  dependencies: [
-    LazySingleton(classType: BottomSheetService),
-    LazySingleton(classType: DialogService),
-    LazySingleton(classType: NavigationService),
-    // @stacked-service
-  ],
-  bottomsheets: [
-    StackedBottomsheet(classType: NoticeSheet),
-    // @stacked-bottom-sheet
-  ],
-  dialogs: [
-    StackedDialog(classType: InfoAlertDialog),
-    // @stacked-dialog
-  ],
-)
-class App {}
-
+aW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS97e3tib3R0b21TaGVldHNQYXRofX19L25vdGljZS9ub3RpY2Vfc2hlZXQuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7ZGlhbG9nc1BhdGh9fX0vaW5mb19hbGVydC9pbmZvX2FsZXJ0X2RpYWxvZy5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS97e3t2aWV3SW1wb3J0UGF0aH19fS9ob21lL2hvbWVfdmlldy5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnt7cGFja2FnZU5hbWV9fS97e3t2aWV3SW1wb3J0UGF0aH19fS9zdGFydHVwL3N0YXJ0dXBfdmlldy5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnN0YWNrZWQvc3RhY2tlZF9hbm5vdGF0aW9ucy5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnN0YWNrZWRfc2VydmljZXMvc3RhY2tlZF9zZXJ2aWNlcy5kYXJ0JzsKLy8gQHN0YWNrZWQtaW1wb3J0CgpAU3RhY2tlZEFwcCgKICByb3V0ZXM6IFsKICAgIE1hdGVyaWFsUm91dGUocGFnZTogSG9tZVZpZXcpLAogICAgTWF0ZXJpYWxSb3V0ZShwYWdlOiBTdGFydHVwVmlldyksCiAgICAvLyBAc3RhY2tlZC1yb3V0ZQogIF0sCiAgZGVwZW5kZW5jaWVzOiBbCiAgICBMYXp5U2luZ2xldG9uKGNsYXNzVHlwZTogQm90dG9tU2hlZXRTZXJ2aWNlKSwKICAgIExhenlTaW5nbGV0b24oY2xhc3NUeXBlOiBEaWFsb2dTZXJ2aWNlKSwKICAgIExhenlTaW5nbGV0b24oY2xhc3NUeXBlOiBOYXZpZ2F0aW9uU2VydmljZSksCiAgICAvLyBAc3RhY2tlZC1zZXJ2aWNlCiAgXSwKICBib3R0b21zaGVldHM6IFsKICAgIFN0YWNrZWRCb3R0b21zaGVldChjbGFzc1R5cGU6IE5vdGljZVNoZWV0KSwKICAgIC8vIEBzdGFja2VkLWJvdHRvbS1zaGVldAogIF0sCiAgZGlhbG9nczogWwogICAgU3RhY2tlZERpYWxvZyhjbGFzc1R5cGU6IEluZm9BbGVydERpYWxvZyksCiAgICAvLyBAc3RhY2tlZC1kaWFsb2cKICBdLAopCmNsYXNzIEFwcCB7fQo=
 ''';
 
 // --------------------------------------------------
@@ -2483,103 +596,7 @@ const String kAppMobileTemplatePubspecYamlStkPath =
     'pubspec.yaml.stk';
 
 const String kAppMobileTemplatePubspecYamlStkContent = '''
-name: {{packageName}}
-description: An app build with the stacked framework
-
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
-
-environment:
-  sdk: ">=2.17.0 <3.0.0"
-
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
-dependencies:
-  flutter:
-    sdk: flutter
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  
-  stacked: ^3.1.0+3
-  stacked_services: ^0.9.9
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^1.0.0
-  build_runner: ^2.2.0
-
-  stacked_generator: ^0.8.5
-  mockito: ^5.3.2
-
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
-flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
-  uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
-
+bmFtZToge3twYWNrYWdlTmFtZX19CmRlc2NyaXB0aW9uOiBBbiBhcHAgYnVpbGQgd2l0aCB0aGUgc3RhY2tlZCBmcmFtZXdvcmsKCiMgVGhlIGZvbGxvd2luZyBsaW5lIHByZXZlbnRzIHRoZSBwYWNrYWdlIGZyb20gYmVpbmcgYWNjaWRlbnRhbGx5IHB1Ymxpc2hlZCB0bwojIHB1Yi5kZXYgdXNpbmcgYGZsdXR0ZXIgcHViIHB1Ymxpc2hgLiBUaGlzIGlzIHByZWZlcnJlZCBmb3IgcHJpdmF0ZSBwYWNrYWdlcy4KcHVibGlzaF90bzogJ25vbmUnICMgUmVtb3ZlIHRoaXMgbGluZSBpZiB5b3Ugd2lzaCB0byBwdWJsaXNoIHRvIHB1Yi5kZXYKCiMgVGhlIGZvbGxvd2luZyBkZWZpbmVzIHRoZSB2ZXJzaW9uIGFuZCBidWlsZCBudW1iZXIgZm9yIHlvdXIgYXBwbGljYXRpb24uCiMgQSB2ZXJzaW9uIG51bWJlciBpcyB0aHJlZSBudW1iZXJzIHNlcGFyYXRlZCBieSBkb3RzLCBsaWtlIDEuMi40MwojIGZvbGxvd2VkIGJ5IGFuIG9wdGlvbmFsIGJ1aWxkIG51bWJlciBzZXBhcmF0ZWQgYnkgYSArLgojIEJvdGggdGhlIHZlcnNpb24gYW5kIHRoZSBidWlsZGVyIG51bWJlciBtYXkgYmUgb3ZlcnJpZGRlbiBpbiBmbHV0dGVyCiMgYnVpbGQgYnkgc3BlY2lmeWluZyAtLWJ1aWxkLW5hbWUgYW5kIC0tYnVpbGQtbnVtYmVyLCByZXNwZWN0aXZlbHkuCiMgSW4gQW5kcm9pZCwgYnVpbGQtbmFtZSBpcyB1c2VkIGFzIHZlcnNpb25OYW1lIHdoaWxlIGJ1aWxkLW51bWJlciB1c2VkIGFzIHZlcnNpb25Db2RlLgojIFJlYWQgbW9yZSBhYm91dCBBbmRyb2lkIHZlcnNpb25pbmcgYXQgaHR0cHM6Ly9kZXZlbG9wZXIuYW5kcm9pZC5jb20vc3R1ZGlvL3B1Ymxpc2gvdmVyc2lvbmluZwojIEluIGlPUywgYnVpbGQtbmFtZSBpcyB1c2VkIGFzIENGQnVuZGxlU2hvcnRWZXJzaW9uU3RyaW5nIHdoaWxlIGJ1aWxkLW51bWJlciB1c2VkIGFzIENGQnVuZGxlVmVyc2lvbi4KIyBSZWFkIG1vcmUgYWJvdXQgaU9TIHZlcnNpb25pbmcgYXQKIyBodHRwczovL2RldmVsb3Blci5hcHBsZS5jb20vbGlicmFyeS9hcmNoaXZlL2RvY3VtZW50YXRpb24vR2VuZXJhbC9SZWZlcmVuY2UvSW5mb1BsaXN0S2V5UmVmZXJlbmNlL0FydGljbGVzL0NvcmVGb3VuZGF0aW9uS2V5cy5odG1sCnZlcnNpb246IDEuMC4wKzEKCmVudmlyb25tZW50OgogIHNkazogIj49Mi4xNy4wIDwzLjAuMCIKCiMgRGVwZW5kZW5jaWVzIHNwZWNpZnkgb3RoZXIgcGFja2FnZXMgdGhhdCB5b3VyIHBhY2thZ2UgbmVlZHMgaW4gb3JkZXIgdG8gd29yay4KIyBUbyBhdXRvbWF0aWNhbGx5IHVwZ3JhZGUgeW91ciBwYWNrYWdlIGRlcGVuZGVuY2llcyB0byB0aGUgbGF0ZXN0IHZlcnNpb25zCiMgY29uc2lkZXIgcnVubmluZyBgZmx1dHRlciBwdWIgdXBncmFkZSAtLW1ham9yLXZlcnNpb25zYC4gQWx0ZXJuYXRpdmVseSwKIyBkZXBlbmRlbmNpZXMgY2FuIGJlIG1hbnVhbGx5IHVwZGF0ZWQgYnkgY2hhbmdpbmcgdGhlIHZlcnNpb24gbnVtYmVycyBiZWxvdyB0bwojIHRoZSBsYXRlc3QgdmVyc2lvbiBhdmFpbGFibGUgb24gcHViLmRldi4gVG8gc2VlIHdoaWNoIGRlcGVuZGVuY2llcyBoYXZlIG5ld2VyCiMgdmVyc2lvbnMgYXZhaWxhYmxlLCBydW4gYGZsdXR0ZXIgcHViIG91dGRhdGVkYC4KZGVwZW5kZW5jaWVzOgogIGZsdXR0ZXI6CiAgICBzZGs6IGZsdXR0ZXIKCgogICMgVGhlIGZvbGxvd2luZyBhZGRzIHRoZSBDdXBlcnRpbm8gSWNvbnMgZm9udCB0byB5b3VyIGFwcGxpY2F0aW9uLgogICMgVXNlIHdpdGggdGhlIEN1cGVydGlub0ljb25zIGNsYXNzIGZvciBpT1Mgc3R5bGUgaWNvbnMuCiAgY3VwZXJ0aW5vX2ljb25zOiBeMS4wLjIKICAKICBzdGFja2VkOiBeMy4xLjArMwogIHN0YWNrZWRfc2VydmljZXM6IF4wLjkuOQoKZGV2X2RlcGVuZGVuY2llczoKICBmbHV0dGVyX3Rlc3Q6CiAgICBzZGs6IGZsdXR0ZXIKCiAgIyBUaGUgImZsdXR0ZXJfbGludHMiIHBhY2thZ2UgYmVsb3cgY29udGFpbnMgYSBzZXQgb2YgcmVjb21tZW5kZWQgbGludHMgdG8KICAjIGVuY291cmFnZSBnb29kIGNvZGluZyBwcmFjdGljZXMuIFRoZSBsaW50IHNldCBwcm92aWRlZCBieSB0aGUgcGFja2FnZSBpcwogICMgYWN0aXZhdGVkIGluIHRoZSBgYW5hbHlzaXNfb3B0aW9ucy55YW1sYCBmaWxlIGxvY2F0ZWQgYXQgdGhlIHJvb3Qgb2YgeW91cgogICMgcGFja2FnZS4gU2VlIHRoYXQgZmlsZSBmb3IgaW5mb3JtYXRpb24gYWJvdXQgZGVhY3RpdmF0aW5nIHNwZWNpZmljIGxpbnQKICAjIHJ1bGVzIGFuZCBhY3RpdmF0aW5nIGFkZGl0aW9uYWwgb25lcy4KICBmbHV0dGVyX2xpbnRzOiBeMS4wLjAKICBidWlsZF9ydW5uZXI6IF4yLjIuMAoKICBzdGFja2VkX2dlbmVyYXRvcjogXjAuOC41CiAgbW9ja2l0bzogXjUuMy4yCgojIEZvciBpbmZvcm1hdGlvbiBvbiB0aGUgZ2VuZXJpYyBEYXJ0IHBhcnQgb2YgdGhpcyBmaWxlLCBzZWUgdGhlCiMgZm9sbG93aW5nIHBhZ2U6IGh0dHBzOi8vZGFydC5kZXYvdG9vbHMvcHViL3B1YnNwZWMKCiMgVGhlIGZvbGxvd2luZyBzZWN0aW9uIGlzIHNwZWNpZmljIHRvIEZsdXR0ZXIuCmZsdXR0ZXI6CgogICMgVGhlIGZvbGxvd2luZyBsaW5lIGVuc3VyZXMgdGhhdCB0aGUgTWF0ZXJpYWwgSWNvbnMgZm9udCBpcwogICMgaW5jbHVkZWQgd2l0aCB5b3VyIGFwcGxpY2F0aW9uLCBzbyB0aGF0IHlvdSBjYW4gdXNlIHRoZSBpY29ucyBpbgogICMgdGhlIG1hdGVyaWFsIEljb25zIGNsYXNzLgogIHVzZXMtbWF0ZXJpYWwtZGVzaWduOiB0cnVlCgogICMgVG8gYWRkIGFzc2V0cyB0byB5b3VyIGFwcGxpY2F0aW9uLCBhZGQgYW4gYXNzZXRzIHNlY3Rpb24sIGxpa2UgdGhpczoKICAjIGFzc2V0czoKICAjICAgLSBpbWFnZXMvYV9kb3RfYnVyci5qcGVnCiAgIyAgIC0gaW1hZ2VzL2FfZG90X2hhbS5qcGVnCgogICMgQW4gaW1hZ2UgYXNzZXQgY2FuIHJlZmVyIHRvIG9uZSBvciBtb3JlIHJlc29sdXRpb24tc3BlY2lmaWMgInZhcmlhbnRzIiwgc2VlCiAgIyBodHRwczovL2ZsdXR0ZXIuZGV2L2Fzc2V0cy1hbmQtaW1hZ2VzLyNyZXNvbHV0aW9uLWF3YXJlLgoKICAjIEZvciBkZXRhaWxzIHJlZ2FyZGluZyBhZGRpbmcgYXNzZXRzIGZyb20gcGFja2FnZSBkZXBlbmRlbmNpZXMsIHNlZQogICMgaHR0cHM6Ly9mbHV0dGVyLmRldi9hc3NldHMtYW5kLWltYWdlcy8jZnJvbS1wYWNrYWdlcwoKICAjIFRvIGFkZCBjdXN0b20gZm9udHMgdG8geW91ciBhcHBsaWNhdGlvbiwgYWRkIGEgZm9udHMgc2VjdGlvbiBoZXJlLAogICMgaW4gdGhpcyAiZmx1dHRlciIgc2VjdGlvbi4gRWFjaCBlbnRyeSBpbiB0aGlzIGxpc3Qgc2hvdWxkIGhhdmUgYQogICMgImZhbWlseSIga2V5IHdpdGggdGhlIGZvbnQgZmFtaWx5IG5hbWUsIGFuZCBhICJmb250cyIga2V5IHdpdGggYQogICMgbGlzdCBnaXZpbmcgdGhlIGFzc2V0IGFuZCBvdGhlciBkZXNjcmlwdG9ycyBmb3IgdGhlIGZvbnQuIEZvcgogICMgZXhhbXBsZToKICAjIGZvbnRzOgogICMgICAtIGZhbWlseTogU2NoeWxlcgogICMgICAgIGZvbnRzOgogICMgICAgICAgLSBhc3NldDogZm9udHMvU2NoeWxlci1SZWd1bGFyLnR0ZgogICMgICAgICAgLSBhc3NldDogZm9udHMvU2NoeWxlci1JdGFsaWMudHRmCiAgIyAgICAgICAgIHN0eWxlOiBpdGFsaWMKICAjICAgLSBmYW1pbHk6IFRyYWphbiBQcm8KICAjICAgICBmb250czoKICAjICAgICAgIC0gYXNzZXQ6IGZvbnRzL1RyYWphblByby50dGYKICAjICAgICAgIC0gYXNzZXQ6IGZvbnRzL1RyYWphblByb19Cb2xkLnR0ZgogICMgICAgICAgICB3ZWlnaHQ6IDcwMAogICMKICAjIEZvciBkZXRhaWxzIHJlZ2FyZGluZyBmb250cyBmcm9tIHBhY2thZ2UgZGVwZW5kZW5jaWVzLAogICMgc2VlIGh0dHBzOi8vZmx1dHRlci5kZXYvY3VzdG9tLWZvbnRzLyNmcm9tLXBhY2thZ2VzCg==
 ''';
 
 // --------------------------------------------------
@@ -2591,18 +608,7 @@ const String kDialogEmptyTemplateGenericDialogModelTestPath =
     'test/viewmodels/generic_dialog_model_test.dart.stk';
 
 const String kDialogEmptyTemplateGenericDialogModelTestContent = '''
-import 'package:flutter_test/flutter_test.dart';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-
-import '{{{viewTestHelpersImport}}}';
-
-void main() {
-  group('{{dialogModelName}} Tests -', () {
-    setUp(() => registerServices());
-    tearDown(() => locator.reset());
-  });
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXJfdGVzdC9mbHV0dGVyX3Rlc3QuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVMb2NhdG9yRmlsZVBhdGh9fX0nOwoKaW1wb3J0ICd7e3t2aWV3VGVzdEhlbHBlcnNJbXBvcnR9fX0nOwoKdm9pZCBtYWluKCkgewogIGdyb3VwKCd7e2RpYWxvZ01vZGVsTmFtZX19IFRlc3RzIC0nLCAoKSB7CiAgICBzZXRVcCgoKSA9PiByZWdpc3RlclNlcnZpY2VzKCkpOwogICAgdGVhckRvd24oKCkgPT4gbG9jYXRvci5yZXNldCgpKTsKICB9KTsKfQo=
 ''';
 
 // --------------------------------------------------
@@ -2614,10 +620,7 @@ const String kDialogEmptyTemplateGenericDialogModelPath =
     'lib/ui/dialogs/generic/generic_dialog_model.dart.stk';
 
 const String kDialogEmptyTemplateGenericDialogModelContent = '''
-import 'package:stacked/stacked.dart';
-
-class {{dialogModelName}} extends BaseViewModel {}
-
+aW1wb3J0ICdwYWNrYWdlOnN0YWNrZWQvc3RhY2tlZC5kYXJ0JzsKCmNsYXNzIHt7ZGlhbG9nTW9kZWxOYW1lfX0gZXh0ZW5kcyBCYXNlVmlld01vZGVsIHt9Cg==
 ''';
 
 // --------------------------------------------------
@@ -2629,116 +632,7 @@ const String kDialogEmptyTemplateGenericDialogUseModelPath =
     'lib/ui/dialogs/generic/generic_dialog_use_model.dart.stk';
 
 const String kDialogEmptyTemplateGenericDialogUseModelContent = '''
-import 'package:flutter/material.dart';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-
-import '{{dialogModelFilename}}';
-
-const double _graphicSize = 60;
-
-class {{dialogName}} extends StackedView<{{dialogModelName}}> {
-  final DialogRequest request;
-  final Function(DialogResponse) completer;
-
-  const {{dialogName}}({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
-
-  @override
-  Widget builder(
-    BuildContext context,
-    {{dialogModelName}} viewModel,
-    Widget? child,
-  ) {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      backgroundColor: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        request.title ?? 'Hello Stacked Dialog!!',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      if (request.description != null) ...[
-                        verticalSpaceTiny,
-                        Text(
-                          request.description!,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: kcMediumGrey,
-                          ),
-                          maxLines: 3,
-                          softWrap: true,
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-                Container(
-                  width: _graphicSize,
-                  height: _graphicSize,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFF6E7B0),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(_graphicSize / 2),
-                    ),
-                  ),
-                  alignment: Alignment.center,
-                  child: const Text('⭐️', style: TextStyle(fontSize: 30)),
-                )
-              ],
-            ),
-            verticalSpaceMedium,
-            GestureDetector(
-              onTap: () => completer(DialogResponse(confirmed: true)),
-              child: Container(
-                height: 50,
-                width: double.infinity,
-                alignment: Alignment.center,
-                child: const Text(
-                  'Got it',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  {{dialogModelName}} viewModelBuilder(BuildContext context) =>
-      {{dialogModelName}}();
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL2FwcF9jb2xvcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL3VpX2hlbHBlcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkL3N0YWNrZWQuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkX3NlcnZpY2VzL3N0YWNrZWRfc2VydmljZXMuZGFydCc7CgppbXBvcnQgJ3t7ZGlhbG9nTW9kZWxGaWxlbmFtZX19JzsKCmNvbnN0IGRvdWJsZSBfZ3JhcGhpY1NpemUgPSA2MDsKCmNsYXNzIHt7ZGlhbG9nTmFtZX19IGV4dGVuZHMgU3RhY2tlZFZpZXc8e3tkaWFsb2dNb2RlbE5hbWV9fT4gewogIGZpbmFsIERpYWxvZ1JlcXVlc3QgcmVxdWVzdDsKICBmaW5hbCBGdW5jdGlvbihEaWFsb2dSZXNwb25zZSkgY29tcGxldGVyOwoKICBjb25zdCB7e2RpYWxvZ05hbWV9fSh7CiAgICBLZXk/IGtleSwKICAgIHJlcXVpcmVkIHRoaXMucmVxdWVzdCwKICAgIHJlcXVpcmVkIHRoaXMuY29tcGxldGVyLAogIH0pIDogc3VwZXIoa2V5OiBrZXkpOwoKICBAb3ZlcnJpZGUKICBXaWRnZXQgYnVpbGRlcigKICAgIEJ1aWxkQ29udGV4dCBjb250ZXh0LAogICAge3tkaWFsb2dNb2RlbE5hbWV9fSB2aWV3TW9kZWwsCiAgICBXaWRnZXQ/IGNoaWxkLAogICkgewogICAgcmV0dXJuIERpYWxvZygKICAgICAgc2hhcGU6IFJvdW5kZWRSZWN0YW5nbGVCb3JkZXIoYm9yZGVyUmFkaXVzOiBCb3JkZXJSYWRpdXMuY2lyY3VsYXIoMTApKSwKICAgICAgYmFja2dyb3VuZENvbG9yOiBDb2xvcnMud2hpdGUsCiAgICAgIGNoaWxkOiBQYWRkaW5nKAogICAgICAgIHBhZGRpbmc6IGNvbnN0IEVkZ2VJbnNldHMuc3ltbWV0cmljKGhvcml6b250YWw6IDIwLCB2ZXJ0aWNhbDogMjApLAogICAgICAgIGNoaWxkOiBDb2x1bW4oCiAgICAgICAgICBtYWluQXhpc1NpemU6IE1haW5BeGlzU2l6ZS5taW4sCiAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICBSb3coCiAgICAgICAgICAgICAgbWFpbkF4aXNBbGlnbm1lbnQ6IE1haW5BeGlzQWxpZ25tZW50LnNwYWNlQmV0d2VlbiwKICAgICAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICAgICAgRXhwYW5kZWQoCiAgICAgICAgICAgICAgICAgIGNoaWxkOiBDb2x1bW4oCiAgICAgICAgICAgICAgICAgICAgbWFpbkF4aXNTaXplOiBNYWluQXhpc1NpemUubWluLAogICAgICAgICAgICAgICAgICAgIGNyb3NzQXhpc0FsaWdubWVudDogQ3Jvc3NBeGlzQWxpZ25tZW50LnN0YXJ0LAogICAgICAgICAgICAgICAgICAgIGNoaWxkcmVuOiBbCiAgICAgICAgICAgICAgICAgICAgICBUZXh0KAogICAgICAgICAgICAgICAgICAgICAgICByZXF1ZXN0LnRpdGxlID8/ICdIZWxsbyBTdGFja2VkIERpYWxvZyEhJywKICAgICAgICAgICAgICAgICAgICAgICAgc3R5bGU6IGNvbnN0IFRleHRTdHlsZSgKICAgICAgICAgICAgICAgICAgICAgICAgICBmb250U2l6ZTogMTYsCiAgICAgICAgICAgICAgICAgICAgICAgICAgZm9udFdlaWdodDogRm9udFdlaWdodC53OTAwLAogICAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgICAgIGlmIChyZXF1ZXN0LmRlc2NyaXB0aW9uICE9IG51bGwpIC4uLlsKICAgICAgICAgICAgICAgICAgICAgICAgdmVydGljYWxTcGFjZVRpbnksCiAgICAgICAgICAgICAgICAgICAgICAgIFRleHQoCiAgICAgICAgICAgICAgICAgICAgICAgICAgcmVxdWVzdC5kZXNjcmlwdGlvbiEsCiAgICAgICAgICAgICAgICAgICAgICAgICAgc3R5bGU6IGNvbnN0IFRleHRTdHlsZSgKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZvbnRTaXplOiAxNCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBrY01lZGl1bUdyZXksCiAgICAgICAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgICAgICAgICBtYXhMaW5lczogMywKICAgICAgICAgICAgICAgICAgICAgICAgICBzb2Z0V3JhcDogdHJ1ZSwKICAgICAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgICAgIF0sCiAgICAgICAgICAgICAgICAgICAgXSwKICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICBDb250YWluZXIoCiAgICAgICAgICAgICAgICAgIHdpZHRoOiBfZ3JhcGhpY1NpemUsCiAgICAgICAgICAgICAgICAgIGhlaWdodDogX2dyYXBoaWNTaXplLAogICAgICAgICAgICAgICAgICBkZWNvcmF0aW9uOiBjb25zdCBCb3hEZWNvcmF0aW9uKAogICAgICAgICAgICAgICAgICAgIGNvbG9yOiBDb2xvcigweEZGRjZFN0IwKSwKICAgICAgICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6IEJvcmRlclJhZGl1cy5hbGwoCiAgICAgICAgICAgICAgICAgICAgICBSYWRpdXMuY2lyY3VsYXIoX2dyYXBoaWNTaXplIC8gMiksCiAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgYWxpZ25tZW50OiBBbGlnbm1lbnQuY2VudGVyLAogICAgICAgICAgICAgICAgICBjaGlsZDogY29uc3QgVGV4dCgn4q2Q77iPJywgc3R5bGU6IFRleHRTdHlsZShmb250U2l6ZTogMzApKSwKICAgICAgICAgICAgICAgICkKICAgICAgICAgICAgICBdLAogICAgICAgICAgICApLAogICAgICAgICAgICB2ZXJ0aWNhbFNwYWNlTWVkaXVtLAogICAgICAgICAgICBHZXN0dXJlRGV0ZWN0b3IoCiAgICAgICAgICAgICAgb25UYXA6ICgpID0+IGNvbXBsZXRlcihEaWFsb2dSZXNwb25zZShjb25maXJtZWQ6IHRydWUpKSwKICAgICAgICAgICAgICBjaGlsZDogQ29udGFpbmVyKAogICAgICAgICAgICAgICAgaGVpZ2h0OiA1MCwKICAgICAgICAgICAgICAgIHdpZHRoOiBkb3VibGUuaW5maW5pdHksCiAgICAgICAgICAgICAgICBhbGlnbm1lbnQ6IEFsaWdubWVudC5jZW50ZXIsCiAgICAgICAgICAgICAgICBjaGlsZDogY29uc3QgVGV4dCgKICAgICAgICAgICAgICAgICAgJ0dvdCBpdCcsCiAgICAgICAgICAgICAgICAgIHN0eWxlOiBUZXh0U3R5bGUoCiAgICAgICAgICAgICAgICAgICAgY29sb3I6IENvbG9ycy53aGl0ZSwKICAgICAgICAgICAgICAgICAgICBmb250V2VpZ2h0OiBGb250V2VpZ2h0LmJvbGQsCiAgICAgICAgICAgICAgICAgICAgZm9udFNpemU6IDE2LAogICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgIGRlY29yYXRpb246IEJveERlY29yYXRpb24oCiAgICAgICAgICAgICAgICAgIGNvbG9yOiBDb2xvcnMuYmxhY2ssCiAgICAgICAgICAgICAgICAgIGJvcmRlclJhZGl1czogQm9yZGVyUmFkaXVzLmNpcmN1bGFyKDEwKSwKICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgKSwKICAgICAgICAgIF0sCiAgICAgICAgKSwKICAgICAgKSwKICAgICk7CiAgfQoKICBAb3ZlcnJpZGUKICB7e2RpYWxvZ01vZGVsTmFtZX19IHZpZXdNb2RlbEJ1aWxkZXIoQnVpbGRDb250ZXh0IGNvbnRleHQpID0+CiAgICAgIHt7ZGlhbG9nTW9kZWxOYW1lfX0oKTsKfQo=
 ''';
 
 // --------------------------------------------------
@@ -2750,105 +644,7 @@ const String kDialogEmptyTemplateGenericDialogPath =
     'lib/ui/dialogs/generic/generic_dialog.dart.stk';
 
 const String kDialogEmptyTemplateGenericDialogContent = '''
-import 'package:flutter/material.dart';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-import 'package:stacked_services/stacked_services.dart';
-
-const double _graphicSize = 60;
-
-class {{dialogName}} extends StatelessWidget {
-  final DialogRequest request;
-  final Function(DialogResponse) completer;
-
-  const {{dialogName}}({
-    Key? key,
-    required this.request,
-    required this.completer,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      backgroundColor: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        request.title ?? 'Hello Stacked Dialog!!',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      if (request.description != null) ...[
-                        verticalSpaceTiny,
-                        Text(
-                          request.description!,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: kcMediumGrey,
-                          ),
-                          maxLines: 3,
-                          softWrap: true,
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-                Container(
-                  width: _graphicSize,
-                  height: _graphicSize,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFF6E7B0),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(_graphicSize / 2),
-                    ),
-                  ),
-                  alignment: Alignment.center,
-                  child: const Text('⭐️', style: TextStyle(fontSize: 30)),
-                )
-              ],
-            ),
-            verticalSpaceMedium,
-            GestureDetector(
-              onTap: () => completer(DialogResponse(confirmed: true)),
-              child: Container(
-                height: 50,
-                width: double.infinity,
-                alignment: Alignment.center,
-                child: const Text(
-                  'Got it',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL2FwcF9jb2xvcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL3VpX2hlbHBlcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkX3NlcnZpY2VzL3N0YWNrZWRfc2VydmljZXMuZGFydCc7Cgpjb25zdCBkb3VibGUgX2dyYXBoaWNTaXplID0gNjA7CgpjbGFzcyB7e2RpYWxvZ05hbWV9fSBleHRlbmRzIFN0YXRlbGVzc1dpZGdldCB7CiAgZmluYWwgRGlhbG9nUmVxdWVzdCByZXF1ZXN0OwogIGZpbmFsIEZ1bmN0aW9uKERpYWxvZ1Jlc3BvbnNlKSBjb21wbGV0ZXI7CgogIGNvbnN0IHt7ZGlhbG9nTmFtZX19KHsKICAgIEtleT8ga2V5LAogICAgcmVxdWlyZWQgdGhpcy5yZXF1ZXN0LAogICAgcmVxdWlyZWQgdGhpcy5jb21wbGV0ZXIsCiAgfSkgOiBzdXBlcihrZXk6IGtleSk7CgogIEBvdmVycmlkZQogIFdpZGdldCBidWlsZChCdWlsZENvbnRleHQgY29udGV4dCkgewogICAgcmV0dXJuIERpYWxvZygKICAgICAgc2hhcGU6IFJvdW5kZWRSZWN0YW5nbGVCb3JkZXIoYm9yZGVyUmFkaXVzOiBCb3JkZXJSYWRpdXMuY2lyY3VsYXIoMTApKSwKICAgICAgYmFja2dyb3VuZENvbG9yOiBDb2xvcnMud2hpdGUsCiAgICAgIGNoaWxkOiBQYWRkaW5nKAogICAgICAgIHBhZGRpbmc6IGNvbnN0IEVkZ2VJbnNldHMuc3ltbWV0cmljKGhvcml6b250YWw6IDIwLCB2ZXJ0aWNhbDogMjApLAogICAgICAgIGNoaWxkOiBDb2x1bW4oCiAgICAgICAgICBtYWluQXhpc1NpemU6IE1haW5BeGlzU2l6ZS5taW4sCiAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICBSb3coCiAgICAgICAgICAgICAgbWFpbkF4aXNBbGlnbm1lbnQ6IE1haW5BeGlzQWxpZ25tZW50LnNwYWNlQmV0d2VlbiwKICAgICAgICAgICAgICBjaGlsZHJlbjogWwogICAgICAgICAgICAgICAgRXhwYW5kZWQoCiAgICAgICAgICAgICAgICAgIGNoaWxkOiBDb2x1bW4oCiAgICAgICAgICAgICAgICAgICAgbWFpbkF4aXNTaXplOiBNYWluQXhpc1NpemUubWluLAogICAgICAgICAgICAgICAgICAgIGNyb3NzQXhpc0FsaWdubWVudDogQ3Jvc3NBeGlzQWxpZ25tZW50LnN0YXJ0LAogICAgICAgICAgICAgICAgICAgIGNoaWxkcmVuOiBbCiAgICAgICAgICAgICAgICAgICAgICBUZXh0KAogICAgICAgICAgICAgICAgICAgICAgICByZXF1ZXN0LnRpdGxlID8/ICdIZWxsbyBTdGFja2VkIERpYWxvZyEhJywKICAgICAgICAgICAgICAgICAgICAgICAgc3R5bGU6IGNvbnN0IFRleHRTdHlsZSgKICAgICAgICAgICAgICAgICAgICAgICAgICBmb250U2l6ZTogMTYsCiAgICAgICAgICAgICAgICAgICAgICAgICAgZm9udFdlaWdodDogRm9udFdlaWdodC53OTAwLAogICAgICAgICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgICAgIGlmIChyZXF1ZXN0LmRlc2NyaXB0aW9uICE9IG51bGwpIC4uLlsKICAgICAgICAgICAgICAgICAgICAgICAgdmVydGljYWxTcGFjZVRpbnksCiAgICAgICAgICAgICAgICAgICAgICAgIFRleHQoCiAgICAgICAgICAgICAgICAgICAgICAgICAgcmVxdWVzdC5kZXNjcmlwdGlvbiEsCiAgICAgICAgICAgICAgICAgICAgICAgICAgc3R5bGU6IGNvbnN0IFRleHRTdHlsZSgKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZvbnRTaXplOiAxNCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiBrY01lZGl1bUdyZXksCiAgICAgICAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgICAgICAgICBtYXhMaW5lczogMywKICAgICAgICAgICAgICAgICAgICAgICAgICBzb2Z0V3JhcDogdHJ1ZSwKICAgICAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgICAgIF0sCiAgICAgICAgICAgICAgICAgICAgXSwKICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgICBDb250YWluZXIoCiAgICAgICAgICAgICAgICAgIHdpZHRoOiBfZ3JhcGhpY1NpemUsCiAgICAgICAgICAgICAgICAgIGhlaWdodDogX2dyYXBoaWNTaXplLAogICAgICAgICAgICAgICAgICBkZWNvcmF0aW9uOiBjb25zdCBCb3hEZWNvcmF0aW9uKAogICAgICAgICAgICAgICAgICAgIGNvbG9yOiBDb2xvcigweEZGRjZFN0IwKSwKICAgICAgICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6IEJvcmRlclJhZGl1cy5hbGwoCiAgICAgICAgICAgICAgICAgICAgICBSYWRpdXMuY2lyY3VsYXIoX2dyYXBoaWNTaXplIC8gMiksCiAgICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgICAgYWxpZ25tZW50OiBBbGlnbm1lbnQuY2VudGVyLAogICAgICAgICAgICAgICAgICBjaGlsZDogY29uc3QgVGV4dCgn4q2Q77iPJywgc3R5bGU6IFRleHRTdHlsZShmb250U2l6ZTogMzApKSwKICAgICAgICAgICAgICAgICkKICAgICAgICAgICAgICBdLAogICAgICAgICAgICApLAogICAgICAgICAgICB2ZXJ0aWNhbFNwYWNlTWVkaXVtLAogICAgICAgICAgICBHZXN0dXJlRGV0ZWN0b3IoCiAgICAgICAgICAgICAgb25UYXA6ICgpID0+IGNvbXBsZXRlcihEaWFsb2dSZXNwb25zZShjb25maXJtZWQ6IHRydWUpKSwKICAgICAgICAgICAgICBjaGlsZDogQ29udGFpbmVyKAogICAgICAgICAgICAgICAgaGVpZ2h0OiA1MCwKICAgICAgICAgICAgICAgIHdpZHRoOiBkb3VibGUuaW5maW5pdHksCiAgICAgICAgICAgICAgICBhbGlnbm1lbnQ6IEFsaWdubWVudC5jZW50ZXIsCiAgICAgICAgICAgICAgICBjaGlsZDogY29uc3QgVGV4dCgKICAgICAgICAgICAgICAgICAgJ0dvdCBpdCcsCiAgICAgICAgICAgICAgICAgIHN0eWxlOiBUZXh0U3R5bGUoCiAgICAgICAgICAgICAgICAgICAgY29sb3I6IENvbG9ycy53aGl0ZSwKICAgICAgICAgICAgICAgICAgICBmb250V2VpZ2h0OiBGb250V2VpZ2h0LmJvbGQsCiAgICAgICAgICAgICAgICAgICAgZm9udFNpemU6IDE2LAogICAgICAgICAgICAgICAgICApLAogICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgICAgIGRlY29yYXRpb246IEJveERlY29yYXRpb24oCiAgICAgICAgICAgICAgICAgIGNvbG9yOiBDb2xvcnMuYmxhY2ssCiAgICAgICAgICAgICAgICAgIGJvcmRlclJhZGl1czogQm9yZGVyUmFkaXVzLmNpcmN1bGFyKDEwKSwKICAgICAgICAgICAgICAgICksCiAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgKSwKICAgICAgICAgIF0sCiAgICAgICAgKSwKICAgICAgKSwKICAgICk7CiAgfQp9Cg==
 ''';
 
 // --------------------------------------------------
@@ -2860,18 +656,7 @@ const String kViewEmptyTemplateGenericViewmodelTestPath =
     'test/viewmodels/generic_viewmodel_test.dart.stk';
 
 const String kViewEmptyTemplateGenericViewmodelTestContent = '''
-import 'package:flutter_test/flutter_test.dart';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-
-import '{{{viewTestHelpersImport}}}';
-
-void main() {
-  group('{{viewModelName}} Tests -', () {
-    setUp(() => registerServices());
-    tearDown(() => locator.reset());
-  });
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXJfdGVzdC9mbHV0dGVyX3Rlc3QuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVMb2NhdG9yRmlsZVBhdGh9fX0nOwoKaW1wb3J0ICd7e3t2aWV3VGVzdEhlbHBlcnNJbXBvcnR9fX0nOwoKdm9pZCBtYWluKCkgewogIGdyb3VwKCd7e3ZpZXdNb2RlbE5hbWV9fSBUZXN0cyAtJywgKCkgewogICAgc2V0VXAoKCkgPT4gcmVnaXN0ZXJTZXJ2aWNlcygpKTsKICAgIHRlYXJEb3duKCgpID0+IGxvY2F0b3IucmVzZXQoKSk7CiAgfSk7Cn0K
 ''';
 
 // --------------------------------------------------
@@ -2883,10 +668,7 @@ const String kViewEmptyTemplateGenericViewmodelPath =
     'lib/ui/views/generic/generic_viewmodel.dart.stk';
 
 const String kViewEmptyTemplateGenericViewmodelContent = '''
-import 'package:stacked/stacked.dart';
-
-class {{viewModelName}} extends BaseViewModel {
-}
+aW1wb3J0ICdwYWNrYWdlOnN0YWNrZWQvc3RhY2tlZC5kYXJ0JzsKCmNsYXNzIHt7dmlld01vZGVsTmFtZX19IGV4dGVuZHMgQmFzZVZpZXdNb2RlbCB7Cn0=
 ''';
 
 // --------------------------------------------------
@@ -2898,33 +680,7 @@ const String kViewEmptyTemplateGenericViewPath =
     'lib/ui/views/generic/generic_view.dart.stk';
 
 const String kViewEmptyTemplateGenericViewContent = '''
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-
-import '{{viewModelFileName}}';
-
-class {{viewName}} extends StackedView<{{viewModelName}}> {
-  const {{viewName}}({Key? key}) : super(key: key);
-
-  @override
-  Widget builder(
-    BuildContext context,
-    {{viewModelName}} viewModel,
-    Widget? child,
-  ) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-      ),
-    );
-  }
-
-  @override
-  {{viewModelName}} viewModelBuilder(
-    BuildContext context,
-  ) => {{viewModelName}}();
-}
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkL3N0YWNrZWQuZGFydCc7CgppbXBvcnQgJ3t7dmlld01vZGVsRmlsZU5hbWV9fSc7CgpjbGFzcyB7e3ZpZXdOYW1lfX0gZXh0ZW5kcyBTdGFja2VkVmlldzx7e3ZpZXdNb2RlbE5hbWV9fT4gewogIGNvbnN0IHt7dmlld05hbWV9fSh7S2V5PyBrZXl9KSA6IHN1cGVyKGtleToga2V5KTsKCiAgQG92ZXJyaWRlCiAgV2lkZ2V0IGJ1aWxkZXIoCiAgICBCdWlsZENvbnRleHQgY29udGV4dCwKICAgIHt7dmlld01vZGVsTmFtZX19IHZpZXdNb2RlbCwKICAgIFdpZGdldD8gY2hpbGQsCiAgKSB7CiAgICByZXR1cm4gU2NhZmZvbGQoCiAgICAgIGJhY2tncm91bmRDb2xvcjogVGhlbWUub2YoY29udGV4dCkuYmFja2dyb3VuZENvbG9yLAogICAgICBib2R5OiBDb250YWluZXIoCiAgICAgICAgcGFkZGluZzogY29uc3QgRWRnZUluc2V0cy5vbmx5KGxlZnQ6IDI1LjAsIHJpZ2h0OiAyNS4wKSwKICAgICAgKSwKICAgICk7CiAgfQoKICBAb3ZlcnJpZGUKICB7e3ZpZXdNb2RlbE5hbWV9fSB2aWV3TW9kZWxCdWlsZGVyKAogICAgQnVpbGRDb250ZXh0IGNvbnRleHQsCiAgKSA9PiB7e3ZpZXdNb2RlbE5hbWV9fSgpOwp9
 ''';
 
 // --------------------------------------------------
@@ -2936,27 +692,7 @@ const String kViewEmptyTemplateGenericViewV1Path =
     'lib/ui/views/generic/generic_view_v1.dart.stk';
 
 const String kViewEmptyTemplateGenericViewV1Content = '''
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-
-import '{{viewModelFileName}}';
-
-class {{viewName}} extends StatelessWidget {
-  const {{viewName}}({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<{{viewModelName}}>.reactive(
-      viewModelBuilder: () => {{viewModelName}}(),
-      builder: (context, model, child) => Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: Container(
-          padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-        ),
-      ),
-    );
-  }
-}
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkL3N0YWNrZWQuZGFydCc7CgppbXBvcnQgJ3t7dmlld01vZGVsRmlsZU5hbWV9fSc7CgpjbGFzcyB7e3ZpZXdOYW1lfX0gZXh0ZW5kcyBTdGF0ZWxlc3NXaWRnZXQgewogIGNvbnN0IHt7dmlld05hbWV9fSh7S2V5PyBrZXl9KSA6IHN1cGVyKGtleToga2V5KTsKCiAgQG92ZXJyaWRlCiAgV2lkZ2V0IGJ1aWxkKEJ1aWxkQ29udGV4dCBjb250ZXh0KSB7CiAgICByZXR1cm4gVmlld01vZGVsQnVpbGRlcjx7e3ZpZXdNb2RlbE5hbWV9fT4ucmVhY3RpdmUoCiAgICAgIHZpZXdNb2RlbEJ1aWxkZXI6ICgpID0+IHt7dmlld01vZGVsTmFtZX19KCksCiAgICAgIGJ1aWxkZXI6IChjb250ZXh0LCBtb2RlbCwgY2hpbGQpID0+IFNjYWZmb2xkKAogICAgICAgIGJhY2tncm91bmRDb2xvcjogVGhlbWUub2YoY29udGV4dCkuYmFja2dyb3VuZENvbG9yLAogICAgICAgIGJvZHk6IENvbnRhaW5lcigKICAgICAgICAgIHBhZGRpbmc6IGNvbnN0IEVkZ2VJbnNldHMub25seShsZWZ0OiAyNS4wLCByaWdodDogMjUuMCksCiAgICAgICAgKSwKICAgICAgKSwKICAgICk7CiAgfQp9
 ''';
 
 // --------------------------------------------------
@@ -2968,18 +704,7 @@ const String kServiceEmptyTemplateGenericServiceTestPath =
     'test/services/generic_service_test.dart.stk';
 
 const String kServiceEmptyTemplateGenericServiceTestContent = '''
-import 'package:flutter_test/flutter_test.dart';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-
-import '{{{serviceTestHelpersImport}}}';
-
-void main() {
-  group('{{serviceName}}Test -', () {
-    setUp(() => {{registerMocksFunction}}());
-    tearDown(() => {{locatorName}}.reset());
-  });
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXJfdGVzdC9mbHV0dGVyX3Rlc3QuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVMb2NhdG9yRmlsZVBhdGh9fX0nOwoKaW1wb3J0ICd7e3tzZXJ2aWNlVGVzdEhlbHBlcnNJbXBvcnR9fX0nOwoKdm9pZCBtYWluKCkgewogIGdyb3VwKCd7e3NlcnZpY2VOYW1lfX1UZXN0IC0nLCAoKSB7CiAgICBzZXRVcCgoKSA9PiB7e3JlZ2lzdGVyTW9ja3NGdW5jdGlvbn19KCkpOwogICAgdGVhckRvd24oKCkgPT4ge3tsb2NhdG9yTmFtZX19LnJlc2V0KCkpOwogIH0pOwp9Cg==
 ''';
 
 // --------------------------------------------------
@@ -2991,9 +716,7 @@ const String kServiceEmptyTemplateGenericServicePath =
     'lib/services/generic_service.dart.stk';
 
 const String kServiceEmptyTemplateGenericServiceContent = '''
-class {{serviceName}} {
-
-}
+Y2xhc3Mge3tzZXJ2aWNlTmFtZX19IHsKCn0=
 ''';
 
 // --------------------------------------------------
@@ -3005,18 +728,7 @@ const String kBottomSheetEmptyTemplateGenericSheetModelTestPath =
     'test/viewmodels/generic_sheet_model_test.dart.stk';
 
 const String kBottomSheetEmptyTemplateGenericSheetModelTestContent = '''
-import 'package:flutter_test/flutter_test.dart';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-
-import '{{{viewTestHelpersImport}}}';
-
-void main() {
-  group('{{sheetModelName}} Tests -', () {
-    setUp(() => registerServices());
-    tearDown(() => locator.reset());
-  });
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXJfdGVzdC9mbHV0dGVyX3Rlc3QuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0ve3t7cmVsYXRpdmVMb2NhdG9yRmlsZVBhdGh9fX0nOwoKaW1wb3J0ICd7e3t2aWV3VGVzdEhlbHBlcnNJbXBvcnR9fX0nOwoKdm9pZCBtYWluKCkgewogIGdyb3VwKCd7e3NoZWV0TW9kZWxOYW1lfX0gVGVzdHMgLScsICgpIHsKICAgIHNldFVwKCgpID0+IHJlZ2lzdGVyU2VydmljZXMoKSk7CiAgICB0ZWFyRG93bigoKSA9PiBsb2NhdG9yLnJlc2V0KCkpOwogIH0pOwp9Cg==
 ''';
 
 // --------------------------------------------------
@@ -3028,10 +740,7 @@ const String kBottomSheetEmptyTemplateGenericSheetModelPath =
     'lib/ui/bottom_sheets/generic/generic_sheet_model.dart.stk';
 
 const String kBottomSheetEmptyTemplateGenericSheetModelContent = '''
-import 'package:stacked/stacked.dart';
-
-class {{sheetModelName}} extends BaseViewModel {}
-
+aW1wb3J0ICdwYWNrYWdlOnN0YWNrZWQvc3RhY2tlZC5kYXJ0JzsKCmNsYXNzIHt7c2hlZXRNb2RlbE5hbWV9fSBleHRlbmRzIEJhc2VWaWV3TW9kZWwge30K
 ''';
 
 // --------------------------------------------------
@@ -3043,66 +752,7 @@ const String kBottomSheetEmptyTemplateGenericSheetUseModelPath =
     'lib/ui/bottom_sheets/generic/generic_sheet_use_model.dart.stk';
 
 const String kBottomSheetEmptyTemplateGenericSheetUseModelContent = '''
-import 'package:flutter/material.dart';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-
-import '{{sheetModelFilename}}';
-
-class {{sheetName}} extends StackedView<{{sheetModelName}}> {
-  final Function(SheetResponse response)? completer;
-  final SheetRequest request;
-  const {{sheetName}}({
-    Key? key,
-    required this.completer,
-    required this.request,
-  }) : super(key: key);
-
-  @override
-  Widget builder(
-    BuildContext context,
-    {{sheetModelName}} viewModel,
-    Widget? child,
-  ) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            request.title ?? 'Hello Stacked Sheet!!',
-            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
-          ),
-          if (request.description != null) ...[
-            verticalSpaceTiny,
-            Text(
-              request.description!,
-              style: const TextStyle(fontSize: 14, color: kcMediumGrey),
-              maxLines: 3,
-              softWrap: true,
-            ),
-          ],
-          verticalSpaceLarge,
-        ],
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-        ),
-      ),
-    );
-  }
-
-  @override
-  {{sheetModelName}} viewModelBuilder(BuildContext context) =>
-      {{sheetModelName}}();
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL2FwcF9jb2xvcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL3VpX2hlbHBlcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkL3N0YWNrZWQuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkX3NlcnZpY2VzL3N0YWNrZWRfc2VydmljZXMuZGFydCc7CgppbXBvcnQgJ3t7c2hlZXRNb2RlbEZpbGVuYW1lfX0nOwoKY2xhc3Mge3tzaGVldE5hbWV9fSBleHRlbmRzIFN0YWNrZWRWaWV3PHt7c2hlZXRNb2RlbE5hbWV9fT4gewogIGZpbmFsIEZ1bmN0aW9uKFNoZWV0UmVzcG9uc2UgcmVzcG9uc2UpPyBjb21wbGV0ZXI7CiAgZmluYWwgU2hlZXRSZXF1ZXN0IHJlcXVlc3Q7CiAgY29uc3Qge3tzaGVldE5hbWV9fSh7CiAgICBLZXk/IGtleSwKICAgIHJlcXVpcmVkIHRoaXMuY29tcGxldGVyLAogICAgcmVxdWlyZWQgdGhpcy5yZXF1ZXN0LAogIH0pIDogc3VwZXIoa2V5OiBrZXkpOwoKICBAb3ZlcnJpZGUKICBXaWRnZXQgYnVpbGRlcigKICAgIEJ1aWxkQ29udGV4dCBjb250ZXh0LAogICAge3tzaGVldE1vZGVsTmFtZX19IHZpZXdNb2RlbCwKICAgIFdpZGdldD8gY2hpbGQsCiAgKSB7CiAgICByZXR1cm4gQ29udGFpbmVyKAogICAgICBwYWRkaW5nOiBjb25zdCBFZGdlSW5zZXRzLnN5bW1ldHJpYyhob3Jpem9udGFsOiAyMCwgdmVydGljYWw6IDE1KSwKICAgICAgY2hpbGQ6IENvbHVtbigKICAgICAgICBjcm9zc0F4aXNBbGlnbm1lbnQ6IENyb3NzQXhpc0FsaWdubWVudC5zdGFydCwKICAgICAgICBtYWluQXhpc1NpemU6IE1haW5BeGlzU2l6ZS5taW4sCiAgICAgICAgY2hpbGRyZW46IFsKICAgICAgICAgIFRleHQoCiAgICAgICAgICAgIHJlcXVlc3QudGl0bGUgPz8gJ0hlbGxvIFN0YWNrZWQgU2hlZXQhIScsCiAgICAgICAgICAgIHN0eWxlOiBjb25zdCBUZXh0U3R5bGUoZm9udFNpemU6IDI1LCBmb250V2VpZ2h0OiBGb250V2VpZ2h0Lnc5MDApLAogICAgICAgICAgKSwKICAgICAgICAgIGlmIChyZXF1ZXN0LmRlc2NyaXB0aW9uICE9IG51bGwpIC4uLlsKICAgICAgICAgICAgdmVydGljYWxTcGFjZVRpbnksCiAgICAgICAgICAgIFRleHQoCiAgICAgICAgICAgICAgcmVxdWVzdC5kZXNjcmlwdGlvbiEsCiAgICAgICAgICAgICAgc3R5bGU6IGNvbnN0IFRleHRTdHlsZShmb250U2l6ZTogMTQsIGNvbG9yOiBrY01lZGl1bUdyZXkpLAogICAgICAgICAgICAgIG1heExpbmVzOiAzLAogICAgICAgICAgICAgIHNvZnRXcmFwOiB0cnVlLAogICAgICAgICAgICApLAogICAgICAgICAgXSwKICAgICAgICAgIHZlcnRpY2FsU3BhY2VMYXJnZSwKICAgICAgICBdLAogICAgICApLAogICAgICBkZWNvcmF0aW9uOiBjb25zdCBCb3hEZWNvcmF0aW9uKAogICAgICAgIGNvbG9yOiBDb2xvcnMud2hpdGUsCiAgICAgICAgYm9yZGVyUmFkaXVzOiBCb3JkZXJSYWRpdXMub25seSgKICAgICAgICAgIHRvcExlZnQ6IFJhZGl1cy5jaXJjdWxhcigxMCksCiAgICAgICAgICB0b3BSaWdodDogUmFkaXVzLmNpcmN1bGFyKDEwKSwKICAgICAgICApLAogICAgICApLAogICAgKTsKICB9CgogIEBvdmVycmlkZQogIHt7c2hlZXRNb2RlbE5hbWV9fSB2aWV3TW9kZWxCdWlsZGVyKEJ1aWxkQ29udGV4dCBjb250ZXh0KSA9PgogICAgICB7e3NoZWV0TW9kZWxOYW1lfX0oKTsKfQo=
 ''';
 
 // --------------------------------------------------
@@ -3114,55 +764,7 @@ const String kBottomSheetEmptyTemplateGenericSheetPath =
     'lib/ui/bottom_sheets/generic/generic_sheet.dart.stk';
 
 const String kBottomSheetEmptyTemplateGenericSheetContent = '''
-import 'package:flutter/material.dart';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-import 'package:stacked_services/stacked_services.dart';
-
-class {{sheetName}} extends StatelessWidget {
-  final Function(SheetResponse response)? completer;
-  final SheetRequest request;
-  const {{sheetName}}({
-    Key? key,
-    required this.completer,
-    required this.request,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            request.title ?? 'Hello Stacked Sheet!!',
-            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
-          ),
-          if (request.description != null) ...[
-            verticalSpaceTiny,
-            Text(
-              request.description!,
-              style: const TextStyle(fontSize: 14, color: kcMediumGrey),
-              maxLines: 3,
-              softWrap: true,
-            ),
-          ],
-          verticalSpaceLarge,
-        ],
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-        ),
-      ),
-    );
-  }
-}
-
+aW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXIvbWF0ZXJpYWwuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL2FwcF9jb2xvcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTp7e3BhY2thZ2VOYW1lfX0vdWkvY29tbW9uL3VpX2hlbHBlcnMuZGFydCc7CmltcG9ydCAncGFja2FnZTpzdGFja2VkX3NlcnZpY2VzL3N0YWNrZWRfc2VydmljZXMuZGFydCc7CgpjbGFzcyB7e3NoZWV0TmFtZX19IGV4dGVuZHMgU3RhdGVsZXNzV2lkZ2V0IHsKICBmaW5hbCBGdW5jdGlvbihTaGVldFJlc3BvbnNlIHJlc3BvbnNlKT8gY29tcGxldGVyOwogIGZpbmFsIFNoZWV0UmVxdWVzdCByZXF1ZXN0OwogIGNvbnN0IHt7c2hlZXROYW1lfX0oewogICAgS2V5PyBrZXksCiAgICByZXF1aXJlZCB0aGlzLmNvbXBsZXRlciwKICAgIHJlcXVpcmVkIHRoaXMucmVxdWVzdCwKICB9KSA6IHN1cGVyKGtleToga2V5KTsKCiAgQG92ZXJyaWRlCiAgV2lkZ2V0IGJ1aWxkKEJ1aWxkQ29udGV4dCBjb250ZXh0KSB7CiAgICByZXR1cm4gQ29udGFpbmVyKAogICAgICBwYWRkaW5nOiBjb25zdCBFZGdlSW5zZXRzLnN5bW1ldHJpYyhob3Jpem9udGFsOiAyMCwgdmVydGljYWw6IDE1KSwKICAgICAgY2hpbGQ6IENvbHVtbigKICAgICAgICBjcm9zc0F4aXNBbGlnbm1lbnQ6IENyb3NzQXhpc0FsaWdubWVudC5zdGFydCwKICAgICAgICBtYWluQXhpc1NpemU6IE1haW5BeGlzU2l6ZS5taW4sCiAgICAgICAgY2hpbGRyZW46IFsKICAgICAgICAgIFRleHQoCiAgICAgICAgICAgIHJlcXVlc3QudGl0bGUgPz8gJ0hlbGxvIFN0YWNrZWQgU2hlZXQhIScsCiAgICAgICAgICAgIHN0eWxlOiBjb25zdCBUZXh0U3R5bGUoZm9udFNpemU6IDI1LCBmb250V2VpZ2h0OiBGb250V2VpZ2h0Lnc5MDApLAogICAgICAgICAgKSwKICAgICAgICAgIGlmIChyZXF1ZXN0LmRlc2NyaXB0aW9uICE9IG51bGwpIC4uLlsKICAgICAgICAgICAgdmVydGljYWxTcGFjZVRpbnksCiAgICAgICAgICAgIFRleHQoCiAgICAgICAgICAgICAgcmVxdWVzdC5kZXNjcmlwdGlvbiEsCiAgICAgICAgICAgICAgc3R5bGU6IGNvbnN0IFRleHRTdHlsZShmb250U2l6ZTogMTQsIGNvbG9yOiBrY01lZGl1bUdyZXkpLAogICAgICAgICAgICAgIG1heExpbmVzOiAzLAogICAgICAgICAgICAgIHNvZnRXcmFwOiB0cnVlLAogICAgICAgICAgICApLAogICAgICAgICAgXSwKICAgICAgICAgIHZlcnRpY2FsU3BhY2VMYXJnZSwKICAgICAgICBdLAogICAgICApLAogICAgICBkZWNvcmF0aW9uOiBjb25zdCBCb3hEZWNvcmF0aW9uKAogICAgICAgIGNvbG9yOiBDb2xvcnMud2hpdGUsCiAgICAgICAgYm9yZGVyUmFkaXVzOiBCb3JkZXJSYWRpdXMub25seSgKICAgICAgICAgIHRvcExlZnQ6IFJhZGl1cy5jaXJjdWxhcigxMCksCiAgICAgICAgICB0b3BSaWdodDogUmFkaXVzLmNpcmN1bGFyKDEwKSwKICAgICAgICApLAogICAgICApLAogICAgKTsKICB9Cn0K
 ''';
 
 // --------------------------------------------------
