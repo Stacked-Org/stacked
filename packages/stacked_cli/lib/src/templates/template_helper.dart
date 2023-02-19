@@ -57,8 +57,11 @@ class TemplateHelper {
     String extension = 'stk',
   }) async {
     final allFilesInTemplateDirectory = await _fileService.getFilesInDirectory(
-      directoryPath:
-          _pathService.join(templatesPath, templateName, templateType),
+      directoryPath: _pathService.join(
+        templatesPath,
+        templateName,
+        templateType,
+      ),
     );
 
     final allTemplateFiles = getFilesWithExtension(
