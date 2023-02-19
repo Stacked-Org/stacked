@@ -38,7 +38,7 @@ mixin _$CompliledTemplateFile {
   String get content => throw _privateConstructorUsedError;
 
   /// The type of file to determine how we'll store it
-  FileType get fileType => throw _privateConstructorUsedError;
+  String get fileType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,7 +58,7 @@ abstract class $CompliledTemplateFileCopyWith<$Res> {
       String fileName,
       String path,
       String content,
-      FileType fileType});
+      String fileType});
 }
 
 /// @nodoc
@@ -106,7 +106,7 @@ class _$CompliledTemplateFileCopyWithImpl<$Res,
       fileType: null == fileType
           ? _value.fileType
           : fileType // ignore: cast_nullable_to_non_nullable
-              as FileType,
+              as String,
     ) as $Val);
   }
 }
@@ -125,7 +125,7 @@ abstract class _$$_CompliledTemplateFileCopyWith<$Res>
       String fileName,
       String path,
       String content,
-      FileType fileType});
+      String fileType});
 }
 
 /// @nodoc
@@ -170,7 +170,7 @@ class __$$_CompliledTemplateFileCopyWithImpl<$Res>
       fileType: null == fileType
           ? _value.fileType
           : fileType // ignore: cast_nullable_to_non_nullable
-              as FileType,
+              as String,
     ));
   }
 }
@@ -212,7 +212,7 @@ class _$_CompliledTemplateFile implements _CompliledTemplateFile {
 
   /// The type of file to determine how we'll store it
   @override
-  final FileType fileType;
+  final String fileType;
 
   @override
   String toString() {
@@ -262,7 +262,7 @@ abstract class _CompliledTemplateFile implements CompliledTemplateFile {
       required final String fileName,
       required final String path,
       required final String content,
-      required final FileType fileType}) = _$_CompliledTemplateFile;
+      required final String fileType}) = _$_CompliledTemplateFile;
 
   factory _CompliledTemplateFile.fromJson(Map<String, dynamic> json) =
       _$_CompliledTemplateFile.fromJson;
@@ -291,7 +291,7 @@ abstract class _CompliledTemplateFile implements CompliledTemplateFile {
   @override
 
   /// The type of file to determine how we'll store it
-  FileType get fileType;
+  String get fileType;
   @override
   @JsonKey(ignore: true)
   _$$_CompliledTemplateFileCopyWith<_$_CompliledTemplateFile> get copyWith =>

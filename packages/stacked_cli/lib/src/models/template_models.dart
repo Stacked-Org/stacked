@@ -23,7 +23,7 @@ class CompliledTemplateFile with _$CompliledTemplateFile {
     required String content,
 
     /// The type of file to determine how we'll store it
-    required FileType fileType,
+    required String fileType,
   }) = _CompliledTemplateFile;
 
   factory CompliledTemplateFile.fromJson(Map<String, dynamic> json) =>
@@ -103,9 +103,12 @@ class TemplateFile {
   /// Stores templatable content to render out to disk
   final String content;
 
+  final FileType fileType;
+
   TemplateFile({
     required this.relativeOutputPath,
     required this.content,
+    required this.fileType,
   });
 }
 

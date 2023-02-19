@@ -14,7 +14,7 @@ _$_CompliledTemplateFile _$$_CompliledTemplateFileFromJson(
       fileName: json['fileName'] as String,
       path: json['path'] as String,
       content: json['content'] as String,
-      fileType: $enumDecode(_$FileTypeEnumMap, json['fileType']),
+      fileType: json['fileType'] as String,
     );
 
 Map<String, dynamic> _$$_CompliledTemplateFileToJson(
@@ -25,13 +25,8 @@ Map<String, dynamic> _$$_CompliledTemplateFileToJson(
       'fileName': instance.fileName,
       'path': instance.path,
       'content': instance.content,
-      'fileType': _$FileTypeEnumMap[instance.fileType]!,
+      'fileType': instance.fileType,
     };
-
-const _$FileTypeEnumMap = {
-  FileType.text: 'text',
-  FileType.image: 'image',
-};
 
 _$_CompiledCreateCommand _$$_CompiledCreateCommandFromJson(
         Map<String, dynamic> json) =>

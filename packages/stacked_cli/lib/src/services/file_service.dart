@@ -13,7 +13,7 @@ import 'package:stacked_cli/src/templates/template_constants.dart';
 class FileService {
   final _log = locator<ColorizedLogService>();
 
-  Future<void> writeFile({
+  Future<void> writeStringFile({
     required File file,
     required String fileContent,
     bool verbose = false,
@@ -29,6 +29,31 @@ class FileService {
     }
 
     await file.writeAsString(
+      fileContent,
+      mode: forceAppend ? FileMode.append : FileMode.write,
+    );
+
+    if (verbose) {
+      _log.fileOutput(type: type, message: verboseMessage ?? '$file');
+    }
+  }
+
+  Future<void> writeDataFile({
+    required File file,
+    required Uint8List fileContent,
+    bool verbose = false,
+    FileModificationType type = FileModificationType.Create,
+    String? verboseMessage,
+    bool forceAppend = false,
+  }) async {
+    if (!(await file.exists())) {
+      if (type != FileModificationType.Create) {
+        _log.warn(message: 'File does not exist. Write it out');
+      }
+      await file.create(recursive: true);
+    }
+
+    await file.writeAsBytes(
       fileContent,
       mode: forceAppend ? FileMode.append : FileMode.write,
     );
@@ -113,7 +138,7 @@ class FileService {
     List<String> fileLines = await readFileAsLines(filePath: filePath);
     fileLines.removeWhere((line) => line.contains(recaseName.snakeCase));
     fileLines.removeWhere((line) => line.contains(recaseName.pascalCase));
-    await writeFile(
+    await writeStringFile(
       file: File(filePath),
       fileContent: fileLines.join('\n'),
       type: FileModificationType.Modify,
@@ -133,7 +158,7 @@ class FileService {
       fileLines.removeAt(line - 1);
     }
 
-    await writeFile(
+    await writeStringFile(
       file: File(filePath),
       fileContent: fileLines.join('\n'),
       type: FileModificationType.Modify,
@@ -153,7 +178,7 @@ class FileService {
           multiLine: true,
         ),
         '');
-    await writeFile(
+    await writeStringFile(
       file: File(filePath),
       fileContent: fileString,
       type: FileModificationType.Modify,

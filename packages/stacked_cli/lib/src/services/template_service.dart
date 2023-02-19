@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:mustache_template/mustache_template.dart';
 import 'package:path/path.dart' as path;
@@ -99,7 +101,7 @@ class TemplateService {
     final allTemplateItemsContent =
         outputTemplate.renderString(templateItemsData);
 
-    await _fileService.writeFile(
+    await _fileService.writeStringFile(
       file: File(path.join(templatesPath, 'compiled_templates.dart')),
       fileContent: allTemplateItemsContent,
     );
@@ -111,7 +113,7 @@ class TemplateService {
     };
 
     final templateMapContent = templateMap.renderString(templateMapData);
-    await _fileService.writeFile(
+    await _fileService.writeStringFile(
       file: File(path.join(templatesPath, 'compiled_template_map.dart')),
       fileContent: templateMapContent,
     );
@@ -195,10 +197,10 @@ class TemplateService {
         if (templateFile.relativeOutputPath.contains('_view_v1.dart.stk')) {
           if (useBuilder) {
             template.templateFiles[i + 1] = TemplateFile(
-              relativeOutputPath:
-                  template.templateFiles[i + 1].relativeOutputPath,
-              content: templateFile.content,
-            );
+                relativeOutputPath:
+                    template.templateFiles[i + 1].relativeOutputPath,
+                content: templateFile.content,
+                fileType: FileType.text);
           }
 
           continue;
@@ -212,20 +214,22 @@ class TemplateService {
 
         if (templateFile.relativeOutputPath.contains('_use_model.dart.stk')) {
           template.templateFiles[i + 2] = TemplateFile(
-            relativeOutputPath:
-                template.templateFiles[i + 2].relativeOutputPath,
-            content: templateFile.content,
-          );
+              relativeOutputPath:
+                  template.templateFiles[i + 2].relativeOutputPath,
+              content: templateFile.content,
+              fileType: FileType.text);
 
           continue;
         }
       }
 
-      final templateContent = renderContentForTemplate(
-        content: templateFile.content,
-        templateName: templateName,
-        name: name,
-      );
+      final templateContent = templateFile.fileType == FileType.text
+          ? renderContentForTemplate(
+              content: templateFile.content,
+              templateName: templateName,
+              name: name,
+            )
+          : base64Decode(templateFile.content);
 
       final templateFileOutputPath = getTemplateOutputPath(
         inputTemplatePath: templateFile.relativeOutputPath,
@@ -233,12 +237,21 @@ class TemplateService {
         outputFolder: outputFolder,
       );
 
-      await _fileService.writeFile(
-        file: File(templateFileOutputPath),
-        fileContent: templateContent,
-        forceAppend: shouldAppendTemplate(templateFile.relativeOutputPath),
-        verbose: true,
-      );
+      if (templateFile.fileType == FileType.text) {
+        await _fileService.writeStringFile(
+          file: File(templateFileOutputPath),
+          fileContent: templateContent as String,
+          forceAppend: shouldAppendTemplate(templateFile.relativeOutputPath),
+          verbose: true,
+        );
+      } else {
+        await _fileService.writeDataFile(
+          file: File(templateFileOutputPath),
+          fileContent: templateContent as Uint8List,
+          forceAppend: shouldAppendTemplate(templateFile.relativeOutputPath),
+          verbose: true,
+        );
+      }
     }
   }
 
@@ -389,7 +402,7 @@ class TemplateService {
       );
 
       // Write the file back that was modified
-      await _fileService.writeFile(
+      await _fileService.writeStringFile(
         file: File(modificationPath),
         fileContent: updatedFileContent,
         verbose: true,

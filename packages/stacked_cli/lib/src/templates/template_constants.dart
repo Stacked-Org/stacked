@@ -148,6 +148,7 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
           TemplateFile(
             relativeOutputPath: k{{name}}{{templateType}}Template{{fileName}}Path,
             content: k{{name}}{{templateType}}Template{{fileName}}Content,
+            fileType: FileType.{{fileType}}
           ),
         {{/files}}
         ],
