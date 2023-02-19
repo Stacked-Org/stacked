@@ -773,15 +773,15 @@ const String kAppWebTemplateHomeViewDesktopPath =
 
 const String kAppWebTemplateHomeViewDesktopContent = '''
 import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName]}}/ui/common/app_constants.dart';
+import 'package:{{packageName}}/ui/common/app_constants.dart';
 import 'package:{{packageName}}/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import 'home_viewmodel.dart';
 
-class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
-  const HomeViewMobile({super.key});
+class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
+  const HomeViewDesktop({super.key});
 
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
@@ -946,18 +946,18 @@ const String kAppWebTemplateHomeViewPath =
     'lib/ui/views/home/home_view.dart.stk';
 
 const String kAppWebTemplateHomeViewContent = '''
-import 'package:{{packageName}}/ui/views/home/home_view.form.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 import 'home_view.desktop.dart';
+import 'home_view.tablet.dart';
 import 'home_view.mobile.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
-  HomeView({super.key});
+  const HomeView({super.key});
 
   @override
   Widget builder(
@@ -966,9 +966,9 @@ class HomeView extends StackedView<HomeViewModel> {
     Widget? child,
   ) {
     return ScreenTypeLayout.builder(
-      mobile: (_) => HomeViewMobile(),
-      tablet: (_) => HomeViewTablet(),
-      desktop: (_) => HomeViewDesktop(),
+      mobile: (_) => const HomeViewMobile(),
+      tablet: (_) => const HomeViewTablet(),
+      desktop: (_) => const HomeViewDesktop(),
     );
   }
 
@@ -1045,8 +1045,8 @@ import 'package:stacked/stacked.dart';
 
 import 'home_viewmodel.dart';
 
-class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
-  const HomeViewMobile({super.key});
+class HomeViewTablet extends ViewModelWidget<HomeViewModel> {
+  const HomeViewTablet({super.key});
 
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
@@ -1309,6 +1309,7 @@ dependencies:
   
   stacked: ^3.1.0+3
   stacked_services: ^0.9.9
+  responsive_builder: ^0.6.0
 
 dev_dependencies:
   flutter_test:
