@@ -334,6 +334,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
     bool? useBuilder = false,
     bool? hasModel = true,
     String? outputPath,
+    String? templateType,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -347,6 +348,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
             #useBuilder: useBuilder,
             #hasModel: hasModel,
             #outputPath: outputPath,
+            #templateType: templateType,
           },
         ),
         returnValue: _i6.Future<void>.value(),
