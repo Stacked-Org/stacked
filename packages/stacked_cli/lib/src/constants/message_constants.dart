@@ -44,6 +44,15 @@ const String kCommandHelpLineLength =
 const String kCommandHelpCreateAppTemplate =
     'Selects the type of starter template to use when creating a new app. One oriented for mobile first or web first';
 
+const String kCommandHelpCreateViewTemplate =
+    'Selects the type of view to create instead of the default empty view';
+
+const String kCommandHelpCreateDialogTemplate =
+    'Selects the type of dialog to create instead of the default empty dialog';
+
+const String kCommandHelpCreateBottomSheetTemplate =
+    'Selects the type of bottom sheet to create instead of the default empty bottom sheet';
+
 const String kCommandHelpExcludeDependency =
     'When a service is excluded it will not be added to your app.dart dependencies collection.';
 
