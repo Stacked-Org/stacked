@@ -44,13 +44,13 @@ class CreateBottomSheetCommand extends Command with ProjectStructureValidator {
       valueHelp: '80',
     );
 
-    argParser.addMultiOption(
+    argParser.addOption(
       ksTemplateType,
       abbr: 't',
       // TODO (Create App Templates): Generate a constant with these values when
       // running the compile command
       allowed: ['empty'],
-      defaultsTo: ['empty'],
+      defaultsTo: 'empty',
       help: kCommandHelpCreateBottomSheetTemplate,
     );
   }
