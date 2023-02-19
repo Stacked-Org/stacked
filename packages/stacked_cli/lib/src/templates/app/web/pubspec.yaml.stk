@@ -37,6 +37,7 @@ dependencies:
   
   stacked: ^3.1.0+3
   stacked_services: ^0.9.9
+  responsive_builder: ^0.6.0
 
 dev_dependencies:
   flutter_test:
