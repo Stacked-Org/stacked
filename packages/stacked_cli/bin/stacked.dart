@@ -54,7 +54,10 @@ Future<void> main(List<String> arguments) async {
 
     if (_handleAnalytics(argResults)) exit(0);
 
-    await _notifyNewVersionAvailable();
+    // Ignore notify version for compile and update commands
+    if (arguments.first != 'compile' && arguments.first != 'update') {
+      await _notifyNewVersionAvailable();
+    }
 
     runner.run(arguments);
   } on InvalidStackedStructureException catch (e) {
