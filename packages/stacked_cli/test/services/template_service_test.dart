@@ -161,7 +161,7 @@ void main() {
           name: 'Details',
         );
 
-        verify(fileService.writeFile(
+        verify(fileService.writeStringFile(
           file: anyNamed('file'),
           fileContent: anyNamed('fileContent'),
           verbose: anyNamed('verbose'),

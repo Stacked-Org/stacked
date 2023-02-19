@@ -125,9 +125,8 @@ class TemplateHelper {
         templateFilePath: templateFile,
       );
 
-      final fileType = !templateFileNameOnly.contains('.dart')
-          ? FileType.image
-          : FileType.text;
+      final fileType =
+          templateFileNameOnly.contains('png') ? FileType.image : FileType.text;
 
       final templateFileNameRecase = ReCase(templateFileNameOnly);
 
@@ -155,7 +154,7 @@ class TemplateHelper {
         fileName: templateFileNameRecase.pascalCase,
         path: relativeTemplateFilePath,
         content: templateFileContent,
-        fileType: fileType,
+        fileType: fileType.name,
       ));
     }
 

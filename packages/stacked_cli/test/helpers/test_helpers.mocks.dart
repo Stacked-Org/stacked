@@ -5,23 +5,24 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i6;
 import 'dart:io' as _i2;
+import 'dart:typed_data' as _i7;
 
 import 'package:ansicolor/ansicolor.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:pubspec_yaml/pubspec_yaml.dart' as _i3;
-import 'package:stacked_cli/src/models/template_models.dart' as _i9;
-import 'package:stacked_cli/src/services/analytics_service.dart' as _i16;
-import 'package:stacked_cli/src/services/colorized_log_service.dart' as _i13;
-import 'package:stacked_cli/src/services/config_service.dart' as _i14;
+import 'package:stacked_cli/src/models/template_models.dart' as _i10;
+import 'package:stacked_cli/src/services/analytics_service.dart' as _i17;
+import 'package:stacked_cli/src/services/colorized_log_service.dart' as _i14;
+import 'package:stacked_cli/src/services/config_service.dart' as _i15;
 import 'package:stacked_cli/src/services/file_service.dart' as _i5;
-import 'package:stacked_cli/src/services/path_service.dart' as _i7;
-import 'package:stacked_cli/src/services/process_service.dart' as _i15;
-import 'package:stacked_cli/src/services/pub_service.dart' as _i17;
-import 'package:stacked_cli/src/services/pubspec_service.dart' as _i12;
-import 'package:stacked_cli/src/services/template_service.dart' as _i8;
-import 'package:stacked_cli/src/templates/template_helper.dart' as _i11;
+import 'package:stacked_cli/src/services/path_service.dart' as _i8;
+import 'package:stacked_cli/src/services/process_service.dart' as _i16;
+import 'package:stacked_cli/src/services/pub_service.dart' as _i18;
+import 'package:stacked_cli/src/services/pubspec_service.dart' as _i13;
+import 'package:stacked_cli/src/services/template_service.dart' as _i9;
+import 'package:stacked_cli/src/templates/template_helper.dart' as _i12;
 import 'package:stacked_cli/src/templates/template_render_functions.dart'
-    as _i10;
+    as _i11;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -79,7 +80,7 @@ class _FakeProcessResult_3 extends _i1.SmartFake implements _i2.ProcessResult {
 /// See the documentation for Mockito's code generation for more information.
 class MockFileService extends _i1.Mock implements _i5.FileService {
   @override
-  _i6.Future<void> writeFile({
+  _i6.Future<void> writeStringFile({
     required _i2.File? file,
     required String? fileContent,
     bool? verbose = false,
@@ -153,6 +154,18 @@ class MockFileService extends _i1.Mock implements _i5.FileService {
         returnValue: _i6.Future<String>.value(''),
         returnValueForMissingStub: _i6.Future<String>.value(''),
       ) as _i6.Future<String>);
+  @override
+  _i6.Future<_i7.Uint8List> readAsBytes({required String? filePath}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #readAsBytes,
+          [],
+          {#filePath: filePath},
+        ),
+        returnValue: _i6.Future<_i7.Uint8List>.value(_i7.Uint8List(0)),
+        returnValueForMissingStub:
+            _i6.Future<_i7.Uint8List>.value(_i7.Uint8List(0)),
+      ) as _i6.Future<_i7.Uint8List>);
   @override
   _i6.Future<List<String>> readFileAsLines({required String? filePath}) =>
       (super.noSuchMethod(
@@ -248,7 +261,7 @@ class MockFileService extends _i1.Mock implements _i5.FileService {
 /// A class which mocks [PathService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPathService extends _i1.Mock implements _i7.PathService {
+class MockPathService extends _i1.Mock implements _i8.PathService {
   @override
   String get templatesPath => (super.noSuchMethod(
         Invocation.getter(#templatesPath),
@@ -315,7 +328,7 @@ class MockPathService extends _i1.Mock implements _i7.PathService {
 /// A class which mocks [TemplateService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
+class MockTemplateService extends _i1.Mock implements _i9.TemplateService {
   @override
   _i6.Future<void> compileTemplateInformation() => (super.noSuchMethod(
         Invocation.method(
@@ -356,7 +369,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
       ) as _i6.Future<void>);
   @override
   _i6.Future<void> writeOutTemplateFiles({
-    required _i9.StackedTemplate? template,
+    required _i10.StackedTemplate? template,
     required String? templateName,
     required String? name,
     String? outputFolder,
@@ -421,7 +434,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
   Map<String, String> getTemplateRenderData({
     required String? templateName,
     required String? name,
-    Map<String, _i10.RenderFunction>? testRenderFunctions,
+    Map<String, _i11.RenderFunction>? testRenderFunctions,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -452,7 +465,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
       ) as Map<String, String>);
   @override
   _i6.Future<void> modifyExistingFiles({
-    required _i9.StackedTemplate? template,
+    required _i10.StackedTemplate? template,
     required String? templateName,
     required String? name,
     String? outputPath,
@@ -527,7 +540,7 @@ class MockTemplateService extends _i1.Mock implements _i8.TemplateService {
 /// A class which mocks [TemplateHelper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTemplateHelper extends _i1.Mock implements _i11.TemplateHelper {
+class MockTemplateHelper extends _i1.Mock implements _i12.TemplateHelper {
   @override
   String get templatesPath => (super.noSuchMethod(
         Invocation.getter(#templatesPath),
@@ -625,7 +638,7 @@ class MockTemplateHelper extends _i1.Mock implements _i11.TemplateHelper {
             <_i2.FileSystemEntity>[]),
       ) as _i6.Future<List<_i2.FileSystemEntity>>);
   @override
-  _i6.Future<List<_i9.CompiledFileModification>>
+  _i6.Future<List<_i10.CompiledFileModification>>
       getTemplateModificationsToApply({
     required String? templateName,
     required String? templateType,
@@ -639,14 +652,14 @@ class MockTemplateHelper extends _i1.Mock implements _i11.TemplateHelper {
                 #templateType: templateType,
               },
             ),
-            returnValue: _i6.Future<List<_i9.CompiledFileModification>>.value(
-                <_i9.CompiledFileModification>[]),
+            returnValue: _i6.Future<List<_i10.CompiledFileModification>>.value(
+                <_i10.CompiledFileModification>[]),
             returnValueForMissingStub:
-                _i6.Future<List<_i9.CompiledFileModification>>.value(
-                    <_i9.CompiledFileModification>[]),
-          ) as _i6.Future<List<_i9.CompiledFileModification>>);
+                _i6.Future<List<_i10.CompiledFileModification>>.value(
+                    <_i10.CompiledFileModification>[]),
+          ) as _i6.Future<List<_i10.CompiledFileModification>>);
   @override
-  _i6.Future<List<_i9.CompliledTemplateFile>> getTemplateItemsToRender({
+  _i6.Future<List<_i10.CompliledTemplateFile>> getTemplateItemsToRender({
     required String? templateName,
     required String? templateType,
   }) =>
@@ -659,18 +672,18 @@ class MockTemplateHelper extends _i1.Mock implements _i11.TemplateHelper {
             #templateType: templateType,
           },
         ),
-        returnValue: _i6.Future<List<_i9.CompliledTemplateFile>>.value(
-            <_i9.CompliledTemplateFile>[]),
+        returnValue: _i6.Future<List<_i10.CompliledTemplateFile>>.value(
+            <_i10.CompliledTemplateFile>[]),
         returnValueForMissingStub:
-            _i6.Future<List<_i9.CompliledTemplateFile>>.value(
-                <_i9.CompliledTemplateFile>[]),
-      ) as _i6.Future<List<_i9.CompliledTemplateFile>>);
+            _i6.Future<List<_i10.CompliledTemplateFile>>.value(
+                <_i10.CompliledTemplateFile>[]),
+      ) as _i6.Future<List<_i10.CompliledTemplateFile>>);
 }
 
 /// A class which mocks [PubspecService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPubspecService extends _i1.Mock implements _i12.PubspecService {
+class MockPubspecService extends _i1.Mock implements _i13.PubspecService {
   @override
   _i3.PubspecYaml get pubspecYaml => (super.noSuchMethod(
         Invocation.getter(#pubspecYaml),
@@ -714,7 +727,7 @@ class MockPubspecService extends _i1.Mock implements _i12.PubspecService {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockColorizedLogService extends _i1.Mock
-    implements _i13.ColorizedLogService {
+    implements _i14.ColorizedLogService {
   @override
   _i4.AnsiPen get pen => (super.noSuchMethod(
         Invocation.getter(#pen),
@@ -830,7 +843,7 @@ class MockColorizedLogService extends _i1.Mock
 /// A class which mocks [ConfigService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockConfigService extends _i1.Mock implements _i14.ConfigService {
+class MockConfigService extends _i1.Mock implements _i15.ConfigService {
   @override
   bool get hasCustomConfig => (super.noSuchMethod(
         Invocation.getter(#hasCustomConfig),
@@ -1016,7 +1029,7 @@ class MockConfigService extends _i1.Mock implements _i14.ConfigService {
 /// A class which mocks [ProcessService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockProcessService extends _i1.Mock implements _i15.ProcessService {
+class MockProcessService extends _i1.Mock implements _i16.ProcessService {
   @override
   set formattingLineLength(String? length) => super.noSuchMethod(
         Invocation.setter(
@@ -1114,7 +1127,7 @@ class MockProcessService extends _i1.Mock implements _i15.ProcessService {
 /// A class which mocks [AnalyticsService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAnalyticsService extends _i1.Mock implements _i16.AnalyticsService {
+class MockAnalyticsService extends _i1.Mock implements _i17.AnalyticsService {
   @override
   bool get isFirstRun => (super.noSuchMethod(
         Invocation.getter(#isFirstRun),
@@ -1232,7 +1245,7 @@ class MockAnalyticsService extends _i1.Mock implements _i16.AnalyticsService {
       ) as _i6.Future<void>);
   @override
   _i6.Future<void> logExceptionEvent({
-    _i16.Level? level = _i16.Level.error,
+    _i17.Level? level = _i17.Level.error,
     required String? runtimeType,
     required String? message,
     String? stackTrace = r'Not Available',
@@ -1256,7 +1269,7 @@ class MockAnalyticsService extends _i1.Mock implements _i16.AnalyticsService {
 /// A class which mocks [PubService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPubService extends _i1.Mock implements _i17.PubService {
+class MockPubService extends _i1.Mock implements _i18.PubService {
   @override
   _i6.Future<String> getCurrentVersion() => (super.noSuchMethod(
         Invocation.method(
