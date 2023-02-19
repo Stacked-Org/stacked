@@ -62,9 +62,6 @@ class CompiledFileModification with _$CompiledFileModification {
       _$CompiledFileModificationFromJson(json);
 }
 
-// TODO: Move this out into its own file and give it a better name
-/// This model contains all the the information for us to generate
-/// a stacked template
 class StackedTemplate {
   final List<TemplateFile> templateFiles;
   final List<ModificationFile> modificationFiles;

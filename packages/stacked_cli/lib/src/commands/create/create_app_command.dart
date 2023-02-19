@@ -33,11 +33,18 @@ class CreateAppCommand extends Command {
       defaultsTo: null,
       help: kCommandHelpV1,
     );
+
     argParser.addOption(
       ksLineLength,
       abbr: 'l',
       help: kCommandHelpLineLength,
       valueHelp: '80',
+    );
+
+    argParser.addMultiOption(
+      ksTemplate,
+      abbr: 't',
+      allowed: ['mobile', 'web'],
     );
   }
 

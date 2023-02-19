@@ -96,7 +96,6 @@ class TemplateHelper {
     );
 
     final templateNameRecase = ReCase(templateName);
-    // TODO: Add a test to confirm this functionality
     final templateFolderName = _pathService.join('templates', templateName);
 
     for (final templateFile in templateFiles) {
@@ -107,7 +106,6 @@ class TemplateHelper {
       final templateFileNameRecase = ReCase(templateFileNameOnly);
 
       final relativeTemplateFilePath =
-          // TODO: Fix properly and unit test, this is a hack
           templateFile.path.split(templateFolderName).last.replaceFirst(
                 _pathService.separator,
                 '',
