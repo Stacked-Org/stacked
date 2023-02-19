@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:recase/recase.dart';
 import 'package:stacked_cli/src/locator.dart';
@@ -76,6 +77,11 @@ class FileService {
     required String filePath,
   }) {
     return File(filePath).readAsString();
+  }
+
+  /// Reads the file at [filePath] and returns its data as bytes
+  Future<Uint8List> readAsBytes({required String filePath}) {
+    return File(filePath).readAsBytes();
   }
 
   /// Read the file at the given path and return the contents as a list of strings, one string per

@@ -125,6 +125,10 @@ class TemplateHelper {
         templateFilePath: templateFile,
       );
 
+      final fileType = !templateFileNameOnly.contains('.dart')
+          ? FileType.image
+          : FileType.text;
+
       final templateFileNameRecase = ReCase(templateFileNameOnly);
 
       final relativeTemplateFilePath =
@@ -133,8 +137,17 @@ class TemplateHelper {
                 '',
               );
 
-      final templateFileContent =
-          await _fileService.readFileAsString(filePath: templateFile.path);
+      String templateFileContent;
+
+      if (fileType == FileType.image) {
+        final fileData =
+            await _fileService.readAsBytes(filePath: templateFile.path);
+
+        templateFileContent = base64Encode(fileData);
+      } else {
+        templateFileContent =
+            await _fileService.readFileAsString(filePath: templateFile.path);
+      }
 
       templateItemsToRender.add(CompliledTemplateFile(
         templateType: templateType.pascalCase,
@@ -142,6 +155,7 @@ class TemplateHelper {
         fileName: templateFileNameRecase.pascalCase,
         path: relativeTemplateFilePath,
         content: templateFileContent,
+        fileType: fileType,
       ));
     }
 

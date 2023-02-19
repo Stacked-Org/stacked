@@ -21,10 +21,18 @@ class CompliledTemplateFile with _$CompliledTemplateFile {
 
     /// The content as is from the file that was read
     required String content,
+
+    /// The type of file to determine how we'll store it
+    required FileType fileType,
   }) = _CompliledTemplateFile;
 
   factory CompliledTemplateFile.fromJson(Map<String, dynamic> json) =>
       _$CompliledTemplateFileFromJson(json);
+}
+
+enum FileType {
+  text,
+  image,
 }
 
 @freezed

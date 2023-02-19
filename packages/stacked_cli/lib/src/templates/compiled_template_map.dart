@@ -28,8 +28,16 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
             content: kAppWebTemplateTestHelpersContent,
           ),
           TemplateFile(
+            relativeOutputPath: kAppWebTemplateMainIconPngStkPath,
+            content: kAppWebTemplateMainIconPngStkContent,
+          ),
+          TemplateFile(
             relativeOutputPath: kAppWebTemplateIndexHtmlStkPath,
             content: kAppWebTemplateIndexHtmlStkContent,
+          ),
+          TemplateFile(
+            relativeOutputPath: kAppWebTemplateFaviconPngStkPath,
+            content: kAppWebTemplateFaviconPngStkContent,
           ),
           TemplateFile(
             relativeOutputPath: kAppWebTemplateREADMEMdStkPath,

@@ -37,6 +37,9 @@ mixin _$CompliledTemplateFile {
   /// The content as is from the file that was read
   String get content => throw _privateConstructorUsedError;
 
+  /// The type of file to determine how we'll store it
+  FileType get fileType => throw _privateConstructorUsedError;
+
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $CompliledTemplateFileCopyWith<CompliledTemplateFile> get copyWith =>
@@ -54,7 +57,8 @@ abstract class $CompliledTemplateFileCopyWith<$Res> {
       String templateType,
       String fileName,
       String path,
-      String content});
+      String content,
+      FileType fileType});
 }
 
 /// @nodoc
@@ -76,6 +80,7 @@ class _$CompliledTemplateFileCopyWithImpl<$Res,
     Object? fileName = null,
     Object? path = null,
     Object? content = null,
+    Object? fileType = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -98,6 +103,10 @@ class _$CompliledTemplateFileCopyWithImpl<$Res,
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      fileType: null == fileType
+          ? _value.fileType
+          : fileType // ignore: cast_nullable_to_non_nullable
+              as FileType,
     ) as $Val);
   }
 }
@@ -115,7 +124,8 @@ abstract class _$$_CompliledTemplateFileCopyWith<$Res>
       String templateType,
       String fileName,
       String path,
-      String content});
+      String content,
+      FileType fileType});
 }
 
 /// @nodoc
@@ -134,6 +144,7 @@ class __$$_CompliledTemplateFileCopyWithImpl<$Res>
     Object? fileName = null,
     Object? path = null,
     Object? content = null,
+    Object? fileType = null,
   }) {
     return _then(_$_CompliledTemplateFile(
       name: null == name
@@ -156,6 +167,10 @@ class __$$_CompliledTemplateFileCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      fileType: null == fileType
+          ? _value.fileType
+          : fileType // ignore: cast_nullable_to_non_nullable
+              as FileType,
     ));
   }
 }
@@ -168,7 +183,8 @@ class _$_CompliledTemplateFile implements _CompliledTemplateFile {
       required this.templateType,
       required this.fileName,
       required this.path,
-      required this.content});
+      required this.content,
+      required this.fileType});
 
   factory _$_CompliledTemplateFile.fromJson(Map<String, dynamic> json) =>
       _$$_CompliledTemplateFileFromJson(json);
@@ -194,9 +210,13 @@ class _$_CompliledTemplateFile implements _CompliledTemplateFile {
   @override
   final String content;
 
+  /// The type of file to determine how we'll store it
+  @override
+  final FileType fileType;
+
   @override
   String toString() {
-    return 'CompliledTemplateFile(name: $name, templateType: $templateType, fileName: $fileName, path: $path, content: $content)';
+    return 'CompliledTemplateFile(name: $name, templateType: $templateType, fileName: $fileName, path: $path, content: $content, fileType: $fileType)';
   }
 
   @override
@@ -210,13 +230,15 @@ class _$_CompliledTemplateFile implements _CompliledTemplateFile {
             (identical(other.fileName, fileName) ||
                 other.fileName == fileName) &&
             (identical(other.path, path) || other.path == path) &&
-            (identical(other.content, content) || other.content == content));
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.fileType, fileType) ||
+                other.fileType == fileType));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, templateType, fileName, path, content);
+  int get hashCode => Object.hash(
+      runtimeType, name, templateType, fileName, path, content, fileType);
 
   @JsonKey(ignore: true)
   @override
@@ -239,7 +261,8 @@ abstract class _CompliledTemplateFile implements CompliledTemplateFile {
       required final String templateType,
       required final String fileName,
       required final String path,
-      required final String content}) = _$_CompliledTemplateFile;
+      required final String content,
+      required final FileType fileType}) = _$_CompliledTemplateFile;
 
   factory _CompliledTemplateFile.fromJson(Map<String, dynamic> json) =
       _$_CompliledTemplateFile.fromJson;
@@ -265,6 +288,10 @@ abstract class _CompliledTemplateFile implements CompliledTemplateFile {
 
   /// The content as is from the file that was read
   String get content;
+  @override
+
+  /// The type of file to determine how we'll store it
+  FileType get fileType;
   @override
   @JsonKey(ignore: true)
   _$$_CompliledTemplateFileCopyWith<_$_CompliledTemplateFile> get copyWith =>
