@@ -220,6 +220,111 @@ void _removeRegistrationIfExists<T extends Object>() {
 // --------------------------------------------------
 
 
+// -------- IndexHtmlStk Template Data ----------
+
+const String kAppWebTemplateIndexHtmlStkPath =
+    'web/index.html.stk';
+
+const String kAppWebTemplateIndexHtmlStkContent = '''
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="\$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Stacke Application">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="FilledStacks Academy">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Import the Open Sans Font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600;700;800&display=swap" rel="stylesheet">
+
+  <title>My Stacked Application</title>
+  <link rel="manifest" href="manifest.json">
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    var serviceWorkerVersion = null;
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js" defer></script>
+</head>
+<body>
+  <style>
+    body {
+      background-color: #0A0A0A;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .main-content {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    img {
+      width: 100px;
+      height: 100px;
+    }
+
+    p {
+      color: #fff;
+    }
+
+  </style>
+  <script>
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        }
+      }).then(function(engineInitializer) {
+        return engineInitializer.initializeEngine();
+      }).then(function(appRunner) {
+        return appRunner.runApp();
+      });
+    });
+  </script>
+  <div class="main-content">
+    <img src="main-icon.png" />
+  </div>
+</body>
+</html>
+
+''';
+
+// --------------------------------------------------
+
+
 // -------- READMEMdStk Template Data ----------
 
 const String kAppWebTemplateREADMEMdStkPath =
@@ -276,7 +381,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Stacked Application',
       theme: Theme.of(context).copyWith(
         primaryColor: kcBackgroundColor,
         focusColor: kcPrimaryColor,
@@ -293,6 +398,23 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- AppConstants Template Data ----------
+
+const String kAppWebTemplateAppConstantsPath =
+    'lib/ui/common/app_constants.dart.stk';
+
+const String kAppWebTemplateAppConstantsContent = '''
+/// The max width the content can ever take up on the screen
+const double kdDesktopMaxContentWidth = 1150;
+
+// The max height the homeview will take up
+const double kdDesktopMaxContentHeight = 750;
 
 ''';
 
@@ -644,117 +766,111 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
 // --------------------------------------------------
 
 
-// -------- HomeViewV1 Template Data ----------
+// -------- HomeViewDesktop Template Data ----------
 
-const String kAppWebTemplateHomeViewV1Path =
-    'lib/ui/views/home/home_view_v1.dart.stk';
+const String kAppWebTemplateHomeViewDesktopPath =
+    'lib/ui/views/home/home_view.desktop.dart.stk';
 
-const String kAppWebTemplateHomeViewV1Content = '''
+const String kAppWebTemplateHomeViewDesktopContent = '''
+import 'package:{{packageName}}/ui/common/app_colors.dart';
+import 'package:{{packageName]}}/ui/common/app_constants.dart';
+import 'package:{{packageName}}/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
 
 import 'home_viewmodel.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
+class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
+  const HomeViewMobile({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<HomeViewModel>.reactive(
-      viewModelBuilder: () => HomeViewModel(),
-      builder: (context, model, child) => Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Center(
+  Widget build(BuildContext context, HomeViewModel viewModel) {
+    return Scaffold(
+      body: Center(
+            child: SizedBox(
+              width: kdDesktopMaxContentWidth,
+              height: kdDesktopMaxContentHeight,
               child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  verticalSpaceLarge,
-                  Column(
-                    children: [
-                      const Text(
-                        'Hello, STACKED!',
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                verticalSpaceLarge,
+                Column(
+                  children: [
+                    const Text(
+                      'Hello, TABLET UI!',
+                      style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    verticalSpaceMedium,
+                    MaterialButton(
+                      color: Colors.black,
+                      onPressed: viewModel.incrementCounter,
+                      child: Text(
+                        viewModel.counterLabel,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MaterialButton(
+                      color: kcDarkGreyColor,
+                      child: const Text(
+                        'Show Dialog',
                         style: TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.w900,
+                          color: Colors.white,
                         ),
                       ),
-                      verticalSpaceMedium,
-                      MaterialButton(
-                        color: Colors.black,
-                        onPressed: model.incrementCounter,
-                        child: Text(
-                          model.counterLabel,
-                          style: const TextStyle(color: Colors.white),
+                      onPressed: viewModel.showDialog,
+                    ),
+                    MaterialButton(
+                      color: kcDarkGreyColor,
+                      child: const Text(
+                        'Show Bottom Sheet',
+                        style: TextStyle(
+                          color: Colors.white,
                         ),
                       ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      MaterialButton(
-                        color: kcDarkGreyColor,
-                        child: const Text(
-                          'Show Dialog',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        onPressed: model.showDialog,
-                      ),
-                      MaterialButton(
-                        color: kcDarkGreyColor,
-                        child: const Text(
-                          'Show Bottom Sheet',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        onPressed: model.showBottomSheet,
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                      onPressed: viewModel.showBottomSheet,
+                    ),
+                  ],
+                )
+              ],
             ),
-          ),
         ),
       ),
     );
   }
 }
+
 ''';
 
 // --------------------------------------------------
 
 
-// -------- HomeView Template Data ----------
+// -------- HomeViewMobile Template Data ----------
 
-const String kAppWebTemplateHomeViewPath =
-    'lib/ui/views/home/home_view.dart.stk';
+const String kAppWebTemplateHomeViewMobilePath =
+    'lib/ui/views/home/home_view.mobile.dart.stk';
 
-const String kAppWebTemplateHomeViewContent = '''
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
+const String kAppWebTemplateHomeViewMobileContent = '''
 import 'package:{{packageName}}/ui/common/app_colors.dart';
 import 'package:{{packageName}}/ui/common/ui_helpers.dart';
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 
 import 'home_viewmodel.dart';
 
-class HomeView extends StackedView<HomeViewModel> {
-  const HomeView({Key? key}) : super(key: key);
+class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
+  const HomeViewMobile({super.key});
 
   @override
-  Widget builder(
-    BuildContext context,
-    HomeViewModel viewModel,
-    Widget? child,
-  ) {
+  Widget build(BuildContext context, HomeViewModel viewModel) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -768,7 +884,7 @@ class HomeView extends StackedView<HomeViewModel> {
                 Column(
                   children: [
                     const Text(
-                      'Hello, STACKED!',
+                      'Hello, MOBILE UI!',
                       style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.w900,
@@ -817,11 +933,50 @@ class HomeView extends StackedView<HomeViewModel> {
       ),
     );
   }
+}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- HomeView Template Data ----------
+
+const String kAppWebTemplateHomeViewPath =
+    'lib/ui/views/home/home_view.dart.stk';
+
+const String kAppWebTemplateHomeViewContent = '''
+import 'package:{{packageName}}/ui/views/home/home_view.form.dart';
+import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
+
+import 'home_view.desktop.dart';
+import 'home_view.mobile.dart';
+import 'home_viewmodel.dart';
+
+class HomeView extends StackedView<HomeViewModel> {
+  HomeView({super.key});
+
+  @override
+  Widget builder(
+    BuildContext context,
+    HomeViewModel viewModel,
+    Widget? child,
+  ) {
+    return ScreenTypeLayout.builder(
+      mobile: (_) => HomeViewMobile(),
+      tablet: (_) => HomeViewTablet(),
+      desktop: (_) => HomeViewDesktop(),
+    );
+  }
 
   @override
   HomeViewModel viewModelBuilder(
     BuildContext context,
-  ) => HomeViewModel();
+  ) =>
+      HomeViewModel();
 }
 
 ''';
@@ -877,6 +1032,93 @@ class HomeViewModel extends BaseViewModel {
 // --------------------------------------------------
 
 
+// -------- HomeViewTablet Template Data ----------
+
+const String kAppWebTemplateHomeViewTabletPath =
+    'lib/ui/views/home/home_view.tablet.dart.stk';
+
+const String kAppWebTemplateHomeViewTabletContent = '''
+import 'package:{{packageName}}/ui/common/app_colors.dart';
+import 'package:{{packageName}}/ui/common/ui_helpers.dart';
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+import 'home_viewmodel.dart';
+
+class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
+  const HomeViewMobile({super.key});
+
+  @override
+  Widget build(BuildContext context, HomeViewModel viewModel) {
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                verticalSpaceLarge,
+                Column(
+                  children: [
+                    const Text(
+                      'Hello, TABLET UI!',
+                      style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    verticalSpaceMedium,
+                    MaterialButton(
+                      color: Colors.black,
+                      onPressed: viewModel.incrementCounter,
+                      child: Text(
+                        viewModel.counterLabel,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MaterialButton(
+                      color: kcDarkGreyColor,
+                      child: const Text(
+                        'Show Dialog',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: viewModel.showDialog,
+                    ),
+                    MaterialButton(
+                      color: kcDarkGreyColor,
+                      child: const Text(
+                        'Show Bottom Sheet',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: viewModel.showBottomSheet,
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+''';
+
+// --------------------------------------------------
+
+
 // -------- StartupViewmodel Template Data ----------
 
 const String kAppWebTemplateStartupViewmodelPath =
@@ -893,81 +1135,13 @@ class StartupViewModel extends BaseViewModel {
 
   // Place anything here that needs to happen before we get into the application
   Future runStartupLogic() async {
-    await Future.delayed(const Duration(seconds: 3));
-
     // This is where you can make decisions on where your app should navigate when
     // you have custom startup logic
 
-    _navigationService.replaceWithHomeView();
+    await _navigationService.replaceWithHomeView();
   }
 }
 
-''';
-
-// --------------------------------------------------
-
-
-// -------- StartupViewV1 Template Data ----------
-
-const String kAppWebTemplateStartupViewV1Path =
-    'lib/ui/views/startup/startup_view_v1.dart.stk';
-
-const String kAppWebTemplateStartupViewV1Content = '''
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:stacked/stacked.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-
-import 'startup_viewmodel.dart';
-
-class StartupView extends StatelessWidget {
-  const StartupView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<StartupViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'STACKED',
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Text(
-                    'Loading ...',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                  horizontalSpaceSmall,
-                  SizedBox(
-                    width: 16,
-                    height: 16,
-                    child: CircularProgressIndicator(
-                      color: Colors.black,
-                      strokeWidth: 6,
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-      onModelReady: (model) => SchedulerBinding.instance
-          .addPostFrameCallback((timeStamp) => model.runStartupLogic()),
-      viewModelBuilder: () => StartupViewModel(),
-    );
-  }
-}
 ''';
 
 // --------------------------------------------------
@@ -1193,6 +1367,23 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
+''';
+
+// --------------------------------------------------
+
+
+// -------- SettingsJsonStk Template Data ----------
+
+const String kAppWebTemplateSettingsJsonStkPath =
+    '.vscode/settings.json.stk';
+
+const String kAppWebTemplateSettingsJsonStkContent = '''
+{
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "*.dart": "\${capture}.mobile.dart, \${capture}.tablet.dart, \${capture}.desktop.dart, \${capture}.form.dart"
+    },
+}
 ''';
 
 // --------------------------------------------------
