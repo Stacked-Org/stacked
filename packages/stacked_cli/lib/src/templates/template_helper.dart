@@ -137,6 +137,7 @@ class TemplateHelper {
           await _fileService.readFileAsString(filePath: templateFile.path);
 
       templateItemsToRender.add(CompliledTemplateFile(
+        templateType: templateType.pascalCase,
         name: templateNameRecase.pascalCase,
         fileName: templateFileNameRecase.pascalCase,
         path: relativeTemplateFilePath,

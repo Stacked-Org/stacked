@@ -45,7 +45,7 @@ class TemplateService {
       directoryPath: templatesPath,
     );
 
-    final stackedTemplates = <CompiledStackedTemplate>[];
+    final stackedTemplates = <CompiledCreateCommand>[];
     final allTemplateItems = <CompliledTemplateFile>[];
 
     for (final stackedTemplateFolderPath in stackedTemplateFolderPaths) {
@@ -56,6 +56,11 @@ class TemplateService {
       final List<String> templateTypes =
           await _templateHelper.getTemplateTypesFromTemplate(
         templateDirectoryPath: stackedTemplateFolderPath,
+      );
+
+      var compiledCreateCommand = CompiledCreateCommand(
+        name: templateName,
+        templates: [],
       );
 
       for (var templateType in templateTypes) {
@@ -73,12 +78,17 @@ class TemplateService {
           templateType: templateType,
         );
 
-        stackedTemplates.add(CompiledStackedTemplate(
-          name: templateName,
-          templateFiles: templateItemsToRender,
-          modificationFiles: templateModificationsToApply,
-        ));
+        compiledCreateCommand = compiledCreateCommand.copyWith(templates: [
+          ...compiledCreateCommand.templates,
+          CompiledTemplate(
+            type: templateType,
+            files: templateItemsToRender,
+            modificationFiles: templateModificationsToApply,
+          )
+        ]);
       }
+
+      stackedTemplates.add(compiledCreateCommand);
     }
 
     final outputTemplate = Template(kTemplateDataStructure);
