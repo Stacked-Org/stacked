@@ -120,16 +120,24 @@ void main() {
         final fileService = getAndRegisterFileService();
         final helper = _getHelper();
         await helper.getFilesForTemplate(
-            templateName: kTemplateNameView, templateType: kTemplateTypeEmpty);
-        verify(fileService.getFilesInDirectory(directoryPath: 'template_path'));
+          templateName: kTemplateNameView,
+          templateType: kTemplateTypeEmpty,
+        );
+        verify(fileService.getFilesInDirectory(directoryPath: 'joined_path'));
       });
 
       test('When called with view, should join templates and view', () async {
         final pathService = getAndRegisterPathService();
         final helper = _getHelper();
         await helper.getFilesForTemplate(
-            templateName: kTemplateNameView, templateType: kTemplateTypeEmpty);
-        verify(pathService.join('templates', kTemplateNameView));
+          templateName: kTemplateNameView,
+          templateType: kTemplateTypeEmpty,
+        );
+        verify(pathService.join(
+          'templates',
+          kTemplateNameView,
+          kTemplateTypeEmpty,
+        ));
       });
 
       test(
