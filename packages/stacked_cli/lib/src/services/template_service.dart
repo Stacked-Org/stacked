@@ -229,7 +229,7 @@ class TemplateService {
               templateName: templateName,
               name: name,
             )
-          : base64Decode(templateFile.content);
+          : base64Decode(templateFile.content.trim().replaceAll('\n', ''));
 
       final templateFileOutputPath = getTemplateOutputPath(
         inputTemplatePath: templateFile.relativeOutputPath,
