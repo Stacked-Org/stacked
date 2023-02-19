@@ -32,6 +32,7 @@ _$_Config _$$_ConfigFromJson(Map<String, dynamic> json) => _$_Config(
           json['register_mocks_function'] as String? ?? 'registerServices',
       v1: json['v1'] as bool? ?? false,
       lineLength: json['line_length'] as int? ?? 80,
+      preferWeb: json['prefer_web'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_ConfigToJson(_$_Config instance) => <String, dynamic>{
@@ -51,4 +52,5 @@ Map<String, dynamic> _$$_ConfigToJson(_$_Config instance) => <String, dynamic>{
       'register_mocks_function': instance.registerMocksFunction,
       'v1': instance.v1,
       'line_length': instance.lineLength,
+      'prefer_web': instance.preferWeb,
     };

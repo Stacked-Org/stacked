@@ -82,6 +82,7 @@ class Config with _$Config {
     /// Defines the integer value to determine the line length when formatting
     /// the code.
     @JsonKey(name: 'line_length') @Default(80) int lineLength,
+    @JsonKey(name: 'prefer_web') @Default(false) bool preferWeb,
   }) = _Config;
 
   factory Config.fromJson(Map<String, dynamic> json) => _$ConfigFromJson(json);

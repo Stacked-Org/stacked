@@ -90,6 +90,8 @@ mixin _$Config {
   /// the code.
   @JsonKey(name: 'line_length')
   int get lineLength => throw _privateConstructorUsedError;
+  @JsonKey(name: 'prefer_web')
+  bool get preferWeb => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -133,7 +135,9 @@ abstract class $ConfigCopyWith<$Res> {
       @JsonKey(name: 'v1')
           bool v1,
       @JsonKey(name: 'line_length')
-          int lineLength});
+          int lineLength,
+      @JsonKey(name: 'prefer_web')
+          bool preferWeb});
 }
 
 /// @nodoc
@@ -165,6 +169,7 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
     Object? registerMocksFunction = null,
     Object? v1 = null,
     Object? lineLength = null,
+    Object? preferWeb = null,
   }) {
     return _then(_value.copyWith(
       viewsPath: null == viewsPath
@@ -231,6 +236,10 @@ class _$ConfigCopyWithImpl<$Res, $Val extends Config>
           ? _value.lineLength
           : lineLength // ignore: cast_nullable_to_non_nullable
               as int,
+      preferWeb: null == preferWeb
+          ? _value.preferWeb
+          : preferWeb // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -273,7 +282,9 @@ abstract class _$$_ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
       @JsonKey(name: 'v1')
           bool v1,
       @JsonKey(name: 'line_length')
-          int lineLength});
+          int lineLength,
+      @JsonKey(name: 'prefer_web')
+          bool preferWeb});
 }
 
 /// @nodoc
@@ -302,6 +313,7 @@ class __$$_ConfigCopyWithImpl<$Res>
     Object? registerMocksFunction = null,
     Object? v1 = null,
     Object? lineLength = null,
+    Object? preferWeb = null,
   }) {
     return _then(_$_Config(
       viewsPath: null == viewsPath
@@ -368,6 +380,10 @@ class __$$_ConfigCopyWithImpl<$Res>
           ? _value.lineLength
           : lineLength // ignore: cast_nullable_to_non_nullable
               as int,
+      preferWeb: null == preferWeb
+          ? _value.preferWeb
+          : preferWeb // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -407,7 +423,9 @@ class _$_Config implements _Config {
       @JsonKey(name: 'v1')
           this.v1 = false,
       @JsonKey(name: 'line_length')
-          this.lineLength = 80});
+          this.lineLength = 80,
+      @JsonKey(name: 'prefer_web')
+          this.preferWeb = false});
 
   factory _$_Config.fromJson(Map<String, dynamic> json) =>
       _$$_ConfigFromJson(json);
@@ -498,10 +516,13 @@ class _$_Config implements _Config {
   @override
   @JsonKey(name: 'line_length')
   final int lineLength;
+  @override
+  @JsonKey(name: 'prefer_web')
+  final bool preferWeb;
 
   @override
   String toString() {
-    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, bottomSheetsPath: $bottomSheetsPath, bottomSheetTypeFilePath: $bottomSheetTypeFilePath, bottomSheetBuilderFilePath: $bottomSheetBuilderFilePath, dialogsPath: $dialogsPath, dialogTypeFilePath: $dialogTypeFilePath, dialogBuilderFilePath: $dialogBuilderFilePath, stackedAppFilePath: $stackedAppFilePath, testHelpersFilePath: $testHelpersFilePath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, locatorName: $locatorName, registerMocksFunction: $registerMocksFunction, v1: $v1, lineLength: $lineLength)';
+    return 'Config(viewsPath: $viewsPath, servicesPath: $servicesPath, bottomSheetsPath: $bottomSheetsPath, bottomSheetTypeFilePath: $bottomSheetTypeFilePath, bottomSheetBuilderFilePath: $bottomSheetBuilderFilePath, dialogsPath: $dialogsPath, dialogTypeFilePath: $dialogTypeFilePath, dialogBuilderFilePath: $dialogBuilderFilePath, stackedAppFilePath: $stackedAppFilePath, testHelpersFilePath: $testHelpersFilePath, testServicesPath: $testServicesPath, testViewsPath: $testViewsPath, locatorName: $locatorName, registerMocksFunction: $registerMocksFunction, v1: $v1, lineLength: $lineLength, preferWeb: $preferWeb)';
   }
 
   @override
@@ -542,7 +563,9 @@ class _$_Config implements _Config {
                 other.registerMocksFunction == registerMocksFunction) &&
             (identical(other.v1, v1) || other.v1 == v1) &&
             (identical(other.lineLength, lineLength) ||
-                other.lineLength == lineLength));
+                other.lineLength == lineLength) &&
+            (identical(other.preferWeb, preferWeb) ||
+                other.preferWeb == preferWeb));
   }
 
   @JsonKey(ignore: true)
@@ -564,7 +587,8 @@ class _$_Config implements _Config {
       locatorName,
       registerMocksFunction,
       v1,
-      lineLength);
+      lineLength,
+      preferWeb);
 
   @JsonKey(ignore: true)
   @override
@@ -613,7 +637,9 @@ abstract class _Config implements Config {
       @JsonKey(name: 'v1')
           final bool v1,
       @JsonKey(name: 'line_length')
-          final int lineLength}) = _$_Config;
+          final int lineLength,
+      @JsonKey(name: 'prefer_web')
+          final bool preferWeb}) = _$_Config;
 
   factory _Config.fromJson(Map<String, dynamic> json) = _$_Config.fromJson;
 
@@ -704,6 +730,9 @@ abstract class _Config implements Config {
   /// the code.
   @JsonKey(name: 'line_length')
   int get lineLength;
+  @override
+  @JsonKey(name: 'prefer_web')
+  bool get preferWeb;
   @override
   @JsonKey(ignore: true)
   _$$_ConfigCopyWith<_$_Config> get copyWith =>
