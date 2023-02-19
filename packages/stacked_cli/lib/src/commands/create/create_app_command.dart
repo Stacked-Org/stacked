@@ -57,11 +57,11 @@ class CreateAppCommand extends Command {
     await _configService.loadConfig();
     final appName = argResults!.rest.first;
     final appNameWithoutPath = appName.split('/').last;
+    final templateType = argResults![ksTemplateType];
+
     unawaited(_analyticsService.createAppEvent(name: appNameWithoutPath));
     _processService.formattingLineLength = argResults![ksLineLength];
     await _processService.runCreateApp(appName: appName);
-
-    final templateType = argResults![ksTemplateType];
 
     _cLog.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
 

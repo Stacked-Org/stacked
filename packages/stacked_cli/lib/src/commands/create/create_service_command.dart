@@ -43,6 +43,7 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
   @override
   Future<void> run() async {
     final serviceName = argResults!.rest.first;
+    final templateType = argResults![ksTemplateType];
     unawaited(_analyticsService.createServiceEvent(name: serviceName));
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     await _configService.loadConfig(path: outputPath);
@@ -56,6 +57,7 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
       outputPath: outputPath,
       verbose: true,
       excludeRoute: argResults![ksExcludeDependency],
+      templateType: templateType,
     );
     await _processService.runBuildRunner(appName: outputPath);
   }

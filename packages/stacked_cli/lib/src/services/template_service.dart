@@ -125,10 +125,10 @@ class TemplateService {
 
     /// When supplied it selects the template type to use within the command that's being
     /// run. This is supplied using --template=web or similar based on the command being run
-    String? templateType,
+    required String templateType,
   }) async {
     // Get the template that we want to render
-    final template = kCompiledStackedTemplates[templateName] ??
+    final template = kCompiledStackedTemplates[templateName]![templateType] ??
         StackedTemplate(templateFiles: []);
 
     await writeOutTemplateFiles(
