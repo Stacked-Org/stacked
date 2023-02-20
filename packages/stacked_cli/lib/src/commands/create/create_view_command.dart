@@ -44,11 +44,22 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       help: kCommandHelpLineLength,
       valueHelp: '80',
     );
+
+    argParser.addOption(
+      ksTemplateType,
+      abbr: 't',
+      // TODO (Create App Templates): Generate a constant with these values when
+      // running the compile command
+      allowed: ['empty'],
+      defaultsTo: 'empty',
+      help: kCommandHelpCreateViewTemplate,
+    );
   }
 
   @override
   Future<void> run() async {
     final viewName = argResults!.rest.first;
+    final templateType = argResults![ksTemplateType];
     unawaited(_analyticsService.createViewEvent(name: viewName));
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     await _configService.loadConfig(path: outputPath);
@@ -63,6 +74,7 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       verbose: true,
       excludeRoute: argResults![ksExcludeRoute],
       useBuilder: argResults![ksV1] ?? _configService.v1,
+      templateType: templateType,
     );
     await _processService.runBuildRunner(appName: outputPath);
   }

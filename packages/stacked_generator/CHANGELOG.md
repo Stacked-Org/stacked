@@ -1,6 +1,29 @@
-## 0.8.6
+
+## 0.9.2
 
 - Add the ability to request arguments from the route object by calling toString on route.settings.arguments
+
+## 0.9.1+1
+
+- Fixes empty clear form value
+
+## 0.9.1
+
+- Adds in the `clearForm` method to be generated
+
+## 0.9.0
+
+### New Feature
+Two way binding for text fields in Forms. When you want to update the value for a form and have it reflect in the TextField you can now simply set it as using the `fieldValue` property. 
+
+**Example**
+To set the value of a form field called email, you can now in the viewmodel simply do:
+
+```dart
+emailValue = '';
+```
+
+In addition we also have a clearForm function that will clear all the form Text Fields.
 
 ## 0.8.5
 

@@ -21,9 +21,9 @@ class FavoritesView extends StatelessWidget {
             style: const TextStyle(fontSize: 30),
           ))),
       viewModelBuilder: () => exampleLocator<FavoritesViewModel>(),
-      onModelReady: (viewModel) => viewModel.setCounterTo999(),
+      onViewModelReady: (viewModel) => viewModel.setCounterTo999(),
       disposeViewModel: false,
-      fireOnModelReadyOnce: true,
+      fireOnViewModelReadyOnce: true,
     );
   }
 }

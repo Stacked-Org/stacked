@@ -340,6 +340,7 @@ class FormBuilder with StringBufferUtils {
     writeLine('extension ValueProperties on FormViewModel {');
     writeLine("""bool get isFormValid =>
       this.fieldsValidationMessages.values.every((element) => element == null);""");
+
     for (final field in fields) {
       final caseName = ReCase(field.name);
       final type = _getFormFieldValueType(field);
@@ -349,6 +350,34 @@ class FormBuilder with StringBufferUtils {
 
     // Generate the getters that check whether a field is set or not
     newLine();
+
+    // Generate the setters for the values to enable two way binding
+    for (final field in fields) {
+      if (field is! TextFieldConfig) {
+        continue;
+      }
+
+      final type = _getFormFieldValueType(field);
+      final caseName = ReCase(field.name);
+      writeLine('''set ${caseName.camelCase}Value($type? value) {
+    this.setData(
+      this.formValueMap
+        ..addAll({
+          ${_getFormKeyName(caseName)}: value,
+        }),
+    );  
+
+    if (_${viewName}TextEditingControllers.containsKey(${_getFormKeyName(caseName)})) {
+      _${viewName}TextEditingControllers[${_getFormKeyName(caseName)}]?.text = ${type == 'String' ? "value ?? ''" : '(value ?? DateTime.now()).toIso8601String()'}  ;
+    }
+}
+
+        ''');
+    }
+
+    // Generate the getters that check whether a field is set or not
+    newLine();
+
     for (final field in fields) {
       final caseName = ReCase(field.name);
       final requiresAdditionalCheck = field is TextFieldConfig;
@@ -375,6 +404,18 @@ class FormBuilder with StringBufferUtils {
       writeLine(
           'String? get ${caseName.camelCase}ValidationMessage => this.fieldsValidationMessages[${_getFormKeyName(caseName)}];');
     }
+
+    // Write out the clearForm method
+    writeLine('void clearForm() {');
+    for (final field in fields) {
+      if (field is! TextFieldConfig) {
+        continue;
+      }
+
+      final caseName = ReCase(field.name);
+      writeLine("${caseName.camelCase}Value = ''; ");
+    }
+    writeLine('}');
 
     writeLine('}');
     return this;

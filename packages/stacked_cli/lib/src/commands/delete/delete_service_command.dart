@@ -66,7 +66,7 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
   Future<void> deleteServiceAndTestFiles({String? outputPath}) async {
     /// Deleting the service file.
     String filePath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: kServiceTemplateGenericServicePath,
+      inputTemplatePath: kServiceEmptyTemplateGenericServicePath,
       name: argResults!.rest.first,
       outputFolder: outputPath,
     );
@@ -74,7 +74,7 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
 
     //Delete test file for service
     filePath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: kServiceTemplateGenericServiceTestPath,
+      inputTemplatePath: kServiceEmptyTemplateGenericServiceTestPath,
       name: argResults!.rest.first,
       outputFolder: outputPath,
     );
@@ -83,7 +83,7 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
 
   Future<void> removeServiceFromTestHelper({String? outputPath}) async {
     String filePath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: kAppTemplateTestHelpersPath,
+      inputTemplatePath: kAppMobileTemplateTestHelpersPath,
       name: argResults!.rest.first,
       outputFolder: outputPath,
     );
@@ -100,7 +100,7 @@ class DeleteServiceCommand extends Command with ProjectStructureValidator {
   ///   outputPath (String): The path to the output folder.
   Future<void> removeServiceFromDependency({String? outputPath}) async {
     String filePath = _templateService.getTemplateOutputPath(
-      inputTemplatePath: kAppTemplateAppPath,
+      inputTemplatePath: kAppMobileTemplateAppPath,
       name: argResults!.rest.first,
       outputFolder: outputPath,
     );

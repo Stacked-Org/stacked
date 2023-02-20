@@ -9,6 +9,9 @@ class CompliledTemplateFile with _$CompliledTemplateFile {
     /// Pascal case name of the template this file belongs too
     required String name,
 
+    /// Pascal case name of the template type this file belongs too,
+    required String templateType,
+
     /// Pascal case name of the file without the extension
     required String fileName,
 
@@ -18,22 +21,41 @@ class CompliledTemplateFile with _$CompliledTemplateFile {
 
     /// The content as is from the file that was read
     required String content,
+
+    /// The type of file to determine how we'll store it
+    required String fileType,
   }) = _CompliledTemplateFile;
 
   factory CompliledTemplateFile.fromJson(Map<String, dynamic> json) =>
       _$CompliledTemplateFileFromJson(json);
 }
 
-@freezed
-class CompiledStackedTemplate with _$CompiledStackedTemplate {
-  factory CompiledStackedTemplate({
-    required String name,
-    required List<CompliledTemplateFile> templateFiles,
-    @Default([]) List<CompiledFileModification> modificationFiles,
-  }) = _CompiledStackedTemplate;
+enum FileType {
+  text,
+  image,
+}
 
-  factory CompiledStackedTemplate.fromJson(Map<String, dynamic> json) =>
-      _$CompiledStackedTemplateFromJson(json);
+@freezed
+class CompiledCreateCommand with _$CompiledCreateCommand {
+  factory CompiledCreateCommand({
+    required String name,
+    required List<CompiledTemplate> templates,
+  }) = _CompiledCreateCommand;
+
+  factory CompiledCreateCommand.fromJson(Map<String, dynamic> json) =>
+      _$CompiledCreateCommandFromJson(json);
+}
+
+@freezed
+class CompiledTemplate with _$CompiledTemplate {
+  factory CompiledTemplate({
+    required String type,
+    required List<CompliledTemplateFile> files,
+    @Default([]) List<CompiledFileModification> modificationFiles,
+  }) = _CompiledTemplate;
+
+  factory CompiledTemplate.fromJson(Map<String, dynamic> json) =>
+      _$CompiledTemplateFromJson(json);
 }
 
 @freezed
@@ -62,9 +84,6 @@ class CompiledFileModification with _$CompiledFileModification {
       _$CompiledFileModificationFromJson(json);
 }
 
-// TODO: Move this out into its own file and give it a better name
-/// This model contains all the the information for us to generate
-/// a stacked template
 class StackedTemplate {
   final List<TemplateFile> templateFiles;
   final List<ModificationFile> modificationFiles;
@@ -84,9 +103,12 @@ class TemplateFile {
   /// Stores templatable content to render out to disk
   final String content;
 
+  final FileType fileType;
+
   TemplateFile({
     required this.relativeOutputPath,
     required this.content,
+    required this.fileType,
   });
 }
 

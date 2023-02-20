@@ -160,6 +160,47 @@ extension ValueProperties on FormViewModel {
   String? get doYouLoveFoodValue =>
       this.formValueMap[DoYouLoveFoodValueKey] as String?;
 
+  set emailValue(String? value) {
+    this.setData(
+      this.formValueMap
+        ..addAll({
+          EmailValueKey: value,
+        }),
+    );
+
+    if (_ExampleFormViewTextEditingControllers.containsKey(EmailValueKey)) {
+      _ExampleFormViewTextEditingControllers[EmailValueKey]?.text = value ?? '';
+    }
+  }
+
+  set passwordValue(String? value) {
+    this.setData(
+      this.formValueMap
+        ..addAll({
+          PasswordValueKey: value,
+        }),
+    );
+
+    if (_ExampleFormViewTextEditingControllers.containsKey(PasswordValueKey)) {
+      _ExampleFormViewTextEditingControllers[PasswordValueKey]?.text =
+          value ?? '';
+    }
+  }
+
+  set shortBioValue(String? value) {
+    this.setData(
+      this.formValueMap
+        ..addAll({
+          ShortBioValueKey: value,
+        }),
+    );
+
+    if (_ExampleFormViewTextEditingControllers.containsKey(ShortBioValueKey)) {
+      _ExampleFormViewTextEditingControllers[ShortBioValueKey]?.text =
+          value ?? '';
+    }
+  }
+
   bool get hasEmail =>
       this.formValueMap.containsKey(EmailValueKey) &&
       (emailValue?.isNotEmpty ?? false);

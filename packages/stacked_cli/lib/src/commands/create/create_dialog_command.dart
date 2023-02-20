@@ -43,11 +43,22 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
       help: kCommandHelpLineLength,
       valueHelp: '80',
     );
+
+    argParser.addOption(
+      ksTemplateType,
+      abbr: 't',
+      // TODO (Create App Templates): Generate a constant with these values when
+      // running the compile command
+      allowed: ['empty'],
+      defaultsTo: 'empty',
+      help: kCommandHelpCreateDialogTemplate,
+    );
   }
 
   @override
   Future<void> run() async {
     final dialogName = argResults!.rest.first;
+    final templateType = argResults![ksTemplateType];
     unawaited(_analyticsService.createDialogEvent(name: dialogName));
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     await _configService.loadConfig(path: outputPath);
@@ -62,6 +73,7 @@ class CreateDialogCommand extends Command with ProjectStructureValidator {
       verbose: true,
       excludeRoute: argResults![ksExcludeRoute],
       hasModel: argResults![ksModel],
+      templateType: templateType,
     );
 
     await _processService.runBuildRunner(appName: outputPath);

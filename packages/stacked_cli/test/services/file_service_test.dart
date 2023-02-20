@@ -25,7 +25,7 @@ void main() {
       test(
           'when called with filepath & content lines holding content should be removed from the file',
           () async {
-        createTestFile(kAppTemplateAppContent);
+        createTestFile(kAppMobileTemplateAppContent);
         String content = "home";
         var recasedContent = ReCase(content);
         final fileService = _getService();
@@ -41,7 +41,7 @@ void main() {
       test(
           'when called with filepath & content with type service lines holding content should be removed from the file',
           () async {
-        createTestFile(kAppTemplateTestHelpersContent);
+        createTestFile(kAppMobileTemplateTestHelpersContent);
         String content = "navigation";
         var recasedContent = ReCase(content);
         final fileService = _getService();

@@ -17,6 +17,7 @@ const String ksExcludeRoute = 'exclude-route';
 const String ksV1 = 'v1';
 const String ksUseBuilder = 'use-builder';
 const String ksLineLength = 'line-length';
+const String ksTemplateType = 'template';
 const String ksExcludeDependency = 'exclude-dependency';
 const String ksCurrentDirectory = '.';
 const String ksGlobal = 'global';

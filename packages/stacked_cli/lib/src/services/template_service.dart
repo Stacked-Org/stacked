@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:mustache_template/mustache_template.dart';
-// TODO: Refactor into a service so we can mock out the return value
 import 'package:path/path.dart' as path;
 import 'package:recase/recase.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
@@ -46,7 +47,7 @@ class TemplateService {
       directoryPath: templatesPath,
     );
 
-    final stackedTemplates = <CompiledStackedTemplate>[];
+    final stackedTemplates = <CompiledCreateCommand>[];
     final allTemplateItems = <CompliledTemplateFile>[];
 
     for (final stackedTemplateFolderPath in stackedTemplateFolderPaths) {
@@ -54,21 +55,42 @@ class TemplateService {
         templateFilePath: stackedTemplateFolderPath,
       );
 
-      final templateItemsToRender =
-          await _templateHelper.getTemplateItemsToRender(
-        templateName: templateName,
+      final List<String> templateTypes =
+          await _templateHelper.getTemplateTypesFromTemplate(
+        templateDirectoryPath: stackedTemplateFolderPath,
       );
 
-      allTemplateItems.addAll(templateItemsToRender);
-
-      final templateModificationsToApply = await _templateHelper
-          .getTemplateModificationsToApply(templateName: templateName);
-
-      stackedTemplates.add(CompiledStackedTemplate(
+      var compiledCreateCommand = CompiledCreateCommand(
         name: templateName,
-        templateFiles: templateItemsToRender,
-        modificationFiles: templateModificationsToApply,
-      ));
+        templates: [],
+      );
+
+      for (var templateType in templateTypes) {
+        final templateItemsToRender =
+            await _templateHelper.getTemplateItemsToRender(
+          templateName: templateName,
+          templateType: templateType,
+        );
+
+        allTemplateItems.addAll(templateItemsToRender);
+
+        final templateModificationsToApply =
+            await _templateHelper.getTemplateModificationsToApply(
+          templateName: templateName,
+          templateType: templateType,
+        );
+
+        compiledCreateCommand = compiledCreateCommand.copyWith(templates: [
+          ...compiledCreateCommand.templates,
+          CompiledTemplate(
+            type: templateType,
+            files: templateItemsToRender,
+            modificationFiles: templateModificationsToApply,
+          )
+        ]);
+      }
+
+      stackedTemplates.add(compiledCreateCommand);
     }
 
     final outputTemplate = Template(kTemplateDataStructure);
@@ -79,7 +101,7 @@ class TemplateService {
     final allTemplateItemsContent =
         outputTemplate.renderString(templateItemsData);
 
-    await _fileService.writeFile(
+    await _fileService.writeStringFile(
       file: File(path.join(templatesPath, 'compiled_templates.dart')),
       fileContent: allTemplateItemsContent,
     );
@@ -91,7 +113,7 @@ class TemplateService {
     };
 
     final templateMapContent = templateMap.renderString(templateMapData);
-    await _fileService.writeFile(
+    await _fileService.writeStringFile(
       file: File(path.join(templatesPath, 'compiled_template_map.dart')),
       fileContent: templateMapContent,
     );
@@ -123,9 +145,13 @@ class TemplateService {
     /// i.e. When the template writes too lib/ui/view.dart if output path is playground
     /// the final output path will be playground/lib/ui/view.dart
     String? outputPath,
+
+    /// When supplied it selects the template type to use within the command that's being
+    /// run. This is supplied using --template=web or similar based on the command being run
+    required String templateType,
   }) async {
     // Get the template that we want to render
-    final template = kCompiledStackedTemplates[templateName] ??
+    final template = kCompiledStackedTemplates[templateName]![templateType] ??
         StackedTemplate(templateFiles: []);
 
     await writeOutTemplateFiles(
@@ -137,8 +163,6 @@ class TemplateService {
       hasModel: hasModel,
     );
 
-    // TODO: Refactor into an exclusionary rule system where we can
-    // provide new rules to exclude functionality with.
     if (templateName == kTemplateNameView && excludeRoute) {
       return;
     }
@@ -173,10 +197,10 @@ class TemplateService {
         if (templateFile.relativeOutputPath.contains('_view_v1.dart.stk')) {
           if (useBuilder) {
             template.templateFiles[i + 1] = TemplateFile(
-              relativeOutputPath:
-                  template.templateFiles[i + 1].relativeOutputPath,
-              content: templateFile.content,
-            );
+                relativeOutputPath:
+                    template.templateFiles[i + 1].relativeOutputPath,
+                content: templateFile.content,
+                fileType: FileType.text);
           }
 
           continue;
@@ -190,20 +214,22 @@ class TemplateService {
 
         if (templateFile.relativeOutputPath.contains('_use_model.dart.stk')) {
           template.templateFiles[i + 2] = TemplateFile(
-            relativeOutputPath:
-                template.templateFiles[i + 2].relativeOutputPath,
-            content: templateFile.content,
-          );
+              relativeOutputPath:
+                  template.templateFiles[i + 2].relativeOutputPath,
+              content: templateFile.content,
+              fileType: FileType.text);
 
           continue;
         }
       }
 
-      final templateContent = renderContentForTemplate(
-        content: templateFile.content,
-        templateName: templateName,
-        name: name,
-      );
+      final templateContent = templateFile.fileType == FileType.text
+          ? renderContentForTemplate(
+              content: templateFile.content,
+              templateName: templateName,
+              name: name,
+            )
+          : base64Decode(templateFile.content.trim().replaceAll('\n', ''));
 
       final templateFileOutputPath = getTemplateOutputPath(
         inputTemplatePath: templateFile.relativeOutputPath,
@@ -211,18 +237,21 @@ class TemplateService {
         outputFolder: outputFolder,
       );
 
-      await _fileService.writeFile(
-        file: File(templateFileOutputPath),
-        fileContent: templateContent,
-        forceAppend: shouldAppendTemplate(templateFile.relativeOutputPath),
-        verbose: true,
-      );
-
-      // TODO: Add this back and format the entire project in one step
-      // await _processService.runFormat(
-      //   appName: outputFolder,
-      //   filePath: templateFileOutputPath,
-      // );
+      if (templateFile.fileType == FileType.text) {
+        await _fileService.writeStringFile(
+          file: File(templateFileOutputPath),
+          fileContent: templateContent as String,
+          forceAppend: shouldAppendTemplate(templateFile.relativeOutputPath),
+          verbose: true,
+        );
+      } else {
+        await _fileService.writeDataFile(
+          file: File(templateFileOutputPath),
+          fileContent: templateContent as Uint8List,
+          forceAppend: shouldAppendTemplate(templateFile.relativeOutputPath),
+          verbose: true,
+        );
+      }
     }
   }
 
@@ -373,7 +402,7 @@ class TemplateService {
       );
 
       // Write the file back that was modified
-      await _fileService.writeFile(
+      await _fileService.writeStringFile(
         file: File(modificationPath),
         fileContent: updatedFileContent,
         verbose: true,

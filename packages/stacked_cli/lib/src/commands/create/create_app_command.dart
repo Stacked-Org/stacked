@@ -33,11 +33,22 @@ class CreateAppCommand extends Command {
       defaultsTo: null,
       help: kCommandHelpV1,
     );
+
     argParser.addOption(
       ksLineLength,
       abbr: 'l',
       help: kCommandHelpLineLength,
       valueHelp: '80',
+    );
+
+    argParser.addOption(
+      ksTemplateType,
+      abbr: 't',
+      // TODO (Create App Templates): Generate a constant with these values when
+      // running the compile command
+      allowed: ['mobile', 'web'],
+      defaultsTo: 'mobile',
+      help: kCommandHelpCreateAppTemplate,
     );
   }
 
@@ -46,6 +57,8 @@ class CreateAppCommand extends Command {
     await _configService.loadConfig();
     final appName = argResults!.rest.first;
     final appNameWithoutPath = appName.split('/').last;
+    final templateType = argResults![ksTemplateType];
+
     unawaited(_analyticsService.createAppEvent(name: appNameWithoutPath));
     _processService.formattingLineLength = argResults![ksLineLength];
     await _processService.runCreateApp(appName: appName);
@@ -58,6 +71,7 @@ class CreateAppCommand extends Command {
       verbose: true,
       outputPath: appName,
       useBuilder: argResults![ksV1] ?? _configService.v1,
+      templateType: templateType,
     );
 
     await _processService.runPubGet(appName: appName);
