@@ -1,3 +1,7 @@
+## 0.9.2
+
+- Adds a new transition builder
+
 ## 0.9.1+1
 
 - Fixes empty clear form value
