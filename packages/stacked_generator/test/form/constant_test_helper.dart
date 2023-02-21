@@ -96,7 +96,7 @@ set nameValue(String? value) {
   );
               
   if (_TestViewTextEditingControllers.containsKey(NameValueKey)) {
-    _TestViewTextEditingControllers[NameValueKey]?.text = value ?? \'\';
+    _TestViewTextEditingControllers[NameValueKey]?.text = value ?? '';
   }
 }
               
@@ -109,7 +109,7 @@ set emailValue(String? value) {
   );
               
   if (_TestViewTextEditingControllers.containsKey(EmailValueKey)) {
-    _TestViewTextEditingControllers[EmailValueKey]?.text = value ?? \'\';
+    _TestViewTextEditingControllers[EmailValueKey]?.text = value ?? '';
   }
 }               
 
