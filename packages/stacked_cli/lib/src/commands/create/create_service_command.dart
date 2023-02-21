@@ -38,6 +38,16 @@ class CreateServiceCommand extends Command with ProjectStructureValidator {
       help: kCommandHelpLineLength,
       valueHelp: '80',
     );
+
+    argParser.addOption(
+      ksTemplateType,
+      abbr: 't',
+      // TODO (Create App Templates): Generate a constant with these values when
+      // running the compile command
+      allowed: ['empty'],
+      defaultsTo: 'empty',
+      help: kCommandHelpCreateAppTemplate,
+    );
   }
 
   @override
