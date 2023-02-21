@@ -1,7 +1,11 @@
-## 1.3.1
+## 1.3.2
 
 - Avoids running pub command if has last version on the system
 - Avoids notify new version available for compile and update commands
+
+## 1.3.1
+
+- Fixes create service bug introduced in 1.3.0
 
 ## 1.3.0
 ### New Feature
