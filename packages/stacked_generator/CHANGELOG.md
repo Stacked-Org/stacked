@@ -1,7 +1,10 @@
+## 0.9.3
+
+- Add the ability to request arguments from the route object by calling toString on route.settings.arguments
 
 ## 0.9.2
 
-- Add the ability to request arguments from the route object by calling toString on route.settings.arguments
+- Adds a new transition builder
 
 ## 0.9.1+1
 

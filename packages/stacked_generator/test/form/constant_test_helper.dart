@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_string_escapes
+
 const ksFormImports = '''
 
 import 'package:flutter/material.dart';

@@ -101,6 +101,13 @@ class TransitionsBuilders {
     return ScaleTransition(scale: animation, child: child);
   }
 
+  static const RouteTransitionsBuilder noTransition = _noTransition;
+
+  static Widget _noTransition(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return child;
+  }
+
   static const RouteTransitionsBuilder moveInLeft = _moveInLeft;
 
   static Widget _moveInLeft(BuildContext context, Animation<double> animation,
