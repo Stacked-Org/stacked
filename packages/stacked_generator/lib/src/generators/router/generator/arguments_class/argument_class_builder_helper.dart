@@ -30,7 +30,7 @@ class ArgumentClassBuilderHelper {
     Map<String, dynamic> obj = {};
 
     for (RouteParamConfig param in route.parameters) {
-      obj['"${param.name}"'] = '"\${${param.name}}"';
+      obj['"${param.name}"'] = '"\$${param.name}"';
     }
 
     return obj.toString();
