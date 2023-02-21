@@ -235,6 +235,11 @@ extension ValueProperties on FormViewModel {
       this.fieldsValidationMessages[BirthDateValueKey];
   String? get doYouLoveFoodValidationMessage =>
       this.fieldsValidationMessages[DoYouLoveFoodValueKey];
+  void clearForm() {
+    emailValue = '';
+    passwordValue = '';
+    shortBioValue = '';
+  }
 }
 
 extension Methods on FormViewModel {

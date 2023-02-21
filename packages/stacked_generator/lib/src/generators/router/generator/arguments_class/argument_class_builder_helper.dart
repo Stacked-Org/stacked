@@ -26,6 +26,16 @@ class ArgumentClassBuilderHelper {
         .toList();
   }
 
+  String get convertArgumentsToMap {
+    Map<String, dynamic> obj = {};
+
+    for (RouteParamConfig param in route.parameters) {
+      obj['"${param.name}"'] = '"\$${param.name}"';
+    }
+
+    return obj.toString();
+  }
+
   Constructor get argumentConstructer {
     return Constructor((b) => _composeConstructer(b));
   }

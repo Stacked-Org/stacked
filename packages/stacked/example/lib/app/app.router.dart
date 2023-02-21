@@ -144,6 +144,11 @@ class HomeViewArguments {
   final _i9.Clashable Function(String)? clashableGetter;
 
   final List<_i10.HomeType> homeTypes;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "title": "$title", "isLoggedIn": "$isLoggedIn", "clashableGetter": "$clashableGetter", "homeTypes": "$homeTypes"}';
+  }
 }
 
 class StreamCounterViewArguments {
@@ -155,6 +160,11 @@ class StreamCounterViewArguments {
   final _i8.Key? key;
 
   final List<_i11.Clashable> clashableTwo;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "clashableTwo": "$clashableTwo"}';
+  }
 }
 
 class ExampleFormViewArguments {
@@ -166,6 +176,11 @@ class ExampleFormViewArguments {
   final _i8.Key? key;
 
   final _i9.Clashable clashableOne;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "clashableOne": "$clashableOne"}';
+  }
 }
 
 class BottomNavExampleRoutes {
@@ -239,6 +254,11 @@ class NestedFavoritesViewArguments {
   final _i8.Key? key;
 
   final String? id;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "id": "$id"}';
+  }
 }
 
 class FavoritesViewRoutes {

@@ -10,16 +10,31 @@ class ArgumentsClassBuilder {
   const ArgumentsClassBuilder({required this.routes});
 
   Iterable<Class> buildViewsArguments() {
-    final routesWithParameters =
-        routes.where((route) => notQueryNorPath(route.parameters).isNotEmpty);
+    final routesWithParameters = routes.where(
+      (route) => notQueryNorPath(route.parameters).isNotEmpty,
+    );
 
     return routesWithParameters.map((route) {
       final argumentsBuilderHelper = ArgumentClassBuilderHelper(route);
+
+      final argumentsAsMap = argumentsBuilderHelper.convertArgumentsToMap;
+
       return Class(
         (b) => b
           ..name = argumentsBuilderHelper.argumentClassName
           ..fields.addAll(argumentsBuilderHelper.convertParametersToClassFields)
-          ..constructors.add(argumentsBuilderHelper.argumentConstructer),
+          ..constructors.add(argumentsBuilderHelper.argumentConstructer)
+          ..methods.addAll([
+            Method(
+              (b) => b
+                ..annotations.add(refer('override'))
+                ..name = 'toString'
+                ..body = Code("return '$argumentsAsMap';")
+                ..returns = TypeReference(
+                  (b) => b..symbol = 'String',
+                ),
+            ),
+          ]),
       );
     });
   }

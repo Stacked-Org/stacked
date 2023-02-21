@@ -63,6 +63,7 @@ extension ValueProperties on FormViewModel {
       this.fieldsValidationMessages[CountryValueKey];
   String? get provinceValidationMessage =>
       this.fieldsValidationMessages[ProvinceValueKey];
+  void clearForm() {}
 }
 
 extension Methods on FormViewModel {
