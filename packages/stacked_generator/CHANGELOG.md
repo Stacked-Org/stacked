@@ -1,6 +1,6 @@
 ## 0.9.3
 
-- Adds the ability to request arguments from the route object by calling toString on route.settings.arguments
+- Adds toString to `ViewArguments` that prints out the parameters of the class
 
 ## 0.9.2
 
