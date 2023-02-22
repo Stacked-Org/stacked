@@ -10,16 +10,17 @@ mixin ListenableServiceMixin {
   /// List to the values and react when there are any changes
   void listenToReactiveValues(List<dynamic> reactiveValues) {
     for (var reactiveValue in reactiveValues) {
-      switch (reactiveValue.runtimeType) {
-        case ReactiveValue:
-          reactiveValue.values.listen((value) => notifyListeners());
-          break;
-        case ReactiveList:
-          reactiveValue.onChange.listen((event) => notifyListeners());
-          break;
-        case ChangeNotifier:
-          reactiveValue.addListener(notifyListeners);
-          break;
+      if (reactiveValue is ChangeNotifier) {
+        reactiveValue.addListener(notifyListeners);
+      } else {
+        switch (reactiveValue.runtimeType) {
+          case ReactiveValue:
+            reactiveValue.values.listen((value) => notifyListeners());
+            break;
+          case ReactiveList:
+            reactiveValue.onChange.listen((event) => notifyListeners());
+            break;
+        }
       }
     }
   }
