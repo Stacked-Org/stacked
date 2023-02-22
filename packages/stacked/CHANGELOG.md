@@ -1,3 +1,6 @@
+## 3.1.0+4
+- Added fix to extensible classes for ListenableServiceMixin
+
 ## 3.1.0+3
 - Updates promotional banner
 
