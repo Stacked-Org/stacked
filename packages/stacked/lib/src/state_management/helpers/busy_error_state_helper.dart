@@ -69,7 +69,7 @@ mixin BusyAndErrorStateHelper on ChangeNotifier {
   bool get hasError => error(this) != null;
 
   /// Returns the error existence status of any error that was caught by the Viewmodel
-  bool get hasAnyError => _errorStates.isNotEmpty; //&& _errorStates.entries.any((element) => element.value != null);
+  bool get hasAnyError => _errorStates.entries.isNotEmpty && _errorStates.entries.any((element) => element.value != null);
 
   /// Returns recently added error to the ViewModel
   dynamic get currentError {
