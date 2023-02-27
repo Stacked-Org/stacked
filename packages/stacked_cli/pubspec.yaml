@@ -18,7 +18,7 @@ dependencies:
   recase: ^4.0.0
   json_annotation: ^4.7.0
   ansicolor: ^2.0.1
-  xdg_directories: ^0.2.0+2
+  xdg_directories: ^1.0.0
   usage: ^4.1.0
   pub_updater: ^0.2.4
 
