@@ -27,8 +27,7 @@ mixin BusyAndErrorStateHelper on ChangeNotifier {
   }
 
   /// returns real data passed if neither the model is busy nor the object passed is busy
-  T skeletonData<T>(
-      {required T? realData, required T busyData, Object? busyKey}) {
+  T skeletonData<T>({required T? realData, required T busyData, Object? busyKey}) {
     /// If busyKey is supplied we check busy(busyKey) to see if that property is busy
     /// If it is we return busyData, else realData
     bool isBusyKeySupplied = busyKey != null;
@@ -42,12 +41,10 @@ mixin BusyAndErrorStateHelper on ChangeNotifier {
   /// Sets the ViewModel to busy, runs the future and then sets it to not busy when complete.
   ///
   /// rethrows [Exception] after setting busy to false for object or class
-  Future<T> runBusyFuture<T>(Future<T> busyFuture,
-      {Object? busyObject, bool throwException = false}) async {
+  Future<T> runBusyFuture<T>(Future<T> busyFuture, {Object? busyObject, bool throwException = false}) async {
     _setBusyForModelOrObject(true, busyObject: busyObject);
     try {
-      var value = await runErrorFuture<T>(busyFuture,
-          key: busyObject, throwException: throwException);
+      var value = await runErrorFuture<T>(busyFuture, key: busyObject, throwException: throwException);
       return value;
     } catch (e) {
       if (throwException) rethrow;
@@ -66,13 +63,13 @@ mixin BusyAndErrorStateHelper on ChangeNotifier {
   }
 
   LinkedHashMap<int, dynamic> _errorStates = LinkedHashMap<int, dynamic>();
-   dynamic error(Object object) => _errorStates[object.hashCode];
+  dynamic error(Object object) => _errorStates[object.hashCode];
 
   /// Returns the error existence status of the ViewModel
   bool get hasError => error(this) != null;
 
   /// Returns the error existence status of any error that was caught by the Viewmodel
-  bool get hasAnyError => _errorStates.entries.isNotEmpty && _errorStates.entries.any((element) => element.value != null);
+  bool get hasAnyError => _errorStates.isNotEmpty; //&& _errorStates.entries.any((element) => element.value != null);
 
   /// Returns recently added error to the ViewModel
   dynamic get currentError => _errorStates.entries.last.value;
@@ -108,8 +105,7 @@ mixin BusyAndErrorStateHelper on ChangeNotifier {
     notifyListeners();
   }
 
-  Future<T> runErrorFuture<T>(Future<T> future,
-      {Object? key, bool throwException = false}) async {
+  Future<T> runErrorFuture<T>(Future<T> future, {Object? key, bool throwException = false}) async {
     try {
       setErrorForModelOrObject(null, key: key);
       return await future;
