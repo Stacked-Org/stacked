@@ -1,3 +1,7 @@
+## 1.3.3
+
+- Fixes to avoid StateError when HOME environment variable not set. When this situation happens, XDG_CONFIG_HOME location is not taken into account to find stacked config
+
 ## 1.3.2
 
 - Avoids running pub command if has last version on the system
