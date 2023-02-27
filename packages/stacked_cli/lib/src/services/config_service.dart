@@ -119,10 +119,14 @@ class ConfigService {
       return kConfigFileName;
     }
 
-    if (await _fileService.fileExists(
-      filePath: '${_pathService.configHome.path}/stacked/stacked.json',
-    )) {
-      return '${_pathService.configHome.path}/stacked/stacked.json';
+    try {
+      if (await _fileService.fileExists(
+        filePath: '${_pathService.configHome.path}/stacked/stacked.json',
+      )) {
+        return '${_pathService.configHome.path}/stacked/stacked.json';
+      }
+    } on StateError catch (_) {
+      // This error is Thrown when HOME environment variable is not set.
     }
 
     // This is only for backwards compatibility, will be removed on next release

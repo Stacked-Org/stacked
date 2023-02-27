@@ -36,6 +36,7 @@ class PathService {
 
   String basename(String path) => p.basename(path);
 
-  /// The a single base directory relative to which user-specific configuration files should be written. (Corresponds to $XDG_CONFIG_HOME).
+  /// The a single base directory relative to which user-specific configuration
+  /// files should be written. (Corresponds to $XDG_CONFIG_HOME).
   Directory get configHome => xdg.configHome;
 }

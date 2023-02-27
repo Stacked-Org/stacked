@@ -129,6 +129,19 @@ void main() {
           fileService.fileExists(filePath: 'stacked.config.json'),
         ]);
       });
+
+      test(
+          'when called without output path, without config file and HOME environment variable is not set'
+          'should NOT call fileExists on fileService for XDG_CONFIG_HOME directory',
+          () async {
+        getAndRegisterPathService(throwStateError: true);
+        final fileService = getAndRegisterFileService(fileExistsResult: false);
+        final service = _getService();
+        await service.resolveConfigFile();
+        verifyNever(fileService.fileExists(
+          filePath: '/Users/filledstacks/.config/stacked/stacked.json',
+        ));
+      });
     });
 
     group('loadConfig -', () {
