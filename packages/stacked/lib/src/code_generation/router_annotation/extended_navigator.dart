@@ -190,11 +190,11 @@ class ExtendedNavigatorState<T extends RouterBase?>
 
   Future<void> _pushAllGuarded(Iterable<Route> routes) async {
     for (var route in routes) {
-      var data = (route.settings as RouteData);
+      var data = (route.settings as RouteDataV1);
 
       if (data.template == Navigator.defaultRouteName) {
         _navigator!
-            .pushAndRemoveUntil(route, RouteData.withPath(data.template));
+            .pushAndRemoveUntil(route, RouteDataV1.withPath(data.template));
       } else {
         _navigator!.push(route);
       }
@@ -342,7 +342,7 @@ class ExtendedNavigatorState<T extends RouterBase?>
   }) {
     return pushAndRemoveUntil(
       newRouteName,
-      RouteData.withPath(anchorPath),
+      RouteDataV1.withPath(anchorPath),
       arguments: arguments,
       queryParams: queryParams,
     );
@@ -364,7 +364,7 @@ class ExtendedNavigatorState<T extends RouterBase?>
   }
 
   void popUntilPath(String path) {
-    popUntil(RouteData.withPath(path));
+    popUntil(RouteDataV1.withPath(path));
   }
 
   void popUntil(RoutePredicate predicate) {

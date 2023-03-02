@@ -1,5 +1,6 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
+import 'package:stacked_generator/src/generators/router/generator/route_allocator.dart';
 import 'package:stacked_generator/src/generators/router_2/route_utils.dart';
 
 import '../models/importable_type.dart';
@@ -9,12 +10,12 @@ import 'deferred_pages_allocator.dart';
 import 'root_router_builder.dart';
 import 'route_info_builder.dart';
 
-const corestackedImport = 'package:stacked_core/stacked_core.dart';
+const stackedImport = 'package:stacked/stacked.dart';
 const materialImport = 'package:flutter/material.dart';
 const foundationImport = 'package:flutter/foundation.dart';
 
 const Reference stringRefer = Reference('String');
-const Reference pageRouteType = Reference('PageRouteInfo', corestackedImport);
+const Reference pageRouteType = Reference('PageRouteInfo', stackedImport);
 const Reference requiredAnnotation = Reference('required', materialImport);
 
 TypeReference listRefer(Reference reference, {bool nullable = false}) =>
@@ -38,7 +39,7 @@ String generateLibrary(
 
   final emitter = DartEmitter(
     allocator: usesPartBuilder
-        ? Allocator.none
+        ? RouteAllocator()
         : DeferredPagesAllocator(config.routes, deferredLoading),
     orderDirectives: true,
     useNullSafetySyntax: true,
