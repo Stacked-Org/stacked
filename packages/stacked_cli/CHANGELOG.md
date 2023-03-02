@@ -1,3 +1,8 @@
+## 1.4.0
+
+- Adds HoverExtensions fo the web template for easier hover effects
+- Wraps `MaterialApp` with `ResponsiveApp` in `main.dart` for web template
+
 ## 1.3.3
 
 - Fixes to avoid StateError when HOME environment variable not set. When this situation happens, XDG_CONFIG_HOME location is not taken into account to find stacked config
