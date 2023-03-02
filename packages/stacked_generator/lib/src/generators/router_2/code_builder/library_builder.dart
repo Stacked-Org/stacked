@@ -9,12 +9,12 @@ import 'deferred_pages_allocator.dart';
 import 'root_router_builder.dart';
 import 'route_info_builder.dart';
 
-const autoRouteImport = 'package:auto_route/auto_route.dart';
+const corestackedImport = 'package:stacked_core/stacked_core.dart';
 const materialImport = 'package:flutter/material.dart';
 const foundationImport = 'package:flutter/foundation.dart';
 
 const Reference stringRefer = Reference('String');
-const Reference pageRouteType = Reference('PageRouteInfo', autoRouteImport);
+const Reference pageRouteType = Reference('PageRouteInfo', corestackedImport);
 const Reference requiredAnnotation = Reference('required', materialImport);
 
 TypeReference listRefer(Reference reference, {bool nullable = false}) =>
