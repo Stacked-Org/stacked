@@ -1,4 +1,4 @@
-## 3.1.0+4
+## 3.1.1
 - Added fix to extensible classes for ListenableServiceMixin
 
 ## 3.1.0+3
