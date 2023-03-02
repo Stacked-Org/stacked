@@ -3,6 +3,11 @@ class StackedRouterAnnotation {
   // helper push methods of all routes
   final bool? generateNavigationHelperExtension;
 
+  /// if true relative imports will be generated
+  /// when possible
+  /// defaults to true
+  final bool preferRelativeImports;
+
   // defaults to 'Routes'
   final String? routesClassName;
 
@@ -13,53 +18,97 @@ class StackedRouterAnnotation {
 
   final List<StackedRoute> routes;
 
+  /// Auto generated route names can be a bit long with
+  /// the [Route] suffix
+  /// e.g ProductDetailsPage would be ProductDetailsPageRoute
+  ///
+  /// You can replace some relative parts in your route names
+  /// by providing a replacement in the follow pattern
+  /// [whatToReplace,replacement]
+  /// what to replace and the replacement should be
+  /// separated with a comma [,]
+  /// e.g 'Page,Route'
+  /// so ProductDetailsPage would be ProductDetailsRoute
+  ///
+  /// defaults to null, ignored if a route name is provided.
+  final String? replaceInRouteName;
+
+  /// Use for web for lazy loading other routes
+  /// more info https://dart.dev/guides/language/language-tour#deferred-loading
+  final bool deferredLoading;
+
   const StackedRouterAnnotation._(
+    this.routes,
+    this.preferRelativeImports, {
+    this.routePrefix,
     this.generateNavigationHelperExtension,
     this.routesClassName,
-    this.routePrefix,
-    this.routes,
-  ) : assert(routes != null);
+    this.replaceInRouteName,
+    this.deferredLoading = false,
+  }) : assert(routes != null);
 }
 
 // Defaults created routes to MaterialPageRoute unless
 // overridden by AutoRoute annotation
 class MaterialRouter extends StackedRouterAnnotation {
   const MaterialRouter({
+    bool preferRelativeImports = true,
+    required List<StackedRoute> routes,
     bool? generateNavigationHelperExtension,
     String? routesClassName,
     String? pathPrefix,
-    required List<StackedRoute> routes,
-  }) : super._(generateNavigationHelperExtension, routesClassName, pathPrefix,
-            routes);
+    String? replaceInRouteName,
+    bool? deferredLoading,
+  }) : super._(
+          routes,
+          preferRelativeImports,
+          generateNavigationHelperExtension: generateNavigationHelperExtension,
+          routePrefix: pathPrefix,
+          routesClassName: routesClassName,
+          replaceInRouteName: replaceInRouteName,
+          deferredLoading: deferredLoading ?? false,
+        );
 }
 
 // Defaults created routes to CupertinoPageRoute unless
 // overridden by AutoRoute annotation
 class CupertinoRouter extends StackedRouterAnnotation {
   const CupertinoRouter({
+    bool preferRelativeImports = true,
+    required List<StackedRoute> routes,
+    String? replaceInRouteName,
+    bool? deferredLoading,
     bool? generateNavigationHelperExtension,
     String? routesClassName,
     String? pathPrefix,
-    required List<StackedRoute> routes,
   }) : super._(
-          generateNavigationHelperExtension,
-          routesClassName,
-          pathPrefix,
           routes,
+          preferRelativeImports,
+          replaceInRouteName: replaceInRouteName,
+          deferredLoading: deferredLoading ?? false,
+          generateNavigationHelperExtension: generateNavigationHelperExtension,
+          routesClassName: routesClassName,
+          routePrefix: pathPrefix,
         );
 }
 
 class AdaptiveRouter extends StackedRouterAnnotation {
   const AdaptiveRouter({
+    bool preferRelativeImports = false,
+    required List<StackedRoute> routes,
+    String? replaceInRouteName,
+    bool? deferredLoading,
     bool? generateNavigationHelperExtension,
     String? routesClassName,
     String? pathPrefix,
-    required List<StackedRoute> routes,
   }) : super._(
-          generateNavigationHelperExtension,
-          routesClassName,
-          pathPrefix,
           routes,
+          preferRelativeImports,
+          replaceInRouteName: replaceInRouteName,
+          deferredLoading: deferredLoading ?? false,
+          generateNavigationHelperExtension: generateNavigationHelperExtension,
+          routesClassName: routesClassName,
+          routePrefix: pathPrefix,
         );
 }
 
@@ -92,21 +141,27 @@ class CustomRouter extends StackedRouterAnnotation {
   /// passed to the barrierDismissible property in [PageRouteBuilder]
   final bool? barrierDismissible;
 
-  const CustomRouter(
-      {this.transitionsBuilder,
-      this.barrierDismissible,
-      this.durationInMilliseconds,
-      this.reverseDurationInMilliseconds,
-      this.opaque,
-      bool? generateNavigationHelperExtension,
-      String? routesClassName,
-      String? pathPrefix,
-      required List<StackedRoute> routes})
-      : super._(
-          generateNavigationHelperExtension,
-          routesClassName,
-          pathPrefix,
+  const CustomRouter({
+    this.transitionsBuilder,
+    this.barrierDismissible,
+    this.durationInMilliseconds,
+    this.reverseDurationInMilliseconds,
+    this.opaque,
+    bool? generateNavigationHelperExtension,
+    String? routesClassName,
+    String? pathPrefix,
+    required List<StackedRoute> routes,
+    bool preferRelativeImports = true,
+    String? replaceInRouteName,
+    bool? deferredLoading,
+  }) : super._(
           routes,
+          preferRelativeImports,
+          replaceInRouteName: replaceInRouteName,
+          deferredLoading: deferredLoading ?? false,
+          generateNavigationHelperExtension: generateNavigationHelperExtension,
+          routesClassName: routesClassName,
+          routePrefix: pathPrefix,
         );
 }
 
@@ -124,6 +179,7 @@ class StackedRoute<T> {
 
   /// passed to the maintainState property in [MaterialPageRoute]
   final bool? maintainState;
+
   final List<StackedRoute>? children;
 
   /// route path name which will be assigned to the given variable name
@@ -135,40 +191,72 @@ class StackedRoute<T> {
   final String? path;
   final String? name;
 
-  final Type page;
+  final Type? page;
 
   final List<Type>? guards;
 
-  const StackedRoute(
-      {required this.page,
-      this.initial,
-      this.guards,
-      this.fullscreenDialog,
-      this.maintainState,
-      this.path,
-      this.name,
-      this.children});
+  final bool fullMatch;
+
+  /// if true path is used as page key instead of name
+  final bool usesPathAsKey;
+
+  /// meta data
+  final Map<String, dynamic> meta;
+
+  final bool? deferredLoading;
+
+  const StackedRoute({
+    this.page,
+    this.initial = false,
+    this.guards,
+    this.fullscreenDialog = false,
+    this.maintainState = true,
+    this.fullMatch = false,
+    this.path,
+    this.name,
+    this.usesPathAsKey = false,
+    this.children,
+    this.meta = const {},
+    this.deferredLoading,
+  });
+}
+
+class RedirectRoute extends StackedRoute {
+  final String redirectTo;
+
+  const RedirectRoute({
+    required String path,
+    required this.redirectTo,
+  }) : super(path: path, fullMatch: true);
 }
 
 class MaterialRoute<T> extends StackedRoute<T> {
-  const MaterialRoute(
-      {String? path,
-      required Type page,
-      bool? initial,
-      bool? fullscreenDialog,
-      bool? maintainState,
-      String? name,
-      List<Type>? guards,
-      List<StackedRoute>? children})
-      : super(
+  const MaterialRoute({
+    String? path,
+    required Type page,
+    bool initial = false,
+    bool fullscreenDialog = false,
+    bool maintainState = false,
+    bool fullMatch = false,
+    String? name,
+    List<Type>? guards,
+    bool usesPathAsKey = false,
+    List<StackedRoute>? children,
+    Map<String, dynamic> meta = const {},
+    bool? deferredLoading,
+  }) : super(
           page: page,
           guards: guards,
+          fullMatch: fullMatch,
           initial: initial,
+          usesPathAsKey: usesPathAsKey,
           fullscreenDialog: fullscreenDialog,
           maintainState: maintainState,
           path: path,
           children: children,
           name: name,
+          meta: meta,
+          deferredLoading: deferredLoading,
         );
 }
 
@@ -177,48 +265,70 @@ class CupertinoRoute<T> extends StackedRoute<T> {
   /// passed to the title property in [CupertinoPageRoute]
   final String? title;
 
-  const CupertinoRoute(
-      {bool? initial,
-      bool? fullscreenDialog,
-      bool? maintainState,
-      String? path,
-      this.title,
-      String? name,
-      required Type page,
-      List<Type>? guards,
-      List<StackedRoute>? children})
-      : super(
-            initial: initial,
-            fullscreenDialog: fullscreenDialog,
-            maintainState: maintainState,
-            path: path,
-            name: name,
-            page: page,
-            guards: guards,
-            children: children);
+  const CupertinoRoute({
+    bool initial = false,
+    bool fullscreenDialog = false,
+    bool maintainState = false,
+    String? path,
+    this.title,
+    String? name,
+    bool fullMatch = false,
+    required Type page,
+    bool usesPathAsKey = false,
+    List<Type>? guards,
+    List<StackedRoute>? children,
+    Map<String, dynamic> meta = const {},
+    bool? deferredLoading,
+  }) : super(
+          initial: initial,
+          fullscreenDialog: fullscreenDialog,
+          maintainState: maintainState,
+          path: path,
+          name: name,
+          usesPathAsKey: usesPathAsKey,
+          fullMatch: fullMatch,
+          page: page,
+          guards: guards,
+          children: children,
+          meta: meta,
+          deferredLoading: deferredLoading,
+        );
 }
 
 class AdaptiveRoute<T> extends StackedRoute<T> {
-  const AdaptiveRoute(
-      {bool? initial,
-      bool? fullscreenDialog,
-      bool? maintainState,
-      String? name,
-      String? path,
-      Type? returnType,
-      this.cupertinoPageTitle,
-      required Type page,
-      List<Type>? guards,
-      List<StackedRoute>? children})
-      : super(
-            initial: initial,
-            fullscreenDialog: fullscreenDialog,
-            maintainState: maintainState,
-            path: path,
-            name: name,
-            page: page,
-            guards: guards,
-            children: children);
+  const AdaptiveRoute({
+    bool initial = false,
+    bool fullscreenDialog = false,
+    bool maintainState = true,
+    String? name,
+    String? path,
+    bool usesPathAsKey = false,
+    bool fullMatch = false,
+    this.cupertinoPageTitle,
+    required Type page,
+    List<Type>? guards,
+    List<StackedRoute>? children,
+    this.opaque = true,
+    Type? returnType,
+    Map<String, dynamic> meta = const {},
+    bool? deferredLoading,
+  }) : super(
+          initial: initial,
+          fullscreenDialog: fullscreenDialog,
+          maintainState: maintainState,
+          path: path,
+          usesPathAsKey: usesPathAsKey,
+          name: name,
+          fullMatch: fullMatch,
+          page: page,
+          guards: guards,
+          children: children,
+          meta: meta,
+          deferredLoading: deferredLoading,
+        );
+
+  /// passed to the opaque property in [_NoAnimationPageRouteBuilder] only when kIsWeb
+  final bool opaque;
 
   /// passed to the title property in [CupertinoPageRoute]
   final String? cupertinoPageTitle;
@@ -236,6 +346,19 @@ class CustomRoute<T> extends StackedRoute<T> {
   /// the generator can import it into router_base.dart
   final Function? transitionsBuilder;
 
+  /// this builder function is passed to customRouteBuilder property
+  /// in [CustomPage]
+  ///
+  /// I couldn't type this function from here but it should match
+  /// typedef [CustomRouteBuilder] = Route Function(BuildContext context, CustomPage page);
+  /// you should only reference the function when passing it so
+  /// the generator can import it into the generated file
+  ///
+  /// this builder function accepts a BuildContext and a CustomPage
+  /// that has all the other properties assigned to it
+  /// so using them then is totally up to you.
+  final Function? customRouteBuilder;
+
   /// route transition duration in milliseconds
   /// is passed to [PageRouteBuilder]
   /// this property is ignored unless a [transitionBuilder] is provided
@@ -251,29 +374,47 @@ class CustomRoute<T> extends StackedRoute<T> {
   /// passed to the barrierDismissible property in [PageRouteBuilder]
   final bool? barrierDismissible;
 
+  /// passed to the barrierLabel property in [PageRouteBuilder]
+  final String? barrierLabel;
+
+  /// passed to the barrierColor property in [PageRouteBuilder]
+  final int? barrierColor;
+
   const CustomRoute({
-    bool? initial,
-    bool? fullscreenDialog,
-    bool? maintainState,
+    bool initial = false,
+    bool fullscreenDialog = false,
+    bool maintainState = true,
     String? name,
     String? path,
+    bool fullMatch = false,
     required Type page,
     List<Type>? guards,
+    bool usesPathAsKey = false,
     List<StackedRoute>? children,
+    this.customRouteBuilder,
+    this.barrierLabel,
+    this.barrierColor,
     this.transitionsBuilder,
     this.durationInMilliseconds,
     this.reverseDurationInMilliseconds,
-    this.opaque,
-    this.barrierDismissible,
+    this.opaque = true,
+    this.barrierDismissible = false,
+    Map<String, dynamic> meta = const {},
+    bool? deferredLoading,
   }) : super(
-            initial: initial,
-            fullscreenDialog: fullscreenDialog,
-            maintainState: maintainState,
-            path: path,
-            name: name,
-            page: page,
-            guards: guards,
-            children: children);
+          initial: initial,
+          fullscreenDialog: fullscreenDialog,
+          maintainState: maintainState,
+          usesPathAsKey: usesPathAsKey,
+          path: path,
+          name: name,
+          fullMatch: fullMatch,
+          page: page,
+          guards: guards,
+          children: children,
+          meta: meta,
+          deferredLoading: deferredLoading,
+        );
 }
 
 class PathParam {

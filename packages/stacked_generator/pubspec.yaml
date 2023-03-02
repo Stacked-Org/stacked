@@ -10,7 +10,7 @@ dependencies:
   build: ^2.2.1
   path: ^1.8.0
   recase: ^4.0.0
-  source_gen: ^1.2.2
+  source_gen: ^1.2.7
   meta: ^1.7.0
   logger: ^1.1.0
   stacked_core: ^1.2.4
