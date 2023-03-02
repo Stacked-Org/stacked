@@ -4,17 +4,17 @@ import 'package:stacked_generator/src/generators/forms/stacked_form_generator.da
 import 'package:stacked_generator/src/generators/getit/stacked_locator_generator.dart';
 import 'package:stacked_generator/src/generators/logging/stacked_logger_generator.dart';
 import 'package:stacked_generator/src/generators/router/stacked_router_generator.dart';
+import 'package:stacked_generator/src/generators/router_2/auto_route_generator.dart';
 import 'package:stacked_generator/src/models/generator_config.dart';
 
 import 'src/generators/bottomsheets/resolve/stacked_bottomsheet_generator.dart';
 import 'src/generators/dialogs/resolve/stacked_dialog_generator.dart';
-import 'src/generators/router_2/stacked_router_2_generator.dart';
 
 Builder stackedRouterGenerator(BuilderOptions options) {
   final generatorConfig = GeneratorConfig.fromJson(options.config);
   return LibraryBuilder(
     generatorConfig.navigator2
-        ? StackedRouter2Generator()
+        ? AutoRouteGenerator()
         : StackedRouterGenerator(),
     generatedExtension: '.router.dart',
   );
