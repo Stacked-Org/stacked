@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
 import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
 import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
@@ -19,21 +20,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Stacked Application',
-      theme: Theme.of(context).copyWith(
-        primaryColor: kcBackgroundColor,
-        focusColor: kcPrimaryColor,
-        textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.black,
-            ),
+    return ResponsiveApp(builder: (_) => MaterialApp(
+        title: 'Stacked Application',
+        theme: Theme.of(context).copyWith(
+          primaryColor: kcBackgroundColor,
+          focusColor: kcPrimaryColor,
+          textTheme: Theme.of(context).textTheme.apply(
+                bodyColor: Colors.black,
+              ),
+        ),
+        initialRoute: Routes.startupView,
+        onGenerateRoute: StackedRouter().onGenerateRoute,
+        navigatorKey: StackedService.navigatorKey,
+        navigatorObservers: [
+          StackedService.routeObserver,
+        ],
       ),
-      initialRoute: Routes.startupView,
-      onGenerateRoute: StackedRouter().onGenerateRoute,
-      navigatorKey: StackedService.navigatorKey,
-      navigatorObservers: [
-        StackedService.routeObserver,
-      ],
     );
   }
 }

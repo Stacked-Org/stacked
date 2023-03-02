@@ -384,6 +384,7 @@ const String kAppWebTemplateMainPath =
 
 const String kAppWebTemplateMainContent = '''
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
 import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
 import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
@@ -404,21 +405,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Stacked Application',
-      theme: Theme.of(context).copyWith(
-        primaryColor: kcBackgroundColor,
-        focusColor: kcPrimaryColor,
-        textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.black,
-            ),
+    return ResponsiveApp(builder: (_) => MaterialApp(
+        title: 'Stacked Application',
+        theme: Theme.of(context).copyWith(
+          primaryColor: kcBackgroundColor,
+          focusColor: kcPrimaryColor,
+          textTheme: Theme.of(context).textTheme.apply(
+                bodyColor: Colors.black,
+              ),
+        ),
+        initialRoute: Routes.startupView,
+        onGenerateRoute: StackedRouter().onGenerateRoute,
+        navigatorKey: StackedService.navigatorKey,
+        navigatorObservers: [
+          StackedService.routeObserver,
+        ],
       ),
-      initialRoute: Routes.startupView,
-      onGenerateRoute: StackedRouter().onGenerateRoute,
-      navigatorKey: StackedService.navigatorKey,
-      navigatorObservers: [
-        StackedService.routeObserver,
-      ],
     );
   }
 }
@@ -1246,6 +1248,113 @@ class StartupView extends StackedView<StartupViewModel> {
 // --------------------------------------------------
 
 
+// -------- ScaleOnHover Template Data ----------
+
+const String kAppWebTemplateScaleOnHoverPath =
+    'lib/ui/widgets/mouse_transforms/scale_on_hover.dart.stk';
+
+const String kAppWebTemplateScaleOnHoverContent = '''
+import 'package:flutter/material.dart';
+
+class ScaleOnHover extends StatefulWidget {
+  final double scale;
+  final Widget child;
+  // You can also pass the translation in here if you want to
+  const ScaleOnHover({super.key, required this.child, this.scale = 1.1});
+
+  @override
+  _ScaleOnHoverState createState() => _ScaleOnHoverState();
+}
+
+class _ScaleOnHoverState extends State<ScaleOnHover> {
+  final scaleTransform = Matrix4.identity()..scale(1.1);
+  final noScaleTransform = Matrix4.identity()..scale(1.0);
+
+  bool _hovering = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (e) => _mouseEnter(true),
+      onExit: (e) => _mouseEnter(false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 350),
+        curve: Curves.easeOutCirc,
+        child: widget.child,
+        transform: _hovering ? scaleTransform : noScaleTransform,
+      ),
+    );
+  }
+
+  void _mouseEnter(bool hover) {
+    setState(() {
+      _hovering = hover;
+    });
+  }
+}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- TranslateOnHover Template Data ----------
+
+const String kAppWebTemplateTranslateOnHoverPath =
+    'lib/ui/widgets/mouse_transforms/translate_on_hover.dart.stk';
+
+const String kAppWebTemplateTranslateOnHoverContent = '''
+import 'package:flutter/material.dart';
+
+class TranslateOnHover extends StatefulWidget {
+  final Widget child;
+  final double? x;
+  final double? y;
+  // You can also pass the translation in here if you want to
+  const TranslateOnHover({
+    super.key,
+    required this.child,
+    this.x,
+    this.y,
+  });
+
+  @override
+  _TranslateOnHoverState createState() => _TranslateOnHoverState();
+}
+
+class _TranslateOnHoverState extends State<TranslateOnHover> {
+  bool _hovering = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final nonHoverTransform = Matrix4.identity()..translate(0, 0, 0);
+    final hoverTransform = Matrix4.identity()
+      ..translate(
+        widget.x ?? 0,
+        widget.y ?? 0,
+      );
+    return MouseRegion(
+      onEnter: (e) => _mouseEnter(true),
+      onExit: (e) => _mouseEnter(false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        child: widget.child,
+        transform: _hovering ? hoverTransform : nonHoverTransform,
+      ),
+    );
+  }
+
+  void _mouseEnter(bool hover) {
+    setState(() {
+      _hovering = hover;
+    });
+  }
+}
+''';
+
+// --------------------------------------------------
+
+
 // -------- App Template Data ----------
 
 const String kAppWebTemplateAppPath =
@@ -1282,6 +1391,49 @@ import 'package:stacked_services/stacked_services.dart';
   ],
 )
 class App {}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- HoverExtensions Template Data ----------
+
+const String kAppWebTemplateHoverExtensionsPath =
+    'lib/extensions/hover_extensions.dart.stk';
+
+const String kAppWebTemplateHoverExtensionsContent = '''
+import 'package:{{packageName}}/ui/widgets/mouse_transforms/scale_on_hover.dart';
+import 'package:{{packageName}}/ui/widgets/mouse_transforms/translate_on_hover.dart';
+import 'package:flutter/material.dart';
+
+extension HoverExtensions on Widget {
+  Widget get showCursorOnHover {
+    return MouseRegion(
+      child: this,
+      cursor: SystemMouseCursors.click,
+    );
+  }
+
+  /// Moves the widget by x,y pixels on hover
+  ///
+  /// to move up use -y values, to move left use -x values
+  Widget moveOnHover({double? x, double? y}) {
+    return TranslateOnHover(
+      x: x,
+      y: y,
+      child: this,
+    );
+  }
+
+  /// Scales the widget by [scale] on hover
+  Widget scaleOnHover({double scale = 1.1}) {
+    return ScaleOnHover(
+      child: this,
+      scale: scale,
+    );
+  }
+}
 
 ''';
 
