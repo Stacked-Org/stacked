@@ -133,8 +133,23 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
             fileType: FileType.text
           ),
           TemplateFile(
+            relativeOutputPath: kAppWebTemplateScaleOnHoverPath,
+            content: kAppWebTemplateScaleOnHoverContent,
+            fileType: FileType.text
+          ),
+          TemplateFile(
+            relativeOutputPath: kAppWebTemplateTranslateOnHoverPath,
+            content: kAppWebTemplateTranslateOnHoverContent,
+            fileType: FileType.text
+          ),
+          TemplateFile(
             relativeOutputPath: kAppWebTemplateAppPath,
             content: kAppWebTemplateAppContent,
+            fileType: FileType.text
+          ),
+          TemplateFile(
+            relativeOutputPath: kAppWebTemplateHoverExtensionsPath,
+            content: kAppWebTemplateHoverExtensionsContent,
             fileType: FileType.text
           ),
           TemplateFile(
