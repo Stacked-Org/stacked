@@ -5,8 +5,8 @@ import 'route_matcher.dart';
 import 'router_base.dart';
 
 @immutable
-class RouteData extends RouteSettings {
-  RouteData(this.routeMatch)
+class RouteDataV1 extends RouteSettings {
+  RouteDataV1(this.routeMatch)
       : _pathParams = routeMatch.pathParams,
         _queryParams = routeMatch.queryParams,
         fragment = routeMatch.uri.fragment,
@@ -20,7 +20,7 @@ class RouteData extends RouteSettings {
               : routeMatch.arguments,
         );
 
-  final RouteMatch routeMatch;
+  final RouteMatchV1 routeMatch;
   final Parameters _pathParams;
   final Parameters _queryParams;
   final String fragment;
@@ -62,10 +62,10 @@ class RouteData extends RouteSettings {
         'path: ${routeMatch.path}, fullName: ${routeMatch.name}, args: $arguments,  params: $_pathParams, query: $_queryParams}';
   }
 
-  static RouteData? of(BuildContext context) {
+  static RouteDataV1? of(BuildContext context) {
     var modal = ModalRoute.of(context);
-    if (modal != null && modal.settings is RouteData) {
-      return modal.settings as RouteData;
+    if (modal != null && modal.settings is RouteDataV1) {
+      return modal.settings as RouteDataV1;
     } else {
       return null;
     }
@@ -75,21 +75,21 @@ class RouteData extends RouteSettings {
     return (Route<dynamic> route) {
       return !route.willHandlePopInternally &&
           route is ModalRoute &&
-          route.settings is RouteData &&
-          (route.settings as RouteData).template == path;
+          route.settings is RouteDataV1 &&
+          (route.settings as RouteDataV1).template == path;
     };
   }
 }
 
 @immutable
-class ParentRouteData<T extends RouterBase> extends RouteData {
+class ParentRouteData<T extends RouterBase> extends RouteDataV1 {
   final Uri? initialRoute;
   final T? router;
 
   ParentRouteData({
     this.initialRoute,
     this.router,
-    required RouteMatch matchResult,
+    required RouteMatchV1 matchResult,
   }) : super(matchResult);
 
   Object? get initialRouteArgs => _initialArgsToPass;

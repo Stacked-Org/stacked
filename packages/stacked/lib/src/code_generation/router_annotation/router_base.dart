@@ -4,7 +4,7 @@ import 'route_def.dart';
 import 'package:flutter/widgets.dart';
 import 'route_matcher.dart';
 
-typedef StackedRouteFactory = Route<dynamic> Function(RouteData data);
+typedef StackedRouteFactory = Route<dynamic> Function(RouteDataV1 data);
 typedef RouterBuilder<T extends RouterBase> = T Function();
 
 abstract class RouterBase {
@@ -19,10 +19,10 @@ abstract class RouterBase {
     if (match != null) {
       if (basePath != null) {
         match = match.copyWith(name: _joinPath(basePath, match.name))
-            as RouteMatch?;
+            as RouteMatchV1?;
       }
 
-      RouteData data;
+      RouteDataV1 data;
       if (match!.isParent) {
         data = ParentRouteData(
           matchResult: match,
@@ -30,7 +30,7 @@ abstract class RouterBase {
           router: match.routeDef.generator,
         );
       } else {
-        data = RouteData(match);
+        data = RouteDataV1(match);
       }
       return pagesMap[match.routeDef.page!]!(data);
     }
@@ -53,7 +53,7 @@ abstract class RouterBase {
   // Router().onGenerateRoute becomes Router()
   Route<dynamic>? call(RouteSettings settings) => onGenerateRoute(settings);
 
-  RouteMatch? findMatch(RouteSettings settings) {
+  RouteMatchV1? findMatch(RouteSettings settings) {
     var matcher = RouteMatcher(settings);
     for (var route in routes) {
       var match = matcher.match(route);
@@ -73,8 +73,8 @@ abstract class RouterBase {
     return findMatch(RouteSettings(name: path)) != null;
   }
 
-  List<RouteMatch> allMatches(RouteMatcher matcher) {
-    var matches = <RouteMatch>[];
+  List<RouteMatchV1> allMatches(RouteMatcher matcher) {
+    var matches = <RouteMatchV1>[];
     for (var route in routes) {
       var matchResult = matcher.match(route);
       if (matchResult != null) {

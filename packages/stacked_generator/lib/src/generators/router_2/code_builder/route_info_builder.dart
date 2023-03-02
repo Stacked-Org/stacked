@@ -1,4 +1,5 @@
 import 'package:code_builder/code_builder.dart';
+import 'package:stacked_generator/src/generators/router/generator/route_allocator.dart';
 
 import '../models/route_config.dart';
 import '../models/route_parameter_config.dart';
@@ -6,7 +7,10 @@ import '../models/router_config.dart';
 import 'library_builder.dart';
 
 List<Class> buildRouteInfoAndArgs(
-    RouteConfig r, RouterConfig router, DartEmitter emitter) {
+  RouteConfig r,
+  RouterConfig router,
+  DartEmitter emitter,
+) {
   final argsClassRefer = refer('${r.routeName}Args');
   final parameters =
       r.parameters.where((p) => !p.isInheritedPathParam).toList();
@@ -20,7 +24,7 @@ List<Class> buildRouteInfoAndArgs(
         ..extend = TypeReference((b) {
           b
             ..symbol = 'PageRouteInfo'
-            ..url = corestackedImport;
+            ..url = stackedImport;
           if (parameters.isNotEmpty) b.types.add(argsClassRefer);
           // adds `void` type to be `strong-mode` compliant
           if (parameters.isEmpty) b.types.add(refer('void'));
@@ -135,7 +139,11 @@ Iterable<Parameter> buildArgParams(
             if (p.defaultValueCode != null) {
               if (p.defaultValueCode!.contains('const')) {
                 defaultCode = Code(
-                    'const ${refer(p.defaultValueCode!.replaceAll('const', ''), p.type.import).accept(emitter).toString()}');
+                  'const ${refer(
+                    p.defaultValueCode!.replaceAll('const', ''),
+                    '${p.type.import}$kFlagToPreventAliasingTheImport',
+                  ).toString()}',
+                );
               } else {
                 defaultCode = refer(p.defaultValueCode!, p.type.import).code;
               }

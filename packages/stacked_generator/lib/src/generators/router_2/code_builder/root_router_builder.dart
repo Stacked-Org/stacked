@@ -7,13 +7,13 @@ import '../models/route_parameter_config.dart';
 import '../models/router_config.dart';
 import 'library_builder.dart';
 
-const _routeConfigType = Reference("RouteConfig", corestackedImport);
+const _routeConfigType = Reference("RouteConfig", stackedImport);
 
 Class buildRouterConfig(RouterConfig router, Set<ResolvedType> guards,
         List<RouteConfig> routes) =>
     Class((b) => b
       ..name = router.routerClassName
-      ..extend = refer('RootStackRouter', corestackedImport)
+      ..extend = refer('RootStackRouter', stackedImport)
       ..fields.addAll([
         ...guards.map((g) => Field((b) => b
           ..modifier = FieldModifier.final$
@@ -71,7 +71,7 @@ Field buildPagesMap(List<RouteConfig> routes, bool deferredLoading) {
         ..symbol = 'Map'
         ..types.addAll([
           stringRefer,
-          refer('PageFactory', corestackedImport),
+          refer('PageFactory', stackedImport),
         ]),
     )
     ..assignment = literalMap(Map.fromEntries(
@@ -95,7 +95,7 @@ Spec buildMethod(RouteConfig r, bool deferredLoading) {
       : getPageInstance(r);
 
   if (r.hasWrappedRoute == true) {
-    constructedPage = refer('WrappedRoute', corestackedImport).newInstance(
+    constructedPage = refer('WrappedRoute', stackedImport).newInstance(
       [],
       {'child': constructedPage},
     );
@@ -159,7 +159,7 @@ Spec buildMethod(RouteConfig r, bool deferredLoading) {
             TypeReference(
               (b) => b
                 ..symbol = r.pageTypeName
-                ..url = corestackedImport
+                ..url = stackedImport
                 ..types.add(r.returnType?.refer ?? refer('dynamic')),
             )
                 .newInstance(
@@ -214,7 +214,7 @@ Spec buildMethod(RouteConfig r, bool deferredLoading) {
 Expression getDeferredBuilder(RouteConfig r, Expression page) {
   return TypeReference((b) => b
     ..symbol = 'DeferredWidget'
-    ..url = corestackedImport).newInstance([
+    ..url = stackedImport).newInstance([
     TypeReference((b) => b
       ..symbol = 'loadLibrary'
       ..url = r.pageType!.refer.url),
