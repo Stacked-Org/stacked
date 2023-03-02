@@ -20,7 +20,7 @@ List<Class> buildRouteInfoAndArgs(
         ..extend = TypeReference((b) {
           b
             ..symbol = 'PageRouteInfo'
-            ..url = autoRouteImport;
+            ..url = corestackedImport;
           if (parameters.isNotEmpty) b.types.add(argsClassRefer);
           // adds `void` type to be `strong-mode` compliant
           if (parameters.isEmpty) b.types.add(refer('void'));
