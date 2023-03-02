@@ -1,0 +1,6 @@
+targets:
+  $default:
+    builders:
+      stacked_generator|stackedRouterGenerator:
+        options:
+          navigator2: false
