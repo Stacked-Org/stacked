@@ -130,20 +130,46 @@ List<Class> buildRouteInfoAndArgs(
 }
 
 Iterable<Parameter> buildArgParams(
-    List<ParamConfig> parameters, DartEmitter emitter,
-    {bool toThis = true}) {
+  List<ParamConfig> parameters,
+  DartEmitter emitter, {
+  bool toThis = true,
+}) {
   return parameters.where((p) => !p.isInheritedPathParam).map(
         (p) => Parameter(
           (b) {
             var defaultCode;
             if (p.defaultValueCode != null) {
               if (p.defaultValueCode!.contains('const')) {
-                defaultCode = Code(
-                  'const ${refer(
-                    p.defaultValueCode!.replaceAll('const', ''),
-                    '${p.type.import}$kFlagToPreventAliasingTheImport',
-                  ).toString()}',
-                );
+                final symbol = p.defaultValueCode!.replaceAll('const', '');
+
+                final url =
+                    '${p.type.typeArguments.first.import}$kFlagToPreventAliasingTheImport';
+
+                // HACK (List Imports): This is a hard hack to get the correct types
+                // to be imported. But I need to move on otherwise I'll be stuck here
+                // for more days.
+                final isListValue = symbol.contains('[');
+                if (isListValue) {
+                  final splitSymbols = symbol
+                      .replaceFirst('[', '')
+                      .replaceFirst(']', '')
+                      .split(',')
+                      .map((e) => e.trim());
+
+                  defaultCode = Code('const [${splitSymbols.map(
+                        (e) => refer(
+                          e,
+                          p.type.typeArguments.first.import,
+                        ).accept(emitter),
+                      ).join(',')}]');
+                } else {
+                  defaultCode = Code(
+                    'const ${refer(
+                      symbol,
+                      url,
+                    ).accept(emitter).toString()}',
+                  );
+                }
               } else {
                 defaultCode = refer(p.defaultValueCode!, p.type.import).code;
               }
