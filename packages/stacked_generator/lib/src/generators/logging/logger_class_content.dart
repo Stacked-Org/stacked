@@ -139,22 +139,6 @@ List<String>? _formatStackTrace(StackTrace stackTrace, int methodCount) {
   }
 }
 
-class MultipleLoggerOutput extends LogOutput {
-  final List<LogOutput> logOutputs;
-  MultipleLoggerOutput(this.logOutputs);
-
-  @override
-  void output(OutputEvent event) {
-    for (var logOutput in logOutputs) {
-      try {
-        logOutput.output(event);
-      } catch (e) {
-        print('Log output failed');
-      }
-    }
-  }
-}
-
 ''';
 
 const String loggerClassNameAndOutputs = '''
@@ -173,7 +157,7 @@ Logger $logHelperNameKey(
       showOnlyClass: showOnlyClass,
       exludeLogsFromClasses: exludeLogsFromClasses,
     ),
-    output: MultipleLoggerOutput([
+    output: MultiOutput([
       $disableConsoleOutputInRelease
       ConsoleOutput(),
       $multipleLoggerOutput
