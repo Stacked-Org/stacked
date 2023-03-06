@@ -40,7 +40,7 @@ class SimpleLogPrinter extends LogPrinter {
         printCallingFunctionName && methodName != null ? ' | \$methodName' : '';
     var stackLog = event.stackTrace.toString();
     var output =
-        '\$emoji \$className\$methodNameSection - \${event.message}\${printCallStack ? '\\nSTACKTRACE:\\n\$stackLog' : ''}';
+        '\$emoji \$className\$methodNameSection - \${event.message}\${event.error != null ? '\\nERROR: \${event.error}\\n' : ''}\${printCallStack ? '\\nSTACKTRACE:\\n\$stackLog' : ''}';
 
     if (exludeLogsFromClasses
             .any((excludeClass) => className == excludeClass) ||
