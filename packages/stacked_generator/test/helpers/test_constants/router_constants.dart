@@ -245,7 +245,7 @@ class TestClassArguments {
 
   @override
   String toString() {
-    return \'{"markers": "\$markers"}\';
+    return '{"markers": "\$markers"}';
   }
 }
 
@@ -336,7 +336,7 @@ class TestClassArguments {
 
   @override
   String toString() {
-    return \'{"name": "\$name"}\';
+    return '{"name": "\$name"}';
   }
 }
 
@@ -506,7 +506,7 @@ class TestClass3Arguments {
 
   @override
   String toString() {
-    return \'{"test3paramName": "\$test3paramName"}\';
+    return '{"test3paramName": "\$test3paramName"}';
   }
 }
 
