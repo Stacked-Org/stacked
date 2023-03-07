@@ -1,3 +1,9 @@
+## 0.9.4
+
+- Fixes errors not being logged in the stacked logger
+- The multi output (if configured in stacked logger) correctly
+  calls `init` and `destroy` for each output now
+
 ## 0.9.3
 
 - Adds toString to `ViewArguments` that prints out the parameters of the class

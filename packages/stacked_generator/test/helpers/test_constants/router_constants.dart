@@ -242,6 +242,11 @@ class TestClassArguments {
   const TestClassArguments({this.markers});
 
   final List<_i3.Marker> markers;
+
+  @override
+  String toString() {
+    return '{"markers": "\$markers"}';
+  }
 }
 
 extension NavigatorStateExtension on _i4.NavigationService {
@@ -328,6 +333,11 @@ class TestClassArguments {
   const TestClassArguments({this.name});
 
   final _i3.String name;
+
+  @override
+  String toString() {
+    return '{"name": "\$name"}';
+  }
 }
 
 extension NavigatorStateExtension on _i4.NavigationService {
@@ -493,6 +503,11 @@ class TestClass3Arguments {
   const TestClass3Arguments({this.test3paramName});
 
   final _i9.Test3Type test3paramName;
+
+  @override
+  String toString() {
+    return '{"test3paramName": "\$test3paramName"}';
+  }
 }
 
 extension NavigatorStateExtension on _i10.NavigationService {
@@ -905,6 +920,11 @@ class LoginClassArguments {
   final _i1.Marker position;
 
   final int age;
+
+  @override
+  String toString() {
+    return '{"position": "\$position", "age": "\$age"}';
+  }
 }
 
 class HomeClassArguments {
@@ -916,5 +936,10 @@ class HomeClassArguments {
   final _i2.Car car;
 
   final int age;
+
+  @override
+  String toString() {
+    return '{"car": "\$car", "age": "\$age"}';
+  }
 }
 ''';
