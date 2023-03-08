@@ -22,7 +22,6 @@ class CustomRouteConfig extends RouteConfig {
       super.transitionBuilder,
       super.parentClassName});
 
-  @override
   Code registerRoute() {
     return super.registerRouteBloc(
       routeType: 'PageRouteBuilder',

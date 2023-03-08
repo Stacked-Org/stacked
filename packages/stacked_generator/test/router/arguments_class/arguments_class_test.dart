@@ -56,7 +56,7 @@ void main() {
   group('ArgumentClassBuilderHelperTest -', () {
     Iterable<Class> getBuilderInstance() => ArgumentsClassBuilder(
           routes: _routes,
-        ).buildViewsArguments();
+        ).buildViewsArguments(DartEmitter());
 
     group('addRoutesClassName -', () {
       test('Should generate routes class', () {

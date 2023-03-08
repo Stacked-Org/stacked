@@ -1,9 +1,9 @@
 import 'package:code_builder/code_builder.dart';
 
 import '../../../../utils.dart';
-import 'router_config.dart';
 import 'importable_type.dart';
 import 'route_parameter_config.dart';
+import 'router_config.dart';
 
 /// holds the extracted route configs
 /// to be used in [RouterClassGenerator]
@@ -84,10 +84,6 @@ class RouteConfig {
     this.imports = const {},
     this.parentClassName,
   });
-
-  Code registerRoute() {
-    return const Code('');
-  }
 
   RouteConfig copyWith({
     String? name,
@@ -170,19 +166,18 @@ class RouteConfig {
 
     final constructor = Block.of([
       Code("${hasConstConstructor == true ? 'const' : ''}  "),
-      Reference(className, className).code,
+      Reference(className, classImport).code,
       Code(
           "(${constructorParams.join(',')})${(hasWrapper) ? ".wrappedRoute(context)" : ""}")
     ]);
     return constructor;
   }
 
-  Code registerRouteBloc({
-    required String routeType,
-    String? routeTypeImport,
-    Code? extra,
-    bool usePageBuilder = false,
-  }) {
+  Code registerRouteBloc(
+      {required String routeType,
+      String? routeTypeImport,
+      Code? extra,
+      bool usePageBuilder = false}) {
     return Block.of([
       const Code('return '),
       Reference(routeType, routeTypeImport).code,

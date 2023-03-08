@@ -1,5 +1,6 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
+import 'package:stacked_generator/src/generators/router_2/code_builder/route_info_builder.dart';
 import 'package:stacked_generator/src/generators/router_common/models/route_config.dart';
 import 'package:stacked_generator/src/generators/router_common/models/route_parameter_config.dart';
 
@@ -37,11 +38,14 @@ class ArgumentClassBuilderHelper {
     return obj.toString();
   }
 
-  Constructor get argumentConstructer {
-    return Constructor((b) => _composeConstructer(b));
+  Constructor argumentConstructer(DartEmitter emitter) {
+    return Constructor((b) => _composeConstructer(b, emitter));
   }
 
-  void _composeConstructer(ConstructorBuilder b) {
+  void _composeConstructer(
+    ConstructorBuilder b,
+    DartEmitter emitter,
+  ) {
     b.constant = true;
 
     for (final param in route.parameters) {
@@ -54,10 +58,8 @@ class ArgumentClassBuilderHelper {
 
         // Assign default value
         if (param.defaultValueCode != null) {
-          parameterBuilder.defaultTo = refer(
-            param.defaultValueCode!,
-            _processDefaultValueCodeImport(param),
-          ).code;
+          parameterBuilder.defaultTo =
+              buildCorrectDefaultCode(parameter: param, emitter: emitter);
         }
 
         // Add required keyword

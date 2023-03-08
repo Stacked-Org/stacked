@@ -153,6 +153,57 @@ class RouterClassBuilderHelper {
   ///   settings: data,
   /// );
   Code _returnRouteRegistration(RouteConfig route) {
-    return route.registerRoute();
+    if (route.routeType == RouteType.material) {
+      return route.registerRouteBloc(
+        routeType: 'MaterialPageRoute',
+      );
+    } else if (route.routeType == RouteType.custom) {
+      return route.registerRouteBloc(
+        routeType: 'PageRouteBuilder',
+        usePageBuilder: true,
+        extra: Block.of([
+          if (!(route.customRouteOpaque ?? false))
+            Code('opaque:${route.customRouteOpaque.toString()},'),
+          if (route.customRouteBarrierDismissible ?? false)
+            Code(
+                'barrierDismissible:${route.customRouteBarrierDismissible.toString()},'),
+          if (route.transitionBuilder != null) ...[
+            const Code('transitionsBuilder: data.transition ?? '),
+            Reference(route.transitionBuilder!.name,
+                    route.transitionBuilder!.import)
+                .code,
+            const Code(',')
+          ],
+          if (route.transitionBuilder == null)
+            const Code('''transitionsBuilder: data.transition??
+              (context, animation, secondaryAnimation, child) {
+            return child;
+          },'''),
+          if (route.durationInMilliseconds != null)
+            Code(
+                'transitionDuration: const Duration(milliseconds: ${route.durationInMilliseconds}),'),
+          if (route.reverseDurationInMilliseconds != null)
+            Code(
+                'reverseTransitionDuration: const Duration(milliseconds: ${route.reverseDurationInMilliseconds}),'),
+        ]),
+      );
+    } else if (route.routeType == RouteType.cupertino) {
+      return route.registerRouteBloc(
+          routeType: 'CupertinoPageRoute',
+          routeTypeImport: 'package:flutter/cupertino.dart',
+          extra: route.cupertinoNavTitle != null
+              ? Code("title:'${route.cupertinoNavTitle}',")
+              : null);
+    } else if (route.routeType == RouteType.adaptive) {
+      return route.registerRouteBloc(
+        routeType: 'buildAdaptivePageRoute',
+        routeTypeImport: 'package:stacked/stacked.dart',
+        extra: route.cupertinoNavTitle != null
+            ? Code("cupertinoTitle:'${route.cupertinoNavTitle}',")
+            : null,
+      );
+    }
+
+    throw Exception('No config registered for ${route.name} of type ');
   }
 }

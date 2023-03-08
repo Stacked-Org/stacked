@@ -140,53 +140,63 @@ Iterable<Parameter> buildArgParams(
   return parameters.where((p) => !p.isInheritedPathParam).map(
         (p) => Parameter(
           (b) {
-            Code? defaultCode;
-            if (p.defaultValueCode != null) {
-              if (p.defaultValueCode!.contains('const')) {
-                final symbol = p.defaultValueCode!.replaceAll('const', '');
-
-                final url =
-                    '${p.type.typeArguments.first.import}$kFlagToPreventAliasingTheImport';
-
-                // HACK (List Imports): This is a hard hack to get the correct types
-                // to be imported. But I need to move on otherwise I'll be stuck here
-                // for more days.
-                final isListValue = symbol.contains('[');
-                if (isListValue) {
-                  final splitSymbols = symbol
-                      .replaceFirst('[', '')
-                      .replaceFirst(']', '')
-                      .split(',')
-                      .map((e) => e.trim());
-
-                  defaultCode = Code('const [${splitSymbols.map(
-                        (e) => refer(
-                          e,
-                          p.type.typeArguments.first.import,
-                        ).accept(emitter),
-                      ).join(',')}]');
-                } else {
-                  defaultCode = Code(
-                    'const ${refer(
-                      symbol,
-                      url,
-                    ).accept(emitter).toString()}',
-                  );
-                }
-              } else {
-                defaultCode = refer(p.defaultValueCode!, p.type.import).code;
-              }
-            }
             b
               ..name = p.getSafeName()
               ..named = true
               ..toThis = toThis
               ..required = p.isRequired || p.isPositional
-              ..defaultTo = defaultCode;
+              ..defaultTo =
+                  buildCorrectDefaultCode(parameter: p, emitter: emitter);
             if (!toThis) {
               b.type = p is FunctionParamConfig ? p.funRefer : p.type.refer;
             }
           },
         ),
       );
+}
+
+Code? buildCorrectDefaultCode({
+  required ParamConfig parameter,
+  required DartEmitter emitter,
+}) {
+  Code? defaultCode;
+  if (parameter.defaultValueCode != null) {
+    if (parameter.defaultValueCode!.contains('const')) {
+      final symbol = parameter.defaultValueCode!.replaceAll('const', '');
+
+      final url =
+          '${parameter.type.typeArguments.first.import}$kFlagToPreventAliasingTheImport';
+
+      // HACK (List Imports): This is a hard hack to get the correct types
+      // to be imported. But I need to move on otherwise I'll be stuck here
+      // for more days.
+      final isListValue = symbol.contains('[');
+      if (isListValue) {
+        final splitSymbols = symbol
+            .replaceFirst('[', '')
+            .replaceFirst(']', '')
+            .split(',')
+            .map((e) => e.trim());
+
+        defaultCode = Code('const [${splitSymbols.map(
+              (e) => refer(
+                e,
+                parameter.type.typeArguments.first.import,
+              ).accept(emitter),
+            ).join(',')}]');
+      } else {
+        defaultCode = Code(
+          'const ${refer(
+            symbol,
+            url,
+          ).accept(emitter).toString()}',
+        );
+      }
+    } else {
+      defaultCode =
+          refer(parameter.defaultValueCode!, parameter.type.import).code;
+    }
+  }
+
+  return defaultCode;
 }

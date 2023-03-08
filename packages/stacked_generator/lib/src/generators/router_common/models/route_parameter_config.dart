@@ -41,7 +41,7 @@ class ParamConfig {
     this.hasRequired = false,
     this.isOptional = true,
     this.isRequired = false,
-    this.isPathParam = false,
+    this.isPathParam = true,
     this.isQueryParam = false,
     this.isInheritedPathParam = false,
     this.alias,
@@ -59,7 +59,7 @@ class ParamConfig {
 
   String getSafeName() {
     if (reservedVarNames.contains(name)) {
-      return "${name}0";
+      return name;
     } else {
       return name;
     }

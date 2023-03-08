@@ -1,7 +1,9 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:stacked_generator/src/generators/extensions/routes_extension.dart';
+import 'package:stacked_generator/src/generators/router/generator/arguments_class/arguments_class_builder.dart';
 import 'package:stacked_generator/src/generators/router/generator/route_allocator.dart';
+import 'package:stacked_generator/src/generators/router/generator/router_class/router_class_builder.dart';
 import 'package:stacked_generator/src/generators/router/generator/routes_class/routes_class_builder.dart';
 import 'package:stacked_generator/utils.dart';
 
@@ -86,14 +88,24 @@ String generateLibrary(
     (acc, a) => acc..addAll(a.guards),
   );
 
-  final routeClasses = <Class>[];
+  final router1Classes = <Class>[];
 
   config.traverseRoutes(((routerConfig) {
     if (routerConfig.routes.isNotEmpty) {
-      routeClasses.add(RoutesClassBuilder(
+      router1Classes.add(RoutesClassBuilder(
         routes: routerConfig.routes,
         routesClassName: routerConfig.routesClassName,
       ).buildRoutesClass());
+
+      router1Classes.add(RouterClassBuilder(
+        routesClassName: routerConfig.routesClassName,
+        routes: routerConfig.routes,
+        routerClassName: routerConfig.routerClassName,
+      ).buildRouterClass());
+
+      router1Classes.addAll(ArgumentsClassBuilder(
+        routes: routerConfig.routes,
+      ).buildViewsArguments(emitter));
     }
   }));
 
@@ -109,7 +121,7 @@ String generateLibrary(
             .distinctBy((e) => e.routeName)
             .map((r) => buildRouteInfoAndArgs(r, config, emitter))
             .reduce((acc, a) => acc..addAll(a)),
-        ...routeClasses,
+        ...router1Classes,
       ]),
   );
 

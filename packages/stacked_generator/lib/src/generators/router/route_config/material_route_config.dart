@@ -18,7 +18,6 @@ class MaterialRouteConfig extends RouteConfig {
     super.parentClassName,
   });
 
-  @override
   Code registerRoute() {
     return super.registerRouteBloc(
       routeType: 'MaterialPageRoute',

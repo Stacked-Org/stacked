@@ -19,7 +19,6 @@ class CupertinoRouteConfig extends RouteConfig {
     super.cupertinoNavTitle,
   });
 
-  @override
   Code registerRoute() {
     return super.registerRouteBloc(
         routeType: 'CupertinoPageRoute',
