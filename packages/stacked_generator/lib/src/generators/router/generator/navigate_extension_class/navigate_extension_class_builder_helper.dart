@@ -1,6 +1,7 @@
 import 'package:code_builder/code_builder.dart';
-import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
+import 'package:stacked_generator/src/generators/router_common/models/route_config.dart';
+import 'package:stacked_generator/src/generators/router_common/models/route_parameter_config.dart';
 import 'package:stacked_generator/utils.dart';
 
 import '../route_allocator.dart';

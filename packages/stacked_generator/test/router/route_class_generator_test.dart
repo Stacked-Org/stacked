@@ -1,11 +1,12 @@
-import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/router/generator/router_generator.dart';
 import 'package:stacked_generator/src/generators/router/route_config/adaptive_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/cupertino_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/custom_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/material_route_config.dart';
-import 'package:stacked_generator/src/generators/router/router_config/router_config.dart';
 import 'package:stacked_generator/src/generators/router_common/models/importable_type.dart';
+import 'package:stacked_generator/src/generators/router_common/models/route_config.dart';
+import 'package:stacked_generator/src/generators/router_common/models/route_parameter_config.dart';
+import 'package:stacked_generator/src/generators/router_common/models/router_config.dart';
 import 'package:test/test.dart';
 
 import '../helpers/test_constants/router_constants.dart';

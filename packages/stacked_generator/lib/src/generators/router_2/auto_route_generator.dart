@@ -7,8 +7,8 @@ import 'package:stacked_generator/src/generators/router_2/code_builder/library_b
 import 'package:stacked_generator/src/generators/router_2/resolvers/router_config_resolver.dart';
 import 'package:stacked_generator/src/generators/router_common/resolvers/type_resolver.dart';
 
+import '../../../utils.dart';
 import 'resolvers/route_config_resolver.dart';
-import 'route_utils.dart';
 
 class AutoRouteGenerator extends Generator {
   @override
