@@ -1,31 +1,34 @@
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_generator/src/generators/router_common/models/importable_type.dart';
+import 'package:stacked_generator/src/generators/router_common/models/route_config.dart';
 
-import '../models/custom_transition_builder.dart';
-import '../models/route_parameter_config.dart';
+import '../../router_common/models/route_parameter_config.dart';
 import 'adaptive_route_config.dart';
 import 'cupertino_route_config.dart';
 import 'custom_route_config.dart';
 import 'material_route_config.dart';
-import 'route_config.dart';
 
 class RouteConfigFactory {
   final bool hasWrapper;
-  final String? returnType;
+  final ResolvedType? returnType;
   final String pathName;
   final String name;
-  final MapEntry<String, String> className;
+  // TODO (Generate Routes): This might be a breaking change, keep an eye out for it
+  final String className;
+  final String classImport;
   final bool maintainState;
   final bool fullscreenDialog;
   final bool hasConstConstructor;
   final String? parentClassName;
-  final List<RouteParamConfig> parameters;
+  final List<ParamConfig> parameters;
   const RouteConfigFactory({
     required this.hasWrapper,
     this.returnType,
     required this.pathName,
     required this.name,
     required this.className,
+    required this.classImport,
     required this.maintainState,
     required this.fullscreenDialog,
     required this.hasConstConstructor,
@@ -38,6 +41,7 @@ class RouteConfigFactory {
         .instanceOf(const TypeChecker.fromRuntime(CupertinoRoute))) {
       return CupertinoRouteConfig(
         className: className,
+        classImport: classImport,
         name: name,
         pathName: pathName,
         fullscreenDialog: fullscreenDialog,
@@ -53,6 +57,7 @@ class RouteConfigFactory {
         .instanceOf(const TypeChecker.fromRuntime(AdaptiveRoute))) {
       return AdaptiveRouteConfig(
         className: className,
+        classImport: classImport,
         name: name,
         pathName: pathName,
         fullscreenDialog: fullscreenDialog,
@@ -71,20 +76,23 @@ class RouteConfigFactory {
           ?.objectValue
           .toFunctionValue();
 
-      CustomTransitionBuilder? customTransitionBuilder;
+      ResolvedType? customTransitionBuilder;
       if (function != null) {
         final displayName = function.displayName.replaceFirst(RegExp('^_'), '');
         final functionName = function.isStatic
             ? '${function.enclosingElement.displayName}.$displayName'
             : displayName;
 
-        customTransitionBuilder = CustomTransitionBuilder(
-            functionName, function.source.uri.toString());
+        customTransitionBuilder = ResolvedType(
+          name: functionName,
+          import: function.source.uri.toString(),
+        );
       }
 
       var customRouteConfig = CustomRouteConfig(
         transitionBuilder: customTransitionBuilder,
         className: className,
+        classImport: classImport,
         name: name,
         pathName: pathName,
         fullscreenDialog: fullscreenDialog,
@@ -107,6 +115,7 @@ class RouteConfigFactory {
     } else {
       return MaterialRouteConfig(
         className: className,
+        classImport: classImport,
         name: name,
         pathName: pathName,
         fullscreenDialog: fullscreenDialog,

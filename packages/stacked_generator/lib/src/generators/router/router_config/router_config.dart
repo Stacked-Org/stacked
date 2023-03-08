@@ -1,4 +1,4 @@
-import '../route_config/route_config.dart';
+import 'package:stacked_generator/src/generators/router_common/models/route_config.dart';
 
 /// Extracts and holds router configs
 /// to be used in [RouterClassGenerator]

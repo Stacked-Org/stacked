@@ -18,14 +18,14 @@ class ResolvedType {
   TypeReference get refer {
     return TypeReference((b) => b
       ..symbol = name
-      ..isNullable = isNullable
       ..url = import
+      ..isNullable = isNullable
       ..types.addAll(typeArguments.map((e) => e.refer)));
   }
 
   @override
   String toString() {
-    return 'name : $name, import : $import, typeArguments: ${typeArguments.map((element) => element.toString())}';
+    return name;
   }
 
   @override

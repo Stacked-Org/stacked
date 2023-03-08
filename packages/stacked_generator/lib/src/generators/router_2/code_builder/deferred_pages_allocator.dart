@@ -1,5 +1,5 @@
 import 'package:code_builder/code_builder.dart';
-import 'package:stacked_generator/src/generators/router_2/models/route_config.dart';
+import 'package:stacked_generator/src/generators/router_common/models/route_config.dart';
 
 class DeferredPagesAllocator implements Allocator {
   static const _doNotPrefix = ['dart:core'];
@@ -41,7 +41,7 @@ class DeferredPagesAllocator implements Allocator {
 extension _RouteConfigList on List<RouteConfig> {
   bool isDeferred(String importPath, bool defaultDeferredLoading) {
     return mapRouteToDeferredType(importPath, defaultDeferredLoading) ==
-        _DeferredStatus.Deferred;
+        _DeferredStatus.deferred;
   }
 
   _DeferredStatus mapRouteToDeferredType(
@@ -49,25 +49,25 @@ extension _RouteConfigList on List<RouteConfig> {
     for (RouteConfig routeConfig in this) {
       if (routeConfig.pageType?.import == importPath) {
         return (routeConfig.deferredLoading ?? defaultDeferredLoading)
-            ? _DeferredStatus.Deferred
-            : _DeferredStatus.None;
+            ? _DeferredStatus.deferred
+            : _DeferredStatus.none;
       }
       if (routeConfig.childRouterConfig == null) {
       } else {
         final deferredStatus = routeConfig.childRouterConfig!.routes
             .mapRouteToDeferredType(importPath, defaultDeferredLoading);
-        if (deferredStatus == _DeferredStatus.Deferred) {
-          return _DeferredStatus.Deferred;
+        if (deferredStatus == _DeferredStatus.deferred) {
+          return _DeferredStatus.deferred;
         }
-        if (deferredStatus == _DeferredStatus.None) {
+        if (deferredStatus == _DeferredStatus.none) {
           return defaultDeferredLoading
-              ? _DeferredStatus.Deferred
-              : _DeferredStatus.None;
+              ? _DeferredStatus.deferred
+              : _DeferredStatus.none;
         }
       }
     }
-    return _DeferredStatus.NotFound;
+    return _DeferredStatus.notFound;
   }
 }
 
-enum _DeferredStatus { NotFound, Deferred, None }
+enum _DeferredStatus { notFound, deferred, none }

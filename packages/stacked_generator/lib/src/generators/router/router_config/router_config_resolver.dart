@@ -2,8 +2,8 @@ import 'package:analyzer/dart/constant/value.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
-import 'package:stacked_generator/type_resolver.dart';
 
+import '../../router_common/resolvers/type_resolver.dart';
 import 'router_config.dart';
 
 class RouterConfigResolver {
@@ -56,9 +56,9 @@ class RouterConfigResolver {
           routerConfig,
           children!,
           parentClassName:
-              route.className.key.toLowerCase() != route.name.toLowerCase()
-                  ? route.name.capitalize
-                  : route.className.key,
+              route.className.toLowerCase() != route.name?.toLowerCase()
+                  ? (route.name ?? '').capitalize
+                  : route.className,
         );
         route = route.copyWith(children: childrenRoutes);
       }

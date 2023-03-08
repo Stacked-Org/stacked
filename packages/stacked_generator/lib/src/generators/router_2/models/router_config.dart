@@ -1,6 +1,6 @@
 import 'package:analyzer/dart/element/element.dart' show ClassElement;
 
-import 'route_config.dart';
+import '../../router_common/models/route_config.dart';
 
 class RouterConfig {
   final List<RouteConfig> routes;
@@ -46,11 +46,11 @@ class RouterConfig {
 
   List<RouterConfig> get subRouters {
     final routers = <RouterConfig>[];
-    routes.forEach((route) {
+    for (final route in routes) {
       if (route.childRouterConfig != null) {
         routers.add(route.childRouterConfig!);
       }
-    });
+    }
     return routers;
   }
 

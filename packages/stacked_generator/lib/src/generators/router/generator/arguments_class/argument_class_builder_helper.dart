@@ -1,8 +1,8 @@
 import 'package:code_builder/code_builder.dart';
-import 'package:stacked_generator/route_config_resolver.dart';
-
-import '../route_allocator.dart';
 import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
+
+import '../../../../../route_config_resolver.dart';
+import '../route_allocator.dart';
 
 class ArgumentClassBuilderHelper {
   final RouteConfig route;
@@ -29,7 +29,7 @@ class ArgumentClassBuilderHelper {
   String get convertArgumentsToMap {
     Map<String, dynamic> obj = {};
 
-    for (RouteParamConfig param in route.parameters) {
+    for (ParamConfig param in route.parameters) {
       obj['"${param.name}"'] = '"\$${param.name}"';
     }
 
@@ -70,7 +70,7 @@ class ArgumentClassBuilderHelper {
 
   /// Note: I didn't use this function in [NavigatorExtension] cause the import
   /// will be dublicated
-  String? _processDefaultValueCodeImport(RouteParamConfig param) {
+  String? _processDefaultValueCodeImport(ParamConfig param) {
     final defaultImport = param.type.import;
 
     /// If defaultValueCode already has an import return it

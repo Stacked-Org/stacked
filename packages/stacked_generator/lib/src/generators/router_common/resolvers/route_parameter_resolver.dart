@@ -2,12 +2,12 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_core/stacked_core.dart';
-import 'package:stacked_generator/src/generators/router_2/models/route_parameter_config.dart';
-import 'package:stacked_generator/src/generators/router_2/resolvers/type_resolver.dart';
 import 'package:stacked_generator/src/generators/router_2/route_utils.dart';
+import 'package:stacked_generator/src/generators/router_common/models/route_parameter_config.dart';
+import 'package:stacked_generator/src/generators/router_common/resolvers/type_resolver.dart';
 
-final _pathParamChecker = TypeChecker.fromRuntime(PathParam);
-final _queryParamChecker = TypeChecker.fromRuntime(QueryParam);
+const _pathParamChecker = TypeChecker.fromRuntime(PathParam);
+const _queryParamChecker = TypeChecker.fromRuntime(QueryParam);
 
 class RouteParameterResolver {
   final TypeResolver _typeResolver;

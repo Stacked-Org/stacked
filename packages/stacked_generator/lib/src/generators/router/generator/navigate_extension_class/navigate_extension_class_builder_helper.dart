@@ -30,8 +30,8 @@ class NavigateExtensionClassBuilderHelper {
     required RouteConfig route,
   }) {
     final methodName = route.parentClassName != null
-        ? '${navigationMethod}Nested${route.name.capitalize}In${route.parentClassName}'
-        : '$navigationMethod${route.name.capitalize}';
+        ? '${navigationMethod}Nested${route.name?.capitalize}In${route.parentClassName}'
+        : '$navigationMethod${route.name?.capitalize}';
 
     final methodReturnType = route.isProcessedReturnTypeDynamic
         ? route.processedReturnType
@@ -54,7 +54,7 @@ class NavigateExtensionClassBuilderHelper {
   }
 
   /// The arguments provided to the view
-  Parameter _extractViewArgumentsParametrs(RouteParamConfig param) {
+  Parameter _extractViewArgumentsParametrs(ParamConfig param) {
     return Parameter((parameterBuilder) {
       parameterBuilder
         ..name = param.name
