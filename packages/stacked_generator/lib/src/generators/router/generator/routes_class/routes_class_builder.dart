@@ -1,5 +1,5 @@
 import 'package:code_builder/code_builder.dart';
-import 'package:stacked_generator/route_config_resolver.dart';
+import 'package:stacked_generator/src/generators/router_common/models/route_config.dart';
 
 class RoutesClassBuilder {
   final List<RouteConfig> routes;
@@ -19,13 +19,17 @@ class RoutesClassBuilder {
   /// loginView,_homeView,};}
   ///
   Class buildRoutesClass() {
-    final assignPathsToRouteNames = routes.map((route) => Field(
-          (b) => b
-            ..modifier = FieldModifier.constant
-            ..static = true
-            ..name = _convertToPrivateNameWhenRouteHasPathParameter(route)
-            ..assignment = literalString(route.pathName).code,
-        ));
+    final assignPathsToRouteNames = routes.map((route) {
+      print(
+          '============ assignPathsToRouteNames | pathName:${route.pathName} name:${route.name}');
+      return Field(
+        (b) => b
+          ..modifier = FieldModifier.constant
+          ..static = true
+          ..name = _convertToPrivateNameWhenRouteHasPathParameter(route)
+          ..assignment = literalString(route.pathName).code,
+      );
+    });
 
     final pathMethods =
         routes.where((route) => route.pathName.contains(':')).map((route) {

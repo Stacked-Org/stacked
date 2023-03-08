@@ -2,13 +2,13 @@ import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_core/stacked_core.dart';
-import 'package:stacked_generator/src/generators/router_2/route_utils.dart';
 import 'package:stacked_generator/src/generators/router_common/models/route_parameter_config.dart';
+import 'package:stacked_generator/utils.dart';
 
 import '../../router_common/models/importable_type.dart';
 import '../../router_common/models/route_config.dart';
+import '../../router_common/models/router_config.dart';
 import '../../router_common/resolvers/type_resolver.dart';
-import '../models/router_config.dart';
 import 'route_config_resolver.dart';
 
 /// Extracts and holds router configs
@@ -20,7 +20,7 @@ class RouterConfigResolver {
   RouterConfigResolver(this._typeResolver);
 
   RouterConfig resolve(
-    ConstantReader autoRouter,
+    ConstantReader stackedApp,
     ClassElement clazz, {
     bool usesPartBuilder = false,
   }) {
@@ -31,29 +31,29 @@ class RouterConfigResolver {
     bool? customRouteBarrierDismissible;
     ResolvedType? transitionBuilder;
     ResolvedType? customRouteBuilder;
-    if (autoRouter.instanceOf(const TypeChecker.fromRuntime(CupertinoRouter))) {
+    if (stackedApp.instanceOf(const TypeChecker.fromRuntime(CupertinoRouter))) {
       routeType = RouteType.cupertino;
-    } else if (autoRouter
+    } else if (stackedApp
         .instanceOf(const TypeChecker.fromRuntime(AdaptiveRouter))) {
       routeType = RouteType.adaptive;
-    } else if (autoRouter
+    } else if (stackedApp
         .instanceOf(const TypeChecker.fromRuntime(CustomRouter))) {
       routeType = RouteType.custom;
 
       durationInMilliseconds =
-          autoRouter.peek('durationInMilliseconds')?.intValue;
+          stackedApp.peek('durationInMilliseconds')?.intValue;
       reverseDurationInMilliseconds =
-          autoRouter.peek('reverseDurationInMilliseconds')?.intValue;
-      customRouteOpaque = autoRouter.peek('opaque')?.boolValue;
+          stackedApp.peek('reverseDurationInMilliseconds')?.intValue;
+      customRouteOpaque = stackedApp.peek('opaque')?.boolValue;
       customRouteBarrierDismissible =
-          autoRouter.peek('barrierDismissible')?.boolValue;
+          stackedApp.peek('barrierDismissible')?.boolValue;
       final function =
-          autoRouter.peek('transitionsBuilder')?.objectValue.toFunctionValue();
+          stackedApp.peek('transitionsBuilder')?.objectValue.toFunctionValue();
       if (function != null) {
         transitionBuilder = _typeResolver.resolveFunctionType(function);
       }
       final customRouteBuilderValue =
-          autoRouter.peek('customRouteBuilder')?.objectValue.toFunctionValue();
+          stackedApp.peek('customRouteBuilder')?.objectValue.toFunctionValue();
       if (customRouteBuilderValue != null) {
         customRouteBuilder =
             _typeResolver.resolveFunctionType(customRouteBuilderValue);
@@ -61,7 +61,7 @@ class RouterConfigResolver {
     }
 
     final deferredLoading =
-        autoRouter.peek('deferredLoading')?.boolValue ?? false;
+        stackedApp.peek('deferredLoading')?.boolValue ?? false;
 
     _globalRouteConfig = RouteConfig(
       routeType: routeType,
@@ -78,21 +78,35 @@ class RouterConfigResolver {
       deferredLoading: deferredLoading,
     );
 
-    var replaceInRouteName = autoRouter.peek('replaceInRouteName')?.stringValue;
+    var replaceInRouteName = stackedApp.peek('replaceInRouteName')?.stringValue;
 
-    final autoRoutes = autoRouter.read('routes').listValue;
+    final routesDartObjects = stackedApp.read('routes').listValue;
+    final generateNavigationExt =
+        stackedApp.peek('generateNavigationHelperExtension')?.boolValue ??
+            false;
+    final routeNamePrefix = stackedApp.peek('routePrefix')?.stringValue ?? '/';
+
+    final routesClassName =
+        stackedApp.peek('routesClassName')?.stringValue ?? 'Routes';
 
     var routerConfig = RouterConfig(
       parentRouteConfig: _globalRouteConfig,
       routerClassName:
           usesPartBuilder ? '_\$${clazz.displayName}' : 'Navigator2Router',
+      routesClassName: routesClassName,
       element: clazz,
       replaceInRouteName: replaceInRouteName,
       routes: const [],
       deferredLoading: deferredLoading,
+      generateNavigationHelper: generateNavigationExt,
+      routeNamePrefix: routeNamePrefix,
     );
 
-    var routes = _resolveRoutes(routerConfig, autoRoutes);
+    var routes = _resolveRoutes(
+      routerConfig,
+      routesDartObjects,
+      routeNamePrefix: routeNamePrefix,
+    );
 
     return routerConfig.copyWith(routes: routes);
   }
@@ -101,13 +115,19 @@ class RouterConfigResolver {
     RouterConfig routerConfig,
     List<DartObject> routesList, {
     List<PathParamConfig> inheritedPathParams = const [],
+    String? routeNamePrefix,
   }) {
-    var routeResolver = RouteConfigResolver(routerConfig, _typeResolver);
+    var routeResolver =
+        RouteConfigResolver(routeNamePrefix, routerConfig, _typeResolver);
     final routes = <RouteConfig>[];
     for (var entry in routesList) {
       var routeReader = ConstantReader(entry);
       RouteConfig route;
-      route = routeResolver.resolve(routeReader, inheritedPathParams);
+      route = routeResolver.resolve(
+        routeReader,
+        inheritedPathParams,
+        parentClassName: routerConfig.parent?.routerClassName,
+      );
 
       var children = routeReader.peek('children')?.listValue;
       if (children?.isNotEmpty == true) {

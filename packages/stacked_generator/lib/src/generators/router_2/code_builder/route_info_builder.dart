@@ -3,7 +3,7 @@ import 'package:stacked_generator/src/generators/router/generator/route_allocato
 
 import '../../router_common/models/route_config.dart';
 import '../../router_common/models/route_parameter_config.dart';
-import '../models/router_config.dart';
+import '../../router_common/models/router_config.dart';
 import 'library_builder.dart';
 
 List<Class> buildRouteInfoAndArgs(

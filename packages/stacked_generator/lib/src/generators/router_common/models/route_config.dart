@@ -1,7 +1,7 @@
 import 'package:code_builder/code_builder.dart';
-import 'package:stacked_generator/src/generators/router_2/route_utils.dart';
 
-import '../../router_2/models/router_config.dart';
+import '../../../../utils.dart';
+import 'router_config.dart';
 import 'importable_type.dart';
 import 'route_parameter_config.dart';
 

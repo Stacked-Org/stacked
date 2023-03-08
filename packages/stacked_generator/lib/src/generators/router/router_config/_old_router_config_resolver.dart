@@ -1,15 +1,16 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:source_gen/source_gen.dart';
-import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
+import 'package:stacked_generator/src/generators/router_2/resolvers/route_config_resolver.dart';
+import 'package:stacked_generator/src/generators/router_common/models/route_config.dart';
+import 'package:stacked_generator/src/generators/router_common/models/router_config.dart';
 
 import '../../router_common/resolvers/type_resolver.dart';
-import 'router_config.dart';
 
-class RouterConfigResolver {
+class _OLD_RouterConfigResolver {
   final TypeResolver _typeResolver;
 
-  const RouterConfigResolver(this._typeResolver);
+  const _OLD_RouterConfigResolver(this._typeResolver);
 
   Future<RouterConfig?> resolve(ConstantReader stackedApp) async {
     /// If routes is not provided return null
@@ -28,6 +29,7 @@ class RouterConfigResolver {
       routesClassName: routesClassName,
       routeNamePrefix: routeNamePrefix,
       generateNavigationHelper: generateNavigationExt,
+      routes: [],
     );
 
     final extractedRoutes =
@@ -45,9 +47,9 @@ class RouterConfigResolver {
 
     for (var routeDartObject in routesList) {
       final routeReader = ConstantReader(routeDartObject);
-      var route =
-          await RouteConfigResolver(routerConfig.routeNamePrefix, _typeResolver)
-              .resolve(routeReader, parentClassName: parentClassName);
+      var route = RouteConfigResolver(
+              routerConfig.routeNamePrefix, routerConfig, _typeResolver)
+          .resolve(routeReader, [], parentClassName: parentClassName);
 
       final children = routeReader.peek('children')?.listValue;
 

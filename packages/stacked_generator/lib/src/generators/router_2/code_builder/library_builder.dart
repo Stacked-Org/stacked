@@ -2,11 +2,11 @@ import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:stacked_generator/src/generators/router/generator/route_allocator.dart';
 import 'package:stacked_generator/src/generators/router/generator/routes_class/routes_class_builder.dart';
-import 'package:stacked_generator/src/generators/router_2/route_utils.dart';
+import 'package:stacked_generator/utils.dart';
 
 import '../../router_common/models/importable_type.dart';
 import '../../router_common/models/route_config.dart';
-import '../models/router_config.dart';
+import '../../router_common/models/router_config.dart';
 import 'deferred_pages_allocator.dart';
 import 'root_router_builder.dart';
 import 'route_info_builder.dart';
@@ -30,7 +30,10 @@ String generateLibrary(
   bool usesPartBuilder = false,
   bool deferredLoading = false,
 }) {
-  final fileName = config.element.source.uri.pathSegments.last;
+  throwIf(config.element == null,
+      'Element is required for the Navigator2 Router. Something is broken');
+
+  final fileName = config.element!.source.uri.pathSegments.last;
 
   throwIf(
     usesPartBuilder && deferredLoading,

@@ -4,7 +4,7 @@ import 'package:stacked_generator/src/generators/base_generator.dart';
 import 'package:stacked_generator/src/generators/extensions/routes_extension.dart';
 import 'package:stacked_generator/src/generators/router/generator/routes_class/routes_class_builder.dart';
 
-import '../router_config/router_config.dart';
+import '../../router_common/models/router_config.dart';
 import 'arguments_class/arguments_class_builder.dart';
 import 'navigate_extension_class/navigate_extension_class_builder.dart';
 import 'route_allocator.dart';

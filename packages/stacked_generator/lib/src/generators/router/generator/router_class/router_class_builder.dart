@@ -1,7 +1,6 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/src/generators/router/generator/router_class/router_class_builder_helper.dart';
-
-import '../../../../../route_config_resolver.dart';
+import 'package:stacked_generator/src/generators/router_common/models/route_config.dart';
 
 class RouterClassBuilder with RouterClassBuilderHelper {
   final List<RouteConfig> routes;
