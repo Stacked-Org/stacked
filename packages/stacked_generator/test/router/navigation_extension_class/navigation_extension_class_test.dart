@@ -67,7 +67,7 @@ void main() {
   group('NavigateExtensionClassBuilderTest -', () {
     Extension getBuilderInstance() => NavigateExtensionClassBuilder(
           routes: _routes,
-        ).build();
+        ).build(DartEmitter());
 
     group('build -', () {
       test('Generate extension for strong type navigation', () {

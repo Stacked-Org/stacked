@@ -92,7 +92,7 @@ class RouterConfigResolver {
     var routerConfig = RouterConfig(
       parentRouteConfig: _globalRouteConfig,
       routerClassName:
-          usesPartBuilder ? '_\$${clazz.displayName}' : 'Navigator2Router',
+          usesPartBuilder ? '_\$${clazz.displayName}' : 'StackedRouter',
       routesClassName: routesClassName,
       element: clazz,
       replaceInRouteName: replaceInRouteName,
@@ -126,13 +126,16 @@ class RouterConfigResolver {
       route = routeResolver.resolve(
         routeReader,
         inheritedPathParams,
-        parentClassName: routerConfig.parent?.routerClassName,
+        parentRouterConfig: routerConfig.parent,
       );
 
       var children = routeReader.peek('children')?.listValue;
       if (children?.isNotEmpty == true) {
         var subRouterConfig = routerConfig.copyWith(
-          parent: routerConfig,
+          parent: routerConfig.copyWith(
+            routesClassName: '${route.className}Routes',
+            routerClassName: '${route.className}Router',
+          ),
         );
         var nestedRoutes = _resolveRoutes(
           subRouterConfig,
@@ -142,8 +145,10 @@ class RouterConfigResolver {
         route = route.copyWith(
           childRouterConfig: subRouterConfig.copyWith(routes: nestedRoutes),
           children: nestedRoutes,
+          parentRouterConfig: routerConfig.parent,
         );
       }
+
       routes.add(route);
     }
 

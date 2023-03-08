@@ -42,7 +42,7 @@ class RouteConfigResolver {
   RouteConfig resolve(
     ConstantReader stackedRoute,
     List<PathParamConfig> inheritedPathParams, {
-    String? parentClassName,
+    RouterConfig? parentRouterConfig,
   }) {
     final page = stackedRoute.peek('page')?.typeValue;
     var path = stackedRoute.peek('path')?.stringValue;
@@ -64,6 +64,7 @@ class RouteConfigResolver {
         fullMatch: stackedRoute.peek('fullMatch')?.boolValue ?? true,
         routeType: RouteType.redirect,
         deferredLoading: isDeferred,
+        parentRouterConfig: parentRouterConfig,
       );
     }
 
@@ -289,23 +290,9 @@ class RouteConfigResolver {
       }
     }
 
-    // final children = stackedRoute.peek('children')?.listValue;
-
-    // if (children?.isNotEmpty ?? false) {
-
-    //   final childrenRoutes = (
-    //     stackedRoute,
-    //     children!,
-    //     parentClassName:
-    //         route.className.toLowerCase() != route.name?.toLowerCase()
-    //             ? (route.name ?? '').capitalize
-    //             : route.className,
-    //   );
-    //   route = route.copyWith(children: childrenRoutes);
-    // }
-
     return RouteConfig(
-      parentClassName: parentClassName,
+      parentClassName: parentRouterConfig?.routerClassName,
+      parentRouterConfig: parentRouterConfig,
       parameters: parameters,
       hasWrapper: classElement.allSupertypes
           .map<String>((el) => toDisplayString(el))

@@ -10,7 +10,7 @@ class NavigateExtensionClassBuilder with NavigateExtensionClassBuilderHelper {
     required this.routes,
   });
 
-  Extension build() {
+  Extension build(DartEmitter emitter) {
     return Extension(
       (b) => b
         ..name = 'NavigatorStateExtension'
@@ -18,7 +18,7 @@ class NavigateExtensionClassBuilder with NavigateExtensionClassBuilderHelper {
           'NavigationService',
           'package:stacked_services/stacked_services.dart',
         )
-        ..methods.addAll(buildNavigateToExtensionMethods(routes)),
+        ..methods.addAll(buildNavigateToExtensionMethods(routes, emitter)),
     );
   }
 }
