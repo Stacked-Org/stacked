@@ -36,7 +36,7 @@ String valueOr(String? value, String or) {
 }
 
 extension IterableExtenstion<E> on Iterable<E> {
-  E? firstOrNull(bool test(E element)) {
+  E? firstOrNull(bool Function(E element) test) {
     for (var e in this) {
       if (test(e)) {
         return e;
@@ -45,7 +45,7 @@ extension IterableExtenstion<E> on Iterable<E> {
     return null;
   }
 
-  E? lastOrNull(bool test(E element)) {
+  E? lastOrNull(bool Function(E element) test) {
     for (var i = length - 1; i >= 0; i--) {
       if (test(elementAt(i))) {
         return elementAt(i);

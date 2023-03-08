@@ -3,16 +3,14 @@ import 'package:analyzer/dart/element/nullability_suffix.dart'
     show NullabilitySuffix;
 import 'package:analyzer/dart/element/type.dart'
     show DartType, ParameterizedType;
-import 'package:analyzer/dart/element/type.dart';
 import 'package:path/path.dart' as p;
-
-import 'resolved_type.dart';
+import 'package:stacked_generator/src/generators/router_common/models/importable_type.dart';
 
 class TypeResolver {
   final List<LibraryElement> libs;
   final Uri? targetFile;
 
-  const TypeResolver(this.libs, [this.targetFile]);
+  TypeResolver(this.libs, [this.targetFile]);
 
   String? resolveImport(Element? element) {
     // return early if source is null or element is a core type

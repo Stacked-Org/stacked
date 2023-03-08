@@ -1,8 +1,9 @@
+import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/src/generators/router_2/route_utils.dart';
 
+import '../../router_2/models/router_config.dart';
 import 'importable_type.dart';
 import 'route_parameter_config.dart';
-import 'router_config.dart';
 
 /// holds the extracted route configs
 /// to be used in [RouterClassGenerator]
@@ -10,19 +11,27 @@ import 'router_config.dart';
 class RouteConfig {
   final String? name;
   final String pathName;
+  final String className;
+  final String classImport;
+  final bool fullscreenDialog;
+  final bool maintainState;
+  final ResolvedType? returnType;
+  final List<ParamConfig> parameters;
+  final bool hasWrapper;
+  final List<RouteConfig> children;
+  final bool hasConstConstructor;
+  final Set<String> imports;
+  final String? parentClassName;
+
+  // ========== v2 parameters below =========
   final List<PathParamConfig> pathParams;
   final bool initial;
-  final bool? fullscreenDialog;
   final bool? fullMatch;
   final bool? customRouteOpaque;
   final bool? customRouteBarrierDismissible;
   final String? customRouteBarrierLabel;
   final int? customRouteBarrierColor;
-  final bool? maintainState;
   final ResolvedType? pageType;
-  final String className;
-  final ResolvedType? returnType;
-  final List<ParamConfig> parameters;
   final ResolvedType? transitionBuilder;
   final ResolvedType? customRouteBuilder;
   final String? redirectTo;
@@ -34,24 +43,24 @@ class RouteConfig {
   final String? cupertinoNavTitle;
   final String? replacementInRouteName;
   final RouterConfig? childRouterConfig;
-  final bool hasConstConstructor;
   final bool usesPathAsKey;
   final List<MetaEntry> meta;
   final bool? deferredLoading;
 
-  RouteConfig({
+  const RouteConfig({
     this.name,
     required this.pathName,
     this.pathParams = const [],
     this.initial = false,
-    this.fullscreenDialog,
+    this.fullscreenDialog = false,
     this.fullMatch,
     this.customRouteOpaque,
     this.customRouteBarrierDismissible,
     this.customRouteBarrierLabel,
-    this.maintainState,
+    this.maintainState = true,
     this.pageType,
     required this.className,
+    required this.classImport,
     this.parameters = const [],
     this.transitionBuilder,
     this.customRouteBuilder,
@@ -70,7 +79,15 @@ class RouteConfig {
     this.customRouteBarrierColor,
     this.meta = const [],
     this.deferredLoading,
+    this.hasWrapper = false,
+    this.children = const [],
+    this.imports = const {},
+    this.parentClassName,
   });
+
+  Code registerRoute() {
+    return const Code('');
+  }
 
   RouteConfig copyWith({
     String? name,
@@ -86,6 +103,7 @@ class RouteConfig {
     bool? maintainState,
     ResolvedType? pageType,
     String? className,
+    String? classImport,
     ResolvedType? returnType,
     List<ParamConfig>? parameters,
     ResolvedType? transitionBuilder,
@@ -103,57 +121,10 @@ class RouteConfig {
     bool? usesPathAsKey,
     List<MetaEntry>? meta,
     bool? deferredLoading,
+    List<RouteConfig>? children,
   }) {
-    if ((name == null || identical(name, this.name)) &&
-        (pathName == null || identical(pathName, this.pathName)) &&
-        (usesPathAsKey == null ||
-            identical(usesPathAsKey, this.usesPathAsKey)) &&
-        (pathParams == null || identical(pathParams, this.pathParams)) &&
-        (initial == null || identical(initial, this.initial)) &&
-        (fullscreenDialog == null ||
-            identical(fullscreenDialog, this.fullscreenDialog)) &&
-        (fullMatch == null || identical(fullMatch, this.fullMatch)) &&
-        (customRouteOpaque == null ||
-            identical(customRouteOpaque, this.customRouteOpaque)) &&
-        (customRouteBarrierDismissible == null ||
-            identical(customRouteBarrierDismissible,
-                this.customRouteBarrierDismissible)) &&
-        (customRouteBarrierLabel == null ||
-            identical(customRouteBarrierLabel, this.customRouteBarrierLabel)) &&
-        (maintainState == null ||
-            identical(maintainState, this.maintainState)) &&
-        (pageType == null || identical(pageType, this.pageType)) &&
-        (className == null || identical(className, this.className)) &&
-        (returnType == null || identical(returnType, this.returnType)) &&
-        (parameters == null || identical(parameters, this.parameters)) &&
-        (transitionBuilder == null ||
-            identical(transitionBuilder, this.transitionBuilder)) &&
-        (customRouteBuilder == null ||
-            identical(customRouteBuilder, this.customRouteBuilder)) &&
-        (redirectTo == null || identical(redirectTo, this.redirectTo)) &&
-        (usesTabsRouter == null ||
-            identical(usesTabsRouter, this.hasWrappedRoute)) &&
-        (reverseDurationInMilliseconds == null ||
-            identical(reverseDurationInMilliseconds,
-                this.reverseDurationInMilliseconds)) &&
-        (durationInMilliseconds == null ||
-            identical(durationInMilliseconds, this.durationInMilliseconds)) &&
-        (routeType == null || identical(routeType, this.routeType)) &&
-        (guards == null || identical(guards, this.guards)) &&
-        (cupertinoNavTitle == null ||
-            identical(cupertinoNavTitle, this.cupertinoNavTitle)) &&
-        (replacementInRouteName == null ||
-            identical(replacementInRouteName, this.replacementInRouteName)) &&
-        (childRouterConfig == null ||
-            identical(childRouterConfig, this.childRouterConfig)) &&
-        (hasConstConstructor == null ||
-            identical(hasConstConstructor, this.hasConstConstructor)) &&
-        (deferredLoading == null ||
-            identical(deferredLoading, this.deferredLoading))) {
-      return this;
-    }
-
     return RouteConfig(
+      children: children ?? this.children,
       name: name ?? this.name,
       pathName: pathName ?? this.pathName,
       pathParams: pathParams ?? this.pathParams,
@@ -168,12 +139,13 @@ class RouteConfig {
       maintainState: maintainState ?? this.maintainState,
       pageType: pageType ?? this.pageType,
       className: className ?? this.className,
+      classImport: classImport ?? this.classImport,
       returnType: returnType ?? this.returnType,
       parameters: parameters ?? this.parameters,
       transitionBuilder: transitionBuilder ?? this.transitionBuilder,
       customRouteBuilder: customRouteBuilder ?? this.customRouteBuilder,
       redirectTo: redirectTo ?? this.redirectTo,
-      hasWrappedRoute: usesTabsRouter ?? this.hasWrappedRoute,
+      hasWrappedRoute: usesTabsRouter ?? hasWrappedRoute,
       reverseDurationInMilliseconds:
           reverseDurationInMilliseconds ?? this.reverseDurationInMilliseconds,
       durationInMilliseconds:
@@ -191,6 +163,79 @@ class RouteConfig {
       customRouteBarrierColor:
           customRouteBarrierColor ?? this.customRouteBarrierColor,
     );
+  }
+
+  Code get joinedConstructerParams {
+    final constructorParams = _extractViewConstructerParametersNames();
+
+    final constructor = Block.of([
+      Code("${hasConstConstructor == true ? 'const' : ''}  "),
+      Reference(className, className).code,
+      Code(
+          "(${constructorParams.join(',')})${(hasWrapper) ? ".wrappedRoute(context)" : ""}")
+    ]);
+    return constructor;
+  }
+
+  Code registerRouteBloc({
+    required String routeType,
+    String? routeTypeImport,
+    Code? extra,
+    bool usePageBuilder = false,
+  }) {
+    return Block.of([
+      const Code('return '),
+      Reference(routeType, routeTypeImport).code,
+      usePageBuilder
+          ? Code(
+              '<$processedReturnType>(pageBuilder: (context, animation, secondaryAnimation) => ')
+          : Code('<$processedReturnType>(builder: (context) => '),
+      joinedConstructerParams,
+      const Code(', settings: data,'),
+      if (extra != null) extra,
+      if (fullscreenDialog) const Code('fullscreenDialog:true,'),
+      if (!maintainState) const Code('maintainState:false,'),
+      const Code(');')
+    ]);
+  }
+
+  Iterable<String> _extractViewConstructerParametersNames() {
+    return parameters.map<String>((param) {
+      String getterName;
+      if (param.isPathParam) {
+        getterName =
+            "data.pathParams['${param.paramName}'].${param.getterName}(${param.defaultValueCode != null ? '${param.defaultValueCode}' : ''})";
+      } else if (param.isQueryParam) {
+        getterName =
+            "data.queryParams['${param.paramName}'].${param.getterName}(${param.defaultValueCode != null ? '${param.defaultValueCode}' : ''})";
+      } else {
+        getterName = "args.${param.name}";
+      }
+      if (param.isPositional) {
+        return getterName;
+      } else {
+        return '${param.name}:$getterName';
+      }
+    });
+  }
+
+  bool get isProcessedReturnTypeDynamic => processedReturnType == 'dynamic';
+
+  String get processedReturnType {
+    final returnTypeContainsBiggerOperatorWithOneOfRouteNames = returnType !=
+            null &&
+        returnType!.name.contains('<') &&
+        returnType!.name.contains(
+            RegExp('CustomRoute|MaterialRoute|CupertinoRoute|AdaptiveRoute'));
+
+    if (returnTypeContainsBiggerOperatorWithOneOfRouteNames) {
+      final afterRemovingArrowHeads = returnType!.name.substring(
+          returnType!.name.indexOf('<') + 1, returnType!.name.lastIndexOf('>'));
+
+      return afterRemovingArrowHeads;
+    } else {
+      return returnType?.name ?? 'dynamic';
+    }
   }
 
   String get argumentsHolderClassName {
@@ -224,7 +269,7 @@ class RouteConfig {
   Iterable<ParamConfig> get namedParams => parameters.where((p) => p.isNamed);
 
   String get routeName {
-    var nameToUse;
+    String? nameToUse;
     if (name != null) {
       nameToUse = name;
     } else if (replacementInRouteName != null &&
@@ -234,7 +279,7 @@ class RouteConfig {
     } else {
       nameToUse = "${className}Route";
     }
-    return capitalize(nameToUse);
+    return capitalize(nameToUse!);
   }
 
   String get pageTypeName {

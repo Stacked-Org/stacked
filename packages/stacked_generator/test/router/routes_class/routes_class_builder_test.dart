@@ -11,12 +11,14 @@ final List<RouteConfig> _routes = [
   const MaterialRouteConfig(
     name: 'loginView',
     pathName: 'pathNamaw',
-    className: MapEntry('LoginClass', 'ui/login_class.dart'),
+    className: 'LoginClass',
+    classImport: 'ui/login_class.dart',
   ),
   const MaterialRouteConfig(
     name: 'homeView',
     pathName: '/family/:fid',
-    className: MapEntry('HomeClass', 'ui/home_class.dart'),
+    className: 'HomeClass',
+    classImport: 'ui/home_class.dart',
   )
 ];
 

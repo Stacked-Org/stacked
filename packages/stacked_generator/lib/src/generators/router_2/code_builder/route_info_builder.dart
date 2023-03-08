@@ -1,8 +1,8 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/src/generators/router/generator/route_allocator.dart';
 
-import '../models/route_config.dart';
-import '../models/route_parameter_config.dart';
+import '../../router_common/models/route_config.dart';
+import '../../router_common/models/route_parameter_config.dart';
 import '../models/router_config.dart';
 import 'library_builder.dart';
 
@@ -137,7 +137,7 @@ Iterable<Parameter> buildArgParams(
   return parameters.where((p) => !p.isInheritedPathParam).map(
         (p) => Parameter(
           (b) {
-            var defaultCode;
+            Code? defaultCode;
             if (p.defaultValueCode != null) {
               if (p.defaultValueCode!.contains('const')) {
                 final symbol = p.defaultValueCode!.replaceAll('const', '');
@@ -180,8 +180,9 @@ Iterable<Parameter> buildArgParams(
               ..toThis = toThis
               ..required = p.isRequired || p.isPositional
               ..defaultTo = defaultCode;
-            if (!toThis)
+            if (!toThis) {
               b.type = p is FunctionParamConfig ? p.funRefer : p.type.refer;
+            }
           },
         ),
       );

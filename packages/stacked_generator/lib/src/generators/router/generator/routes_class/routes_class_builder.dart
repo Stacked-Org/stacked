@@ -38,7 +38,7 @@ class RoutesClassBuilder {
               .addAll(_extractOptionalParameters(route.pathName))
           ..name = route.name
           ..body = Code(_addRouteWithPathParameter(
-              routeName: route.name, routePath: route.pathName)),
+              routeName: route.name ?? '', routePath: route.pathName)),
       );
     });
 
@@ -61,7 +61,7 @@ class RoutesClassBuilder {
   }
 
   String _convertToPrivateNameWhenRouteHasPathParameter(RouteConfig route) {
-    return route.pathName.contains(':') ? '_${route.name}' : route.name;
+    return route.pathName.contains(':') ? '_${route.name}' : route.name ?? '';
   }
 
   Iterable<Parameter> _extractOptionalParameters(String pathName) {

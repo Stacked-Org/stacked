@@ -1,4 +1,3 @@
-import 'package:stacked_generator/resolved_type.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
 import 'package:stacked_generator/src/generators/router/generator/router_generator.dart';
 import 'package:stacked_generator/src/generators/router/route_config/adaptive_route_config.dart';
@@ -6,6 +5,7 @@ import 'package:stacked_generator/src/generators/router/route_config/cupertino_r
 import 'package:stacked_generator/src/generators/router/route_config/custom_route_config.dart';
 import 'package:stacked_generator/src/generators/router/route_config/material_route_config.dart';
 import 'package:stacked_generator/src/generators/router/router_config/router_config.dart';
+import 'package:stacked_generator/src/generators/router_common/models/importable_type.dart';
 import 'package:test/test.dart';
 
 import '../helpers/test_constants/router_constants.dart';
@@ -45,7 +45,8 @@ void main() {
           const MaterialRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: MapEntry('TestClass', 'test.dart'),
+            className: 'TestClass',
+            classImport: 'test.dart',
           )
         ];
         generateRouteAndExpectResult(
@@ -56,16 +57,18 @@ void main() {
 
       test('When adding NestedRouter with one child', () {
         final List<RouteConfig> routes = [
-          const MaterialRouteConfig(
+          MaterialRouteConfig(
             name: 'loginView1',
             pathName: 'pathNamaw1',
-            className: MapEntry('TestClass1', 'test1.dart'),
-            returnType: 'returnYpe1',
+            className: 'TestClass1',
+            classImport: 'test1.dart',
+            returnType: ResolvedType(name: 'returnYpe1'),
             children: [
-              MaterialRouteConfig(
+              const MaterialRouteConfig(
                 name: 'nestedView1',
                 pathName: 'nestedPath1',
-                className: MapEntry('nestedClass1', 'nested_test1.dart'),
+                className: 'nestedClass1',
+                classImport: 'nested_test1.dart',
                 parentClassName: 'ParentClass',
               )
             ],
@@ -85,9 +88,10 @@ When a view parameter inside another data structure,
           CustomRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: const MapEntry('TestClass', 'test.dart'),
+            className: 'TestClass',
+            classImport: 'test.dart',
             parameters: [
-              RouteParamConfig(
+              ParamConfig(
                 isPathParam: false,
                 isQueryParam: false,
                 name: 'markers',
@@ -109,9 +113,10 @@ When a view parameter inside another data structure,
           CustomRouteConfig(
             name: 'loginView',
             pathName: 'pathNamaw',
-            className: const MapEntry('TestClass', 'test.dart'),
+            className: 'TestClass',
+            classImport: 'test.dart',
             parameters: [
-              RouteParamConfig(
+              ParamConfig(
                 isPathParam: false,
                 isQueryParam: false,
                 name: 'name',
@@ -133,16 +138,18 @@ When a view parameter inside another data structure,
             const CustomRouteConfig(
               name: 'loginView1',
               pathName: 'pathNamaw1',
-              className: MapEntry('TestClass1', 'test1.dart'),
+              className: 'TestClass1',
+              classImport: 'test1.dart',
               reverseDurationInMilliseconds: 2,
               durationInMilliseconds: 22,
             ),
             MaterialRouteConfig(
                 name: 'loginView2',
                 pathName: 'pathNamaw2',
-                className: const MapEntry('TestClass2', 'test2.dart'),
+                className: 'TestClass2',
+                classImport: 'test2.dart',
                 parameters: [
-                  RouteParamConfig(
+                  ParamConfig(
                     name: 'test2paramName',
                     type: ResolvedType(
                         name: 'Test2Type', import: 'test2type.dart'),
@@ -153,9 +160,10 @@ When a view parameter inside another data structure,
             MaterialRouteConfig(
                 name: 'loginView3',
                 pathName: 'pathNamaw3',
-                className: const MapEntry('TestClass3', 'test3.dart'),
+                className: 'TestClass3',
+                classImport: 'test3.dart',
                 parameters: [
-                  RouteParamConfig(
+                  ParamConfig(
                     name: 'test3paramName',
                     type: ResolvedType(
                         name: 'Test3Type', import: 'test3type.dart'),
@@ -166,17 +174,20 @@ When a view parameter inside another data structure,
             const MaterialRouteConfig(
                 name: 'loginView4',
                 pathName: 'pathNamaw4',
-                className: MapEntry('TestClass4', 'test4.dart'),
+                className: 'TestClass4',
+                classImport: 'test4.dart',
                 maintainState: false),
             const AdaptiveRouteConfig(
                 name: 'loginView5',
                 pathName: 'pathNamaw5',
-                className: MapEntry('TestClass5', 'test5.dart'),
+                className: 'TestClass5',
+                classImport: 'test5.dart',
                 cupertinoNavTitle: 'cupertinooo'),
             const CupertinoRouteConfig(
               name: 'loginView6',
               pathName: 'pathNamaw6',
-              className: MapEntry('TestClass6', 'test6.dart'),
+              className: 'TestClass6',
+              classImport: 'test6.dart',
             ),
           ];
 

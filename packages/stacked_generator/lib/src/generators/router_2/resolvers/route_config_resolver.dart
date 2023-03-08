@@ -4,12 +4,12 @@ import 'package:source_gen/source_gen.dart';
 import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_generator/src/generators/router_2/route_utils.dart';
 
-import '../models/importable_type.dart';
-import '../models/route_config.dart';
-import '../models/route_parameter_config.dart';
+import '../../router_common/models/importable_type.dart';
+import '../../router_common/models/route_config.dart';
+import '../../router_common/models/route_parameter_config.dart';
+import '../../router_common/resolvers/route_parameter_resolver.dart';
+import '../../router_common/resolvers/type_resolver.dart';
 import '../models/router_config.dart';
-import '../resolvers/route_parameter_resolver.dart';
-import '../resolvers/type_resolver.dart';
 
 const TypeChecker autoRouteChecker = TypeChecker.fromUrl(
   'package:stacked_core/src/code_generation/stacked_app.dart#StackedApp',
@@ -29,6 +29,8 @@ class RouteConfigResolver {
 
   RouteConfigResolver(this._routerConfig, this._typeResolver);
 
+  // TODO (Refactor): This entire function should be refactored, tested and
+  // recorded for a video
   RouteConfig resolve(
       ConstantReader autoRoute, List<PathParamConfig> inheritedPathParams) {
     final page = autoRoute.peek('page')?.typeValue;
@@ -47,6 +49,7 @@ class RouteConfigResolver {
         pathName: path!,
         redirectTo: redirectTo,
         className: '',
+        classImport: '',
         fullMatch: autoRoute.peek('fullMatch')?.boolValue ?? true,
         routeType: RouteType.redirect,
         deferredLoading: isDeferred,
@@ -60,6 +63,7 @@ class RouteConfigResolver {
     );
 
     final classElement = page.element as ClassElement;
+    final import = _typeResolver.resolveImport(classElement);
     final hasWrappedRoute = classElement.allSupertypes.any((e) =>
         e.getDisplayString(withNullability: false) == 'AutoRouteWrapper');
     var pageType = _typeResolver.resolveType(page);
@@ -167,7 +171,7 @@ class RouteConfigResolver {
       final valueType =
           entry.value!.type!.getDisplayString(withNullability: false);
       throwIf(!validMetaValues.contains(valueType),
-          'Meta value type ${valueType} is not supported!\nSupported types are ${validMetaValues}');
+          'Meta value type $valueType is not supported!\nSupported types are $validMetaValues');
       switch (valueType) {
         case 'bool':
           {
@@ -245,6 +249,7 @@ class RouteConfigResolver {
           !p.isPathParam &&
           !p.isQueryParam);
       if (unParsableRequiredArgs.isNotEmpty) {
+        // ignore: avoid_print
         print(
             '\nWARNING => Because [$className] has required parameters ${unParsableRequiredArgs.map((e) => e.paramName)} '
             'that can not be parsed from path,\n@PathParam() and @QueryParam() annotations will be ignored.\n');
@@ -261,6 +266,7 @@ class RouteConfigResolver {
 
     return RouteConfig(
       className: className,
+      classImport: import ?? '',
       name: name,
       initial: initial,
       pathParams: pathParams,
@@ -271,8 +277,8 @@ class RouteConfigResolver {
       customRouteBarrierDismissible: customRouteBarrierDismissible,
       customRouteOpaque: customRouteOpaque,
       cupertinoNavTitle: cupertinoNavTitle,
-      fullscreenDialog: fullscreenDialog,
-      maintainState: maintainState,
+      fullscreenDialog: fullscreenDialog ?? false,
+      maintainState: maintainState ?? true,
       parameters: parameters,
       hasConstConstructor: hasConstConstructor,
       durationInMilliseconds: durationInMilliseconds,

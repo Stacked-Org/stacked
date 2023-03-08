@@ -1,10 +1,11 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
+// ignore: implementation_imports
 import 'package:source_gen/src/output_helpers.dart';
 import 'package:stacked_generator/src/generators/router_2/code_builder/library_builder.dart';
 import 'package:stacked_generator/src/generators/router_2/resolvers/router_config_resolver.dart';
-import 'package:stacked_generator/src/generators/router_2/resolvers/type_resolver.dart';
+import 'package:stacked_generator/src/generators/router_common/resolvers/type_resolver.dart';
 
 import 'resolvers/route_config_resolver.dart';
 import 'route_utils.dart';

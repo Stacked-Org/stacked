@@ -6,7 +6,7 @@ import 'package:source_gen/source_gen.dart';
 import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_generator/route_config_resolver.dart';
 
-import '../../../type_resolver.dart';
+import '../router_common/resolvers/type_resolver.dart';
 import 'generator/router_generator.dart';
 
 class StackedRouterGenerator extends GeneratorForAnnotation<StackedApp> {

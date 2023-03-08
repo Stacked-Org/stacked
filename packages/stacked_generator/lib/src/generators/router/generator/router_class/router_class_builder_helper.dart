@@ -26,9 +26,9 @@ class RouterClassBuilderHelper {
       routes.map((route) =>
           const Reference('RouteDef', 'package:stacked/stacked.dart')
               .newInstance(
-            [Reference(routesClassName).property(route.name)],
+            [Reference(routesClassName).property(route.name ?? '')],
             {
-              'page': Reference(route.className.key, route.className.value),
+              'page': Reference(route.className, route.classImport),
             },
           ));
 
@@ -93,7 +93,7 @@ class RouterClassBuilderHelper {
     return Map.fromEntries(
       routes.map(
         (route) => MapEntry(
-          Reference(route.className.key, route.className.value),
+          Reference(route.className, route.classImport),
           _getRouteRegisteration(route),
         ),
       ),
@@ -129,7 +129,7 @@ class RouterClassBuilderHelper {
   Code _prepareArgs(String argsType) =>
       Code('final args = data.getArgs<$argsType>(');
 
-  Code _eitherNullOkOrElse(List<RouteParamConfig> parameters, String argsType,
+  Code _eitherNullOkOrElse(List<ParamConfig> parameters, String argsType,
       {bool hasConstConstructor = false}) {
     /// if router has any required or positional params
     /// the argument class holder becomes required.

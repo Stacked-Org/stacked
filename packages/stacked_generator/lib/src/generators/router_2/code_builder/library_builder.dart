@@ -1,10 +1,11 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:stacked_generator/src/generators/router/generator/route_allocator.dart';
+import 'package:stacked_generator/src/generators/router/generator/routes_class/routes_class_builder.dart';
 import 'package:stacked_generator/src/generators/router_2/route_utils.dart';
 
-import '../models/importable_type.dart';
-import '../models/route_config.dart';
+import '../../router_common/models/importable_type.dart';
+import '../../router_common/models/route_config.dart';
 import '../models/router_config.dart';
 import 'deferred_pages_allocator.dart';
 import 'root_router_builder.dart';
@@ -66,7 +67,7 @@ String generateLibrary(
   final nonRedirectRoutes =
       allRoutes.where((r) => r.routeType != RouteType.redirect);
   final checkedRoutes = <RouteConfig>[];
-  nonRedirectRoutes.forEach((route) {
+  for (final route in nonRedirectRoutes) {
     throwIf(
       (checkedRoutes.any((r) =>
           r.routeName == route.routeName && r.pathName != route.pathName)),
@@ -74,12 +75,17 @@ String generateLibrary(
       element: config.element,
     );
     checkedRoutes.add(route);
-  });
+  }
 
   var allGuards = allRoutes.fold<Set<ResolvedType>>(
     {},
     (acc, a) => acc..addAll(a.guards),
   );
+
+  final routesClass = RoutesClassBuilder(
+    routes: allRoutes,
+    routesClassName: config.routerClassName,
+  ).buildRoutesClass();
 
   final library = Library(
     (b) => b
@@ -93,6 +99,7 @@ String generateLibrary(
             .distinctBy((e) => e.routeName)
             .map((r) => buildRouteInfoAndArgs(r, config, emitter))
             .reduce((acc, a) => acc..addAll(a)),
+        routesClass,
       ]),
   );
 

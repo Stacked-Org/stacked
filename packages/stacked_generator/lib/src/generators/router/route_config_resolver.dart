@@ -3,11 +3,13 @@ import 'package:source_gen/source_gen.dart';
 import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
 import 'package:stacked_generator/src/generators/router/route_config/route_config_factory.dart';
-import 'package:stacked_generator/type_resolver.dart';
+import 'package:stacked_generator/src/generators/router_common/models/route_config.dart';
+import 'package:stacked_generator/src/generators/router_common/models/route_parameter_config.dart';
 import 'package:stacked_generator/utils.dart';
 
-import 'models/route_parameter_config.dart';
-import 'route_config/route_config.dart';
+import '../router_common/models/importable_type.dart';
+import '../router_common/resolvers/route_parameter_resolver.dart';
+import '../router_common/resolvers/type_resolver.dart';
 
 const TypeChecker stackedRouteChecker = TypeChecker.fromRuntime(StackedRoute);
 
@@ -31,15 +33,15 @@ class RouteConfigResolver {
     );
 
     final classElement = dartType.element as ClassElement;
-    final import = _typeResolver.resolveImport(classElement);
-    final classNameWithImport = MapEntry(toDisplayString(dartType), import!);
+    final classImport = _typeResolver.resolveImport(classElement);
+    final className = toDisplayString(dartType);
 
     String? pathName = stackedRoute.peek('path')?.stringValue;
     if (pathName == null) {
       if (stackedRoute.peek('initial')?.boolValue == true) {
         pathName = '/';
       } else {
-        pathName = '$routeNamePrefex${classNameWithImport.key.toKababCase}';
+        pathName = '$routeNamePrefex${className.toKababCase}';
       }
     }
 
@@ -57,7 +59,7 @@ class RouteConfigResolver {
     var params = constructor?.parameters;
 
     bool hasConstConstructor = false;
-    List<RouteParamConfig> parameters = [];
+    List<ParamConfig> parameters = [];
     if (params?.isNotEmpty == true) {
       if (constructor!.isConst &&
           params!.length == 1 &&
@@ -76,13 +78,14 @@ class RouteConfigResolver {
             hasWrapper: classElement.allSupertypes
                 .map<String>((el) => toDisplayString(el))
                 .contains('StackedRouteWrapper'),
-            returnType: toDisplayString(returnType!),
+            returnType: ResolvedType(name: returnType.toString()),
             pathName: pathName,
             name: stackedRoute.peek('name')?.stringValue ??
-                classNameWithImport.key.toLowerCamelCase,
+                className.toLowerCamelCase,
             maintainState:
                 stackedRoute.peek('maintainState')?.boolValue ?? true,
-            className: classNameWithImport,
+            className: className,
+            classImport: classImport ?? '',
             fullscreenDialog:
                 stackedRoute.peek('fullscreenDialog')?.boolValue ?? false,
             hasConstConstructor: hasConstConstructor)

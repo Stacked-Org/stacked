@@ -1,5 +1,5 @@
 import 'package:analyzer/dart/element/element.dart' show ParameterElement;
-import 'package:code_builder/code_builder.dart' as _code;
+import 'package:code_builder/code_builder.dart' as code;
 
 import 'importable_type.dart';
 
@@ -29,28 +29,37 @@ class ParamConfig {
   final bool isPathParam;
   final bool isQueryParam;
   final String? defaultValueCode;
-  final ParameterElement element;
+  final ParameterElement? element;
   final bool isInheritedPathParam;
 
   ParamConfig({
     required this.type,
     required this.name,
-    required this.element,
-    required this.isNamed,
-    required this.isPositional,
-    required this.hasRequired,
-    required this.isOptional,
-    required this.isRequired,
-    required this.isPathParam,
-    required this.isQueryParam,
-    required this.isInheritedPathParam,
+    this.element,
+    this.isNamed = true,
+    this.isPositional = false,
+    this.hasRequired = false,
+    this.isOptional = true,
+    this.isRequired = false,
+    this.isPathParam = false,
+    this.isQueryParam = false,
+    this.isInheritedPathParam = false,
     this.alias,
     this.defaultValueCode,
   });
 
+  String get getterName {
+    switch (type) {
+      default:
+        return 'value';
+    }
+  }
+
+  String get paramName => alias ?? name;
+
   String getSafeName() {
     if (reservedVarNames.contains(name)) {
-      return name + "0";
+      return "${name}0";
     } else {
       return name;
     }
@@ -72,8 +81,6 @@ class ParamConfig {
         return 'get';
     }
   }
-
-  String get paramName => alias ?? name;
 }
 
 class FunctionParamConfig extends ParamConfig {
@@ -83,29 +90,20 @@ class FunctionParamConfig extends ParamConfig {
   FunctionParamConfig({
     required this.returnType,
     this.params = const [],
-    required ResolvedType type,
-    required String name,
-    String? alias,
-    required bool isPositional,
-    required bool hasRequired,
-    required bool isOptional,
-    required bool isNamed,
-    required ParameterElement element,
+    required super.type,
+    required super.name,
+    super.alias,
+    required super.isPositional,
+    required super.hasRequired,
+    required super.isOptional,
+    required super.isNamed,
+    required super.element,
     required bool isRequired,
-    String? defaultValueCode,
+    super.defaultValueCode,
   }) : super(
-          type: type,
-          name: name,
-          alias: alias,
           isPathParam: false,
           isQueryParam: false,
-          isNamed: isNamed,
-          defaultValueCode: defaultValueCode,
-          element: element,
-          isPositional: isPositional,
-          hasRequired: hasRequired,
           isRequired: isRequired,
-          isOptional: isOptional,
           isInheritedPathParam: false,
         );
 
@@ -118,7 +116,7 @@ class FunctionParamConfig extends ParamConfig {
   List<ParamConfig> get namedParams =>
       params.where((p) => p.isNamed).toList(growable: false);
 
-  _code.FunctionType get funRefer => _code.FunctionType((b) => b
+  code.FunctionType get funRefer => code.FunctionType((b) => b
     ..returnType = returnType.refer
     ..requiredParameters.addAll(requiredParams.map((e) => e.type.refer))
     ..optionalParameters.addAll(optionalParams.map((e) => e.type.refer))

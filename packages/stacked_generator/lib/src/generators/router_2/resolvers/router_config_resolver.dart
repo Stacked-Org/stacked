@@ -2,14 +2,14 @@ import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:stacked_core/stacked_core.dart';
-import 'package:stacked_generator/src/generators/router_2/models/route_parameter_config.dart';
 import 'package:stacked_generator/src/generators/router_2/route_utils.dart';
+import 'package:stacked_generator/src/generators/router_common/models/route_parameter_config.dart';
 
-import '../models/importable_type.dart';
-import '../models/route_config.dart';
+import '../../router_common/models/importable_type.dart';
+import '../../router_common/models/route_config.dart';
+import '../../router_common/resolvers/type_resolver.dart';
 import '../models/router_config.dart';
 import 'route_config_resolver.dart';
-import 'type_resolver.dart';
 
 /// Extracts and holds router configs
 
@@ -19,8 +19,11 @@ class RouterConfigResolver {
 
   RouterConfigResolver(this._typeResolver);
 
-  RouterConfig resolve(ConstantReader autoRouter, ClassElement clazz,
-      {bool usesPartBuilder = false}) {
+  RouterConfig resolve(
+    ConstantReader autoRouter,
+    ClassElement clazz, {
+    bool usesPartBuilder = false,
+  }) {
     int routeType = RouteType.material;
     int? durationInMilliseconds;
     int? reverseDurationInMilliseconds;
@@ -70,6 +73,7 @@ class RouterConfigResolver {
       transitionBuilder: transitionBuilder,
       customRouteBuilder: customRouteBuilder,
       className: '',
+      classImport: '',
       pathName: '',
       deferredLoading: deferredLoading,
     );
@@ -131,6 +135,7 @@ class RouterConfigResolver {
             pathName: initialPath,
             redirectTo: initialRoute.pathName,
             className: '',
+            classImport: '',
             fullMatch: true,
             routeType: RouteType.redirect,
             deferredLoading: false,

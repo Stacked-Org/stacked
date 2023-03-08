@@ -1,7 +1,7 @@
 import 'package:code_builder/code_builder.dart';
+import 'package:stacked_generator/src/generators/router_common/models/route_config.dart';
 import 'package:stacked_generator/utils.dart';
 
-import '../../route_config/route_config.dart';
 import 'argument_class_builder_helper.dart';
 
 class ArgumentsClassBuilder {
