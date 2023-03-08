@@ -2,6 +2,7 @@ import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:stacked_generator/src/generators/extensions/routes_extension.dart';
 import 'package:stacked_generator/src/generators/router/generator/arguments_class/arguments_class_builder.dart';
+import 'package:stacked_generator/src/generators/router/generator/navigate_extension_class/navigate_extension_class_builder.dart';
 import 'package:stacked_generator/src/generators/router/generator/route_allocator.dart';
 import 'package:stacked_generator/src/generators/router/generator/router_class/router_class_builder.dart';
 import 'package:stacked_generator/src/generators/router/generator/routes_class/routes_class_builder.dart';
@@ -109,10 +110,15 @@ String generateLibrary(
     }
   }));
 
+  final navigationExtensionsClass = NavigateExtensionClassBuilder(
+    routes: config.routes,
+  ).build(emitter);
+
   final library = Library(
     (b) => b
       ..directives.addAll([
         if (usesPartBuilder) Directive.partOf(fileName),
+        Directive.import('package:flutter/material.dart'),
       ])
       ..body.addAll([
         buildRouterConfig(config, allGuards, allRoutes),
@@ -122,6 +128,7 @@ String generateLibrary(
             .map((r) => buildRouteInfoAndArgs(r, config, emitter))
             .reduce((acc, a) => acc..addAll(a)),
         ...router1Classes,
+        navigationExtensionsClass
       ]),
   );
 
