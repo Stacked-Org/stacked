@@ -21,9 +21,16 @@ class RouterGenerator implements BaseGenerator {
   @override
   String generate() {
     if (_rootRouterConfig.routes.isEmpty) return '';
+    final emitter = DartEmitter(
+      allocator: RouteAllocator(),
+      useNullSafetySyntax: true,
+      orderDirectives: true,
+    );
 
     /// Depth first traverse algorithm
-    _rootRouterConfig.traverseRoutes(_generateClasses);
+    _rootRouterConfig.traverseRoutes(
+      (routerConfig) => _generateClasses(routerConfig, emitter),
+    );
 
     /// Generate the extensions code that's required for declarativly supply
     /// arguments to a class navigation call
@@ -40,12 +47,6 @@ class RouterGenerator implements BaseGenerator {
         ..body.addAll([...classes, navigationExtensionClassBuilder]),
     );
 
-    final emitter = DartEmitter(
-      allocator: RouteAllocator(),
-      useNullSafetySyntax: true,
-      orderDirectives: true,
-    );
-
     return DartFormatter().format('${library.accept(emitter)}');
   }
 
@@ -56,7 +57,7 @@ class RouterGenerator implements BaseGenerator {
   /// 2. [RouterClassBuilder] : generates StackedRouter and other nested routers
   ///
   /// 3. [ArgumentsClassBuilder] : generated the arguments of each route view
-  void _generateClasses(RouterConfig routerConfig) {
+  void _generateClasses(RouterConfig routerConfig, DartEmitter emitter) {
     if (routerConfig.routes.isEmpty) return;
 
     final routesClassBuilder = RoutesClassBuilder(
@@ -72,7 +73,7 @@ class RouterGenerator implements BaseGenerator {
 
     final argumentsClassBuilder = ArgumentsClassBuilder(
       routes: routerConfig.routes,
-    ).buildViewsArguments();
+    ).buildViewsArguments(emitter);
 
     classes.addAll([
       routesClassBuilder,

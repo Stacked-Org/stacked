@@ -9,7 +9,7 @@ class ArgumentsClassBuilder {
 
   const ArgumentsClassBuilder({required this.routes});
 
-  Iterable<Class> buildViewsArguments() {
+  Iterable<Class> buildViewsArguments(DartEmitter emitter) {
     final routesWithParameters = routes.where(
       (route) => notQueryNorPath(route.parameters).isNotEmpty,
     );
@@ -23,7 +23,8 @@ class ArgumentsClassBuilder {
         (b) => b
           ..name = argumentsBuilderHelper.argumentClassName
           ..fields.addAll(argumentsBuilderHelper.convertParametersToClassFields)
-          ..constructors.add(argumentsBuilderHelper.argumentConstructer)
+          ..constructors
+              .add(argumentsBuilderHelper.argumentConstructer(emitter))
           ..methods.addAll([
             Method(
               (b) => b

@@ -19,7 +19,6 @@ class AdaptiveRouteConfig extends RouteConfig {
     super.parentClassName,
   });
 
-  @override
   Code registerRoute() {
     return super.registerRouteBloc(
       routeType: 'buildAdaptivePageRoute',
