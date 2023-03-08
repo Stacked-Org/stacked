@@ -20,7 +20,7 @@ class AdaptiveRouteConfig extends RouteConfig {
   });
 
   Code registerRoute() {
-    return super.registerRouteBloc(
+    return super.getRouteRegisterCode(
       routeType: 'buildAdaptivePageRoute',
       routeTypeImport: 'package:stacked/stacked.dart',
       extra: cupertinoNavTitle != null

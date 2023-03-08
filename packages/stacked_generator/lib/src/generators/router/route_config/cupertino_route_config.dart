@@ -20,7 +20,7 @@ class CupertinoRouteConfig extends RouteConfig {
   });
 
   Code registerRoute() {
-    return super.registerRouteBloc(
+    return super.getRouteRegisterCode(
         routeType: 'CupertinoPageRoute',
         routeTypeImport: 'package:flutter/cupertino.dart',
         extra: cupertinoNavTitle != null

@@ -154,12 +154,14 @@ class RouterClassBuilderHelper {
   /// );
   Code _returnRouteRegistration(RouteConfig route) {
     if (route.routeType == RouteType.material) {
-      return route.registerRouteBloc(
+      return route.getRouteRegisterCode(
         routeType: 'MaterialPageRoute',
+        routeTypeImport: 'package:flutter/material.dart',
       );
     } else if (route.routeType == RouteType.custom) {
-      return route.registerRouteBloc(
+      return route.getRouteRegisterCode(
         routeType: 'PageRouteBuilder',
+        routeTypeImport: 'package:flutter/material.dart',
         usePageBuilder: true,
         extra: Block.of([
           if (!(route.customRouteOpaque ?? false))
@@ -188,14 +190,14 @@ class RouterClassBuilderHelper {
         ]),
       );
     } else if (route.routeType == RouteType.cupertino) {
-      return route.registerRouteBloc(
+      return route.getRouteRegisterCode(
           routeType: 'CupertinoPageRoute',
           routeTypeImport: 'package:flutter/cupertino.dart',
           extra: route.cupertinoNavTitle != null
               ? Code("title:'${route.cupertinoNavTitle}',")
               : null);
     } else if (route.routeType == RouteType.adaptive) {
-      return route.registerRouteBloc(
+      return route.getRouteRegisterCode(
         routeType: 'buildAdaptivePageRoute',
         routeTypeImport: 'package:stacked/stacked.dart',
         extra: route.cupertinoNavTitle != null

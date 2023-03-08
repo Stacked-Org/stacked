@@ -23,7 +23,7 @@ class CustomRouteConfig extends RouteConfig {
       super.parentClassName});
 
   Code registerRoute() {
-    return super.registerRouteBloc(
+    return super.getRouteRegisterCode(
       routeType: 'PageRouteBuilder',
       usePageBuilder: true,
       extra: Block.of([
