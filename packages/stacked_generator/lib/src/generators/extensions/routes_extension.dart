@@ -7,8 +7,6 @@ extension RoutesExtension on RouterConfig {
     performAction(this);
 
     for (var route in routes) {
-      print(
-          '======== TraverseRoute | ${route.name} children count: ${route.children.length}');
       RouterConfig(
         routes: route.children,
         routerClassName: '${route.name}Router'.capitalize,

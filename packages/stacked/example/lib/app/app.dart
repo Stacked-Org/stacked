@@ -31,16 +31,16 @@ import 'custom_route_transition.dart';
   routes: [
     MaterialRoute(page: HomeView, initial: true),
     MaterialRoute(page: BottomNavExample, children: [
+      CustomRoute(
+        page: HistoryView,
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+      ),
       AdaptiveRoute(
         page: FavoritesView,
         children: [
           MaterialRoute(page: MultipleFuturesExampleView),
           CustomRoute(page: HistoryView),
         ],
-      ),
-      CustomRoute(
-        page: HistoryView,
-        transitionsBuilder: TransitionsBuilders.fadeIn,
       ),
       CupertinoRoute(page: ProfileView),
     ]),

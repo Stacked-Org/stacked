@@ -1,34 +1,43 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:stacked_generator/src/generators/extensions/string_utils_extension.dart';
+import 'package:stacked_generator/src/generators/router_2/code_builder/route_info_builder.dart';
 import 'package:stacked_generator/src/generators/router_common/models/route_config.dart';
 import 'package:stacked_generator/src/generators/router_common/models/route_parameter_config.dart';
 import 'package:stacked_generator/utils.dart';
 
-import '../route_allocator.dart';
-
 class NavigateExtensionClassBuilderHelper {
-  Iterable<Method> buildNavigateToExtensionMethods(List<RouteConfig> routes) {
+  Iterable<Method> buildNavigateToExtensionMethods(
+    List<RouteConfig> routes,
+    DartEmitter emitter,
+  ) {
     return [
-      ...routes.map<Method>(extractNavigateToMethodFromRoute),
-      ...routes.map<Method>(extractReplaceWithMethodFromRoute),
+      ...routes.map<Method>(
+          (route) => extractNavigateToMethodFromRoute(route, emitter)),
+      ...routes.map<Method>(
+          (route) => extractReplaceWithMethodFromRoute(route, emitter)),
     ];
   }
 
-  Method extractNavigateToMethodFromRoute(RouteConfig route) =>
+  Method extractNavigateToMethodFromRoute(
+          RouteConfig route, DartEmitter emitter) =>
       _extractNavigationMethod(
         navigationMethod: 'navigateTo',
         route: route,
+        emitter: emitter,
       );
 
-  Method extractReplaceWithMethodFromRoute(RouteConfig route) =>
+  Method extractReplaceWithMethodFromRoute(
+          RouteConfig route, DartEmitter emitter) =>
       _extractNavigationMethod(
         navigationMethod: 'replaceWith',
         route: route,
+        emitter: emitter,
       );
 
   Method _extractNavigationMethod({
     required String navigationMethod,
     required RouteConfig route,
+    required DartEmitter emitter,
   }) {
     final methodName = route.parentClassName != null
         ? '${navigationMethod}Nested${route.name?.capitalize}In${route.parentClassName}'
@@ -38,8 +47,8 @@ class NavigateExtensionClassBuilderHelper {
         ? route.processedReturnType
         : '${route.processedReturnType}?';
 
-    final viewArgumentsParameter =
-        notQueryNorPath(route.parameters).map(_extractViewArgumentsParametrs);
+    final viewArgumentsParameter = notQueryNorPath(route.parameters)
+        .map((parameter) => _extractViewArgumentsParametrs(parameter, emitter));
 
     return Method((b) => b
       ..name = methodName
@@ -55,7 +64,8 @@ class NavigateExtensionClassBuilderHelper {
   }
 
   /// The arguments provided to the view
-  Parameter _extractViewArgumentsParametrs(ParamConfig param) {
+  Parameter _extractViewArgumentsParametrs(
+      ParamConfig param, DartEmitter emitter) {
     return Parameter((parameterBuilder) {
       parameterBuilder
         ..name = param.name
@@ -65,10 +75,8 @@ class NavigateExtensionClassBuilderHelper {
 
       // Assign default value
       if (param.defaultValueCode != null) {
-        parameterBuilder.defaultTo = refer(
-          param.defaultValueCode!,
-          param.type.import + kFlagToPreventAliasingTheImport,
-        ).code;
+        parameterBuilder.defaultTo =
+            buildCorrectDefaultCode(parameter: param, emitter: emitter);
       }
 
       // Add required keyword
@@ -108,8 +116,8 @@ class NavigateExtensionClassBuilderHelper {
     required String methodReturnType,
     required String navigationMethod,
   }) {
-    final routesClassName = route.parentClassName != null
-        ? '${route.parentClassName!}Routes'
+    final routesClassName = route.parentRouterConfig != null
+        ? route.parentRouterConfig!.routesClassName
         : 'Routes';
     return Block.of([
       Code(

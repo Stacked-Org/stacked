@@ -36,7 +36,7 @@ class RouterGenerator implements BaseGenerator {
     /// arguments to a class navigation call
     final navigationExtensionClassBuilder = NavigateExtensionClassBuilder(
       routes: _rootRouterConfig.routesIncludingTheirChildren,
-    ).build();
+    ).build(emitter);
 
     final library = Library(
       (b) => b

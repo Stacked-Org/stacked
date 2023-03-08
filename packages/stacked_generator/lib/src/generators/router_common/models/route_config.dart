@@ -43,6 +43,7 @@ class RouteConfig {
   final String? cupertinoNavTitle;
   final String? replacementInRouteName;
   final RouterConfig? childRouterConfig;
+  final RouterConfig? parentRouterConfig;
   final bool usesPathAsKey;
   final List<MetaEntry> meta;
   final bool? deferredLoading;
@@ -69,6 +70,7 @@ class RouteConfig {
     this.durationInMilliseconds,
     this.reverseDurationInMilliseconds,
     this.returnType,
+    this.parentRouterConfig,
     this.routeType = RouteType.material,
     this.guards = const [],
     this.cupertinoNavTitle,
@@ -113,6 +115,7 @@ class RouteConfig {
     String? cupertinoNavTitle,
     String? replacementInRouteName,
     RouterConfig? childRouterConfig,
+    RouterConfig? parentRouterConfig,
     bool? hasConstConstructor,
     bool? usesPathAsKey,
     List<MetaEntry>? meta,
@@ -123,6 +126,7 @@ class RouteConfig {
       children: children ?? this.children,
       name: name ?? this.name,
       pathName: pathName ?? this.pathName,
+      parentRouterConfig: parentRouterConfig ?? this.parentRouterConfig,
       pathParams: pathParams ?? this.pathParams,
       initial: initial ?? this.initial,
       fullscreenDialog: fullscreenDialog ?? this.fullscreenDialog,
