@@ -140,7 +140,9 @@ class RouterConfigResolver {
           inheritedPathParams: inheritedPathParams + route.pathParams,
         );
         route = route.copyWith(
-            childRouterConfig: subRouterConfig.copyWith(routes: nestedRoutes));
+          childRouterConfig: subRouterConfig.copyWith(routes: nestedRoutes),
+          children: nestedRoutes,
+        );
       }
       routes.add(route);
     }

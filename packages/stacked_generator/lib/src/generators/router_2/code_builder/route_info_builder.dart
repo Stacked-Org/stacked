@@ -16,83 +16,86 @@ List<Class> buildRouteInfoAndArgs(
       r.parameters.where((p) => !p.isInheritedPathParam).toList();
   return [
     Class(
-      (b) => b
-        ..docs.addAll([
-          '/// generated route for \n/// [${r.pageType?.refer.accept(emitter).toString()}]'
-        ])
-        ..name = r.routeName
-        ..extend = TypeReference((b) {
-          b
-            ..symbol = 'PageRouteInfo'
-            ..url = stackedImport;
-          if (parameters.isNotEmpty) b.types.add(argsClassRefer);
-          // adds `void` type to be `strong-mode` compliant
-          if (parameters.isEmpty) b.types.add(refer('void'));
-        })
-        ..fields.add(Field(
-          (b) => b
-            ..modifier = FieldModifier.constant
-            ..name = 'name'
-            ..static = true
-            ..type = stringRefer
-            ..assignment = literalString(r.routeName).code,
-        ))
-        ..constructors.add(
-          Constructor(
-            (b) {
-              b
-                ..constant = parameters.isEmpty
-                ..optionalParameters.addAll([
-                  ...buildArgParams(r.parameters, emitter, toThis: false),
-                  if (r.isParent)
-                    Parameter((b) => b
-                      ..named = true
-                      ..name = 'children'
-                      ..type = listRefer(pageRouteType, nullable: true)),
-                ])
-                ..initializers.add(refer('super').call([
-                  refer(r.routeName).property('name')
-                ], {
-                  'path': literalString(r.pathName),
-                  if (parameters.isNotEmpty)
-                    'args': argsClassRefer.call(
-                      [],
-                      Map.fromEntries(
-                        parameters.map(
-                          (p) => MapEntry(
-                            p.name,
-                            refer(p.name),
+      (b) {
+        final routeName = '${r.routeName}Route';
+        b
+          ..docs.addAll([
+            '/// generated route for \n/// [${r.pageType?.refer.accept(emitter).toString()}]'
+          ])
+          ..name = routeName
+          ..extend = TypeReference((b) {
+            b
+              ..symbol = 'PageRouteInfo'
+              ..url = stackedImport;
+            if (parameters.isNotEmpty) b.types.add(argsClassRefer);
+            // adds `void` type to be `strong-mode` compliant
+            if (parameters.isEmpty) b.types.add(refer('void'));
+          })
+          ..fields.add(Field(
+            (b) => b
+              ..modifier = FieldModifier.constant
+              ..name = 'name'
+              ..static = true
+              ..type = stringRefer
+              ..assignment = literalString(r.routeName).code,
+          ))
+          ..constructors.add(
+            Constructor(
+              (b) {
+                b
+                  ..constant = parameters.isEmpty
+                  ..optionalParameters.addAll([
+                    ...buildArgParams(r.parameters, emitter, toThis: false),
+                    if (r.isParent)
+                      Parameter((b) => b
+                        ..named = true
+                        ..name = 'children'
+                        ..type = listRefer(pageRouteType, nullable: true)),
+                  ])
+                  ..initializers.add(refer('super').call([
+                    refer(routeName).property('name')
+                  ], {
+                    'path': literalString(r.pathName),
+                    if (parameters.isNotEmpty)
+                      'args': argsClassRefer.call(
+                        [],
+                        Map.fromEntries(
+                          parameters.map(
+                            (p) => MapEntry(
+                              p.name,
+                              refer(p.name),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  if (parameters.any((p) => p.isPathParam))
-                    'rawPathParams': literalMap(
-                      Map.fromEntries(
-                        parameters.where((p) => p.isPathParam).map(
-                              (p) => MapEntry(
-                                p.paramName,
-                                refer(p.name),
+                    if (parameters.any((p) => p.isPathParam))
+                      'rawPathParams': literalMap(
+                        Map.fromEntries(
+                          parameters.where((p) => p.isPathParam).map(
+                                (p) => MapEntry(
+                                  p.paramName,
+                                  refer(p.name),
+                                ),
                               ),
-                            ),
+                        ),
                       ),
-                    ),
-                  if (parameters.any((p) => p.isQueryParam))
-                    'rawQueryParams': literalMap(
-                      Map.fromEntries(
-                        parameters.where((p) => p.isQueryParam).map(
-                              (p) => MapEntry(
-                                p.paramName,
-                                refer(p.name),
+                    if (parameters.any((p) => p.isQueryParam))
+                      'rawQueryParams': literalMap(
+                        Map.fromEntries(
+                          parameters.where((p) => p.isQueryParam).map(
+                                (p) => MapEntry(
+                                  p.paramName,
+                                  refer(p.name),
+                                ),
                               ),
-                            ),
+                        ),
                       ),
-                    ),
-                  if (r.isParent) 'initialChildren': refer('children'),
-                }).code);
-            },
-          ),
-        ),
+                    if (r.isParent) 'initialChildren': refer('children'),
+                  }).code);
+              },
+            ),
+          );
+      },
     ),
     if (parameters.isNotEmpty)
       Class(
