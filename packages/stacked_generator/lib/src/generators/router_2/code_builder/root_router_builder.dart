@@ -80,7 +80,7 @@ Field buildPagesMap(List<RouteConfig> routes, bool deferredLoading) {
           .distinctBy((e) => e.routeName)
           .map(
             (r) => MapEntry(
-              refer(r.routeName).property('name'),
+              refer('${r.routeName}Route').property('name'),
               buildMethod(r, deferredLoading),
             ),
           ),
@@ -262,7 +262,7 @@ Iterable<Object> buildRoutes(List<RouteConfig> routes, {Reference? parent}) =>
             if (r.routeType == RouteType.redirect)
               literalString('${r.pathName}#redirect')
             else
-              refer(r.routeName).property('name'),
+              refer('${r.routeName}Route').property('name'),
           ],
           {
             'path': literalString(r.pathName),
@@ -289,7 +289,7 @@ Iterable<Object> buildRoutes(List<RouteConfig> routes, {Reference? parent}) =>
               'children': literalList(
                 buildRoutes(
                   r.childRouterConfig!.routes,
-                  parent: refer(r.routeName),
+                  parent: refer('${r.routeName}Route'),
                 ),
               )
           },

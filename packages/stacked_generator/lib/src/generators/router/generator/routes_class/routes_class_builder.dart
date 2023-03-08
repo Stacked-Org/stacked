@@ -20,8 +20,6 @@ class RoutesClassBuilder {
   ///
   Class buildRoutesClass() {
     final assignPathsToRouteNames = routes.map((route) {
-      print(
-          '============ assignPathsToRouteNames | pathName:${route.pathName} name:${route.name}');
       return Field(
         (b) => b
           ..modifier = FieldModifier.constant

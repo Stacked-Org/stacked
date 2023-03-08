@@ -289,6 +289,21 @@ class RouteConfigResolver {
       }
     }
 
+    // final children = stackedRoute.peek('children')?.listValue;
+
+    // if (children?.isNotEmpty ?? false) {
+
+    //   final childrenRoutes = (
+    //     stackedRoute,
+    //     children!,
+    //     parentClassName:
+    //         route.className.toLowerCase() != route.name?.toLowerCase()
+    //             ? (route.name ?? '').capitalize
+    //             : route.className,
+    //   );
+    //   route = route.copyWith(children: childrenRoutes);
+    // }
+
     return RouteConfig(
       parentClassName: parentClassName,
       parameters: parameters,
@@ -297,7 +312,7 @@ class RouteConfigResolver {
           .contains('StackedRouteWrapper'),
       returnType: returnType,
       pathName: pathName,
-      name: name ?? className,
+      name: name,
       maintainState: maintainState ?? true,
       className: className,
       classImport: import ?? '',

@@ -37,7 +37,7 @@ class Navigator2Router extends _i11.RootStackRouter {
 
   @override
   final Map<String, _i11.PageFactory> pagesMap = {
-    HomeView.name: (routeData) {
+    HomeViewRoute.name: (routeData) {
       final args =
           routeData.argsAs<HomeViewArgs>(orElse: () => const HomeViewArgs());
       return _i11.MaterialPageX<dynamic>(
@@ -52,14 +52,14 @@ class Navigator2Router extends _i11.RootStackRouter {
         maintainState: false,
       );
     },
-    BottomNavExample.name: (routeData) {
+    BottomNavExampleRoute.name: (routeData) {
       return _i11.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i3.BottomNavExample(),
         maintainState: false,
       );
     },
-    StreamCounterView.name: (routeData) {
+    StreamCounterViewRoute.name: (routeData) {
       final args = routeData.argsAs<StreamCounterViewArgs>();
       return _i11.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -70,7 +70,7 @@ class Navigator2Router extends _i11.RootStackRouter {
         maintainState: false,
       );
     },
-    ExampleFormView.name: (routeData) {
+    ExampleFormViewRoute.name: (routeData) {
       final args = routeData.argsAs<ExampleFormViewArgs>();
       return _i11.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -81,7 +81,7 @@ class Navigator2Router extends _i11.RootStackRouter {
         maintainState: false,
       );
     },
-    NonReactiveView.name: (routeData) {
+    NonReactiveViewRoute.name: (routeData) {
       return _i11.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i6.NonReactiveView(),
@@ -90,7 +90,7 @@ class Navigator2Router extends _i11.RootStackRouter {
         barrierDismissible: false,
       );
     },
-    FavoritesView.name: (routeData) {
+    FavoritesViewRoute.name: (routeData) {
       final args = routeData.argsAs<FavoritesViewArgs>(
           orElse: () => const FavoritesViewArgs());
       return _i11.AdaptivePage<dynamic>(
@@ -102,7 +102,7 @@ class Navigator2Router extends _i11.RootStackRouter {
         opaque: true,
       );
     },
-    HistoryView.name: (routeData) {
+    HistoryViewRoute.name: (routeData) {
       return _i11.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i8.HistoryView(),
@@ -110,14 +110,14 @@ class Navigator2Router extends _i11.RootStackRouter {
         barrierDismissible: false,
       );
     },
-    ProfileView.name: (routeData) {
+    ProfileViewRoute.name: (routeData) {
       return _i11.CupertinoPageX<dynamic>(
         routeData: routeData,
         child: const _i9.ProfileView(),
         maintainState: false,
       );
     },
-    MultipleFuturesExampleView.name: (routeData) {
+    MultipleFuturesExampleViewRoute.name: (routeData) {
       return _i11.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i10.MultipleFuturesExampleView(),
@@ -129,52 +129,52 @@ class Navigator2Router extends _i11.RootStackRouter {
   @override
   List<_i11.RouteConfig> get routes => [
         _i11.RouteConfig(
-          HomeView.name,
+          HomeViewRoute.name,
           path: '/',
         ),
         _i11.RouteConfig(
-          BottomNavExample.name,
+          BottomNavExampleRoute.name,
           path: '/bottom-nav-example',
           children: [
             _i11.RouteConfig(
-              FavoritesView.name,
+              FavoritesViewRoute.name,
               path: 'nullfavorites-view',
-              parent: BottomNavExample.name,
+              parent: BottomNavExampleRoute.name,
               children: [
                 _i11.RouteConfig(
-                  MultipleFuturesExampleView.name,
+                  MultipleFuturesExampleViewRoute.name,
                   path: 'nullmultiple-futures-example-view',
-                  parent: FavoritesView.name,
+                  parent: FavoritesViewRoute.name,
                 ),
                 _i11.RouteConfig(
-                  HistoryView.name,
+                  HistoryViewRoute.name,
                   path: 'nullhistory-view',
-                  parent: FavoritesView.name,
+                  parent: FavoritesViewRoute.name,
                 ),
               ],
             ),
             _i11.RouteConfig(
-              HistoryView.name,
+              HistoryViewRoute.name,
               path: 'nullhistory-view',
-              parent: BottomNavExample.name,
+              parent: BottomNavExampleRoute.name,
             ),
             _i11.RouteConfig(
-              ProfileView.name,
+              ProfileViewRoute.name,
               path: 'nullprofile-view',
-              parent: BottomNavExample.name,
+              parent: BottomNavExampleRoute.name,
             ),
           ],
         ),
         _i11.RouteConfig(
-          StreamCounterView.name,
+          StreamCounterViewRoute.name,
           path: '/stream-counter-view',
         ),
         _i11.RouteConfig(
-          ExampleFormView.name,
+          ExampleFormViewRoute.name,
           path: '/example-form-view',
         ),
         _i11.RouteConfig(
-          NonReactiveView.name,
+          NonReactiveViewRoute.name,
           path: '/non-reactive-view',
         ),
       ];
@@ -182,8 +182,8 @@ class Navigator2Router extends _i11.RootStackRouter {
 
 /// generated route for
 /// [_i1.HomeView]
-class HomeView extends _i11.PageRouteInfo<HomeViewArgs> {
-  HomeView({
+class HomeViewRoute extends _i11.PageRouteInfo<HomeViewArgs> {
+  HomeViewRoute({
     _i12.Key? key,
     String? title = 'hello',
     bool? isLoggedIn = false,
@@ -193,7 +193,7 @@ class HomeView extends _i11.PageRouteInfo<HomeViewArgs> {
       _i2.HomeType.house
     ],
   }) : super(
-          HomeView.name,
+          HomeViewRoute.name,
           path: '/',
           args: HomeViewArgs(
             key: key,
@@ -234,10 +234,10 @@ class HomeViewArgs {
 
 /// generated route for
 /// [_i3.BottomNavExample]
-class BottomNavExample extends _i11.PageRouteInfo<void> {
-  const BottomNavExample({List<_i11.PageRouteInfo>? children})
+class BottomNavExampleRoute extends _i11.PageRouteInfo<void> {
+  const BottomNavExampleRoute({List<_i11.PageRouteInfo>? children})
       : super(
-          BottomNavExample.name,
+          BottomNavExampleRoute.name,
           path: '/bottom-nav-example',
           initialChildren: children,
         );
@@ -247,12 +247,12 @@ class BottomNavExample extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.StreamCounterView]
-class StreamCounterView extends _i11.PageRouteInfo<StreamCounterViewArgs> {
-  StreamCounterView({
+class StreamCounterViewRoute extends _i11.PageRouteInfo<StreamCounterViewArgs> {
+  StreamCounterViewRoute({
     _i12.Key? key,
     required List<_i15.Clashable> clashableTwo,
   }) : super(
-          StreamCounterView.name,
+          StreamCounterViewRoute.name,
           path: '/stream-counter-view',
           args: StreamCounterViewArgs(
             key: key,
@@ -281,12 +281,12 @@ class StreamCounterViewArgs {
 
 /// generated route for
 /// [_i5.ExampleFormView]
-class ExampleFormView extends _i11.PageRouteInfo<ExampleFormViewArgs> {
-  ExampleFormView({
+class ExampleFormViewRoute extends _i11.PageRouteInfo<ExampleFormViewArgs> {
+  ExampleFormViewRoute({
     _i12.Key? key,
     required _i14.Clashable clashableOne,
   }) : super(
-          ExampleFormView.name,
+          ExampleFormViewRoute.name,
           path: '/example-form-view',
           args: ExampleFormViewArgs(
             key: key,
@@ -315,10 +315,10 @@ class ExampleFormViewArgs {
 
 /// generated route for
 /// [_i6.NonReactiveView]
-class NonReactiveView extends _i11.PageRouteInfo<void> {
-  const NonReactiveView()
+class NonReactiveViewRoute extends _i11.PageRouteInfo<void> {
+  const NonReactiveViewRoute()
       : super(
-          NonReactiveView.name,
+          NonReactiveViewRoute.name,
           path: '/non-reactive-view',
         );
 
@@ -327,13 +327,13 @@ class NonReactiveView extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.FavoritesView]
-class FavoritesView extends _i11.PageRouteInfo<FavoritesViewArgs> {
-  FavoritesView({
+class FavoritesViewRoute extends _i11.PageRouteInfo<FavoritesViewArgs> {
+  FavoritesViewRoute({
     _i12.Key? key,
     String? id,
     List<_i11.PageRouteInfo>? children,
   }) : super(
-          FavoritesView.name,
+          FavoritesViewRoute.name,
           path: 'nullfavorites-view',
           args: FavoritesViewArgs(
             key: key,
@@ -363,10 +363,10 @@ class FavoritesViewArgs {
 
 /// generated route for
 /// [_i8.HistoryView]
-class HistoryView extends _i11.PageRouteInfo<void> {
-  const HistoryView()
+class HistoryViewRoute extends _i11.PageRouteInfo<void> {
+  const HistoryViewRoute()
       : super(
-          HistoryView.name,
+          HistoryViewRoute.name,
           path: 'nullhistory-view',
         );
 
@@ -375,10 +375,10 @@ class HistoryView extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.ProfileView]
-class ProfileView extends _i11.PageRouteInfo<void> {
-  const ProfileView()
+class ProfileViewRoute extends _i11.PageRouteInfo<void> {
+  const ProfileViewRoute()
       : super(
-          ProfileView.name,
+          ProfileViewRoute.name,
           path: 'nullprofile-view',
         );
 
@@ -387,17 +387,17 @@ class ProfileView extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.MultipleFuturesExampleView]
-class MultipleFuturesExampleView extends _i11.PageRouteInfo<void> {
-  const MultipleFuturesExampleView()
+class MultipleFuturesExampleViewRoute extends _i11.PageRouteInfo<void> {
+  const MultipleFuturesExampleViewRoute()
       : super(
-          MultipleFuturesExampleView.name,
+          MultipleFuturesExampleViewRoute.name,
           path: 'nullmultiple-futures-example-view',
         );
 
   static const String name = 'MultipleFuturesExampleView';
 }
 
-class Navigator2Router {
+class Routes {
   static const homeView = '/';
 
   static const bottomNavExample = '/bottom-nav-example';
@@ -408,25 +408,36 @@ class Navigator2Router {
 
   static const nonReactiveView = '/non-reactive-view';
 
-  static const favoritesView = 'nullfavorites-view';
-
-  static const historyView = 'nullhistory-view';
-
-  static const profileView = 'nullprofile-view';
-
-  static const multipleFuturesExampleView = 'nullmultiple-futures-example-view';
-
-  static const historyView = 'nullhistory-view';
-
   static const all = <String>{
     homeView,
     bottomNavExample,
     streamCounterView,
     exampleFormView,
     nonReactiveView,
+  };
+}
+
+class BottomNavExampleRoutes {
+  static const favoritesView = 'nullfavorites-view';
+
+  static const historyView = 'nullhistory-view';
+
+  static const profileView = 'nullprofile-view';
+
+  static const all = <String>{
     favoritesView,
     historyView,
     profileView,
+  };
+}
+
+class FavoritesViewRoutes {
+  static const multipleFuturesExampleView = 'nullmultiple-futures-example-view';
+
+  static const historyView = 'nullhistory-view';
+
+  static const all = <String>{
     multipleFuturesExampleView,
+    historyView,
   };
 }

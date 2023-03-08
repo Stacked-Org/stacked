@@ -1,5 +1,6 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
+import 'package:stacked_generator/src/generators/extensions/routes_extension.dart';
 import 'package:stacked_generator/src/generators/router/generator/route_allocator.dart';
 import 'package:stacked_generator/src/generators/router/generator/routes_class/routes_class_builder.dart';
 import 'package:stacked_generator/utils.dart';
@@ -85,10 +86,16 @@ String generateLibrary(
     (acc, a) => acc..addAll(a.guards),
   );
 
-  final routesClass = RoutesClassBuilder(
-    routes: allRoutes,
-    routesClassName: config.routerClassName,
-  ).buildRoutesClass();
+  final routeClasses = <Class>[];
+
+  config.traverseRoutes(((routerConfig) {
+    if (routerConfig.routes.isNotEmpty) {
+      routeClasses.add(RoutesClassBuilder(
+        routes: routerConfig.routes,
+        routesClassName: routerConfig.routesClassName,
+      ).buildRoutesClass());
+    }
+  }));
 
   final library = Library(
     (b) => b
@@ -102,7 +109,7 @@ String generateLibrary(
             .distinctBy((e) => e.routeName)
             .map((r) => buildRouteInfoAndArgs(r, config, emitter))
             .reduce((acc, a) => acc..addAll(a)),
-        routesClass,
+        ...routeClasses,
       ]),
   );
 
