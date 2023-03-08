@@ -19,7 +19,7 @@ class MaterialRouteConfig extends RouteConfig {
   });
 
   Code registerRoute() {
-    return super.registerRouteBloc(
+    return super.getRouteRegisterCode(
       routeType: 'MaterialPageRoute',
     );
   }

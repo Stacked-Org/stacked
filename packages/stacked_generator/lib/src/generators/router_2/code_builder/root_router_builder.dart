@@ -12,7 +12,7 @@ const _routeConfigType = Reference("RouteConfig", stackedImport);
 Class buildRouterConfig(RouterConfig router, Set<ResolvedType> guards,
         List<RouteConfig> routes) =>
     Class((b) => b
-      ..name = router.routerClassName
+      ..name = '${router.routerClassName}Web'
       ..extend = refer('RootStackRouter', stackedImport)
       ..fields.addAll([
         ...guards.map((g) => Field((b) => b

@@ -177,7 +177,7 @@ class RouteConfig {
     return constructor;
   }
 
-  Code registerRouteBloc(
+  Code getRouteRegisterCode(
       {required String routeType,
       String? routeTypeImport,
       Code? extra,

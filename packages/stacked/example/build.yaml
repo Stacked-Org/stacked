@@ -3,4 +3,4 @@ targets:
     builders:
       stacked_generator|stackedRouterGenerator:
         options:
-          navigator2: false
+          navigator2: true
