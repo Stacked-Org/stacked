@@ -15,7 +15,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/cupertino.dart' as _i16;
 import 'package:flutter/material.dart' as _i12;
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i11;
+import 'package:stacked_services/stacked_services.dart' as _i17;
 
 import '../datamodels/clashable_one.dart' as _i14;
 import '../datamodels/clashable_two.dart' as _i15;
@@ -684,4 +686,190 @@ class FavoritesViewRouter extends _i11.RouterBase {
   List<_i11.RouteDef> get routes => _routes;
   @override
   Map<Type, _i11.StackedRouteFactory> get pagesMap => _pagesMap;
+}
+
+extension NavigatorStateExtension on _i17.NavigationService {
+  Future<dynamic> navigateToHomeView({
+    _i12.Key? key,
+    String? title = 'hello',
+    bool? isLoggedIn = false,
+    _i14.Clashable Function(String)? clashableGetter,
+    List<_i1.HomeType> homeTypes = const [
+      _i1.HomeType.apartment,
+      _i1.HomeType.house
+    ],
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.homeView,
+        arguments: HomeViewArguments(
+            key: key,
+            title: title,
+            isLoggedIn: isLoggedIn,
+            clashableGetter: clashableGetter,
+            homeTypes: homeTypes),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToBottomNavExample([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.bottomNavExample,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToStreamCounterView({
+    _i12.Key? key,
+    required List<_i15.Clashable> clashableTwo,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.streamCounterView,
+        arguments:
+            StreamCounterViewArguments(key: key, clashableTwo: clashableTwo),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToExampleFormView({
+    _i12.Key? key,
+    required _i14.Clashable clashableOne,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.exampleFormView,
+        arguments:
+            ExampleFormViewArguments(key: key, clashableOne: clashableOne),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToNonReactiveView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.nonReactiveView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithHomeView({
+    _i12.Key? key,
+    String? title = 'hello',
+    bool? isLoggedIn = false,
+    _i14.Clashable Function(String)? clashableGetter,
+    List<_i1.HomeType> homeTypes = const [
+      _i1.HomeType.apartment,
+      _i1.HomeType.house
+    ],
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(Routes.homeView,
+        arguments: HomeViewArguments(
+            key: key,
+            title: title,
+            isLoggedIn: isLoggedIn,
+            clashableGetter: clashableGetter,
+            homeTypes: homeTypes),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithBottomNavExample([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.bottomNavExample,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithStreamCounterView({
+    _i12.Key? key,
+    required List<_i15.Clashable> clashableTwo,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(Routes.streamCounterView,
+        arguments:
+            StreamCounterViewArguments(key: key, clashableTwo: clashableTwo),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithExampleFormView({
+    _i12.Key? key,
+    required _i14.Clashable clashableOne,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(Routes.exampleFormView,
+        arguments:
+            ExampleFormViewArguments(key: key, clashableOne: clashableOne),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithNonReactiveView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.nonReactiveView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
 }
