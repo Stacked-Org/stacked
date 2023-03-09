@@ -145,22 +145,22 @@ import 'package:stacked_services/stacked_services.dart';
 import 'test_helpers.mocks.dart';
 
 @GenerateMocks([], customMocks: [
-  MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<RouterService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   // @stacked-mock-spec
 ])
 void registerServices() {
-  getAndRegisterNavigationService();
+  getAndRegisterRouterService();
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
   // @stacked-mock-register
 }
 
-MockNavigationService getAndRegisterNavigationService() {
-  _removeRegistrationIfExists<NavigationService>();
-  final service = MockNavigationService();
-  locator.registerSingleton<NavigationService>(service);
+MockRouterServicegetAndRegisterRouterService() {
+  _removeRegistrationIfExists<RouterService>();
+  final service = MockRouterService();
+  locator.registerSingleton<RouterService>(service);
   return service;
 }
 
@@ -215,6 +215,23 @@ void _removeRegistrationIfExists<T extends Object>() {
   }
 }
 
+''';
+
+// --------------------------------------------------
+
+
+// -------- BuildYamlStk Template Data ----------
+
+const String kAppWebTemplateBuildYamlStkPath =
+    'build.yaml.stk';
+
+const String kAppWebTemplateBuildYamlStkContent = '''
+targets:
+  \$default:
+    builders:
+      stacked_generator|stackedRouterGenerator:
+        options:
+          navigator2: true
 ''';
 
 // --------------------------------------------------
@@ -391,9 +408,13 @@ import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
 import 'package:{{packageName}}/ui/common/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 void main() {
-  setupLocator();
+  setPathUrlStrategy();
+  setupLocator(
+    stackedRouter: stackedRouter,
+  );
   setupDialogUi();
   setupBottomSheetUi();
 
@@ -405,7 +426,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveApp(builder: (_) => MaterialApp(
+    return ResponsiveApp(builder: (_) => MaterialApp.router(
         title: 'Stacked Application',
         theme: Theme.of(context).copyWith(
           primaryColor: kcBackgroundColor,
@@ -414,12 +435,8 @@ class MyApp extends StatelessWidget {
                 bodyColor: Colors.black,
               ),
         ),
-        initialRoute: Routes.startupView,
-        onGenerateRoute: StackedRouter().onGenerateRoute,
-        navigatorKey: StackedService.navigatorKey,
-        navigatorObservers: [
-          StackedService.routeObserver,
-        ],
+        routerDelegate: stackedRouter.delegate(),
+        routeInformationParser: stackedRouter.defaultRouteParser(),
       ),
     );
   }
@@ -792,359 +809,6 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
 // --------------------------------------------------
 
 
-// -------- HomeViewDesktop Template Data ----------
-
-const String kAppWebTemplateHomeViewDesktopPath =
-    'lib/ui/views/home/home_view.desktop.dart.stk';
-
-const String kAppWebTemplateHomeViewDesktopContent = '''
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/app_constants.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-
-import 'home_viewmodel.dart';
-
-class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
-  const HomeViewDesktop({super.key});
-
-  @override
-  Widget build(BuildContext context, HomeViewModel viewModel) {
-    return Scaffold(
-      body: Center(
-            child: SizedBox(
-              width: kdDesktopMaxContentWidth,
-              height: kdDesktopMaxContentHeight,
-              child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    const Text(
-                      'Hello, DESKTOP UI!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showDialog,
-                    ),
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showBottomSheet,
-                    ),
-                  ],
-                )
-              ],
-            ),
-        ),
-      ),
-    );
-  }
-}
-
-''';
-
-// --------------------------------------------------
-
-
-// -------- HomeViewMobile Template Data ----------
-
-const String kAppWebTemplateHomeViewMobilePath =
-    'lib/ui/views/home/home_view.mobile.dart.stk';
-
-const String kAppWebTemplateHomeViewMobileContent = '''
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-
-import 'home_viewmodel.dart';
-
-class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
-  const HomeViewMobile({super.key});
-
-  @override
-  Widget build(BuildContext context, HomeViewModel viewModel) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    const Text(
-                      'Hello, MOBILE UI!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showDialog,
-                    ),
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showBottomSheet,
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-''';
-
-// --------------------------------------------------
-
-
-// -------- HomeView Template Data ----------
-
-const String kAppWebTemplateHomeViewPath =
-    'lib/ui/views/home/home_view.dart.stk';
-
-const String kAppWebTemplateHomeViewContent = '''
-import 'package:flutter/material.dart';
-import 'package:responsive_builder/responsive_builder.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
-
-import 'home_view.desktop.dart';
-import 'home_view.tablet.dart';
-import 'home_view.mobile.dart';
-import 'home_viewmodel.dart';
-
-class HomeView extends StackedView<HomeViewModel> {
-  const HomeView({super.key});
-
-  @override
-  Widget builder(
-    BuildContext context,
-    HomeViewModel viewModel,
-    Widget? child,
-  ) {
-    return ScreenTypeLayout.builder(
-      mobile: (_) => const HomeViewMobile(),
-      tablet: (_) => const HomeViewTablet(),
-      desktop: (_) => const HomeViewDesktop(),
-    );
-  }
-
-  @override
-  HomeViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      HomeViewModel();
-}
-
-''';
-
-// --------------------------------------------------
-
-
-// -------- HomeViewmodel Template Data ----------
-
-const String kAppWebTemplateHomeViewmodelPath =
-    'lib/ui/views/home/home_viewmodel.dart.stk';
-
-const String kAppWebTemplateHomeViewmodelContent = '''
-import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
-import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-import 'package:{{packageName}}/ui/common/app_strings.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-
-class HomeViewModel extends BaseViewModel {
-  final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
-
-  String get counterLabel => 'Counter is: \$_counter';
-
-  int _counter = 0;
-
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
-  }
-
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Stacked Rocks!',
-      description: 'Give stacked \$_counter stars on Github',
-    );
-  }
-
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: ksHomeBottomSheetTitle,
-      description: ksHomeBottomSheetDescription,
-    );
-  }
-}
-
-''';
-
-// --------------------------------------------------
-
-
-// -------- HomeViewTablet Template Data ----------
-
-const String kAppWebTemplateHomeViewTabletPath =
-    'lib/ui/views/home/home_view.tablet.dart.stk';
-
-const String kAppWebTemplateHomeViewTabletContent = '''
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-
-import 'home_viewmodel.dart';
-
-class HomeViewTablet extends ViewModelWidget<HomeViewModel> {
-  const HomeViewTablet({super.key});
-
-  @override
-  Widget build(BuildContext context, HomeViewModel viewModel) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    const Text(
-                      'Hello, TABLET UI!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showDialog,
-                    ),
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: viewModel.showBottomSheet,
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-''';
-
-// --------------------------------------------------
-
-
 // -------- StartupViewmodel Template Data ----------
 
 const String kAppWebTemplateStartupViewmodelPath =
@@ -1157,14 +821,14 @@ import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
 import 'package:stacked_services/stacked_services.dart';
 
 class StartupViewModel extends BaseViewModel {
-  final _navigationService = locator<NavigationService>();
+  final _routerService = locator<RouterService>();
 
   // Place anything here that needs to happen before we get into the application
   Future runStartupLogic() async {
     // This is where you can make decisions on where your app should navigate when
     // you have custom startup logic
 
-    await _navigationService.replaceWithHomeView();
+    await _routerService.replaceWith(const HomeViewRoute());
   }
 }
 
@@ -1378,7 +1042,7 @@ import 'package:stacked_services/stacked_services.dart';
   dependencies: [
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
-    LazySingleton(classType: NavigationService),
+    LazySingleton(classType: RouterService),
     // @stacked-service
   ],
   bottomsheets: [
@@ -1483,8 +1147,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   
-  stacked: ^3.1.0+3
-  stacked_services: ^0.9.9
+  stacked: ^3.2.0-beta.0
+  stacked_services: ^1.0.0-beta.0
+  url_strategy: ^0.2.0
   responsive_builder: ^0.6.0
 
 dev_dependencies:
@@ -1499,7 +1164,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   build_runner: ^2.2.0
 
-  stacked_generator: ^0.8.5
+  stacked_generator: 1.0.0-beta.0
   mockito: ^5.3.2
 
 # For information on the generic Dart part of this file, see the
@@ -3133,6 +2798,435 @@ class {{viewName}} extends StatelessWidget {
     );
   }
 }
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericViewmodelTest Template Data ----------
+
+const String kViewWebTemplateGenericViewmodelTestPath =
+    'test/viewmodels/generic_viewmodel_test.dart.stk';
+
+const String kViewWebTemplateGenericViewmodelTestContent = '''
+import 'package:flutter_test/flutter_test.dart';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
+
+import '{{{viewTestHelpersImport}}}';
+
+void main() {
+  group('{{viewModelName}} Tests -', () {
+    setUp(() => registerServices());
+    tearDown(() => locator.reset());
+  });
+}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericViewmodel Template Data ----------
+
+const String kViewWebTemplateGenericViewmodelPath =
+    'lib/ui/views/generic/generic_viewmodel.dart.stk';
+
+const String kViewWebTemplateGenericViewmodelContent = '''
+import 'package:stacked/stacked.dart';
+
+class {{viewModelName}} extends BaseViewModel {
+}
+''';
+
+// --------------------------------------------------
+
+
+// -------- HomeViewDesktop Template Data ----------
+
+const String kViewWebTemplateHomeViewDesktopPath =
+    'lib/ui/views/generic/home_view.desktop.dart.stk';
+
+const String kViewWebTemplateHomeViewDesktopContent = '''
+import 'package:{{packageName}}/ui/common/app_colors.dart';
+import 'package:{{packageName}}/ui/common/app_constants.dart';
+import 'package:{{packageName}}/ui/common/ui_helpers.dart';
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+import 'home_viewmodel.dart';
+
+class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
+  const HomeViewDesktop({super.key});
+
+  @override
+  Widget build(BuildContext context, HomeViewModel viewModel) {
+    return Scaffold(
+      body: Center(
+            child: SizedBox(
+              width: kdDesktopMaxContentWidth,
+              height: kdDesktopMaxContentHeight,
+              child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                verticalSpaceLarge,
+                Column(
+                  children: [
+                    const Text(
+                      'Hello, DESKTOP UI!',
+                      style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    verticalSpaceMedium,
+                    MaterialButton(
+                      color: Colors.black,
+                      onPressed: viewModel.incrementCounter,
+                      child: Text(
+                        viewModel.counterLabel,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MaterialButton(
+                      color: kcDarkGreyColor,
+                      child: const Text(
+                        'Show Dialog',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: viewModel.showDialog,
+                    ),
+                    MaterialButton(
+                      color: kcDarkGreyColor,
+                      child: const Text(
+                        'Show Bottom Sheet',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: viewModel.showBottomSheet,
+                    ),
+                  ],
+                )
+              ],
+            ),
+        ),
+      ),
+    );
+  }
+}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- HomeViewMobile Template Data ----------
+
+const String kViewWebTemplateHomeViewMobilePath =
+    'lib/ui/views/generic/home_view.mobile.dart.stk';
+
+const String kViewWebTemplateHomeViewMobileContent = '''
+import 'package:{{packageName}}/ui/common/app_colors.dart';
+import 'package:{{packageName}}/ui/common/ui_helpers.dart';
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+import 'home_viewmodel.dart';
+
+class HomeViewMobile extends ViewModelWidget<HomeViewModel> {
+  const HomeViewMobile({super.key});
+
+  @override
+  Widget build(BuildContext context, HomeViewModel viewModel) {
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                verticalSpaceLarge,
+                Column(
+                  children: [
+                    const Text(
+                      'Hello, MOBILE UI!',
+                      style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    verticalSpaceMedium,
+                    MaterialButton(
+                      color: Colors.black,
+                      onPressed: viewModel.incrementCounter,
+                      child: Text(
+                        viewModel.counterLabel,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MaterialButton(
+                      color: kcDarkGreyColor,
+                      child: const Text(
+                        'Show Dialog',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: viewModel.showDialog,
+                    ),
+                    MaterialButton(
+                      color: kcDarkGreyColor,
+                      child: const Text(
+                        'Show Bottom Sheet',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: viewModel.showBottomSheet,
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- GenericView Template Data ----------
+
+const String kViewWebTemplateGenericViewPath =
+    'lib/ui/views/generic/generic_view.dart.stk';
+
+const String kViewWebTemplateGenericViewContent = '''
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+import '{{viewModelFileName}}';
+
+class {{viewName}} extends StackedView<{{viewModelName}}> {
+  const {{viewName}}({Key? key}) : super(key: key);
+
+  @override
+  Widget builder(
+    BuildContext context,
+    {{viewModelName}} viewModel,
+    Widget? child,
+  ) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: Container(
+        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+      ),
+    );
+  }
+
+  @override
+  {{viewModelName}} viewModelBuilder(
+    BuildContext context,
+  ) => {{viewModelName}}();
+}
+''';
+
+// --------------------------------------------------
+
+
+// -------- HomeView Template Data ----------
+
+const String kViewWebTemplateHomeViewPath =
+    'lib/ui/views/generic/home_view.dart.stk';
+
+const String kViewWebTemplateHomeViewContent = '''
+import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
+
+import '{{viewFileNameWithoutExtension}}.desktop.dart';
+import '{{viewFileNameWithoutExtension}}.tablet.dart';
+import '{{viewFileNameWithoutExtension}}.mobile.dart';
+import '{{viewModelFileName}}';
+
+class {{viewName}}  extends StackedView<{{viewModelName}}> {
+  const {{viewName}}({super.key});
+
+  @override
+  Widget builder(
+    BuildContext context,
+    {{viewModelName}}  viewModel,
+    Widget? child,
+  ) {
+    return ScreenTypeLayout.builder(
+      mobile: (_) => const {{viewName}}Mobile(),
+      tablet: (_) => const {{viewName}}Tablet(),
+      desktop: (_) => const {{viewName}}Desktop(),
+    );
+  }
+
+  @override
+  {{viewModelName}} viewModelBuilder(
+    BuildContext context,
+  ) =>
+  {{viewModelName}}();
+}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- HomeViewmodel Template Data ----------
+
+const String kViewWebTemplateHomeViewmodelPath =
+    'lib/ui/views/generic/home_viewmodel.dart.stk';
+
+const String kViewWebTemplateHomeViewmodelContent = '''
+import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
+import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
+import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
+import 'package:{{packageName}}/ui/common/app_strings.dart';
+import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+
+class HomeViewModel extends BaseViewModel {
+  final _dialogService = locator<DialogService>();
+  final _bottomSheetService = locator<BottomSheetService>();
+
+  String get counterLabel => 'Counter is: \$_counter';
+
+  int _counter = 0;
+
+  void incrementCounter() {
+    _counter++;
+    rebuildUi();
+  }
+
+  void showDialog() {
+    _dialogService.showCustomDialog(
+      variant: DialogType.infoAlert,
+      title: 'Stacked Rocks!',
+      description: 'Give stacked \$_counter stars on Github',
+    );
+  }
+
+  void showBottomSheet() {
+    _bottomSheetService.showCustomSheet(
+      variant: BottomSheetType.notice,
+      title: ksHomeBottomSheetTitle,
+      description: ksHomeBottomSheetDescription,
+    );
+  }
+}
+
+''';
+
+// --------------------------------------------------
+
+
+// -------- HomeViewTablet Template Data ----------
+
+const String kViewWebTemplateHomeViewTabletPath =
+    'lib/ui/views/generic/home_view.tablet.dart.stk';
+
+const String kViewWebTemplateHomeViewTabletContent = '''
+import 'package:{{packageName}}/ui/common/app_colors.dart';
+import 'package:{{packageName}}/ui/common/ui_helpers.dart';
+import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+import 'home_viewmodel.dart';
+
+class HomeViewTablet extends ViewModelWidget<HomeViewModel> {
+  const HomeViewTablet({super.key});
+
+  @override
+  Widget build(BuildContext context, HomeViewModel viewModel) {
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                verticalSpaceLarge,
+                Column(
+                  children: [
+                    const Text(
+                      'Hello, TABLET UI!',
+                      style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    verticalSpaceMedium,
+                    MaterialButton(
+                      color: Colors.black,
+                      onPressed: viewModel.incrementCounter,
+                      child: Text(
+                        viewModel.counterLabel,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MaterialButton(
+                      color: kcDarkGreyColor,
+                      child: const Text(
+                        'Show Dialog',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: viewModel.showDialog,
+                    ),
+                    MaterialButton(
+                      color: kcDarkGreyColor,
+                      child: const Text(
+                        'Show Bottom Sheet',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: viewModel.showBottomSheet,
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 ''';
 
 // --------------------------------------------------
