@@ -2,7 +2,6 @@ import 'package:example/datamodels/clashable_one.dart';
 import 'package:example/datamodels/home_type.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
 
 import '../smart_widgets/widget_one/widget_one.dart';
 import '../smart_widgets/widget_two/widget_two.dart';
@@ -16,7 +15,7 @@ class HomeView extends StatelessWidget {
 
   const HomeView({
     Key? key,
-    @PathParam('title') this.title = 'hello',
+    this.title = 'hello',
     this.isLoggedIn = false,
     this.clashableGetter,
     this.homeTypes = const [
