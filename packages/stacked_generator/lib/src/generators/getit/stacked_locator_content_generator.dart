@@ -21,13 +21,14 @@ class StackedLocatorContentGenerator
         "// ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages");
 
     _generateImports(dependencies);
+    writeLine('import \'app.router.dart\';');
 
     newLine();
     writeLine('final $locatorName = StackedLocator.instance;');
     newLine();
 
     writeLine(
-        'Future<void> $locatorSetupName ({String? environment , EnvironmentFilter? environmentFilter}) async {');
+        'Future<void> $locatorSetupName ({String? environment , EnvironmentFilter? environmentFilter, StackedRouterWeb? stackedRouter,}) async {');
 
     newLine();
     writeLine('// Register environments');
@@ -43,6 +44,17 @@ class StackedLocatorContentGenerator
       final registerDependenciesCode =
           dependency.registerDependencies(locatorName);
       writeLine(registerDependenciesCode);
+
+      if (dependency.className == 'RouterService') {
+        writeLine('''
+if (stackedRouter == null) {
+  throw Exception(
+      'Stacked is building to use the Router (Navigator 2.0) navigation but no stackedRouter is supplied. Pass the stackedRouter to the setupLocator function in main.dart');
+}
+
+exampleLocator<RouterService>().setRouter(stackedRouter);
+''');
+      }
     }
 
     writeLine('}');

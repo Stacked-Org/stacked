@@ -1,11 +1,6 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
-import 'package:stacked_generator/src/generators/extensions/routes_extension.dart';
-import 'package:stacked_generator/src/generators/router/generator/arguments_class/arguments_class_builder.dart';
-import 'package:stacked_generator/src/generators/router/generator/navigate_extension_class/navigate_extension_class_builder.dart';
 import 'package:stacked_generator/src/generators/router/generator/route_allocator.dart';
-import 'package:stacked_generator/src/generators/router/generator/router_class/router_class_builder.dart';
-import 'package:stacked_generator/src/generators/router/generator/routes_class/routes_class_builder.dart';
 import 'package:stacked_generator/utils.dart';
 
 import '../../router_common/models/importable_type.dart';
@@ -89,46 +84,20 @@ String generateLibrary(
     (acc, a) => acc..addAll(a.guards),
   );
 
-  final originalRouterClasses = <Class>[];
-
-  config.traverseRoutes(((routerConfig) {
-    if (routerConfig.routes.isNotEmpty) {
-      originalRouterClasses.add(RoutesClassBuilder(
-        routes: routerConfig.routes,
-        routesClassName: routerConfig.routesClassName,
-      ).buildRoutesClass());
-
-      originalRouterClasses.add(RouterClassBuilder(
-        routesClassName: routerConfig.routesClassName,
-        routes: routerConfig.routes,
-        routerClassName: routerConfig.routerClassName,
-      ).buildRouterClass());
-
-      originalRouterClasses.addAll(ArgumentsClassBuilder(
-        routes: routerConfig.routes,
-      ).buildViewsArguments(emitter));
-    }
-  }));
-
-  final navigationExtensionsClass = NavigateExtensionClassBuilder(
-    routes: config.routes,
-  ).build(emitter);
-
   final library = Library(
     (b) => b
       ..directives.addAll([
         if (usesPartBuilder) Directive.partOf(fileName),
-        Directive.import('package:flutter/material.dart'),
       ])
       ..body.addAll([
+        Code(
+            'final stackedRouter = StackedRouterWeb(${refer('StackedService.navigatorKey', 'package:stacked_services/stacked_services.dart').accept(emitter)});'),
         buildRouterConfig(config, allGuards, allRoutes),
         ...allRoutes
             .where((r) => r.routeType != RouteType.redirect)
             .distinctBy((e) => e.routeName)
             .map((r) => buildRouteInfoAndArgs(r, config, emitter))
             .reduce((acc, a) => acc..addAll(a)),
-        ...originalRouterClasses,
-        navigationExtensionsClass
       ]),
   );
 

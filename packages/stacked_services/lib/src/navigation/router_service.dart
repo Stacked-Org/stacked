@@ -3,15 +3,17 @@ import 'package:stacked/stacked.dart';
 
 /// Provides a service to perform
 class RouterService {
-  final RootStackRouter router;
+  late RootStackRouter router;
 
-  RouterService(this.router);
+  setRouter(RootStackRouter router) {
+    this.router = router;
+  }
 
   List<AutoRoutePage> get stack => router.stack;
 
   RouteData get topRoute => router.topRoute;
 
-  Future<dynamic> navigate(
+  Future<dynamic> navigateTo(
     PageRouteInfo route, {
     OnNavigationFailure? onFailure,
   }) =>
@@ -27,6 +29,45 @@ class RouterService {
         includePrefixMatches: includePrefixMatches,
         onFailure: onFailure,
       );
+
+  Future<T?> navigateWithTransition<T extends Object?>(
+    Widget widget, {
+    RouteTransitionsBuilder? transitionBuilder,
+    bool fullscreenDialog = false,
+    Duration transitionDuration = const Duration(milliseconds: 300),
+  }) =>
+      router.pushWidget<T>(
+        widget,
+        transitionBuilder: transitionBuilder,
+        transitionDuration: transitionDuration,
+        fullscreenDialog: fullscreenDialog,
+      );
+
+  Future<T?> replaceWith<T extends Object?>(
+    PageRouteInfo route, {
+    OnNavigationFailure? onFailure,
+  }) =>
+      router.replace(route, onFailure: onFailure);
+
+  Future<void> clearStackAndShow(PageRouteInfo route,
+      {OnNavigationFailure? onFailure}) {
+    return router.pushAll([route], onFailure: onFailure);
+  }
+
+  Future<void> clearStackAndShowView(
+    Widget widget, {
+    RouteTransitionsBuilder? transitionBuilder,
+    bool fullscreenDialog = false,
+    Duration transitionDuration = const Duration(milliseconds: 300),
+  }) {
+    router.clear();
+    return navigateWithTransition(
+      widget,
+      transitionBuilder: transitionBuilder,
+      transitionDuration: transitionDuration,
+      fullscreenDialog: fullscreenDialog,
+    );
+  }
 
   void popForced<T extends Object?>([T? result]) => router.popForced(result);
 
