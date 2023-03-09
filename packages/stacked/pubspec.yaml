@@ -20,6 +20,7 @@ dependencies:
   stacked_core: ^1.2.4
   #universal_io
   universal_io: ^2.0.4
+  path: ^1.8.2
 
 dev_dependencies:
   flutter_test:
