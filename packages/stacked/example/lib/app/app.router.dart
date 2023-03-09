@@ -41,8 +41,13 @@ class StackedRouterWeb extends _i11.RootStackRouter {
   @override
   final Map<String, _i11.PageFactory> pagesMap = {
     HomeViewRoute.name: (routeData) {
-      final args =
-          routeData.argsAs<HomeViewArgs>(orElse: () => const HomeViewArgs());
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<HomeViewArgs>(
+          orElse: () => HomeViewArgs(
+                  title: pathParams.optString(
+                'title',
+                'hello',
+              )));
       return _i11.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i2.HomeView(
@@ -133,7 +138,7 @@ class StackedRouterWeb extends _i11.RootStackRouter {
   List<_i11.RouteConfig> get routes => [
         _i11.RouteConfig(
           HomeViewRoute.name,
-          path: '/',
+          path: '/home/:title',
         ),
         _i11.RouteConfig(
           BottomNavExampleRoute.name,
@@ -141,29 +146,29 @@ class StackedRouterWeb extends _i11.RootStackRouter {
           children: [
             _i11.RouteConfig(
               HistoryViewRoute.name,
-              path: 'nullhistory-view',
+              path: 'history-view',
               parent: BottomNavExampleRoute.name,
             ),
             _i11.RouteConfig(
               FavoritesViewRoute.name,
-              path: 'nullfavorites-view',
+              path: 'favorites-view',
               parent: BottomNavExampleRoute.name,
               children: [
                 _i11.RouteConfig(
                   MultipleFuturesExampleViewRoute.name,
-                  path: 'nullmultiple-futures-example-view',
+                  path: 'multiple-futures-example-view',
                   parent: FavoritesViewRoute.name,
                 ),
                 _i11.RouteConfig(
                   HistoryViewRoute.name,
-                  path: 'nullhistory-view',
+                  path: 'history-view',
                   parent: FavoritesViewRoute.name,
                 ),
               ],
             ),
             _i11.RouteConfig(
               ProfileViewRoute.name,
-              path: 'nullprofile-view',
+              path: 'profile-view',
               parent: BottomNavExampleRoute.name,
             ),
           ],
@@ -197,7 +202,7 @@ class HomeViewRoute extends _i11.PageRouteInfo<HomeViewArgs> {
     ],
   }) : super(
           HomeViewRoute.name,
-          path: '/',
+          path: '/home/:title',
           args: HomeViewArgs(
             key: key,
             title: title,
@@ -205,6 +210,7 @@ class HomeViewRoute extends _i11.PageRouteInfo<HomeViewArgs> {
             clashableGetter: clashableGetter,
             homeTypes: homeTypes,
           ),
+          rawPathParams: {'title': title},
         );
 
   static const String name = 'HomeView';
@@ -334,7 +340,7 @@ class HistoryViewRoute extends _i11.PageRouteInfo<void> {
   const HistoryViewRoute()
       : super(
           HistoryViewRoute.name,
-          path: 'nullhistory-view',
+          path: 'history-view',
         );
 
   static const String name = 'HistoryView';
@@ -349,7 +355,7 @@ class FavoritesViewRoute extends _i11.PageRouteInfo<FavoritesViewArgs> {
     List<_i11.PageRouteInfo>? children,
   }) : super(
           FavoritesViewRoute.name,
-          path: 'nullfavorites-view',
+          path: 'favorites-view',
           args: FavoritesViewArgs(
             key: key,
             id: id,
@@ -382,7 +388,7 @@ class ProfileViewRoute extends _i11.PageRouteInfo<void> {
   const ProfileViewRoute()
       : super(
           ProfileViewRoute.name,
-          path: 'nullprofile-view',
+          path: 'profile-view',
         );
 
   static const String name = 'ProfileView';
@@ -394,14 +400,14 @@ class MultipleFuturesExampleViewRoute extends _i11.PageRouteInfo<void> {
   const MultipleFuturesExampleViewRoute()
       : super(
           MultipleFuturesExampleViewRoute.name,
-          path: 'nullmultiple-futures-example-view',
+          path: 'multiple-futures-example-view',
         );
 
   static const String name = 'MultipleFuturesExampleView';
 }
 
 class Routes {
-  static const homeView = '/';
+  static const _homeView = '/home/:title';
 
   static const bottomNavExample = '/bottom-nav-example';
 
@@ -412,12 +418,14 @@ class Routes {
   static const nonReactiveView = '/non-reactive-view';
 
   static const all = <String>{
-    homeView,
+    _homeView,
     bottomNavExample,
     streamCounterView,
     exampleFormView,
     nonReactiveView,
   };
+
+  static String homeView({required dynamic title}) => '/home/$title';
 }
 
 class StackedRouter extends _i11.RouterBase {
@@ -452,7 +460,7 @@ class StackedRouter extends _i11.RouterBase {
       return _i12.MaterialPageRoute<dynamic>(
         builder: (context) => _i2.HomeView(
             key: args.key,
-            title: args.title,
+            title: data.pathParams['title'].value('hello'),
             isLoggedIn: args.isLoggedIn,
             clashableGetter: args.clashableGetter,
             homeTypes: args.homeTypes),
@@ -560,11 +568,11 @@ class ExampleFormViewArguments {
 }
 
 class BottomNavExampleRoutes {
-  static const historyView = 'nullhistory-view';
+  static const historyView = 'history-view';
 
-  static const favoritesView = 'nullfavorites-view';
+  static const favoritesView = 'favorites-view';
 
-  static const profileView = 'nullprofile-view';
+  static const profileView = 'profile-view';
 
   static const all = <String>{
     historyView,
@@ -639,9 +647,9 @@ class FavoritesViewArguments {
 }
 
 class FavoritesViewRoutes {
-  static const multipleFuturesExampleView = 'nullmultiple-futures-example-view';
+  static const multipleFuturesExampleView = 'multiple-futures-example-view';
 
-  static const historyView = 'nullhistory-view';
+  static const historyView = 'history-view';
 
   static const all = <String>{
     multipleFuturesExampleView,
@@ -691,7 +699,6 @@ class FavoritesViewRouter extends _i11.RouterBase {
 extension NavigatorStateExtension on _i17.NavigationService {
   Future<dynamic> navigateToHomeView({
     _i12.Key? key,
-    String? title = 'hello',
     bool? isLoggedIn = false,
     _i14.Clashable Function(String)? clashableGetter,
     List<_i1.HomeType> homeTypes = const [
@@ -783,7 +790,6 @@ extension NavigatorStateExtension on _i17.NavigationService {
 
   Future<dynamic> replaceWithHomeView({
     _i12.Key? key,
-    String? title = 'hello',
     bool? isLoggedIn = false,
     _i14.Clashable Function(String)? clashableGetter,
     List<_i1.HomeType> homeTypes = const [

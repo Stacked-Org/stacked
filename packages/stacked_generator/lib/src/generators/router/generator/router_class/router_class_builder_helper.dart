@@ -206,6 +206,8 @@ class RouterClassBuilderHelper {
       );
     }
 
+    print('=========== $route');
+
     throw Exception('No config registered for ${route.name} of type ');
   }
 }

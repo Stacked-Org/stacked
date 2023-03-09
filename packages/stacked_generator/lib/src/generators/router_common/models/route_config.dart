@@ -87,6 +87,11 @@ class RouteConfig {
     this.parentClassName,
   });
 
+  @override
+  String toString() {
+    return 'RouteConfig(name:$name pathName:$pathName pathParams:$pathParams className:$className)';
+  }
+
   RouteConfig copyWith({
     String? name,
     String? pathName,

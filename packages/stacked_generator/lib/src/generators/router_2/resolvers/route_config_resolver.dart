@@ -94,14 +94,7 @@ class RouteConfigResolver {
       'Child [$path] can not start with a forward slash',
     );
 
-    String? pathName = stackedRoute.peek('path')?.stringValue;
-    if (pathName == null) {
-      if (stackedRoute.peek('initial')?.boolValue == true) {
-        pathName = '/';
-      } else {
-        pathName = '$routeNamePrefix${className.toKababCase}';
-      }
-    }
+    var pathName = path;
     var pathParams = RouteParameterResolver.extractPathParams(path);
 
     final fullscreenDialog = stackedRoute.peek('fullscreenDialog')?.boolValue;
@@ -291,6 +284,14 @@ class RouteConfigResolver {
     }
 
     return RouteConfig(
+      className: className,
+      name: name,
+      initial: initial,
+      pathParams: pathParams,
+      routeType: routeType,
+      hasWrappedRoute: hasWrappedRoute,
+      transitionBuilder: transitionBuilder,
+      customRouteBuilder: customRouteBuilder,
       parentClassName: parentRouterConfig?.routerClassName,
       parentRouterConfig: parentRouterConfig,
       parameters: parameters,
@@ -299,18 +300,10 @@ class RouteConfigResolver {
           .contains('StackedRouteWrapper'),
       returnType: returnType,
       pathName: pathName,
-      name: name,
       maintainState: maintainState ?? true,
-      className: className,
       classImport: import ?? '',
       fullscreenDialog: fullscreenDialog ?? false,
       hasConstConstructor: hasConstConstructor,
-      initial: initial,
-      pathParams: pathParams,
-      routeType: routeType,
-      hasWrappedRoute: hasWrappedRoute,
-      transitionBuilder: transitionBuilder,
-      customRouteBuilder: customRouteBuilder,
       customRouteBarrierDismissible: customRouteBarrierDismissible,
       customRouteOpaque: customRouteOpaque,
       cupertinoNavTitle: cupertinoNavTitle,
