@@ -15,5 +15,5 @@
     "register_mocks_function": "registerServices",
     "v1": false,
     "line_length": 80,
-    "preferWeb": true,
+    "prefer_web": true,
 }

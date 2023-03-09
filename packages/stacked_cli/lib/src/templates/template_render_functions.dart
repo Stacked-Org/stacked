@@ -12,7 +12,7 @@ Map<String, RenderFunction> renderFunctions = {
     return {
       kTemplatePropertyViewName: '${value.pascalCase}View',
       kTemplatePropertyViewFileName: '${value.snakeCase}_view.dart',
-      kTemplatePropertyViewFileNameWithoutExtension: value.snakeCase,
+      kTemplatePropertyViewFileNameWithoutExtension: '${value.snakeCase}_view',
       kTemplatePropertyViewModelName: '${value.pascalCase}ViewModel',
       kTemplatePropertyViewModelFileName: '${value.snakeCase}_viewmodel.dart',
       kTemplatePropertyViewFolderName: value.snakeCase,

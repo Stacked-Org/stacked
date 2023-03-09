@@ -90,7 +90,32 @@ class MockFileService extends _i1.Mock implements _i5.FileService {
   }) =>
       (super.noSuchMethod(
         Invocation.method(
-          #writeFile,
+          #writeStringFile,
+          [],
+          {
+            #file: file,
+            #fileContent: fileContent,
+            #verbose: verbose,
+            #type: type,
+            #verboseMessage: verboseMessage,
+            #forceAppend: forceAppend,
+          },
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> writeDataFile({
+    required _i2.File? file,
+    required _i7.Uint8List? fileContent,
+    bool? verbose = false,
+    _i5.FileModificationType? type = _i5.FileModificationType.Create,
+    String? verboseMessage,
+    bool? forceAppend = false,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #writeDataFile,
           [],
           {
             #file: file,
@@ -970,6 +995,12 @@ class MockConfigService extends _i1.Mock implements _i15.ConfigService {
         returnValue: 0,
         returnValueForMissingStub: 0,
       ) as int);
+  @override
+  bool get preferWeb => (super.noSuchMethod(
+        Invocation.getter(#preferWeb),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
   @override
   _i6.Future<String?> resolveConfigFile({String? path}) => (super.noSuchMethod(
         Invocation.method(

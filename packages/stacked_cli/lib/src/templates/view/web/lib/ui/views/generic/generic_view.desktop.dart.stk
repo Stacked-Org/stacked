@@ -1,19 +1,17 @@
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '{{viewModelFileName}}';
 
-class {{viewName}}Mobile extends ViewModelWidget<HomeViewM{{viewModelName}}odel> {
-  const {{viewName}}Mobile({super.key});
+class {{viewName}}Desktop extends ViewModelWidget<{{viewModelName}}> {
+  const {{viewName}}Desktop({super.key});
 
   @override
   Widget build(BuildContext context, {{viewModelName}} viewModel) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
-        const Text(
-          'Hello, MOBILE UI!',
+        child: Text(
+          'Hello, DESKTOP UI!',
           style: TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.w900,

@@ -1,5 +1,3 @@
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -10,9 +8,9 @@ class {{viewName}}Tablet extends ViewModelWidget<{{viewModelName}}> {
 
   @override
   Widget build(BuildContext context, {{viewModelName}} viewModel) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
-        const Text(
+        child: Text(
           'Hello, TABLET UI!',
           style: TextStyle(
             fontSize: 35,

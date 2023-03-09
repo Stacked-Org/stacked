@@ -25,7 +25,7 @@ const String kAppWebTemplateStackedJsonStkContent = '''
     "register_mocks_function": "registerServices",
     "v1": false,
     "line_length": 80,
-    "preferWeb": true,
+    "prefer_web": true,
 }
 ''';
 
@@ -3179,43 +3179,6 @@ void main() {
 // --------------------------------------------------
 
 
-// -------- GenericTablet Template Data ----------
-
-const String kViewWebTemplateGenericTabletPath =
-    'lib/ui/views/generic/generic.tablet.dart.stk';
-
-const String kViewWebTemplateGenericTabletContent = '''
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-
-import '{{viewModelFileName}}';
-
-class {{viewName}}Tablet extends ViewModelWidget<{{viewModelName}}> {
-  const {{viewName}}Tablet({super.key});
-
-  @override
-  Widget build(BuildContext context, {{viewModelName}} viewModel) {
-    return Scaffold(
-      body: Center(
-        const Text(
-          'Hello, TABLET UI!',
-          style: TextStyle(
-            fontSize: 35,
-            fontWeight: FontWeight.w900,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-''';
-
-// --------------------------------------------------
-
-
 // -------- GenericViewmodel Template Data ----------
 
 const String kViewWebTemplateGenericViewmodelPath =
@@ -3231,29 +3194,26 @@ class {{viewModelName}} extends BaseViewModel {
 // --------------------------------------------------
 
 
-// -------- GenericDesktop Template Data ----------
+// -------- GenericViewMobile Template Data ----------
 
-const String kViewWebTemplateGenericDesktopPath =
-    'lib/ui/views/generic/generic.desktop.dart.stk';
+const String kViewWebTemplateGenericViewMobilePath =
+    'lib/ui/views/generic/generic_view.mobile.dart.stk';
 
-const String kViewWebTemplateGenericDesktopContent = '''
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/app_constants.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
+const String kViewWebTemplateGenericViewMobileContent = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '{{viewModelFileName}}';
 
-class {{viewName}}Desktop extends ViewModelWidget<{{viewModelName}}> {
-  const {{viewName}}Desktop({super.key});
+class {{viewName}}Mobile extends ViewModelWidget<{{viewModelName}}> {
+  const {{viewName}}Mobile({super.key});
 
   @override
   Widget build(BuildContext context, {{viewModelName}} viewModel) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
-        const Text(
-          'Hello, DESKTOP UI!',
+        child: Text(
+          'Hello, MOBILE UI!',
           style: TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.w900,
@@ -3269,28 +3229,26 @@ class {{viewName}}Desktop extends ViewModelWidget<{{viewModelName}}> {
 // --------------------------------------------------
 
 
-// -------- GenericMobile Template Data ----------
+// -------- GenericViewTablet Template Data ----------
 
-const String kViewWebTemplateGenericMobilePath =
-    'lib/ui/views/generic/generic.mobile.dart.stk';
+const String kViewWebTemplateGenericViewTabletPath =
+    'lib/ui/views/generic/generic_view.tablet.dart.stk';
 
-const String kViewWebTemplateGenericMobileContent = '''
-import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:{{packageName}}/ui/common/ui_helpers.dart';
+const String kViewWebTemplateGenericViewTabletContent = '''
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '{{viewModelFileName}}';
 
-class {{viewName}}Mobile extends ViewModelWidget<HomeViewM{{viewModelName}}odel> {
-  const {{viewName}}Mobile({super.key});
+class {{viewName}}Tablet extends ViewModelWidget<{{viewModelName}}> {
+  const {{viewName}}Tablet({super.key});
 
   @override
   Widget build(BuildContext context, {{viewModelName}} viewModel) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
-        const Text(
-          'Hello, MOBILE UI!',
+        child: Text(
+          'Hello, TABLET UI!',
           style: TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.w900,
@@ -3315,7 +3273,6 @@ const String kViewWebTemplateGenericViewContent = '''
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
 
 import '{{viewFileNameWithoutExtension}}.desktop.dart';
 import '{{viewFileNameWithoutExtension}}.tablet.dart';
@@ -3350,20 +3307,34 @@ class {{viewName}} extends StackedView<{{viewModelName}}> {
 // --------------------------------------------------
 
 
-// -------- HomeViewmodel Template Data ----------
+// -------- GenericViewDesktop Template Data ----------
 
-const String kViewWebTemplateHomeViewmodelPath =
-    'lib/ui/views/generic/home_viewmodel.dart.stk';
+const String kViewWebTemplateGenericViewDesktopPath =
+    'lib/ui/views/generic/generic_view.desktop.dart.stk';
 
-const String kViewWebTemplateHomeViewmodelContent = '''
-import 'package:{{packageName}}/{{{relativeBottomSheetFilePath}}}';
-import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
-import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
-import 'package:{{packageName}}/ui/common/app_strings.dart';
+const String kViewWebTemplateGenericViewDesktopContent = '''
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 
-class {{viewModelName}} extends BaseViewModel {
+import '{{viewModelFileName}}';
+
+class {{viewName}}Desktop extends ViewModelWidget<{{viewModelName}}> {
+  const {{viewName}}Desktop({super.key});
+
+  @override
+  Widget build(BuildContext context, {{viewModelName}} viewModel) {
+    return const Scaffold(
+      body: Center(
+        child: Text(
+          'Hello, DESKTOP UI!',
+          style: TextStyle(
+            fontSize: 35,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 ''';

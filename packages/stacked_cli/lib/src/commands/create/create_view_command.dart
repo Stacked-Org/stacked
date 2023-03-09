@@ -50,7 +50,7 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       abbr: 't',
       // TODO (Create App Templates): Generate a constant with these values when
       // running the compile command
-      allowed: ['empty'],
+      allowed: ['empty', 'web'],
       help: kCommandHelpCreateViewTemplate,
     );
   }
@@ -69,6 +69,7 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
     // Determine which template to use with the following rules:
     // 1. If the template is supplied we use that template
     // 2. If the template is null use config web to decide
+    print('templateType:$templateType preferWeb:${_configService.preferWeb}');
     templateType ??= _configService.preferWeb ? 'web' : 'empty';
 
     await _templateService.renderTemplate(

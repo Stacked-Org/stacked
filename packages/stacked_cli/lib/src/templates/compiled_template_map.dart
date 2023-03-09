@@ -381,23 +381,18 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
             fileType: FileType.text
           ),
           TemplateFile(
-            relativeOutputPath: kViewWebTemplateGenericTabletPath,
-            content: kViewWebTemplateGenericTabletContent,
-            fileType: FileType.text
-          ),
-          TemplateFile(
             relativeOutputPath: kViewWebTemplateGenericViewmodelPath,
             content: kViewWebTemplateGenericViewmodelContent,
             fileType: FileType.text
           ),
           TemplateFile(
-            relativeOutputPath: kViewWebTemplateGenericDesktopPath,
-            content: kViewWebTemplateGenericDesktopContent,
+            relativeOutputPath: kViewWebTemplateGenericViewMobilePath,
+            content: kViewWebTemplateGenericViewMobileContent,
             fileType: FileType.text
           ),
           TemplateFile(
-            relativeOutputPath: kViewWebTemplateGenericMobilePath,
-            content: kViewWebTemplateGenericMobileContent,
+            relativeOutputPath: kViewWebTemplateGenericViewTabletPath,
+            content: kViewWebTemplateGenericViewTabletContent,
             fileType: FileType.text
           ),
           TemplateFile(
@@ -406,8 +401,8 @@ Map<String, Map<String, StackedTemplate>> kCompiledStackedTemplates = {
             fileType: FileType.text
           ),
           TemplateFile(
-            relativeOutputPath: kViewWebTemplateHomeViewmodelPath,
-            content: kViewWebTemplateHomeViewmodelContent,
+            relativeOutputPath: kViewWebTemplateGenericViewDesktopPath,
+            content: kViewWebTemplateGenericViewDesktopContent,
             fileType: FileType.text
           ),
         ],
