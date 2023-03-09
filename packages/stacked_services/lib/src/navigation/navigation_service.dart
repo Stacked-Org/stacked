@@ -21,15 +21,15 @@ class NavigationTransition {
 /// Uses the Get library for all navigation requirements
 class NavigationService {
   Map<String, Transition> _transitions = {
-    NavigationTransition.Fade: Transition.fade,
-    NavigationTransition.RightToLeft: Transition.rightToLeft,
-    NavigationTransition.LeftToRight: Transition.leftToRight,
-    NavigationTransition.UpToDown: Transition.upToDown,
-    NavigationTransition.DownToUp: Transition.downToUp,
-    NavigationTransition.Rotate: Transition.zoom,
-    NavigationTransition.RightToLeftWithFade: Transition.rightToLeftWithFade,
-    NavigationTransition.LeftToRighttWithFade: Transition.leftToRightWithFade,
-    NavigationTransition.NoTransition: Transition.noTransition,
+    Transition.fade.name: Transition.fade,
+    Transition.rightToLeft.name: Transition.rightToLeft,
+    Transition.leftToRight.name: Transition.leftToRight,
+    Transition.upToDown.name: Transition.upToDown,
+    Transition.downToUp.name: Transition.downToUp,
+    Transition.zoom.name: Transition.zoom,
+    Transition.rightToLeftWithFade.name: Transition.rightToLeftWithFade,
+    Transition.leftToRightWithFade.name: Transition.leftToRightWithFade,
+    Transition.noTransition.name: Transition.noTransition,
   };
 
   @Deprecated(
