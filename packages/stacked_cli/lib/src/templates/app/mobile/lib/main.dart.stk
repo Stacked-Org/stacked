@@ -5,9 +5,13 @@ import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
 import 'package:{{packageName}}/ui/common/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 void main() {
-  setupLocator();
+  setPathUrlStrategy();
+  setupLocator(
+    stackedRouter: stackedRouter,
+  );
   setupDialogUi();
   setupBottomSheetUi();
 
@@ -19,7 +23,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
       theme: Theme.of(context).copyWith(
         primaryColor: kcBackgroundColor,
@@ -28,12 +32,8 @@ class MyApp extends StatelessWidget {
               bodyColor: Colors.black,
             ),
       ),
-      initialRoute: Routes.startupView,
-      onGenerateRoute: StackedRouter().onGenerateRoute,
-      navigatorKey: StackedService.navigatorKey,
-      navigatorObservers: [
-        StackedService.routeObserver,
-      ],
+      routerDelegate: stackedRouter.delegate(),
+      routeInformationParser: stackedRouter.defaultRouteParser(),
     );
   }
 }
