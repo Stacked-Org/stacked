@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AutoPageRouteBuilder<T> extends PageRoute<T> {
-  AutoPageRouteBuilder({
+class StackedPageRouteBuilder<T> extends PageRoute<T> {
+  StackedPageRouteBuilder({
     this.transitionBuilder,
     this.transitionDuration = const Duration(milliseconds: 300),
     required this.child,

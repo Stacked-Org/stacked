@@ -9,7 +9,7 @@ import '../router_2/resolvers/router_config_resolver.dart';
 import '../router_common/resolvers/type_resolver.dart';
 import 'generator/router_generator.dart';
 
-class StackedRouterGenerator extends GeneratorForAnnotation<StackedApp> {
+class StackedNavigatorGenerator extends GeneratorForAnnotation<StackedApp> {
   @override
   FutureOr<String> generateForAnnotatedElement(
     Element element,

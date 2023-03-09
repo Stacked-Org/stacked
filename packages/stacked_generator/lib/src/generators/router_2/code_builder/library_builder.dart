@@ -109,7 +109,7 @@ const String _header = '''
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
-// AutoRouteGenerator
+// StackedRouterGenerator
 // **************************************************************************
 //
 // ignore_for_file: type=lint

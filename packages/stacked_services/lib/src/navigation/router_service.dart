@@ -9,7 +9,7 @@ class RouterService {
     this.router = router;
   }
 
-  List<AutoRoutePage> get stack => router.stack;
+  List<StackedPage> get stack => router.stack;
 
   RouteData get topRoute => router.topRoute;
 

@@ -1,11 +1,11 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked/src/router/auto_route_page.dart';
 import 'package:stacked/src/router/controller/routing_controller.dart';
 import 'package:stacked/src/router/route/page_route_info.dart';
+import 'package:stacked/src/router/stacked_page.dart';
 
-class AutoRouteNavigator extends StatefulWidget {
+class RouteNavigator extends StatefulWidget {
   final StackRouter router;
   final String? navRestorationScopeId;
   final WidgetBuilder? placeholder;
@@ -13,7 +13,7 @@ class AutoRouteNavigator extends StatefulWidget {
   final RoutePopCallBack? didPop;
   final RoutesBuilder? declarativeRoutesBuilder;
 
-  const AutoRouteNavigator({
+  const RouteNavigator({
     required this.router,
     required this.navigatorObservers,
     this.navRestorationScopeId,
@@ -24,10 +24,10 @@ class AutoRouteNavigator extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  AutoRouteNavigatorState createState() => AutoRouteNavigatorState();
+  RouteNavigatorState createState() => RouteNavigatorState();
 }
 
-class AutoRouteNavigatorState extends State<AutoRouteNavigator> {
+class RouteNavigatorState extends State<RouteNavigator> {
   List<PageRouteInfo>? _routesSnapshot;
 
   @override
@@ -52,7 +52,7 @@ class AutoRouteNavigatorState extends State<AutoRouteNavigator> {
   }
 
   @override
-  void didUpdateWidget(covariant AutoRouteNavigator oldWidget) {
+  void didUpdateWidget(covariant RouteNavigator oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.declarativeRoutesBuilder != null) {
       _updateDeclarativeRoutes();
@@ -75,8 +75,8 @@ class AutoRouteNavigatorState extends State<AutoRouteNavigator> {
               if (!route.didPop(result)) {
                 return false;
               }
-              if (route.settings is AutoRoutePage) {
-                var routeData = (route.settings as AutoRoutePage).routeData;
+              if (route.settings is StackedPage) {
+                var routeData = (route.settings as StackedPage).routeData;
                 widget.router.removeRoute(routeData);
                 widget.didPop?.call(routeData.route, result);
               }

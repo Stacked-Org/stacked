@@ -14,8 +14,8 @@ Builder stackedRouterGenerator(BuilderOptions options) {
   final generatorConfig = GeneratorConfig.fromJson(options.config);
   return LibraryBuilder(
     generatorConfig.navigator2
-        ? AutoRouteGenerator()
-        : StackedRouterGenerator(),
+        ? StackedRouterGenerator()
+        : StackedNavigatorGenerator(),
     generatedExtension: '.router.dart',
   );
 }

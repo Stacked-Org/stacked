@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/src/code_generation/router_annotation/parameters.dart';
-import 'package:stacked/src/router/auto_route_page.dart';
 import 'package:stacked/src/router/controller/controller_scope.dart';
 import 'package:stacked/src/router/controller/navigation_history/navigation_history_base.dart';
 import 'package:stacked/src/router/matcher/route_match.dart';
@@ -15,8 +14,9 @@ import 'package:stacked/src/router/provider/stacked_route_information_provider.d
 import 'package:stacked/src/router/route/page_route_info.dart';
 import 'package:stacked/src/router/route/route_config.dart';
 import 'package:stacked/src/router/route/route_data_scope.dart';
-import 'package:stacked/src/router/transitions/custom_page_route.dart';
-import 'package:stacked/src/router/widgets/auto_route_navigator.dart';
+import 'package:stacked/src/router/stacked_page.dart';
+import 'package:stacked/src/router/transitions/stacked_page_route.dart';
+import 'package:stacked/src/router/widgets/route_navigator.dart';
 
 import 'pageless_routes_observer.dart';
 
@@ -38,7 +38,7 @@ abstract class RoutingController with ChangeNotifier {
   final _childControllers = <RoutingController>[];
 
   List<RoutingController> get childControllers => _childControllers;
-  final List<AutoRoutePage> _pages = [];
+  final List<StackedPage> _pages = [];
 
   NavigationHistory get navigationHistory => root.navigationHistory;
 
@@ -262,7 +262,7 @@ abstract class RoutingController with ChangeNotifier {
 
   RouteMatcher get matcher;
 
-  List<AutoRoutePage> get stack;
+  List<StackedPage> get stack;
 
   RoutingController? get _parent;
 
@@ -298,7 +298,7 @@ abstract class RoutingController with ChangeNotifier {
 
   RouteCollection get routeCollection;
 
-  AutoRoutePage? get topPage => topMostRouter()._pages.lastOrNull;
+  StackedPage? get topPage => topMostRouter()._pages.lastOrNull;
 
   bool get hasEntries => _pages.isNotEmpty;
 
@@ -447,9 +447,9 @@ class TabsRouter extends RoutingController {
   }
 
   @override
-  List<AutoRoutePage> get stack => List.unmodifiable(_pages);
+  List<StackedPage> get stack => List.unmodifiable(_pages);
 
-  AutoRoutePage? get _activePage {
+  StackedPage? get _activePage {
     return _pages.isEmpty ? null : _pages[_activeIndex];
   }
 
@@ -659,11 +659,11 @@ abstract class StackRouter extends RoutingController {
   })  : _navigatorKey = navigatorKey ?? GlobalKey<NavigatorState>(),
         _parent = parent;
 
-  final Map<AutoRedirectGuardBase, VoidCallback> _redirectGuardsListeners = {};
+  final Map<RedirectGuardBase, VoidCallback> _redirectGuardsListeners = {};
 
   late final pendingRoutesHandler = PendingRoutesHandler();
 
-  void _attachRedirectGuard(AutoRedirectGuardBase guard) {
+  void _attachRedirectGuard(RedirectGuardBase guard) {
     final stackRouters = _buildRoutersHierarchy().whereType<StackRouter>();
 
     if (stackRouters
@@ -678,7 +678,7 @@ abstract class StackRouter extends RoutingController {
     );
   }
 
-  void _removeRedirectGuard(AutoRedirectGuardBase guard) {
+  void _removeRedirectGuard(RedirectGuardBase guard) {
     guard.removeListener(_redirectGuardsListeners[guard]!);
     _redirectGuardsListeners.remove(guard);
   }
@@ -777,7 +777,7 @@ abstract class StackRouter extends RoutingController {
     final navigator = _navigatorKey.currentState;
     assert(navigator != null);
     return navigator!.push<T>(
-      AutoPageRouteBuilder<T>(
+      StackedPageRouteBuilder<T>(
         child: widget,
         fullscreenDialog: fullscreenDialog,
         transitionBuilder: transitionBuilder,
@@ -872,7 +872,7 @@ abstract class StackRouter extends RoutingController {
     }
 
     final stack = _pages.map((e) => e.routeData._match);
-    for (final guard in route.guards.whereType<AutoRedirectGuard>()) {
+    for (final guard in route.guards.whereType<RedirectGuard>()) {
       if (!stack.any((r) => r.guards.contains(guard))) {
         _removeRedirectGuard(guard);
       }
@@ -899,7 +899,7 @@ abstract class StackRouter extends RoutingController {
   }
 
   @override
-  List<AutoRoutePage> get stack => List.unmodifiable(_pages);
+  List<StackedPage> get stack => List.unmodifiable(_pages);
 
   @optionalTypeArgs
   Future<T?> push<T extends Object?>(PageRouteInfo route,
@@ -925,7 +925,7 @@ abstract class StackRouter extends RoutingController {
     );
 
     if (anchorPage != null) {
-      for (var candidate in List<AutoRoutePage>.unmodifiable(_pages).reversed) {
+      for (var candidate in List<StackedPage>.unmodifiable(_pages).reversed) {
         _pages.removeLast();
         if (candidate.routeKey == anchorPage.routeKey) {
           for (final ctr in _childControllers) {
@@ -955,7 +955,7 @@ abstract class StackRouter extends RoutingController {
   }) async {
     assert(
       !managedByWidget,
-      'Pages stack can be managed by either the Widget (AutoRouter.declarative) or the (StackRouter)',
+      'Pages stack can be managed by either the Widget (StackedRouter.declarative) or the (StackRouter)',
     );
     var match = _matchOrReportFailure(route, onFailure);
     if (match == null) {
@@ -1111,7 +1111,7 @@ abstract class StackRouter extends RoutingController {
   }) async {
     assert(
       !managedByWidget,
-      'Pages stack can be managed by either the Widget (AutoRouter.declarative) or Router',
+      'Pages stack can be managed by either the Widget (StackedRouter.declarative) or Router',
     );
 
     for (var i = 0; i < routes.length; i++) {
@@ -1153,7 +1153,7 @@ abstract class StackRouter extends RoutingController {
     if (notify) {
       notifyAll();
     }
-    return (page as AutoRoutePage<T>).popped;
+    return (page as StackedPage<T>).popped;
   }
 
   Future<bool> _canNavigate(
@@ -1166,7 +1166,7 @@ abstract class StackRouter extends RoutingController {
     }
     for (var guard in route.guards) {
       final completer = Completer<bool>();
-      if (guard is AutoRedirectGuard) {
+      if (guard is RedirectGuard) {
         _attachRedirectGuard(guard);
       }
       activeGuardObserver.value = guard;
@@ -1183,7 +1183,7 @@ abstract class StackRouter extends RoutingController {
         if (onFailure != null) {
           onFailure(RejectedByGuardFailure(route, guard));
         }
-        if (guard is AutoRedirectGuard) {
+        if (guard is RedirectGuard) {
           _removeRedirectGuard(guard);
         }
         return false;
@@ -1293,8 +1293,8 @@ abstract class StackRouter extends RoutingController {
 
   void popUntilRouteWithPath(String path) {
     popUntil((route) {
-      if ((route.settings is AutoRoutePage)) {
-        return (route.settings as AutoRoutePage).routeData.match == path;
+      if ((route.settings is StackedPage)) {
+        return (route.settings as StackedPage).routeData.match == path;
       }
       // Assuming pageless routes are either dialogs or bottomSheetModals
       // and the user set a path as in RouteSettings(name: path) when showing theme

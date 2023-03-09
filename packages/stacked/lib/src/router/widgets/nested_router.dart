@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/src/router/controller/controller_scope.dart';
 import 'package:stacked/src/router/controller/routing_controller.dart';
 import 'package:stacked/src/router/route/page_route_info.dart';
-import 'package:stacked/src/router/widgets/auto_route_navigator.dart';
+import 'package:stacked/src/router/widgets/route_navigator.dart';
 
 class NestedRouter extends StatefulWidget {
   final NavigatorObserversBuilder navigatorObservers;
@@ -35,7 +35,7 @@ class NestedRouter extends StatefulWidget {
     OnNestedNavigateCallBack? onNavigate,
     WidgetBuilder? placeholder,
   }) =>
-      _DeclarativeAutoRouter(
+      _DeclarativeStackedRouter(
         onPopRoute: onPopRoute,
         navigatorKey: navigatorKey,
         navRestorationScopeId: navRestorationScopeId,
@@ -54,9 +54,9 @@ class NestedRouter extends StatefulWidget {
     assert(() {
       if (scope == null) {
         throw FlutterError(
-            'AutoRouter operation requested with a context that does not include an AutoRouter.\n'
+            'NestedRouter operation requested with a context that does not include an NestedRouter.\n'
             'The context used to retrieve the Router must be that of a widget that '
-            'is a descendant of an AutoRouter widget.');
+            'is a descendant of an NestedRouter widget.');
       }
       return true;
     }());
@@ -117,7 +117,7 @@ class NestedRouterState extends State<NestedRouter> {
   @override
   Widget build(BuildContext context) {
     assert(_controller != null);
-    var navigator = AutoRouteNavigator(
+    var navigator = RouteNavigator(
       router: _controller!,
       navRestorationScopeId: widget.navRestorationScopeId,
       navigatorObservers: _navigatorObservers,
@@ -156,7 +156,7 @@ class NestedRouterState extends State<NestedRouter> {
 typedef RoutesGenerator = List<PageRouteInfo> Function(
     BuildContext context, List<PageRouteInfo> routes);
 
-class _DeclarativeAutoRouter extends StatefulWidget {
+class _DeclarativeStackedRouter extends StatefulWidget {
   final RoutesBuilder routes;
   final RoutePopCallBack? onPopRoute;
   final NavigatorObserversBuilder navigatorObservers;
@@ -166,7 +166,7 @@ class _DeclarativeAutoRouter extends StatefulWidget {
   final OnNestedNavigateCallBack? onNavigate;
   final WidgetBuilder? placeholder;
 
-  const _DeclarativeAutoRouter({
+  const _DeclarativeStackedRouter({
     Key? key,
     required this.routes,
     this.navigatorObservers =
@@ -180,10 +180,11 @@ class _DeclarativeAutoRouter extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _DeclarativeAutoRouterState createState() => _DeclarativeAutoRouterState();
+  _DeclarativeStackedRouterState createState() =>
+      _DeclarativeStackedRouterState();
 }
 
-class _DeclarativeAutoRouterState extends State<_DeclarativeAutoRouter> {
+class _DeclarativeStackedRouterState extends State<_DeclarativeStackedRouter> {
   StackRouter? _controller;
   late HeroController _heroController;
 
@@ -246,7 +247,7 @@ class _DeclarativeAutoRouterState extends State<_DeclarativeAutoRouter> {
       stateHash: stateHash,
       child: HeroControllerScope(
         controller: _heroController,
-        child: AutoRouteNavigator(
+        child: RouteNavigator(
           router: _controller!,
           declarativeRoutesBuilder: widget.routes,
           navRestorationScopeId: widget.navRestorationScopeId,

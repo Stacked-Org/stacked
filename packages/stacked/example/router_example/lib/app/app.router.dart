@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
-// AutoRouteGenerator
+// StackedRouterGenerator
 // **************************************************************************
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
-// AutoRouteGenerator
+// StackedRouterGenerator
 // **************************************************************************
 //
 // ignore_for_file: type=lint

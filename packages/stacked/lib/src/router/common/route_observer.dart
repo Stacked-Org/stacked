@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
-import 'package:stacked/src/router/auto_route_page.dart';
 import 'package:stacked/src/router/auto_router_x.dart';
 import 'package:stacked/src/router/controller/controller_scope.dart';
 import 'package:stacked/src/router/controller/routing_controller.dart';
 import 'package:stacked/src/router/matcher/route_match.dart';
+import 'package:stacked/src/router/stacked_page.dart';
 
 class RouterObserver extends NavigatorObserver {
   void didInitTabRoute(TabPageRoute route, TabPageRoute? previousRoute) {}
@@ -43,7 +43,7 @@ mixin RouteAwareStateMixin<T extends StatefulWidget> on State<T>
     _observer = RouterScope.of(context).firstObserverOfType<RouteObserver>();
     if (_observer != null) {
       // we subscribe to the observer by passing our
-      // AutoRouteAware state and the scoped routeData
+      // RouteAware state and the scoped routeData
       _observer!.subscribe(this, context.routeData);
     }
   }
@@ -130,9 +130,9 @@ class RouteObserver extends RouterObserver {
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    if (route.settings is AutoRoutePage &&
-        previousRoute?.settings is AutoRoutePage) {
-      final previousKey = (previousRoute!.settings as AutoRoutePage).routeKey;
+    if (route.settings is StackedPage &&
+        previousRoute?.settings is StackedPage) {
+      final previousKey = (previousRoute!.settings as StackedPage).routeKey;
       final List<RouteAware>? previousSubscribers =
           _listeners[previousKey]?.toList();
 
@@ -141,7 +141,7 @@ class RouteObserver extends RouterObserver {
           routeAware.didPopNext();
         }
       }
-      final key = (route.settings as AutoRoutePage).routeKey;
+      final key = (route.settings as StackedPage).routeKey;
 
       final List<RouteAware>? subscribers = _listeners[key]?.toList();
 
@@ -155,9 +155,9 @@ class RouteObserver extends RouterObserver {
 
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    if (route.settings is AutoRoutePage &&
-        previousRoute?.settings is AutoRoutePage) {
-      final previousKey = (previousRoute!.settings as AutoRoutePage).routeKey;
+    if (route.settings is StackedPage &&
+        previousRoute?.settings is StackedPage) {
+      final previousKey = (previousRoute!.settings as StackedPage).routeKey;
       final Set<RouteAware>? previousSubscribers = _listeners[previousKey];
 
       if (previousSubscribers != null) {

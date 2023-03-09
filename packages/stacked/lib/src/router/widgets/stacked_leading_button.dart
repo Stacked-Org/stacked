@@ -18,7 +18,7 @@ enum LeadingType {
   bool get isNoLeading => this == noLeading;
 }
 
-typedef AutoLeadingButtonBuilder = Widget Function(
+typedef LeadingButtonBuilder = Widget Function(
   BuildContext context,
   LeadingType leadingType,
   VoidCallback? action, // could be popTop, openDrawer or null
@@ -29,7 +29,7 @@ class StackedLeadingButton extends StatefulWidget {
 
   final bool showIfChildCanPop, ignorePagelessRoutes;
   final bool _showIfParentCanPop;
-  final AutoLeadingButtonBuilder? builder;
+  final LeadingButtonBuilder? builder;
 
   const StackedLeadingButton({
     Key? key,

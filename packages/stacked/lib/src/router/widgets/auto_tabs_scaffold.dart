@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/src/router/auto_router_x.dart';
 import 'package:stacked/src/router/controller/routing_controller.dart';
 import 'package:stacked/src/router/route/page_route_info.dart';
-import 'package:stacked/src/router/widgets/auto_tabs_router.dart';
+import 'package:stacked/src/router/widgets/stacked_tabs_router.dart';
 
 typedef AppBarBuilder = PreferredSizeWidget Function(
   BuildContext context,
@@ -20,7 +20,7 @@ typedef FloatingActionButtonBuilder = Widget? Function(
   TabsRouter tabsRouter,
 );
 
-class AutoTabsScaffold extends StatelessWidget {
+class StackedTabsScaffold extends StatelessWidget {
   final AnimatedIndexedStackBuilder? builder;
   final List<PageRouteInfo> routes;
   final Duration animationDuration;
@@ -53,7 +53,7 @@ class AutoTabsScaffold extends StatelessWidget {
   final AppBarBuilder? appBarBuilder;
   final GlobalKey<ScaffoldState>? scaffoldKey;
   final int homeIndex;
-  const AutoTabsScaffold({
+  const StackedTabsScaffold({
     Key? key,
     required this.routes,
     this.lazyLoad = true,
@@ -92,7 +92,7 @@ class AutoTabsScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoTabsRouter(
+    return StackedTabsRouter(
       routes: routes,
       duration: animationDuration,
       lazyLoad: lazyLoad,

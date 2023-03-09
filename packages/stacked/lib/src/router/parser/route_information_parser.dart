@@ -22,17 +22,17 @@ class DefaultRouteParser extends RouteInformationParser<UrlState> {
 
   @override
   RouteInformation restoreRouteInformation(UrlState configuration) {
-    return AutoRouteInformation(
+    return StackedRouteInformation(
       location: configuration.url.isEmpty ? '/' : configuration.url,
       replace: configuration.shouldReplace,
     );
   }
 }
 
-class AutoRouteInformation extends RouteInformation {
+class StackedRouteInformation extends RouteInformation {
   final bool replace;
 
-  const AutoRouteInformation({
+  const StackedRouteInformation({
     required String location,
     Object? state,
     this.replace = true,

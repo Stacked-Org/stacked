@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart' show BuildContext, optionalTypeArgs;
 import 'package:stacked/src/router/route/page_route_info.dart';
-import 'package:stacked/src/router/widgets/auto_tabs_router.dart';
+import 'package:stacked/src/router/widgets/stacked_tabs_router.dart';
 
 import 'controller/controller_scope.dart';
 import 'controller/routing_controller.dart';
@@ -45,9 +45,9 @@ extension StackedRouterExtensions on BuildContext {
             onFailure: onFailure,
           );
 
-  TabsRouter get tabsRouter => AutoTabsRouter.of(this);
+  TabsRouter get tabsRouter => StackedTabsRouter.of(this);
 
-  TabsRouter get watchTabsRouter => AutoTabsRouter.of(this, watch: true);
+  TabsRouter get watchTabsRouter => StackedTabsRouter.of(this, watch: true);
 
   // returns the top most rendered route
   RouteData get topRoute => watchRouter.topRoute;

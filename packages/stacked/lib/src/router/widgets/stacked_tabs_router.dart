@@ -2,26 +2,26 @@ import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/src/router/matcher/route_match.dart';
-import 'package:stacked/src/router/widgets/auto_tab_view.dart';
+import 'package:stacked/src/router/widgets/stacked_tab_view.dart';
 
-import '../auto_route_page.dart';
 import '../common/common.dart';
 import '../controller/controller_scope.dart';
 import '../controller/routing_controller.dart';
 import '../route/page_route_info.dart';
+import '../stacked_page.dart';
 import 'stacked_page_view.dart';
 
 typedef AnimatedIndexedStackBuilder = Widget Function(
     BuildContext context, Widget child, Animation<double> animation);
-typedef AutoTabsBuilder = Widget Function(
+typedef TabsBuilder = Widget Function(
     BuildContext context, List<Widget> children, TabsRouter tabsRouter);
-typedef AutoTabsPageViewBuilder = Widget Function(
+typedef TabsPageViewBuilder = Widget Function(
     BuildContext context, Widget child, PageController pageController);
-typedef AutoTabsTabBarBuilder = Widget Function(
+typedef TabsTabBarBuilder = Widget Function(
     BuildContext context, Widget child, TabController tabController);
 typedef OnNavigationChanged = Function(TabsRouter tabsRouter);
 
-abstract class AutoTabsRouter extends StatefulWidget {
+abstract class StackedTabsRouter extends StatefulWidget {
   final List<PageRouteInfo> routes;
   final NavigatorObserversBuilder navigatorObservers;
   final bool inheritNavigatorObservers;
@@ -31,7 +31,7 @@ abstract class AutoTabsRouter extends StatefulWidget {
   // else pop parent
   final int homeIndex;
 
-  const AutoTabsRouter._({
+  const StackedTabsRouter._({
     Key? key,
     required this.routes,
     this.homeIndex = -1,
@@ -40,7 +40,7 @@ abstract class AutoTabsRouter extends StatefulWidget {
         NestedRouterDelegate.defaultNavigatorObserversBuilder,
   }) : super(key: key);
 
-  const factory AutoTabsRouter({
+  const factory StackedTabsRouter({
     Key? key,
     required List<PageRouteInfo> routes,
     bool lazyLoad,
@@ -50,12 +50,12 @@ abstract class AutoTabsRouter extends StatefulWidget {
     int homeIndex,
     bool inheritNavigatorObservers,
     NavigatorObserversBuilder navigatorObservers,
-  }) = _AutoTabsRouterIndexedStack;
+  }) = _StackedTabsRouterIndexedStack;
 
-  const factory AutoTabsRouter.pageView({
+  const factory StackedTabsRouter.pageView({
     Key? key,
     required List<PageRouteInfo> routes,
-    AutoTabsPageViewBuilder? builder,
+    TabsPageViewBuilder? builder,
     int homeIndex,
     bool animatePageTransition,
     Axis scrollDirection,
@@ -67,10 +67,10 @@ abstract class AutoTabsRouter extends StatefulWidget {
     DragStartBehavior dragStartBehavior,
   }) = AutoTabsRouterPageView;
 
-  const factory AutoTabsRouter.tabBar({
+  const factory StackedTabsRouter.tabBar({
     Key? key,
     required List<PageRouteInfo> routes,
-    AutoTabsTabBarBuilder? builder,
+    TabsTabBarBuilder? builder,
     int homeIndex,
     Duration? duration,
     Axis scrollDirection,
@@ -81,10 +81,10 @@ abstract class AutoTabsRouter extends StatefulWidget {
     DragStartBehavior dragStartBehavior,
   }) = _AutoTabsRouterTabBar;
 
-  const factory AutoTabsRouter.builder({
+  const factory StackedTabsRouter.builder({
     Key? key,
     required List<PageRouteInfo> routes,
-    required AutoTabsBuilder builder,
+    required TabsBuilder builder,
     OnNavigationChanged? onNavigate,
     OnNavigationChanged? onRouterReady,
     int homeIndex,
@@ -107,7 +107,7 @@ abstract class AutoTabsRouter extends StatefulWidget {
   }
 }
 
-abstract class _AutoTabsRouterState extends State<AutoTabsRouter> {
+abstract class _StackedTabsRouterState extends State<StackedTabsRouter> {
   TabsRouter? _controller;
   late RoutingController _parentController;
 
@@ -160,13 +160,13 @@ abstract class _AutoTabsRouterState extends State<AutoTabsRouter> {
 }
 
 // -----------------------------------------------------------
-class _AutoTabsRouterIndexedStack extends AutoTabsRouter {
+class _StackedTabsRouterIndexedStack extends StackedTabsRouter {
   final AnimatedIndexedStackBuilder? builder;
   final Duration duration;
   final Curve curve;
   final bool lazyLoad;
 
-  const _AutoTabsRouterIndexedStack({
+  const _StackedTabsRouterIndexedStack({
     Key? key,
     required List<PageRouteInfo> routes,
     this.lazyLoad = true,
@@ -190,15 +190,15 @@ class _AutoTabsRouterIndexedStack extends AutoTabsRouter {
       _AutoTabsRouterIndexedStackState();
 }
 
-class _AutoTabsRouterIndexedStackState extends _AutoTabsRouterState
+class _AutoTabsRouterIndexedStackState extends _StackedTabsRouterState
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
   int _index = 0;
   late int _tabsHash;
 
-  _AutoTabsRouterIndexedStack get typedWidget =>
-      widget as _AutoTabsRouterIndexedStack;
+  _StackedTabsRouterIndexedStack get typedWidget =>
+      widget as _StackedTabsRouterIndexedStack;
 
   @override
   void initState() {
@@ -241,7 +241,7 @@ class _AutoTabsRouterIndexedStackState extends _AutoTabsRouterState
   }
 
   @override
-  void didUpdateWidget(covariant AutoTabsRouter oldWidget) {
+  void didUpdateWidget(covariant StackedTabsRouter oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!const ListEquality().equals(widget.routes, oldWidget.routes)) {
       _controller!.replaceAll(widget.routes, oldWidget.routes[_index]);
@@ -314,7 +314,7 @@ class _IndexedStackBuilder extends StatefulWidget {
   final int activeIndex;
   final IndexedWidgetBuilder itemBuilder;
   final bool lazyLoad;
-  final List<AutoRoutePage> stack;
+  final List<StackedPage> stack;
   final List<NavigatorObserver> navigatorObservers;
   final int tabsHash;
   final Animation<double> animation;
@@ -392,8 +392,8 @@ class _IndexedStackBuilderState extends State<_IndexedStackBuilder>
   }
 }
 
-class AutoTabsRouterPageView extends AutoTabsRouter {
-  final AutoTabsPageViewBuilder? _pageViewModeBuilder;
+class AutoTabsRouterPageView extends StackedTabsRouter {
+  final TabsPageViewBuilder? _pageViewModeBuilder;
   final bool animatePageTransition;
   final Duration duration;
   final Curve curve;
@@ -404,7 +404,7 @@ class AutoTabsRouterPageView extends AutoTabsRouter {
   const AutoTabsRouterPageView({
     Key? key,
     required List<PageRouteInfo> routes,
-    AutoTabsPageViewBuilder? builder,
+    TabsPageViewBuilder? builder,
     int homeIndex = -1,
     this.scrollDirection = Axis.horizontal,
     this.animatePageTransition = true,
@@ -428,8 +428,8 @@ class AutoTabsRouterPageView extends AutoTabsRouter {
   AutoTabsRouterPageViewState createState() => AutoTabsRouterPageViewState();
 }
 
-class AutoTabsRouterPageViewState extends _AutoTabsRouterState
-    with _RouteAwareTabsMixin<AutoTabsRouter> {
+class AutoTabsRouterPageViewState extends _StackedTabsRouterState
+    with _RouteAwareTabsMixin<StackedTabsRouter> {
   late PageController _pageController;
 
   @override
@@ -512,8 +512,8 @@ class AutoTabsRouterPageViewState extends _AutoTabsRouterState
       _controller!.stackData.map((e) => e.route).toList();
 }
 
-class _AutoTabsRouterTabBar extends AutoTabsRouter {
-  final AutoTabsTabBarBuilder? builder;
+class _AutoTabsRouterTabBar extends StackedTabsRouter {
+  final TabsTabBarBuilder? builder;
   final Duration? duration;
   final Curve curve;
   final ScrollPhysics? physics;
@@ -544,8 +544,8 @@ class _AutoTabsRouterTabBar extends AutoTabsRouter {
   _AutoTabsRouterTabBarState createState() => _AutoTabsRouterTabBarState();
 }
 
-class _AutoTabsRouterTabBarState extends _AutoTabsRouterState
-    with _RouteAwareTabsMixin<AutoTabsRouter>, TickerProviderStateMixin {
+class _AutoTabsRouterTabBarState extends _StackedTabsRouterState
+    with _RouteAwareTabsMixin<StackedTabsRouter>, TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -611,7 +611,7 @@ class _AutoTabsRouterTabBarState extends _AutoTabsRouterState
         child: Builder(builder: (context) {
           return builder(
             context,
-            AutoTabView(
+            StackedTabView(
               scrollDirection: typedWidget.scrollDirection,
               physics: typedWidget.physics,
               dragStartBehavior: typedWidget.dragStartBehavior,
@@ -637,8 +637,8 @@ class _AutoTabsRouterTabBarState extends _AutoTabsRouterState
       _controller!.stackData.map((e) => e.route).toList();
 }
 
-class _AutoTabsRouterBuilder extends AutoTabsRouter {
-  final AutoTabsBuilder builder;
+class _AutoTabsRouterBuilder extends StackedTabsRouter {
+  final TabsBuilder builder;
   final OnNavigationChanged? onNavigate;
   final OnNavigationChanged? onRouterReady;
 
@@ -664,8 +664,8 @@ class _AutoTabsRouterBuilder extends AutoTabsRouter {
   _AutoTabsRouterBuilderState createState() => _AutoTabsRouterBuilderState();
 }
 
-class _AutoTabsRouterBuilderState extends _AutoTabsRouterState
-    with _RouteAwareTabsMixin<AutoTabsRouter> {
+class _AutoTabsRouterBuilderState extends _StackedTabsRouterState
+    with _RouteAwareTabsMixin<StackedTabsRouter> {
   @override
   void _setupController() {
     assert(_controller != null);
@@ -769,7 +769,7 @@ class KeepAliveTab extends StatefulWidget {
     Key? key,
     required this.page,
   }) : super(key: key);
-  final AutoRoutePage page;
+  final StackedPage page;
 
   @override
   State<KeepAliveTab> createState() => _KeepAliveTabState();

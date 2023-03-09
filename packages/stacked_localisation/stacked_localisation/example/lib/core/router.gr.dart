@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
-// AutoRouteGenerator
+// StackedRouterGenerator
 // **************************************************************************
 
 // ignore_for_file: public_member_api_docs

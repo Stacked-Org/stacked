@@ -57,7 +57,7 @@ class NestedRouterDelegate extends RouterDelegate<UrlState>
     RoutePopCallBack? onPopRoute,
     OnNavigateCallBack? onNavigate,
     NavigatorObserversBuilder navigatorObservers,
-  }) = _DeclarativeAutoRouterDelegate;
+  }) = _DeclarativeRouterDelegate;
 
   UrlState get urlState => controller.navigationHistory.urlState;
 
@@ -112,7 +112,7 @@ class NestedRouterDelegate extends RouterDelegate<UrlState>
   }
 
   @override
-  Widget build(BuildContext context) => _AutoRootRouter(
+  Widget build(BuildContext context) => _RootRouter(
         router: controller,
         navigatorObservers: _navigatorObservers,
         navigatorObserversBuilder: navigatorObservers,
@@ -134,8 +134,8 @@ class NestedRouterDelegate extends RouterDelegate<UrlState>
   void notifyUrlChanged() => _handleRebuild();
 }
 
-class _AutoRootRouter extends StatefulWidget {
-  const _AutoRootRouter({
+class _RootRouter extends StatefulWidget {
+  const _RootRouter({
     Key? key,
     required this.router,
     this.navRestorationScopeId,
@@ -154,10 +154,10 @@ class _AutoRootRouter extends StatefulWidget {
   final WidgetBuilder? placeholder;
 
   @override
-  _AutoRootRouterState createState() => _AutoRootRouterState();
+  _RootRouterState createState() => _RootRouterState();
 }
 
-class _AutoRootRouterState extends State<_AutoRootRouter> {
+class _RootRouterState extends State<_RootRouter> {
   StackRouter get router => widget.router;
 
   @override
@@ -189,7 +189,7 @@ class _AutoRootRouterState extends State<_AutoRootRouter> {
       child: StackRouterScope(
         stateHash: stateHash,
         controller: router,
-        child: AutoRouteNavigator(
+        child: RouteNavigator(
           router: router,
           placeholder: widget.placeholder,
           navRestorationScopeId: widget.navRestorationScopeId,
@@ -200,12 +200,12 @@ class _AutoRootRouterState extends State<_AutoRootRouter> {
   }
 }
 
-class _DeclarativeAutoRouterDelegate extends NestedRouterDelegate {
+class _DeclarativeRouterDelegate extends NestedRouterDelegate {
   final RoutesBuilder routes;
   final RoutePopCallBack? onPopRoute;
   final OnNavigateCallBack? onNavigate;
 
-  _DeclarativeAutoRouterDelegate(
+  _DeclarativeRouterDelegate(
     RootStackRouter router, {
     required this.routes,
     String? navRestorationScopeId,
@@ -262,7 +262,7 @@ class _DeclarativeAutoRouterDelegate extends NestedRouterDelegate {
       child: StackRouterScope(
         controller: controller,
         stateHash: stateHash,
-        child: AutoRouteNavigator(
+        child: RouteNavigator(
           router: controller,
           declarativeRoutesBuilder: routes,
           navRestorationScopeId: navRestorationScopeId,

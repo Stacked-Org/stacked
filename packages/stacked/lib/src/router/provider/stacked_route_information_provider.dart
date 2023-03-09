@@ -38,7 +38,7 @@ class StackedRouteInformationProvider extends RouteInformationProvider
         (type == RouteInformationReportingType.none &&
             _valueInEngine.location == routeInformation.location);
 
-    if (!replace && routeInformation is AutoRouteInformation) {
+    if (!replace && routeInformation is StackedRouteInformation) {
       replace = routeInformation.replace;
     }
 

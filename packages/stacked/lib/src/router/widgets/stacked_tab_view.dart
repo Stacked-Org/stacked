@@ -9,12 +9,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/src/router/controller/routing_controller.dart';
-import 'package:stacked/src/router/widgets/auto_tabs_router.dart';
+import 'package:stacked/src/router/widgets/stacked_tabs_router.dart';
 
-class AutoTabView extends StatefulWidget {
+class StackedTabView extends StatefulWidget {
   /// Creates a page view with one child per tab.
 
-  const AutoTabView({
+  const StackedTabView({
     Key? key,
     required this.controller,
     this.physics,
@@ -42,10 +42,10 @@ class AutoTabView extends StatefulWidget {
   final DragStartBehavior dragStartBehavior;
 
   @override
-  State<AutoTabView> createState() => AutoTabViewState();
+  State<StackedTabView> createState() => StackedTabViewState();
 }
 
-class AutoTabViewState extends State<AutoTabView> {
+class StackedTabViewState extends State<StackedTabView> {
   TabController get _controller => widget.controller;
   late PageController _pageController;
   late List<Widget> _children;
@@ -69,7 +69,7 @@ class AutoTabViewState extends State<AutoTabView> {
   }
 
   @override
-  void didUpdateWidget(AutoTabView oldWidget) {
+  void didUpdateWidget(StackedTabView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.controller != oldWidget.controller) {
       _currentIndex = _controller.index;

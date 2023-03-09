@@ -2,7 +2,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/src/router/controller/routing_controller.dart';
-import 'package:stacked/src/router/widgets/auto_tabs_router.dart';
+import 'package:stacked/src/router/widgets/stacked_tabs_router.dart';
 
 class StackedPageView extends StatefulWidget {
   const StackedPageView({

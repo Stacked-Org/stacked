@@ -17,7 +17,7 @@ class RouteDataScope extends InheritedWidget {
         throw FlutterError(
             'RouteData operation requested with a context that does not include an RouteData.\n'
             'The context used to retrieve the RouteData must be that of a widget that '
-            'is a descendant of a AutoRoutePage.');
+            'is a descendant of a StackedPage.');
       }
       return true;
     }());

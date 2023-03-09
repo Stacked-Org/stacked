@@ -10,7 +10,7 @@ import 'package:stacked_generator/src/generators/router_common/resolvers/type_re
 import '../../../utils.dart';
 import 'resolvers/route_config_resolver.dart';
 
-class AutoRouteGenerator extends Generator {
+class StackedRouterGenerator extends Generator {
   @override
   Future<String> generate(LibraryReader library, BuildStep buildStep) async {
     final values = <String>{};

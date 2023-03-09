@@ -1,6 +1,6 @@
 part of 'routing_controller.dart';
 
-typedef PageBuilder = AutoRoutePage Function(RouteData data);
+typedef PageBuilder = StackedPage Function(RouteData data);
 typedef PageFactory = Page<dynamic> Function(RouteData data);
 
 abstract class RootStackRouter extends StackRouter {
@@ -96,10 +96,10 @@ abstract class RootStackRouter extends StackRouter {
   DefaultRouteParser defaultRouteParser({bool includePrefixMatches = false}) =>
       DefaultRouteParser(matcher, includePrefixMatches: includePrefixMatches);
 
-  AutoRoutePage _pageBuilder(RouteData data) {
+  StackedPage _pageBuilder(RouteData data) {
     var builder = pagesMap[data.name];
     assert(builder != null);
-    return builder!(data) as AutoRoutePage;
+    return builder!(data) as StackedPage;
   }
 
   @override

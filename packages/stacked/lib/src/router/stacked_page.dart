@@ -10,8 +10,7 @@ import 'package:stacked/src/router/widgets/custom_cupertino_transitions_builder.
 import 'common/route_wrapper.dart';
 import 'widgets/wrapped_route.dart';
 
-/// TODO (Refactor): Rename this to Stacked verbiage
-abstract class AutoRoutePage<T> extends Page<T> {
+abstract class StackedPage<T> extends Page<T> {
   final RouteData routeData;
   final Widget _child;
   final bool fullscreenDialog;
@@ -24,7 +23,7 @@ abstract class AutoRoutePage<T> extends Page<T> {
 
   Widget get child => _child;
 
-  AutoRoutePage({
+  StackedPage({
     required this.routeData,
     required Widget child,
     this.fullscreenDialog = false,
@@ -45,7 +44,7 @@ abstract class AutoRoutePage<T> extends Page<T> {
   @override
   bool canUpdate(Page<dynamic> other) {
     return other.runtimeType == runtimeType &&
-        (other as AutoRoutePage).routeKey == routeKey;
+        (other as StackedPage).routeKey == routeKey;
   }
 
   LocalKey get routeKey => routeData.key;
@@ -68,7 +67,7 @@ abstract class AutoRoutePage<T> extends Page<T> {
   }
 }
 
-class MaterialPageX<T> extends AutoRoutePage<T> {
+class MaterialPageX<T> extends StackedPage<T> {
   MaterialPageX({
     required RouteData routeData,
     required Widget child,
@@ -92,10 +91,10 @@ class MaterialPageX<T> extends AutoRoutePage<T> {
 class PageBasedMaterialPageRoute<T> extends PageRoute<T>
     with MaterialRouteTransitionMixin<T> {
   PageBasedMaterialPageRoute({
-    required AutoRoutePage page,
+    required StackedPage page,
   }) : super(settings: page);
 
-  AutoRoutePage get _page => settings as AutoRoutePage;
+  StackedPage get _page => settings as StackedPage;
 
   List<VoidCallback> scopes = [];
 
@@ -115,7 +114,7 @@ class PageBasedMaterialPageRoute<T> extends PageRoute<T>
 class _CustomPageBasedPageRouteBuilder<T> extends PageRoute<T>
     with _CustomPageRouteTransitionMixin<T> {
   _CustomPageBasedPageRouteBuilder({
-    required AutoRoutePage page,
+    required StackedPage page,
   }) : super(settings: page);
 
   @override
@@ -134,7 +133,7 @@ class _CustomPageBasedPageRouteBuilder<T> extends PageRoute<T>
 class _NoAnimationPageRouteBuilder<T> extends PageRoute<T>
     with _NoAnimationPageRouteTransitionMixin<T> {
   _NoAnimationPageRouteBuilder({
-    required AutoRoutePage page,
+    required StackedPage page,
   }) : super(settings: page);
 
   @override
@@ -155,7 +154,7 @@ class _NoAnimationPageRouteBuilder<T> extends PageRoute<T>
 
 mixin _NoAnimationPageRouteTransitionMixin<T> on PageRoute<T> {
   /// Builds the primary contents of the route.
-  AutoRoutePage<T> get _page => settings as AutoRoutePage<T>;
+  StackedPage<T> get _page => settings as StackedPage<T>;
 
   @protected
   Widget buildContent(BuildContext context);
@@ -270,7 +269,7 @@ mixin _CustomPageRouteTransitionMixin<T> on PageRoute<T> {
   }
 }
 
-abstract class _TitledAutoRoutePage<T> extends AutoRoutePage<T> {
+abstract class _TitledAutoRoutePage<T> extends StackedPage<T> {
   final String? title;
 
   _TitledAutoRoutePage({
@@ -364,7 +363,7 @@ class AdaptivePage<T> extends _TitledAutoRoutePage<T> {
 typedef CustomRouteBuilder = Route<T> Function<T>(
     BuildContext context, Widget child, CustomPage<T> page);
 
-class CustomPage<T> extends AutoRoutePage<T> {
+class CustomPage<T> extends StackedPage<T> {
   @override
   final bool opaque;
   final int durationInMilliseconds;

@@ -5,7 +5,7 @@ abstract class StackedRouteGuard {
   /// navigation or [resolver.next(false)] to abort navigation
   /// example
   /*
-  class AuthGuard extends AutoRouteGuard {
+  class AuthGuard extends StackedRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
      /// resolver.next(true) == we're good, continue navigation
@@ -40,8 +40,7 @@ class NavigationResolver {
   bool get isResolved => _completer.isCompleted;
 }
 
-abstract class AutoRedirectGuardBase extends StackedRouteGuard
-    with ChangeNotifier {
+abstract class RedirectGuardBase extends StackedRouteGuard with ChangeNotifier {
   late ReevaluationStrategy _strategy;
 
   Future<bool> canNavigate(RouteMatch route);
@@ -75,7 +74,7 @@ abstract class AutoRedirectGuardBase extends StackedRouteGuard
   }
 }
 
-abstract class AutoRedirectGuard extends AutoRedirectGuardBase {
+abstract class RedirectGuard extends RedirectGuardBase {
   NavigationResolver? _redirectResolver;
 
   @protected
@@ -112,7 +111,7 @@ abstract class AutoRedirectGuard extends AutoRedirectGuardBase {
 abstract class ReevaluationStrategy {
   const ReevaluationStrategy._();
 
-  void reevaluate(AutoRedirectGuardBase guard, StackRouter router);
+  void reevaluate(RedirectGuardBase guard, StackRouter router);
 
   const factory ReevaluationStrategy.rePushAllRoutes() = RePushAllStrategy;
 
@@ -133,7 +132,7 @@ class RePushAllStrategy extends ReevaluationStrategy {
   const RePushAllStrategy() : super._();
 
   @override
-  void reevaluate(AutoRedirectGuardBase guard, StackRouter router) {
+  void reevaluate(RedirectGuardBase guard, StackRouter router) {
     final stackData = router.stackData;
     final routesToRemove =
         List<RouteMatch>.unmodifiable(stackData.map((e) => e._match));
@@ -158,7 +157,7 @@ class RePushFirstGuarded extends ReevaluationStrategy {
   const RePushFirstGuarded() : super._();
 
   @override
-  void reevaluate(AutoRedirectGuardBase guard, StackRouter router) {
+  void reevaluate(RedirectGuardBase guard, StackRouter router) {
     final routes = router.stackData.map((e) => e.route).toList();
     final firstGuardedRouteIndex =
         routes.indexWhere((r) => r.guards.contains(guard));
@@ -183,7 +182,7 @@ class RePushFirstGuardedAndUp extends ReevaluationStrategy {
   const RePushFirstGuardedAndUp() : super._();
 
   @override
-  void reevaluate(AutoRedirectGuardBase guard, StackRouter router) {
+  void reevaluate(RedirectGuardBase guard, StackRouter router) {
     final routes = router.stackData.map((e) => e.route).toList();
     final firstGuardedRouteIndex =
         routes.indexWhere((r) => r.guards.contains(guard));
@@ -214,7 +213,7 @@ class _RemoveFirstGuardedAndUp extends ReevaluationStrategy {
   const _RemoveFirstGuardedAndUp() : super._();
 
   @override
-  void reevaluate(AutoRedirectGuardBase guard, StackRouter router) {
+  void reevaluate(RedirectGuardBase guard, StackRouter router) {
     final routes = router.stackData.map((e) => e.route).toList();
     final firstGuardedRouteIndex =
         routes.indexWhere((r) => r.guards.contains(guard));
@@ -236,7 +235,7 @@ class _RemoveAllAndPush extends ReevaluationStrategy {
   const _RemoveAllAndPush(this.route) : super._();
 
   @override
-  void reevaluate(AutoRedirectGuardBase guard, StackRouter router) {
+  void reevaluate(RedirectGuardBase guard, StackRouter router) {
     router._reset();
     router.push(route);
   }
