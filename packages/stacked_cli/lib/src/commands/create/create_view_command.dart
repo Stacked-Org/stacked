@@ -51,7 +51,6 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
       // TODO (Create App Templates): Generate a constant with these values when
       // running the compile command
       allowed: ['empty'],
-      defaultsTo: 'empty',
       help: kCommandHelpCreateViewTemplate,
     );
   }
@@ -59,13 +58,18 @@ class CreateViewCommand extends Command with ProjectStructureValidator {
   @override
   Future<void> run() async {
     final viewName = argResults!.rest.first;
-    final templateType = argResults![ksTemplateType];
+    var templateType = argResults![ksTemplateType] as String?;
     unawaited(_analyticsService.createViewEvent(name: viewName));
     final outputPath = argResults!.rest.length > 1 ? argResults!.rest[1] : null;
     await _configService.loadConfig(path: outputPath);
     _processService.formattingLineLength = argResults![ksLineLength];
     await _pubspecService.initialise(workingDirectory: outputPath);
     await validateStructure(outputPath: outputPath);
+
+    // Determine which template to use with the following rules:
+    // 1. If the template is supplied we use that template
+    // 2. If the template is null use config web to decide
+    templateType ??= _configService.preferWeb ? 'web' : 'empty';
 
     await _templateService.renderTemplate(
       templateName: name,

@@ -96,6 +96,9 @@ class ConfigService {
   /// Returns int value for line length when format code.
   int get lineLength => _customConfig.lineLength;
 
+  /// Returns boolean to indicate if the project prefers web templates
+  bool get preferWeb => _customConfig.preferWeb;
+
   /// Resolves configuration file path.
   ///
   /// Looks for the configuration file in different locations depending their

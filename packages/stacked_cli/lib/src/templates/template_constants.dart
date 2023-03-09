@@ -41,6 +41,9 @@ const String kTemplatePropertyViewFolderName = 'viewFolderName';
 /// Given a name 'details' expects viewFileName to equal `details_view.dart`
 const String kTemplatePropertyViewFileName = 'viewFileName';
 
+const String kTemplatePropertyViewFileNameWithoutExtension =
+    'viewFileNameWithoutExtension';
+
 /// The name of the package that the cli tool is running in. This is read from the
 /// pubspec.yaml file in the root folder.
 const String kTemplatePropertyPackageName = 'packageName';

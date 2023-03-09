@@ -1,0 +1,8 @@
+{
+  "description": "When a view is generated one of the boilerplate tasks is to add a route to the app.dart file for the new view. This modification performs that action.",
+  "path": "lib/app/app.dart",
+  "identifier": "// @stacked-import",
+  "template": "import \\'package:{{packageName}}/{{{viewImportPath}}}/{{viewFolderName}}/{{viewFileName}}\\';",
+  "error": "The structure of your stacked application is invalid. The app.dart file should be located in lib/app/",
+  "name": "Add {{viewName}} route import where @StackedApp annotation is located"
+}
