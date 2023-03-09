@@ -68,7 +68,8 @@ jobs:
     strategy:
       matrix:
         package:
-          - packages/stacked/example
+          - packages/stacked/example/navigator_example
+          - packages/stacked/example/router_example
         channel:
           - stable
 
