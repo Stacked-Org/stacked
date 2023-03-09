@@ -1,27 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 
+import '{{viewFileNameWithoutExtension}}.desktop.dart';
+import '{{viewFileNameWithoutExtension}}.tablet.dart';
+import '{{viewFileNameWithoutExtension}}.mobile.dart';
 import '{{viewModelFileName}}';
 
 class {{viewName}} extends StackedView<{{viewModelName}}> {
-  const {{viewName}}({Key? key}) : super(key: key);
+  const {{viewName}}({super.key});
 
   @override
   Widget builder(
     BuildContext context,
-    {{viewModelName}} viewModel,
+    {{viewModelName}}  viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-      ),
+    return ScreenTypeLayout.builder(
+      mobile: (_) => const {{viewName}}Mobile(),
+      tablet: (_) => const {{viewName}}Tablet(),
+      desktop: (_) => const {{viewName}}Desktop(),
     );
   }
 
   @override
   {{viewModelName}} viewModelBuilder(
     BuildContext context,
-  ) => {{viewModelName}}();
+  ) =>
+  {{viewModelName}}();
 }
