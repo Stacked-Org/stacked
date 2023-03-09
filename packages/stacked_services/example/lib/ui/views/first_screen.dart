@@ -1,7 +1,7 @@
-import '../../app/app.locator.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../../app/app.locator.dart';
 import '../../app/app.router.dart';
 import 'second_screen.dart';
 
@@ -43,7 +43,7 @@ class FirstScreen extends StatelessWidget {
               onPressed: () async {
                 await _navigationService.navigateWithTransition(
                   SecondScreen(),
-                  transition: "rightToLeft",
+                  transitionStyle: Transition.rightToLeft,
                 );
               },
             ),

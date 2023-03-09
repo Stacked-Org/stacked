@@ -80,7 +80,6 @@ class DialogRequest<T> extends OverlayRequest<T> {
     dynamic variant,
   }) : super(
           additionalButtonTitle: additionalButtonTitle,
-          customData: customData,
           description: description,
           hasImage: hasImage,
           imageUrl: imageUrl,
@@ -115,7 +114,6 @@ class SheetRequest<T> extends OverlayRequest<T> {
     dynamic variant,
   }) : super(
           additionalButtonTitle: additionalButtonTitle,
-          customData: customData,
           description: description,
           hasImage: hasImage,
           imageUrl: imageUrl,

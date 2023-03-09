@@ -120,7 +120,7 @@ class SnackbarService {
       showProgressIndicator: _snackbarConfig?.showProgressIndicator,
       progressIndicatorController: _snackbarConfig?.progressIndicatorController,
       progressIndicatorBackgroundColor:
-      _snackbarConfig?.progressIndicatorBackgroundColor,
+          _snackbarConfig?.progressIndicatorBackgroundColor,
       progressIndicatorValueColor: _snackbarConfig?.progressIndicatorValueColor,
       snackStyle: _snackbarConfig?.snackStyle.toGet,
       forwardAnimationCurve: _snackbarConfig?.forwardAnimationCurve,
@@ -239,7 +239,7 @@ class SnackbarService {
     } else {
       Completer completer = new Completer();
       sc.ambiguate(WidgetsBinding.instance)!.addPostFrameCallback((_) async {
-        final result = await getBar.show();
+        final result = getBar.show();
         completer.complete(result);
       });
       return completer.future;

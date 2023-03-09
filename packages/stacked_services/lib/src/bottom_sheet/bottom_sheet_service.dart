@@ -140,6 +140,7 @@ class BottomSheetService {
             showIconInAdditionalButton: showIconInAdditionalButton,
             additionalButtonTitle: additionalButtonTitle,
             takesInput: takesInput,
+            // ignore: deprecated_member_use_from_same_package
             customData: customData,
             variant: variant,
             data: data,

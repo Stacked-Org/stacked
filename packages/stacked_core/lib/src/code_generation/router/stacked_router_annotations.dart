@@ -45,7 +45,7 @@ class StackedRouterAnnotation {
     this.routesClassName,
     this.replaceInRouteName,
     this.deferredLoading = false,
-  }) : assert(routes != null);
+  });
 }
 
 // Defaults created routes to MaterialPageRoute unless

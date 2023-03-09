@@ -184,7 +184,7 @@ class DialogService {
     Color barrierColor = Colors.black54,
     bool barrierDismissible = false,
     String barrierLabel = '',
-    @Deprecated('Prefer to use `data` and pass in a generic type.')
+    @Deprecated('Prefer to use `data` and pass in a generic type. customData doesn\'t work anymore')
         dynamic customData,
     R? data,
   }) {
@@ -222,7 +222,6 @@ class DialogService {
               showIconInAdditionalButton: showIconInAdditionalButton,
               additionalButtonTitle: additionalButtonTitle,
               takesInput: takesInput,
-              customData: customData,
               data: data,
               variant: variant,
             ),
@@ -230,16 +229,6 @@ class DialogService {
           ),
         ),
       ),
-      // TODO: Add configurable transition builders to set  from the outside as well
-      // transitionBuilder: (context, animation, _, child) {
-      //   return ScaleTransition(
-      //     scale: CurvedAnimation(
-      //       parent: animation,
-      //       curve: Curves.decelerate,
-      //     ),
-      //     child: child,
-      //   );
-      // },
     );
   }
 
