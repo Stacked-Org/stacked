@@ -21,7 +21,7 @@ class RouteNotFoundFailure extends NavigationFailure {
 
 class RejectedByGuardFailure extends NavigationFailure {
   final RouteMatch route;
-  final AutoRouteGuard guard;
+  final StackedRouteGuard guard;
 
   const RejectedByGuardFailure(this.route, this.guard);
 

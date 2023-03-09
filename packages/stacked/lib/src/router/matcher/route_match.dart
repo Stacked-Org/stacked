@@ -17,7 +17,7 @@ class RouteMatch<T> {
   final String path;
   final String stringMatch;
   final T? args;
-  final List<AutoRouteGuard> guards;
+  final List<StackedRouteGuard> guards;
   final LocalKey key;
   final bool isBranch;
   final Map<String, dynamic> meta;
@@ -68,7 +68,7 @@ class RouteMatch<T> {
     String? routeName,
     Object? args,
     LocalKey? key,
-    List<AutoRouteGuard>? guards,
+    List<StackedRouteGuard>? guards,
     Map<String, dynamic>? meta,
   }) {
     return RouteMatch(

@@ -5,12 +5,12 @@ import 'package:stacked/src/router/controller/controller_scope.dart';
 import 'package:stacked/src/router/controller/routing_controller.dart';
 import 'package:stacked/src/router/matcher/route_match.dart';
 
-class AutoRouterObserver extends NavigatorObserver {
+class RouterObserver extends NavigatorObserver {
   void didInitTabRoute(TabPageRoute route, TabPageRoute? previousRoute) {}
   void didChangeTabRoute(TabPageRoute route, TabPageRoute previousRoute) {}
 }
 
-abstract class AutoRouteAware {
+abstract class RouteAware {
   /// Called when the top route has been popped off, and the current route
   /// shows up.
   void didPopNext() {}
@@ -31,17 +31,16 @@ abstract class AutoRouteAware {
   void didChangeTabRoute(TabPageRoute previousRoute) {}
 }
 
-mixin AutoRouteAwareStateMixin<T extends StatefulWidget> on State<T>
-    implements AutoRouteAware {
-  AutoRouteObserver? _observer;
+mixin RouteAwareStateMixin<T extends StatefulWidget> on State<T>
+    implements RouteAware {
+  RouteObserver? _observer;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     // RouterScope exposes the list of provided observers
     // including inherited observers
-    _observer =
-        RouterScope.of(context).firstObserverOfType<AutoRouteObserver>();
+    _observer = RouterScope.of(context).firstObserverOfType<RouteObserver>();
     if (_observer != null) {
       // we subscribe to the observer by passing our
       // AutoRouteAware state and the scoped routeData
@@ -74,18 +73,18 @@ mixin AutoRouteAwareStateMixin<T extends StatefulWidget> on State<T>
   void didPushNext() {}
 }
 
-class AutoRouteObserver extends AutoRouterObserver {
-  final Map<LocalKey, Set<AutoRouteAware>> _listeners =
-      <LocalKey, Set<AutoRouteAware>>{};
+class RouteObserver extends RouterObserver {
+  final Map<LocalKey, Set<RouteAware>> _listeners =
+      <LocalKey, Set<RouteAware>>{};
 
   /// Subscribe [routeAware] to be informed about changes to [route].
   ///
   /// Going forward, [routeAware] will be informed about qualifying changes
   /// to [route], e.g. when [route] is covered by another route or when [route]
   /// is popped off the [Navigator] stack.
-  void subscribe(AutoRouteAware routeAware, RouteData route) {
-    final Set<AutoRouteAware> subscribers =
-        _listeners.putIfAbsent(route.key, () => <AutoRouteAware>{});
+  void subscribe(RouteAware routeAware, RouteData route) {
+    final Set<RouteAware> subscribers =
+        _listeners.putIfAbsent(route.key, () => <RouteAware>{});
     if (subscribers.add(routeAware)) {
       if (route.router is TabsRouter) {
         routeAware.didInitTabRoute(null);
@@ -100,19 +99,19 @@ class AutoRouteObserver extends AutoRouterObserver {
   /// [routeAware] is no longer informed about changes to its route. If the given argument was
   /// subscribed to multiple types, this will unregister it (once) from each type.
 
-  void unsubscribe(AutoRouteAware routeAware) {
+  void unsubscribe(RouteAware routeAware) {
     for (final route in _listeners.keys) {
-      final Set<AutoRouteAware>? subscribers = _listeners[route];
+      final Set<RouteAware>? subscribers = _listeners[route];
       subscribers?.remove(routeAware);
     }
   }
 
   @override
   void didInitTabRoute(TabPageRoute route, TabPageRoute? previousRoute) {
-    final List<AutoRouteAware>? subscribers =
+    final List<RouteAware>? subscribers =
         _listeners[route.routeInfo.key]?.toList();
     if (subscribers != null) {
-      for (final AutoRouteAware routeAware in subscribers) {
+      for (final RouteAware routeAware in subscribers) {
         routeAware.didInitTabRoute(previousRoute);
       }
     }
@@ -120,10 +119,10 @@ class AutoRouteObserver extends AutoRouterObserver {
 
   @override
   void didChangeTabRoute(TabPageRoute route, TabPageRoute previousRoute) {
-    final List<AutoRouteAware>? subscribers =
+    final List<RouteAware>? subscribers =
         _listeners[route.routeInfo.key]?.toList();
     if (subscribers != null) {
-      for (final AutoRouteAware routeAware in subscribers) {
+      for (final RouteAware routeAware in subscribers) {
         routeAware.didChangeTabRoute(previousRoute);
       }
     }
@@ -134,20 +133,20 @@ class AutoRouteObserver extends AutoRouterObserver {
     if (route.settings is AutoRoutePage &&
         previousRoute?.settings is AutoRoutePage) {
       final previousKey = (previousRoute!.settings as AutoRoutePage).routeKey;
-      final List<AutoRouteAware>? previousSubscribers =
+      final List<RouteAware>? previousSubscribers =
           _listeners[previousKey]?.toList();
 
       if (previousSubscribers != null) {
-        for (final AutoRouteAware routeAware in previousSubscribers) {
+        for (final RouteAware routeAware in previousSubscribers) {
           routeAware.didPopNext();
         }
       }
       final key = (route.settings as AutoRoutePage).routeKey;
 
-      final List<AutoRouteAware>? subscribers = _listeners[key]?.toList();
+      final List<RouteAware>? subscribers = _listeners[key]?.toList();
 
       if (subscribers != null) {
-        for (final AutoRouteAware routeAware in subscribers) {
+        for (final RouteAware routeAware in subscribers) {
           routeAware.didPop();
         }
       }
@@ -159,10 +158,10 @@ class AutoRouteObserver extends AutoRouterObserver {
     if (route.settings is AutoRoutePage &&
         previousRoute?.settings is AutoRoutePage) {
       final previousKey = (previousRoute!.settings as AutoRoutePage).routeKey;
-      final Set<AutoRouteAware>? previousSubscribers = _listeners[previousKey];
+      final Set<RouteAware>? previousSubscribers = _listeners[previousKey];
 
       if (previousSubscribers != null) {
-        for (final AutoRouteAware routeAware in previousSubscribers) {
+        for (final RouteAware routeAware in previousSubscribers) {
           routeAware.didPushNext();
         }
       }

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:stacked/src/router/controller/routing_controller.dart';
 import 'package:stacked/src/router/widgets/auto_tabs_router.dart';
 
-class AutoPageView extends StatefulWidget {
-  const AutoPageView({
+class StackedPageView extends StatefulWidget {
+  const StackedPageView({
     Key? key,
     required this.controller,
     this.physics,
@@ -33,10 +33,10 @@ class AutoPageView extends StatefulWidget {
   final DragStartBehavior dragStartBehavior;
 
   @override
-  State<AutoPageView> createState() => AutoPageViewState();
+  State<StackedPageView> createState() => StackedPageViewState();
 }
 
-class AutoPageViewState extends State<AutoPageView> {
+class StackedPageViewState extends State<StackedPageView> {
   late final PageController _controller = widget.controller;
   late final TabsRouter _router = widget.router;
   late List<Widget> _children;
@@ -50,7 +50,7 @@ class AutoPageViewState extends State<AutoPageView> {
   }
 
   @override
-  void didUpdateWidget(AutoPageView oldWidget) {
+  void didUpdateWidget(StackedPageView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.controller != oldWidget.controller) {
       _controller.jumpToPage(_router.activeIndex);

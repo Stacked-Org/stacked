@@ -8,7 +8,7 @@ class RouteConfig {
   final bool fullMatch;
   final RouteCollection? _children;
   final String? redirectTo;
-  final List<AutoRouteGuard> guards;
+  final List<StackedRouteGuard> guards;
   final bool usesPathAsKey;
   final String? parent;
   final Map<String, dynamic> meta;

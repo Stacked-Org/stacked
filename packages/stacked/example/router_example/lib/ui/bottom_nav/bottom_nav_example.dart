@@ -15,7 +15,7 @@ class BottomNavExampleState extends State<BottomNavExample> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BottomNavExampleViewModel>.reactive(
       builder: (context, viewModel, child) => Scaffold(
-        body: const AutoRouter(),
+        body: const NestedRouter(),
         bottomNavigationBar: BottomNavigationBar(
           elevation: 6,
           backgroundColor: Colors.white,

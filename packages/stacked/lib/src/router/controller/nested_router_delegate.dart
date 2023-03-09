@@ -1,6 +1,7 @@
 part of 'routing_controller.dart';
 
-class AutoRouterDelegate extends RouterDelegate<UrlState> with ChangeNotifier {
+class NestedRouterDelegate extends RouterDelegate<UrlState>
+    with ChangeNotifier {
   final List<PageRouteInfo>? initialRoutes;
   final StackRouter controller;
   final String? initialDeepLink;
@@ -14,10 +15,10 @@ class AutoRouterDelegate extends RouterDelegate<UrlState> with ChangeNotifier {
 
   static List<NavigatorObserver> defaultNavigatorObserversBuilder() => const [];
 
-  static AutoRouterDelegate of(BuildContext context) {
+  static NestedRouterDelegate of(BuildContext context) {
     final delegate = Router.of(context).routerDelegate;
-    assert(delegate is AutoRouterDelegate);
-    return delegate as AutoRouterDelegate;
+    assert(delegate is NestedRouterDelegate);
+    return delegate as NestedRouterDelegate;
   }
 
   static reportUrlChanged(BuildContext context, String url) {
@@ -36,7 +37,7 @@ class AutoRouterDelegate extends RouterDelegate<UrlState> with ChangeNotifier {
 
   late List<NavigatorObserver> _navigatorObservers;
 
-  AutoRouterDelegate(
+  NestedRouterDelegate(
     this.controller, {
     this.initialRoutes,
     this.placeholder,
@@ -48,7 +49,7 @@ class AutoRouterDelegate extends RouterDelegate<UrlState> with ChangeNotifier {
     controller.navigationHistory.addListener(_handleRebuild);
   }
 
-  factory AutoRouterDelegate.declarative(
+  factory NestedRouterDelegate.declarative(
     RootStackRouter controller, {
     required RoutesBuilder routes,
     String? navRestorationScopeId,
@@ -199,7 +200,7 @@ class _AutoRootRouterState extends State<_AutoRootRouter> {
   }
 }
 
-class _DeclarativeAutoRouterDelegate extends AutoRouterDelegate {
+class _DeclarativeAutoRouterDelegate extends NestedRouterDelegate {
   final RoutesBuilder routes;
   final RoutePopCallBack? onPopRoute;
   final OnNavigateCallBack? onNavigate;
@@ -212,7 +213,7 @@ class _DeclarativeAutoRouterDelegate extends AutoRouterDelegate {
     this.onPopRoute,
     this.onNavigate,
     NavigatorObserversBuilder navigatorObservers =
-        AutoRouterDelegate.defaultNavigatorObserversBuilder,
+        NestedRouterDelegate.defaultNavigatorObserversBuilder,
   }) : super(
           router,
           navRestorationScopeId: navRestorationScopeId,

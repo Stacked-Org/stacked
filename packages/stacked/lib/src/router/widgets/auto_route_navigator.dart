@@ -39,7 +39,7 @@ class AutoRouteNavigatorState extends State<AutoRouteNavigator> {
   }
 
   void _updateDeclarativeRoutes() {
-    final delegate = AutoRouterDelegate.of(context);
+    final delegate = NestedRouterDelegate.of(context);
     var newRoutes =
         widget.declarativeRoutesBuilder!(widget.router.pendingRoutesHandler);
     if (!const ListEquality().equals(newRoutes, _routesSnapshot)) {

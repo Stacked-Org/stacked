@@ -64,7 +64,7 @@ class AutoTabsScaffold extends StatelessWidget {
     this.bottomNavigationBuilder,
     this.inheritNavigatorObservers = true,
     this.navigatorObservers =
-        AutoRouterDelegate.defaultNavigatorObserversBuilder,
+        NestedRouterDelegate.defaultNavigatorObserversBuilder,
     this.floatingActionButton,
     this.floatingActionButtonBuilder,
     this.floatingActionButtonLocation,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/src/router/controller/controller_scope.dart';
 import 'package:stacked/src/router/controller/pageless_routes_observer.dart';
-import 'package:stacked/src/router/widgets/auto_router.dart';
+import 'package:stacked/src/router/widgets/nested_router.dart';
 
 enum LeadingType {
   back,
@@ -24,14 +24,14 @@ typedef AutoLeadingButtonBuilder = Widget Function(
   VoidCallback? action, // could be popTop, openDrawer or null
 );
 
-class AutoLeadingButton extends StatefulWidget {
+class StackedLeadingButton extends StatefulWidget {
   final Color? color;
 
   final bool showIfChildCanPop, ignorePagelessRoutes;
   final bool _showIfParentCanPop;
   final AutoLeadingButtonBuilder? builder;
 
-  const AutoLeadingButton({
+  const StackedLeadingButton({
     Key? key,
     this.color,
     @Deprecated('Use showIfParentCanPop') bool? showBackIfParentCanPop,
@@ -45,16 +45,16 @@ class AutoLeadingButton extends StatefulWidget {
         super(key: key);
 
   @override
-  State<AutoLeadingButton> createState() => _AutoLeadingButtonState();
+  State<StackedLeadingButton> createState() => _StackedLeadingButtonState();
 }
 
-class _AutoLeadingButtonState extends State<AutoLeadingButton> {
+class _StackedLeadingButtonState extends State<StackedLeadingButton> {
   late final PagelessRoutesObserver _pagelessRoutesObserver;
 
   @override
   void initState() {
     super.initState();
-    _pagelessRoutesObserver = AutoRouter.of(context).pagelessRoutesObserver;
+    _pagelessRoutesObserver = NestedRouter.of(context).pagelessRoutesObserver;
     _pagelessRoutesObserver.addListener(_handleRebuild);
   }
 

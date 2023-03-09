@@ -11,7 +11,7 @@ import 'package:stacked/src/router/matcher/route_match.dart';
 import 'package:stacked/src/router/matcher/route_matcher.dart';
 import 'package:stacked/src/router/navigation_failure.dart';
 import 'package:stacked/src/router/parser/route_information_parser.dart';
-import 'package:stacked/src/router/provider/auto_route_information_provider.dart';
+import 'package:stacked/src/router/provider/stacked_route_information_provider.dart';
 import 'package:stacked/src/router/route/page_route_info.dart';
 import 'package:stacked/src/router/route/route_config.dart';
 import 'package:stacked/src/router/route/route_data_scope.dart';
@@ -21,9 +21,9 @@ import 'package:stacked/src/router/widgets/auto_route_navigator.dart';
 import 'pageless_routes_observer.dart';
 
 part '../route/route_data.dart';
-part 'auto_route_guard.dart';
-part 'auto_router_delegate.dart';
+part 'nested_router_delegate.dart';
 part 'root_stack_router.dart';
+part 'stacked_route_guard.dart';
 
 typedef RouteDataPredicate = bool Function(RouteData route);
 typedef OnNestedNavigateCallBack = void Function(List<RouteMatch> routes);
@@ -1401,7 +1401,7 @@ class PendingRoutesHandler {
   }
 }
 
-class ActiveGuardObserver extends ValueNotifier<AutoRouteGuard?> {
+class ActiveGuardObserver extends ValueNotifier<StackedRouteGuard?> {
   ActiveGuardObserver() : super(null);
 
   bool get guardInProgress => value != null;

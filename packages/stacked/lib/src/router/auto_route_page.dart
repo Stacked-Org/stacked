@@ -7,7 +7,7 @@ import 'package:stacked/src/router/controller/routing_controller.dart';
 import 'package:stacked/src/router/route/route_data_scope.dart';
 import 'package:stacked/src/router/widgets/custom_cupertino_transitions_builder.dart';
 
-import 'common/auto_route_wrapper.dart';
+import 'common/route_wrapper.dart';
 import 'widgets/wrapped_route.dart';
 
 /// TODO (Refactor): Rename this to Stacked verbiage
@@ -31,9 +31,9 @@ abstract class AutoRoutePage<T> extends Page<T> {
     this.maintainState = true,
     this.opaque = true,
     LocalKey? key,
-  })  : _child = child is AutoRouteWrapper
+  })  : _child = child is RouteWrapper
             ? WrappedRoute(
-                child: child as AutoRouteWrapper,
+                child: child as RouteWrapper,
               )
             : child,
         super(

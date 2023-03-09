@@ -1,6 +1,6 @@
 part of 'routing_controller.dart';
 
-abstract class AutoRouteGuard {
+abstract class StackedRouteGuard {
   /// clients will call [resolver.next(true --> default)] to continue
   /// navigation or [resolver.next(false)] to abort navigation
   /// example
@@ -40,7 +40,7 @@ class NavigationResolver {
   bool get isResolved => _completer.isCompleted;
 }
 
-abstract class AutoRedirectGuardBase extends AutoRouteGuard
+abstract class AutoRedirectGuardBase extends StackedRouteGuard
     with ChangeNotifier {
   late ReevaluationStrategy _strategy;
 

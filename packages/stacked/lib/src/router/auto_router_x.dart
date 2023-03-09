@@ -6,12 +6,12 @@ import 'controller/controller_scope.dart';
 import 'controller/routing_controller.dart';
 import 'matcher/route_match.dart';
 import 'navigation_failure.dart';
-import 'widgets/auto_router.dart';
+import 'widgets/nested_router.dart';
 
-extension AutoRouterX on BuildContext {
-  StackRouter get router => AutoRouter.of(this);
+extension StackedRouterExtensions on BuildContext {
+  StackRouter get router => NestedRouter.of(this);
 
-  StackRouter get watchRouter => AutoRouter.of(this, watch: true);
+  StackRouter get watchRouter => NestedRouter.of(this, watch: true);
 
   @optionalTypeArgs
   Future<T?> pushRoute<T extends Object?>(PageRouteInfo route,

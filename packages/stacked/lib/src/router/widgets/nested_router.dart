@@ -4,7 +4,7 @@ import 'package:stacked/src/router/controller/routing_controller.dart';
 import 'package:stacked/src/router/route/page_route_info.dart';
 import 'package:stacked/src/router/widgets/auto_route_navigator.dart';
 
-class AutoRouter extends StatefulWidget {
+class NestedRouter extends StatefulWidget {
   final NavigatorObserversBuilder navigatorObservers;
   final Widget Function(BuildContext context, Widget content)? builder;
   final String? navRestorationScopeId;
@@ -12,10 +12,10 @@ class AutoRouter extends StatefulWidget {
   final GlobalKey<NavigatorState>? navigatorKey;
   final WidgetBuilder? placeholder;
 
-  const AutoRouter({
+  const NestedRouter({
     Key? key,
     this.navigatorObservers =
-        AutoRouterDelegate.defaultNavigatorObserversBuilder,
+        NestedRouterDelegate.defaultNavigatorObserversBuilder,
     this.builder,
     this.navRestorationScopeId,
     this.navigatorKey,
@@ -26,7 +26,7 @@ class AutoRouter extends StatefulWidget {
   static Widget declarative({
     Key? key,
     NavigatorObserversBuilder navigatorObservers =
-        AutoRouterDelegate.defaultNavigatorObserversBuilder,
+        NestedRouterDelegate.defaultNavigatorObserversBuilder,
     required RoutesBuilder routes,
     RoutePopCallBack? onPopRoute,
     String? navRestorationScopeId,
@@ -47,7 +47,7 @@ class AutoRouter extends StatefulWidget {
       );
 
   @override
-  AutoRouterState createState() => AutoRouterState();
+  NestedRouterState createState() => NestedRouterState();
 
   static StackRouter of(BuildContext context, {bool watch = false}) {
     var scope = StackRouterScope.of(context, watch: watch);
@@ -68,7 +68,7 @@ class AutoRouter extends StatefulWidget {
   }
 }
 
-class AutoRouterState extends State<AutoRouter> {
+class NestedRouterState extends State<NestedRouter> {
   StackRouter? _controller;
 
   StackRouter? get controller => _controller;
@@ -170,7 +170,7 @@ class _DeclarativeAutoRouter extends StatefulWidget {
     Key? key,
     required this.routes,
     this.navigatorObservers =
-        AutoRouterDelegate.defaultNavigatorObserversBuilder,
+        NestedRouterDelegate.defaultNavigatorObserversBuilder,
     this.onPopRoute,
     this.navigatorKey,
     this.navRestorationScopeId,

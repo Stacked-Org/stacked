@@ -2,25 +2,25 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:stacked/src/router/parser/route_information_parser.dart';
 
-class AutoRouteInformationProvider extends RouteInformationProvider
+class StackedRouteInformationProvider extends RouteInformationProvider
     with WidgetsBindingObserver, ChangeNotifier {
   /// Create a platform route information provider.
   ///
   /// Use the [initialRouteInformation] to set the default route information for this
   /// provider.
-  AutoRouteInformationProvider._(
+  StackedRouteInformationProvider._(
       {required RouteInformation initialRouteInformation, this.neglectIf})
       : _value = initialRouteInformation;
 
   bool Function(String? location)? neglectIf;
 
-  factory AutoRouteInformationProvider(
+  factory StackedRouteInformationProvider(
       {RouteInformation? initialRouteInformation,
       bool Function(String? location)? neglectWhen}) {
     final initialRouteInfo = initialRouteInformation ??
         RouteInformation(
             location: WidgetsBinding.instance.window.defaultRouteName);
-    return AutoRouteInformationProvider._(
+    return StackedRouteInformationProvider._(
       initialRouteInformation: initialRouteInfo,
       neglectIf: neglectWhen,
     );

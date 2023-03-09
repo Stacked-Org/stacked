@@ -37,13 +37,13 @@ abstract class RootStackRouter extends StackRouter {
   @override
   bool get managedByWidget => _managedByWidget;
 
-  AutoRouteInformationProvider? _lazyInformationProvider;
+  StackedRouteInformationProvider? _lazyInformationProvider;
 
-  AutoRouteInformationProvider routeInfoProvider({
+  StackedRouteInformationProvider routeInfoProvider({
     RouteInformation? initialRouteInformation,
     bool Function(String? location)? neglectWhen,
   }) {
-    return _lazyInformationProvider ??= AutoRouteInformationProvider(
+    return _lazyInformationProvider ??= StackedRouteInformationProvider(
       initialRouteInformation: initialRouteInformation,
       neglectWhen: neglectWhen,
     );
@@ -52,18 +52,18 @@ abstract class RootStackRouter extends StackRouter {
   @override
   PageBuilder get pageBuilder => _pageBuilder;
 
-  AutoRouterDelegate? _lazyRootDelegate;
+  NestedRouterDelegate? _lazyRootDelegate;
 
-  AutoRouterDelegate declarativeDelegate({
+  NestedRouterDelegate declarativeDelegate({
     required RoutesBuilder routes,
     String? navRestorationScopeId,
     RoutePopCallBack? onPopRoute,
     String? initialDeepLink,
     OnNavigateCallBack? onNavigate,
     NavigatorObserversBuilder navigatorObservers =
-        AutoRouterDelegate.defaultNavigatorObserversBuilder,
+        NestedRouterDelegate.defaultNavigatorObserversBuilder,
   }) {
-    return _lazyRootDelegate ??= AutoRouterDelegate.declarative(
+    return _lazyRootDelegate ??= NestedRouterDelegate.declarative(
       this,
       routes: routes,
       onNavigate: onNavigate,
@@ -75,15 +75,15 @@ abstract class RootStackRouter extends StackRouter {
   }
 
   // _lazyRootDelegate is only built one time
-  AutoRouterDelegate delegate({
+  NestedRouterDelegate delegate({
     List<PageRouteInfo>? initialRoutes,
     String? initialDeepLink,
     String? navRestorationScopeId,
     WidgetBuilder? placeholder,
     NavigatorObserversBuilder navigatorObservers =
-        AutoRouterDelegate.defaultNavigatorObserversBuilder,
+        NestedRouterDelegate.defaultNavigatorObserversBuilder,
   }) {
-    return _lazyRootDelegate ??= AutoRouterDelegate(
+    return _lazyRootDelegate ??= NestedRouterDelegate(
       this,
       initialDeepLink: initialDeepLink,
       initialRoutes: initialRoutes,

@@ -9,7 +9,7 @@ import '../common/common.dart';
 import '../controller/controller_scope.dart';
 import '../controller/routing_controller.dart';
 import '../route/page_route_info.dart';
-import 'auto_page_view.dart';
+import 'stacked_page_view.dart';
 
 typedef AnimatedIndexedStackBuilder = Widget Function(
     BuildContext context, Widget child, Animation<double> animation);
@@ -37,7 +37,7 @@ abstract class AutoTabsRouter extends StatefulWidget {
     this.homeIndex = -1,
     this.inheritNavigatorObservers = true,
     this.navigatorObservers =
-        AutoRouterDelegate.defaultNavigatorObserversBuilder,
+        NestedRouterDelegate.defaultNavigatorObserversBuilder,
   }) : super(key: key);
 
   const factory AutoTabsRouter({
@@ -176,7 +176,7 @@ class _AutoTabsRouterIndexedStack extends AutoTabsRouter {
     int homeIndex = -1,
     bool inheritNavigatorObservers = true,
     NavigatorObserversBuilder navigatorObservers =
-        AutoRouterDelegate.defaultNavigatorObserversBuilder,
+        NestedRouterDelegate.defaultNavigatorObserversBuilder,
   }) : super._(
           key: key,
           routes: routes,
@@ -414,7 +414,7 @@ class AutoTabsRouterPageView extends AutoTabsRouter {
     this.dragStartBehavior = DragStartBehavior.start,
     bool inheritNavigatorObservers = true,
     NavigatorObserversBuilder navigatorObservers =
-        AutoRouterDelegate.defaultNavigatorObserversBuilder,
+        NestedRouterDelegate.defaultNavigatorObserversBuilder,
   })  : _pageViewModeBuilder = builder,
         super._(
           key: key,
@@ -486,7 +486,7 @@ class AutoTabsRouterPageViewState extends _AutoTabsRouterState
         child: Builder(builder: (context) {
           return builder(
             context,
-            AutoPageView(
+            StackedPageView(
               scrollDirection: typedWidget.scrollDirection,
               physics: typedWidget.physics,
               dragStartBehavior: typedWidget.dragStartBehavior,
@@ -529,7 +529,7 @@ class _AutoTabsRouterTabBar extends AutoTabsRouter {
     this.curve = Curves.ease,
     bool inheritNavigatorObservers = true,
     NavigatorObserversBuilder navigatorObservers =
-        AutoRouterDelegate.defaultNavigatorObserversBuilder,
+        NestedRouterDelegate.defaultNavigatorObserversBuilder,
     this.physics,
     this.dragStartBehavior = DragStartBehavior.start,
   }) : super._(
@@ -651,7 +651,7 @@ class _AutoTabsRouterBuilder extends AutoTabsRouter {
     int homeIndex = -1,
     bool inheritNavigatorObservers = true,
     NavigatorObserversBuilder navigatorObservers =
-        AutoRouterDelegate.defaultNavigatorObserversBuilder,
+        NestedRouterDelegate.defaultNavigatorObserversBuilder,
   }) : super._(
           key: key,
           routes: routes,
@@ -741,7 +741,7 @@ mixin _RouteAwareTabsMixin<T extends StatefulWidget> on State<T> {
   List<RouteMatch> get routes;
 
   void _didInitTabRoute(int index, [int previous = -1]) {
-    observers.whereType<AutoRouterObserver>().forEach((observer) {
+    observers.whereType<RouterObserver>().forEach((observer) {
       TabPageRoute? previousRoute;
       if (previous != -1) {
         previousRoute =
@@ -755,7 +755,7 @@ mixin _RouteAwareTabsMixin<T extends StatefulWidget> on State<T> {
   }
 
   void _didChangeTabRoute(int index, int previous) {
-    observers.whereType<AutoRouterObserver>().forEach((observer) {
+    observers.whereType<RouterObserver>().forEach((observer) {
       observer.didChangeTabRoute(
         TabPageRoute(routeInfo: routes[index], index: index),
         TabPageRoute(routeInfo: routes[previous], index: previous),
