@@ -1,3 +1,9 @@
+## 1.3.0-beta.0
+
+### Features
+
+Adds support for Navigator 2.0 by updating our fork of AutoRouter to version `5.0.4`.
+
 ## 1.2.4
 - Add `instanceName` to DependencyRegistration annotations
 ## 1.2.3

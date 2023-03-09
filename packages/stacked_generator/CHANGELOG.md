@@ -1,3 +1,9 @@
+## 1.0.0-beta.0
+
+### Features
+
+Adds support for the new RouterService which uses Navigator 2.0 a fork from AutoRouter `5.0.4` to generate the generated code. 
+
 ## 0.9.4
 
 - Fixes errors not being logged in the stacked logger

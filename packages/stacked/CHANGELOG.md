@@ -1,3 +1,9 @@
+## 3.2.0-beta.0
+
+### Features
+
+Adds support for the new RouterService which uses Navigator 2.0 a fork from AutoRouter `5.0.4` to generate the generated code. 
+
 ## 3.1.1
 - Added fix to extensible classes for ListenableServiceMixin
 

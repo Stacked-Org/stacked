@@ -1,3 +1,9 @@
+## 1.0.0-beta.0
+
+### Features
+
+Adds a new RouterService which uses Navigator 2.0. This is the default router used when generating code from the CLI web template
+
 ## 0.9.9+1
 
 - Updates DialogBuider and SheetBuilder typedefs
