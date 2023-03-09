@@ -89,22 +89,22 @@ String generateLibrary(
     (acc, a) => acc..addAll(a.guards),
   );
 
-  final router1Classes = <Class>[];
+  final originalRouterClasses = <Class>[];
 
   config.traverseRoutes(((routerConfig) {
     if (routerConfig.routes.isNotEmpty) {
-      router1Classes.add(RoutesClassBuilder(
+      originalRouterClasses.add(RoutesClassBuilder(
         routes: routerConfig.routes,
         routesClassName: routerConfig.routesClassName,
       ).buildRoutesClass());
 
-      router1Classes.add(RouterClassBuilder(
+      originalRouterClasses.add(RouterClassBuilder(
         routesClassName: routerConfig.routesClassName,
         routes: routerConfig.routes,
         routerClassName: routerConfig.routerClassName,
       ).buildRouterClass());
 
-      router1Classes.addAll(ArgumentsClassBuilder(
+      originalRouterClasses.addAll(ArgumentsClassBuilder(
         routes: routerConfig.routes,
       ).buildViewsArguments(emitter));
     }
@@ -127,7 +127,7 @@ String generateLibrary(
             .distinctBy((e) => e.routeName)
             .map((r) => buildRouteInfoAndArgs(r, config, emitter))
             .reduce((acc, a) => acc..addAll(a)),
-        ...router1Classes,
+        ...originalRouterClasses,
         navigationExtensionsClass
       ]),
   );

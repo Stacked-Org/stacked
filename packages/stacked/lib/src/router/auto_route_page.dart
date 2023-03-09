@@ -10,6 +10,7 @@ import 'package:stacked/src/router/widgets/custom_cupertino_transitions_builder.
 import 'common/auto_route_wrapper.dart';
 import 'widgets/wrapped_route.dart';
 
+/// TODO (Refactor): Rename this to Stacked verbiage
 abstract class AutoRoutePage<T> extends Page<T> {
   final RouteData routeData;
   final Widget _child;
