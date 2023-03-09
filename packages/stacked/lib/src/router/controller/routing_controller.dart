@@ -371,6 +371,12 @@ abstract class RoutingController with ChangeNotifier {
 
   Future<void> _navigateAll(List<RouteMatch> routes,
       {OnNavigationFailure? onFailure});
+
+  /// Clears all tracked pages and childControllers
+  void clear() {
+    _pages.clear();
+    _childControllers.clear();
+  }
 }
 
 class TabsRouter extends RoutingController {
@@ -497,6 +503,12 @@ class TabsRouter extends RoutingController {
       var data = _createRouteData(route, routeData);
       _pages.add(pageBuilder(data));
     }
+  }
+
+  /// Clears all tracked pages
+  void clear() {
+    _pages.clear();
+    _childControllers.clear();
   }
 
   void replaceAll(
