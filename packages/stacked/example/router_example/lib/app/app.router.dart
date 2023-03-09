@@ -41,13 +41,8 @@ class StackedRouterWeb extends _i12.RootStackRouter {
   @override
   final Map<String, _i12.PageFactory> pagesMap = {
     HomeViewRoute.name: (routeData) {
-      final pathParams = routeData.inheritedPathParams;
-      final args = routeData.argsAs<HomeViewArgs>(
-          orElse: () => HomeViewArgs(
-                  title: pathParams.optString(
-                'title',
-                'hello',
-              )));
+      final args =
+          routeData.argsAs<HomeViewArgs>(orElse: () => const HomeViewArgs());
       return _i12.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i2.HomeView(
@@ -138,7 +133,7 @@ class StackedRouterWeb extends _i12.RootStackRouter {
   List<_i12.RouteConfig> get routes => [
         _i12.RouteConfig(
           HomeViewRoute.name,
-          path: '/home/:title',
+          path: '/',
         ),
         _i12.RouteConfig(
           BottomNavExampleRoute.name,
@@ -209,7 +204,7 @@ class HomeViewRoute extends _i12.PageRouteInfo<HomeViewArgs> {
     ],
   }) : super(
           HomeViewRoute.name,
-          path: '/home/:title',
+          path: '/',
           args: HomeViewArgs(
             key: key,
             title: title,
@@ -217,7 +212,6 @@ class HomeViewRoute extends _i12.PageRouteInfo<HomeViewArgs> {
             clashableGetter: clashableGetter,
             homeTypes: homeTypes,
           ),
-          rawPathParams: {'title': title},
         );
 
   static const String name = 'HomeView';
