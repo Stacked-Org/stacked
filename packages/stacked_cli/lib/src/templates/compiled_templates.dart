@@ -407,7 +407,6 @@ import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
 import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
 import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:stacked_services/stacked_services.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 void main() {
@@ -992,7 +991,6 @@ const String kAppWebTemplateHomeViewContent = '''
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
 
 import 'home_view.desktop.dart';
 import 'home_view.tablet.dart';
