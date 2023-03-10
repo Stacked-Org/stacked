@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       navigatorKey: StackedService.navigatorKey,
       onGenerateRoute: StackedRouter().onGenerateRoute,
+      initialRoute: Routes.homeView,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

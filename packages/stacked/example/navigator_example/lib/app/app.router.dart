@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
-// StackedRouterGenerator
+// StackedNavigatorGenerator
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -26,7 +26,7 @@ import 'package:stacked/stacked.dart' as _i2;
 import 'package:stacked_services/stacked_services.dart' as _i17;
 
 class Routes {
-  static const homeView = '/home-view';
+  static const homeView = '/';
 
   static const bottomNavExample = '/bottom-nav-example';
 

@@ -29,7 +29,7 @@ import 'custom_route_transition.dart';
     StackedDialog(classType: BasicDialog),
   ],
   routes: [
-    MaterialRoute(page: HomeView),
+    MaterialRoute(page: HomeView, initial: true),
     MaterialRoute(page: BottomNavExample, children: [
       CustomRoute(
         page: HistoryView,

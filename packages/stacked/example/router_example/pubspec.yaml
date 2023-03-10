@@ -31,6 +31,7 @@ dependencies:
   stacked_hooks:
   stacked_themes:
   stacked_crashlytics:
+  stacked_shared:
   
   flutter_hooks: ^0.18.4
   # navigation
