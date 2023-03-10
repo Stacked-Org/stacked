@@ -1,12 +1,11 @@
-## 3.2.0-beta.1
-
-- Updates `stacked_core` to `stacked_shared`. We lost access to `stacked_core` 😭
-
-## 3.2.0-beta.0
+## 3.2.0
 
 ### Features
 
 Adds support for the new RouterService which uses Navigator 2.0 a fork from AutoRouter `5.0.4` to generate the generated code. 
+
+### Fixes
+- Updates `stacked_core` to `stacked_shared`. We lost access to `stacked_core` 😭
 
 ## 3.1.1
 - Added fix to extensible classes for ListenableServiceMixin
