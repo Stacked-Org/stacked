@@ -1,12 +1,15 @@
-## 1.0.0-beta.1
+## 1.0.0-beta.2
 
-- Updates `stacked_core` to `stacked_shared` because we lost access to `stacked_core` 😞
+- fixed the locator generator to use dynamic locatorName instead of hardCoded
 
 ## 1.0.0-beta.0
 
 ### Features
 
 Adds support for the new RouterService which uses Navigator 2.0 a fork from AutoRouter `5.0.4` to generate the generated code. 
+
+### Fixes
+Updates `stacked_core` to `stacked_shared` because we lost access to `stacked_core` 😞
 
 ## 0.9.4
 
