@@ -57,7 +57,7 @@ if (stackedRouter == null) {
       'Stacked is building to use the Router (Navigator 2.0) navigation but no stackedRouter is supplied. Pass the stackedRouter to the setupLocator function in main.dart');
 }
 
-exampleLocator<RouterService>().setRouter(stackedRouter);
+$locatorName<RouterService>().setRouter(stackedRouter);
 ''');
     }
 
