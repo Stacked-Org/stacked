@@ -8,8 +8,8 @@ import 'package:stacked_services/stacked_services.dart';
 
 @StackedApp(
   routes: [
+    MaterialRoute(page: StartupView, initial: true),
     MaterialRoute(page: HomeView),
-    MaterialRoute(page: StartupView),
     // @stacked-route
   ],
   dependencies: [
