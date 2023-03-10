@@ -157,7 +157,7 @@ void registerServices() {
   // @stacked-mock-register
 }
 
-MockRouterServicegetAndRegisterRouterService() {
+MockRouterService getAndRegisterRouterService() {
   _removeRegistrationIfExists<RouterService>();
   final service = MockRouterService();
   locator.registerSingleton<RouterService>(service);
@@ -1500,7 +1500,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   
-  stacked: ^3.2.0-beta.0
+  stacked: ^3.2.0-beta.1
   stacked_services: ^1.0.0-beta.0
   url_strategy: ^0.2.0
   responsive_builder: ^0.6.0
