@@ -5,7 +5,6 @@ import 'package:{{packageName}}/{{{relativeDialogFilePath}}}';
 import 'package:{{packageName}}/{{{relativeLocatorFilePath}}}';
 import 'package:{{packageName}}/{{{relativeRouterFilePath}}}';
 import 'package:{{packageName}}/ui/common/app_colors.dart';
-import 'package:stacked_services/stacked_services.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 void main() {
