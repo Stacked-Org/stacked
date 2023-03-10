@@ -1,8 +1,4 @@
-## 1.0.0-beta.2
-
-- fixed the locator generator to use dynamic locatorName instead of hardCoded
-
-## 1.0.0-beta.0
+## 1.0.0
 
 ### Features
 
