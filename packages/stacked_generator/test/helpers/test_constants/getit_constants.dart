@@ -1,7 +1,7 @@
 const kStackedLocaterWithOneDependencyOutput = '''
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'importOne';
 
@@ -19,7 +19,7 @@ ebraLocator.registerSingleton(GeolocaorService()  );
 const kStackedLocaterWithTwoDependenciesOutput = '''
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'importOne';
 import 'importTwo';
@@ -39,7 +39,7 @@ filledstacksLocator.registerSingleton(FireService()  );
 const kStackedLocaterWithOneDependencyOutputWithImports = '''
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'importOne';
 
@@ -58,7 +58,7 @@ filledstacksLocator.registerSingleton(GeolocaorService()  , instanceName: 'insta
 const kStackedLocaterWithOneDependencyOutputWithAbstractedImport = '''
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'abstractedImportOne';
 import 'importOne';
@@ -77,7 +77,7 @@ filledstacksLocator.registerSingleton(GeolocaorService()  );
 const kStackedLocaterWithOneDependencyOutputWithAbstractedTypeClassName = '''
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'importOne';
 
@@ -95,7 +95,7 @@ filledstacksLocator.registerSingleton<abstractedTypeClassNamee>(GeolocaorService
 const kStackedLocaterWithOneDependencyOutputWithEnviroments = '''
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'importOne';
 
@@ -114,7 +114,7 @@ const kStackedLocaterWithOneDependencyOutputWithPresolveFunctionAndDependencyTyp
     '''
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'importOne';
 
@@ -134,7 +134,7 @@ filledstacksLocator.registerEnvironment(environment: environment, environmentFil
 const kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactory = '''
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'importOne';
 
@@ -153,7 +153,7 @@ const kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParams 
     '''
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'importOne';
 
@@ -172,7 +172,7 @@ const kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsA
     '''
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'importOne';
 
@@ -191,7 +191,7 @@ const kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsA
     '''
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'importOne';
 
@@ -210,7 +210,7 @@ const kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsA
     '''
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'importOne';
 
@@ -229,7 +229,7 @@ const kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsA
     '''
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'importOne';
 
@@ -248,7 +248,7 @@ const kStackedLocaterWithOneDependencyOutputWithDependencyTypeFactoryWithParamsA
     '''
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'importOne';
 
@@ -266,7 +266,7 @@ filledstacksLocator.registerFactoryParam<GeolocaorService,newType?,freshType?>((
 const kStackedLocaterWithOneDependencyOutputWithDependencyTypeSinglton = '''
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'importOne';
 
@@ -285,7 +285,7 @@ filledstacksLocator.registerSingleton(GeolocaorService()  );
 const kStackedLocaterWithOneDependencyOutputWithDependencyTypeLazySinglton = '''
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'importOne';
 

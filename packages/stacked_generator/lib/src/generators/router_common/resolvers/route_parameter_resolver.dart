@@ -1,7 +1,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:source_gen/source_gen.dart';
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 import 'package:stacked_generator/src/generators/router_common/models/route_parameter_config.dart';
 import 'package:stacked_generator/src/generators/router_common/resolvers/type_resolver.dart';
 import 'package:stacked_generator/utils.dart';

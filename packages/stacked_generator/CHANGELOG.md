@@ -206,7 +206,7 @@ In addition we also have a clearForm function that will clear all the form Text 
 
 ## 0.6.3
 
-- Replace dependency on stacked with stacked_core
+- Replace dependency on stacked with stacked_shared
 
 ## 0.6.2
 

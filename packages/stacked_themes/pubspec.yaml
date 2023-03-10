@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  stacked_core: ^1.2.3
+  stacked_shared: ^1.2.3
   provider: ^6.0.0
   rxdart: ^0.27.1
   shared_preferences: ^2.0.6
@@ -21,8 +21,8 @@ dependencies:
   universal_io: ^2.0.4
 
 # dependency_overrides: 
-#   stacked_core: 
-#     path: ../stacked_core/
+#   stacked_shared: 
+#     path: ../stacked_shared/
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,4 @@
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import '../../../../helpers/dumb_service.dart';
 

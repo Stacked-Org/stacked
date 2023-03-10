@@ -1,7 +1,7 @@
 /// Support for doing something awesome.
 ///
 /// More dartdocs go here.
-library stacked_core;
+library stacked_shared;
 
 export 'src/backward_compatibility/flutter_v2_compatibility.dart';
 export 'src/code_generation/environment_filter.dart';

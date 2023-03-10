@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'router_utils.dart';
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'uri_extension.dart';
 

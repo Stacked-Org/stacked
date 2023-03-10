@@ -1,7 +1,7 @@
-name: stacked_core
+name: stacked_shared
 description: Shared code between the stacked packages.
 version: 1.3.0-beta.0
-homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_core
+homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_shared
 
 environment:
   sdk: '>=2.16.2 <3.0.0'

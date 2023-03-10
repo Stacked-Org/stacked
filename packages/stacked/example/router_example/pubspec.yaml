@@ -51,8 +51,8 @@ dependency_overrides:
     path: ../../../stacked_crashlytics/
   stacked_generator:
     path: ../../../stacked_generator/
-  stacked_core:
-    path: ../../../stacked_core/
+  stacked_shared:
+    path: ../../../stacked_shared/
 
 dev_dependencies:
   flutter_test:

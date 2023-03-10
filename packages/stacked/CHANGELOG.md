@@ -87,7 +87,7 @@ New CLI 🔥 Check it out in the [Docs](https://stacked.filledstacks.com)
 
 ## 2.3.9
 
-- Pump stacked_core version
+- Pump stacked_shared version
 - Update example app
 
 ## 2.3.8
@@ -110,7 +110,7 @@ New CLI 🔥 Check it out in the [Docs](https://stacked.filledstacks.com)
 
 ## 2.3.5
 
-- Use the stacked_core package to expose the stacked_annotation
+- Use the stacked_shared package to expose the stacked_annotation
 
 ## 2.3.4
 

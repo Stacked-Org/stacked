@@ -1,5 +1,5 @@
-import 'package:stacked_core/src/code_generation/bottomsheets/stacked_bottomsheet.dart';
-import 'package:stacked_core/src/code_generation/dialogs/stacked_dialog.dart';
+import 'package:stacked_shared/src/code_generation/bottomsheets/stacked_bottomsheet.dart';
+import 'package:stacked_shared/src/code_generation/dialogs/stacked_dialog.dart';
 
 import 'locator/stacked_locator_annotations.dart';
 import 'logger/stacked_logger_annotations.dart';

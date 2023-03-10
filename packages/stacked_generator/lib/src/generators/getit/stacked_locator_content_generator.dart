@@ -68,7 +68,7 @@ exampleLocator<RouterService>().setRouter(stackedRouter);
 
   void _generateImports(List<DependencyConfig> services) {
     // write route imports
-    final imports = <String?>{"package:stacked_core/stacked_core.dart"};
+    final imports = <String?>{"package:stacked_shared/stacked_shared.dart"};
 
     imports.addAll(services.map((service) => service.import));
     imports.addAll(services.map((service) => service.abstractedImport));

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 import 'package:stacked_localisation/src/setup_locator.dart';
 import 'package:stacked_localisation/src/utils/locale_provider.dart';
 import 'package:stacked_localisation/src/utils/string_reader.dart';
@@ -43,8 +43,9 @@ class LocalisationService with WidgetsBindingObserver {
   @override
   void didChangeLocales(List<Locale>? locale) async {
     final currentLocale = locale?.first.toString();
-    if(currentLocale?.isNotEmpty == true) {
-      _localisedStrings = await _stringReader.getStringsFromAssets(currentLocale!);
+    if (currentLocale?.isNotEmpty == true) {
+      _localisedStrings =
+          await _stringReader.getStringsFromAssets(currentLocale!);
     }
   }
 

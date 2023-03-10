@@ -12,11 +12,11 @@ dependencies:
 
   devicelocale: ^0.3.1
   get_it: ^7.1.4
-  stacked_core: ^1.1.0
+  stacked_shared: ^1.1.0
 
 dependency_overrides:
-  stacked_core:
-    path: ../../stacked_core/
+  stacked_shared:
+    path: ../../stacked_shared/
 
 dev_dependencies:
   flutter_test:
