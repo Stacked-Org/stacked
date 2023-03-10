@@ -19,7 +19,7 @@ void registerServices() {
   // @stacked-mock-register
 }
 
-MockRouterServicegetAndRegisterRouterService() {
+MockRouterService getAndRegisterRouterService() {
   _removeRegistrationIfExists<RouterService>();
   final service = MockRouterService();
   locator.registerSingleton<RouterService>(service);
