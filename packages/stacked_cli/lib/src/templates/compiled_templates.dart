@@ -1515,7 +1515,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   build_runner: ^2.2.0
 
-  stacked_generator: 1.0.0-beta.0
+  stacked_generator: 1.0.0-beta.2
   mockito: ^5.3.2
 
 # For information on the generic Dart part of this file, see the
