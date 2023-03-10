@@ -1,6 +1,7 @@
-## 1.4.1-beta.0
+## 1.4.1
 
 - Updates the app web template to use the new `RoutingService`
+- Updates web template to the latest versions of all packages
 - Adds a `web` template to `stacked create view` _Fixes #889_
 - Adds priority for templates based on config. If `prefer_web` is true in your config then you don't have to pass `--template=web` when creating a view
 
