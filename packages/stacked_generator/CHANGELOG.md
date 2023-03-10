@@ -1,3 +1,7 @@
+## 1.0.0-beta.1
+
+- Updates `stacked_core` to `stacked_shared` because we lost access to `stacked_core` 😞
+
 ## 1.0.0-beta.0
 
 ### Features

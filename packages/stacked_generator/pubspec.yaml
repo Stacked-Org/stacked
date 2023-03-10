@@ -1,6 +1,6 @@
 name: stacked_generator
 description: Stacked Generator is a package dedicated to reduce the boilerplate required to setup a stacked application
-version: 1.0.0-beta.0
+version: 1.0.0-beta.1
 homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_generator
 
 environment:
@@ -13,7 +13,7 @@ dependencies:
   source_gen: ^1.2.7
   meta: ^1.7.0
   logger: ^1.1.0
-  stacked_shared: ^1.2.4
+  stacked_shared: ^1.3.0-beta.0
   # Removing this will cause issues when publish the package
   analyzer: ^5.0.0
   dart_style: ^2.2.3
