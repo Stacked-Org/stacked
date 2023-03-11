@@ -27,10 +27,26 @@ class ProcessService {
   ///
   /// Args:
   ///   appName (String): The name of the app that's going to be create.
-  Future<void> runCreateApp({required String appName}) async {
+  Future<void> runCreateApp(
+      {required String organization,
+      required String platforms,
+      required String appName}) async {
+    List<String> arguments = [];
+    arguments.add(ksCreate);
+
+    if (organization.isNotEmpty) {
+      arguments.addAll([ksOrganization, organization]);
+    }
+
+    if (platforms.isNotEmpty) {
+      arguments.addAll([ksPlatform, platforms]);
+    }
+
+    arguments.add(appName);
     await _runProcess(
       programName: ksFlutter,
-      arguments: [ksCreate, appName],
+      verbose: true,
+      arguments: arguments,
     );
   }
 
@@ -140,6 +156,12 @@ class ProcessService {
         workingDirectory: workingDirectory,
         runInShell: true,
       );
+
+      if (verbose) {
+        process.stderr.listen((event) {
+          _cLog.error(message: "Process error: " + utf8.decoder.convert(event));
+        });
+      }
 
       final lines = <String>[];
       final lineSplitter = LineSplitter();

@@ -35,6 +35,18 @@ class CreateAppCommand extends Command {
     );
 
     argParser.addOption(
+      "org",
+      abbr: "o",
+      help: kCommandOrganizationHelp,
+    );
+
+    argParser.addOption(
+      "platform",
+      abbr: "p",
+      help: kCommandPlatformHelp,
+    );
+
+    argParser.addOption(
       ksLineLength,
       abbr: 'l',
       help: kCommandHelpLineLength,
@@ -55,15 +67,62 @@ class CreateAppCommand extends Command {
   @override
   Future<void> run() async {
     await _configService.loadConfig();
+    _cLog.stackedOutput(message: argResults!.rest.first, isBold: true);
     final appName = argResults!.rest.first;
     final appNameWithoutPath = appName.split('/').last;
     final templateType = argResults![ksTemplateType];
+    String organization = "";
+    String platforms = "";
+
+    int indexOrg = argResults!.arguments.indexOf("--org");
+    if (indexOrg != -1) {
+      organization = argResults!.arguments[indexOrg + 1];
+    }
+
+    if (indexOrg == -1) {
+      indexOrg = argResults!.arguments.indexOf("-o");
+      if (indexOrg != -1) {
+        organization = argResults!.arguments[indexOrg + 1];
+      }
+    }
+
+    int indexPlatform = argResults!.arguments.indexOf("--platforms");
+    if (indexPlatform != -1) {
+      platforms = argResults!.arguments[indexPlatform + 1];
+    }
+
+    if (indexPlatform == -1) {
+      indexPlatform = argResults!.arguments.indexOf("-p");
+      if (indexPlatform != -1) {
+        platforms = argResults!.arguments[indexPlatform + 1];
+      }
+    }
+
+    // Organization must be a valid bundle name. (com.example)
+    if (organization.isNotEmpty && !organization.contains(".")) {
+      _cLog.error(
+          message: "Organization must be a valid bundle name. (com.example)");
+      return;
+    }
+
+    // Regarding https://dart.dev/tools/pub/pubspec#name
+    // The name may only contain lowercase letters, digits, underscores.
+    // And is not allowed to starts with numbers.
+    if (appName.contains(RegExp(r'[A-Z]')) ||
+        appName.startsWith(RegExp(r'[0-9]'))) {
+      _cLog.error(
+          message:
+              "App name must contains lower letters and is not allowed to start with numbers (example, example1)");
+      return;
+    }
 
     unawaited(_analyticsService.createAppEvent(name: appNameWithoutPath));
     _processService.formattingLineLength = argResults![ksLineLength];
-    await _processService.runCreateApp(appName: appName);
 
     _cLog.stackedOutput(message: 'Add Stacked Magic ... ', isBold: true);
+
+    await _processService.runCreateApp(
+        organization: organization, platforms: platforms, appName: appName);
 
     await _templateService.renderTemplate(
       templateName: name,
