@@ -3,7 +3,7 @@ name: Release Package
 on:
   push:
     branches:
-      - main
+      - master
       - next
 
 jobs:
