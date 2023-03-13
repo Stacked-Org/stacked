@@ -1,8 +1,0 @@
-{
-    "description": "When a service is generated, one of the boilerplate tasks is to register service dependency on StackedApp for the new service. This modification performs that action.",
-    "path": "lib/app/app.dart",
-    "identifier": "// @stacked-service",
-    "template": "LazySingleton(classType: {{serviceName}}Service),",
-    "error": "The service registration should be stored in lib/app/app.dart",
-    "name": "Add {{serviceName}} dependency to StackedApp annotations file"
-}

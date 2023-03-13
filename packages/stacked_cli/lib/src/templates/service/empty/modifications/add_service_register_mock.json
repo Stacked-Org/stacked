@@ -1,8 +1,0 @@
-{
-  "description": "When a service mock is generated it needs to be added to the register services test helper function",
-  "path": "test/helpers/test_helpers.dart",
-  "identifier": "// @stacked-mock-register",
-  "template": "getAndRegister{{serviceName}}();",
-  "error": "The test mocks and helpers should be stored in test/helpers/test_helpers.dart",
-  "name": "Add {{serviceName}} register to test helpers"
-}

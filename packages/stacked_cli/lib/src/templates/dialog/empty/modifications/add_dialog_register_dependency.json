@@ -1,8 +1,0 @@
-{
-    "description": "When a dialog is generated, one of the boilerplate tasks is to register dependency on StackedApp for the new dialog. This modification performs that action.",
-    "path": "lib/app/app.dart",
-    "identifier": "// @stacked-dialog",
-    "template": "StackedDialog(classType: {{dialogName}}),",
-    "error": "The dialog registration should be stored in lib/app/app.dart",
-    "name": "Add \\'{{dialogName}}\\' dependency to StackedApp annotations file"
-}

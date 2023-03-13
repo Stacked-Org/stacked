@@ -1,17 +1,80 @@
-.project
-org.eclipse.buildship.core.prefs
-.classpath
-launch.json
-
-**/*.lock
-*.lock
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
 .DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
 
-packages/stacked_tools/stacked_cli/example/android/local.properties
-packages/stacked_tools/stacked_cli/example/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
-packages/stacked_tools/stacked_cli/example/ios/Flutter/flutter_export_environment.sh
-packages/stacked_tools/stacked_cli/example/ios/Flutter/Generated.xcconfig
-packages/stacked_tools/stacked_cli/example/ios/Runner/GeneratedPluginRegistrant.h
-packages/stacked_tools/stacked_cli/example/ios/Runner/GeneratedPluginRegistrant.m
-packages/stacked_tools/stacked_cli/example/macos/Flutter/ephemeral/flutter_export_environment.sh
-packages/stacked_tools/stacked_cli/example/macos/Flutter/ephemeral/Flutter-Generated.xcconfig
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+pubspec.lock
+
+# Dependency releated
+pubspec_overrides.yaml
+
+# Android related
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+
+# iOS/XCode related
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/*sync/
+**/ios/**/.sconsign.dblite
+**/ios/**/.tags*
+**/ios/**/.vagrant/
+**/ios/**/DerivedData/
+**/ios/**/Icon?
+**/ios/**/Pods/
+**/ios/**/.symlinks/
+**/ios/**/profile
+**/ios/**/xcuserdata
+**/ios/.generated/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# Exceptions to above rules.
+!**/ios/**/default.mode1v3
+!**/ios/**/default.mode2v3
+!**/ios/**/default.pbxuser
+!**/ios/**/default.perspectivev3
+!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+*.lock
