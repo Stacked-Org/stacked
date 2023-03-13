@@ -1,0 +1,30 @@
+name: Release Package
+
+on:
+  push:
+    branches:
+      - main
+      - next
+
+jobs:
+  package_and_publish:
+    name: Package and Publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.REPO_DEPLOYMENT_TOKEN }}
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+      - name: release
+        uses: cycjimmy/semantic-release-action@v3
+        with:
+          extra_plugins: |
+            @semantic-release/exec
+            @semantic-release/git
+            @semantic-release/changelog
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_DEPLOYMENT_TOKEN }}
+          CREDENTIALS: ${{ secrets.PUB_DEV_DEPLOYMENT_CREDENTIALS }}

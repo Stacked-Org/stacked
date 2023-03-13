@@ -1,8 +1,0 @@
-{
-    "description": "When a bottom sheet is generated, one of the boilerplate tasks is to add the bottom sheet class to StackedApp. This modification performs the import for the bottom sheet class.",
-    "path": "lib/app/app.dart",
-    "identifier": "// @stacked-import",
-    "template": "import \\'package:{{packageName}}/{{{bottomSheetsPath}}}/{{sheetFolderName}}/{{sheetFilename}}\\';",
-    "error": "The bottom sheet registration should be stored in lib/app/app.dart",
-    "name": "Add import for \\'{{sheetName}}\\' class"
-  }

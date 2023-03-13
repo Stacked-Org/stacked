@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json.schemastore.org/semantic-release",
+  "branches": [
+    "main",
+    {
+      "name": "next",
+      "prerelease": "pre"
+    }
+  ],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    [
+      "@semantic-release/exec",
+      {
+        "verifyConditionsCmd": "if [ -z \"$CREDENTIALS\" ]; then exit 1; fi && mkdir -p ~/.config/dart && echo \"$CREDENTIALS\" > ~/.config/dart/pub-credentials.json",
+        "prepareCmd": "sed -i 's/^version: .*$/version: ${nextRelease.version}/' pubspec.yaml",
+        "publishCmd": "flutter pub publish -f"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["./CHANGELOG.md", "./pubspec.yaml"]
+      }
+    ],
+    "@semantic-release/github"
+  ]
+}

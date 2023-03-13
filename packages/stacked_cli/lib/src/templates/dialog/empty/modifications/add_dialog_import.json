@@ -1,8 +1,0 @@
-{
-  "description": "When a dialog is generated, one of the boilerplate tasks is to add the dialog class to StackedApp. This modification performs the import for the dialog class.",
-  "path": "lib/app/app.dart",
-  "identifier": "// @stacked-import",
-  "template": "import \\'package:{{packageName}}/{{{dialogsPath}}}/{{dialogFolderName}}/{{dialogFilename}}\\';",
-  "error": "The dialog registration should be stored in lib/app/app.dart",
-  "name": "Add import for \\'{{dialogName}}\\' class"
-}

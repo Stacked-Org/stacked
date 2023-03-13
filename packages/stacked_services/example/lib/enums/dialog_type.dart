@@ -1,4 +1,0 @@
-enum DialogType {
-  Basic,
-  Generic,
-}
