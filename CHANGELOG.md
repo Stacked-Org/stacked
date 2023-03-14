@@ -1,3 +1,10 @@
+## [3.1.2](https://github.com/Stacked-Org/stacked/compare/v3.1.1...v3.1.2) (2023-03-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency androidx.test.espresso:espresso-core to v3.5.1 ([#899](https://github.com/Stacked-Org/stacked/issues/899)) ([04cd7a3](https://github.com/Stacked-Org/stacked/commit/04cd7a35989428a5aa727032a6fd7b0f85d3f478))
+
 ## 3.1.1
 - Added fix to extensible classes for ListenableServiceMixin
 
@@ -561,4 +568,3 @@ Big Update! This version of stacked aims to reduce the boiler plate required to 
 ## 1.0.0
 
 - First release of the architecture containing all the initial required parts to build a full application.
-
