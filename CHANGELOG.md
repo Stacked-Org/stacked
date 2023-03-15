@@ -1,3 +1,10 @@
+# [3.2.0](https://github.com/Stacked-Org/stacked/compare/v3.1.2...v3.2.0) (2023-03-15)
+
+
+### Features
+
+* Merge latest version from beta ([#907](https://github.com/Stacked-Org/stacked/issues/907)) ([4e519aa](https://github.com/Stacked-Org/stacked/commit/4e519aa77d7cda989b5716ceec7d54ad0f3e01a0))
+
 ## 3.2.0
 
 ### Features
