@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'route_data.dart';
-import 'router_base.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'router_utils.dart';
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
+import 'route_data.dart';
+import 'router_base.dart';
+import 'router_utils.dart';
 import 'uri_extension.dart';
 
 RectTween _createRectTween(Rect? begin, Rect? end) {
@@ -190,11 +190,11 @@ class ExtendedNavigatorState<T extends RouterBase?>
 
   Future<void> _pushAllGuarded(Iterable<Route> routes) async {
     for (var route in routes) {
-      var data = (route.settings as RouteData);
+      var data = (route.settings as RouteDataV1);
 
       if (data.template == Navigator.defaultRouteName) {
         _navigator!
-            .pushAndRemoveUntil(route, RouteData.withPath(data.template));
+            .pushAndRemoveUntil(route, RouteDataV1.withPath(data.template));
       } else {
         _navigator!.push(route);
       }
@@ -247,19 +247,19 @@ class ExtendedNavigatorState<T extends RouterBase?>
       },
       onUnknownRoute: widget.onUnknownRoute ?? defaultUnknownRoutePage,
       onGenerateInitialRoutes: (NavigatorState navigator, String initialRoute) {
-        Uri? initialUri;
+        Uri initialUri;
         if (parentData != null) {
           if (parentData.initialRoute!.hasEmptyPath) {
             initialUri = parentData.initialRoute!.replace(path: initialRoute);
           } else {
-            initialUri = parentData.initialRoute;
+            initialUri = parentData.initialRoute!;
           }
         } else {
           initialUri = Uri.parse(initialRoute);
         }
         return ExtendedNavigator._generateInitialRoutes(
           this,
-          initialUri ?? Uri.parse(initialRoute),
+          initialUri,
           initialRouteArgs,
         );
       },
@@ -342,7 +342,7 @@ class ExtendedNavigatorState<T extends RouterBase?>
   }) {
     return pushAndRemoveUntil(
       newRouteName,
-      RouteData.withPath(anchorPath),
+      RouteDataV1.withPath(anchorPath),
       arguments: arguments,
       queryParams: queryParams,
     );
@@ -364,7 +364,7 @@ class ExtendedNavigatorState<T extends RouterBase?>
   }
 
   void popUntilPath(String path) {
-    popUntil(RouteData.withPath(path));
+    popUntil(RouteDataV1.withPath(path));
   }
 
   void popUntil(RoutePredicate predicate) {

@@ -1,12 +1,13 @@
 name: stacked
 description: The framework to build testable, scalable and maintainable flutter apps
-version: 3.1.2
-homepage: https://stacked.filledstacks.com/
-repository: https://github.com/Stacked-Org/stacked.git
-issue_tracker: https://github.com/Stacked-Org/stacked/issues
+version: 3.2.0
+homepage: https://github.com/FilledStacks/stacked
+
+funding:
+  - https://ko-fi.com/filledstacks
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
   flutter:
@@ -15,10 +16,13 @@ dependencies:
   meta: ^1.3.0
   provider: ^6.0.0
   collection: ^1.15.0
-  stacked_core: ^1.2.4
+  # Remove the path and use pub one after publish the stacked_shared
+  stacked_shared: ^1.3.0
+  #universal_io
   universal_io: ^2.0.4
+  path: ^1.8.2
 
 dev_dependencies:
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter

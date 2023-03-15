@@ -95,11 +95,10 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
         super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _ViewModelBuilderState<T> createState() => _ViewModelBuilderState<T>();
+  ViewModelBuilderState<T> createState() => ViewModelBuilderState<T>();
 }
 
-class _ViewModelBuilderState<T extends ChangeNotifier>
+class ViewModelBuilderState<T extends ChangeNotifier>
     extends State<ViewModelBuilder<T>> {
   T? _viewModel;
 

@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:stacked/stacked.dart';
 
 class TestViewModel extends BaseViewModel {
@@ -94,7 +93,7 @@ void main() {
       test(
           'When setBusyForObject is called with parameter true busy for that object should be true',
           () {
-        dynamic property;
+        String property = '-';
         var viewModel = TestViewModel();
         viewModel.setBusyForObject(property, true);
         expect(viewModel.busy(property), true);
@@ -103,7 +102,7 @@ void main() {
       test(
           'When setBusyForObject is called with true then false, should be false',
           () {
-        dynamic property;
+        String property = '-';
         var viewModel = TestViewModel();
         viewModel.setBusyForObject(property, true);
         viewModel.setBusyForObject(property, false);

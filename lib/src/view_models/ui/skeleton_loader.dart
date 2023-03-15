@@ -23,11 +23,10 @@ class SkeletonLoader extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _SkeletonLoaderState createState() => _SkeletonLoaderState();
+  SkeletonLoaderState createState() => SkeletonLoaderState();
 }
 
-class _SkeletonLoaderState extends State<SkeletonLoader>
+class SkeletonLoaderState extends State<SkeletonLoader>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Color?> animationOne;

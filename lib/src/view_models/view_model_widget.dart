@@ -11,12 +11,11 @@ abstract class ViewModelWidget<T> extends Widget {
   Widget build(BuildContext context, T viewModel);
 
   @override
-  ViewModelWidgetDataProviderElement<T> createElement() =>
-      ViewModelWidgetDataProviderElement<T>._(this);
+  DataProviderElement<T> createElement() => DataProviderElement<T>(this);
 }
 
-class ViewModelWidgetDataProviderElement<T> extends ComponentElement {
-  ViewModelWidgetDataProviderElement._(ViewModelWidget widget) : super(widget);
+class DataProviderElement<T> extends ComponentElement {
+  DataProviderElement(ViewModelWidget widget) : super(widget);
 
   @override
   ViewModelWidget get widget => super.widget as ViewModelWidget<dynamic>;
