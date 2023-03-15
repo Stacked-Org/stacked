@@ -1,6 +1,5 @@
 import 'package:example/app/app.router.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked_annotations.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 import 'app/app.locator.dart';
