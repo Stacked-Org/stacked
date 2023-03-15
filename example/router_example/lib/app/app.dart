@@ -85,5 +85,4 @@ import 'custom_route_transition.dart';
 )
 class App {
   /// This class has no puporse besides housing the annotation that generates the required functionality
-  
 }
