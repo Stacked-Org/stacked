@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'app/app.locator.dart';
 import 'app/app.router.dart';

@@ -3,6 +3,7 @@ import 'package:example/ui/form/custom_text_field.dart';
 import 'package:example/ui/form/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'example_form_view.form.dart';
 import 'example_form_viewmodel.dart';
