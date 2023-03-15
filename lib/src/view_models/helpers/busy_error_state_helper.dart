@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 mixin BusyAndErrorStateHelper on ChangeNotifier {
-  final Map<int, bool> _busyStates = <int, bool>{};
+  Map<int, bool> _busyStates = Map<int, bool>();
 
   /// Returns the busy status for an object if it exists. Returns false if not present
   bool busy(Object? object) => _busyStates[object.hashCode] ?? false;
@@ -30,11 +30,9 @@ mixin BusyAndErrorStateHelper on ChangeNotifier {
     /// If busyKey is supplied we check busy(busyKey) to see if that property is busy
     /// If it is we return busyData, else realData
     bool isBusyKeySupplied = busyKey != null;
-    if ((isBusyKeySupplied && busy(busyKey)) || realData == null) {
+    if ((isBusyKeySupplied && busy(busyKey)) || realData == null)
       return busyData;
-    } else if (!isBusyKeySupplied && isBusy) {
-      return busyData;
-    }
+    else if (!isBusyKeySupplied && isBusy) return busyData;
 
     return realData;
   }
@@ -65,7 +63,7 @@ mixin BusyAndErrorStateHelper on ChangeNotifier {
     }
   }
 
-  final Map<int, dynamic> _errorStates = <int, dynamic>{};
+  Map<int, dynamic> _errorStates = Map<int, dynamic>();
   dynamic error(Object object) => _errorStates[object.hashCode];
 
   /// Returns the error existence status of the ViewModel

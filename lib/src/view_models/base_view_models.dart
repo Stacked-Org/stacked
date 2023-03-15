@@ -21,7 +21,7 @@ class BaseViewModel extends ChangeNotifier
 
   /// Calls the builder function with this updated viewmodel
   void rebuildUi() {
-    notifyListeners();
+    this.notifyListeners();
   }
 
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 mixin MessageStateHelper on ChangeNotifier {
-  final Map<int, String?> _messageStates = <int, String?>{};
+  Map<int, String?> _messageStates = Map<int, String?>();
 
   /// Returns the message for an object if it exists. Returns null if not present
   String? message(Object object) => _messageStates[object.hashCode];

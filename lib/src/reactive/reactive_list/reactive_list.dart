@@ -28,7 +28,7 @@ class ReactiveList<E> extends DelegatingList<E> implements List<E> {
 
   ReactiveList.generate(
     int length,
-    E Function(int index) generator, {
+    E generator(int index), {
     bool growable = true,
   }) : super(List<E>.generate(length, generator, growable: growable));
 
@@ -44,7 +44,6 @@ class ReactiveList<E> extends DelegatingList<E> implements List<E> {
     if (condition is bool && condition) addAll(elements);
   }
 
-  @override
   operator []=(int index, E value) {
     super[index] = value;
     _changes.add(ListChangeNotification<E>.set(value, index));
@@ -52,18 +51,15 @@ class ReactiveList<E> extends DelegatingList<E> implements List<E> {
 
   void _add(E element) => super.add(element);
 
-  @override
-  void add(E value) {
-    super.add(value);
-    _changes.add(ListChangeNotification<E>.insert(value, length - 1));
+  void add(E element) {
+    super.add(element);
+    _changes.add(ListChangeNotification<E>.insert(element, length - 1));
   }
 
-  @override
-  void addAll(Iterable<E> iterable) {
-    super.addAll(iterable);
-    for (var element in iterable) {
-      _changes.add(ListChangeNotification<E>.insert(element, length - 1));
-    }
+  void addAll(Iterable<E> elements) {
+    super.addAll(elements);
+    elements.forEach((element) =>
+        _changes.add(ListChangeNotification<E>.insert(element, length - 1)));
   }
 
   /// Adds only if [element] is not null.
@@ -71,23 +67,20 @@ class ReactiveList<E> extends DelegatingList<E> implements List<E> {
     if (element != null) add(element);
   }
 
-  @override
   void insert(int index, E element) {
     super.insert(index, element);
     _changes.add(ListChangeNotification<E>.insert(element, index));
   }
 
-  @override
-  bool remove(final Object? value) {
-    int pos = indexOf(value as E);
-    bool hasRemoved = super.remove(value);
+  bool remove(final Object? element) {
+    int pos = indexOf(element as E);
+    bool hasRemoved = super.remove(element);
     if (hasRemoved) {
-      _changes.add(ListChangeNotification<E>.remove(value, pos));
+      _changes.add(ListChangeNotification<E>.remove(element, pos));
     }
     return hasRemoved;
   }
 
-  @override
   void clear() {
     super.clear();
     _changes.add(ListChangeNotification<E>.clear());
@@ -115,7 +108,7 @@ class ReactiveList<E> extends DelegatingList<E> implements List<E> {
   }
 }
 
-typedef ChildrenListComposer<S, E> = E Function(S value);
+typedef E ChildrenListComposer<S, E>(S value);
 
 /// An Reactive list that is bound to another list [binding]
 class BoundList<S, E> extends ReactiveList<E> {
@@ -124,12 +117,10 @@ class BoundList<S, E> extends ReactiveList<E> {
   final ChildrenListComposer<S, E> composer;
 
   BoundList(this.binding, this.composer) {
-    for (S v in binding) {
-      _add(composer(v));
-    }
+    for (S v in binding) _add(composer(v));
     binding.onChange.listen((ListChangeNotification<S> n) {
       if (n.op == ListChangeOp.add) {
-        insert(n.pos!, composer(n.element as S));
+        insert(n.pos!, composer(n.element!));
       } else if (n.op == ListChangeOp.remove) {
         removeAt(n.pos!);
       } else if (n.op == ListChangeOp.clear) {

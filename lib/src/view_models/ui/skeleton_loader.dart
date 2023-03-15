@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 const Color _veryLightGrey = Color(0xFFE3E3E3);
 const Color _lightGrey = Color(0xFF848B9E);
 
-const int _transitionDuration = 500;
+const int _TransitionDuration = 500;
 
 /// A widget that allows you to provide the expected UI and will render a shimmer over that
 /// while loading is true.
@@ -23,7 +23,6 @@ class SkeletonLoader extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _SkeletonLoaderState createState() => _SkeletonLoaderState();
 }
 
@@ -46,7 +45,9 @@ class _SkeletonLoaderState extends State<SkeletonLoader>
     );
 
     // Store the loading widget we first constructed with
-    _initialWidget ??= widget.child;
+    if (_initialWidget == null) {
+      _initialWidget = widget.child;
+    }
 
     animationOne = ColorTween(begin: widget.startColor, end: widget.endColor)
         .animate(_controller);
@@ -81,8 +82,7 @@ class _SkeletonLoaderState extends State<SkeletonLoader>
       // has now updated to match the actual data.
       // We will use a delayed future to only fade out the shader mask
       // a few milliseconds after we have received the actual widget.
-      Future.delayed(const Duration(milliseconds: _transitionDuration))
-          .then((value) {
+      Future.delayed(Duration(milliseconds: _TransitionDuration)).then((value) {
         if (!_dispose) {
           setState(() {
             // print('&^&^&^&^&   -     Set widet transition to false!!');
@@ -104,9 +104,13 @@ class _SkeletonLoaderState extends State<SkeletonLoader>
                   /// to support older versions for flutter
                   // ignore: deprecated_member_use
                   vsync: this,
-                  duration: const Duration(milliseconds: 450),
+                  duration: Duration(milliseconds: 450),
                   curve: Curves.easeOut,
                   child: ShaderMask(
+                    child: CustomPaint(
+                      child: widget.child,
+                      foregroundPainter: RectangleFillPainter(),
+                    ),
                     blendMode: BlendMode.srcATop,
                     shaderCallback: (rect) {
                       return LinearGradient(colors: [
@@ -114,10 +118,6 @@ class _SkeletonLoaderState extends State<SkeletonLoader>
                         animationTwo.value!,
                       ]).createShader(rect);
                     },
-                    child: CustomPaint(
-                      foregroundPainter: RectangleFillPainter(),
-                      child: widget.child,
-                    ),
                   ),
                 )
               : widget.child),
@@ -139,7 +139,7 @@ class RectangleFillPainter extends CustomPainter {
     canvas.drawRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(0, 0, size.width, size.height),
-          const Radius.circular(15.0),
+          Radius.circular(15.0),
         ),
         Paint()..color = Colors.grey);
   }

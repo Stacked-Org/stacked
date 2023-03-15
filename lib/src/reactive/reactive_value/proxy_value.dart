@@ -19,9 +19,7 @@ class ProxyValue<T> implements ReactiveValue<T> {
     return ProxyValue._(controller, onChange, getterProxy);
   }
 
-  @override
   T get value => getterProxy();
-  @override
   set value(T val) {
     T old = value;
     if (old == val) {
@@ -30,12 +28,10 @@ class ProxyValue<T> implements ReactiveValue<T> {
     _controller.add(Change<T>(val, old, _curBatch));
   }
 
-  @override
   void setCast(dynamic /* T */ val) => value = val;
 
   Stream<Change<T>> _onChange;
 
-  @override
   Stream<Change<T>> get onChange {
     _curBatch++;
     // ignore: close_sinks
@@ -45,19 +41,15 @@ class ProxyValue<T> implements ReactiveValue<T> {
     return ret.stream.asBroadcastStream();
   }
 
-  @override
   Stream<T> get values => onChange.map((c) => c.neu);
 
-  @override
   void bind(ReactiveValue<T> reactive) {
     value = reactive.value;
     reactive.values.listen((v) => value = v);
   }
 
-  @override
   void bindStream(Stream<T> stream) => stream.listen((v) => value = v);
 
-  @override
   void bindOrSet(/* T | Stream<T> | Reactive<T> */ other) {
     if (other is ReactiveValue<T>) {
       bind(other);
@@ -68,10 +60,8 @@ class ProxyValue<T> implements ReactiveValue<T> {
     }
   }
 
-  @override
   StreamSubscription<T> listen(ValueCallback<T> callback) =>
       values.listen(callback);
 
-  @override
-  Stream<R> map<R>(R Function(T data) mapper) => values.map(mapper);
+  Stream<R> map<R>(R mapper(T data)) => values.map(mapper);
 }

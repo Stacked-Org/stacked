@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'router_utils.dart';
-import 'package:stacked_core/stacked_core.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'uri_extension.dart';
 
@@ -50,7 +50,7 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
         return extendedNav;
       };
 
-  const ExtendedNavigator({
+  ExtendedNavigator({
     this.router,
     this.name,
     this.initialRoute,
@@ -155,7 +155,7 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
 class ExtendedNavigatorState<T extends RouterBase?>
     extends State<ExtendedNavigator<T>> with WidgetsBindingObserver {
   T? router;
-  final List<Route> _guardedInitialRoutes = [];
+  List<Route> _guardedInitialRoutes = [];
 
   ExtendedNavigatorState? get parent => _parent;
 
@@ -190,11 +190,11 @@ class ExtendedNavigatorState<T extends RouterBase?>
 
   Future<void> _pushAllGuarded(Iterable<Route> routes) async {
     for (var route in routes) {
-      var data = (route.settings as RouteData);
+      var data = (route.settings as RouteDataV1);
 
       if (data.template == Navigator.defaultRouteName) {
         _navigator!
-            .pushAndRemoveUntil(route, RouteData.withPath(data.template));
+            .pushAndRemoveUntil(route, RouteDataV1.withPath(data.template));
       } else {
         _navigator!.push(route);
       }
@@ -222,7 +222,7 @@ class ExtendedNavigatorState<T extends RouterBase?>
     router = widget.router;
     var initial = widget.initialRoute;
     var initialRouteArgs = widget.initialRouteArgs;
-    String? basePath;
+    var basePath;
     var parentData = ParentRouteData.of(context);
     if (router == null && parentData != null) {
       router = parentData.router as T?;
@@ -247,7 +247,7 @@ class ExtendedNavigatorState<T extends RouterBase?>
       },
       onUnknownRoute: widget.onUnknownRoute ?? defaultUnknownRoutePage,
       onGenerateInitialRoutes: (NavigatorState navigator, String initialRoute) {
-        Uri? initialUri;
+        var initialUri;
         if (parentData != null) {
           if (parentData.initialRoute!.hasEmptyPath) {
             initialUri = parentData.initialRoute!.replace(path: initialRoute);
@@ -259,7 +259,7 @@ class ExtendedNavigatorState<T extends RouterBase?>
         }
         return ExtendedNavigator._generateInitialRoutes(
           this,
-          initialUri ?? Uri.parse(initialRoute),
+          initialUri,
           initialRouteArgs,
         );
       },
@@ -342,7 +342,7 @@ class ExtendedNavigatorState<T extends RouterBase?>
   }) {
     return pushAndRemoveUntil(
       newRouteName,
-      RouteData.withPath(anchorPath),
+      RouteDataV1.withPath(anchorPath),
       arguments: arguments,
       queryParams: queryParams,
     );
@@ -364,7 +364,7 @@ class ExtendedNavigatorState<T extends RouterBase?>
   }
 
   void popUntilPath(String path) {
-    popUntil(RouteData.withPath(path));
+    popUntil(RouteDataV1.withPath(path));
   }
 
   void popUntil(RoutePredicate predicate) {

@@ -7,8 +7,7 @@ import 'package:stacked/stacked.dart';
 class TestViewModel extends BaseViewModel {}
 
 Widget buildTestableWidget(Widget widget) {
-  return MediaQuery(
-      data: const MediaQueryData(), child: MaterialApp(home: widget));
+  return MediaQuery(data: MediaQueryData(), child: MaterialApp(home: widget));
 }
 
 void main() {
@@ -23,7 +22,7 @@ void main() {
             buildTestableWidget(ViewModelBuilder<TestViewModel>.nonReactive(
                 builder: (context, model, child) {
                   buildCounter++;
-                  return const Scaffold();
+                  return Scaffold();
                 },
                 viewModelBuilder: () => testViewModel));
 
@@ -53,7 +52,7 @@ void main() {
             buildTestableWidget(ViewModelBuilder<TestViewModel>.reactive(
                 builder: (context, model, child) {
                   buildCounter++;
-                  return const Scaffold();
+                  return Scaffold();
                 },
                 viewModelBuilder: () => testViewModel));
         await tester.pumpWidget(widget);

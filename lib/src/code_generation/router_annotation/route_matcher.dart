@@ -1,8 +1,7 @@
-import 'parameters.dart';
-import 'route_def.dart';
-
 import 'package:flutter/widgets.dart';
 
+import 'parameters.dart';
+import 'route_def.dart';
 import 'uri_extension.dart';
 
 class RouteMatcher {
@@ -14,10 +13,10 @@ class RouteMatcher {
 
   RouteMatcher.fromUri(this._uri) : _settings = null;
 
-  RouteMatch? match(RouteDef route, {bool fullMatch = false}) {
+  RouteMatchV1? match(RouteDef route, {bool fullMatch = false}) {
     var pattern = fullMatch ? '${route.pattern}\$' : route.pattern;
     var match = RegExp(pattern as String).stringMatch(_uri.path);
-    RouteMatch? matchResult;
+    RouteMatchV1? matchResult;
     if (match != null) {
       // strip trailing forward slash
       if (match.endsWith("/") && match.length > 1) {
@@ -41,13 +40,13 @@ class RouteMatcher {
       // passing args to the last destination
       // when pushing deep links
       var args = _settings?.arguments;
-      Object? argsToPass;
+      var argsToPass;
       if (!rest.hasEmptyPath) {
         argsToPass = args;
         args = null;
       }
 
-      matchResult = RouteMatch(
+      matchResult = RouteMatchV1(
           name: !rest.hasEmptyPath || !segment.hasQueryParams || route.isParent
               ? segment.path
               : segment.toString(),
@@ -74,14 +73,14 @@ class RouteMatcher {
 }
 
 @immutable
-class RouteMatch extends RouteSettings {
+class RouteMatchV1 extends RouteSettings {
   final Uri uri;
   final RouteDef routeDef;
   final Uri rest;
   final Map<String, String?> pathParamsMap;
   final Object? initialArgsToPass;
 
-  const RouteMatch({
+  RouteMatchV1({
     required this.uri,
     required this.routeDef,
     required this.rest,
@@ -107,13 +106,13 @@ class RouteMatch extends RouteSettings {
     String? name,
     Object? arguments,
   }) {
-    return RouteMatch(
+    return RouteMatchV1(
         name: name ?? this.name,
         arguments: arguments ?? this.arguments,
-        initialArgsToPass: initialArgsToPass,
-        uri: uri,
-        routeDef: routeDef,
-        rest: rest,
-        pathParamsMap: pathParamsMap);
+        initialArgsToPass: this.initialArgsToPass,
+        uri: this.uri,
+        routeDef: this.routeDef,
+        rest: this.rest,
+        pathParamsMap: this.pathParamsMap);
   }
 }

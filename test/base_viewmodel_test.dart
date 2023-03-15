@@ -23,7 +23,7 @@ class TestViewModel extends BaseViewModel {
   }
 
   Future _futureToRun(bool fail) async {
-    await Future.delayed(const Duration(milliseconds: 50));
+    await Future.delayed(Duration(milliseconds: 50));
     if (fail) {
       throw Exception('Broken Future');
     }
@@ -58,21 +58,21 @@ void main() {
           'when skeletonData is called and Key passed is busy should return busyData',
           () {
         var viewModel = TestViewModel();
-        const String testKey = 'test-key';
-        viewModel.setBusyForObject(testKey, true);
+        const String TEST_KEY = 'test-key';
+        viewModel.setBusyForObject(TEST_KEY, true);
         var data = viewModel.skeletonData(
-            realData: 'Real Data', busyData: 'Test', busyKey: testKey);
+            realData: 'Real Data', busyData: 'Test', busyKey: TEST_KEY);
         expect(data, 'Test');
       });
       test(
           'when skeletonData is called and Key passed is not busy but model is busy should return realData',
           () {
         var viewModel = TestViewModel();
-        const String testKey = 'test-key';
-        viewModel.setBusyForObject(testKey, false);
+        const String TEST_KEY = 'test-key';
+        viewModel.setBusyForObject(TEST_KEY, false);
         viewModel.setBusy(true);
         var data = viewModel.skeletonData(
-            realData: 'Real Data', busyData: 'Test', busyKey: testKey);
+            realData: 'Real Data', busyData: 'Test', busyKey: TEST_KEY);
         expect(data, 'Real Data');
       });
       test(
@@ -94,7 +94,7 @@ void main() {
       test(
           'When setBusyForObject is called with parameter true busy for that object should be true',
           () {
-        dynamic property;
+        var property;
         var viewModel = TestViewModel();
         viewModel.setBusyForObject(property, true);
         expect(viewModel.busy(property), true);
@@ -103,7 +103,7 @@ void main() {
       test(
           'When setBusyForObject is called with true then false, should be false',
           () {
-        dynamic property;
+        var property;
         var viewModel = TestViewModel();
         viewModel.setBusyForObject(property, true);
         viewModel.setBusyForObject(property, false);

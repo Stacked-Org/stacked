@@ -20,13 +20,13 @@ PageRoute defaultUnknownRoutePage(RouteSettings settings) => MaterialPageRoute(
                 child: Text(
                   'Route name ${settings.name} is not found!',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 16),
                 ),
               ),
               if (!ModalRoute.of(ctx)!.isFirst)
                 OutlinedButton.icon(
-                  label: const Text('Back'),
-                  icon: const Icon(Icons.arrow_back),
+                  label: Text('Back'),
+                  icon: Icon(Icons.arrow_back),
                   onPressed: () => Navigator.of(ctx).pop(),
                 )
             ],
@@ -48,7 +48,7 @@ PageRoute misTypedArgsRoute<T>(Object args) {
             const Text(
               'Arguments Mistype!',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
             const SizedBox(height: 8.0),
             Text(
@@ -57,8 +57,8 @@ PageRoute misTypedArgsRoute<T>(Object args) {
             ),
             const SizedBox(height: 16.0),
             OutlinedButton.icon(
-              label: const Text('Back'),
-              icon: const Icon(Icons.arrow_back),
+              label: Text('Back'),
+              icon: Icon(Icons.arrow_back),
               onPressed: () => Navigator.of(ctx).pop(),
             )
           ],

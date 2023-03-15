@@ -11,14 +11,13 @@ abstract class SelectorViewModelWidget<T extends ChangeNotifier, K>
   Widget build(BuildContext context, K value);
 
   @override
-  SelectorViewDataProviderElement<T, K> createElement() =>
-      SelectorViewDataProviderElement<T, K>._(this);
+  _DataProviderElement<T, K> createElement() =>
+      _DataProviderElement<T, K>(this);
 }
 
-class SelectorViewDataProviderElement<T extends ChangeNotifier, K>
+class _DataProviderElement<T extends ChangeNotifier, K>
     extends ComponentElement {
-  SelectorViewDataProviderElement._(SelectorViewModelWidget widget)
-      : super(widget);
+  _DataProviderElement(SelectorViewModelWidget widget) : super(widget);
 
   @override
   SelectorViewModelWidget get widget =>

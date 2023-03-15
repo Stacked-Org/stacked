@@ -5,7 +5,7 @@ class CounterService with ListenableServiceMixin {
   int _counter = 0;
   int get counter => _counter;
 
-  final List<int> _counters = <int>[];
+  List<int> _counters = <int>[];
   List<int> get counters => _counters;
 
   void updateCounter() {
@@ -20,7 +20,7 @@ class CounterService with ListenableServiceMixin {
 }
 
 class ListCounterService with ListenableServiceMixin {
-  final List<int> _counters = <int>[];
+  List<int> _counters = <int>[];
   List get counters => _counters;
   int _counter = 0;
 
@@ -31,7 +31,7 @@ class ListCounterService with ListenableServiceMixin {
 }
 
 class SetCounterService with ListenableServiceMixin {
-  final List<int> _counters = <int>[];
+  List<int> _counters = <int>[];
   List get counters => _counters;
   int _counter = 0;
 
@@ -56,7 +56,7 @@ void main() {
 
       // Have to wait for the listener to be called above. In real life the results is not
       // expected to happen in the same CPU cycle so this is perfect for a unit test.
-      await Future.delayed(const Duration(milliseconds: 10));
+      await Future.delayed(Duration(milliseconds: 10));
 
       expect(called, true);
     });
@@ -74,7 +74,7 @@ void main() {
 
       // Have to wait for the listener to be called above. In real life the results is not
       // expected to happen in the same CPU cycle so this is perfect for a unit test.
-      await Future.delayed(const Duration(milliseconds: 10));
+      await Future.delayed(Duration(milliseconds: 10));
 
       expect(called, true);
     });
@@ -92,7 +92,7 @@ void main() {
 
       // Have to wait for the listener to be called above. In real life the results is not
       // expected to happen in the same CPU cycle so this is perfect for a unit test.
-      await Future.delayed(const Duration(milliseconds: 10));
+      await Future.delayed(Duration(milliseconds: 10));
 
       expect(called, true);
     });
@@ -110,7 +110,7 @@ void main() {
 
       // Have to wait for the listener to be called above. In real life the results is not
       // expected to happen in the same CPU cycle so this is perfect for a unit test.
-      await Future.delayed(const Duration(milliseconds: 10));
+      await Future.delayed(Duration(milliseconds: 10));
 
       expect(called, true);
     });

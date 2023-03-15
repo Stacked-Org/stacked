@@ -4,7 +4,7 @@ import 'package:stacked/stacked.dart';
 /// Adds functionality to easily listen to all reactive values in a service
 @Deprecated("use ListenableServiceMixin instead")
 mixin ReactiveServiceMixin {
-  final List<Function> _listeners = List<Function>.empty(growable: true);
+  List<Function> _listeners = List<Function>.empty(growable: true);
 
   /// List to the values and react when there are any changes
   void listenToReactiveValues(List<dynamic> reactiveValues) {

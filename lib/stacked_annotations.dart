@@ -1,1 +1,1 @@
-export 'package:stacked_core/stacked_core.dart';
+export 'package:stacked_shared/stacked_shared.dart';

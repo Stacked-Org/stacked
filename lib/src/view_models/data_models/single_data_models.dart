@@ -22,7 +22,6 @@ abstract class FutureViewModel<T> extends DynamicSourceViewModel<T>
   /// Indicates if you want the error caught in futureToRun to be rethrown
   bool get rethrowException => false;
 
-  @override
   Future initialise() async {
     setError(null);
     setMessage(null);
@@ -83,7 +82,6 @@ abstract class StreamViewModel<T> extends DynamicSourceViewModel<T>
     notifyListeners();
   }
 
-  @override
   void initialise() {
     _streamSubscription = stream.listen(
       (incomingData) {
