@@ -11,6 +11,7 @@ abstract class SelectorViewModelWidget<T extends ChangeNotifier, K>
   Widget build(BuildContext context, K value);
 
   @override
+  // ignore: library_private_types_in_public_api
   _DataProviderElement<T, K> createElement() =>
       _DataProviderElement<T, K>(this);
 }

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'base_view_models.dart';
 
-enum _ViewModelBuilderType { nonReactive, reactive }
+enum ViewModelBuilderType { nonReactive, reactive }
 
 /// A widget that provides base functionality for the Mvvm style provider architecture by FilledStacks.
 class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
@@ -40,7 +40,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   /// a new value.
   final bool createNewViewModelOnInsert;
 
-  final _ViewModelBuilderType providerType;
+  final ViewModelBuilderType providerType;
 
   /// Indicates if the onViewModelReady should fire every time the ViewModel is inserted into the widget tree.
   /// Or only once during the lifecycle of the ViewModel.
@@ -72,7 +72,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
         this.fireOnModelReadyOnce = false,
     this.initialiseSpecialViewModelsOnce = false,
     Key? key,
-  })  : providerType = _ViewModelBuilderType.nonReactive,
+  })  : providerType = ViewModelBuilderType.nonReactive,
         staticChild = null,
         super(key: key);
 
@@ -91,14 +91,14 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
         this.fireOnModelReadyOnce = false,
     this.initialiseSpecialViewModelsOnce = false,
     Key? key,
-  })  : providerType = _ViewModelBuilderType.reactive,
+  })  : providerType = ViewModelBuilderType.reactive,
         super(key: key);
 
   @override
-  _ViewModelBuilderState<T> createState() => _ViewModelBuilderState<T>();
+  ViewModelBuilderState<T> createState() => ViewModelBuilderState<T>();
 }
 
-class _ViewModelBuilderState<T extends ChangeNotifier>
+class ViewModelBuilderState<T extends ChangeNotifier>
     extends State<ViewModelBuilder<T>> {
   T? _viewModel;
 
@@ -169,7 +169,7 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.providerType == _ViewModelBuilderType.nonReactive) {
+    if (widget.providerType == ViewModelBuilderType.nonReactive) {
       if (!widget.disposeViewModel) {
         return ChangeNotifierProvider<T>.value(
           value: _viewModel!,

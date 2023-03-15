@@ -364,8 +364,6 @@ typedef CustomRouteBuilder = Route<T> Function<T>(
     BuildContext context, Widget child, CustomPage<T> page);
 
 class CustomPage<T> extends StackedPage<T> {
-  @override
-  final bool opaque;
   final int durationInMilliseconds;
   final int reverseDurationInMilliseconds;
   final int? barrierColor;
@@ -379,7 +377,7 @@ class CustomPage<T> extends StackedPage<T> {
     required Widget child,
     bool fullscreenDialog = false,
     bool maintainState = true,
-    this.opaque = true,
+    bool opaque = true,
     this.durationInMilliseconds = 300,
     this.reverseDurationInMilliseconds = 300,
     this.barrierColor,
@@ -394,6 +392,7 @@ class CustomPage<T> extends StackedPage<T> {
           child: child,
           maintainState: maintainState,
           fullscreenDialog: fullscreenDialog,
+          opaque: opaque,
         );
 
   @override

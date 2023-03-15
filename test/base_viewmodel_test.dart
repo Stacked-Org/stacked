@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:stacked/stacked.dart';
 
 class TestViewModel extends BaseViewModel {
@@ -58,21 +57,21 @@ void main() {
           'when skeletonData is called and Key passed is busy should return busyData',
           () {
         var viewModel = TestViewModel();
-        const String TEST_KEY = 'test-key';
-        viewModel.setBusyForObject(TEST_KEY, true);
+        const String testKey = 'test-key';
+        viewModel.setBusyForObject(testKey, true);
         var data = viewModel.skeletonData(
-            realData: 'Real Data', busyData: 'Test', busyKey: TEST_KEY);
+            realData: 'Real Data', busyData: 'Test', busyKey: testKey);
         expect(data, 'Test');
       });
       test(
           'when skeletonData is called and Key passed is not busy but model is busy should return realData',
           () {
         var viewModel = TestViewModel();
-        const String TEST_KEY = 'test-key';
-        viewModel.setBusyForObject(TEST_KEY, false);
+        const String testKey = 'test-key';
+        viewModel.setBusyForObject(testKey, false);
         viewModel.setBusy(true);
         var data = viewModel.skeletonData(
-            realData: 'Real Data', busyData: 'Test', busyKey: TEST_KEY);
+            realData: 'Real Data', busyData: 'Test', busyKey: testKey);
         expect(data, 'Real Data');
       });
       test(
@@ -94,7 +93,7 @@ void main() {
       test(
           'When setBusyForObject is called with parameter true busy for that object should be true',
           () {
-        var property;
+        String property = '-';
         var viewModel = TestViewModel();
         viewModel.setBusyForObject(property, true);
         expect(viewModel.busy(property), true);
@@ -103,7 +102,7 @@ void main() {
       test(
           'When setBusyForObject is called with true then false, should be false',
           () {
-        var property;
+        String property = '-';
         var viewModel = TestViewModel();
         viewModel.setBusyForObject(property, true);
         viewModel.setBusyForObject(property, false);

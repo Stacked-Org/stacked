@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:stacked/src/reactive/type_def.dart';
 
@@ -53,15 +54,15 @@ class ReactiveList<E> extends DelegatingList<E> implements List<E> {
   void _add(E element) => super.add(element);
 
   @override
-  void add(E element) {
-    super.add(element);
-    _changes.add(ListChangeNotification<E>.insert(element, length - 1));
+  void add(E value) {
+    super.add(value);
+    _changes.add(ListChangeNotification<E>.insert(value, length - 1));
   }
 
   @override
-  void addAll(Iterable<E> elements) {
-    super.addAll(elements);
-    for (var element in elements) {
+  void addAll(Iterable<E> iterable) {
+    super.addAll(iterable);
+    for (var element in iterable) {
       _changes.add(ListChangeNotification<E>.insert(element, length - 1));
     }
   }
@@ -78,11 +79,11 @@ class ReactiveList<E> extends DelegatingList<E> implements List<E> {
   }
 
   @override
-  bool remove(final Object? element) {
-    int pos = indexOf(element as E);
-    bool hasRemoved = super.remove(element);
+  bool remove(final Object? value) {
+    int pos = indexOf(value as E);
+    bool hasRemoved = super.remove(value);
     if (hasRemoved) {
-      _changes.add(ListChangeNotification<E>.remove(element, pos));
+      _changes.add(ListChangeNotification<E>.remove(value, pos));
     }
     return hasRemoved;
   }

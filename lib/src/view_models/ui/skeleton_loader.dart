@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 const Color _veryLightGrey = Color(0xFFE3E3E3);
 const Color _lightGrey = Color(0xFF848B9E);
 
-const int _TransitionDuration = 500;
+const int _transitionDuration = 500;
 
 /// A widget that allows you to provide the expected UI and will render a shimmer over that
 /// while loading is true.
@@ -23,10 +23,10 @@ class SkeletonLoader extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SkeletonLoaderState createState() => _SkeletonLoaderState();
+  SkeletonLoaderState createState() => SkeletonLoaderState();
 }
 
-class _SkeletonLoaderState extends State<SkeletonLoader>
+class SkeletonLoaderState extends State<SkeletonLoader>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Color?> animationOne;
@@ -80,7 +80,8 @@ class _SkeletonLoaderState extends State<SkeletonLoader>
       // has now updated to match the actual data.
       // We will use a delayed future to only fade out the shader mask
       // a few milliseconds after we have received the actual widget.
-      Future.delayed(const Duration(milliseconds: _TransitionDuration)).then((value) {
+      Future.delayed(const Duration(milliseconds: _transitionDuration))
+          .then((value) {
         if (!_dispose) {
           setState(() {
             // print('&^&^&^&^&   -     Set widet transition to false!!');

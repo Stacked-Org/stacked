@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'route_data.dart';
-import 'router_base.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'router_utils.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
+import 'route_data.dart';
+import 'router_base.dart';
+import 'router_utils.dart';
 import 'uri_extension.dart';
 
 RectTween _createRectTween(Rect? begin, Rect? end) {
@@ -247,12 +247,12 @@ class ExtendedNavigatorState<T extends RouterBase?>
       },
       onUnknownRoute: widget.onUnknownRoute ?? defaultUnknownRoutePage,
       onGenerateInitialRoutes: (NavigatorState navigator, String initialRoute) {
-        Uri? initialUri;
+        Uri initialUri;
         if (parentData != null) {
           if (parentData.initialRoute!.hasEmptyPath) {
             initialUri = parentData.initialRoute!.replace(path: initialRoute);
           } else {
-            initialUri = parentData.initialRoute;
+            initialUri = parentData.initialRoute!;
           }
         } else {
           initialUri = Uri.parse(initialRoute);

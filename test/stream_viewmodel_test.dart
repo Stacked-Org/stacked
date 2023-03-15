@@ -33,8 +33,8 @@ class TestStreamViewModel extends StreamViewModel<int> {
   }
 }
 
-const String _NumberStream = 'numberStream';
-const String _StringStream = 'stringStream';
+const String _numberStream = 'numberStream';
+const String _stringStream = 'stringStream';
 
 class TestMultipleStreamViewModel extends MultipleStreamViewModel {
   final bool failOne;
@@ -47,12 +47,12 @@ class TestMultipleStreamViewModel extends MultipleStreamViewModel {
   Map<String, StreamData> get streamsMap {
     getStreamsMapCalls++;
     return {
-      _NumberStream: StreamData(numberStream(
+      _numberStream: StreamData(numberStream(
         5,
         fail: failOne,
         delay: delay,
       )),
-      _StringStream: StreamData(textStream(
+      _stringStream: StreamData(textStream(
         "five",
         fail: false,
         delay: delay,
@@ -71,7 +71,7 @@ class TestMultipleStreamViewModelWithOverrides extends MultipleStreamViewModel {
   int? loadedData;
   @override
   Map<String, StreamData> get streamsMap => {
-        _NumberStream: StreamData(
+        _numberStream: StreamData(
           numberStream(5, fail: false, delay: 0),
           onData: _loadData,
         )
@@ -179,8 +179,8 @@ void main() async {
       var streamViewModel = TestMultipleStreamViewModel();
       streamViewModel.initialise();
       await Future.delayed(const Duration(milliseconds: 4));
-      expect(streamViewModel.dataMap![_NumberStream], 5);
-      expect(streamViewModel.dataMap![_StringStream], 'five');
+      expect(streamViewModel.dataMap![_numberStream], 5);
+      expect(streamViewModel.dataMap![_stringStream], 'five');
     });
 
     test(
@@ -189,7 +189,7 @@ void main() async {
       var streamViewModel = TestMultipleStreamViewModel(failOne: true);
       streamViewModel.initialise();
       await Future.delayed(const Duration(milliseconds: 1));
-      expect(streamViewModel.hasErrorForKey(_NumberStream), true);
+      expect(streamViewModel.hasErrorForKey(_numberStream), true);
       // Make sure we only have 1 error
       // expect(streamViewModel.errorMap.values.where((v) => v == true).length, 1);
     });
@@ -200,10 +200,10 @@ void main() async {
       var streamViewModel = TestMultipleStreamViewModel(failOne: true);
       streamViewModel.initialise();
       await Future.delayed(const Duration(milliseconds: 1));
-      expect(streamViewModel.dataReady(_NumberStream), false);
+      expect(streamViewModel.dataReady(_numberStream), false);
       // Delay the first lifecycle can complete
       await Future.delayed(const Duration(milliseconds: 1));
-      expect(streamViewModel.dataReady(_StringStream), true);
+      expect(streamViewModel.dataReady(_stringStream), true);
     });
 
     test('When one onData is augmented the data will change', () async {
@@ -240,7 +240,7 @@ void main() async {
 
       streamViewModel.initialise();
       expect(
-          streamViewModel.getSubscriptionForKey(_NumberStream) != null, true);
+          streamViewModel.getSubscriptionForKey(_numberStream) != null, true);
     });
 
     test('When disposed, should call onCancel for both streams', () async {
@@ -272,7 +272,7 @@ void main() async {
       await Future.delayed(const Duration(milliseconds: 20));
       streamViewModel.notifySourceChanged();
 
-      expect(streamViewModel.dataMap![_NumberStream], 5);
+      expect(streamViewModel.dataMap![_numberStream], 5);
     });
 
     test(
@@ -284,7 +284,7 @@ void main() async {
       await Future.delayed(const Duration(milliseconds: 20));
       streamViewModel.notifySourceChanged(clearOldData: true);
 
-      expect(streamViewModel.dataMap![_NumberStream], null);
+      expect(streamViewModel.dataMap![_numberStream], null);
     });
   });
 }
