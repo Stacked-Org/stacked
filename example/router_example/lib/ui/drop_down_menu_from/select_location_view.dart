@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 
 import 'select_location_view.form.dart';
 import 'select_location_viewmodel.dart';

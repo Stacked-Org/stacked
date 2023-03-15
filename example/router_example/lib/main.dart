@@ -1,5 +1,6 @@
 import 'package:example/app/app.router.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 import 'app/app.locator.dart';

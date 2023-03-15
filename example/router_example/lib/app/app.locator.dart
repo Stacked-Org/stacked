@@ -6,11 +6,11 @@
 
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
-import 'package:stacked_shared/stacked_shared.dart';
 import 'package:stacked_services/src/bottom_sheet/bottom_sheet_service.dart';
 import 'package:stacked_services/src/dialog/dialog_service.dart';
 import 'package:stacked_services/src/navigation/navigation_service.dart';
 import 'package:stacked_services/src/navigation/router_service.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 import 'package:stacked_themes/src/theme_service.dart';
 
 import '../services/epoch_service.dart';
@@ -35,13 +35,6 @@ Future<void> setupExampleLocator({
   exampleLocator.registerLazySingleton(() => DialogService());
   exampleLocator.registerLazySingleton(() => BottomSheetService());
   exampleLocator.registerLazySingleton(() => RouterService());
-  if (stackedRouter == null) {
-    throw Exception(
-        'Stacked is building to use the Router (Navigator 2.0) navigation but no stackedRouter is supplied. Pass the stackedRouter to the setupLocator function in main.dart');
-  }
-
-  exampleLocator<RouterService>().setRouter(stackedRouter);
-
   exampleLocator.registerLazySingleton(() => NavigationService(),
       registerFor: {"dev"}, instanceName: 'instance1');
   exampleLocator.registerLazySingleton(() => EpochService());
@@ -53,4 +46,10 @@ Future<void> setupExampleLocator({
       (param1, param2) => FactoryService(param1, data2: param2));
   exampleLocator.registerSingleton(HistoryViewModel());
   exampleLocator.registerSingleton(FavoritesViewModel());
+  if (stackedRouter == null) {
+    throw Exception(
+        'Stacked is building to use the Router (Navigator 2.0) navigation but no stackedRouter is supplied. Pass the stackedRouter to the setupLocator function in main.dart');
+  }
+
+  exampleLocator<RouterService>().setRouter(stackedRouter);
 }
