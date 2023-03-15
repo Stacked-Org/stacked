@@ -30,7 +30,7 @@ class TestFutureReactiveViewModel extends FutureViewModel<int> {
 
   @override
   Future<int> futureToRun() async {
-    await Future.delayed(Duration(milliseconds: 5));
+    await Future.delayed(const Duration(milliseconds: 5));
     return 1;
   }
 
@@ -50,7 +50,7 @@ void main() {
         called = true;
       });
       viewModel.updateCounter();
-      await Future.delayed(Duration(milliseconds: 5));
+      await Future.delayed(const Duration(milliseconds: 5));
       expect(called, true);
     });
     test(
@@ -62,7 +62,7 @@ void main() {
         called = true;
       });
       viewModel.updateCounter();
-      await Future.delayed(Duration(milliseconds: 5));
+      await Future.delayed(const Duration(milliseconds: 5));
       expect(called, true);
     });
     test('Given a reactive service should not notifyListeners after disposed',
@@ -74,7 +74,7 @@ void main() {
       });
       viewModel.dispose();
       viewModel.updateCounter();
-      await Future.delayed(Duration(milliseconds: 5));
+      await Future.delayed(const Duration(milliseconds: 5));
       expect(called, false);
     });
   });

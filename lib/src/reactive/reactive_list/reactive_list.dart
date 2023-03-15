@@ -28,7 +28,7 @@ class ReactiveList<E> extends DelegatingList<E> implements List<E> {
 
   ReactiveList.generate(
     int length,
-    E generator(int index), {
+    E Function(int index) generator, {
     bool growable = true,
   }) : super(List<E>.generate(length, generator, growable: growable));
 
@@ -44,6 +44,7 @@ class ReactiveList<E> extends DelegatingList<E> implements List<E> {
     if (condition is bool && condition) addAll(elements);
   }
 
+  @override
   operator []=(int index, E value) {
     super[index] = value;
     _changes.add(ListChangeNotification<E>.set(value, index));
@@ -51,15 +52,18 @@ class ReactiveList<E> extends DelegatingList<E> implements List<E> {
 
   void _add(E element) => super.add(element);
 
+  @override
   void add(E element) {
     super.add(element);
     _changes.add(ListChangeNotification<E>.insert(element, length - 1));
   }
 
+  @override
   void addAll(Iterable<E> elements) {
     super.addAll(elements);
-    elements.forEach((element) =>
-        _changes.add(ListChangeNotification<E>.insert(element, length - 1)));
+    for (var element in elements) {
+      _changes.add(ListChangeNotification<E>.insert(element, length - 1));
+    }
   }
 
   /// Adds only if [element] is not null.
@@ -67,11 +71,13 @@ class ReactiveList<E> extends DelegatingList<E> implements List<E> {
     if (element != null) add(element);
   }
 
+  @override
   void insert(int index, E element) {
     super.insert(index, element);
     _changes.add(ListChangeNotification<E>.insert(element, index));
   }
 
+  @override
   bool remove(final Object? element) {
     int pos = indexOf(element as E);
     bool hasRemoved = super.remove(element);
@@ -81,6 +87,7 @@ class ReactiveList<E> extends DelegatingList<E> implements List<E> {
     return hasRemoved;
   }
 
+  @override
   void clear() {
     super.clear();
     _changes.add(ListChangeNotification<E>.clear());
@@ -117,10 +124,12 @@ class BoundList<S, E> extends ReactiveList<E> {
   final ChildrenListComposer<S, E> composer;
 
   BoundList(this.binding, this.composer) {
-    for (S v in binding) _add(composer(v));
+    for (S v in binding) {
+      _add(composer(v));
+    }
     binding.onChange.listen((ListChangeNotification<S> n) {
       if (n.op == ListChangeOp.add) {
-        insert(n.pos!, composer(n.element!));
+        insert(n.pos!, composer(n.element as S));
       } else if (n.op == ListChangeOp.remove) {
         removeAt(n.pos!);
       } else if (n.op == ListChangeOp.clear) {

@@ -50,7 +50,7 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
         return extendedNav;
       };
 
-  ExtendedNavigator({
+  const ExtendedNavigator({
     this.router,
     this.name,
     this.initialRoute,
@@ -155,7 +155,7 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
 class ExtendedNavigatorState<T extends RouterBase?>
     extends State<ExtendedNavigator<T>> with WidgetsBindingObserver {
   T? router;
-  List<Route> _guardedInitialRoutes = [];
+  final List<Route> _guardedInitialRoutes = [];
 
   ExtendedNavigatorState? get parent => _parent;
 
@@ -222,7 +222,7 @@ class ExtendedNavigatorState<T extends RouterBase?>
     router = widget.router;
     var initial = widget.initialRoute;
     var initialRouteArgs = widget.initialRouteArgs;
-    var basePath;
+    String? basePath;
     var parentData = ParentRouteData.of(context);
     if (router == null && parentData != null) {
       router = parentData.router as T?;
@@ -247,7 +247,7 @@ class ExtendedNavigatorState<T extends RouterBase?>
       },
       onUnknownRoute: widget.onUnknownRoute ?? defaultUnknownRoutePage,
       onGenerateInitialRoutes: (NavigatorState navigator, String initialRoute) {
-        var initialUri;
+        Uri? initialUri;
         if (parentData != null) {
           if (parentData.initialRoute!.hasEmptyPath) {
             initialUri = parentData.initialRoute!.replace(path: initialRoute);

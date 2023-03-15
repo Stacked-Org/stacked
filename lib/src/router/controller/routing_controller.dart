@@ -506,6 +506,7 @@ class TabsRouter extends RoutingController {
   }
 
   /// Clears all tracked pages
+  @override
   void clear() {
     _pages.clear();
     _childControllers.clear();

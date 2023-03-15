@@ -87,7 +87,7 @@ void main() async {
     test('When stream data is fetched data should be set and ready', () async {
       var streamViewModel = TestStreamViewModel();
       streamViewModel.initialise();
-      await Future.delayed(Duration(milliseconds: 5));
+      await Future.delayed(const Duration(milliseconds: 5));
       expect(streamViewModel.data, 1);
       expect(streamViewModel.dataReady, true);
     });
@@ -95,13 +95,13 @@ void main() async {
         () async {
       var streamViewModel = TestStreamViewModel();
       streamViewModel.initialise();
-      await Future.delayed(Duration(milliseconds: 1));
+      await Future.delayed(const Duration(milliseconds: 1));
       expect(streamViewModel.loadedData, 1);
     });
     test('When error is manually set, hasError should be true', () async {
       var streamViewModel = TestStreamViewModel();
       streamViewModel.initialise();
-      await Future.delayed(Duration(milliseconds: 1));
+      await Future.delayed(const Duration(milliseconds: 1));
       streamViewModel.setErrorManually();
       expect(streamViewModel.hasError, isTrue);
     });
@@ -109,7 +109,7 @@ void main() async {
         () async {
       var streamViewModel = TestStreamViewModel(fail: true);
       streamViewModel.initialise();
-      await Future.delayed(Duration(milliseconds: 1));
+      await Future.delayed(const Duration(milliseconds: 1));
       expect(streamViewModel.hasError, true);
       expect(streamViewModel.data, null,
           reason: 'No data should be set when there\'s a failure.');
@@ -119,7 +119,7 @@ void main() async {
     test('Before a stream returns it should indicate not ready', () async {
       var streamViewModel = TestStreamViewModel(delay: 1000);
       streamViewModel.initialise();
-      await Future.delayed(Duration(milliseconds: 1));
+      await Future.delayed(const Duration(milliseconds: 1));
       expect(streamViewModel.dataReady, false);
     });
 
@@ -130,7 +130,7 @@ void main() async {
         listenersCalled = true;
       });
       streamViewModel.initialise();
-      await Future.delayed(Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 100));
       expect(listenersCalled, true);
     });
 
@@ -178,7 +178,7 @@ void main() async {
         () async {
       var streamViewModel = TestMultipleStreamViewModel();
       streamViewModel.initialise();
-      await Future.delayed(Duration(milliseconds: 4));
+      await Future.delayed(const Duration(milliseconds: 4));
       expect(streamViewModel.dataMap![_NumberStream], 5);
       expect(streamViewModel.dataMap![_StringStream], 'five');
     });
@@ -188,7 +188,7 @@ void main() async {
         () async {
       var streamViewModel = TestMultipleStreamViewModel(failOne: true);
       streamViewModel.initialise();
-      await Future.delayed(Duration(milliseconds: 1));
+      await Future.delayed(const Duration(milliseconds: 1));
       expect(streamViewModel.hasErrorForKey(_NumberStream), true);
       // Make sure we only have 1 error
       // expect(streamViewModel.errorMap.values.where((v) => v == true).length, 1);
@@ -199,17 +199,17 @@ void main() async {
         () async {
       var streamViewModel = TestMultipleStreamViewModel(failOne: true);
       streamViewModel.initialise();
-      await Future.delayed(Duration(milliseconds: 1));
+      await Future.delayed(const Duration(milliseconds: 1));
       expect(streamViewModel.dataReady(_NumberStream), false);
       // Delay the first lifecycle can complete
-      await Future.delayed(Duration(milliseconds: 1));
+      await Future.delayed(const Duration(milliseconds: 1));
       expect(streamViewModel.dataReady(_StringStream), true);
     });
 
     test('When one onData is augmented the data will change', () async {
       var streamViewModel = TestMultipleStreamViewModelWithOverrides();
       streamViewModel.initialise();
-      await Future.delayed(Duration(milliseconds: 1));
+      await Future.delayed(const Duration(milliseconds: 1));
       expect(streamViewModel.loadedData, 5);
     });
 
@@ -220,7 +220,7 @@ void main() async {
         listenersCalled = true;
       });
       streamViewModel.initialise();
-      await Future.delayed(Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 100));
       expect(listenersCalled, true);
     });
 
@@ -229,7 +229,7 @@ void main() async {
         () async {
       var streamViewModel = TestMultipleStreamViewModel(delay: 50);
       streamViewModel.initialise();
-      await Future.delayed(Duration(milliseconds: 300));
+      await Future.delayed(const Duration(milliseconds: 300));
       expect(streamViewModel.getStreamsMapCalls, 1);
     });
 

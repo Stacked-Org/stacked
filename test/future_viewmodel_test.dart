@@ -20,7 +20,7 @@ class TestFutureViewModel extends FutureViewModel<int?> {
 
   @override
   Future<int?> futureToRun() async {
-    await Future.delayed(Duration(milliseconds: 20));
+    await Future.delayed(const Duration(milliseconds: 20));
     if (fail) throw Exception(_SingleFutureExceptionFailMessage);
     return numberToReturn;
   }
@@ -221,7 +221,7 @@ void main() {
       var futureViewModel = TestMultipleFutureViewModel(
           futureOneDuration: 10, futureTwoDuration: 60);
       futureViewModel.initialise();
-      await Future.delayed(Duration(milliseconds: 30));
+      await Future.delayed(const Duration(milliseconds: 30));
 
       expect(futureViewModel.busy(NumberDelayFuture), false,
           reason: 'String future should be done at this point');

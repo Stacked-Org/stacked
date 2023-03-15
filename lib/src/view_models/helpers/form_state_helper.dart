@@ -10,8 +10,8 @@ mixin FormStateHelper on ChangeNotifier {
   String? get validationMessage => _validationMessage;
 
   /// Stores the mapping of the form key to the value entered by the user
-  Map<String, dynamic> formValueMap = Map<String, dynamic>();
-  Map<String, String?> fieldsValidationMessages = Map<String, String?>();
+  Map<String, dynamic> formValueMap = <String, dynamic>{};
+  Map<String, String?> fieldsValidationMessages = <String, String?>{};
 
   void setValidationMessage(String? value) {
     _validationMessage = value;

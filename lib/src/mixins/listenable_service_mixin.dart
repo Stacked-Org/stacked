@@ -3,7 +3,7 @@ import 'package:stacked/stacked.dart';
 
 /// Adds functionality to easily listen to all reactive values in a service
 mixin ListenableServiceMixin {
-  List<Function> _listeners = List<Function>.empty(growable: true);
+  final List<Function> _listeners = List<Function>.empty(growable: true);
 
   int get listenersCount => _listeners.length;
 

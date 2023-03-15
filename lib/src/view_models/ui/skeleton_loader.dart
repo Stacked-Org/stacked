@@ -45,9 +45,7 @@ class _SkeletonLoaderState extends State<SkeletonLoader>
     );
 
     // Store the loading widget we first constructed with
-    if (_initialWidget == null) {
-      _initialWidget = widget.child;
-    }
+    _initialWidget ??= widget.child;
 
     animationOne = ColorTween(begin: widget.startColor, end: widget.endColor)
         .animate(_controller);
@@ -82,7 +80,7 @@ class _SkeletonLoaderState extends State<SkeletonLoader>
       // has now updated to match the actual data.
       // We will use a delayed future to only fade out the shader mask
       // a few milliseconds after we have received the actual widget.
-      Future.delayed(Duration(milliseconds: _TransitionDuration)).then((value) {
+      Future.delayed(const Duration(milliseconds: _TransitionDuration)).then((value) {
         if (!_dispose) {
           setState(() {
             // print('&^&^&^&^&   -     Set widet transition to false!!');
@@ -104,13 +102,9 @@ class _SkeletonLoaderState extends State<SkeletonLoader>
                   /// to support older versions for flutter
                   // ignore: deprecated_member_use
                   vsync: this,
-                  duration: Duration(milliseconds: 450),
+                  duration: const Duration(milliseconds: 450),
                   curve: Curves.easeOut,
                   child: ShaderMask(
-                    child: CustomPaint(
-                      child: widget.child,
-                      foregroundPainter: RectangleFillPainter(),
-                    ),
                     blendMode: BlendMode.srcATop,
                     shaderCallback: (rect) {
                       return LinearGradient(colors: [
@@ -118,6 +112,10 @@ class _SkeletonLoaderState extends State<SkeletonLoader>
                         animationTwo.value!,
                       ]).createShader(rect);
                     },
+                    child: CustomPaint(
+                      foregroundPainter: RectangleFillPainter(),
+                      child: widget.child,
+                    ),
                   ),
                 )
               : widget.child),
@@ -139,7 +137,7 @@ class RectangleFillPainter extends CustomPainter {
     canvas.drawRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(0, 0, size.width, size.height),
-          Radius.circular(15.0),
+          const Radius.circular(15.0),
         ),
         Paint()..color = Colors.grey);
   }

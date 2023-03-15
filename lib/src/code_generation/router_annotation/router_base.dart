@@ -38,7 +38,7 @@ abstract class RouterBase {
   }
 
   String _joinPath(String basePath, String? part) {
-    var name;
+    String name;
     var pathOnly = Uri.parse(basePath).path;
     if (part == "" || pathOnly.endsWith("/") || part!.startsWith("/")) {
       name = "$pathOnly$part";

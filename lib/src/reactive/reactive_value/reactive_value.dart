@@ -39,7 +39,7 @@ abstract class ReactiveValue<T> {
   StreamSubscription<T> listen(ValueCallback<T> callback);
 
   /// Maps the changes into a [Stream] of [R]
-  Stream<R> map<R>(R mapper(T data));
+  Stream<R> map<R>(R Function(T data) mapper);
 }
 
 /// A record of change in [RxValue]
@@ -61,5 +61,6 @@ class Change<T> {
     DateTime? time,
   }) : time = DateTime.now();
 
+  @override
   String toString() => 'Change(new: $neu, old: $old)';
 }

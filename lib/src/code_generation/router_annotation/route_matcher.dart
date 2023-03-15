@@ -40,7 +40,7 @@ class RouteMatcher {
       // passing args to the last destination
       // when pushing deep links
       var args = _settings?.arguments;
-      var argsToPass;
+      Object? argsToPass;
       if (!rest.hasEmptyPath) {
         argsToPass = args;
         args = null;
@@ -80,7 +80,7 @@ class RouteMatchV1 extends RouteSettings {
   final Map<String, String?> pathParamsMap;
   final Object? initialArgsToPass;
 
-  RouteMatchV1({
+  const RouteMatchV1({
     required this.uri,
     required this.routeDef,
     required this.rest,
@@ -109,10 +109,10 @@ class RouteMatchV1 extends RouteSettings {
     return RouteMatchV1(
         name: name ?? this.name,
         arguments: arguments ?? this.arguments,
-        initialArgsToPass: this.initialArgsToPass,
-        uri: this.uri,
-        routeDef: this.routeDef,
-        rest: this.rest,
-        pathParamsMap: this.pathParamsMap);
+        initialArgsToPass: initialArgsToPass,
+        uri: uri,
+        routeDef: routeDef,
+        rest: rest,
+        pathParamsMap: pathParamsMap);
   }
 }

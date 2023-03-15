@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'base_view_models.dart';
 
-enum _ViewModelBuilderType { NonReactive, Reactive }
+enum _ViewModelBuilderType { nonReactive, reactive }
 
 /// A widget that provides base functionality for the Mvvm style provider architecture by FilledStacks.
 class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
@@ -72,12 +72,12 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
         this.fireOnModelReadyOnce = false,
     this.initialiseSpecialViewModelsOnce = false,
     Key? key,
-  })  : providerType = _ViewModelBuilderType.NonReactive,
+  })  : providerType = _ViewModelBuilderType.nonReactive,
         staticChild = null,
         super(key: key);
 
   /// Constructs a ViewModel provider that fires the [builder] function when notifyListeners is called in the ViewModel.
-  ViewModelBuilder.reactive({
+  const ViewModelBuilder.reactive({
     required this.viewModelBuilder,
     required this.builder,
     @Deprecated('Prefer to use onViewModelReady instead') this.onModelReady,
@@ -91,7 +91,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
         this.fireOnModelReadyOnce = false,
     this.initialiseSpecialViewModelsOnce = false,
     Key? key,
-  })  : providerType = _ViewModelBuilderType.Reactive,
+  })  : providerType = _ViewModelBuilderType.reactive,
         super(key: key);
 
   @override
@@ -169,7 +169,7 @@ class _ViewModelBuilderState<T extends ChangeNotifier>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.providerType == _ViewModelBuilderType.NonReactive) {
+    if (widget.providerType == _ViewModelBuilderType.nonReactive) {
       if (!widget.disposeViewModel) {
         return ChangeNotifierProvider<T>.value(
           value: _viewModel!,

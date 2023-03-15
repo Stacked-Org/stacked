@@ -21,13 +21,12 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel
   late int _futuresCompleted;
 
   void _initialiseData() {
-    if (_dataMap == null) {
-      _dataMap = Map<String, dynamic>();
-    }
+    _dataMap ??= <String, dynamic>{};
 
     _futuresCompleted = 0;
   }
 
+  @override
   Future initialise() {
     _futuresCompleter = Completer();
     _initialiseData();
@@ -89,26 +88,27 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel
   StreamSubscription? getSubscriptionForKey(String key) =>
       _streamsSubscriptions![key];
 
+  @override
   void initialise() {
-    _dataMap = Map<String, dynamic>();
+    _dataMap = <String, dynamic>{};
     clearErrors();
-    _streamsSubscriptions = Map<String, StreamSubscription>();
+    _streamsSubscriptions = <String, StreamSubscription>{};
 
     if (!changeSource) {
       notifyListeners();
     }
-    final _streamsMapValues = Map<String, StreamData>.from(streamsMap);
+    final streamsMapValues = Map<String, StreamData>.from(streamsMap);
 
-    for (final key in _streamsMapValues.keys) {
+    for (final key in streamsMapValues.keys) {
       // If a lifecycle function isn't supplied, we fallback to default
-      _streamsSubscriptions![key] = _streamsMapValues[key]!.stream.listen(
+      _streamsSubscriptions![key] = streamsMapValues[key]!.stream.listen(
         (incomingData) {
           setErrorForObject(key, null);
           notifyListeners();
           // Extra security in case transformData isnt sent
-          var interceptedData = _streamsMapValues[key]!.transformData == null
+          var interceptedData = streamsMapValues[key]!.transformData == null
               ? transformData(key, incomingData)
-              : _streamsMapValues[key]!.transformData!(incomingData);
+              : streamsMapValues[key]!.transformData!(incomingData);
 
           if (interceptedData != null) {
             _dataMap![key] = interceptedData;
@@ -117,22 +117,22 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel
           }
 
           notifyListeners();
-          _streamsMapValues[key]!.onData != null
-              ? _streamsMapValues[key]!.onData!(_dataMap![key])
+          streamsMapValues[key]!.onData != null
+              ? streamsMapValues[key]!.onData!(_dataMap![key])
               : onData(key, _dataMap![key]);
         },
         onError: (error) {
           setErrorForObject(key, error);
           _dataMap![key] = null;
 
-          _streamsMapValues[key]!.onError != null
-              ? _streamsMapValues[key]!.onError!(error)
+          streamsMapValues[key]!.onError != null
+              ? streamsMapValues[key]!.onError!(error)
               : onError(key, error);
           notifyListeners();
         },
       );
-      _streamsMapValues[key]!.onSubscribed != null
-          ? _streamsMapValues[key]!.onSubscribed!()
+      streamsMapValues[key]!.onSubscribed != null
+          ? streamsMapValues[key]!.onSubscribed!()
           : onSubscribed(key);
       changeSource = false;
     }
