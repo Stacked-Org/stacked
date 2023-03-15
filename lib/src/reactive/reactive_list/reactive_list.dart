@@ -108,7 +108,7 @@ class ReactiveList<E> extends DelegatingList<E> implements List<E> {
   }
 }
 
-typedef E ChildrenListComposer<S, E>(S value);
+typedef ChildrenListComposer<S, E> = E Function(S value);
 
 /// An Reactive list that is bound to another list [binding]
 class BoundList<S, E> extends ReactiveList<E> {

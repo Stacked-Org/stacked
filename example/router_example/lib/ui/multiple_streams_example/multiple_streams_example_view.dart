@@ -40,8 +40,7 @@ class MultipleStreamsExampleView extends StatelessWidget {
                           ? const CircularProgressIndicator()
                           : Column(
                               children: <Widget>[
-                                Text(
-                                    '${viewModel.numbersStreamDelay}ms'),
+                                Text('${viewModel.numbersStreamDelay}ms'),
                                 Text(viewModel.randomString),
                               ],
                             ),

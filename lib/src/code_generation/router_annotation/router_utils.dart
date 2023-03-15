@@ -48,7 +48,7 @@ PageRoute misTypedArgsRoute<T>(Object args) {
             const Text(
               'Arguments Mistype!',
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20),
             ),
             const SizedBox(height: 8.0),
             Text(

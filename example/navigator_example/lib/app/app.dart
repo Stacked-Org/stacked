@@ -15,6 +15,7 @@ import 'package:example/ui/nonreactive/nonreactive_view.dart';
 import 'package:example/ui/stream_view/stream_counter_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:stacked_shared/stacked_shared.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
 import '../ui/dialogs/basic_dialog.dart';
@@ -83,5 +84,5 @@ import 'custom_route_transition.dart';
   locatorSetupName: 'setupExampleLocator',
 )
 class App {
-  /** This class has no puporse besides housing the annotation that generates the required functionality **/
+  /// This class has no puporse besides housing the annotation that generates the required functionality
 }

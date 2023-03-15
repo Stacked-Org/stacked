@@ -1,12 +1,12 @@
-typedef void ValueCallback<T>(T v);
+typedef ValueCallback<T> = void Function(T v);
 
 /// A callback with no arguments.
 ///
 /// Intended to listen to events emitted by [Emitter].
-typedef dynamic Callback();
+typedef Callback = dynamic Function();
 
-typedef bool Condition();
+typedef Condition = bool Function();
 
-typedef T ValueGetter<T>();
+typedef ValueGetter<T> = T Function();
 
-typedef void ValueSetter<T>(T val);
+typedef ValueSetter<T> = void Function(T val);

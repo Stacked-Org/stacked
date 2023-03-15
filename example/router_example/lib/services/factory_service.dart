@@ -1,3 +1,4 @@
+import 'package:stacked_shared/stacked_shared.dart';
 
 class FactoryService {
   final String? data1;

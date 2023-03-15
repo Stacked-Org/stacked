@@ -1,3 +1,4 @@
+import 'package:stacked/stacked_annotations.dart';
 
 class FactoryService {
   final String? data1;
