@@ -38,6 +38,9 @@ class SnackbarConfig {
   /// Sets the color of the main button text regardless of [textColor]
   Color? mainButtonTextColor;
 
+  /// Sets the duration of snack bar to be visible
+  Duration duration;
+
   ButtonStyle? mainButtonStyle;
   List<BoxShadow>? boxShadows;
   Gradient? backgroundGradient;
@@ -99,5 +102,6 @@ class SnackbarConfig {
     this.userInputForm,
     this.titleTextAlign = TextAlign.left,
     this.messageTextAlign = TextAlign.left,
+    this.duration = const Duration(seconds: 3),
   });
 }

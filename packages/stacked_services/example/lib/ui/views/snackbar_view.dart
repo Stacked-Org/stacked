@@ -26,7 +26,6 @@ class SnackbarView extends StatelessWidget {
             onPressed: () async {
               _snackbarService.showSnackbar(
                 message: 'This is a snack bar',
-                duration: Duration(seconds: 2),
                 onTap: (_) {
                   print('snackbar tapped');
                 },
@@ -51,7 +50,6 @@ class SnackbarView extends StatelessWidget {
                 variant: SnackbarType.blueAndYellow,
                 message: 'Blue and yellow',
                 title: 'The message is the message',
-                duration: Duration(seconds: 2),
                 onTap: (_) {
                   print('snackbar tapped');
                 },
@@ -76,7 +74,7 @@ class SnackbarView extends StatelessWidget {
                 variant: SnackbarType.greenAndRed,
                 message:
                     'The text is green and red and the background is white',
-                duration: Duration(seconds: 2),
+                duration: Duration(seconds: 5),
                 onTap: (_) {
                   print('snackbar tapped');
                 },

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:stacked_core/stacked_core.dart' as sc;
 import 'package:stacked_services/src/exceptions/custom_snackbar_exception.dart';
 import 'package:stacked_services/src/snackbar/snackbar_config.dart';
+
 import 'stacked_snackbar_customizations.dart';
 
 /// A service that allows the user to show the snackbar from a ViewModel
@@ -55,7 +56,7 @@ class SnackbarService {
     String title = '',
     required String message,
     Function(dynamic)? onTap,
-    Duration duration = const Duration(seconds: 3),
+    Duration? duration,
     String? mainButtonTitle,
     void Function()? onMainButtonTapped,
   }) {
@@ -97,7 +98,7 @@ class SnackbarService {
       onTap: onTap,
       barBlur: _snackbarConfig?.barBlur,
       isDismissible: _snackbarConfig?.isDismissible ?? true,
-      duration: duration,
+      duration: duration ?? _snackbarConfig?.duration,
       snackPosition: _snackbarConfig?.snackPosition.toGet,
       backgroundColor: _snackbarConfig?.backgroundColor ?? Colors.grey[800],
       margin: _snackbarConfig?.margin ??
@@ -116,7 +117,7 @@ class SnackbarService {
     ButtonStyle? mainButtonStyle,
     void Function()? onMainButtonTapped,
     Function? onTap,
-    Duration duration = const Duration(seconds: 1),
+    Duration? duration,
   }) async {
     final snackbarConfigSupplied = _customSnackbarConfigs[variant];
     final snackbarConfigBuilder = _customSnackbarConfigBuilders[variant];
@@ -160,7 +161,7 @@ class SnackbarService {
               textAlign: snackbarConfig.titleTextAlign,
             )
           : snackbarConfig.titleText ?? null,
-      messageText: _snackbarConfig?.messageColor != null || message.isNotEmpty
+      messageText: snackbarConfig.messageColor != null || message.isNotEmpty
           ? Text(
               message,
               key: Key('snackbar_text_message'),
@@ -189,7 +190,7 @@ class SnackbarService {
       backgroundGradient: snackbarConfig.backgroundGradient,
       mainButton: mainButtonWidget,
       onTap: (object) => onTap!(),
-      duration: duration,
+      duration: duration ?? snackbarConfig.duration,
       isDismissible: snackbarConfig.isDismissible,
       dismissDirection: snackbarConfig.dismissDirection,
       showProgressIndicator: snackbarConfig.showProgressIndicator,
@@ -221,8 +222,8 @@ class SnackbarService {
   }
 
   /// Close the current snack bar
-  Future<void> closeSnackbar() async{
-    if(isSnackbarOpen){
+  Future<void> closeSnackbar() async {
+    if (isSnackbarOpen) {
       return Get.closeCurrentSnackbar();
     }
   }
