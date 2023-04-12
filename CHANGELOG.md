@@ -1,3 +1,10 @@
+## [3.2.1](https://github.com/Stacked-Org/stacked/compare/v3.2.0...v3.2.1) (2023-04-12)
+
+
+### Bug Fixes
+
+* Updates shared version ([c0d24d8](https://github.com/Stacked-Org/stacked/commit/c0d24d8c4220467e5e52a45282279b3c8e44846a))
+
 # [3.2.0](https://github.com/Stacked-Org/stacked/compare/v3.1.2...v3.2.0) (2023-03-15)
 
 
