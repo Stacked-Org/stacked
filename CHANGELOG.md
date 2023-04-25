@@ -1,3 +1,10 @@
+## [3.2.2](https://github.com/Stacked-Org/stacked/compare/v3.2.1...v3.2.2) (2023-04-25)
+
+
+### Bug Fixes
+
+* Adds new course to readme ([1510680](https://github.com/Stacked-Org/stacked/commit/1510680c118cd91fd67eeaf046fa0ec649f16e16))
+
 ## [3.2.1](https://github.com/Stacked-Org/stacked/compare/v3.2.0...v3.2.1) (2023-04-12)
 
 
