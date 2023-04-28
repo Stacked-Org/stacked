@@ -4,6 +4,7 @@ import 'package:args/command_runner.dart';
 import 'package:stacked_cli/src/constants/command_constants.dart';
 import 'package:stacked_cli/src/constants/message_constants.dart';
 import 'package:stacked_cli/src/locator.dart';
+import 'package:stacked_cli/src/mixins/project_structure_validator_mixin.dart';
 import 'package:stacked_cli/src/services/analytics_service.dart';
 import 'package:stacked_cli/src/services/colorized_log_service.dart';
 import 'package:stacked_cli/src/services/config_service.dart';
@@ -11,7 +12,7 @@ import 'package:stacked_cli/src/services/file_service.dart';
 import 'package:stacked_cli/src/services/process_service.dart';
 import 'package:stacked_cli/src/services/template_service.dart';
 
-class CreateAppCommand extends Command {
+class CreateAppCommand extends Command with ProjectStructureValidator {
   final _cLog = locator<ColorizedLogService>();
   final _configService = locator<ConfigService>();
   final _fileService = locator<FileService>();
@@ -35,13 +36,13 @@ class CreateAppCommand extends Command {
     );
 
     argParser.addOption(
-      "org",
+      ksOrganization,
       abbr: "o",
       help: kCommandOrganizationHelp,
     );
 
     argParser.addOption(
-      "platform",
+      ksPlatform,
       abbr: "p",
       help: kCommandPlatformHelp,
     );
@@ -67,54 +68,14 @@ class CreateAppCommand extends Command {
   @override
   Future<void> run() async {
     await _configService.loadConfig();
-    _cLog.stackedOutput(message: argResults!.rest.first, isBold: true);
     final appName = argResults!.rest.first;
     final appNameWithoutPath = appName.split('/').last;
     final templateType = argResults![ksTemplateType];
-    String organization = "";
-    String platforms = "";
+    final organization = argResults![ksOrganization];
+    final platforms = argResults![ksPlatform];
 
-    int indexOrg = argResults!.arguments.indexOf("--org");
-    if (indexOrg != -1) {
-      organization = argResults!.arguments[indexOrg + 1];
-    }
-
-    if (indexOrg == -1) {
-      indexOrg = argResults!.arguments.indexOf("-o");
-      if (indexOrg != -1) {
-        organization = argResults!.arguments[indexOrg + 1];
-      }
-    }
-
-    int indexPlatform = argResults!.arguments.indexOf("--platforms");
-    if (indexPlatform != -1) {
-      platforms = argResults!.arguments[indexPlatform + 1];
-    }
-
-    if (indexPlatform == -1) {
-      indexPlatform = argResults!.arguments.indexOf("-p");
-      if (indexPlatform != -1) {
-        platforms = argResults!.arguments[indexPlatform + 1];
-      }
-    }
-
-    // Organization must be a valid bundle name. (com.example)
-    if (organization.isNotEmpty && !organization.contains(".")) {
-      _cLog.error(
-          message: "Organization must be a valid bundle name. (com.example)");
-      return;
-    }
-
-    // Regarding https://dart.dev/tools/pub/pubspec#name
-    // The name may only contain lowercase letters, digits, underscores.
-    // And is not allowed to starts with numbers.
-    if (appName.contains(RegExp(r'[A-Z]')) ||
-        appName.startsWith(RegExp(r'[0-9]'))) {
-      _cLog.error(
-          message:
-              "App name must contains lower letters and is not allowed to start with numbers (example, example1)");
-      return;
-    }
+    validateOrganization(organization: organization);
+    validateAppName(appName: appName);
 
     unawaited(_analyticsService.createAppEvent(name: appNameWithoutPath));
     _processService.formattingLineLength = argResults![ksLineLength];

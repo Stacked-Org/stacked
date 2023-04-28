@@ -3,487 +3,487 @@
   "packages": [
     {
       "name": "_fe_analyzer_shared",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/_fe_analyzer_shared-52.0.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-59.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "analyzer",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/analyzer-5.4.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/analyzer-5.11.1",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.19"
     },
     {
       "name": "ansicolor",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/ansicolor-2.0.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/ansicolor-2.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "args",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/args-2.4.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/args-2.4.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "async",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/async-2.10.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/async-2.11.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "boolean_selector",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/boolean_selector-2.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "build",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/build-2.3.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/build-2.3.1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "build_config",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/build_config-1.1.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/build_config-1.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "build_daemon",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/build_daemon-3.1.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/build_daemon-3.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "build_resolvers",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/build_resolvers-2.1.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/build_resolvers-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "build_runner",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/build_runner-2.3.3",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/build_runner-2.3.3",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "build_runner_core",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/build_runner_core-7.2.7",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/build_runner_core-7.2.7",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "built_collection",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/built_collection-5.1.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/built_collection-5.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "built_value",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/built_value-8.4.3",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/built_value-8.4.4",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "checked_yaml",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/checked_yaml-2.0.2",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/checked_yaml-2.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "code_builder",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/code_builder-4.4.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/code_builder-4.4.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "collection",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/collection-1.17.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/collection-1.17.1",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "convert",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/convert-3.1.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/convert-3.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "coverage",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/coverage-1.6.3",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/coverage-1.6.3",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "crypto",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.2",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/crypto-3.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "dart_style",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/dart_style-2.2.4",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/dart_style-2.3.0",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.19"
     },
     {
       "name": "file",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/file-6.1.4",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/file-6.1.4",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "fixnum",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/fixnum-1.0.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/fixnum-1.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.19"
     },
     {
       "name": "freezed",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/freezed-2.3.2",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/freezed-2.3.2",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "freezed_annotation",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/freezed_annotation-2.2.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/freezed_annotation-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "frontend_server_client",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/frontend_server_client-3.2.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/frontend_server_client-3.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "functional_data",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/functional_data-1.0.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/functional_data-1.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "get_it",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/get_it-7.2.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/get_it-7.3.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "glob",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/glob-2.1.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/glob-2.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
     {
       "name": "graphs",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/graphs-2.2.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/graphs-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "http_multi_server",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/http_multi_server-3.2.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/http_multi_server-3.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "http_parser",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.2",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/http_parser-4.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "io",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/io-1.0.4",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/io-1.0.4",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "js",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/js-0.6.5",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/js-0.6.7",
       "packageUri": "lib/",
-      "languageVersion": "2.16"
+      "languageVersion": "2.19"
     },
     {
       "name": "json2yaml",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/json2yaml-3.0.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/json2yaml-3.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "json_annotation",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/json_annotation-4.8.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/json_annotation-4.8.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "json_serializable",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/json_serializable-6.6.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/json_serializable-6.6.1",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "lints",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/lints-1.0.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/lints-1.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "logging",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/logging-1.1.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/logging-1.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "matcher",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.14",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/matcher-0.12.15",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "meta",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/meta-1.9.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/meta-1.9.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "mime",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/mime-1.0.4",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/mime-1.0.4",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "mockito",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/mockito-5.3.2",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/mockito-5.4.0",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "mustache_template",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/mustache_template-2.0.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/mustache_template-2.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "node_preamble",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/node_preamble-2.0.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/node_preamble-2.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "package_config",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/package_config-2.1.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/package_config-2.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "path",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/path-1.8.3",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/path-1.8.3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "plain_optional",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/plain_optional-1.0.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/plain_optional-1.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "platform",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/platform-3.1.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/platform-3.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "pool",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/pool-1.5.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/pool-1.5.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "process",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/process-4.2.4",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/process-4.2.4",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "pub_semver",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/pub_semver-2.1.3",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/pub_semver-2.1.3",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "pubspec_parse",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/pubspec_parse-1.2.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/pubspec_parse-1.2.2",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "2.18"
     },
     {
       "name": "pubspec_yaml",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/pubspec_yaml-3.1.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/pubspec_yaml-3.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "recase",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/recase-4.1.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/recase-4.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "shelf",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/shelf-1.4.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/shelf-1.4.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "shelf_packages_handler",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/shelf_packages_handler-3.0.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/shelf_packages_handler-3.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "shelf_static",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/shelf_static-1.1.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/shelf_static-1.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "shelf_web_socket",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/shelf_web_socket-1.0.3",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/shelf_web_socket-1.0.3",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "source_gen",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/source_gen-1.2.7",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/source_gen-1.2.7",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "source_helper",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/source_helper-1.3.3",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/source_helper-1.3.3",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "source_map_stack_trace",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/source_map_stack_trace-2.1.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/source_map_stack_trace-2.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "source_maps",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/source_maps-0.10.11",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/source_maps-0.10.12",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "source_span",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/source_span-1.9.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/source_span-1.10.0",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "2.18"
     },
     {
       "name": "stack_trace",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/stack_trace-1.11.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/stack_trace-1.11.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "stream_channel",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/stream_channel-2.1.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/stream_channel-2.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "stream_transform",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/stream_transform-2.1.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/stream_transform-2.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "string_scanner",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.2.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/string_scanner-1.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "sum_types",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/sum_types-0.3.5",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/sum_types-0.3.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "term_glyph",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/term_glyph-1.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "test",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/test-1.23.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/test-1.24.2",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "test_api",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.18",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/test_api-0.5.2",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "test_core",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/test_core-0.4.24",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/test_core-0.5.2",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "timing",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/timing-1.0.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/timing-1.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "typed_data",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/typed_data-1.3.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/typed_data-1.3.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "vm_service",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/vm_service-11.0.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/vm_service-11.4.0",
       "packageUri": "lib/",
-      "languageVersion": "2.15"
+      "languageVersion": "2.19"
     },
     {
       "name": "watcher",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/watcher-1.0.2",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/watcher-1.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "web_socket_channel",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/web_socket_channel-2.3.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/web_socket_channel-2.4.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.15"
     },
     {
       "name": "webkit_inspection_protocol",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/webkit_inspection_protocol-1.2.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/webkit_inspection_protocol-1.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "xdg_directories",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/xdg_directories-0.2.0+3",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/xdg_directories-0.2.0+3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "yaml",
-      "rootUri": "file:///Users/sembauke/.pub-cache/hosted/pub.dartlang.org/yaml-3.1.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dev/yaml-3.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -494,7 +494,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-02-14T17:40:25.329582Z",
+  "generated": "2023-04-27T08:50:14.429944Z",
   "generator": "pub",
-  "generatorVersion": "2.18.6"
+  "generatorVersion": "2.19.5"
 }

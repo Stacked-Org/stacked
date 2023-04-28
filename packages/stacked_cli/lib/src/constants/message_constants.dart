@@ -23,6 +23,16 @@ We have plans to support this in the future. If you want to help build it, check
 for the stacked-cli roadmap.
 ''';
 
+/// The message shown when the given organization name does not comply with the expected standard.
+const String kInvalidOrganization =
+    'Organization must be a valid bundle name. (com.example)';
+
+/// The message shown when the given app name does not comply with the expected standard.
+const String kInvalidAppName =
+    '''App name must contain lower letters and is not allowed to start 
+with numbers. Also it can't contain special characters, spaces and 
+should be different from dart reserved words.''';
+
 const String kCommandHelpVersion = 'Print the current version.';
 
 const String kCommandHelpEnableAnalytics = 'Enable Analytics.';
