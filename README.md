@@ -4,4 +4,4 @@
 
 ## [Stacked for Flutter Web course](https://dane-mackier-s-school.teachable.com/p/master-flutter-on-the-web) is open for enrollment!
 
-Old doc can be found [here](https://github.com/Stacked-Org/stacked/blob/master/README_old.md)
+Old doc can be found [here](https://github.com/Stacked-Org/stacked/blob/master/README_old.md) or you can checkout our new CLI in the [early preview docs](https://stacked.filledstacks.com/)
