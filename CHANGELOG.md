@@ -1,3 +1,10 @@
+## [3.2.3](https://github.com/Stacked-Org/stacked/compare/v3.2.2...v3.2.3) (2023-04-30)
+
+
+### Bug Fixes
+
+* Updates readme banner to show pre-sale Flutter Course release ([79b9cf6](https://github.com/Stacked-Org/stacked/commit/79b9cf6b0b61fe3b191ec61fdbd7bd76b0b48cc9))
+
 ## [3.2.2](https://github.com/Stacked-Org/stacked/compare/v3.2.1...v3.2.2) (2023-04-25)
 
 
