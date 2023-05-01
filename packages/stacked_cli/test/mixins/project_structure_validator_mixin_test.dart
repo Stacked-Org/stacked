@@ -204,21 +204,4 @@ void main() {
           should be different from dart reserved words.'''));
     });
   });
-  // test('_isProjectRoot returns true if the outputPath contains pubspec.yaml',
-  //     () async {
-  //   // Create a temporary directory
-  //   Directory tempDir = await Directory.systemTemp.createTemp();
-  //   // Create a pubspec.yaml file inside the temporary directory
-  //   File pubspecFile = File(path.join(tempDir.path, 'pubspec.yaml'));
-  //   await pubspecFile.create();
-
-  //   // Call the _isProjectRoot method with the outputPath set to the temporary directory path
-  //   bool result = await validator._isProjectRoot(outputPath: tempDir.path);
-
-  //   // Clean up the temporary directory
-  //   await tempDir.delete(recursive: true);
-
-  //   // Check if the result is true
-  //   expect(result, true);
-  // });
 }
