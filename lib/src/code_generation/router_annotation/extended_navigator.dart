@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -235,12 +236,10 @@ class ExtendedNavigatorState<T extends RouterBase?>
     assert(router != null);
     return Navigator(
       key: _navigatorKey,
-      initialRoute:
-          ambiguate(WidgetsBinding.instance)!.window.defaultRouteName !=
-                  Navigator.defaultRouteName
-              ? ambiguate(WidgetsBinding.instance)!.window.defaultRouteName
-              : initial ??
-                  ambiguate(WidgetsBinding.instance)!.window.defaultRouteName,
+      initialRoute: PlatformDispatcher.instance.defaultRouteName !=
+              Navigator.defaultRouteName
+          ? PlatformDispatcher.instance.defaultRouteName
+          : initial ?? PlatformDispatcher.instance.defaultRouteName,
       observers: List.from(widget.observers)..add(_heroController!),
       onGenerateRoute: (RouteSettings settings) {
         return router!.onGenerateRoute(settings, basePath);

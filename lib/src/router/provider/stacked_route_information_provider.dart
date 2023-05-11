@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:stacked/src/router/parser/route_information_parser.dart';
@@ -19,7 +20,7 @@ class StackedRouteInformationProvider extends RouteInformationProvider
       bool Function(String? location)? neglectWhen}) {
     final initialRouteInfo = initialRouteInformation ??
         RouteInformation(
-            location: WidgetsBinding.instance.window.defaultRouteName);
+            location: PlatformDispatcher.instance.defaultRouteName);
     return StackedRouteInformationProvider._(
       initialRouteInformation: initialRouteInfo,
       neglectIf: neglectWhen,
@@ -56,8 +57,8 @@ class StackedRouteInformationProvider extends RouteInformationProvider
   RouteInformation get value => _value;
   RouteInformation _value;
 
-  RouteInformation _valueInEngine = RouteInformation(
-      location: WidgetsBinding.instance.window.defaultRouteName);
+  RouteInformation _valueInEngine =
+      RouteInformation(location: PlatformDispatcher.instance.defaultRouteName);
 
   void _platformReportsNewRouteInformation(RouteInformation routeInformation) {
     if (_value == routeInformation) return;
