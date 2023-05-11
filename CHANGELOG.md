@@ -1,3 +1,10 @@
+## [3.2.4](https://github.com/Stacked-Org/stacked/compare/v3.2.3...v3.2.4) (2023-05-11)
+
+
+### Bug Fixes
+
+* updating deprecated members to support +3.10 ([0004072](https://github.com/Stacked-Org/stacked/commit/00040728148867dec8baf9b04d7912db4e68ce8d))
+
 ## [3.2.3](https://github.com/Stacked-Org/stacked/compare/v3.2.2...v3.2.3) (2023-04-30)
 
 

@@ -1,6 +1,6 @@
 name: stacked
 description: The framework to build testable, scalable and maintainable flutter apps
-version: 3.2.3
+version: 3.2.4
 homepage: https://github.com/FilledStacks/stacked
 
 funding:
