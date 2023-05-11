@@ -1,3 +1,10 @@
+## [3.2.5](https://github.com/Stacked-Org/stacked/compare/v3.2.4...v3.2.5) (2023-05-11)
+
+
+### Bug Fixes
+
+* Removes funding link from pubspec ([a1530f0](https://github.com/Stacked-Org/stacked/commit/a1530f08e2f8079aff25ca54b751fa42221663c7))
+
 ## [3.2.4](https://github.com/Stacked-Org/stacked/compare/v3.2.3...v3.2.4) (2023-05-11)
 
 
