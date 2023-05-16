@@ -1,3 +1,10 @@
+## [3.2.6](https://github.com/Stacked-Org/stacked/compare/v3.2.5...v3.2.6) (2023-05-16)
+
+
+### Bug Fixes
+
+* force rebuild ViewModelwidget to follow natural flutter build path ([f794d0c](https://github.com/Stacked-Org/stacked/commit/f794d0c2813943060e885d0946e66a251784e5f2))
+
 ## [3.2.5](https://github.com/Stacked-Org/stacked/compare/v3.2.4...v3.2.5) (2023-05-11)
 
 
