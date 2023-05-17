@@ -28,6 +28,6 @@ class DataProviderElement<T> extends ComponentElement {
   void update(ViewModelWidget newWidget) {
     super.update(newWidget);
     assert(widget == newWidget);
-    rebuild(force: true);
+    rebuild();
   }
 }
