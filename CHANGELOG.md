@@ -1,3 +1,10 @@
+## [3.2.8](https://github.com/Stacked-Org/stacked/compare/v3.2.7...v3.2.8) (2023-05-23)
+
+
+### Bug Fixes
+
+* Updates Stacked team's maintenance schedule ([3542c08](https://github.com/Stacked-Org/stacked/commit/3542c0814c539c9b5de16dd6f9f2bdc39bf81a17))
+
 ## [3.2.7](https://github.com/Stacked-Org/stacked/compare/v3.2.6...v3.2.7) (2023-05-17)
 
 
