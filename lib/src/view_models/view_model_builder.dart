@@ -69,7 +69,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
     this.createNewViewModelOnInsert = false,
     this.fireOnViewModelReadyOnce = false,
     @Deprecated('Prefer to use fireOnViewModelReadyOnce')
-        this.fireOnModelReadyOnce = false,
+    this.fireOnModelReadyOnce = false,
     this.initialiseSpecialViewModelsOnce = false,
     Key? key,
   })  : providerType = ViewModelBuilderType.nonReactive,
@@ -88,7 +88,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
     this.createNewViewModelOnInsert = false,
     this.fireOnViewModelReadyOnce = false,
     @Deprecated('Prefer to use fireOnViewModelReadyOnce')
-        this.fireOnModelReadyOnce = false,
+    this.fireOnModelReadyOnce = false,
     this.initialiseSpecialViewModelsOnce = false,
     Key? key,
   })  : providerType = ViewModelBuilderType.reactive,
