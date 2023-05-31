@@ -62,12 +62,15 @@ abstract class MultipleFutureViewModel extends _MultiDataSourceViewModel
     if (_futuresCompleted == futuresMap.length &&
         !_futuresCompleter.isCompleted) {
       _futuresCompleter.complete();
+      onAllFuturesCompleted();
     }
   }
 
   void onError({String? key, error}) {}
 
   void onData(String key) {}
+
+  void onAllFuturesCompleted() {}
 }
 
 /// Provides functionality for a ViewModel to run and fetch data using multiple streams

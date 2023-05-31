@@ -1,3 +1,10 @@
+# [3.3.0](https://github.com/Stacked-Org/stacked/compare/v3.2.8...v3.3.0) (2023-05-26)
+
+
+### Features
+
+* Add onAllFuturesComplete to MultipleFutureViewModel ([#958](https://github.com/Stacked-Org/stacked/issues/958)) ([9d3fc4f](https://github.com/Stacked-Org/stacked/commit/9d3fc4f809a6123a03362003db79551274e161ff))
+
 ## [3.2.8](https://github.com/Stacked-Org/stacked/compare/v3.2.7...v3.2.8) (2023-05-23)
 
 
