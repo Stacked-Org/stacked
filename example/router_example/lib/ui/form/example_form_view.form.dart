@@ -34,7 +34,7 @@ final Map<String, String? Function(String?)?> _ExampleFormViewTextValidations =
   ShortBioValueKey: null,
 };
 
-mixin $ExampleFormView on StatelessWidget {
+mixin $ExampleFormView {
   TextEditingController get emailController =>
       _getFormTextEditingController(EmailValueKey, initialValue: 'Lorem');
   CustomEditingController get passwordController =>
@@ -59,11 +59,14 @@ mixin $ExampleFormView on StatelessWidget {
   FocusNode get passwordFocusNode => _getFormFocusNode(PasswordValueKey);
   FocusNode get shortBioFocusNode => _getFormFocusNode(ShortBioValueKey);
 
-  TextEditingController _getFormTextEditingController(String key,
-      {String? initialValue}) {
+  TextEditingController _getFormTextEditingController(
+    String key, {
+    String? initialValue,
+  }) {
     if (_ExampleFormViewTextEditingControllers.containsKey(key)) {
       return _ExampleFormViewTextEditingControllers[key]!;
     }
+
     _ExampleFormViewTextEditingControllers[key] =
         TextEditingController(text: initialValue);
     return _ExampleFormViewTextEditingControllers[key]!;
@@ -87,15 +90,17 @@ mixin $ExampleFormView on StatelessWidget {
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
-  @Deprecated('Use syncFormWithViewModel instead.'
-      'This feature was deprecated after 3.1.0.')
+  @Deprecated(
+    'Use syncFormWithViewModel instead.'
+    'This feature was deprecated after 3.1.0.',
+  )
   void listenToFormUpdated(FormViewModel model) {
     emailController.addListener(() => _updateFormData(model));
     passwordController.addListener(() => _updateFormData(model));
     shortBioController.addListener(() => _updateFormData(model));
   }
 
-  final bool _autoTextFieldValidation = false;
+  static const bool _autoTextFieldValidation = false;
   bool validateFormFields(FormViewModel model) {
     _updateFormData(model, forceValidate: true);
     return model.isFormValid;
@@ -111,26 +116,10 @@ mixin $ExampleFormView on StatelessWidget {
           ShortBioValueKey: shortBioController.text,
         }),
     );
+
     if (_autoTextFieldValidation || forceValidate) {
-      _updateValidationData(model);
+      updateValidationData(model);
     }
-  }
-
-  /// Updates the fieldsValidationMessages on the FormViewModel
-  void _updateValidationData(FormViewModel model) =>
-      model.setValidationMessages({
-        EmailValueKey: _getValidationMessage(EmailValueKey),
-        PasswordValueKey: _getValidationMessage(PasswordValueKey),
-        ShortBioValueKey: _getValidationMessage(ShortBioValueKey),
-      });
-
-  /// Returns the validation message for the given key
-  String? _getValidationMessage(String key) {
-    final validatorForKey = _ExampleFormViewTextValidations[key];
-    if (validatorForKey == null) return null;
-    String? validationMessageForKey =
-        validatorForKey(_ExampleFormViewTextEditingControllers[key]!.text);
-    return validationMessageForKey;
   }
 
   /// Calls dispose on all the generated controllers and focus nodes
@@ -235,11 +224,6 @@ extension ValueProperties on FormViewModel {
       this.fieldsValidationMessages[BirthDateValueKey];
   String? get doYouLoveFoodValidationMessage =>
       this.fieldsValidationMessages[DoYouLoveFoodValueKey];
-  void clearForm() {
-    emailValue = '';
-    passwordValue = '';
-    shortBioValue = '';
-  }
 }
 
 extension Methods on FormViewModel {
@@ -274,4 +258,39 @@ extension Methods on FormViewModel {
       this.fieldsValidationMessages[BirthDateValueKey] = validationMessage;
   setDoYouLoveFoodValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[DoYouLoveFoodValueKey] = validationMessage;
+
+  /// Clears text input fields on the Form
+  void clearForm() {
+    emailValue = '';
+    passwordValue = '';
+    shortBioValue = '';
+  }
+
+  /// Validates text input fields on the Form
+  void validateForm() {
+    this.setValidationMessages({
+      EmailValueKey: getValidationMessage(EmailValueKey),
+      PasswordValueKey: getValidationMessage(PasswordValueKey),
+      ShortBioValueKey: getValidationMessage(ShortBioValueKey),
+    });
+  }
 }
+
+/// Returns the validation message for the given key
+String? getValidationMessage(String key) {
+  final validatorForKey = _ExampleFormViewTextValidations[key];
+  if (validatorForKey == null) return null;
+
+  String? validationMessageForKey = validatorForKey(
+    _ExampleFormViewTextEditingControllers[key]!.text,
+  );
+
+  return validationMessageForKey;
+}
+
+/// Updates the fieldsValidationMessages on the FormViewModel
+void updateValidationData(FormViewModel model) => model.setValidationMessages({
+      EmailValueKey: getValidationMessage(EmailValueKey),
+      PasswordValueKey: getValidationMessage(PasswordValueKey),
+      ShortBioValueKey: getValidationMessage(ShortBioValueKey),
+    });

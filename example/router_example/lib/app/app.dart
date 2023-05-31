@@ -32,10 +32,6 @@ import 'custom_route_transition.dart';
     MaterialRoute(page: HomeView, initial: true),
     MaterialRoute(page: BottomNavExample, children: [
       RedirectRoute(path: '', redirectTo: 'favorites'),
-      CustomRoute(
-        page: HistoryView,
-        transitionsBuilder: TransitionsBuilders.fadeIn,
-      ),
       AdaptiveRoute(
         path: 'favourites',
         page: FavoritesView,
@@ -43,6 +39,10 @@ import 'custom_route_transition.dart';
           MaterialRoute(page: MultipleFuturesExampleView),
           CustomRoute(page: HistoryView),
         ],
+      ),
+      CustomRoute(
+        page: HistoryView,
+        transitionsBuilder: TransitionsBuilders.fadeIn,
       ),
       CupertinoRoute(page: ProfileView),
     ]),
