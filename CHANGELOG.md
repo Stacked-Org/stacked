@@ -1,3 +1,10 @@
+# [3.4.0](https://github.com/Stacked-Org/stacked/compare/v3.3.0...v3.4.0) (2023-05-31)
+
+
+### Features
+
+* set currentIndex from route on Web Platform ([#963](https://github.com/Stacked-Org/stacked/issues/963)) ([cfd1378](https://github.com/Stacked-Org/stacked/commit/cfd1378b098db100668b491ba01f6c00f0a8701d))
+
 # [3.3.0](https://github.com/Stacked-Org/stacked/compare/v3.2.8...v3.3.0) (2023-05-26)
 
 
