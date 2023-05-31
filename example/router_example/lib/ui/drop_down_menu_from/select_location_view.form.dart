@@ -28,15 +28,17 @@ final Map<String, String> ProvinceValueToTitleMap = {
   'North West': 'North West',
 };
 
-mixin $SelectLocationView on StatelessWidget {
+mixin $SelectLocationView {
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
   void syncFormWithViewModel(FormViewModel model) {}
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
-  @Deprecated('Use syncFormWithViewModel instead.'
-      'This feature was deprecated after 3.1.0.')
+  @Deprecated(
+    'Use syncFormWithViewModel instead.'
+    'This feature was deprecated after 3.1.0.',
+  )
   void listenToFormUpdated(FormViewModel model) {}
 
   /// Calls dispose on all the generated controllers and focus nodes
@@ -63,7 +65,6 @@ extension ValueProperties on FormViewModel {
       this.fieldsValidationMessages[CountryValueKey];
   String? get provinceValidationMessage =>
       this.fieldsValidationMessages[ProvinceValueKey];
-  void clearForm() {}
 }
 
 extension Methods on FormViewModel {
@@ -79,4 +80,7 @@ extension Methods on FormViewModel {
       this.fieldsValidationMessages[CountryValueKey] = validationMessage;
   setProvinceValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[ProvinceValueKey] = validationMessage;
+
+  /// Clears text input fields on the Form
+  void clearForm() {}
 }
