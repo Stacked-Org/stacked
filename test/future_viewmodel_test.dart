@@ -43,10 +43,13 @@ class TestMultipleFutureViewModel extends MultipleFutureViewModel {
   final bool failOne;
   final int futureOneDuration;
   final int futureTwoDuration;
-  TestMultipleFutureViewModel(
-      {this.failOne = false,
-      this.futureOneDuration = 300,
-      this.futureTwoDuration = 400});
+  bool hasCalledOnAllFuturesCompleted;
+  TestMultipleFutureViewModel({
+    this.failOne = false,
+    this.futureOneDuration = 300,
+    this.futureTwoDuration = 400,
+    this.hasCalledOnAllFuturesCompleted = false,
+  });
 
   int numberToReturn = 5;
 
@@ -67,6 +70,11 @@ class TestMultipleFutureViewModel extends MultipleFutureViewModel {
   Future<String> getStringAfterDelay() async {
     await Future.delayed(Duration(milliseconds: futureTwoDuration));
     return 'String data';
+  }
+
+  @override
+  void onAllFuturesCompleted() {
+    hasCalledOnAllFuturesCompleted = true;
   }
 }
 
@@ -156,6 +164,23 @@ void main() {
 
       expect(futureViewModel.dataMap![numberDelayFuture], 5);
       expect(futureViewModel.dataMap![stringDelayFuture], 'String data');
+    });
+
+    test('When running multiple futures onAllFuturesCompleted should be called',
+        () async {
+      var futureViewModel = TestMultipleFutureViewModel();
+      await futureViewModel.initialise();
+
+      expect(futureViewModel.hasCalledOnAllFuturesCompleted, true);
+    });
+
+    test(
+        'When one of multiple futures fail onAllFuturesCompleted should still be called',
+        () async {
+      var futureViewModel = TestMultipleFutureViewModel(failOne: true);
+      await futureViewModel.initialise();
+
+      expect(futureViewModel.hasCalledOnAllFuturesCompleted, true);
     });
 
     test(
