@@ -5,9 +5,10 @@ import 'package:url_strategy/url_strategy.dart';
 
 import 'app/app.locator.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
-  setupExampleLocator(
+  await setupExampleLocator(
     environment: Environment.dev,
     stackedRouter: stackedRouter,
   );

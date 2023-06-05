@@ -1,6 +1,7 @@
 import 'package:example/app/app.locator.dart';
 import 'package:example/app/app.logger.dart';
 import 'package:example/app/app.router.dart';
+import 'package:example/services/shared_preferences_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -10,6 +11,11 @@ import 'example_form_view.form.dart';
 class ExampleFormViewModel extends FormViewModel {
   final log = getLogger('FormViewModel');
   final _routerService = exampleLocator<RouterService>();
+  final _preferences = exampleLocator<SharedPreferencesService>();
+
+  ExampleFormViewModel() {
+    log.wtf('hash:${_preferences.hashCode}');
+  }
 
   @override
   void setFormStatus() {

@@ -19,9 +19,9 @@ class HomeViewMultipleWidgets extends StatelessWidget {
             viewModel.updateTitle();
           },
         ),
-        body: Column(
+        body: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             TitleSection(),
             DescriptionSection(),
           ],
