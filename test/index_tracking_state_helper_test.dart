@@ -210,7 +210,7 @@ void main() {
           testRouter: TestRouter(),
           testTopRoute: getBottomNavExampleRouteData(),
         );
-        final viewModel = IndexTrackingViewModel();
+        final viewModel = TestIndexTrackingViewModel();
         viewModel.setIndex(0);
 
         viewModel.setCurrentWebPageIndex(service);
@@ -223,7 +223,7 @@ void main() {
           testRouter: TestRouter(),
           testTopRoute: getBottomNavExampleRouteData(),
         );
-        final viewModel = IndexTrackingViewModel();
+        final viewModel = TestIndexTrackingViewModel();
         var called = 0;
         viewModel.addListener(() {
           called++;
@@ -251,7 +251,7 @@ void main() {
             ],
           ),
         );
-        final viewModel = IndexTrackingViewModel();
+        final viewModel = TestIndexTrackingViewModel();
         var called = 0;
         viewModel.addListener(() {
           called++;
@@ -280,7 +280,7 @@ void main() {
             ],
           ),
         );
-        final viewModel = IndexTrackingViewModel();
+        final viewModel = TestIndexTrackingViewModel();
         var called = 0;
         viewModel.addListener(() {
           called++;
@@ -308,7 +308,7 @@ void main() {
             pendingChildren: [historyRouteMatch],
           ),
         );
-        final viewModel = IndexTrackingViewModel();
+        final viewModel = TestIndexTrackingViewModel();
         var called = 0;
         viewModel.addListener(() {
           called++;
@@ -337,7 +337,7 @@ void main() {
             pendingChildren: [historyRouteMatch],
           ),
         );
-        final viewModel = IndexTrackingViewModel();
+        final viewModel = TestIndexTrackingViewModel();
         var called = 0;
         viewModel.addListener(() {
           called++;
@@ -366,7 +366,7 @@ void main() {
             pendingChildren: [favoriteRouteMatch],
           ),
         );
-        final viewModel = IndexTrackingViewModel();
+        final viewModel = TestIndexTrackingViewModel();
         viewModel.setIndex(2);
 
         viewModel.setCurrentWebPageIndex(service);
@@ -392,7 +392,7 @@ void main() {
             pendingChildren: [historyRouteMatch],
           ),
         );
-        final viewModel = IndexTrackingViewModel();
+        final viewModel = TestIndexTrackingViewModel();
         viewModel.setIndex(0);
 
         viewModel.setCurrentWebPageIndex(service);
@@ -418,7 +418,7 @@ void main() {
             pendingChildren: [profileRouteMatch],
           ),
         );
-        final viewModel = IndexTrackingViewModel();
+        final viewModel = TestIndexTrackingViewModel();
         viewModel.setIndex(0);
 
         viewModel.setCurrentWebPageIndex(service);

@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:stacked/src/mixins/listenable_service_mixin.dart';
+import 'package:stacked/src/mixins/reactive_service_mixin.dart';
 import 'package:stacked/src/view_models/helpers/data_state_helper.dart';
 
-import '../mixins/reactive_service_mixin.dart';
 import 'helpers/builders_helpers.dart';
 import 'helpers/busy_error_state_helper.dart';
 import 'helpers/message_state_helper.dart';
