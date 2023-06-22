@@ -1,3 +1,10 @@
+## [3.4.1](https://github.com/Stacked-Org/stacked/compare/v3.4.0...v3.4.1) (2023-06-22)
+
+
+### Bug Fixes
+
+* expose setCurrentWebPageIndex on IndexTrackingStateHelper ([#976](https://github.com/Stacked-Org/stacked/issues/976)) ([2057589](https://github.com/Stacked-Org/stacked/commit/2057589729f8864afba930b61443be7adb966f34)), closes [#973](https://github.com/Stacked-Org/stacked/issues/973) [#967](https://github.com/Stacked-Org/stacked/issues/967)
+
 # [3.4.0](https://github.com/Stacked-Org/stacked/compare/v3.3.0...v3.4.0) (2023-05-31)
 
 
