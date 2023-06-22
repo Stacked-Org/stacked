@@ -492,37 +492,13 @@ extension RouterStateExtension on _i11.RouterService {
     );
   }
 
-  Future<dynamic> navigateToMultipleFuturesExampleView({
-    _i13.Key? key,
-    String? id,
-    void Function(_i12.NavigationFailure)? onFailure,
-  }) async {
+  Future<dynamic> navigateToMultipleFuturesExampleView(
+      {void Function(_i12.NavigationFailure)? onFailure}) async {
     return navigateTo(
-      FavoritesViewRoute(
-        id: id,
-        children: List.from([
-          MultipleFuturesExampleViewRoute(),
-        ]),
-      ),
+      const MultipleFuturesExampleViewRoute(),
       onFailure: onFailure,
     );
   }
-
-  // Future<dynamic> navigateToHistoryView({
-  //   _i13.Key? key,
-  //   String? id,
-  //   void Function(_i12.NavigationFailure)? onFailure,
-  // }) async {
-  //   return navigateTo(
-  //     FavoritesViewRoute(
-  //       id: id,
-  //       children: List.from([
-  //         HistoryViewRoute(),
-  //       ]),
-  //     ),
-  //     onFailure: onFailure,
-  //   );
-  // }
 
   Future<dynamic> replaceWithHomeView({
     _i13.Key? key,
@@ -628,12 +604,4 @@ extension RouterStateExtension on _i11.RouterService {
       onFailure: onFailure,
     );
   }
-
-  // Future<dynamic> replaceWithHistoryView(
-  //     {void Function(_i12.NavigationFailure)? onFailure}) async {
-  //   return replaceWith(
-  //     const HistoryViewRoute(),
-  //     onFailure: onFailure,
-  //   );
-  // }
 }

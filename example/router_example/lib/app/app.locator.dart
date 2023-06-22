@@ -16,6 +16,8 @@ import 'package:stacked_themes/src/theme_service.dart';
 import '../services/epoch_service.dart';
 import '../services/factory_service.dart';
 import '../services/information_service.dart';
+import '../services/native_actions_service.dart';
+import '../services/shared_preferences_service.dart';
 import '../ui/bottom_nav/favorites/favorites_viewmodel.dart';
 import '../ui/bottom_nav/history/history_viewmodel.dart';
 import 'app.router.dart';
@@ -46,6 +48,15 @@ Future<void> setupExampleLocator({
       (param1, param2) => FactoryService(param1, data2: param2));
   exampleLocator.registerSingleton(HistoryViewModel());
   exampleLocator.registerSingleton(FavoritesViewModel());
+
+  final sharedPreferencesService = SharedPreferencesService();
+  await sharedPreferencesService.init();
+  exampleLocator.registerSingleton(sharedPreferencesService);
+
+  final nativeActionsService = NativeActionsService();
+  await nativeActionsService.init();
+  exampleLocator.registerSingleton(nativeActionsService);
+
   if (stackedRouter == null) {
     throw Exception(
         'Stacked is building to use the Router (Navigator 2.0) navigation but no stackedRouter is supplied. Pass the stackedRouter to the setupLocator function in main.dart');

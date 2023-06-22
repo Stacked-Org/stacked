@@ -38,6 +38,9 @@ dependencies:
   get: ^4.6.3
   animations: ^2.0.3
   url_strategy: ^0.2.0
+  shared_preferences: ^2.1.1
+  device_info_plus: ^9.0.2
+  package_info_plus: ^4.0.2
 
 dependency_overrides:
   stacked:
@@ -64,7 +67,6 @@ dev_dependencies:
   # dependency injection
   build_runner:
   stacked_generator:
-    # path: ../../stacked_generator
 
   flutter_lints:
 
