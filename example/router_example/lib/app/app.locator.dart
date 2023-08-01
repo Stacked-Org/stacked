@@ -48,7 +48,6 @@ Future<void> setupExampleLocator({
       (param1, param2) => FactoryService(param1, data2: param2));
   exampleLocator.registerSingleton(HistoryViewModel());
   exampleLocator.registerSingleton(FavoritesViewModel());
-
   final sharedPreferencesService = SharedPreferencesService();
   await sharedPreferencesService.init();
   exampleLocator.registerSingleton(sharedPreferencesService);

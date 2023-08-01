@@ -17,11 +17,16 @@ import 'example_form_viewmodel.dart';
       validator: FormValidators.emailValidator,
     ),
     FormTextField(
-        name: 'password',
-        validator: FormValidators.passwordValidator,
-        customTextEditingController:
-            CustomEditingController.getCustomEditingController),
-    FormTextField(name: 'shortBio'),
+      name: 'password',
+      validator: FormValidators.passwordValidator,
+      customTextEditingController:
+          CustomEditingController.getCustomEditingController,
+    ),
+    FormTextField(
+      name: 'shortBio',
+      customTextEditingController:
+          CustomEditingController.getCustomEditingController,
+    ),
     FormDateField(name: 'birthDate'),
     FormDropdownField(
       name: 'doYouLoveFood',
@@ -50,8 +55,7 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
       onViewModelReady: (viewModel) {
         // #3: Listen to text updates by calling listenToFormUpdated(model);
         syncFormWithViewModel(viewModel);
-        DoYouLoveFoodValueToTitleMap.addAll({'MaybeDr': 'Maybe'});
-        viewModel.setDoYouLoveFood(DoYouLoveFoodValueToTitleMap.keys.first);
+        viewModel.populateForm();
       },
       onDispose: (model) => disposeForm(),
       builder: (context, viewModel, child) => Scaffold(
@@ -59,11 +63,9 @@ class ExampleFormView extends StatelessWidget with $ExampleFormView {
           title: const Text('Example Form View'),
           centerTitle: true,
         ),
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          if (validateFormFields(viewModel)) {
-            viewModel.navigateToNewView();
-          }
-        }),
+        floatingActionButton: FloatingActionButton(
+          onPressed: viewModel.saveData,
+        ),
         body: SingleChildScrollView(
           child: SizedBox(
             width: MediaQuery.of(context).size.width,

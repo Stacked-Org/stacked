@@ -17,6 +17,11 @@ class ExampleFormViewModel extends FormViewModel {
     log.wtf('hash:${_preferences.hashCode}');
   }
 
+  void populateForm() {
+    DoYouLoveFoodValueToTitleMap.addAll({'MaybeDr': 'Maybe'});
+    setDoYouLoveFood(DoYouLoveFoodValueToTitleMap.keys.first);
+  }
+
   @override
   void setFormStatus() {
     log.i('Set form Status with data: $formValueMap');
@@ -31,13 +36,11 @@ class ExampleFormViewModel extends FormViewModel {
   // simply validate in the function that they'll use to submit the
   // data to the backend or db.
 
-  Future? saveData() {
-    return null;
+  Future<void> saveData() async {
+    if (!isFormValid) return;
 
     // here we can run custom functionality to save to our api
-  }
 
-  void navigateToNewView() {
     _routerService.replaceWith(const BottomNavExampleRoute());
   }
 }

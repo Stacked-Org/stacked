@@ -9,6 +9,8 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+const bool _autoTextFieldValidation = true;
+
 const String CountryValueKey = 'country';
 const String ProvinceValueKey = 'province';
 
@@ -31,7 +33,9 @@ final Map<String, String> ProvinceValueToTitleMap = {
 mixin $SelectLocationView {
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
-  void syncFormWithViewModel(FormViewModel model) {}
+  void syncFormWithViewModel(FormViewModel model) {
+    _updateFormData(model, forceValidate: _autoTextFieldValidation);
+  }
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
@@ -39,7 +43,9 @@ mixin $SelectLocationView {
     'Use syncFormWithViewModel instead.'
     'This feature was deprecated after 3.1.0.',
   )
-  void listenToFormUpdated(FormViewModel model) {}
+  void listenToFormUpdated(FormViewModel model) {
+    _updateFormData(model, forceValidate: _autoTextFieldValidation);
+  }
 
   /// Calls dispose on all the generated controllers and focus nodes
   void disposeForm() {
@@ -48,8 +54,17 @@ mixin $SelectLocationView {
 }
 
 extension ValueProperties on FormViewModel {
-  bool get isFormValid =>
-      this.fieldsValidationMessages.values.every((element) => element == null);
+  bool get hasAnyValidationMessage => this
+      .fieldsValidationMessages
+      .values
+      .any((validation) => validation != null);
+
+  bool get isFormValid {
+    if (!_autoTextFieldValidation) this.validateForm();
+
+    return !hasAnyValidationMessage;
+  }
+
   String? get countryValue => this.formValueMap[CountryValueKey] as String?;
   String? get provinceValue => this.formValueMap[ProvinceValueKey] as String?;
 
@@ -69,11 +84,23 @@ extension ValueProperties on FormViewModel {
 
 extension Methods on FormViewModel {
   void setCountry(String country) {
-    this.setData(this.formValueMap..addAll({CountryValueKey: country}));
+    this.setData(
+      this.formValueMap..addAll({CountryValueKey: country}),
+    );
+
+    if (_autoTextFieldValidation) {
+      this.validateForm();
+    }
   }
 
   void setProvince(String province) {
-    this.setData(this.formValueMap..addAll({ProvinceValueKey: province}));
+    this.setData(
+      this.formValueMap..addAll({ProvinceValueKey: province}),
+    );
+
+    if (_autoTextFieldValidation) {
+      this.validateForm();
+    }
   }
 
   setCountryValidationMessage(String? validationMessage) =>

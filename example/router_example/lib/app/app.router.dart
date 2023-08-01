@@ -5,12 +5,13 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:flutter/foundation.dart' as _i15;
 import 'package:flutter/material.dart' as _i13;
 import 'package:stacked/stacked.dart' as _i12;
 import 'package:stacked_services/stacked_services.dart' as _i11;
 
-import '../datamodels/clashable_one.dart' as _i15;
-import '../datamodels/clashable_two.dart' as _i16;
+import '../datamodels/clashable_one.dart' as _i16;
+import '../datamodels/clashable_two.dart' as _i17;
 import '../datamodels/home_type.dart' as _i1;
 import '../ui/bottom_nav/bottom_nav_example.dart' as _i3;
 import '../ui/bottom_nav/favorites/favorites_view.dart' as _i7;
@@ -181,10 +182,10 @@ class StackedRouterWeb extends _i12.RootStackRouter {
 /// [_i2.HomeView]
 class HomeViewRoute extends _i12.PageRouteInfo<HomeViewArgs> {
   HomeViewRoute({
-    _i13.Key? key,
+    _i15.Key? key,
     String? title = 'hello',
     bool? isLoggedIn = false,
-    _i15.Clashable Function(String)? clashableGetter,
+    _i16.Clashable Function(String)? clashableGetter,
     List<_i1.HomeType> homeTypes = const [
       _i1.HomeType.apartment,
       _i1.HomeType.house
@@ -213,13 +214,13 @@ class HomeViewArgs {
     this.homeTypes = const [_i1.HomeType.apartment, _i1.HomeType.house],
   });
 
-  final _i13.Key? key;
+  final _i15.Key? key;
 
   final String? title;
 
   final bool? isLoggedIn;
 
-  final _i15.Clashable Function(String)? clashableGetter;
+  final _i16.Clashable Function(String)? clashableGetter;
 
   final List<_i1.HomeType> homeTypes;
 
@@ -246,8 +247,8 @@ class BottomNavExampleRoute extends _i12.PageRouteInfo<void> {
 /// [_i4.StreamCounterView]
 class StreamCounterViewRoute extends _i12.PageRouteInfo<StreamCounterViewArgs> {
   StreamCounterViewRoute({
-    _i13.Key? key,
-    required List<_i16.Clashable> clashableTwo,
+    _i15.Key? key,
+    required List<_i17.Clashable> clashableTwo,
   }) : super(
           StreamCounterViewRoute.name,
           path: '/stream-counter-view',
@@ -266,9 +267,9 @@ class StreamCounterViewArgs {
     required this.clashableTwo,
   });
 
-  final _i13.Key? key;
+  final _i15.Key? key;
 
-  final List<_i16.Clashable> clashableTwo;
+  final List<_i17.Clashable> clashableTwo;
 
   @override
   String toString() {
@@ -280,8 +281,8 @@ class StreamCounterViewArgs {
 /// [_i5.ExampleFormView]
 class ExampleFormViewRoute extends _i12.PageRouteInfo<ExampleFormViewArgs> {
   ExampleFormViewRoute({
-    _i13.Key? key,
-    required _i15.Clashable clashableOne,
+    _i15.Key? key,
+    required _i16.Clashable clashableOne,
   }) : super(
           ExampleFormViewRoute.name,
           path: '/example-form-view',
@@ -300,9 +301,9 @@ class ExampleFormViewArgs {
     required this.clashableOne,
   });
 
-  final _i13.Key? key;
+  final _i15.Key? key;
 
-  final _i15.Clashable clashableOne;
+  final _i16.Clashable clashableOne;
 
   @override
   String toString() {
@@ -326,7 +327,7 @@ class NonReactiveViewRoute extends _i12.PageRouteInfo<void> {
 /// [_i7.FavoritesView]
 class FavoritesViewRoute extends _i12.PageRouteInfo<FavoritesViewArgs> {
   FavoritesViewRoute({
-    _i13.Key? key,
+    _i15.Key? key,
     String? id,
     List<_i12.PageRouteInfo>? children,
   }) : super(
@@ -348,7 +349,7 @@ class FavoritesViewArgs {
     this.id,
   });
 
-  final _i13.Key? key;
+  final _i15.Key? key;
 
   final String? id;
 
@@ -396,10 +397,10 @@ class MultipleFuturesExampleViewRoute extends _i12.PageRouteInfo<void> {
 
 extension RouterStateExtension on _i11.RouterService {
   Future<dynamic> navigateToHomeView({
-    _i13.Key? key,
+    _i15.Key? key,
     String? title = 'hello',
     bool? isLoggedIn = false,
-    _i15.Clashable Function(String)? clashableGetter,
+    _i16.Clashable Function(String)? clashableGetter,
     List<_i1.HomeType> homeTypes = const [
       _i1.HomeType.apartment,
       _i1.HomeType.house
@@ -427,8 +428,8 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToStreamCounterView({
-    _i13.Key? key,
-    required List<_i16.Clashable> clashableTwo,
+    _i15.Key? key,
+    required List<_i17.Clashable> clashableTwo,
     void Function(_i12.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
@@ -441,8 +442,8 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToExampleFormView({
-    _i13.Key? key,
-    required _i15.Clashable clashableOne,
+    _i15.Key? key,
+    required _i16.Clashable clashableOne,
     void Function(_i12.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
@@ -463,7 +464,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToFavoritesView({
-    _i13.Key? key,
+    _i15.Key? key,
     String? id,
     void Function(_i12.NavigationFailure)? onFailure,
   }) async {
@@ -501,10 +502,10 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithHomeView({
-    _i13.Key? key,
+    _i15.Key? key,
     String? title = 'hello',
     bool? isLoggedIn = false,
-    _i15.Clashable Function(String)? clashableGetter,
+    _i16.Clashable Function(String)? clashableGetter,
     List<_i1.HomeType> homeTypes = const [
       _i1.HomeType.apartment,
       _i1.HomeType.house
@@ -532,8 +533,8 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithStreamCounterView({
-    _i13.Key? key,
-    required List<_i16.Clashable> clashableTwo,
+    _i15.Key? key,
+    required List<_i17.Clashable> clashableTwo,
     void Function(_i12.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
@@ -546,8 +547,8 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithExampleFormView({
-    _i13.Key? key,
-    required _i15.Clashable clashableOne,
+    _i15.Key? key,
+    required _i16.Clashable clashableOne,
     void Function(_i12.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
@@ -568,7 +569,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithFavoritesView({
-    _i13.Key? key,
+    _i15.Key? key,
     String? id,
     void Function(_i12.NavigationFailure)? onFailure,
   }) async {
