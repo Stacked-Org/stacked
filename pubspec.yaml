@@ -2,6 +2,13 @@ name: stacked
 description: The framework to build testable, scalable and maintainable flutter apps
 version: 3.4.1
 homepage: https://github.com/FilledStacks/stacked
+platforms:
+  android:
+  ios:
+  linux:
+  macos:
+  web:
+  windows:
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
