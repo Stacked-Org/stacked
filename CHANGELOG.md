@@ -1,3 +1,10 @@
+## [3.4.2](https://github.com/Stacked-Org/stacked/compare/v3.4.1...v3.4.2) (2024-01-30)
+
+
+### Bug Fixes
+
+* maintenance update ([399403d](https://github.com/Stacked-Org/stacked/commit/399403dba0760abe0ce7bb83b43b339064dee2e6))
+
 ## [3.4.1](https://github.com/Stacked-Org/stacked/compare/v3.4.0...v3.4.1) (2023-06-22)
 
 
