@@ -27,6 +27,10 @@ class HomeView extends StatelessWidget {
       viewModelBuilder: () => HomeViewModel(),
       onViewModelReady: (viewModel) => viewModel.initialise(),
       builder: (context, viewModel, child) => Scaffold(
+        appBar: AppBar(
+          title: Text('Home View'),
+          actions: [IconButton(onPressed: viewModel.navigateToTicker, icon: Icon(Icons.tab))],
+        ),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(12, 20, 12, 40),
