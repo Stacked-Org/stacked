@@ -13,6 +13,8 @@ class SkeletonLoader extends StatefulWidget {
   final Color startColor;
   final Color endColor;
   final Duration duration;
+  final double cornerRadius;
+
   const SkeletonLoader({
     Key? key,
     required this.child,
@@ -20,6 +22,7 @@ class SkeletonLoader extends StatefulWidget {
     this.duration = const Duration(seconds: 1),
     this.startColor = _veryLightGrey,
     this.endColor = _lightGrey,
+    this.cornerRadius = 15.0,
   }) : super(key: key);
 
   @override
@@ -110,7 +113,8 @@ class SkeletonLoaderState extends State<SkeletonLoader>
                       ]).createShader(rect);
                     },
                     child: CustomPaint(
-                      foregroundPainter: RectangleFillPainter(),
+                      foregroundPainter: RectangleFillPainter(
+                          cornerRadius: widget.cornerRadius),
                       child: widget.child,
                     ),
                   ),
@@ -129,12 +133,16 @@ class SkeletonLoaderState extends State<SkeletonLoader>
 
 class RectangleFillPainter extends CustomPainter {
   bool hasPainted = true;
+  final double cornerRadius;
+
+  RectangleFillPainter({required this.cornerRadius});
+
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(0, 0, size.width, size.height),
-          const Radius.circular(15.0),
+          Radius.circular(cornerRadius),
         ),
         Paint()..color = Colors.grey);
   }
