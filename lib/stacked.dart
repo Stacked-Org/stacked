@@ -53,6 +53,7 @@ export 'src/view_models/index_tracking_viewmodel.dart';
 export 'src/view_models/selector_view_model_builder.dart';
 export 'src/view_models/selector_view_model_builder_widget.dart';
 export 'src/view_models/stacked_view.dart';
+export 'src/view_models/helpers/ticker_helper.dart';
 
 /// ui
 export 'src/view_models/ui/skeleton_loader.dart';

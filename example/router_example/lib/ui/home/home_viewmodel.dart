@@ -24,6 +24,10 @@ class HomeViewModel extends BaseViewModel with MessageStateHelper {
     _routerService.navigateTo(const NonReactiveViewRoute());
   }
 
+  void navigateToTicker() {
+    _routerService.navigateToTickerView();
+  }
+
   void initialise() {
     setMessage('initialise');
     log.i('initialise');
