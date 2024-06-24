@@ -1,3 +1,10 @@
+## [3.4.3](https://github.com/Stacked-Org/stacked/compare/v3.4.2...v3.4.3) (2024-06-24)
+
+
+### Bug Fixes
+
+* adds corner radius to SkeletonLoader ([1b2c51f](https://github.com/Stacked-Org/stacked/commit/1b2c51fd1f91ae3fd32626afcceaa27c582d7b5b))
+
 ## [3.4.2](https://github.com/Stacked-Org/stacked/compare/v3.4.1...v3.4.2) (2024-01-30)
 
 
