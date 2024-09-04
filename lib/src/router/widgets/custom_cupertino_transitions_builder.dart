@@ -5,11 +5,11 @@
 // The adjustments made to this code is to disable unwanted shadow
 // of routes when used as nested routes, e.g inside of a TabsRouter
 
-import 'package:flutter/cupertino.dart' show CupertinoDynamicColor;
-import 'package:flutter/foundation.dart';
 import 'dart:math';
 import 'dart:ui' show lerpDouble;
 
+import 'package:flutter/cupertino.dart' show CupertinoDynamicColor;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -179,6 +179,9 @@ mixin CustomCupertinoRouteTransitionMixin<T> on PageRoute<T> {
     // If attempts to dismiss this route might be vetoed such as in a page
     // with forms, then do not allow the user to dismiss the route with a swipe.
     if (route.hasScopedWillPopCallback) return false;
+    // If dismiss is blocked by any PopEntries, then don't allow the user to
+    // dismiss the route with a swipe
+    if (route.popDisposition == RoutePopDisposition.doNotPop) return false;
     // Fullscreen dialogs aren't dismissible by back swipe.
     if (route.fullscreenDialog) return false;
     // If we're in an animation already, we cannot be manually swiped.
