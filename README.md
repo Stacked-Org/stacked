@@ -1,5 +1,7 @@
 # Stacked [![Pub Version](https://img.shields.io/pub/v/stacked)](https://pub.dev/packages/stacked)
 
+## ⚠️ Looking for maintainers ⚠️ -> Email me on dane [AT] filledstacks.com
+
 ## [Checkout out the new and improved Docs](https://stacked.filledstacks.com/)
 
 Old doc can be found [here](https://github.com/Stacked-Org/stacked/blob/master/README_old.md)
