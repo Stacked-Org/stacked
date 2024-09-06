@@ -21,6 +21,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
+import 'package:example/ui/ticker/ticker_view.dart';
 import 'custom_route_transition.dart';
 
 @StackedApp(
@@ -39,7 +40,7 @@ import 'custom_route_transition.dart';
         page: FavoritesView,
         children: [
           MaterialRoute(page: MultipleFuturesExampleView),
-          CustomRoute(page: HistoryView),
+          //CustomRoute(page: HistoryView),
         ],
       ),
       CustomRoute(
@@ -54,6 +55,7 @@ import 'custom_route_transition.dart';
       page: NonReactiveView,
       transitionsBuilder: CustomRouteTransition.sharedAxis,
     ),
+    MaterialRoute(page: TickerView),
   ],
   dependencies: [
     // Lazy singletons
