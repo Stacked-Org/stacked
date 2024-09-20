@@ -16,7 +16,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  get_it: ^7.1.4
+  get_it: ^8.0.0
   meta: ^1.3.0
   provider: ^6.0.0
   collection: ^1.15.0
