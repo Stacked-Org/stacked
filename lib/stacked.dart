@@ -43,6 +43,7 @@ export 'src/view_models/data_models/single_data_models.dart';
 
 /// deprecated viewmodels
 export 'src/view_models/form_view_model.dart';
+export 'src/view_models/search_view_model.dart';
 export 'src/view_models/helpers/data_state_helper.dart';
 export 'src/view_models/helpers/form_state_helper.dart';
 export 'src/view_models/helpers/index_tracking_state_helper.dart';
