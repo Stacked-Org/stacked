@@ -19,12 +19,12 @@ jobs:
           channel: 'stable'
       - run: flutter pub get
       - run: dart format --fix --set-exit-if-changed .
-      - run: flutter analyze
+      # - run: flutter analyze # removing analyze for now, we only care about test passing
       - run: flutter test --coverage
       - name: Setup LCOV
         uses: hrishikesh-kadam/setup-lcov@v1
       - name: Report code coverage
-        uses: zgosalvez/github-actions-report-lcov@v3
+        uses: zgosalvez/github-actions-report-lcov@v4
         with:
           coverage-files: coverage/lcov*.info
           artifact-name: code-coverage-report

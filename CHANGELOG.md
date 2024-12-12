@@ -1,3 +1,10 @@
+## [3.4.4](https://github.com/Stacked-Org/stacked/compare/v3.4.3...v3.4.4) (2024-12-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency get_it to v8 ([#1128](https://github.com/Stacked-Org/stacked/issues/1128)) ([4398fed](https://github.com/Stacked-Org/stacked/commit/4398fed7cef851d11223cf93d6858ef34e84ac76))
+
 ## [3.4.3](https://github.com/Stacked-Org/stacked/compare/v3.4.2...v3.4.3) (2024-06-24)
 
 
