@@ -31,7 +31,7 @@ abstract class FutureViewModel<T> extends DynamicSourceViewModel<T>
     try {
       data = await runBusyFuture<T?>(futureToRun(), throwException: true);
     } catch (exception, stackTrace) {
-      setError(error);
+      setError(exception);
       setBusy(false);
       onError(exception, stackTrace);
 
