@@ -28,11 +28,12 @@ abstract class FutureViewModel<T> extends DynamicSourceViewModel<T>
     setMessage(null);
     setBusy(true);
 
-    data = await runBusyFuture<T?>(futureToRun(), throwException: true)
-        .catchError((error) {
+    try {
+      data = await runBusyFuture<T?>(futureToRun(), throwException: true);
+    } catch (exception, stackTrace) {
       setError(error);
       setBusy(false);
-      onError(error);
+      onError(exception, stackTrace);
 
       notifyListeners();
       if (rethrowException) {
@@ -40,7 +41,7 @@ abstract class FutureViewModel<T> extends DynamicSourceViewModel<T>
       }
 
       return null;
-    });
+    }
 
     if (data != null) {
       onData(data);
@@ -50,7 +51,7 @@ abstract class FutureViewModel<T> extends DynamicSourceViewModel<T>
   }
 
   /// Called when an error occurs within the future being run
-  void onError(error) {}
+  void onError(dynamic error, StackTrace? stackTrace) {}
 
   /// Called after the data has been set
   void onData(T? data) {}
@@ -101,10 +102,10 @@ abstract class StreamViewModel<T> extends DynamicSourceViewModel<T>
         onData(data);
         notifyListeners();
       },
-      onError: (error) {
+      onError: (dynamic error, StackTrace? stackTrace) {
         setError(error);
         data = null;
-        onError(error);
+        onError(error, stackTrace);
         notifyListeners();
       },
     );
@@ -120,7 +121,7 @@ abstract class StreamViewModel<T> extends DynamicSourceViewModel<T>
   void onSubscribed() {}
 
   /// Called when an error is fired in the stream
-  void onError(error) {}
+  void onError(Object error, StackTrace? stackTrace) {}
 
   void onCancel() {}
 
