@@ -37,7 +37,7 @@ abstract class FutureViewModel<T> extends DynamicSourceViewModel<T>
 
       notifyListeners();
       if (rethrowException) {
-        throw error;
+        rethrow;
       }
 
       return null;
