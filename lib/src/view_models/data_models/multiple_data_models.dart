@@ -109,14 +109,12 @@ abstract class MultipleStreamViewModel extends _MultiDataSourceViewModel
           setErrorForObject(key, null);
           notifyListeners();
           // Extra security in case transformData isnt sent
-          var interceptedData = streamsMapValues[key]!.transformData == null
-              ? transformData(key, incomingData)
-              : streamsMapValues[key]!.transformData!(incomingData);
-
-          if (interceptedData != null) {
-            _dataMap![key] = interceptedData;
+          if (streamsMapValues[key]!.transformData == null) {
+            _dataMap![key] = transformData(key, incomingData) ?? incomingData;
           } else {
-            _dataMap![key] = incomingData;
+            _dataMap![key] =
+                streamsMapValues[key]!.transformData!(incomingData) ??
+                    incomingData;
           }
 
           notifyListeners();

@@ -91,13 +91,7 @@ abstract class StreamViewModel<T> extends DynamicSourceViewModel<T>
         setError(null);
         setMessage(null);
         // Extra security in case transformData isnt sent
-        var interceptedData = transformData(incomingData);
-
-        if (interceptedData != null) {
-          data = interceptedData;
-        } else {
-          data = incomingData;
-        }
+        var data = transformData(incomingData) ?? incomingData;
 
         onData(data);
         notifyListeners();
