@@ -91,7 +91,7 @@ abstract class StreamViewModel<T> extends DynamicSourceViewModel<T>
         setError(null);
         setMessage(null);
         // Extra security in case transformData isnt sent
-        var data = transformData(incomingData) ?? incomingData;
+        data = transformData(incomingData) ?? incomingData;
 
         onData(data);
         notifyListeners();
@@ -115,7 +115,7 @@ abstract class StreamViewModel<T> extends DynamicSourceViewModel<T>
   void onSubscribed() {}
 
   /// Called when an error is fired in the stream
-  void onError(Object error, StackTrace? stackTrace) {}
+  void onError(dynamic error, StackTrace? stackTrace) {}
 
   void onCancel() {}
 

@@ -142,9 +142,9 @@ class StreamData<T> extends DynamicSourceViewModel<T>
 
         // Extra security in case transformData isnt sent
         if (transformData == null) {
-          var data = incomingData;
+          data = incomingData;
         } else {
-          var data = transformData!(incomingData) ?? incomingData;
+          data = transformData!(incomingData) ?? incomingData;
         }
 
         notifyListeners();
