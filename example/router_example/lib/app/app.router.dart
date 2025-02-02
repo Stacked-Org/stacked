@@ -5,39 +5,40 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/foundation.dart' as _i15;
-import 'package:flutter/material.dart' as _i13;
-import 'package:stacked/stacked.dart' as _i12;
-import 'package:stacked_services/stacked_services.dart' as _i11;
+import 'package:flutter/foundation.dart' as _i16;
+import 'package:flutter/material.dart' as _i14;
+import 'package:stacked/stacked.dart' as _i13;
+import 'package:stacked_services/stacked_services.dart' as _i12;
 
-import '../datamodels/clashable_one.dart' as _i16;
-import '../datamodels/clashable_two.dart' as _i17;
+import '../datamodels/clashable_one.dart' as _i17;
+import '../datamodels/clashable_two.dart' as _i18;
 import '../datamodels/home_type.dart' as _i1;
 import '../ui/bottom_nav/bottom_nav_example.dart' as _i3;
-import '../ui/bottom_nav/favorites/favorites_view.dart' as _i7;
-import '../ui/bottom_nav/history/history_view.dart' as _i8;
-import '../ui/bottom_nav/profile/profile_view.dart' as _i9;
+import '../ui/bottom_nav/favorites/favorites_view.dart' as _i8;
+import '../ui/bottom_nav/history/history_view.dart' as _i9;
+import '../ui/bottom_nav/profile/profile_view.dart' as _i10;
 import '../ui/form/example_form_view.dart' as _i5;
 import '../ui/home/home_view.dart' as _i2;
 import '../ui/multiple_futures_example/multiple_futures_example_view.dart'
-    as _i10;
+    as _i11;
 import '../ui/nonreactive/nonreactive_view.dart' as _i6;
 import '../ui/stream_view/stream_counter_view.dart' as _i4;
-import 'custom_route_transition.dart' as _i14;
+import '../ui/ticker/ticker_view.dart' as _i7;
+import 'custom_route_transition.dart' as _i15;
 
 final stackedRouter =
-    StackedRouterWeb(navigatorKey: _i11.StackedService.navigatorKey);
+    StackedRouterWeb(navigatorKey: _i12.StackedService.navigatorKey);
 
-class StackedRouterWeb extends _i12.RootStackRouter {
-  StackedRouterWeb({_i13.GlobalKey<_i13.NavigatorState>? navigatorKey})
+class StackedRouterWeb extends _i13.RootStackRouter {
+  StackedRouterWeb({_i14.GlobalKey<_i14.NavigatorState>? navigatorKey})
       : super(navigatorKey);
 
   @override
-  final Map<String, _i12.PageFactory> pagesMap = {
+  final Map<String, _i13.PageFactory> pagesMap = {
     HomeViewRoute.name: (routeData) {
       final args =
           routeData.argsAs<HomeViewArgs>(orElse: () => const HomeViewArgs());
-      return _i12.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i2.HomeView(
           key: args.key,
@@ -49,14 +50,14 @@ class StackedRouterWeb extends _i12.RootStackRouter {
       );
     },
     BottomNavExampleRoute.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i3.BottomNavExample(),
       );
     },
     StreamCounterViewRoute.name: (routeData) {
       final args = routeData.argsAs<StreamCounterViewArgs>();
-      return _i12.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i4.StreamCounterView(
           key: args.key,
@@ -66,7 +67,7 @@ class StackedRouterWeb extends _i12.RootStackRouter {
     },
     ExampleFormViewRoute.name: (routeData) {
       final args = routeData.argsAs<ExampleFormViewArgs>();
-      return _i12.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i5.ExampleFormView(
           key: args.key,
@@ -75,20 +76,26 @@ class StackedRouterWeb extends _i12.RootStackRouter {
       );
     },
     NonReactiveViewRoute.name: (routeData) {
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i6.NonReactiveView(),
-        transitionsBuilder: _i14.CustomRouteTransition.sharedAxis,
+        transitionsBuilder: _i15.CustomRouteTransition.sharedAxis,
         opaque: true,
         barrierDismissible: false,
+      );
+    },
+    TickerViewRoute.name: (routeData) {
+      return _i13.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i7.TickerView(),
       );
     },
     FavoritesViewRoute.name: (routeData) {
       final args = routeData.argsAs<FavoritesViewArgs>(
           orElse: () => const FavoritesViewArgs());
-      return _i12.AdaptivePage<dynamic>(
+      return _i13.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i7.FavoritesView(
+        child: _i8.FavoritesView(
           key: args.key,
           id: args.id,
         ),
@@ -96,96 +103,96 @@ class StackedRouterWeb extends _i12.RootStackRouter {
       );
     },
     HistoryViewRoute.name: (routeData) {
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i8.HistoryView(),
+        child: const _i9.HistoryView(),
+        transitionsBuilder: _i13.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ProfileViewRoute.name: (routeData) {
-      return _i12.CupertinoPageX<dynamic>(
+      return _i13.CupertinoPageX<dynamic>(
         routeData: routeData,
-        child: const _i9.ProfileView(),
+        child: const _i10.ProfileView(),
       );
     },
     MultipleFuturesExampleViewRoute.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i10.MultipleFuturesExampleView(),
+        child: const _i11.MultipleFuturesExampleView(),
       );
     },
   };
 
   @override
-  List<_i12.RouteConfig> get routes => [
-        _i12.RouteConfig(
+  List<_i13.RouteConfig> get routes => [
+        _i13.RouteConfig(
           HomeViewRoute.name,
           path: '/',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           BottomNavExampleRoute.name,
           path: '/bottom-nav-example',
           children: [
-            _i12.RouteConfig(
+            _i13.RouteConfig(
               '#redirect',
               path: '',
               parent: BottomNavExampleRoute.name,
               redirectTo: 'favorites',
               fullMatch: true,
             ),
-            _i12.RouteConfig(
+            _i13.RouteConfig(
               FavoritesViewRoute.name,
               path: 'favourites',
               parent: BottomNavExampleRoute.name,
               children: [
-                _i12.RouteConfig(
+                _i13.RouteConfig(
                   MultipleFuturesExampleViewRoute.name,
                   path: 'multiple-futures-example-view',
                   parent: FavoritesViewRoute.name,
-                ),
-                _i12.RouteConfig(
-                  HistoryViewRoute.name,
-                  path: 'history-view',
-                  parent: FavoritesViewRoute.name,
-                ),
+                )
               ],
             ),
-            _i12.RouteConfig(
+            _i13.RouteConfig(
               HistoryViewRoute.name,
               path: 'history-view',
               parent: BottomNavExampleRoute.name,
             ),
-            _i12.RouteConfig(
+            _i13.RouteConfig(
               ProfileViewRoute.name,
               path: 'profile-view',
               parent: BottomNavExampleRoute.name,
             ),
           ],
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           StreamCounterViewRoute.name,
           path: '/stream-counter-view',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           ExampleFormViewRoute.name,
           path: '/example-form-view',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           NonReactiveViewRoute.name,
           path: '/non-reactive-view',
+        ),
+        _i13.RouteConfig(
+          TickerViewRoute.name,
+          path: '/ticker-view',
         ),
       ];
 }
 
 /// generated route for
 /// [_i2.HomeView]
-class HomeViewRoute extends _i12.PageRouteInfo<HomeViewArgs> {
+class HomeViewRoute extends _i13.PageRouteInfo<HomeViewArgs> {
   HomeViewRoute({
-    _i15.Key? key,
+    _i16.Key? key,
     String? title = 'hello',
     bool? isLoggedIn = false,
-    _i16.Clashable Function(String)? clashableGetter,
+    _i17.Clashable Function(String)? clashableGetter,
     List<_i1.HomeType> homeTypes = const [
       _i1.HomeType.apartment,
       _i1.HomeType.house
@@ -214,13 +221,13 @@ class HomeViewArgs {
     this.homeTypes = const [_i1.HomeType.apartment, _i1.HomeType.house],
   });
 
-  final _i15.Key? key;
+  final _i16.Key? key;
 
   final String? title;
 
   final bool? isLoggedIn;
 
-  final _i16.Clashable Function(String)? clashableGetter;
+  final _i17.Clashable Function(String)? clashableGetter;
 
   final List<_i1.HomeType> homeTypes;
 
@@ -232,8 +239,8 @@ class HomeViewArgs {
 
 /// generated route for
 /// [_i3.BottomNavExample]
-class BottomNavExampleRoute extends _i12.PageRouteInfo<void> {
-  const BottomNavExampleRoute({List<_i12.PageRouteInfo>? children})
+class BottomNavExampleRoute extends _i13.PageRouteInfo<void> {
+  const BottomNavExampleRoute({List<_i13.PageRouteInfo>? children})
       : super(
           BottomNavExampleRoute.name,
           path: '/bottom-nav-example',
@@ -245,10 +252,10 @@ class BottomNavExampleRoute extends _i12.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.StreamCounterView]
-class StreamCounterViewRoute extends _i12.PageRouteInfo<StreamCounterViewArgs> {
+class StreamCounterViewRoute extends _i13.PageRouteInfo<StreamCounterViewArgs> {
   StreamCounterViewRoute({
-    _i15.Key? key,
-    required List<_i17.Clashable> clashableTwo,
+    _i16.Key? key,
+    required List<_i18.Clashable> clashableTwo,
   }) : super(
           StreamCounterViewRoute.name,
           path: '/stream-counter-view',
@@ -267,9 +274,9 @@ class StreamCounterViewArgs {
     required this.clashableTwo,
   });
 
-  final _i15.Key? key;
+  final _i16.Key? key;
 
-  final List<_i17.Clashable> clashableTwo;
+  final List<_i18.Clashable> clashableTwo;
 
   @override
   String toString() {
@@ -279,10 +286,10 @@ class StreamCounterViewArgs {
 
 /// generated route for
 /// [_i5.ExampleFormView]
-class ExampleFormViewRoute extends _i12.PageRouteInfo<ExampleFormViewArgs> {
+class ExampleFormViewRoute extends _i13.PageRouteInfo<ExampleFormViewArgs> {
   ExampleFormViewRoute({
-    _i15.Key? key,
-    required _i16.Clashable clashableOne,
+    _i16.Key? key,
+    required _i17.Clashable clashableOne,
   }) : super(
           ExampleFormViewRoute.name,
           path: '/example-form-view',
@@ -301,9 +308,9 @@ class ExampleFormViewArgs {
     required this.clashableOne,
   });
 
-  final _i15.Key? key;
+  final _i16.Key? key;
 
-  final _i16.Clashable clashableOne;
+  final _i17.Clashable clashableOne;
 
   @override
   String toString() {
@@ -313,7 +320,7 @@ class ExampleFormViewArgs {
 
 /// generated route for
 /// [_i6.NonReactiveView]
-class NonReactiveViewRoute extends _i12.PageRouteInfo<void> {
+class NonReactiveViewRoute extends _i13.PageRouteInfo<void> {
   const NonReactiveViewRoute()
       : super(
           NonReactiveViewRoute.name,
@@ -324,12 +331,24 @@ class NonReactiveViewRoute extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.FavoritesView]
-class FavoritesViewRoute extends _i12.PageRouteInfo<FavoritesViewArgs> {
+/// [_i7.TickerView]
+class TickerViewRoute extends _i13.PageRouteInfo<void> {
+  const TickerViewRoute()
+      : super(
+          TickerViewRoute.name,
+          path: '/ticker-view',
+        );
+
+  static const String name = 'TickerView';
+}
+
+/// generated route for
+/// [_i8.FavoritesView]
+class FavoritesViewRoute extends _i13.PageRouteInfo<FavoritesViewArgs> {
   FavoritesViewRoute({
-    _i15.Key? key,
+    _i16.Key? key,
     String? id,
-    List<_i12.PageRouteInfo>? children,
+    List<_i13.PageRouteInfo>? children,
   }) : super(
           FavoritesViewRoute.name,
           path: 'favourites',
@@ -349,7 +368,7 @@ class FavoritesViewArgs {
     this.id,
   });
 
-  final _i15.Key? key;
+  final _i16.Key? key;
 
   final String? id;
 
@@ -360,8 +379,8 @@ class FavoritesViewArgs {
 }
 
 /// generated route for
-/// [_i8.HistoryView]
-class HistoryViewRoute extends _i12.PageRouteInfo<void> {
+/// [_i9.HistoryView]
+class HistoryViewRoute extends _i13.PageRouteInfo<void> {
   const HistoryViewRoute()
       : super(
           HistoryViewRoute.name,
@@ -372,8 +391,8 @@ class HistoryViewRoute extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.ProfileView]
-class ProfileViewRoute extends _i12.PageRouteInfo<void> {
+/// [_i10.ProfileView]
+class ProfileViewRoute extends _i13.PageRouteInfo<void> {
   const ProfileViewRoute()
       : super(
           ProfileViewRoute.name,
@@ -384,8 +403,8 @@ class ProfileViewRoute extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.MultipleFuturesExampleView]
-class MultipleFuturesExampleViewRoute extends _i12.PageRouteInfo<void> {
+/// [_i11.MultipleFuturesExampleView]
+class MultipleFuturesExampleViewRoute extends _i13.PageRouteInfo<void> {
   const MultipleFuturesExampleViewRoute()
       : super(
           MultipleFuturesExampleViewRoute.name,
@@ -395,17 +414,17 @@ class MultipleFuturesExampleViewRoute extends _i12.PageRouteInfo<void> {
   static const String name = 'MultipleFuturesExampleView';
 }
 
-extension RouterStateExtension on _i11.RouterService {
+extension RouterStateExtension on _i12.RouterService {
   Future<dynamic> navigateToHomeView({
-    _i15.Key? key,
+    _i16.Key? key,
     String? title = 'hello',
     bool? isLoggedIn = false,
-    _i16.Clashable Function(String)? clashableGetter,
+    _i17.Clashable Function(String)? clashableGetter,
     List<_i1.HomeType> homeTypes = const [
       _i1.HomeType.apartment,
       _i1.HomeType.house
     ],
-    void Function(_i12.NavigationFailure)? onFailure,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       HomeViewRoute(
@@ -420,7 +439,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToBottomNavExample(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const BottomNavExampleRoute(),
       onFailure: onFailure,
@@ -428,9 +447,9 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToStreamCounterView({
-    _i15.Key? key,
-    required List<_i17.Clashable> clashableTwo,
-    void Function(_i12.NavigationFailure)? onFailure,
+    _i16.Key? key,
+    required List<_i18.Clashable> clashableTwo,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       StreamCounterViewRoute(
@@ -442,9 +461,9 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToExampleFormView({
-    _i15.Key? key,
-    required _i16.Clashable clashableOne,
-    void Function(_i12.NavigationFailure)? onFailure,
+    _i16.Key? key,
+    required _i17.Clashable clashableOne,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       ExampleFormViewRoute(
@@ -456,17 +475,25 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToNonReactiveView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const NonReactiveViewRoute(),
       onFailure: onFailure,
     );
   }
 
+  Future<dynamic> navigateToTickerView(
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
+    return navigateTo(
+      const TickerViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
   Future<dynamic> navigateToFavoritesView({
-    _i15.Key? key,
+    _i16.Key? key,
     String? id,
-    void Function(_i12.NavigationFailure)? onFailure,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return navigateTo(
       FavoritesViewRoute(
@@ -478,7 +505,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToHistoryView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const HistoryViewRoute(),
       onFailure: onFailure,
@@ -486,7 +513,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToProfileView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const ProfileViewRoute(),
       onFailure: onFailure,
@@ -494,7 +521,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> navigateToMultipleFuturesExampleView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return navigateTo(
       const MultipleFuturesExampleViewRoute(),
       onFailure: onFailure,
@@ -502,15 +529,15 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithHomeView({
-    _i15.Key? key,
+    _i16.Key? key,
     String? title = 'hello',
     bool? isLoggedIn = false,
-    _i16.Clashable Function(String)? clashableGetter,
+    _i17.Clashable Function(String)? clashableGetter,
     List<_i1.HomeType> homeTypes = const [
       _i1.HomeType.apartment,
       _i1.HomeType.house
     ],
-    void Function(_i12.NavigationFailure)? onFailure,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       HomeViewRoute(
@@ -525,7 +552,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithBottomNavExample(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const BottomNavExampleRoute(),
       onFailure: onFailure,
@@ -533,9 +560,9 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithStreamCounterView({
-    _i15.Key? key,
-    required List<_i17.Clashable> clashableTwo,
-    void Function(_i12.NavigationFailure)? onFailure,
+    _i16.Key? key,
+    required List<_i18.Clashable> clashableTwo,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       StreamCounterViewRoute(
@@ -547,9 +574,9 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithExampleFormView({
-    _i15.Key? key,
-    required _i16.Clashable clashableOne,
-    void Function(_i12.NavigationFailure)? onFailure,
+    _i16.Key? key,
+    required _i17.Clashable clashableOne,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       ExampleFormViewRoute(
@@ -561,17 +588,25 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithNonReactiveView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const NonReactiveViewRoute(),
       onFailure: onFailure,
     );
   }
 
+  Future<dynamic> replaceWithTickerView(
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
+    return replaceWith(
+      const TickerViewRoute(),
+      onFailure: onFailure,
+    );
+  }
+
   Future<dynamic> replaceWithFavoritesView({
-    _i15.Key? key,
+    _i16.Key? key,
     String? id,
-    void Function(_i12.NavigationFailure)? onFailure,
+    void Function(_i13.NavigationFailure)? onFailure,
   }) async {
     return replaceWith(
       FavoritesViewRoute(
@@ -583,7 +618,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithHistoryView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const HistoryViewRoute(),
       onFailure: onFailure,
@@ -591,7 +626,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithProfileView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const ProfileViewRoute(),
       onFailure: onFailure,
@@ -599,7 +634,7 @@ extension RouterStateExtension on _i11.RouterService {
   }
 
   Future<dynamic> replaceWithMultipleFuturesExampleView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+      {void Function(_i13.NavigationFailure)? onFailure}) async {
     return replaceWith(
       const MultipleFuturesExampleViewRoute(),
       onFailure: onFailure,
