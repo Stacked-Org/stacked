@@ -21,8 +21,8 @@ class SelectorViewModelBuilder<T extends ChangeNotifier, K>
       key: key,
       shouldRebuild: shouldRebuild,
       selector: (BuildContext context, T viewModel) => selector(viewModel),
-      builder: (BuildContext context, K value, Widget? child) =>
-          builder(context, value, child),
+      builder: (BuildContext _, K value, Widget? child) =>
+          builder(_, value, child),
       child: child,
     );
   }
