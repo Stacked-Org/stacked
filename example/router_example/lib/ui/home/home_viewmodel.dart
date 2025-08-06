@@ -21,7 +21,7 @@ class HomeViewModel extends BaseViewModel with MessageStateHelper {
   bool get isUserLoggedIn => _preferences.isUserLoggedIn;
 
   void navigate() {
-    _routerService.navigateTo(const NonReactiveViewRoute());
+    _routerService.navigateTo(NonReactiveViewRoute());
   }
 
   void initialise() {

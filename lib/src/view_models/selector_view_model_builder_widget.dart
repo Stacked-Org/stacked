@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 abstract class SelectorViewModelWidget<T extends ChangeNotifier, K>
     extends Widget {
-  const SelectorViewModelWidget({Key? key}) : super(key: key);
+  const SelectorViewModelWidget({super.key});
 
   K selector(T viewModel);
   Widget? get staticChild => null;
@@ -18,7 +18,7 @@ abstract class SelectorViewModelWidget<T extends ChangeNotifier, K>
 
 class _DataProviderElement<T extends ChangeNotifier, K>
     extends ComponentElement {
-  _DataProviderElement(SelectorViewModelWidget widget) : super(widget);
+  _DataProviderElement(SelectorViewModelWidget super.widget);
 
   @override
   SelectorViewModelWidget get widget =>

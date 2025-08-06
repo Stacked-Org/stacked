@@ -14,7 +14,7 @@ class ExampleFormViewModel extends FormViewModel {
   final _preferences = exampleLocator<SharedPreferencesService>();
 
   ExampleFormViewModel() {
-    log.wtf('hash:${_preferences.hashCode}');
+    log.f('hash:${_preferences.hashCode}');
   }
 
   void populateForm() {
@@ -41,6 +41,6 @@ class ExampleFormViewModel extends FormViewModel {
 
     // here we can run custom functionality to save to our api
 
-    _routerService.replaceWith(const BottomNavExampleRoute());
+    _routerService.replaceWith(BottomNavExampleRoute());
   }
 }

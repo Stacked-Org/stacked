@@ -20,10 +20,10 @@ class BottomNavExampleViewModel extends IndexTrackingViewModel {
         _routerService.navigateTo(FavoritesViewRoute());
         break;
       case 1:
-        _routerService.navigateTo(const HistoryViewRoute());
+        _routerService.navigateTo(HistoryViewRoute());
         break;
       case 2:
-        _routerService.navigateTo(const ProfileViewRoute());
+        _routerService.navigateTo(ProfileViewRoute());
         break;
       default:
     }

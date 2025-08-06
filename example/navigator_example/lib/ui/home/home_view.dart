@@ -14,7 +14,7 @@ class HomeView extends StatelessWidget {
   final Clashable Function(String name)? clashableGetter;
 
   const HomeView({
-    Key? key,
+    super.key,
     this.title = 'hello',
     this.isLoggedIn = false,
     this.clashableGetter,
@@ -22,7 +22,7 @@ class HomeView extends StatelessWidget {
       HomeType.apartment,
       HomeType.house,
     ],
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

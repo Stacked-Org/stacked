@@ -5,8 +5,7 @@ import 'package:stacked/stacked.dart';
 
 class StreamCounterView extends StatelessWidget {
   final List<Clashable> clashableTwo;
-  const StreamCounterView({Key? key, required this.clashableTwo})
-      : super(key: key);
+  const StreamCounterView({super.key, required this.clashableTwo});
 
   @override
   Widget build(BuildContext context) {

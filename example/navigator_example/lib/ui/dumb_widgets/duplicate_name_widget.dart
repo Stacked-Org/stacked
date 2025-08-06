@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class DuplicateNameWidget extends ViewModelWidget<Human> {
-  const DuplicateNameWidget({Key? key}) : super(key: key);
+  const DuplicateNameWidget({super.key});
 
   @override
   Widget build(BuildContext context, Human viewModel) {

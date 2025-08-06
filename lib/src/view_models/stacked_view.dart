@@ -5,13 +5,13 @@ import 'package:stacked/src/view_models/view_model_builder.dart';
     'This widget will be removed by March 2023, please use the StackedView instead')
 abstract class ViewModelBuilderWidget<T extends ChangeNotifier>
     extends StackedView<T> {
-  const ViewModelBuilderWidget({Key? key}) : super(key: key);
+  const ViewModelBuilderWidget({super.key});
 }
 
 /// Creates a binding between the ViewModel and the UI by providing a builder function that
 /// gets called when the viewmodel changes has occured.
 abstract class StackedView<T extends ChangeNotifier> extends StatelessWidget {
-  const StackedView({Key? key}) : super(key: key);
+  const StackedView({super.key});
 
   /// A function that builds the UI to be shown from the ViewModel - Required
   ///

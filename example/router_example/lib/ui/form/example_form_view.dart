@@ -47,7 +47,7 @@ import 'example_form_viewmodel.dart';
 // #2: with $ExampleFormView
 class ExampleFormView extends StatelessWidget with $ExampleFormView {
   final Clashable clashableOne;
-  ExampleFormView({Key? key, required this.clashableOne}) : super(key: key);
+  ExampleFormView({super.key, required this.clashableOne});
 
   @override
   Widget build(BuildContext context) {
