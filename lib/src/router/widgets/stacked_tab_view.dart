@@ -6,6 +6,8 @@
 /// updating in sync with TabRouter changes
 /// and to set pageController.offset.round() to [TabController.index]
 /// so page is set when the scroll pos is rounded to it
+library;
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/src/router/controller/routing_controller.dart';
@@ -15,13 +17,13 @@ class StackedTabView extends StatefulWidget {
   /// Creates a page view with one child per tab.
 
   const StackedTabView({
-    Key? key,
+    super.key,
     required this.controller,
     this.physics,
     required this.router,
     this.scrollDirection = Axis.horizontal,
     this.dragStartBehavior = DragStartBehavior.start,
-  }) : super(key: key);
+  });
   final Axis scrollDirection;
   final TabController controller;
 

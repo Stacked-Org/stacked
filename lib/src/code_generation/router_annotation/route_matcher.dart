@@ -86,9 +86,9 @@ class RouteMatchV1 extends RouteSettings {
     required this.rest,
     required this.pathParamsMap,
     this.initialArgsToPass,
-    required String? name,
-    required Object? arguments,
-  }) : super(name: name, arguments: arguments);
+    required super.name,
+    required super.arguments,
+  });
 
   bool get hasRest => !rest.hasEmptyPath;
 

@@ -20,8 +20,8 @@ class RouteNavigator extends StatefulWidget {
     this.didPop,
     this.declarativeRoutesBuilder,
     this.placeholder,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   RouteNavigatorState createState() => RouteNavigatorState();
@@ -71,16 +71,12 @@ class RouteNavigatorState extends State<RouteNavigator> {
             restorationScopeId:
                 widget.navRestorationScopeId ?? widget.router.routeData.name,
             pages: widget.router.stack,
-            onPopPage: (route, result) {
-              if (!route.didPop(result)) {
-                return false;
-              }
-              if (route.settings is StackedPage) {
-                var routeData = (route.settings as StackedPage).routeData;
+            onDidRemovePage: (page) {
+              if (page is StackedPage) {
+                var routeData = page.routeData;
                 widget.router.removeRoute(routeData);
-                widget.didPop?.call(routeData.route, result);
+                widget.didPop?.call(routeData.route, null);
               }
-              return true;
             },
           )
         : widget.placeholder?.call(context) ??
@@ -90,9 +86,9 @@ class RouteNavigatorState extends State<RouteNavigator> {
 
     // fixes nested cupertino routes back gesture issue
     if (!widget.router.isRoot) {
-      return WillPopScope(
-        onWillPop: widget.router.canPop(ignoreParentRoutes: true)
-            ? () => SynchronousFuture(true)
+      return PopScope(
+        onPopInvokedWithResult: widget.router.canPop(ignoreParentRoutes: true)
+            ? (didPop, result) => SynchronousFuture(true)
             : null,
         child: navigator,
       );

@@ -69,18 +69,12 @@ abstract class StackedPage<T> extends Page<T> {
 
 class MaterialPageX<T> extends StackedPage<T> {
   MaterialPageX({
-    required RouteData routeData,
-    required Widget child,
-    bool fullscreenDialog = false,
-    bool maintainState = true,
-    LocalKey? key,
-  }) : super(
-          routeData: routeData,
-          child: child,
-          maintainState: maintainState,
-          fullscreenDialog: fullscreenDialog,
-          key: key,
-        );
+    required super.routeData,
+    required super.child,
+    super.fullscreenDialog,
+    super.maintainState,
+    super.key,
+  });
 
   @override
   Route<T> onCreateRoute(BuildContext context) {
@@ -273,35 +267,23 @@ abstract class _TitledAutoRoutePage<T> extends StackedPage<T> {
   final String? title;
 
   _TitledAutoRoutePage({
-    required RouteData routeData,
-    required Widget child,
+    required super.routeData,
+    required super.child,
     this.title,
-    bool fullscreenDialog = false,
-    bool maintainState = true,
-    bool opaque = true,
-  }) : super(
-          routeData: routeData,
-          child: child,
-          maintainState: maintainState,
-          fullscreenDialog: fullscreenDialog,
-          opaque: opaque,
-        );
+    super.fullscreenDialog,
+    super.maintainState,
+    super.opaque,
+  });
 }
 
 class CupertinoPageX<T> extends _TitledAutoRoutePage<T> {
   CupertinoPageX({
-    required RouteData routeData,
-    required Widget child,
-    String? title,
-    bool fullscreenDialog = false,
-    bool maintainState = true,
-  }) : super(
-          routeData: routeData,
-          child: child,
-          maintainState: maintainState,
-          fullscreenDialog: fullscreenDialog,
-          title: title,
-        );
+    required super.routeData,
+    required super.child,
+    super.title,
+    super.fullscreenDialog,
+    super.maintainState,
+  });
 
   @override
   Route<T> onCreateRoute(BuildContext context) {
@@ -335,20 +317,13 @@ class _PageBasedCupertinoPageRoute<T> extends PageRoute<T>
 
 class AdaptivePage<T> extends _TitledAutoRoutePage<T> {
   AdaptivePage({
-    required RouteData routeData,
-    required Widget child,
-    String? title,
-    bool fullscreenDialog = false,
-    bool maintainState = true,
-    bool opaque = true,
-  }) : super(
-          routeData: routeData,
-          child: child,
-          title: title,
-          maintainState: maintainState,
-          fullscreenDialog: fullscreenDialog,
-          opaque: opaque,
-        );
+    required super.routeData,
+    required super.child,
+    super.title,
+    super.fullscreenDialog,
+    super.maintainState,
+    super.opaque,
+  });
 
   @override
   Route<T> onCreateRoute(BuildContext context) {
@@ -373,11 +348,11 @@ class CustomPage<T> extends StackedPage<T> {
   final CustomRouteBuilder? customRouteBuilder;
 
   CustomPage({
-    required RouteData routeData,
-    required Widget child,
-    bool fullscreenDialog = false,
-    bool maintainState = true,
-    bool opaque = true,
+    required super.routeData,
+    required super.child,
+    super.fullscreenDialog,
+    super.maintainState,
+    super.opaque,
     this.durationInMilliseconds = 300,
     this.reverseDurationInMilliseconds = 300,
     this.barrierColor,
@@ -385,15 +360,8 @@ class CustomPage<T> extends StackedPage<T> {
     this.barrierLabel,
     this.transitionsBuilder,
     this.customRouteBuilder,
-    LocalKey? key,
-  }) : super(
-          routeData: routeData,
-          key: key,
-          child: child,
-          maintainState: maintainState,
-          fullscreenDialog: fullscreenDialog,
-          opaque: opaque,
-        );
+    super.key,
+  });
 
   @override
   Route<T> onCreateRoute(BuildContext context) {

@@ -5,8 +5,8 @@ class StackedPageRouteBuilder<T> extends PageRoute<T> {
     this.transitionBuilder,
     this.transitionDuration = const Duration(milliseconds: 300),
     required this.child,
-    bool fullscreenDialog = false,
-  }) : super(fullscreenDialog: fullscreenDialog);
+    super.fullscreenDialog,
+  });
 
   final RouteTransitionsBuilder? transitionBuilder;
   final Widget child;
