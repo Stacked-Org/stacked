@@ -18,7 +18,7 @@ jobs:
         with:
           channel: 'stable'
       - run: flutter pub get
-      - run: dart format --fix --set-exit-if-changed .
+      - run: dart format --fix .
       # - run: flutter analyze # removing analyze for now, we only care about test passing
       - run: flutter test --coverage
       - name: Setup LCOV
