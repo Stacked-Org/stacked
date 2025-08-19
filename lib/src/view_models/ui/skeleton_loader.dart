@@ -16,14 +16,14 @@ class SkeletonLoader extends StatefulWidget {
   final double cornerRadius;
 
   const SkeletonLoader({
-    Key? key,
+    super.key,
     required this.child,
     required this.loading,
     this.duration = const Duration(seconds: 1),
     this.startColor = _veryLightGrey,
     this.endColor = _lightGrey,
     this.cornerRadius = 15.0,
-  }) : super(key: key);
+  });
 
   @override
   SkeletonLoaderState createState() => SkeletonLoaderState();

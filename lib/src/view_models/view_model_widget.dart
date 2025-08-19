@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 abstract class ViewModelWidget<T> extends Widget {
   final bool reactive;
 
-  const ViewModelWidget({Key? key, this.reactive = true}) : super(key: key);
+  const ViewModelWidget({super.key, this.reactive = true});
 
   @protected
   Widget build(BuildContext context, T viewModel);
@@ -15,7 +15,7 @@ abstract class ViewModelWidget<T> extends Widget {
 }
 
 class DataProviderElement<T> extends ComponentElement {
-  DataProviderElement(ViewModelWidget widget) : super(widget);
+  DataProviderElement(ViewModelWidget super.widget);
 
   @override
   ViewModelWidget get widget => super.widget as ViewModelWidget<dynamic>;

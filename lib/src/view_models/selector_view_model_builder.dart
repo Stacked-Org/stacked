@@ -4,12 +4,12 @@ import 'package:provider/provider.dart';
 class SelectorViewModelBuilder<T extends ChangeNotifier, K>
     extends StatelessWidget {
   const SelectorViewModelBuilder({
-    Key? key,
+    super.key,
     required this.selector,
     required this.builder,
     this.child,
     this.shouldRebuild,
-  }) : super(key: key);
+  });
 
   final K Function(T viewModel) selector;
   final Widget Function(BuildContext context, K value, Widget? child) builder;

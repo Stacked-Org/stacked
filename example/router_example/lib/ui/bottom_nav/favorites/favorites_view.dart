@@ -6,7 +6,7 @@ import 'favorites_viewmodel.dart';
 
 class FavoritesView extends StatelessWidget {
   final String? id;
-  const FavoritesView({Key? key, this.id}) : super(key: key);
+  const FavoritesView({super.key, this.id});
 
   @override
   Widget build(BuildContext context) {

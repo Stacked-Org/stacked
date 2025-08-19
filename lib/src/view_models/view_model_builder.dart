@@ -71,10 +71,9 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
     @Deprecated('Prefer to use fireOnViewModelReadyOnce')
     this.fireOnModelReadyOnce = false,
     this.initialiseSpecialViewModelsOnce = false,
-    Key? key,
+    super.key,
   })  : providerType = ViewModelBuilderType.nonReactive,
-        staticChild = null,
-        super(key: key);
+        staticChild = null;
 
   /// Constructs a ViewModel provider that fires the [builder] function when notifyListeners is called in the ViewModel.
   const ViewModelBuilder.reactive({
@@ -90,9 +89,8 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
     @Deprecated('Prefer to use fireOnViewModelReadyOnce')
     this.fireOnModelReadyOnce = false,
     this.initialiseSpecialViewModelsOnce = false,
-    Key? key,
-  })  : providerType = ViewModelBuilderType.reactive,
-        super(key: key);
+    super.key,
+  })  : providerType = ViewModelBuilderType.reactive;
 
   @override
   ViewModelBuilderState<T> createState() => ViewModelBuilderState<T>();

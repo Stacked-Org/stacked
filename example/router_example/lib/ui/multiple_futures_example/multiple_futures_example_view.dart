@@ -3,7 +3,7 @@ import 'package:example/ui/multiple_futures_example/multiple_futures_example_vie
 import 'package:stacked/stacked.dart';
 
 class MultipleFuturesExampleView extends StatelessWidget {
-  const MultipleFuturesExampleView({Key? key}) : super(key: key);
+  const MultipleFuturesExampleView({super.key});
 
   @override
   Widget build(BuildContext context) {

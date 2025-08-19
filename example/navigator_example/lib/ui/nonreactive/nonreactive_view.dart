@@ -4,7 +4,7 @@ import 'package:stacked/stacked.dart';
 import 'nonreactive_viewmodel.dart';
 
 class NonReactiveView extends StatelessWidget {
-  const NonReactiveView({Key? key}) : super(key: key);
+  const NonReactiveView({super.key});
 
   @override
   Widget build(BuildContext context) {

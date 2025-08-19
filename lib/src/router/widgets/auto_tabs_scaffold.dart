@@ -54,7 +54,7 @@ class StackedTabsScaffold extends StatelessWidget {
   final GlobalKey<ScaffoldState>? scaffoldKey;
   final int homeIndex;
   const StackedTabsScaffold({
-    Key? key,
+    super.key,
     required this.routes,
     this.lazyLoad = true,
     this.homeIndex = -1,
@@ -88,7 +88,7 @@ class StackedTabsScaffold extends StatelessWidget {
     this.extendBodyBehindAppBar = false,
     this.appBarBuilder,
     this.scaffoldKey,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

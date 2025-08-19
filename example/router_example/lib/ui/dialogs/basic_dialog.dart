@@ -5,10 +5,10 @@ class BasicDialog extends StatelessWidget {
   final DialogRequest request;
   final void Function(DialogResponse) completer;
   const BasicDialog({
-    Key? key,
+    super.key,
     required this.request,
     required this.completer,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

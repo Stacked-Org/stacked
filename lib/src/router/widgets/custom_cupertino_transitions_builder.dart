@@ -156,6 +156,7 @@ mixin CustomCupertinoRouteTransitionMixin<T> on PageRoute<T> {
   ///    is currently underway for specific route.
   ///  * [popGestureEnabled], which returns true if a user-triggered pop gesture
   ///    would be allowed.
+  @override
   bool get popGestureInProgress => isPopGestureInProgress(this);
 
   /// Whether a pop gesture can be started by the user.
@@ -167,6 +168,7 @@ mixin CustomCupertinoRouteTransitionMixin<T> on PageRoute<T> {
   /// true first.
   ///
   /// This should only be used between frames, not during build.
+  @override
   bool get popGestureEnabled => _isPopGestureEnabled(this);
 
   static bool _isPopGestureEnabled<T>(PageRoute<T> route) {
@@ -178,9 +180,6 @@ mixin CustomCupertinoRouteTransitionMixin<T> on PageRoute<T> {
     if (route.willHandlePopInternally) return false;
     // If attempts to dismiss this route might be vetoed such as in a page
     // with forms, then do not allow the user to dismiss the route with a swipe.
-    if (route.hasScopedWillPopCallback) return false;
-    // If dismiss is blocked by any PopEntries, then don't allow the user to
-    // dismiss the route with a swipe
     if (route.popDisposition == RoutePopDisposition.doNotPop) return false;
     // Fullscreen dialogs aren't dismissible by back swipe.
     if (route.fullscreenDialog) return false;
@@ -313,13 +312,10 @@ class CupertinoPageRoute<T> extends PageRoute<T>
   CupertinoPageRoute({
     required this.builder,
     this.title,
-    RouteSettings? settings,
+    super.settings,
     this.maintainState = true,
-    bool fullscreenDialog = false,
-  }) : super(
-          settings: settings,
-          fullscreenDialog: fullscreenDialog,
-        ) {
+    super.fullscreenDialog,
+  }) {
     assert(opaque);
   }
 
@@ -353,7 +349,7 @@ class CupertinoPageTransition extends StatelessWidget {
   ///  * `linearTransition` is whether to perform the transitions linearly.
   ///    Used to precisely track back gesture drags.
   CupertinoPageTransition({
-    Key? key,
+    super.key,
     required Animation<double> primaryRouteAnimation,
     required Animation<double> secondaryRouteAnimation,
     required this.child,
@@ -386,8 +382,7 @@ class CupertinoPageTransition extends StatelessWidget {
                     parent: primaryRouteAnimation,
                     curve: Curves.linearToEaseOut,
                   ))
-            .drive(_CupertinoEdgeShadowDecoration.tween(linearTransition)),
-        super(key: key);
+            .drive(_CupertinoEdgeShadowDecoration.tween(linearTransition));
 
   // When this page is coming in to cover another page.
   final Animation<Offset> _primaryPositionAnimation;
@@ -433,7 +428,7 @@ class CupertinoFullscreenDialogTransition extends StatelessWidget {
   ///  * `linearTransition` is whether to perform the secondary transition linearly.
   ///    Used to precisely track back gesture drags.
   CupertinoFullscreenDialogTransition({
-    Key? key,
+    super.key,
     required Animation<double> primaryRouteAnimation,
     required Animation<double> secondaryRouteAnimation,
     required this.child,
@@ -452,8 +447,7 @@ class CupertinoFullscreenDialogTransition extends StatelessWidget {
                     curve: Curves.linearToEaseOut,
                     reverseCurve: Curves.easeInToLinear,
                   ))
-            .drive(_kMiddleLeftTween),
-        super(key: key);
+            .drive(_kMiddleLeftTween);
 
   final Animation<Offset> _positionAnimation;
 
@@ -492,11 +486,11 @@ class CupertinoFullscreenDialogTransition extends StatelessWidget {
 /// detector is associated.
 class _CupertinoBackGestureDetector<T> extends StatefulWidget {
   const _CupertinoBackGestureDetector({
-    Key? key,
+    super.key,
     required this.enabledCallback,
     required this.onStartPopGesture,
     required this.child,
-  }) : super(key: key);
+  });
 
   final Widget child;
 
@@ -766,7 +760,7 @@ class _CupertinoEdgeShadowDecoration extends Decoration {
     if (b == null) {
       return a._colors == null
           ? a
-          : _CupertinoEdgeShadowDecoration._(a._colors!
+          : _CupertinoEdgeShadowDecoration._(a._colors
               .map<Color>((Color color) => Color.lerp(null, color, 1.0 - t)!)
               .toList());
     }
@@ -775,11 +769,11 @@ class _CupertinoEdgeShadowDecoration extends Decoration {
     // length' here, similarly to how it is handled in [LinearGradient.lerp].
     assert(b._colors == null ||
         a._colors == null ||
-        a._colors!.length == b._colors!.length);
+        a._colors.length == b._colors.length);
     return _CupertinoEdgeShadowDecoration._(
       <Color>[
         for (int i = 0; i < b._colors!.length; i += 1)
-          Color.lerp(a._colors?[i], b._colors?[i], t)!,
+          Color.lerp(a._colors?[i], b._colors[i], t)!,
       ],
     );
   }

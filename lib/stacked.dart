@@ -1,4 +1,4 @@
-library stacked;
+library;
 
 /// code generators
 export 'src/code_generation/router_annotation/extended_navigator.dart';
@@ -19,11 +19,11 @@ export 'src/router/controller/routing_controller.dart';
 /// Navigator 2.0 Exports
 export 'src/router/matcher/route_match.dart';
 export 'src/router/navigation_failure.dart';
-export 'src/router/router_service_interface.dart';
 export 'src/router/parser/route_information_parser.dart';
 export 'src/router/route/page_route_info.dart';
 export 'src/router/route/route_config.dart';
 export 'src/router/route/route_data_scope.dart';
+export 'src/router/router_service_interface.dart';
 export 'src/router/stacked_page.dart';
 export 'src/router/widgets/auto_tabs_scaffold.dart';
 export 'src/router/widgets/custom_cupertino_transitions_builder.dart'

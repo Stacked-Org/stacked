@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show kIsWeb, ValueListenable, ValueNotifier;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:stacked_shared/stacked_shared.dart';
@@ -59,8 +59,8 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
     this.initialRouteArgs,
     this.navigatorKey,
     this.observers = const <NavigatorObserver>[],
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final GlobalKey<NavigatorState>? navigatorKey;
   final List<NavigatorObserver> observers;
@@ -75,7 +75,7 @@ class ExtendedNavigator<T extends RouterBase?> extends StatefulWidget {
 
   static get _placeHolderRoute => PageRouteBuilder(
         pageBuilder: (context, __, ___) => Container(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
         ),
       );
 
@@ -169,7 +169,7 @@ class ExtendedNavigatorState<T extends RouterBase?>
 
   bool get isRoot => parent == null;
 
-  WillPopCallback? _willPopCallback;
+  PopEntry? _popEntry;
 
   ExtendedNavigatorState get root =>
       context.findRootAncestorStateOfType<ExtendedNavigatorState>() ?? this;
@@ -277,11 +277,10 @@ class ExtendedNavigatorState<T extends RouterBase?>
     if (routerName != null) {
       _NavigatorsContainer._instance.register(this, name: routerName);
     }
-    final modelRoute = ModalRoute.of(context);
-    if (modelRoute != null) {
-      modelRoute.addScopedWillPopCallback(_willPopCallback = () async {
-        return !await _navigator!.maybePop();
-      });
+    final modalRoute = ModalRoute.of(context);
+    if (modalRoute != null) {
+      _popEntry = _ExtendedNavigatorPopEntry(this);
+      modalRoute.registerPopEntry(_popEntry!);
     }
   }
 
@@ -389,8 +388,8 @@ class ExtendedNavigatorState<T extends RouterBase?>
 
   @override
   void deactivate() {
-    if (_willPopCallback != null) {
-      ModalRoute.of(context)!.removeScopedWillPopCallback(_willPopCallback!);
+    if (_popEntry != null) {
+      ModalRoute.of(context)!.unregisterPopEntry(_popEntry!);
     }
     super.deactivate();
   }
@@ -445,5 +444,22 @@ class _NavigatorsContainer {
 
   ExtendedNavigatorState? get<T extends RouterBase>([String? name]) {
     return _routers[name ?? T.toString()];
+  }
+}
+
+class _ExtendedNavigatorPopEntry extends PopEntry {
+  _ExtendedNavigatorPopEntry(this._navigatorState);
+
+  final ExtendedNavigatorState _navigatorState;
+  final ValueNotifier<bool> _canPopNotifier = ValueNotifier<bool>(true);
+
+  @override
+  ValueListenable<bool> get canPopNotifier => _canPopNotifier;
+
+  @override
+  void onPopInvokedWithResult(bool didPop, dynamic result) async {
+    if (!didPop) {
+      await _navigatorState._navigator!.maybePop(result);
+    }
   }
 }

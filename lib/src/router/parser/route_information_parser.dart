@@ -14,7 +14,7 @@ class DefaultRouteParser extends RouteInformationParser<UrlState> {
 
   @override
   Future<UrlState> parseRouteInformation(RouteInformation routeInformation) {
-    final uri = Uri.parse(routeInformation.location ?? '');
+    final uri = routeInformation.uri;
     var matches =
         _matcher.matchUri(uri, includePrefixMatches: includePrefixMatches);
     return SynchronousFuture<UrlState>(UrlState(uri, matches ?? const []));
@@ -33,10 +33,10 @@ class StackedRouteInformation extends RouteInformation {
   final bool replace;
 
   const StackedRouteInformation({
-    required String location,
-    Object? state,
+    required String super.location,
+    super.state,
     this.replace = true,
-  }) : super(location: location, state: state);
+  });
 }
 
 @immutable

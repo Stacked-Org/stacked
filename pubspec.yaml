@@ -16,14 +16,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  get_it: ^8.0.2
-  meta: ^1.15.0
-  provider: ^6.1.2
-  collection: ^1.18.0
+  get_it: ^8.2.0
+  meta: ^1.16.0
+  provider: ^6.1.5
+  collection: ^1.19.1
   # Remove the path and use pub one after publish the stacked_shared
   stacked_shared: ^1.4.2
   universal_io: ^2.2.2
-  path: ^1.9.0
+  path: ^1.9.1
+  web: ^1.1.1
 
 dev_dependencies:
   flutter_lints: ^5.0.0

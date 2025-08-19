@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -11,7 +12,7 @@ import 'package:example/ui/form/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-const bool _autoTextFieldValidation = true;
+const bool _autoTextFieldValidation = false;
 
 const String EmailValueKey = 'email';
 const String PasswordValueKey = 'password';
@@ -97,7 +98,7 @@ mixin $ExampleFormView {
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
-  void syncFormWithViewModel(FormViewModel model) {
+  void syncFormWithViewModel(FormStateHelper model) {
     emailController.addListener(() => _updateFormData(model));
     passwordController.addListener(() => _updateFormData(model));
     shortBioController.addListener(() => _updateFormData(model));
@@ -120,7 +121,7 @@ mixin $ExampleFormView {
   }
 
   /// Updates the formData on the FormViewModel
-  void _updateFormData(FormViewModel model, {bool forceValidate = false}) {
+  void _updateFormData(FormStateHelper model, {bool forceValidate = false}) {
     model.setData(
       model.formValueMap
         ..addAll({
@@ -156,7 +157,7 @@ mixin $ExampleFormView {
   }
 }
 
-extension ValueProperties on FormViewModel {
+extension ValueProperties on FormStateHelper {
   bool get hasAnyValidationMessage => this
       .fieldsValidationMessages
       .values
@@ -244,7 +245,7 @@ extension ValueProperties on FormViewModel {
       this.fieldsValidationMessages[DoYouLoveFoodValueKey];
 }
 
-extension Methods on FormViewModel {
+extension Methods on FormStateHelper {
   Future<void> selectBirthDate({
     required BuildContext context,
     required DateTime initialDate,
@@ -264,9 +265,7 @@ extension Methods on FormViewModel {
       );
     }
 
-    if (_autoTextFieldValidation) {
-      this.validateForm();
-    }
+    if (_autoTextFieldValidation) this.validateForm();
   }
 
   void setDoYouLoveFood(String doYouLoveFood) {
@@ -274,20 +273,18 @@ extension Methods on FormViewModel {
       this.formValueMap..addAll({DoYouLoveFoodValueKey: doYouLoveFood}),
     );
 
-    if (_autoTextFieldValidation) {
-      this.validateForm();
-    }
+    if (_autoTextFieldValidation) this.validateForm();
   }
 
-  setEmailValidationMessage(String? validationMessage) =>
+  void setEmailValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[EmailValueKey] = validationMessage;
-  setPasswordValidationMessage(String? validationMessage) =>
+  void setPasswordValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[PasswordValueKey] = validationMessage;
-  setShortBioValidationMessage(String? validationMessage) =>
+  void setShortBioValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[ShortBioValueKey] = validationMessage;
-  setBirthDateValidationMessage(String? validationMessage) =>
+  void setBirthDateValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[BirthDateValueKey] = validationMessage;
-  setDoYouLoveFoodValidationMessage(String? validationMessage) =>
+  void setDoYouLoveFoodValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[DoYouLoveFoodValueKey] = validationMessage;
 
   /// Clears text input fields on the Form
@@ -320,7 +317,8 @@ String? getValidationMessage(String key) {
 }
 
 /// Updates the fieldsValidationMessages on the FormViewModel
-void updateValidationData(FormViewModel model) => model.setValidationMessages({
+void updateValidationData(FormStateHelper model) =>
+    model.setValidationMessages({
       EmailValueKey: getValidationMessage(EmailValueKey),
       PasswordValueKey: getValidationMessage(PasswordValueKey),
       ShortBioValueKey: getValidationMessage(ShortBioValueKey),

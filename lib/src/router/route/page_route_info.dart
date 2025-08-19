@@ -35,7 +35,7 @@ class PageRouteInfo<T> {
 
   String get stringMatch {
     if (_stringMatch != null) {
-      return _stringMatch!;
+      return _stringMatch;
     }
     return expandPath(path, rawPathParams);
   }

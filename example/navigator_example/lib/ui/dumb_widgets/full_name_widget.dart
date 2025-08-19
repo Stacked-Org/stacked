@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class FullNameWidget extends ViewModelWidget<Human> {
-  const FullNameWidget({Key? key}) : super(key: key);
+  const FullNameWidget({super.key});
 
   @override
   Widget build(BuildContext context, Human viewModel) {

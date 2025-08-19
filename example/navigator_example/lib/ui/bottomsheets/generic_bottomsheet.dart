@@ -6,10 +6,10 @@ class GenericBottomSheet extends StatelessWidget {
   final Function(SheetResponse<GenericBottomSheetResponse>) completer;
 
   const GenericBottomSheet({
-    Key? key,
+    super.key,
     required this.request,
     required this.completer,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class GenericBottomSheet extends StatelessWidget {
                   data: const GenericBottomSheetResponse(message: 'MainButton'),
                 )),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
+                  backgroundColor: WidgetStateProperty.all<Color>(
                     Theme.of(context).primaryColor,
                   ),
                 ),

@@ -1,4 +1,5 @@
 /// Most of the code here is taking from flutter's [TabView]
+library;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/src/router/controller/routing_controller.dart';
@@ -6,13 +7,13 @@ import 'package:stacked/src/router/widgets/stacked_tabs_router.dart';
 
 class StackedPageView extends StatefulWidget {
   const StackedPageView({
-    Key? key,
+    super.key,
     required this.controller,
     this.physics,
     required this.router,
     this.dragStartBehavior = DragStartBehavior.start,
     this.scrollDirection = Axis.horizontal,
-  }) : super(key: key);
+  });
 
   final PageController controller;
   final Axis scrollDirection;

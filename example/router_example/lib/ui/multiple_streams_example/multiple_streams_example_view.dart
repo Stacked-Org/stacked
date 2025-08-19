@@ -4,7 +4,7 @@ import 'package:stacked/stacked.dart';
 import 'multiple_streams_example_viewmodel.dart';
 
 class MultipleStreamsExampleView extends StatelessWidget {
-  const MultipleStreamsExampleView({Key? key}) : super(key: key);
+  const MultipleStreamsExampleView({super.key});
 
   @override
   Widget build(BuildContext context) {

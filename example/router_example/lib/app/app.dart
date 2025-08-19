@@ -16,12 +16,11 @@ import 'package:example/ui/home/home_view.dart';
 import 'package:example/ui/multiple_futures_example/multiple_futures_example_view.dart';
 import 'package:example/ui/nonreactive/nonreactive_view.dart';
 import 'package:example/ui/stream_view/stream_counter_view.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 import 'package:stacked_themes/stacked_themes.dart';
-
-import 'custom_route_transition.dart';
 
 @StackedApp(
   bottomsheets: [
@@ -50,10 +49,14 @@ import 'custom_route_transition.dart';
     ]),
     MaterialRoute(page: StreamCounterView),
     MaterialRoute(page: ExampleFormView),
+    // CustomRoute(
+    //   page: NonReactiveView,
+    //   transitionsBuilder: CustomRouteTransition.sharedAxis,
+    // ),
     CustomRoute(
       page: NonReactiveView,
-      transitionsBuilder: CustomRouteTransition.sharedAxis,
-    ),
+      customRouteBuilder: RouteBuilders.bottomSheetBuilder,
+    )
   ],
   dependencies: [
     // Lazy singletons
@@ -96,4 +99,32 @@ import 'custom_route_transition.dart';
 )
 class App {
   /// This class has no puporse besides housing the annotation that generates the required functionality
+}
+
+abstract class RouteBuilders {
+  static Route<T> bottomSheetBuilder<T>(
+    BuildContext context,
+    Widget child,
+    CustomPage<T> page,
+  ) {
+    return ModalBottomSheetRoute<T>(
+      builder: page.buildPage,
+      settings: page,
+      isScrollControlled: false,
+      isDismissible: false,
+      enableDrag: false,
+      useSafeArea: true,
+      showDragHandle: false,
+      scrollControlDisabledMaxHeightRatio: 0.5,
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.8,
+      ),
+      backgroundColor: Colors.amber,
+      modalBarrierColor: Colors.black.withValues(alpha: 0.6),
+      elevation: 5,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+      ),
+    );
+  }
 }
