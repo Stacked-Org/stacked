@@ -20,7 +20,8 @@ class StackedRouteInformationProvider extends RouteInformationProvider
       bool Function(String? location)? neglectWhen}) {
     final initialRouteInfo = initialRouteInformation ??
         RouteInformation(
-            location: PlatformDispatcher.instance.defaultRouteName);
+          uri: Uri.parse(PlatformDispatcher.instance.defaultRouteName),
+        );
     return StackedRouteInformationProvider._(
       initialRouteInformation: initialRouteInfo,
       neglectIf: neglectWhen,
@@ -31,13 +32,13 @@ class StackedRouteInformationProvider extends RouteInformationProvider
   void routerReportsNewRouteInformation(RouteInformation routeInformation,
       {RouteInformationReportingType type =
           RouteInformationReportingType.none}) {
-    if (neglectIf != null && neglectIf!(routeInformation.location)) {
+    if (neglectIf != null && neglectIf!(routeInformation.uri.path)) {
       return;
     }
 
     var replace = type == RouteInformationReportingType.neglect ||
         (type == RouteInformationReportingType.none &&
-            _valueInEngine.location == routeInformation.location);
+            _valueInEngine.uri == routeInformation.uri);
 
     if (!replace && routeInformation is StackedRouteInformation) {
       replace = routeInformation.replace;
@@ -45,9 +46,9 @@ class StackedRouteInformationProvider extends RouteInformationProvider
 
     SystemNavigator.selectMultiEntryHistory();
     SystemNavigator.routeInformationUpdated(
-      location: routeInformation.location!,
       state: routeInformation.state,
       replace: replace,
+      uri: routeInformation.uri,
     );
     _value = routeInformation;
     _valueInEngine = routeInformation;
@@ -57,8 +58,8 @@ class StackedRouteInformationProvider extends RouteInformationProvider
   RouteInformation get value => _value;
   RouteInformation _value;
 
-  RouteInformation _valueInEngine =
-      RouteInformation(location: PlatformDispatcher.instance.defaultRouteName);
+  RouteInformation _valueInEngine = RouteInformation(
+      uri: Uri.parse(PlatformDispatcher.instance.defaultRouteName));
 
   void _platformReportsNewRouteInformation(RouteInformation routeInformation) {
     if (_value == routeInformation) return;
@@ -100,7 +101,8 @@ class StackedRouteInformationProvider extends RouteInformationProvider
   @override
   Future<bool> didPushRoute(String route) async {
     assert(hasListeners);
-    _platformReportsNewRouteInformation(RouteInformation(location: route));
+    _platformReportsNewRouteInformation(
+        RouteInformation(uri: Uri.parse(route)));
     return true;
   }
 }

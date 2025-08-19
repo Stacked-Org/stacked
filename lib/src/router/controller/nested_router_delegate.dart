@@ -26,7 +26,7 @@ class NestedRouterDelegate extends RouterDelegate<UrlState>
         .routeInformationProvider
         ?.routerReportsNewRouteInformation(
           RouteInformation(
-            location: url,
+            uri: Uri.parse(url),
           ),
           type: RouteInformationReportingType.navigate,
         );
@@ -136,13 +136,12 @@ class NestedRouterDelegate extends RouterDelegate<UrlState>
 
 class _RootRouter extends StatefulWidget {
   const _RootRouter({
-    Key? key,
     required this.router,
     this.navRestorationScopeId,
     this.navigatorObservers = const [],
     required this.navigatorObserversBuilder,
     this.placeholder,
-  }) : super(key: key);
+  });
   final StackRouter router;
   final String? navRestorationScopeId;
   final List<NavigatorObserver> navigatorObservers;

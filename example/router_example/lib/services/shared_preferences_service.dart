@@ -27,12 +27,12 @@ class SharedPreferencesService implements InitializableDependency {
 
   Object? getFromDisk(String key) {
     final value = _preferences.get(key);
-    if (enableLogs) _log.v('key:$key value:$value');
+    if (enableLogs) _log.t('key:$key value:$value');
     return value;
   }
 
   void saveToDisk(String key, dynamic content) {
-    if (enableLogs) _log.v('key:$key value:$content');
+    if (enableLogs) _log.t('key:$key value:$content');
 
     if (content is String) {
       _preferences.setString(key, content);

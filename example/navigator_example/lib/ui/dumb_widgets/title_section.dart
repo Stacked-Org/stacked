@@ -3,7 +3,7 @@ import 'package:example/ui/home/home_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class TitleSection extends ViewModelWidget<HomeViewModel> {
-  const TitleSection({Key? key}) : super(key: key);
+  const TitleSection({super.key});
 
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {

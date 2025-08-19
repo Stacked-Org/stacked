@@ -32,7 +32,7 @@ class StackedLeadingButton extends StatefulWidget {
   final LeadingButtonBuilder? builder;
 
   const StackedLeadingButton({
-    Key? key,
+    super.key,
     this.color,
     @Deprecated('Use showIfParentCanPop') bool? showBackIfParentCanPop,
     bool? showIfParentCanPop,
@@ -41,8 +41,7 @@ class StackedLeadingButton extends StatefulWidget {
     this.builder,
   })  : assert(color == null || builder == null),
         _showIfParentCanPop =
-            showIfParentCanPop ?? showBackIfParentCanPop ?? true,
-        super(key: key);
+            showIfParentCanPop ?? showBackIfParentCanPop ?? true;
 
   @override
   State<StackedLeadingButton> createState() => _StackedLeadingButtonState();

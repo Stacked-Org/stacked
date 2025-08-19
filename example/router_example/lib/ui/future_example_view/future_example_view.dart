@@ -4,7 +4,7 @@ import 'package:stacked/stacked.dart';
 import 'future_example_viewmodel.dart';
 
 class FutureExampleView extends StatelessWidget {
-  const FutureExampleView({Key? key}) : super(key: key);
+  const FutureExampleView({super.key});
 
   @override
   Widget build(BuildContext context) {

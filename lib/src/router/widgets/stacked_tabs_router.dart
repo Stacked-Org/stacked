@@ -32,13 +32,13 @@ abstract class StackedTabsRouter extends StatefulWidget {
   final int homeIndex;
 
   const StackedTabsRouter._({
-    Key? key,
+    super.key,
     required this.routes,
     this.homeIndex = -1,
     this.inheritNavigatorObservers = true,
     this.navigatorObservers =
         NestedRouterDelegate.defaultNavigatorObserversBuilder,
-  }) : super(key: key);
+  });
 
   const factory StackedTabsRouter({
     Key? key,
@@ -167,23 +167,16 @@ class _StackedTabsRouterIndexedStack extends StackedTabsRouter {
   final bool lazyLoad;
 
   const _StackedTabsRouterIndexedStack({
-    Key? key,
-    required List<PageRouteInfo> routes,
+    super.key,
+    required super.routes,
     this.lazyLoad = true,
     this.duration = const Duration(milliseconds: 300),
     this.curve = Curves.ease,
     this.builder,
-    int homeIndex = -1,
-    bool inheritNavigatorObservers = true,
-    NavigatorObserversBuilder navigatorObservers =
-        NestedRouterDelegate.defaultNavigatorObserversBuilder,
-  }) : super._(
-          key: key,
-          routes: routes,
-          inheritNavigatorObservers: inheritNavigatorObservers,
-          navigatorObservers: navigatorObservers,
-          homeIndex: homeIndex,
-        );
+    super.homeIndex,
+    super.inheritNavigatorObservers,
+    super.navigatorObservers,
+  }) : super._();
 
   @override
   _AutoTabsRouterIndexedStackState createState() =>
@@ -301,7 +294,6 @@ class _AutoTabsRouterIndexedStackState extends _StackedTabsRouterState
 
 class _IndexedStackBuilder extends StatefulWidget {
   const _IndexedStackBuilder({
-    Key? key,
     required this.activeIndex,
     required this.itemBuilder,
     required this.navigatorObservers,
@@ -309,7 +301,7 @@ class _IndexedStackBuilder extends StatefulWidget {
     required this.lazyLoad,
     required this.tabsHash,
     required this.animation,
-  }) : super(key: key);
+  });
 
   final int activeIndex;
   final IndexedWidgetBuilder itemBuilder;
@@ -402,27 +394,20 @@ class AutoTabsRouterPageView extends StackedTabsRouter {
   final DragStartBehavior dragStartBehavior;
 
   const AutoTabsRouterPageView({
-    Key? key,
-    required List<PageRouteInfo> routes,
+    super.key,
+    required super.routes,
     TabsPageViewBuilder? builder,
-    int homeIndex = -1,
+    super.homeIndex,
     this.scrollDirection = Axis.horizontal,
     this.animatePageTransition = true,
     this.duration = kTabScrollDuration,
     this.curve = Curves.easeInOut,
     this.physics,
     this.dragStartBehavior = DragStartBehavior.start,
-    bool inheritNavigatorObservers = true,
-    NavigatorObserversBuilder navigatorObservers =
-        NestedRouterDelegate.defaultNavigatorObserversBuilder,
+    super.inheritNavigatorObservers,
+    super.navigatorObservers,
   })  : _pageViewModeBuilder = builder,
-        super._(
-          key: key,
-          routes: routes,
-          homeIndex: homeIndex,
-          navigatorObservers: navigatorObservers,
-          inheritNavigatorObservers: inheritNavigatorObservers,
-        );
+        super._();
 
   @override
   AutoTabsRouterPageViewState createState() => AutoTabsRouterPageViewState();
@@ -520,25 +505,18 @@ class _AutoTabsRouterTabBar extends StackedTabsRouter {
   final DragStartBehavior dragStartBehavior;
   final Axis scrollDirection;
   const _AutoTabsRouterTabBar({
-    Key? key,
-    required List<PageRouteInfo> routes,
+    super.key,
+    required super.routes,
     this.scrollDirection = Axis.horizontal,
     this.builder,
-    int homeIndex = -1,
+    super.homeIndex,
     this.duration,
     this.curve = Curves.ease,
-    bool inheritNavigatorObservers = true,
-    NavigatorObserversBuilder navigatorObservers =
-        NestedRouterDelegate.defaultNavigatorObserversBuilder,
+    super.inheritNavigatorObservers,
+    super.navigatorObservers,
     this.physics,
     this.dragStartBehavior = DragStartBehavior.start,
-  }) : super._(
-          key: key,
-          routes: routes,
-          homeIndex: homeIndex,
-          navigatorObservers: navigatorObservers,
-          inheritNavigatorObservers: inheritNavigatorObservers,
-        );
+  }) : super._();
 
   @override
   _AutoTabsRouterTabBarState createState() => _AutoTabsRouterTabBarState();
@@ -643,22 +621,15 @@ class _AutoTabsRouterBuilder extends StackedTabsRouter {
   final OnNavigationChanged? onRouterReady;
 
   const _AutoTabsRouterBuilder({
-    Key? key,
-    required List<PageRouteInfo> routes,
+    super.key,
+    required super.routes,
     this.onNavigate,
     this.onRouterReady,
     required this.builder,
-    int homeIndex = -1,
-    bool inheritNavigatorObservers = true,
-    NavigatorObserversBuilder navigatorObservers =
-        NestedRouterDelegate.defaultNavigatorObserversBuilder,
-  }) : super._(
-          key: key,
-          routes: routes,
-          homeIndex: homeIndex,
-          navigatorObservers: navigatorObservers,
-          inheritNavigatorObservers: inheritNavigatorObservers,
-        );
+    super.homeIndex,
+    super.inheritNavigatorObservers,
+    super.navigatorObservers,
+  }) : super._();
 
   @override
   _AutoTabsRouterBuilderState createState() => _AutoTabsRouterBuilderState();
@@ -766,9 +737,9 @@ mixin _RouteAwareTabsMixin<T extends StatefulWidget> on State<T> {
 
 class KeepAliveTab extends StatefulWidget {
   const KeepAliveTab({
-    Key? key,
+    super.key,
     required this.page,
-  }) : super(key: key);
+  });
   final StackedPage page;
 
   @override

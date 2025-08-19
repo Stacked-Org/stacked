@@ -5,7 +5,7 @@ import 'package:stacked/stacked.dart';
 import 'history_viewmodel.dart';
 
 class HistoryView extends StatelessWidget {
-  const HistoryView({Key? key}) : super(key: key);
+  const HistoryView({super.key});
 
   @override
   Widget build(BuildContext context) {

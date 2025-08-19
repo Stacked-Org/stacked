@@ -6,7 +6,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'bottom_nav_example_viewmodel.dart';
 
 class BottomNavExample extends StatefulWidget {
-  const BottomNavExample({Key? key}) : super(key: key);
+  const BottomNavExample({super.key});
 
   @override
   BottomNavExampleState createState() => BottomNavExampleState();

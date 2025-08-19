@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -6,10 +7,7 @@
 
 // ignore_for_file: public_member_api_docs, constant_identifier_names, non_constant_identifier_names,unnecessary_this
 
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-
-const bool _autoTextFieldValidation = true;
 
 const String CountryValueKey = 'country';
 const String ProvinceValueKey = 'province';
@@ -33,9 +31,7 @@ final Map<String, String> ProvinceValueToTitleMap = {
 mixin $SelectLocationView {
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
-  void syncFormWithViewModel(FormViewModel model) {
-    _updateFormData(model, forceValidate: _autoTextFieldValidation);
-  }
+  void syncFormWithViewModel(FormStateHelper model) {}
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
@@ -43,9 +39,7 @@ mixin $SelectLocationView {
     'Use syncFormWithViewModel instead.'
     'This feature was deprecated after 3.1.0.',
   )
-  void listenToFormUpdated(FormViewModel model) {
-    _updateFormData(model, forceValidate: _autoTextFieldValidation);
-  }
+  void listenToFormUpdated(FormViewModel model) {}
 
   /// Calls dispose on all the generated controllers and focus nodes
   void disposeForm() {
@@ -53,15 +47,13 @@ mixin $SelectLocationView {
   }
 }
 
-extension ValueProperties on FormViewModel {
+extension ValueProperties on FormStateHelper {
   bool get hasAnyValidationMessage => this
       .fieldsValidationMessages
       .values
       .any((validation) => validation != null);
 
   bool get isFormValid {
-    if (!_autoTextFieldValidation) this.validateForm();
-
     return !hasAnyValidationMessage;
   }
 
@@ -82,30 +74,22 @@ extension ValueProperties on FormViewModel {
       this.fieldsValidationMessages[ProvinceValueKey];
 }
 
-extension Methods on FormViewModel {
+extension Methods on FormStateHelper {
   void setCountry(String country) {
     this.setData(
       this.formValueMap..addAll({CountryValueKey: country}),
     );
-
-    if (_autoTextFieldValidation) {
-      this.validateForm();
-    }
   }
 
   void setProvince(String province) {
     this.setData(
       this.formValueMap..addAll({ProvinceValueKey: province}),
     );
-
-    if (_autoTextFieldValidation) {
-      this.validateForm();
-    }
   }
 
-  setCountryValidationMessage(String? validationMessage) =>
+  void setCountryValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[CountryValueKey] = validationMessage;
-  setProvinceValidationMessage(String? validationMessage) =>
+  void setProvinceValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[ProvinceValueKey] = validationMessage;
 
   /// Clears text input fields on the Form

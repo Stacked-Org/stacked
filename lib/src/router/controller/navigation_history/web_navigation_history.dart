@@ -1,7 +1,9 @@
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html' as html;
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 
 import 'package:stacked/src/router/controller/routing_controller.dart';
+// ignore: avoid_web_libraries_in_flutter
+import 'package:web/web.dart';
 
 import 'navigation_history_base.dart';
 
@@ -11,7 +13,7 @@ class NavigationHistoryImpl extends NavigationHistory {
   @override
   final StackRouter router;
 
-  final _history = html.window.history;
+  final _history = window.history;
 
   @override
   void back() {
@@ -20,8 +22,16 @@ class NavigationHistoryImpl extends NavigationHistory {
 
   int get _currentIndex {
     final state = _history.state;
-    if (state is Map) {
-      return state['serialCount'] ?? 0;
+    if (state != null) {
+      try {
+        final stateObj = state as JSObject;
+        final serialCount = stateObj.getProperty('serialCount'.toJS);
+        if (serialCount != null && serialCount.typeofEquals('number')) {
+          return (serialCount as JSNumber).toDartInt;
+        }
+      } catch (e) {
+        return 0;
+      }
     }
     return 0;
   }

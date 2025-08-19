@@ -13,7 +13,7 @@ class NestedRouter extends StatefulWidget {
   final WidgetBuilder? placeholder;
 
   const NestedRouter({
-    Key? key,
+    super.key,
     this.navigatorObservers =
         NestedRouterDelegate.defaultNavigatorObserversBuilder,
     this.builder,
@@ -21,7 +21,7 @@ class NestedRouter extends StatefulWidget {
     this.navigatorKey,
     this.inheritNavigatorObservers = true,
     this.placeholder,
-  }) : super(key: key);
+  });
 
   static Widget declarative({
     Key? key,
@@ -167,7 +167,6 @@ class _DeclarativeStackedRouter extends StatefulWidget {
   final WidgetBuilder? placeholder;
 
   const _DeclarativeStackedRouter({
-    Key? key,
     required this.routes,
     this.navigatorObservers =
         NestedRouterDelegate.defaultNavigatorObserversBuilder,
@@ -177,7 +176,7 @@ class _DeclarativeStackedRouter extends StatefulWidget {
     this.inheritNavigatorObservers = true,
     this.onNavigate,
     this.placeholder,
-  }) : super(key: key);
+  });
 
   @override
   _DeclarativeStackedRouterState createState() =>

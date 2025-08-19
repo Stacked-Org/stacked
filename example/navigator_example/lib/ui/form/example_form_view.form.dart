@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -10,6 +11,8 @@ import 'package:example/ui/form/custom_text_field.dart';
 import 'package:example/ui/form/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+
+const bool _autoTextFieldValidation = false;
 
 const String EmailValueKey = 'email';
 const String PasswordValueKey = 'password';
@@ -34,15 +37,32 @@ final Map<String, String? Function(String?)?> _ExampleFormViewTextValidations =
   ShortBioValueKey: null,
 };
 
-mixin $ExampleFormView on StatelessWidget {
+mixin $ExampleFormView {
   TextEditingController get emailController =>
       _getFormTextEditingController(EmailValueKey, initialValue: 'Lorem');
   CustomEditingController get passwordController =>
-      _getCustomFormTextEditingController(PasswordValueKey);
+      _getPasswordCustomFormTextEditingController(PasswordValueKey);
   TextEditingController get shortBioController =>
       _getFormTextEditingController(ShortBioValueKey);
 
-  CustomEditingController _getCustomFormTextEditingController(
+  FocusNode get emailFocusNode => _getFormFocusNode(EmailValueKey);
+  FocusNode get passwordFocusNode => _getFormFocusNode(PasswordValueKey);
+  FocusNode get shortBioFocusNode => _getFormFocusNode(ShortBioValueKey);
+
+  TextEditingController _getFormTextEditingController(
+    String key, {
+    String? initialValue,
+  }) {
+    if (_ExampleFormViewTextEditingControllers.containsKey(key)) {
+      return _ExampleFormViewTextEditingControllers[key]!;
+    }
+
+    _ExampleFormViewTextEditingControllers[key] =
+        TextEditingController(text: initialValue);
+    return _ExampleFormViewTextEditingControllers[key]!;
+  }
+
+  CustomEditingController _getPasswordCustomFormTextEditingController(
     String key,
   ) {
     if (_ExampleFormViewTextEditingControllers.containsKey(key)) {
@@ -55,20 +75,6 @@ mixin $ExampleFormView on StatelessWidget {
         as CustomEditingController;
   }
 
-  FocusNode get emailFocusNode => _getFormFocusNode(EmailValueKey);
-  FocusNode get passwordFocusNode => _getFormFocusNode(PasswordValueKey);
-  FocusNode get shortBioFocusNode => _getFormFocusNode(ShortBioValueKey);
-
-  TextEditingController _getFormTextEditingController(String key,
-      {String? initialValue}) {
-    if (_ExampleFormViewTextEditingControllers.containsKey(key)) {
-      return _ExampleFormViewTextEditingControllers[key]!;
-    }
-    _ExampleFormViewTextEditingControllers[key] =
-        TextEditingController(text: initialValue);
-    return _ExampleFormViewTextEditingControllers[key]!;
-  }
-
   FocusNode _getFormFocusNode(String key) {
     if (_ExampleFormViewFocusNodes.containsKey(key)) {
       return _ExampleFormViewFocusNodes[key]!;
@@ -79,30 +85,30 @@ mixin $ExampleFormView on StatelessWidget {
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
-  void syncFormWithViewModel(FormViewModel model) {
+  void syncFormWithViewModel(FormStateHelper model) {
     emailController.addListener(() => _updateFormData(model));
     passwordController.addListener(() => _updateFormData(model));
     shortBioController.addListener(() => _updateFormData(model));
+
+    _updateFormData(model, forceValidate: _autoTextFieldValidation);
   }
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
-  @Deprecated('Use syncFormWithViewModel instead.'
-      'This feature was deprecated after 3.1.0.')
+  @Deprecated(
+    'Use syncFormWithViewModel instead.'
+    'This feature was deprecated after 3.1.0.',
+  )
   void listenToFormUpdated(FormViewModel model) {
     emailController.addListener(() => _updateFormData(model));
     passwordController.addListener(() => _updateFormData(model));
     shortBioController.addListener(() => _updateFormData(model));
-  }
 
-  final bool _autoTextFieldValidation = false;
-  bool validateFormFields(FormViewModel model) {
-    _updateFormData(model, forceValidate: true);
-    return model.isFormValid;
+    _updateFormData(model, forceValidate: _autoTextFieldValidation);
   }
 
   /// Updates the formData on the FormViewModel
-  void _updateFormData(FormViewModel model, {bool forceValidate = false}) {
+  void _updateFormData(FormStateHelper model, {bool forceValidate = false}) {
     model.setData(
       model.formValueMap
         ..addAll({
@@ -111,26 +117,15 @@ mixin $ExampleFormView on StatelessWidget {
           ShortBioValueKey: shortBioController.text,
         }),
     );
+
     if (_autoTextFieldValidation || forceValidate) {
-      _updateValidationData(model);
+      updateValidationData(model);
     }
   }
 
-  /// Updates the fieldsValidationMessages on the FormViewModel
-  void _updateValidationData(FormViewModel model) =>
-      model.setValidationMessages({
-        EmailValueKey: _getValidationMessage(EmailValueKey),
-        PasswordValueKey: _getValidationMessage(PasswordValueKey),
-        ShortBioValueKey: _getValidationMessage(ShortBioValueKey),
-      });
-
-  /// Returns the validation message for the given key
-  String? _getValidationMessage(String key) {
-    final validatorForKey = _ExampleFormViewTextValidations[key];
-    if (validatorForKey == null) return null;
-    String? validationMessageForKey =
-        validatorForKey(_ExampleFormViewTextEditingControllers[key]!.text);
-    return validationMessageForKey;
+  bool validateFormFields(FormViewModel model) {
+    _updateFormData(model, forceValidate: true);
+    return model.isFormValid;
   }
 
   /// Calls dispose on all the generated controllers and focus nodes
@@ -149,9 +144,18 @@ mixin $ExampleFormView on StatelessWidget {
   }
 }
 
-extension ValueProperties on FormViewModel {
-  bool get isFormValid =>
-      this.fieldsValidationMessages.values.every((element) => element == null);
+extension ValueProperties on FormStateHelper {
+  bool get hasAnyValidationMessage => this
+      .fieldsValidationMessages
+      .values
+      .any((validation) => validation != null);
+
+  bool get isFormValid {
+    if (!_autoTextFieldValidation) this.validateForm();
+
+    return !hasAnyValidationMessage;
+  }
+
   String? get emailValue => this.formValueMap[EmailValueKey] as String?;
   String? get passwordValue => this.formValueMap[PasswordValueKey] as String?;
   String? get shortBioValue => this.formValueMap[ShortBioValueKey] as String?;
@@ -162,10 +166,7 @@ extension ValueProperties on FormViewModel {
 
   set emailValue(String? value) {
     this.setData(
-      this.formValueMap
-        ..addAll({
-          EmailValueKey: value,
-        }),
+      this.formValueMap..addAll({EmailValueKey: value}),
     );
 
     if (_ExampleFormViewTextEditingControllers.containsKey(EmailValueKey)) {
@@ -175,10 +176,7 @@ extension ValueProperties on FormViewModel {
 
   set passwordValue(String? value) {
     this.setData(
-      this.formValueMap
-        ..addAll({
-          PasswordValueKey: value,
-        }),
+      this.formValueMap..addAll({PasswordValueKey: value}),
     );
 
     if (_ExampleFormViewTextEditingControllers.containsKey(PasswordValueKey)) {
@@ -189,10 +187,7 @@ extension ValueProperties on FormViewModel {
 
   set shortBioValue(String? value) {
     this.setData(
-      this.formValueMap
-        ..addAll({
-          ShortBioValueKey: value,
-        }),
+      this.formValueMap..addAll({ShortBioValueKey: value}),
     );
 
     if (_ExampleFormViewTextEditingControllers.containsKey(ShortBioValueKey)) {
@@ -235,43 +230,83 @@ extension ValueProperties on FormViewModel {
       this.fieldsValidationMessages[BirthDateValueKey];
   String? get doYouLoveFoodValidationMessage =>
       this.fieldsValidationMessages[DoYouLoveFoodValueKey];
+}
+
+extension Methods on FormStateHelper {
+  Future<void> selectBirthDate({
+    required BuildContext context,
+    required DateTime initialDate,
+    required DateTime firstDate,
+    required DateTime lastDate,
+  }) async {
+    final selectedDate = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
+    );
+
+    if (selectedDate != null) {
+      this.setData(
+        this.formValueMap..addAll({BirthDateValueKey: selectedDate}),
+      );
+    }
+
+    if (_autoTextFieldValidation) this.validateForm();
+  }
+
+  void setDoYouLoveFood(String doYouLoveFood) {
+    this.setData(
+      this.formValueMap..addAll({DoYouLoveFoodValueKey: doYouLoveFood}),
+    );
+
+    if (_autoTextFieldValidation) this.validateForm();
+  }
+
+  void setEmailValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[EmailValueKey] = validationMessage;
+  void setPasswordValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[PasswordValueKey] = validationMessage;
+  void setShortBioValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[ShortBioValueKey] = validationMessage;
+  void setBirthDateValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[BirthDateValueKey] = validationMessage;
+  void setDoYouLoveFoodValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[DoYouLoveFoodValueKey] = validationMessage;
+
+  /// Clears text input fields on the Form
   void clearForm() {
     emailValue = '';
     passwordValue = '';
     shortBioValue = '';
   }
+
+  /// Validates text input fields on the Form
+  void validateForm() {
+    this.setValidationMessages({
+      EmailValueKey: getValidationMessage(EmailValueKey),
+      PasswordValueKey: getValidationMessage(PasswordValueKey),
+      ShortBioValueKey: getValidationMessage(ShortBioValueKey),
+    });
+  }
 }
 
-extension Methods on FormViewModel {
-  Future<void> selectBirthDate(
-      {required BuildContext context,
-      required DateTime initialDate,
-      required DateTime firstDate,
-      required DateTime lastDate}) async {
-    final selectedDate = await showDatePicker(
-        context: context,
-        initialDate: initialDate,
-        firstDate: firstDate,
-        lastDate: lastDate);
-    if (selectedDate != null) {
-      this.setData(
-          this.formValueMap..addAll({BirthDateValueKey: selectedDate}));
-    }
-  }
+/// Returns the validation message for the given key
+String? getValidationMessage(String key) {
+  final validatorForKey = _ExampleFormViewTextValidations[key];
+  if (validatorForKey == null) return null;
 
-  void setDoYouLoveFood(String doYouLoveFood) {
-    this.setData(
-        this.formValueMap..addAll({DoYouLoveFoodValueKey: doYouLoveFood}));
-  }
+  String? validationMessageForKey = validatorForKey(
+    _ExampleFormViewTextEditingControllers[key]!.text,
+  );
 
-  setEmailValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[EmailValueKey] = validationMessage;
-  setPasswordValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[PasswordValueKey] = validationMessage;
-  setShortBioValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[ShortBioValueKey] = validationMessage;
-  setBirthDateValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[BirthDateValueKey] = validationMessage;
-  setDoYouLoveFoodValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[DoYouLoveFoodValueKey] = validationMessage;
+  return validationMessageForKey;
 }
+
+/// Updates the fieldsValidationMessages on the FormViewModel
+void updateValidationData(FormStateHelper model) =>
+    model.setValidationMessages({
+      EmailValueKey: getValidationMessage(EmailValueKey),
+      PasswordValueKey: getValidationMessage(PasswordValueKey),
+      ShortBioValueKey: getValidationMessage(ShortBioValueKey),
+    });
