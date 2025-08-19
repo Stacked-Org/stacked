@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:stacked/stacked.dart';
 
 /// Adds functionality to easily listen to all reactive values in a service
-mixin ListenableServiceMixin {
+mixin ListenableServiceMixin implements Listenable {
   final List<Function> _listeners = List<Function>.empty(growable: true);
 
   int get listenersCount => _listeners.length;
@@ -21,11 +21,13 @@ mixin ListenableServiceMixin {
   }
 
   /// Registers a listener with this service
+  @override
   void addListener(void Function() listener) {
     _listeners.add(listener);
   }
 
   /// Removes a listener from the service
+  @override
   void removeListener(void Function() listener) {
     _listeners.remove(listener);
   }
