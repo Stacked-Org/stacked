@@ -1,3 +1,18 @@
+# [3.5.0](https://github.com/Stacked-Org/stacked/compare/v3.4.4...v3.5.0) (2025-08-19)
+
+
+### Bug Fixes
+
+* github workflow ([af2c44e](https://github.com/Stacked-Org/stacked/commit/af2c44ed7f6e0e3b0e4e909c4c608081d0401478))
+* use latest release action for release.yml ([f3eb5ff](https://github.com/Stacked-Org/stacked/commit/f3eb5ff416dba1af7bf72a428afb2d0f58df0af6))
+
+
+### Features
+
+* Let ListenableServiceMixin implement Listenable ([#1169](https://github.com/Stacked-Org/stacked/issues/1169)) ([8f1e8de](https://github.com/Stacked-Org/stacked/commit/8f1e8deb15f6283bce20eedb48e064251fcd0c0f))
+* modernize codebase patterns and dependency update ([#1167](https://github.com/Stacked-Org/stacked/issues/1167)) ([b0bc379](https://github.com/Stacked-Org/stacked/commit/b0bc379eaafb84dc483d10a77dfbe6e994ab7708))
+* **view_models:** added stackTrace to onError callback for FutureViewModel and StreamViewModel ([#1149](https://github.com/Stacked-Org/stacked/issues/1149)) ([50b214e](https://github.com/Stacked-Org/stacked/commit/50b214ea2db965ccc54b55dfaa579a9ce22961b3))
+
 ## [3.4.4](https://github.com/Stacked-Org/stacked/compare/v3.4.3...v3.4.4) (2024-12-12)
 
 
