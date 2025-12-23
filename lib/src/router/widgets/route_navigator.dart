@@ -71,16 +71,26 @@ class RouteNavigatorState extends State<RouteNavigator> {
             restorationScopeId:
                 widget.navRestorationScopeId ?? widget.router.routeData.name,
             pages: widget.router.stack,
-            onDidRemovePage: (page) {
-              // Critical for Navigator 2.0: Clean up page state after removal
-              // The framework handles didPop and page removal automatically
-              // Defer state update to after the animation frame completes
-              if (page is StackedPage) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  widget.router.removeRoute(page.routeData);
-                  widget.didPop?.call(page.routeData.route, null);
-                });
+            // ignore: deprecated_member_use
+            onPopPage: (route, result) {
+              // CRITICAL: Using deprecated onPopPage instead of onDidRemovePage
+              // because we MUST update router state BEFORE the pop completes.
+              // This is essential for Android predictive back gestures to work
+              // without animation glitches (double animations or forward replays).
+              // onDidRemovePage is called too late (after page removal) and causes
+              // page list mismatch during the animation, triggering visual glitches.
+              // See: https://github.com/flutter/flutter/issues/new (migration path unclear)
+              if (!route.didPop(result)) {
+                return false;
               }
+
+              if (route.settings is StackedPage) {
+                var page = route.settings as StackedPage;
+                widget.router.removeRoute(page.routeData);
+                widget.didPop?.call(page.routeData.route, result);
+              }
+
+              return true;
             },
           )
         : widget.placeholder?.call(context) ??
