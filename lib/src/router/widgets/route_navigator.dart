@@ -74,10 +74,12 @@ class RouteNavigatorState extends State<RouteNavigator> {
             onDidRemovePage: (page) {
               // Critical for Navigator 2.0: Clean up page state after removal
               // The framework handles didPop and page removal automatically
-              // Use notify: false to avoid triggering rebuild during animation
+              // Defer state update to after the animation frame completes
               if (page is StackedPage) {
-                widget.router.removeRoute(page.routeData, notify: false);
-                widget.didPop?.call(page.routeData.route, null);
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  widget.router.removeRoute(page.routeData);
+                  widget.didPop?.call(page.routeData.route, null);
+                });
               }
             },
           )
