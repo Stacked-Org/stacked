@@ -71,21 +71,14 @@ class RouteNavigatorState extends State<RouteNavigator> {
             restorationScopeId:
                 widget.navRestorationScopeId ?? widget.router.routeData.name,
             pages: widget.router.stack,
-            // TODO: onPopPage is deprecated, migrate to onDidRemovePage
-            onPopPage: (route, result) {
-              // Critical for Navigator 2.0: Handle pop before it completes
-              // This prevents animation glitches on Android predictive back gestures
-              if (!route.didPop(result)) {
-                return false;
+            onDidRemovePage: (page) {
+              // Critical for Navigator 2.0: Clean up page state after removal
+              // The framework handles didPop and page removal automatically
+              // Use notify: false to avoid triggering rebuild during animation
+              if (page is StackedPage) {
+                widget.router.removeRoute(page.routeData, notify: false);
+                widget.didPop?.call(page.routeData.route, null);
               }
-
-              if (route.settings is StackedPage) {
-                var page = route.settings as StackedPage;
-                widget.router.removeRoute(page.routeData);
-                widget.didPop?.call(page.routeData.route, result);
-              }
-
-              return true;
             },
           )
         : widget.placeholder?.call(context) ??
