@@ -23,6 +23,11 @@ abstract class StackedPage<T> extends Page<T> {
 
   Widget get child => _child;
 
+  // Track current route and listener state to prevent double-completion
+  // Navigator 2.0 can call createRoute() multiple times on the same Page instance
+  Route<T>? _currentRoute;
+  bool _hasAttachedListener = false;
+
   StackedPage({
     required this.routeData,
     required Widget child,
@@ -60,10 +65,20 @@ abstract class StackedPage<T> extends Page<T> {
 
   @override
   Route<T> createRoute(BuildContext context) {
-    return onCreateRoute(context)
-      ..popped.then(
-        _popCompleter.complete,
-      );
+    // Clear previous route reference to allow garbage collection
+    _currentRoute = null;
+
+    // Create the new route
+    _currentRoute = onCreateRoute(context);
+
+    // Only attach listener once to prevent "Future already completed" error
+    // Navigator 2.0 can call createRoute() multiple times during back gestures
+    if (!_hasAttachedListener) {
+      _currentRoute!.popped.then(_popCompleter.complete);
+      _hasAttachedListener = true;
+    }
+
+    return _currentRoute!;
   }
 }
 
