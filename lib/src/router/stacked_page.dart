@@ -61,9 +61,20 @@ abstract class StackedPage<T> extends Page<T> {
   @override
   Route<T> createRoute(BuildContext context) {
     return onCreateRoute(context)
-      ..popped.then(
-        _popCompleter.complete,
-      );
+      ..popped.then((value) {
+        if (_popCompleter.isCompleted) return;
+        _popCompleter.complete(value);
+        // Synchronously remove this page from the router's stack. Without this,
+        // Flutter's Navigator may rebuild between pop and onDidRemovePage,
+        // see the stale page in `_pages`, and create a duplicate Route —
+        // which causes a "snap back" animation glitch on Android predictive
+        // back, and previously also threw "Future already completed" when
+        // the duplicate Route eventually popped.
+        final router = routeData.router;
+        if (router is StackRouter) {
+          router.removeRoute(routeData, notify: true);
+        }
+      });
   }
 }
 
