@@ -1,4 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // StackedNavigatorGenerator
@@ -85,8 +86,11 @@ class StackedRouter extends _i2.RouterBase {
       );
     },
     _i4.BottomNavExample: (data) {
+      final args = data.getArgs<BottomNavExampleArguments>(
+        orElse: () => const BottomNavExampleArguments(),
+      );
       return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i4.BottomNavExample(),
+        builder: (context) => _i4.BottomNavExample(key: args.key),
         settings: data,
       );
     },
@@ -107,9 +111,12 @@ class StackedRouter extends _i2.RouterBase {
       );
     },
     _i7.NonReactiveView: (data) {
+      final args = data.getArgs<NonReactiveViewArguments>(
+        orElse: () => const NonReactiveViewArguments(),
+      );
       return _i8.PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const _i7.NonReactiveView(),
+            _i7.NonReactiveView(key: args.key),
         settings: data,
         transitionsBuilder:
             data.transition ?? _i9.CustomRouteTransition.sharedAxis,
@@ -168,6 +175,28 @@ class HomeViewArguments {
   }
 }
 
+class BottomNavExampleArguments {
+  const BottomNavExampleArguments({this.key});
+
+  final _i8.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant BottomNavExampleArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
 class StreamCounterViewArguments {
   const StreamCounterViewArguments({
     this.key,
@@ -222,6 +251,28 @@ class ExampleFormViewArguments {
   }
 }
 
+class NonReactiveViewArguments {
+  const NonReactiveViewArguments({this.key});
+
+  final _i8.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant NonReactiveViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
 class BottomNavExampleRoutes {
   static const historyView = 'history-view';
 
@@ -254,9 +305,12 @@ class BottomNavExampleRouter extends _i2.RouterBase {
 
   final _pagesMap = <Type, _i2.StackedRouteFactory>{
     _i12.HistoryView: (data) {
+      final args = data.getArgs<NestedHistoryViewArguments>(
+        orElse: () => const NestedHistoryViewArguments(),
+      );
       return _i8.PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const _i12.HistoryView(),
+            _i12.HistoryView(key: args.key),
         settings: data,
         transitionsBuilder: data.transition ?? _i2.TransitionsBuilders.fadeIn,
       );
@@ -271,8 +325,11 @@ class BottomNavExampleRouter extends _i2.RouterBase {
       );
     },
     _i14.ProfileView: (data) {
+      final args = data.getArgs<NestedProfileViewArguments>(
+        orElse: () => const NestedProfileViewArguments(),
+      );
       return _i15.CupertinoPageRoute<dynamic>(
-        builder: (context) => const _i14.ProfileView(),
+        builder: (context) => _i14.ProfileView(key: args.key),
         settings: data,
       );
     },
@@ -283,6 +340,28 @@ class BottomNavExampleRouter extends _i2.RouterBase {
 
   @override
   Map<Type, _i2.StackedRouteFactory> get pagesMap => _pagesMap;
+}
+
+class NestedHistoryViewArguments {
+  const NestedHistoryViewArguments({this.key});
+
+  final _i8.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant NestedHistoryViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
 }
 
 class FavoritesViewArguments {
@@ -312,6 +391,28 @@ class FavoritesViewArguments {
   }
 }
 
+class NestedProfileViewArguments {
+  const NestedProfileViewArguments({this.key});
+
+  final _i8.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant NestedProfileViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
 class FavoritesViewRoutes {
   static const multipleFuturesExampleView = 'multiple-futures-example-view';
 
@@ -337,15 +438,21 @@ class FavoritesViewRouter extends _i2.RouterBase {
 
   final _pagesMap = <Type, _i2.StackedRouteFactory>{
     _i16.MultipleFuturesExampleView: (data) {
+      final args = data.getArgs<NestedMultipleFuturesExampleViewArguments>(
+        orElse: () => const NestedMultipleFuturesExampleViewArguments(),
+      );
       return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i16.MultipleFuturesExampleView(),
+        builder: (context) => _i16.MultipleFuturesExampleView(key: args.key),
         settings: data,
       );
     },
     _i12.HistoryView: (data) {
+      final args = data.getArgs<NestedHistoryViewArguments>(
+        orElse: () => const NestedHistoryViewArguments(),
+      );
       return _i8.PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const _i12.HistoryView(),
+            _i12.HistoryView(key: args.key),
         settings: data,
         transitionsBuilder: data.transition ??
             (context, animation, secondaryAnimation, child) {
@@ -360,6 +467,28 @@ class FavoritesViewRouter extends _i2.RouterBase {
 
   @override
   Map<Type, _i2.StackedRouteFactory> get pagesMap => _pagesMap;
+}
+
+class NestedMultipleFuturesExampleViewArguments {
+  const NestedMultipleFuturesExampleViewArguments({this.key});
+
+  final _i8.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant NestedMultipleFuturesExampleViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
 }
 
 extension NavigatorStateExtension on _i17.NavigationService {
@@ -391,14 +520,16 @@ extension NavigatorStateExtension on _i17.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToBottomNavExample([
+  Future<dynamic> navigateToBottomNavExample({
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.bottomNavExample,
+        arguments: BottomNavExampleArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -441,28 +572,32 @@ extension NavigatorStateExtension on _i17.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToNonReactiveView([
+  Future<dynamic> navigateToNonReactiveView({
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.nonReactiveView,
+        arguments: NonReactiveViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedHistoryViewInBottomNavExampleRouter([
+  Future<dynamic> navigateToNestedHistoryViewInBottomNavExampleRouter({
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(BottomNavExampleRoutes.historyView,
+        arguments: NestedHistoryViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -486,14 +621,16 @@ extension NavigatorStateExtension on _i17.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedProfileViewInBottomNavExampleRouter([
+  Future<dynamic> navigateToNestedProfileViewInBottomNavExampleRouter({
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(BottomNavExampleRoutes.profileView,
+        arguments: NestedProfileViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -501,28 +638,32 @@ extension NavigatorStateExtension on _i17.NavigationService {
   }
 
   Future<dynamic>
-      navigateToNestedMultipleFuturesExampleViewInFavoritesViewRouter([
+      navigateToNestedMultipleFuturesExampleViewInFavoritesViewRouter({
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(FavoritesViewRoutes.multipleFuturesExampleView,
+        arguments: NestedMultipleFuturesExampleViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> navigateToNestedHistoryViewInFavoritesViewRouter([
+  Future<dynamic> navigateToNestedHistoryViewInFavoritesViewRouter({
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(FavoritesViewRoutes.historyView,
+        arguments: NestedHistoryViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -557,14 +698,16 @@ extension NavigatorStateExtension on _i17.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithBottomNavExample([
+  Future<dynamic> replaceWithBottomNavExample({
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.bottomNavExample,
+        arguments: BottomNavExampleArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -607,28 +750,32 @@ extension NavigatorStateExtension on _i17.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithNonReactiveView([
+  Future<dynamic> replaceWithNonReactiveView({
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.nonReactiveView,
+        arguments: NonReactiveViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> replaceWithNestedHistoryViewInBottomNavExampleRouter([
+  Future<dynamic> replaceWithNestedHistoryViewInBottomNavExampleRouter({
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(BottomNavExampleRoutes.historyView,
+        arguments: NestedHistoryViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -652,14 +799,16 @@ extension NavigatorStateExtension on _i17.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithNestedProfileViewInBottomNavExampleRouter([
+  Future<dynamic> replaceWithNestedProfileViewInBottomNavExampleRouter({
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(BottomNavExampleRoutes.profileView,
+        arguments: NestedProfileViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -667,28 +816,32 @@ extension NavigatorStateExtension on _i17.NavigationService {
   }
 
   Future<dynamic>
-      replaceWithNestedMultipleFuturesExampleViewInFavoritesViewRouter([
+      replaceWithNestedMultipleFuturesExampleViewInFavoritesViewRouter({
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(FavoritesViewRoutes.multipleFuturesExampleView,
+        arguments: NestedMultipleFuturesExampleViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> replaceWithNestedHistoryViewInFavoritesViewRouter([
+  Future<dynamic> replaceWithNestedHistoryViewInFavoritesViewRouter({
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(FavoritesViewRoutes.historyView,
+        arguments: NestedHistoryViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

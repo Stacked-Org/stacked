@@ -1,4 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // StackedFormGenerator
@@ -31,7 +32,7 @@ final Map<String, String> ProvinceValueToTitleMap = {
 mixin $SelectLocationView {
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
-  void syncFormWithViewModel(FormViewModel model) {}
+  void syncFormWithViewModel(FormStateHelper model) {}
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
@@ -47,9 +48,16 @@ mixin $SelectLocationView {
   }
 }
 
-extension ValueProperties on FormViewModel {
-  bool get isFormValid =>
-      this.fieldsValidationMessages.values.every((element) => element == null);
+extension ValueProperties on FormStateHelper {
+  bool get hasAnyValidationMessage => this
+      .fieldsValidationMessages
+      .values
+      .any((validation) => validation != null);
+
+  bool get isFormValid {
+    return !hasAnyValidationMessage;
+  }
+
   String? get countryValue => this.formValueMap[CountryValueKey] as String?;
   String? get provinceValue => this.formValueMap[ProvinceValueKey] as String?;
 
@@ -67,18 +75,22 @@ extension ValueProperties on FormViewModel {
       this.fieldsValidationMessages[ProvinceValueKey];
 }
 
-extension Methods on FormViewModel {
+extension Methods on FormStateHelper {
   void setCountry(String country) {
-    this.setData(this.formValueMap..addAll({CountryValueKey: country}));
+    this.setData(
+      this.formValueMap..addAll({CountryValueKey: country}),
+    );
   }
 
   void setProvince(String province) {
-    this.setData(this.formValueMap..addAll({ProvinceValueKey: province}));
+    this.setData(
+      this.formValueMap..addAll({ProvinceValueKey: province}),
+    );
   }
 
-  setCountryValidationMessage(String? validationMessage) =>
+  void setCountryValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[CountryValueKey] = validationMessage;
-  setProvinceValidationMessage(String? validationMessage) =>
+  void setProvinceValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[ProvinceValueKey] = validationMessage;
 
   /// Clears text input fields on the Form

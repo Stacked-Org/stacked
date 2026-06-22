@@ -1,4 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // StackedLocatorGenerator
@@ -24,11 +25,10 @@ import 'app.router.dart';
 
 final exampleLocator = StackedLocator.instance;
 
-Future<void> setupExampleLocator({
-  String? environment,
-  EnvironmentFilter? environmentFilter,
-  StackedRouterWeb? stackedRouter,
-}) async {
+Future<void> setupExampleLocator(
+    {String? environment,
+    EnvironmentFilter? environmentFilter,
+    StackedRouterWeb? stackedRouter}) async {
 // Register environments
   exampleLocator.registerEnvironment(
       environment: environment, environmentFilter: environmentFilter);

@@ -1,4 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // StackedRouterGenerator
@@ -47,9 +48,11 @@ class StackedRouterWeb extends _i12.RootStackRouter {
       );
     },
     BottomNavExampleRoute.name: (routeData) {
+      final args = routeData.argsAs<BottomNavExampleArgs>(
+          orElse: () => const BottomNavExampleArgs());
       return _i12.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i3.BottomNavExample(),
+        child: _i3.BottomNavExample(key: args.key),
       );
     },
     StreamCounterViewRoute.name: (routeData) {
@@ -73,9 +76,11 @@ class StackedRouterWeb extends _i12.RootStackRouter {
       );
     },
     NonReactiveViewRoute.name: (routeData) {
+      final args = routeData.argsAs<NonReactiveViewArgs>(
+          orElse: () => const NonReactiveViewArgs());
       return _i12.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i6.NonReactiveView(),
+        child: _i6.NonReactiveView(key: args.key),
       );
     },
     FavoritesViewRoute.name: (routeData) {
@@ -91,23 +96,29 @@ class StackedRouterWeb extends _i12.RootStackRouter {
       );
     },
     HistoryViewRoute.name: (routeData) {
+      final args = routeData.argsAs<HistoryViewArgs>(
+          orElse: () => const HistoryViewArgs());
       return _i12.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i8.HistoryView(),
+        child: _i8.HistoryView(key: args.key),
         opaque: true,
         barrierDismissible: false,
       );
     },
     ProfileViewRoute.name: (routeData) {
+      final args = routeData.argsAs<ProfileViewArgs>(
+          orElse: () => const ProfileViewArgs());
       return _i12.CupertinoPageX<dynamic>(
         routeData: routeData,
-        child: const _i9.ProfileView(),
+        child: _i9.ProfileView(key: args.key),
       );
     },
     MultipleFuturesExampleViewRoute.name: (routeData) {
+      final args = routeData.argsAs<MultipleFuturesExampleViewArgs>(
+          orElse: () => const MultipleFuturesExampleViewArgs());
       return _i12.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i10.MultipleFuturesExampleView(),
+        child: _i10.MultipleFuturesExampleView(key: args.key),
       );
     },
   };
@@ -227,15 +238,29 @@ class HomeViewArgs {
 
 /// generated route for
 /// [_i3.BottomNavExample]
-class BottomNavExampleRoute extends _i12.PageRouteInfo<void> {
-  const BottomNavExampleRoute({List<_i12.PageRouteInfo>? children})
-      : super(
+class BottomNavExampleRoute extends _i12.PageRouteInfo<BottomNavExampleArgs> {
+  BottomNavExampleRoute({
+    _i13.Key? key,
+    List<_i12.PageRouteInfo>? children,
+  }) : super(
           BottomNavExampleRoute.name,
           path: '/bottom-nav-example',
+          args: BottomNavExampleArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'BottomNavExample';
+}
+
+class BottomNavExampleArgs {
+  const BottomNavExampleArgs({this.key});
+
+  final _i13.Key? key;
+
+  @override
+  String toString() {
+    return 'BottomNavExampleArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -308,14 +333,26 @@ class ExampleFormViewArgs {
 
 /// generated route for
 /// [_i6.NonReactiveView]
-class NonReactiveViewRoute extends _i12.PageRouteInfo<void> {
-  const NonReactiveViewRoute()
+class NonReactiveViewRoute extends _i12.PageRouteInfo<NonReactiveViewArgs> {
+  NonReactiveViewRoute({_i13.Key? key})
       : super(
           NonReactiveViewRoute.name,
           path: '/non-reactive-view',
+          args: NonReactiveViewArgs(key: key),
         );
 
   static const String name = 'NonReactiveView';
+}
+
+class NonReactiveViewArgs {
+  const NonReactiveViewArgs({this.key});
+
+  final _i13.Key? key;
+
+  @override
+  String toString() {
+    return 'NonReactiveViewArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -356,38 +393,75 @@ class FavoritesViewArgs {
 
 /// generated route for
 /// [_i8.HistoryView]
-class HistoryViewRoute extends _i12.PageRouteInfo<void> {
-  const HistoryViewRoute()
+class HistoryViewRoute extends _i12.PageRouteInfo<HistoryViewArgs> {
+  HistoryViewRoute({_i13.Key? key})
       : super(
           HistoryViewRoute.name,
           path: 'history-view',
+          args: HistoryViewArgs(key: key),
         );
 
   static const String name = 'HistoryView';
 }
 
+class HistoryViewArgs {
+  const HistoryViewArgs({this.key});
+
+  final _i13.Key? key;
+
+  @override
+  String toString() {
+    return 'HistoryViewArgs{key: $key}';
+  }
+}
+
 /// generated route for
 /// [_i9.ProfileView]
-class ProfileViewRoute extends _i12.PageRouteInfo<void> {
-  const ProfileViewRoute()
+class ProfileViewRoute extends _i12.PageRouteInfo<ProfileViewArgs> {
+  ProfileViewRoute({_i13.Key? key})
       : super(
           ProfileViewRoute.name,
           path: 'profile-view',
+          args: ProfileViewArgs(key: key),
         );
 
   static const String name = 'ProfileView';
 }
 
+class ProfileViewArgs {
+  const ProfileViewArgs({this.key});
+
+  final _i13.Key? key;
+
+  @override
+  String toString() {
+    return 'ProfileViewArgs{key: $key}';
+  }
+}
+
 /// generated route for
 /// [_i10.MultipleFuturesExampleView]
-class MultipleFuturesExampleViewRoute extends _i12.PageRouteInfo<void> {
-  const MultipleFuturesExampleViewRoute()
+class MultipleFuturesExampleViewRoute
+    extends _i12.PageRouteInfo<MultipleFuturesExampleViewArgs> {
+  MultipleFuturesExampleViewRoute({_i13.Key? key})
       : super(
           MultipleFuturesExampleViewRoute.name,
           path: 'multiple-futures-example-view',
+          args: MultipleFuturesExampleViewArgs(key: key),
         );
 
   static const String name = 'MultipleFuturesExampleView';
+}
+
+class MultipleFuturesExampleViewArgs {
+  const MultipleFuturesExampleViewArgs({this.key});
+
+  final _i13.Key? key;
+
+  @override
+  String toString() {
+    return 'MultipleFuturesExampleViewArgs{key: $key}';
+  }
 }
 
 extension RouterStateExtension on _i11.RouterService {
@@ -414,10 +488,14 @@ extension RouterStateExtension on _i11.RouterService {
     );
   }
 
-  Future<dynamic> navigateToBottomNavExample(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+  Future<dynamic> navigateToBottomNavExample({
+    _i13.Key? key,
+    void Function(_i12.NavigationFailure)? onFailure,
+  }) async {
     return navigateTo(
-      const BottomNavExampleRoute(),
+      BottomNavExampleRoute(
+        key: key,
+      ),
       onFailure: onFailure,
     );
   }
@@ -450,10 +528,14 @@ extension RouterStateExtension on _i11.RouterService {
     );
   }
 
-  Future<dynamic> navigateToNonReactiveView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+  Future<dynamic> navigateToNonReactiveView({
+    _i13.Key? key,
+    void Function(_i12.NavigationFailure)? onFailure,
+  }) async {
     return navigateTo(
-      const NonReactiveViewRoute(),
+      NonReactiveViewRoute(
+        key: key,
+      ),
       onFailure: onFailure,
     );
   }
@@ -472,26 +554,51 @@ extension RouterStateExtension on _i11.RouterService {
     );
   }
 
-  Future<dynamic> navigateToHistoryView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+  Future<dynamic> navigateToNestedHistoryViewInBottomNavExampleRouter({
+    _i13.Key? key,
+    void Function(_i12.NavigationFailure)? onFailure,
+  }) async {
     return navigateTo(
-      const HistoryViewRoute(),
+      HistoryViewRoute(
+        key: key,
+      ),
       onFailure: onFailure,
     );
   }
 
-  Future<dynamic> navigateToProfileView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+  Future<dynamic> navigateToNestedProfileViewInBottomNavExampleRouter({
+    _i13.Key? key,
+    void Function(_i12.NavigationFailure)? onFailure,
+  }) async {
     return navigateTo(
-      const ProfileViewRoute(),
+      ProfileViewRoute(
+        key: key,
+      ),
       onFailure: onFailure,
     );
   }
 
-  Future<dynamic> navigateToMultipleFuturesExampleView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+  Future<dynamic>
+      navigateToNestedMultipleFuturesExampleViewInFavoritesViewRouter({
+    _i13.Key? key,
+    void Function(_i12.NavigationFailure)? onFailure,
+  }) async {
     return navigateTo(
-      const MultipleFuturesExampleViewRoute(),
+      MultipleFuturesExampleViewRoute(
+        key: key,
+      ),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> navigateToNestedHistoryViewInFavoritesViewRouter({
+    _i13.Key? key,
+    void Function(_i12.NavigationFailure)? onFailure,
+  }) async {
+    return navigateTo(
+      HistoryViewRoute(
+        key: key,
+      ),
       onFailure: onFailure,
     );
   }
@@ -519,10 +626,14 @@ extension RouterStateExtension on _i11.RouterService {
     );
   }
 
-  Future<dynamic> replaceWithBottomNavExample(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+  Future<dynamic> replaceWithBottomNavExample({
+    _i13.Key? key,
+    void Function(_i12.NavigationFailure)? onFailure,
+  }) async {
     return replaceWith(
-      const BottomNavExampleRoute(),
+      BottomNavExampleRoute(
+        key: key,
+      ),
       onFailure: onFailure,
     );
   }
@@ -555,10 +666,14 @@ extension RouterStateExtension on _i11.RouterService {
     );
   }
 
-  Future<dynamic> replaceWithNonReactiveView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+  Future<dynamic> replaceWithNonReactiveView({
+    _i13.Key? key,
+    void Function(_i12.NavigationFailure)? onFailure,
+  }) async {
     return replaceWith(
-      const NonReactiveViewRoute(),
+      NonReactiveViewRoute(
+        key: key,
+      ),
       onFailure: onFailure,
     );
   }
@@ -577,26 +692,51 @@ extension RouterStateExtension on _i11.RouterService {
     );
   }
 
-  Future<dynamic> replaceWithHistoryView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+  Future<dynamic> replaceWithNestedHistoryViewInBottomNavExampleRouter({
+    _i13.Key? key,
+    void Function(_i12.NavigationFailure)? onFailure,
+  }) async {
     return replaceWith(
-      const HistoryViewRoute(),
+      HistoryViewRoute(
+        key: key,
+      ),
       onFailure: onFailure,
     );
   }
 
-  Future<dynamic> replaceWithProfileView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+  Future<dynamic> replaceWithNestedProfileViewInBottomNavExampleRouter({
+    _i13.Key? key,
+    void Function(_i12.NavigationFailure)? onFailure,
+  }) async {
     return replaceWith(
-      const ProfileViewRoute(),
+      ProfileViewRoute(
+        key: key,
+      ),
       onFailure: onFailure,
     );
   }
 
-  Future<dynamic> replaceWithMultipleFuturesExampleView(
-      {void Function(_i12.NavigationFailure)? onFailure}) async {
+  Future<dynamic>
+      replaceWithNestedMultipleFuturesExampleViewInFavoritesViewRouter({
+    _i13.Key? key,
+    void Function(_i12.NavigationFailure)? onFailure,
+  }) async {
     return replaceWith(
-      const MultipleFuturesExampleViewRoute(),
+      MultipleFuturesExampleViewRoute(
+        key: key,
+      ),
+      onFailure: onFailure,
+    );
+  }
+
+  Future<dynamic> replaceWithNestedHistoryViewInFavoritesViewRouter({
+    _i13.Key? key,
+    void Function(_i12.NavigationFailure)? onFailure,
+  }) async {
+    return replaceWith(
+      HistoryViewRoute(
+        key: key,
+      ),
       onFailure: onFailure,
     );
   }
