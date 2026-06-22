@@ -1,31 +1,56 @@
-buildscript {
-    ext.kotlin_version = '1.4.10'
-    repositories {
-        google()
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
-rootProject.buildDir = '../build'
+rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
+// Some older Flutter plugins still declare their package via the manifest's
+// `package` attribute and don't set an AGP `namespace`, which AGP 8+ requires.
+// Backfill the namespace from the manifest package so these plugins keep building.
+// Registered before `evaluationDependsOn(":app")` below, which would otherwise
+// force-evaluate projects before this hook is attached.
 subprojects {
-    project.evaluationDependsOn(':app')
+    afterEvaluate { project ->
+        if (project.hasProperty("android")) {
+            project.android {
+                if (namespace == null) {
+                    def manifestFile = android.sourceSets.main.manifest.srcFile
+                    def manifestPackage = new XmlSlurper()
+                        .parse(manifestFile)
+                        .@package
+                        .text()
+                    if (manifestPackage) {
+                        namespace = manifestPackage
+                    }
+                }
+
+                // Older plugins don't pin a JVM target, so Kotlin defaults to the
+                // running JDK (21) while Java compiles at 1.8, which AGP rejects.
+                // Force both onto a consistent target.
+                compileOptions {
+                    sourceCompatibility = JavaVersion.VERSION_1_8
+                    targetCompatibility = JavaVersion.VERSION_1_8
+                }
+            }
+            if (project.plugins.hasPlugin("org.jetbrains.kotlin.android")) {
+                project.android.kotlinOptions {
+                    jvmTarget = JavaVersion.VERSION_1_8.toString()
+                }
+            }
+        }
+    }
 }
 
-task clean(type: Delete) {
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }

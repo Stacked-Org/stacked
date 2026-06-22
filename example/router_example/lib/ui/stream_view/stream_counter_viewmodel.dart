@@ -38,7 +38,7 @@ class StreamCounterViewModel extends StreamViewModel<int> {
   void onSubscribed() {}
 
   @override
-  void onError(error) {}
+  void onError(dynamic error, StackTrace? stackTrace) {}
 
   void changeStreamSources() {
     isSlowEpochNumbers = !isSlowEpochNumbers;

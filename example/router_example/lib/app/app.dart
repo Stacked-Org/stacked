@@ -49,14 +49,7 @@ import 'package:stacked_themes/stacked_themes.dart';
     ]),
     MaterialRoute(page: StreamCounterView),
     MaterialRoute(page: ExampleFormView),
-    // CustomRoute(
-    //   page: NonReactiveView,
-    //   transitionsBuilder: CustomRouteTransition.sharedAxis,
-    // ),
-    CustomRoute(
-      page: NonReactiveView,
-      customRouteBuilder: RouteBuilders.bottomSheetBuilder,
-    )
+    MaterialRoute(page: NonReactiveView),
   ],
   dependencies: [
     // Lazy singletons
@@ -99,32 +92,4 @@ import 'package:stacked_themes/stacked_themes.dart';
 )
 class App {
   /// This class has no puporse besides housing the annotation that generates the required functionality
-}
-
-abstract class RouteBuilders {
-  static Route<T> bottomSheetBuilder<T>(
-    BuildContext context,
-    Widget child,
-    CustomPage<T> page,
-  ) {
-    return ModalBottomSheetRoute<T>(
-      builder: page.buildPage,
-      settings: page,
-      isScrollControlled: false,
-      isDismissible: false,
-      enableDrag: false,
-      useSafeArea: true,
-      showDragHandle: false,
-      scrollControlDisabledMaxHeightRatio: 0.5,
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.8,
-      ),
-      backgroundColor: Colors.amber,
-      modalBarrierColor: Colors.black.withValues(alpha: 0.6),
-      elevation: 5,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-      ),
-    );
-  }
 }

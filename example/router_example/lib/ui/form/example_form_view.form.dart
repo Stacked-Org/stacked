@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // StackedFormGenerator
@@ -39,7 +39,8 @@ final Map<String, String? Function(String?)?> _ExampleFormViewTextValidations =
 
 mixin $ExampleFormView {
   TextEditingController get emailController =>
-      _getFormTextEditingController(EmailValueKey, initialValue: 'Lorem');
+      _getFormTextEditingController(EmailValueKey,
+          initialValue: 'lorem@test.com');
   CustomEditingController get passwordController =>
       _getPasswordCustomFormTextEditingController(PasswordValueKey);
   CustomEditingController get shortBioController =>
@@ -310,7 +311,7 @@ String? getValidationMessage(String key) {
   if (validatorForKey == null) return null;
 
   String? validationMessageForKey = validatorForKey(
-    _ExampleFormViewTextEditingControllers[key]!.text,
+    _ExampleFormViewTextEditingControllers[key]?.text,
   );
 
   return validationMessageForKey;

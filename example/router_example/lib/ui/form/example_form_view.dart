@@ -13,7 +13,7 @@ import 'example_form_viewmodel.dart';
   fields: [
     FormTextField(
       name: 'email',
-      initialValue: "Lorem",
+      initialValue: "lorem@test.com",
       validator: FormValidators.emailValidator,
     ),
     FormTextField(
