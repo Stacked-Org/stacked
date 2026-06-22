@@ -14,7 +14,7 @@ class ExampleFormViewModel extends FormViewModel {
   final _preferences = exampleLocator<SharedPreferencesService>();
 
   ExampleFormViewModel() {
-    log.f('hash:${_preferences.hashCode}');
+    log.wtf('hash:${_preferences.hashCode}');
   }
 
   void populateForm() {

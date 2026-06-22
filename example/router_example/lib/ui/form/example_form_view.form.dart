@@ -39,7 +39,7 @@ final Map<String, String? Function(String?)?> _ExampleFormViewTextValidations =
 
 mixin $ExampleFormView {
   TextEditingController get emailController =>
-      _getFormTextEditingController(EmailValueKey, initialValue: 'Lorem');
+      _getFormTextEditingController(EmailValueKey, initialValue: 'lorem@test.com');
   CustomEditingController get passwordController =>
       _getPasswordCustomFormTextEditingController(PasswordValueKey);
   CustomEditingController get shortBioController =>

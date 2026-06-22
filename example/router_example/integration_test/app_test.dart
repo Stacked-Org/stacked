@@ -34,7 +34,7 @@ void main() {
 
       // Example Form View Widgets
       final exampleFormTitle = find.text('Example Form View');
-      final formLoremText = find.text('Lorem');
+      final formLoremText = find.text('lorem@test.com');
       final formPasswordTextField = find.byKey(const ValueKey('passwordField'));
       final passwordErrorText = find.text('Password should not be empty');
       final dobButton = find.text('Select your Date of birth');

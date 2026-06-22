@@ -23,7 +23,6 @@ import '../ui/multiple_futures_example/multiple_futures_example_view.dart'
     as _i10;
 import '../ui/nonreactive/nonreactive_view.dart' as _i6;
 import '../ui/stream_view/stream_counter_view.dart' as _i4;
-import 'app.dart' as _i14;
 
 final stackedRouter = StackedRouterWeb(
   navigatorKey: _i11.StackedService.navigatorKey,
@@ -83,12 +82,9 @@ class StackedRouterWeb extends _i12.RootStackRouter {
       final args = routeData.argsAs<NonReactiveViewArgs>(
         orElse: () => const NonReactiveViewArgs(),
       );
-      return _i12.CustomPage<dynamic>(
+      return _i12.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i6.NonReactiveView(key: args.key),
-        customRouteBuilder: _i14.RouteBuilders.bottomSheetBuilder,
-        opaque: true,
-        barrierDismissible: false,
       );
     },
     FavoritesViewRoute.name: (routeData) {
