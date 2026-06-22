@@ -35,7 +35,6 @@ dependencies:
   
   flutter_hooks: ^0.18.4
   # navigation
-  get: ^4.6.3
   animations: ^2.0.3
   url_strategy: ^0.2.0
   shared_preferences: ^2.1.1
