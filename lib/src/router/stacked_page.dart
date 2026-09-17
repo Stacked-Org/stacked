@@ -83,8 +83,28 @@ abstract class StackedPage<T> extends Page<T> {
       // previous call. Without these checks, Flutter calling createRoute
       // more than once for the same page instance can complete the same
       // completer twice, throwing "Bad state: Future already completed".
-      if (identical(route, _latestRouteBox[0]) && !_popCompleter.isCompleted) {
-        _popCompleter.complete(result);
+      if (!identical(route, _latestRouteBox[0]) || _popCompleter.isCompleted) {
+        return;
+      }
+      _popCompleter.complete(result);
+
+      // Eagerly remove this page from the router's stack instead of relying
+      // only on the async `onDidRemovePage` callback in RouteNavigator. The
+      // Navigator can rebuild between this pop and that callback (routinely
+      // during an Android predictive-back gesture). If `_pages` still holds
+      // this page with no live Route behind it, the Navigator calls
+      // createRoute again and produces a phantom second Route, which caused
+      // the forward-transition flash on back gestures. `removeRoute` is
+      // idempotent, so the later onDidRemovePage call is a harmless no-op.
+      //
+      // This runs in a `Future.then` microtask, after the synchronous call
+      // stack (including any in-progress frame) has unwound, so notifying
+      // listeners here does not happen during a build.
+      //
+      // Approach based on #1188 by @Vinsho.
+      final router = routeData.router;
+      if (router is StackRouter) {
+        router.removeRoute(routeData, notify: true);
       }
     });
     return route;

@@ -14,6 +14,33 @@ class _FakeRoutingController implements RoutingController {
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
+/// Records a single call made to [_FakeStackRouter.removeRoute].
+class _RemoveRouteCall {
+  const _RemoveRouteCall(this.route, {required this.notify});
+  final RouteData route;
+  final bool notify;
+}
+
+/// A [StackRouter] test double that records calls to [removeRoute] instead
+/// of actually maintaining a page stack.
+///
+/// Standing up a real [StackRouter] would require a full route
+/// collection/matcher/page-builder setup unrelated to what's under test
+/// here: whether [StackedPage.createRoute] asks the router to remove the
+/// page eagerly, with the right arguments, only for the route that actually
+/// popped.
+class _FakeStackRouter implements StackRouter {
+  final List<_RemoveRouteCall> removeRouteCalls = [];
+
+  @override
+  void removeRoute(RouteData route, {bool notify = true}) {
+    removeRouteCalls.add(_RemoveRouteCall(route, notify: notify));
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
 /// A bare-bones [Route] with none of [PageRoute]'s animation-controller
 /// machinery, so tests can drive [didPop]/[didComplete] directly without
 /// installing the route into a real [Navigator].
@@ -29,7 +56,7 @@ class _TestPage<T> extends StackedPage<T> {
   Route<T> onCreateRoute(BuildContext context) => _TestRoute<T>(settings: this);
 }
 
-RouteData _buildRouteData(String name) {
+RouteData _buildRouteData(String name, {RoutingController? router}) {
   final match = RouteMatch(
     name: name,
     segments: [name],
@@ -39,7 +66,7 @@ RouteData _buildRouteData(String name) {
   );
   return RouteData(
     route: match,
-    router: _FakeRoutingController(),
+    router: router ?? _FakeRoutingController(),
     pendingChildren: const [],
   );
 }
@@ -118,6 +145,68 @@ void main() {
         expect(() => routeA.didPop('stale-result'), returnsNormally);
 
         await expectLater(page.popped, completion('latest-result'));
+      },
+    );
+
+    testWidgets(
+      'popping the route eagerly removes the page from the router stack, '
+      'without waiting for onDidRemovePage (regression test for the '
+      'phantom-Route/forward-flash glitch; approach based on #1188 by '
+      '@Vinsho)',
+      (WidgetTester tester) async {
+        await tester.pumpWidget(const MaterialApp(home: SizedBox()));
+        final context = tester.element(find.byType(SizedBox));
+
+        final router = _FakeStackRouter();
+        final routeData = _buildRouteData('predictive-back', router: router);
+        final page = _TestPage<String>(
+          routeData: routeData,
+          child: const SizedBox(),
+        );
+
+        final route = page.createRoute(context);
+        route.didPop('the-result');
+
+        // Nothing resembling RouteNavigator's `onDidRemovePage` callback is
+        // ever invoked in this test, yet the router must already have been
+        // asked to remove the page by the time `popped` resolves.
+        await expectLater(page.popped, completion('the-result'));
+
+        expect(router.removeRouteCalls, hasLength(1));
+        expect(router.removeRouteCalls.single.route, same(routeData));
+        expect(router.removeRouteCalls.single.notify, isTrue);
+      },
+    );
+
+    testWidgets(
+      'createRoute called twice only removes the page from the router once, '
+      'for the latest route, and not for the stale one',
+      (WidgetTester tester) async {
+        await tester.pumpWidget(const MaterialApp(home: SizedBox()));
+        final context = tester.element(find.byType(SizedBox));
+
+        final router = _FakeStackRouter();
+        final routeData = _buildRouteData('predictive-back-2', router: router);
+        final page = _TestPage<String>(
+          routeData: routeData,
+          child: const SizedBox(),
+        );
+
+        final routeA = page.createRoute(context);
+        final routeB = page.createRoute(context);
+
+        // The stale route popping first must not touch the router at all.
+        routeA.didPop('stale-result');
+        await Future<void>.value();
+        expect(router.removeRouteCalls, isEmpty);
+
+        // The latest (real) route popping removes the page exactly once.
+        routeB.didPop('latest-result');
+        await expectLater(page.popped, completion('latest-result'));
+
+        expect(router.removeRouteCalls, hasLength(1));
+        expect(router.removeRouteCalls.single.route, same(routeData));
+        expect(router.removeRouteCalls.single.notify, isTrue);
       },
     );
   });
