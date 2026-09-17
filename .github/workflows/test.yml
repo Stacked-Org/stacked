@@ -28,5 +28,8 @@ jobs:
         with:
           coverage-files: coverage/lcov*.info
           artifact-name: code-coverage-report
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # The coverage comment needs write access, which the default token
+          # does not have for pull requests opened from forks. Only pass the
+          # token for same-repository branches so fork PRs don't fail here.
+          github-token: ${{ github.event.pull_request.head.repo.full_name == github.repository && secrets.GITHUB_TOKEN || '' }}
           update-comment: true
