@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:stacked/src/code_generation/router_annotation/parameters.dart';
 import 'package:stacked/src/router/controller/controller_scope.dart';
 import 'package:stacked/src/router/controller/navigation_history/navigation_history_base.dart';
@@ -868,9 +869,18 @@ abstract class StackRouter extends RoutingController {
 
   void _removeRoute(RouteMatch route, {bool notify = true}) {
     var pageIndex = _pages.lastIndexWhere((p) => p.routeKey == route.key);
-    if (pageIndex != -1) {
-      _pages.removeAt(pageIndex);
+    if (pageIndex == -1) {
+      // The page was already removed from the stack by another code path
+      // (e.g. it can be removed once through `onDidRemovePage` and again
+      // through `StackedPage.popped`, or an external navigation event -
+      // such as a browser back/forward navigation - may have already
+      // mutated the stack). Nothing changed here, so there is nothing to
+      // notify listeners about, and doing so anyway could try to rebuild
+      // an ancestor that is still in the middle of being built (see
+      // `_notifyRouteRemoved`).
+      return;
     }
+    _pages.removeAt(pageIndex);
 
     final stack = _pages.map((e) => e.routeData._match);
     for (final guard in route.guards.whereType<RedirectGuard>()) {
@@ -881,6 +891,28 @@ abstract class StackRouter extends RoutingController {
     _updateSharedPathData(includeAncestors: true);
     _removeTopRouterOf(route.key);
     if (notify) {
+      _notifyRouteRemoved();
+    }
+  }
+
+  // Notifies listeners about a route removal, same as
+  // `notifyAll(forceUrlRebuild: true)`, except that if this is invoked
+  // while the widget tree is still in the middle of being built (which can
+  // happen when a page is removed as a side effect of the `Navigator`
+  // widget updating, e.g. in response to a browser/system back
+  // navigation), the notification - and the `setState` it triggers on the
+  // router widget - is deferred until right after the current frame
+  // instead of being dispatched synchronously. Dispatching it synchronously
+  // in that situation can throw "setState() or markNeedsBuild() called
+  // during build" because the router widget may already be in the process
+  // of rebuilding one of its own descendants.
+  void _notifyRouteRemoved() {
+    if (SchedulerBinding.instance.schedulerPhase ==
+        SchedulerPhase.persistentCallbacks) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        notifyAll(forceUrlRebuild: true);
+      });
+    } else {
       notifyAll(forceUrlRebuild: true);
     }
   }
