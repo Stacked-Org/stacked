@@ -19,6 +19,20 @@ abstract class StackedPage<T> extends Page<T> {
 
   final _popCompleter = Completer<T?>();
 
+  /// Boxed reference to the most recently created [Route] for this page.
+  ///
+  /// Flutter's Navigator can call [createRoute] more than once for the same
+  /// [StackedPage] instance (e.g. when a page is briefly recreated during a
+  /// predictive back gesture that gets cancelled, or through other page
+  /// reuse scenarios). We keep track of the latest route here so that only
+  /// its pop result is ever forwarded through [popped], and so a stale route
+  /// created by an earlier call can't complete [_popCompleter] a second time.
+  ///
+  /// This is boxed in a single-element, `final` list (instead of a plain
+  /// mutable field) because [StackedPage] extends the `@immutable`-annotated
+  /// [Page], which requires every instance field to be `final`.
+  final _latestRouteBox = List<Route<T>?>.filled(1, null);
+
   Future<T?> get popped => _popCompleter.future;
 
   Widget get child => _child;
@@ -60,10 +74,20 @@ abstract class StackedPage<T> extends Page<T> {
 
   @override
   Route<T> createRoute(BuildContext context) {
-    return onCreateRoute(context)
-      ..popped.then(
-        _popCompleter.complete,
-      );
+    final route = onCreateRoute(context);
+    _latestRouteBox[0] = route;
+    route.popped.then((result) {
+      // Guard against this being a stale route from an earlier call to
+      // createRoute (only the latest route's result should ever be
+      // forwarded) and against _popCompleter already being completed by a
+      // previous call. Without these checks, Flutter calling createRoute
+      // more than once for the same page instance can complete the same
+      // completer twice, throwing "Bad state: Future already completed".
+      if (identical(route, _latestRouteBox[0]) && !_popCompleter.isCompleted) {
+        _popCompleter.complete(result);
+      }
+    });
+    return route;
   }
 }
 
