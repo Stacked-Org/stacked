@@ -3,9 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:stacked/src/view_models/helpers/busy_error_state_helper.dart';
 import 'package:stacked/src/view_models/helpers/data_state_helper.dart';
 
-/// Minimal harness that mixes in [DataStateHelper] directly so its
-/// [DataStateHelper.safeData] getter can be tested in isolation, without
-/// going through a full [FutureViewModel]/[StreamViewModel].
 class TestDataStateHolder<T> extends ChangeNotifier
     with BusyAndErrorStateHelper, DataStateHelper<T> {
   void setData(T? value) {
@@ -78,16 +75,11 @@ void main() {
       var holder = TestDataStateHolder<String?>();
       holder.setData(null);
 
-      // dataReady is defined as `_data != null && !hasError && !isBusy`, so
-      // a legitimately-null value for a nullable T can never be "ready".
-      // safeData intentionally does not change this - it only adds a
-      // non-null accessor on top of the existing dataReady contract.
       expect(holder.dataReady, isFalse);
       expect(() => holder.safeData, throwsStateError);
     });
 
-    test(
-        'When T is nullable and a non-null value is set, safeData returns it',
+    test('When T is nullable and a non-null value is set, safeData returns it',
         () {
       var holder = TestDataStateHolder<String?>();
       holder.setData('hello');
