@@ -19,18 +19,7 @@ abstract class StackedPage<T> extends Page<T> {
 
   final _popCompleter = Completer<T?>();
 
-  /// Boxed reference to the most recently created [Route] for this page.
-  ///
-  /// Flutter's Navigator can call [createRoute] more than once for the same
-  /// [StackedPage] instance (e.g. when a page is briefly recreated during a
-  /// predictive back gesture that gets cancelled, or through other page
-  /// reuse scenarios). We keep track of the latest route here so that only
-  /// its pop result is ever forwarded through [popped], and so a stale route
-  /// created by an earlier call can't complete [_popCompleter] a second time.
-  ///
-  /// This is boxed in a single-element, `final` list (instead of a plain
-  /// mutable field) because [StackedPage] extends the `@immutable`-annotated
-  /// [Page], which requires every instance field to be `final`.
+  // Latest route created for this page. Boxed because [Page] is immutable.
   final _latestRouteBox = List<Route<T>?>.filled(1, null);
 
   Future<T?> get popped => _popCompleter.future;
@@ -77,31 +66,15 @@ abstract class StackedPage<T> extends Page<T> {
     final route = onCreateRoute(context);
     _latestRouteBox[0] = route;
     route.popped.then((result) {
-      // Guard against this being a stale route from an earlier call to
-      // createRoute (only the latest route's result should ever be
-      // forwarded) and against _popCompleter already being completed by a
-      // previous call. Without these checks, Flutter calling createRoute
-      // more than once for the same page instance can complete the same
-      // completer twice, throwing "Bad state: Future already completed".
+      // createRoute can run more than once per page; only the latest route
+      // may complete the completer, and only once.
       if (!identical(route, _latestRouteBox[0]) || _popCompleter.isCompleted) {
         return;
       }
       _popCompleter.complete(result);
 
-      // Eagerly remove this page from the router's stack instead of relying
-      // only on the async `onDidRemovePage` callback in RouteNavigator. The
-      // Navigator can rebuild between this pop and that callback (routinely
-      // during an Android predictive-back gesture). If `_pages` still holds
-      // this page with no live Route behind it, the Navigator calls
-      // createRoute again and produces a phantom second Route, which caused
-      // the forward-transition flash on back gestures. `removeRoute` is
-      // idempotent, so the later onDidRemovePage call is a harmless no-op.
-      //
-      // This runs in a `Future.then` microtask, after the synchronous call
-      // stack (including any in-progress frame) has unwound, so notifying
-      // listeners here does not happen during a build.
-      //
-      // Approach based on #1188 by @Vinsho.
+      // Remove the page now rather than waiting for onDidRemovePage, so the
+      // Navigator cannot rebuild with a stale page and recreate its route.
       final router = routeData.router;
       if (router is StackRouter) {
         router.removeRoute(routeData, notify: true);
