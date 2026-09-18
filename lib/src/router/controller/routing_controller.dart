@@ -870,14 +870,7 @@ abstract class StackRouter extends RoutingController {
   void _removeRoute(RouteMatch route, {bool notify = true}) {
     var pageIndex = _pages.lastIndexWhere((p) => p.routeKey == route.key);
     if (pageIndex == -1) {
-      // The page was already removed from the stack by another code path
-      // (e.g. it can be removed once through `onDidRemovePage` and again
-      // through `StackedPage.popped`, or an external navigation event -
-      // such as a browser back/forward navigation - may have already
-      // mutated the stack). Nothing changed here, so there is nothing to
-      // notify listeners about, and doing so anyway could try to rebuild
-      // an ancestor that is still in the middle of being built (see
-      // `_notifyRouteRemoved`).
+      // Already removed by another path; nothing to notify.
       return;
     }
     _pages.removeAt(pageIndex);
@@ -895,17 +888,8 @@ abstract class StackRouter extends RoutingController {
     }
   }
 
-  // Notifies listeners about a route removal, same as
-  // `notifyAll(forceUrlRebuild: true)`, except that if this is invoked
-  // while the widget tree is still in the middle of being built (which can
-  // happen when a page is removed as a side effect of the `Navigator`
-  // widget updating, e.g. in response to a browser/system back
-  // navigation), the notification - and the `setState` it triggers on the
-  // router widget - is deferred until right after the current frame
-  // instead of being dispatched synchronously. Dispatching it synchronously
-  // in that situation can throw "setState() or markNeedsBuild() called
-  // during build" because the router widget may already be in the process
-  // of rebuilding one of its own descendants.
+  // Defers the notification when called mid-build to avoid setState during
+  // build.
   void _notifyRouteRemoved() {
     if (SchedulerBinding.instance.schedulerPhase ==
         SchedulerPhase.persistentCallbacks) {
