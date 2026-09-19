@@ -9,18 +9,19 @@ class _FakeRoutingController implements RoutingController {
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
-class _RemoveRouteCall {
-  const _RemoveRouteCall(this.route, {required this.notify});
-  final RouteData route;
+class _RemovePageInstanceCall {
+  const _RemovePageInstanceCall(this.page, {required this.notify});
+  final StackedPage page;
   final bool notify;
 }
 
 class _FakeStackRouter implements StackRouter {
-  final List<_RemoveRouteCall> removeRouteCalls = [];
+  final List<_RemovePageInstanceCall> removePageInstanceCalls = [];
 
   @override
-  void removeRoute(RouteData route, {bool notify = true}) {
-    removeRouteCalls.add(_RemoveRouteCall(route, notify: notify));
+  bool removePageInstance(StackedPage page, {bool notify = true}) {
+    removePageInstanceCalls.add(_RemovePageInstanceCall(page, notify: notify));
+    return true;
   }
 
   @override
@@ -141,9 +142,9 @@ void main() {
 
         await expectLater(page.popped, completion('the-result'));
 
-        expect(router.removeRouteCalls, hasLength(1));
-        expect(router.removeRouteCalls.single.route, same(routeData));
-        expect(router.removeRouteCalls.single.notify, isTrue);
+        expect(router.removePageInstanceCalls, hasLength(1));
+        expect(router.removePageInstanceCalls.single.page, same(page));
+        expect(router.removePageInstanceCalls.single.notify, isTrue);
       },
     );
 
@@ -166,14 +167,14 @@ void main() {
 
         routeA.didPop('stale-result');
         await Future<void>.value();
-        expect(router.removeRouteCalls, isEmpty);
+        expect(router.removePageInstanceCalls, isEmpty);
 
         routeB.didPop('latest-result');
         await expectLater(page.popped, completion('latest-result'));
 
-        expect(router.removeRouteCalls, hasLength(1));
-        expect(router.removeRouteCalls.single.route, same(routeData));
-        expect(router.removeRouteCalls.single.notify, isTrue);
+        expect(router.removePageInstanceCalls, hasLength(1));
+        expect(router.removePageInstanceCalls.single.page, same(page));
+        expect(router.removePageInstanceCalls.single.notify, isTrue);
       },
     );
   });

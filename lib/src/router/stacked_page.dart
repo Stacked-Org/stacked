@@ -73,11 +73,12 @@ abstract class StackedPage<T> extends Page<T> {
       }
       _popCompleter.complete(result);
 
-      // Remove the page now rather than waiting for onDidRemovePage, so the
-      // Navigator cannot rebuild with a stale page and recreate its route.
+      // Remove this exact page now rather than waiting for onDidRemovePage,
+      // so the Navigator cannot rebuild with a stale page and recreate its
+      // route. Identity-based: a shared routeKey must not remove a sibling.
       final router = routeData.router;
       if (router is StackRouter) {
-        router.removeRoute(routeData, notify: true);
+        router.removePageInstance(this);
       }
     });
     return route;
