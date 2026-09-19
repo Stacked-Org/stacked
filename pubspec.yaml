@@ -22,7 +22,6 @@ dependencies:
   collection: ^1.19.1
   # Remove the path and use pub one after publish the stacked_shared
   stacked_shared: ^1.4.2
-  universal_io: ^2.2.2
   path: ^1.9.1
   web: ^1.1.1
 
