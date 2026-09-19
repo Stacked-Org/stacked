@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:stacked/src/code_generation/router_annotation/parameters.dart';
 import 'package:stacked/src/router/controller/controller_scope.dart';
 import 'package:stacked/src/router/controller/navigation_history/navigation_history_base.dart';
@@ -680,12 +681,18 @@ abstract class StackRouter extends RoutingController {
   }
 
   void _removeRedirectGuard(RedirectGuardBase guard) {
-    guard.removeListener(_redirectGuardsListeners[guard]!);
-    _redirectGuardsListeners.remove(guard);
+    final listener = _redirectGuardsListeners.remove(guard);
+    if (listener == null) return;
+    guard.removeListener(listener);
   }
+
+  // Guards the deferred notify in _notifyRouteRemoved from firing on a
+  // disposed router.
+  bool _disposed = false;
 
   @override
   void dispose() {
+    _disposed = true;
     super.dispose();
     _redirectGuardsListeners.forEach(
       (guard, listener) {
@@ -867,6 +874,7 @@ abstract class StackRouter extends RoutingController {
   }
 
   void _removeRoute(RouteMatch route, {bool notify = true}) {
+    // The page may already be gone; guard and child-router cleanup still run.
     var pageIndex = _pages.lastIndexWhere((p) => p.routeKey == route.key);
     if (pageIndex != -1) {
       _pages.removeAt(pageIndex);
@@ -878,9 +886,27 @@ abstract class StackRouter extends RoutingController {
         _removeRedirectGuard(guard);
       }
     }
-    _updateSharedPathData(includeAncestors: true);
+    // Nothing was removed: no shared data to update and nothing to notify.
+    final removed = pageIndex != -1;
+    if (removed) {
+      _updateSharedPathData(includeAncestors: true);
+    }
     _removeTopRouterOf(route.key);
-    if (notify) {
+    if (removed && notify) {
+      _notifyRouteRemoved();
+    }
+  }
+
+  // Defers the notification when called mid-build to avoid setState during
+  // build.
+  void _notifyRouteRemoved() {
+    if (SchedulerBinding.instance.schedulerPhase ==
+        SchedulerPhase.persistentCallbacks) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        if (_disposed) return;
+        notifyAll(forceUrlRebuild: true);
+      });
+    } else {
       notifyAll(forceUrlRebuild: true);
     }
   }
