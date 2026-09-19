@@ -25,8 +25,6 @@ class _ElsewhereScreen extends StatelessWidget {
   Widget build(BuildContext context) => const Scaffold(body: Text('Elsewhere'));
 }
 
-/// Always allows navigation; exposes [hasActiveListeners] so the test can
-/// observe whether a router still holds a listener on this guard.
 class _AllowGuard extends RedirectGuard {
   bool allow = true;
 
@@ -98,9 +96,6 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      // push()'s Future only resolves when the page is popped, which this
-      // test never does directly -- so it must not be awaited (see the
-      // existing browser-back tests in this directory for the same idiom).
       unawaited(
         router.push(const PageRouteInfo('GuardedRoute', path: '/guarded')),
       );
@@ -112,19 +107,12 @@ void main() {
 
       final guardedPageData = router.stack.last.routeData;
 
-      // Take the page out of `_pages` directly, the way removeWhere/_reset/
-      // updateDeclarativeRoutes do -- bypassing _removeRoute entirely. This
-      // notifies (as removeWhere normally does), so the UI catches up.
       router.removeWhere((r) => r.name == 'GuardedRoute');
       await tester.pumpAndSettle();
 
       expect(find.text('Home'), findsOneWidget);
       expect(find.text('Guarded'), findsNothing);
 
-      // The Navigator later notices the page is gone from the pages list it
-      // was given and calls back into removeRoute; by now the page is
-      // already missing from `_pages`, so this hits the pageIndex == -1
-      // branch under test.
       router.removeRoute(guardedPageData);
       await tester.pump();
 
@@ -135,9 +123,6 @@ void main() {
             'the page was already removed from _pages',
       );
 
-      // Observable consequence of a leaked listener: a later guard
-      // re-evaluation must not resurrect navigation on a router the user
-      // already navigated away from.
       guard.reevaluate(
         strategy: ReevaluationStrategy.removeAllAndPush(
           const PageRouteInfo('ElsewhereRoute', path: '/elsewhere'),

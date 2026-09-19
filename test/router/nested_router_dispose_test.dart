@@ -19,11 +19,6 @@ class _InnerHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) => const Text('InnerHome');
 }
 
-/// Hosts a [NestedRouter] and, once [triggerRemoval] flips to true, removes
-/// the nested router's top page *and* swaps the [NestedRouter] out of the
-/// tree in the very same build -- reproducing a child StackRouter being
-/// disposed (via State.dispose -> NestedRouterState.dispose) within the
-/// same frame that scheduled a deferred notifyAll for that same router.
 class _NestedHost extends StatefulWidget {
   const _NestedHost({
     required this.triggerRemoval,
@@ -50,15 +45,10 @@ class _NestedHostState extends State<_NestedHost> {
           _unmounted = true;
           final nested = _nestedRouter!;
           if (nested.stack.isNotEmpty) {
-            // Mid-build removal: schedules a deferred notifyAll for
-            // [nested] (see StackRouter._notifyRouteRemoved).
             nested.removeRoute(nested.stack.last.routeData);
           }
         }
         if (_unmounted) {
-          // Swapping the widget type here unmounts (and disposes) the
-          // NestedRouter subtree built below, synchronously, later in this
-          // same frame -- before the deferred notifyAll above gets to run.
           return const SizedBox.shrink();
         }
         return NestedRouter(
@@ -161,10 +151,6 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      // push()'s Future only resolves when the page is popped, which never
-      // happens for these two pages in this test, so it must not be
-      // awaited (see the existing browser-back tests in this directory for
-      // the same idiom).
       unawaited(
         router.push(const PageRouteInfo('ParentRoute', path: '/parent')),
       );
@@ -180,10 +166,6 @@ void main() {
       expect(find.text('InnerHome'), findsOneWidget);
       expect(nestedRouter!.stack, hasLength(1));
 
-      // Flip the trigger: on the next frame, _NestedHost removes the inner
-      // page (scheduling a deferred notifyAll on nestedRouter) and then
-      // unmounts/disposes the NestedRouter subtree, all within that same
-      // frame.
       triggerRemoval.value = true;
       await tester.pump();
 

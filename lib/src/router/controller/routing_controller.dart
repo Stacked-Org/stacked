@@ -874,8 +874,7 @@ abstract class StackRouter extends RoutingController {
   }
 
   void _removeRoute(RouteMatch route, {bool notify = true}) {
-    // May already be gone from `_pages` (removeWhere/_reset/etc); still run
-    // guard and child-router cleanup below.
+    // The page may already be gone; guard and child-router cleanup still run.
     var pageIndex = _pages.lastIndexWhere((p) => p.routeKey == route.key);
     if (pageIndex != -1) {
       _pages.removeAt(pageIndex);
@@ -887,13 +886,13 @@ abstract class StackRouter extends RoutingController {
         _removeRedirectGuard(guard);
       }
     }
+    // Nothing was removed: no shared data to update and nothing to notify.
+    final removed = pageIndex != -1;
+    if (removed) {
+      _updateSharedPathData(includeAncestors: true);
+    }
     _removeTopRouterOf(route.key);
-
-    // Nothing was actually removed; no shared data to update or notify.
-    if (pageIndex == -1) return;
-
-    _updateSharedPathData(includeAncestors: true);
-    if (notify) {
+    if (removed && notify) {
       _notifyRouteRemoved();
     }
   }
