@@ -871,7 +871,13 @@ abstract class StackRouter extends RoutingController {
     if (pageIndex != -1) {
       _pages.removeAt(pageIndex);
     }
+    _finishRouteRemoval(route, notify: notify);
+  }
 
+  // Shared follow-up once a page has left (or was already absent from)
+  // `_pages`: redirect-guard cleanup, path data refresh, nested-router
+  // cleanup and notify.
+  void _finishRouteRemoval(RouteMatch route, {bool notify = true}) {
     final stack = _pages.map((e) => e.routeData._match);
     for (final guard in route.guards.whereType<RedirectGuard>()) {
       if (!stack.any((r) => r.guards.contains(guard))) {
@@ -883,6 +889,25 @@ abstract class StackRouter extends RoutingController {
     if (notify) {
       notifyAll(forceUrlRebuild: true);
     }
+  }
+
+  // Removes [page] by identity rather than by (possibly shared) routeKey.
+  // Does nothing and returns false if it is not currently in the stack.
+  @internal
+  bool removePageInstance(StackedPage page, {bool notify = true}) {
+    final pageIndex = _pages.indexWhere((p) => identical(p, page));
+    if (pageIndex == -1) return false;
+    final route = _pages[pageIndex].routeData._match;
+    _pages.removeAt(pageIndex);
+    _finishRouteRemoval(route, notify: notify);
+    return true;
+  }
+
+  // Runs the same cleanup as [_finishRouteRemoval] for a page that was
+  // already removed elsewhere, without ever removing a page by key.
+  @internal
+  void finishRemovedRouteCleanup(RouteData routeData, {bool notify = true}) {
+    _finishRouteRemoval(routeData._match, notify: notify);
   }
 
   @override

@@ -19,6 +19,9 @@ abstract class StackedPage<T> extends Page<T> {
 
   final _popCompleter = Completer<T?>();
 
+  // Latest route created for this page. Boxed because [Page] is immutable.
+  final _latestRouteBox = List<Route<T>?>.filled(1, null);
+
   Future<T?> get popped => _popCompleter.future;
 
   Widget get child => _child;
@@ -60,10 +63,25 @@ abstract class StackedPage<T> extends Page<T> {
 
   @override
   Route<T> createRoute(BuildContext context) {
-    return onCreateRoute(context)
-      ..popped.then(
-        _popCompleter.complete,
-      );
+    final route = onCreateRoute(context);
+    _latestRouteBox[0] = route;
+    route.popped.then((result) {
+      // createRoute can run more than once per page; only the latest route
+      // may complete the completer, and only once.
+      if (!identical(route, _latestRouteBox[0]) || _popCompleter.isCompleted) {
+        return;
+      }
+      _popCompleter.complete(result);
+
+      // Remove this exact page now rather than waiting for onDidRemovePage,
+      // so the Navigator cannot rebuild with a stale page and recreate its
+      // route. Identity-based: a shared routeKey must not remove a sibling.
+      final router = routeData.router;
+      if (router is StackRouter) {
+        router.removePageInstance(this);
+      }
+    });
+    return route;
   }
 }
 
