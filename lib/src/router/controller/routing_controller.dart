@@ -681,12 +681,18 @@ abstract class StackRouter extends RoutingController {
   }
 
   void _removeRedirectGuard(RedirectGuardBase guard) {
-    guard.removeListener(_redirectGuardsListeners[guard]!);
-    _redirectGuardsListeners.remove(guard);
+    final listener = _redirectGuardsListeners.remove(guard);
+    if (listener == null) return;
+    guard.removeListener(listener);
   }
+
+  // Guards the deferred notify in _notifyRouteRemoved from firing on a
+  // disposed router.
+  bool _disposed = false;
 
   @override
   void dispose() {
+    _disposed = true;
     super.dispose();
     _redirectGuardsListeners.forEach(
       (guard, listener) {
@@ -868,12 +874,12 @@ abstract class StackRouter extends RoutingController {
   }
 
   void _removeRoute(RouteMatch route, {bool notify = true}) {
+    // May already be gone from `_pages` (removeWhere/_reset/etc); still run
+    // guard and child-router cleanup below.
     var pageIndex = _pages.lastIndexWhere((p) => p.routeKey == route.key);
-    if (pageIndex == -1) {
-      // Already removed by another path; nothing to notify.
-      return;
+    if (pageIndex != -1) {
+      _pages.removeAt(pageIndex);
     }
-    _pages.removeAt(pageIndex);
 
     final stack = _pages.map((e) => e.routeData._match);
     for (final guard in route.guards.whereType<RedirectGuard>()) {
@@ -881,8 +887,12 @@ abstract class StackRouter extends RoutingController {
         _removeRedirectGuard(guard);
       }
     }
-    _updateSharedPathData(includeAncestors: true);
     _removeTopRouterOf(route.key);
+
+    // Nothing was actually removed; no shared data to update or notify.
+    if (pageIndex == -1) return;
+
+    _updateSharedPathData(includeAncestors: true);
     if (notify) {
       _notifyRouteRemoved();
     }
@@ -894,6 +904,7 @@ abstract class StackRouter extends RoutingController {
     if (SchedulerBinding.instance.schedulerPhase ==
         SchedulerPhase.persistentCallbacks) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
+        if (_disposed) return;
         notifyAll(forceUrlRebuild: true);
       });
     } else {
