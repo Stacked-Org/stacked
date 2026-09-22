@@ -893,30 +893,30 @@ abstract class StackRouter extends RoutingController {
     }
     _removeTopRouterOf(route.key);
     if (removed && notify) {
-      _notifyRouteRemoved();
+      _notifySafely(forceUrlRebuild: true);
     }
   }
 
-  // Defers the notification when called mid-build to avoid setState during
-  // build.
-  void _notifyRouteRemoved() {
-    if (SchedulerBinding.instance.schedulerPhase ==
+  // Same as [notifyAll], but deferred to after the frame when called during
+  // build, where notifying would trigger setState during build.
+  void _notifySafely({bool forceUrlRebuild = false}) {
+    if (SchedulerBinding.instance.schedulerPhase !=
         SchedulerPhase.persistentCallbacks) {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        if (_disposed) {
-          // This router can no longer notify its own listeners, but the
-          // removal still has to reach the root and the url.
-          if (!isRoot) {
-            root.notifyListeners();
-            navigationHistory.rebuildUrl();
-          }
-          return;
-        }
-        notifyAll(forceUrlRebuild: true);
-      });
-    } else {
-      notifyAll(forceUrlRebuild: true);
+      notifyAll(forceUrlRebuild: forceUrlRebuild);
+      return;
     }
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (_disposed) {
+        // This router can no longer notify its own listeners, but the
+        // change still has to reach the root and the url.
+        if (!isRoot) {
+          root.notifyListeners();
+          navigationHistory.rebuildUrl();
+        }
+        return;
+      }
+      notifyAll(forceUrlRebuild: forceUrlRebuild);
+    });
   }
 
   @override
@@ -1080,7 +1080,7 @@ abstract class StackRouter extends RoutingController {
       }
     }
     if (didRemove && notify) {
-      notifyAll(forceUrlRebuild: true);
+      _notifySafely(forceUrlRebuild: true);
     }
     return didRemove;
   }
@@ -1094,7 +1094,7 @@ abstract class StackRouter extends RoutingController {
       }
     }
     if (notify) {
-      notifyAll(forceUrlRebuild: true);
+      _notifySafely(forceUrlRebuild: true);
     }
     return didRemove;
   }
@@ -1186,7 +1186,7 @@ abstract class StackRouter extends RoutingController {
     _pages.add(page);
 
     if (notify) {
-      notifyAll();
+      _notifySafely();
     }
     return (page as StackedPage<T>).popped;
   }
