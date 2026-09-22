@@ -76,8 +76,11 @@ abstract class StackedPage<T> extends Page<T> {
       // Remove this exact page now rather than waiting for onDidRemovePage,
       // so the Navigator cannot rebuild with a stale page and recreate its
       // route. Identity-based: a shared routeKey must not remove a sibling.
+      // Skipped for the last page: emptying the stack now would swap the
+      // Navigator for the placeholder mid-animation. onDidRemovePage
+      // handles that case.
       final router = routeData.router;
-      if (router is StackRouter) {
+      if (router is StackRouter && router.stack.length > 1) {
         router.removePageInstance(this);
       }
     });

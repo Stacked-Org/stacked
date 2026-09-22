@@ -69,6 +69,18 @@ abstract class RoutingController with ChangeNotifier {
     }
   }
 
+  // Removes the child router attached to exactly [routeData]. Pages from the
+  // same route share a key, so only fall back to the key when one is given.
+  void _removeChildRouterOf(RouteData routeData, {Key? fallbackKey}) {
+    final ctr = _childControllers
+        .lastWhereOrNull((c) => identical(c.routeData, routeData));
+    if (ctr != null) {
+      _childControllers.remove(ctr);
+    } else if (fallbackKey != null) {
+      _removeTopRouterOf(fallbackKey);
+    }
+  }
+
   UrlState get urlState => navigationHistory.urlState;
 
   String get currentPath => urlState.path;
@@ -871,26 +883,29 @@ abstract class StackRouter extends RoutingController {
 
   void _removeRoute(RouteMatch route, {bool notify = true}) {
     var pageIndex = _pages.lastIndexWhere((p) => p.routeKey == route.key);
+    RouteData? routeData;
     if (pageIndex != -1) {
+      routeData = _pages[pageIndex].routeData;
       _pages.removeAt(pageIndex);
     }
-    _finishRouteRemoval(route, notify: notify);
+    _detachRedirectGuards(route);
+    _updateSharedPathData(includeAncestors: true);
+    if (routeData != null) {
+      _removeChildRouterOf(routeData, fallbackKey: route.key);
+    } else {
+      _removeTopRouterOf(route.key);
+    }
+    if (notify) {
+      notifyAll(forceUrlRebuild: true);
+    }
   }
 
-  // Shared follow-up once a page has left (or was already absent from)
-  // `_pages`: redirect-guard cleanup, path data refresh, nested-router
-  // cleanup and notify.
-  void _finishRouteRemoval(RouteMatch route, {bool notify = true}) {
+  void _detachRedirectGuards(RouteMatch route) {
     final stack = _pages.map((e) => e.routeData._match);
     for (final guard in route.guards.whereType<RedirectGuard>()) {
       if (!stack.any((r) => r.guards.contains(guard))) {
         _removeRedirectGuard(guard);
       }
-    }
-    _updateSharedPathData(includeAncestors: true);
-    _removeTopRouterOf(route.key);
-    if (notify) {
-      notifyAll(forceUrlRebuild: true);
     }
   }
 
@@ -900,17 +915,24 @@ abstract class StackRouter extends RoutingController {
   bool removePageInstance(StackedPage page, {bool notify = true}) {
     final pageIndex = _pages.indexWhere((p) => identical(p, page));
     if (pageIndex == -1) return false;
-    final route = _pages[pageIndex].routeData._match;
     _pages.removeAt(pageIndex);
-    _finishRouteRemoval(route, notify: notify);
+    final route = page.routeData._match;
+    _detachRedirectGuards(route);
+    _updateSharedPathData(includeAncestors: true);
+    _removeChildRouterOf(page.routeData, fallbackKey: route.key);
+    if (notify) {
+      notifyAll(forceUrlRebuild: true);
+    }
     return true;
   }
 
-  // Runs the same cleanup as [_finishRouteRemoval] for a page that was
-  // already removed elsewhere, without ever removing a page by key.
+  // Cleanup for a page that already left the stack. Only detaches what is
+  // still attached to that exact page, so running it after
+  // [removePageInstance] is a no-op and never touches a sibling page.
   @internal
-  void finishRemovedRouteCleanup(RouteData routeData, {bool notify = true}) {
-    _finishRouteRemoval(routeData._match, notify: notify);
+  void finishRemovedRouteCleanup(RouteData routeData) {
+    _detachRedirectGuards(routeData._match);
+    _removeChildRouterOf(routeData);
   }
 
   @override

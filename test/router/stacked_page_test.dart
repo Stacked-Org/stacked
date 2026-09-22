@@ -19,6 +19,9 @@ class _FakeStackRouter implements StackRouter {
   final List<_RemovePageInstanceCall> removePageInstanceCalls = [];
 
   @override
+  List<StackedPage> stack = [];
+
+  @override
   bool removePageInstance(StackedPage page, {bool notify = true}) {
     removePageInstanceCalls.add(_RemovePageInstanceCall(page, notify: notify));
     return true;
@@ -136,6 +139,7 @@ void main() {
           routeData: routeData,
           child: const SizedBox(),
         );
+        router.stack = [page, page];
 
         final route = page.createRoute(context);
         route.didPop('the-result');
@@ -145,6 +149,29 @@ void main() {
         expect(router.removePageInstanceCalls, hasLength(1));
         expect(router.removePageInstanceCalls.single.page, same(page));
         expect(router.removePageInstanceCalls.single.notify, isTrue);
+      },
+    );
+
+    testWidgets(
+      'popping the last page does not eagerly remove it, so the Navigator '
+      'stays mounted during the exit animation',
+      (WidgetTester tester) async {
+        await tester.pumpWidget(const MaterialApp(home: SizedBox()));
+        final context = tester.element(find.byType(SizedBox));
+
+        final router = _FakeStackRouter();
+        final routeData = _buildRouteData('last-page', router: router);
+        final page = _TestPage<String>(
+          routeData: routeData,
+          child: const SizedBox(),
+        );
+        router.stack = [page];
+
+        final route = page.createRoute(context);
+        route.didPop('the-result');
+
+        await expectLater(page.popped, completion('the-result'));
+        expect(router.removePageInstanceCalls, isEmpty);
       },
     );
 
@@ -161,6 +188,7 @@ void main() {
           routeData: routeData,
           child: const SizedBox(),
         );
+        router.stack = [page, page];
 
         final routeA = page.createRoute(context);
         final routeB = page.createRoute(context);
