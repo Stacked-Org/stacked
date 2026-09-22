@@ -140,6 +140,9 @@ void main() {
         await tester.pump(const Duration(milliseconds: 50));
         expect(tester.takeException(), isNull);
       }
+      await tester.pumpAndSettle();
+      expect(find.text('Second'), findsNothing);
+      expect(router.stack, hasLength(1));
     },
   );
 }
