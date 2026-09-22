@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:stacked/src/code_generation/router_annotation/parameters.dart';
 import 'package:stacked/src/router/controller/controller_scope.dart';
 import 'package:stacked/src/router/controller/navigation_history/navigation_history_base.dart';
@@ -680,12 +681,18 @@ abstract class StackRouter extends RoutingController {
   }
 
   void _removeRedirectGuard(RedirectGuardBase guard) {
-    guard.removeListener(_redirectGuardsListeners[guard]!);
-    _redirectGuardsListeners.remove(guard);
+    final listener = _redirectGuardsListeners.remove(guard);
+    if (listener == null) return;
+    guard.removeListener(listener);
   }
+
+  // Guards the deferred notify in _notifyRouteRemoved from firing on a
+  // disposed router.
+  bool _disposed = false;
 
   @override
   void dispose() {
+    _disposed = true;
     super.dispose();
     _redirectGuardsListeners.forEach(
       (guard, listener) {
@@ -867,6 +874,7 @@ abstract class StackRouter extends RoutingController {
   }
 
   void _removeRoute(RouteMatch route, {bool notify = true}) {
+    // The page may already be gone; guard and child-router cleanup still run.
     var pageIndex = _pages.lastIndexWhere((p) => p.routeKey == route.key);
     if (pageIndex != -1) {
       _pages.removeAt(pageIndex);
@@ -878,11 +886,37 @@ abstract class StackRouter extends RoutingController {
         _removeRedirectGuard(guard);
       }
     }
-    _updateSharedPathData(includeAncestors: true);
-    _removeTopRouterOf(route.key);
-    if (notify) {
-      notifyAll(forceUrlRebuild: true);
+    // Nothing was removed: no shared data to update and nothing to notify.
+    final removed = pageIndex != -1;
+    if (removed) {
+      _updateSharedPathData(includeAncestors: true);
     }
+    _removeTopRouterOf(route.key);
+    if (removed && notify) {
+      _notifySafely(forceUrlRebuild: true);
+    }
+  }
+
+  // Same as [notifyAll], but deferred to after the frame when called during
+  // build, where notifying would trigger setState during build.
+  void _notifySafely({bool forceUrlRebuild = false}) {
+    if (SchedulerBinding.instance.schedulerPhase !=
+        SchedulerPhase.persistentCallbacks) {
+      notifyAll(forceUrlRebuild: forceUrlRebuild);
+      return;
+    }
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (_disposed) {
+        // This router can no longer notify its own listeners, but the
+        // change still has to reach the root and the url.
+        if (!isRoot) {
+          root.notifyListeners();
+          navigationHistory.rebuildUrl();
+        }
+        return;
+      }
+      notifyAll(forceUrlRebuild: forceUrlRebuild);
+    });
   }
 
   @override
@@ -1046,7 +1080,7 @@ abstract class StackRouter extends RoutingController {
       }
     }
     if (didRemove && notify) {
-      notifyAll(forceUrlRebuild: true);
+      _notifySafely(forceUrlRebuild: true);
     }
     return didRemove;
   }
@@ -1060,7 +1094,7 @@ abstract class StackRouter extends RoutingController {
       }
     }
     if (notify) {
-      notifyAll(forceUrlRebuild: true);
+      _notifySafely(forceUrlRebuild: true);
     }
     return didRemove;
   }
@@ -1152,7 +1186,7 @@ abstract class StackRouter extends RoutingController {
     _pages.add(page);
 
     if (notify) {
-      notifyAll();
+      _notifySafely();
     }
     return (page as StackedPage<T>).popped;
   }
