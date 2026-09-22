@@ -680,8 +680,11 @@ abstract class StackRouter extends RoutingController {
   }
 
   void _removeRedirectGuard(RedirectGuardBase guard) {
-    guard.removeListener(_redirectGuardsListeners[guard]!);
-    _redirectGuardsListeners.remove(guard);
+    // Tolerates being called for a guard this router never attached (or
+    // already detached): removal cleanup must stay idempotent.
+    final listener = _redirectGuardsListeners.remove(guard);
+    if (listener == null) return;
+    guard.removeListener(listener);
   }
 
   @override
