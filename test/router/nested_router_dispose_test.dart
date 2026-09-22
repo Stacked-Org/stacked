@@ -173,6 +173,8 @@ void main() {
 
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
+      expect(router.currentSegments.map((e) => e.name), ['ParentRoute']);
+      expect(router.navigationHistory.urlState.path, '/parent');
     },
   );
 }

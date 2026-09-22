@@ -903,7 +903,15 @@ abstract class StackRouter extends RoutingController {
     if (SchedulerBinding.instance.schedulerPhase ==
         SchedulerPhase.persistentCallbacks) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        if (_disposed) return;
+        if (_disposed) {
+          // This router can no longer notify its own listeners, but the
+          // removal still has to reach the root and the url.
+          if (!isRoot) {
+            root.notifyListeners();
+            navigationHistory.rebuildUrl();
+          }
+          return;
+        }
         notifyAll(forceUrlRebuild: true);
       });
     } else {
