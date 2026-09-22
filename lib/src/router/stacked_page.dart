@@ -30,16 +30,14 @@ abstract class StackedPage<T> extends Page<T> {
     this.maintainState = true,
     this.opaque = true,
     LocalKey? key,
-  })  : _child = child is RouteWrapper
-            ? WrappedRoute(
-                child: child as RouteWrapper,
-              )
-            : child,
-        super(
-          restorationId: routeData.name,
-          name: routeData.name,
-          arguments: routeData.route.args,
-        );
+  }) : _child = child is RouteWrapper
+           ? WrappedRoute(child: child as RouteWrapper)
+           : child,
+       super(
+         restorationId: routeData.name,
+         name: routeData.name,
+         arguments: routeData.route.args,
+       );
 
   @override
   bool canUpdate(Page<dynamic> other) {
@@ -50,20 +48,20 @@ abstract class StackedPage<T> extends Page<T> {
   LocalKey get routeKey => routeData.key;
 
   Widget buildPage(BuildContext context) {
-    return RouteDataScope(
-      routeData: routeData,
-      child: _child,
-    );
+    return RouteDataScope(routeData: routeData, child: _child);
   }
 
   Route<T> onCreateRoute(BuildContext context);
 
   @override
   Route<T> createRoute(BuildContext context) {
+    // Navigator 2.0 can call createRoute() multiple times on the same page
+    // (e.g. when the Navigator is rebuilt), so only the first popped route
+    // completes the page's completer.
     return onCreateRoute(context)
-      ..popped.then(
-        _popCompleter.complete,
-      );
+      ..popped.then((value) {
+        if (!_popCompleter.isCompleted) _popCompleter.complete(value);
+      });
   }
 }
 
@@ -84,9 +82,8 @@ class MaterialPageX<T> extends StackedPage<T> {
 
 class PageBasedMaterialPageRoute<T> extends PageRoute<T>
     with MaterialRouteTransitionMixin<T> {
-  PageBasedMaterialPageRoute({
-    required StackedPage page,
-  }) : super(settings: page);
+  PageBasedMaterialPageRoute({required StackedPage page})
+    : super(settings: page);
 
   StackedPage get _page => settings as StackedPage;
 
@@ -107,9 +104,8 @@ class PageBasedMaterialPageRoute<T> extends PageRoute<T>
 
 class _CustomPageBasedPageRouteBuilder<T> extends PageRoute<T>
     with _CustomPageRouteTransitionMixin<T> {
-  _CustomPageBasedPageRouteBuilder({
-    required StackedPage page,
-  }) : super(settings: page);
+  _CustomPageBasedPageRouteBuilder({required StackedPage page})
+    : super(settings: page);
 
   @override
   Widget buildContent(BuildContext context) => _page.buildPage(context);
@@ -126,9 +122,8 @@ class _CustomPageBasedPageRouteBuilder<T> extends PageRoute<T>
 
 class _NoAnimationPageRouteBuilder<T> extends PageRoute<T>
     with _NoAnimationPageRouteTransitionMixin<T> {
-  _NoAnimationPageRouteBuilder({
-    required StackedPage page,
-  }) : super(settings: page);
+  _NoAnimationPageRouteBuilder({required StackedPage page})
+    : super(settings: page);
 
   @override
   Widget buildContent(BuildContext context) => _page.buildPage(context);
@@ -200,14 +195,12 @@ mixin _CustomPageRouteTransitionMixin<T> on PageRoute<T> {
   Widget buildContent(BuildContext context);
 
   @override
-  Duration get transitionDuration => Duration(
-        milliseconds: _page.durationInMilliseconds,
-      );
+  Duration get transitionDuration =>
+      Duration(milliseconds: _page.durationInMilliseconds);
 
   @override
-  Duration get reverseTransitionDuration => Duration(
-        milliseconds: _page.reverseDurationInMilliseconds,
-      );
+  Duration get reverseTransitionDuration =>
+      Duration(milliseconds: _page.reverseDurationInMilliseconds);
 
   @override
   bool get barrierDismissible => _page.barrierDismissible;
@@ -247,16 +240,21 @@ mixin _CustomPageRouteTransitionMixin<T> on PageRoute<T> {
   }
 
   Widget _defaultTransitionsBuilder(
-      BuildContext context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget child) {
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
     return child;
   }
 
   @override
-  Widget buildTransitions(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation, Widget child) {
+  Widget buildTransitions(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
     final transitionsBuilder =
         _page.transitionsBuilder ?? _defaultTransitionsBuilder;
     return transitionsBuilder(context, animation, secondaryAnimation, child);
@@ -293,9 +291,8 @@ class CupertinoPageX<T> extends _TitledAutoRoutePage<T> {
 
 class _PageBasedCupertinoPageRoute<T> extends PageRoute<T>
     with CustomCupertinoRouteTransitionMixin<T> {
-  _PageBasedCupertinoPageRoute({
-    required _TitledAutoRoutePage page,
-  }) : super(settings: page);
+  _PageBasedCupertinoPageRoute({required _TitledAutoRoutePage page})
+    : super(settings: page);
 
   _TitledAutoRoutePage get _page => settings as _TitledAutoRoutePage;
 
@@ -336,7 +333,10 @@ class AdaptivePage<T> extends _TitledAutoRoutePage<T> {
 }
 
 typedef CustomRouteBuilder = Route<T> Function<T>(
-    BuildContext context, Widget child, CustomPage<T> page);
+  BuildContext context,
+  Widget child,
+  CustomPage<T> page,
+);
 
 class CustomPage<T> extends StackedPage<T> {
   final int durationInMilliseconds;

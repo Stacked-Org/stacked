@@ -32,3 +32,4 @@ linter:
 analyzer:
   exclude:
     - example/
+    - build/**
