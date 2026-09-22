@@ -74,7 +74,11 @@ class RouteNavigatorState extends State<RouteNavigator> {
             onDidRemovePage: (page) {
               if (page is StackedPage) {
                 var routeData = page.routeData;
-                widget.router.removeRoute(routeData);
+                // By identity: a shared routeKey must not remove a sibling
+                // page pushed from the same route.
+                if (!widget.router.removePageInstance(page)) {
+                  widget.router.finishRemovedRouteCleanup(routeData);
+                }
                 widget.didPop?.call(routeData.route, null);
               }
             },
