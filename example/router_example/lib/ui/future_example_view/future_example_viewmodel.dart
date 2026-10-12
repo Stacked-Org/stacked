@@ -8,7 +8,7 @@ class FutureExampleViewModel extends FutureViewModel<String> {
   }
 
   @override
-  void onError(error) {}
+  void onError(dynamic error, StackTrace? stackTrace) {}
 
   @override
   Future<String> futureToRun() => getDataFromServer();

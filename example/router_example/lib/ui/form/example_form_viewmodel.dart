@@ -37,6 +37,9 @@ class ExampleFormViewModel extends FormViewModel {
   // data to the backend or db.
 
   Future<void> saveData() async {
+    // Run the field validators before checking validity. Newer generated forms
+    // no longer validate implicitly inside `isFormValid`.
+    validateForm();
     if (!isFormValid) return;
 
     // here we can run custom functionality to save to our api

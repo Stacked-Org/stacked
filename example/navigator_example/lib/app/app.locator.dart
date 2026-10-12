@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // StackedLocatorGenerator
@@ -21,10 +21,8 @@ import '../ui/bottom_nav/history/history_viewmodel.dart';
 
 final exampleLocator = StackedLocator.instance;
 
-Future<void> setupExampleLocator({
-  String? environment,
-  EnvironmentFilter? environmentFilter,
-}) async {
+Future<void> setupExampleLocator(
+    {String? environment, EnvironmentFilter? environmentFilter}) async {
 // Register environments
   exampleLocator.registerEnvironment(
       environment: environment, environmentFilter: environmentFilter);

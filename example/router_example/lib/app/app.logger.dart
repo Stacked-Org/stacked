@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // StackedLoggerGenerator
@@ -34,13 +34,13 @@ class SimpleLogPrinter extends LogPrinter {
   );
   @override
   List<String> log(LogEvent event) {
-    var color = printer.levelColors?[event.level];
-    var emoji = printer.levelEmojis?[event.level];
+    var color = PrettyPrinter.defaultLevelColors[event.level];
+    var emoji = PrettyPrinter.defaultLevelEmojis[event.level];
     var methodName = _getMethodName();
 
     var methodNameSection =
         printCallingFunctionName && methodName != null ? ' | $methodName' : '';
-    var stackLog = event.stackTrace.toString();
+    var stackLog = event.stackTrace?.toString() ?? '';
     var output =
         '$emoji $className$methodNameSection - ${event.message}${event.error != null ? '\nERROR: ${event.error}\n' : ''}${printCallStack ? '\nSTACKTRACE:\n$stackLog' : ''}';
 
@@ -59,7 +59,7 @@ class SimpleLogPrinter extends LogPrinter {
         if (kReleaseMode) {
           return match.group(0)!;
         } else {
-          return color!(match.group(0)!);
+          return color != null ? color(match.group(0)!) : match.group(0)!;
         }
       }));
     }

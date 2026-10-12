@@ -35,7 +35,6 @@ dependencies:
   
   flutter_hooks: ^0.18.4
   # navigation
-  get: ^4.6.3
   animations: ^2.0.3
 
 dependency_overrides:
