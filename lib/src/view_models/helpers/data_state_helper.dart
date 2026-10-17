@@ -12,4 +12,16 @@ mixin DataStateHelper<T> on BusyAndErrorStateHelper {
 
   /// Data is ready to be consumed
   bool get dataReady => _data != null && !hasError && !isBusy;
+
+  /// Non-null [data]. Throws a [StateError] if [dataReady] is false.
+  T get safeData {
+    if (!dataReady) {
+      throw StateError(
+        'safeData was accessed while dataReady is false. '
+        'Check dataReady (or isBusy/hasError) before accessing safeData.',
+      );
+    }
+
+    return data as T;
+  }
 }
