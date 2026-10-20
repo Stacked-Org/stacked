@@ -1,7 +1,6 @@
-import 'package:universal_io/io.dart';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart'
+    show TargetPlatform, defaultTargetPlatform, kIsWeb;
 import 'package:flutter/material.dart';
 
 // returns an error page routes with a helper message.
@@ -83,7 +82,8 @@ PageRoute<T> buildAdaptivePageRoute<T>({
       maintainState: maintainState,
       fullscreenDialog: fullscreenDialog,
     );
-  } else if (Platform.isIOS || Platform.isMacOS) {
+  } else if (defaultTargetPlatform == TargetPlatform.iOS ||
+      defaultTargetPlatform == TargetPlatform.macOS) {
     return CupertinoPageRoute<T>(
       builder: builder,
       settings: settings,
