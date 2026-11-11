@@ -10,6 +10,31 @@ abstract class RootStackRouter extends StackRouter {
           navigatorKey: navigatorKey,
         ) {
     _navigationHistory = NavigationHistory.create(this);
+    _created.add(WeakReference(this));
+  }
+
+  static final List<WeakReference<RootStackRouter>> _created = [];
+
+  /// Returns every [RootStackRouter] to the state it had before the app first
+  /// built it: no pages, no history and no pending routes.
+  ///
+  /// The generated router is a global that outlives the widget tree, so a test
+  /// that boots the app more than once would otherwise start from wherever the
+  /// previous run left the navigation stack. Journeys in stacked_test call this
+  /// before each boot.
+  static void resetAll() {
+    _created.removeWhere((ref) => ref.target == null);
+    for (final ref in _created) {
+      ref.target?.reset();
+    }
+  }
+
+  /// Clears the navigation stack, history and pending routes without
+  /// notifying listeners. See [resetAll].
+  void reset() {
+    clear();
+    pendingRoutesHandler._setPendingRoutes(null);
+    _navigationHistory.reset();
   }
 
   @override

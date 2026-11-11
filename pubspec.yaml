@@ -1,6 +1,6 @@
 name: stacked
 description: The framework to build testable, scalable and maintainable flutter apps
-version: 3.5.0
+version: 3.6.0-beta.1
 homepage: https://github.com/FilledStacks/stacked
 platforms:
   android:
@@ -21,7 +21,7 @@ dependencies:
   provider: ^6.1.5
   collection: ^1.19.1
   # Remove the path and use pub one after publish the stacked_shared
-  stacked_shared: ^1.4.2
+  stacked_shared: ^1.5.0-beta.1
   universal_io: ^2.2.2
   path: ^1.9.1
   web: ^1.1.1

@@ -1,3 +1,11 @@
+## 3.6.0-beta.1 (2026-11-11)
+
+### Features
+
+* Adds `ViewModelRegistry`, which tracks the live ViewModels built by `ViewModelBuilder` and `StackedView`, outside release builds.
+* Adds `StackedFocus`, which finds the ViewModel of the screen the user is looking at, with its children and the actions overlays lend it. Pages that build their own `ViewModelBuilder` can be focused too.
+* Adds `RootStackRouter.reset()` and `RootStackRouter.resetAll()` so tests can start each run from a clean router.
+
 # [3.5.0](https://github.com/Stacked-Org/stacked/compare/v3.4.4...v3.5.0) (2025-08-19)
 
 

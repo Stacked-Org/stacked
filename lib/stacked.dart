@@ -58,3 +58,7 @@ export 'src/view_models/stacked_view.dart';
 export 'src/view_models/ui/skeleton_loader.dart';
 export 'src/view_models/view_model_builder.dart';
 export 'src/view_models/view_model_widget.dart';
+
+/// introspection
+export 'src/introspection/view_model_registry.dart';
+export 'src/introspection/stacked_focus.dart';

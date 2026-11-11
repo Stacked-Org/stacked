@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../introspection/view_model_registry.dart';
 import 'base_view_models.dart';
 
 enum ViewModelBuilderType { nonReactive, reactive }
@@ -90,7 +91,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
     this.fireOnModelReadyOnce = false,
     this.initialiseSpecialViewModelsOnce = false,
     super.key,
-  })  : providerType = ViewModelBuilderType.reactive;
+  }) : providerType = ViewModelBuilderType.reactive;
 
   @override
   ViewModelBuilderState<T> createState() => ViewModelBuilderState<T>();
@@ -151,6 +152,8 @@ class ViewModelBuilderState<T extends ChangeNotifier>
         widget.onModelReady!(_viewModel!);
       }
     }
+
+    ViewModelRegistry.instance.register(this, _viewModel as Object, context);
   }
 
   void _initialiseSpecialViewModels() {
@@ -161,6 +164,7 @@ class ViewModelBuilderState<T extends ChangeNotifier>
 
   @override
   void dispose() {
+    ViewModelRegistry.instance.unregister(this);
     super.dispose();
     widget.onDispose?.call(_viewModel!);
   }

@@ -22,6 +22,12 @@ class NavigationHistoryImpl extends NavigationHistory {
   }
 
   @override
+  void reset() {
+    super.reset();
+    _entries.clear();
+  }
+
+  @override
   bool get canNavigateBack => length > 1;
 
   @override

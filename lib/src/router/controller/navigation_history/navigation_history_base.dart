@@ -57,6 +57,13 @@ abstract class NavigationHistory with ChangeNotifier {
 
   UrlState get urlState => _urlState;
 
+  /// Forgets the current url and any recorded entries without notifying.
+  @mustCallSuper
+  void reset() {
+    _urlState = UrlState.fromSegments(const []);
+    _unMarkUrlStateForReplace();
+  }
+
   StackRouter get router;
 
   bool get canNavigateBack;
